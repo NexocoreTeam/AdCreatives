@@ -1,0 +1,43 @@
+# Financial services / income claim compliance rules
+rules:
+  - name: "Specific income promise"
+    severity: "ERROR"
+    category: "financial"
+    patterns:
+      - "regex:earn\\s+\\$\\d+"
+      - "regex:make\\s+\\$\\d+"
+      - "regex:\\$\\d+[kK]?\\s*(per|a|every)\\s*(day|week|month|year)"
+      - "six figures"
+      - "seven figures"
+      - "quit your job"
+
+  - name: "Risk-free investment claim"
+    severity: "ERROR"
+    category: "financial"
+    patterns:
+      - "risk free"
+      - "no risk"
+      - "zero risk"
+      - "guaranteed return"
+      - "guaranteed profit"
+      - "can't lose"
+
+  - name: "Atypical results without disclaimer"
+    severity: "WARNING"
+    category: "financial"
+    patterns:
+      - "I made"
+      - "I earned"
+      - "my results"
+      - "my student made"
+      - "our clients make"
+
+  - name: "Crypto/trading hype"
+    severity: "WARNING"
+    category: "financial"
+    patterns:
+      - "to the moon"
+      - "get in early"
+      - "next big thing"
+      - "don't miss out"
+      - "limited spots"

@@ -1,0 +1,48 @@
+name: "Lifestyle UGC"
+description: "Person using/holding the product in a natural lifestyle setting. Feels authentic and relatable, not staged. Best for problem-aware and solution-aware audiences on TikTok."
+
+prompt_template: |
+  Candid lifestyle photography of a {ugc_person_description} using {product_name}
+  in a {setting} setting. Natural lighting, shallow depth of field on the person,
+  authentic and relatable mood. The person looks {emotion} while interacting
+  with the product. Shot on iPhone aesthetic, not overly produced.
+  {visual_direction}
+  {platform_modifier}
+
+negative_prompt: "studio lighting, artificial, posed, stock photo, watermark, text overlay, perfect skin retouching"
+
+composition:
+  layout: "person-center-product-in-hand"
+  callout_count: 0
+  person_position: "center or slightly off-center"
+  text_position: ""
+
+platforms:
+  meta:
+    - width: 1080
+      height: 1080
+      label: "Meta Feed Square"
+    - width: 1080
+      height: 1350
+      label: "Meta Feed Portrait"
+  tiktok:
+    - width: 1080
+      height: 1920
+      label: "TikTok Full Screen"
+
+fal_model: "fal-ai/flux-pro/v1.1"
+fal_params:
+  guidance_scale: 7.0
+  num_inference_steps: 28
+
+platform_modifiers:
+  meta: "high quality candid photography, Instagram-worthy, warm tones"
+  tiktok: "raw and authentic, handheld camera feel, slightly imperfect, genuine moment captured"
+
+tags:
+  - "ugc"
+  - "lifestyle"
+  - "person-in-ad"
+  - "authentic"
+  - "awareness:problem_aware"
+  - "awareness:solution_aware"

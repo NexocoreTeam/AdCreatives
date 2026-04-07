@@ -1,0 +1,57 @@
+# Customer Avatar Template
+# Can be auto-generated via: python cli.py onboard --client your-client
+
+name: "Busy Professional Sarah"
+demographic: "Women 28-38, urban, dual income household, $75k-$120k"
+
+psychographic: |
+  Values efficiency and quality over price. Health-conscious but
+  time-starved. Skeptical of marketing hype — responds to data and
+  real testimonials. Active on Instagram, reads reviews before buying.
+
+pain_points:
+  - pain: "Spending too much time on repetitive tasks"
+    intensity: "high"
+    customer_language:
+      - "I waste 3 hours every night just trying to keep up"
+      - "There has to be a better way to do this"
+    source: "amazon_reviews"
+
+  - pain: "Existing tools are too complicated"
+    intensity: "medium"
+    customer_language:
+      - "I gave up trying to figure it out"
+      - "Shouldn't need a PhD to use this"
+    source: "reddit"
+
+desires:
+  - desire: "Feel in control of their workload"
+    customer_language:
+      - "I just want to get ahead for once"
+      - "Imagine actually having free time"
+
+  - desire: "Look competent and organized to peers"
+    customer_language:
+      - "My coworkers think I have it all together"
+
+objections:
+  - "Another subscription I'll forget about"
+  - "Probably doesn't work as well as they claim"
+  - "I've tried similar tools before and they all suck"
+
+current_solutions:
+  - "Spreadsheets and manual processes"
+  - "A competitor tool they're frustrated with"
+  - "Doing nothing and suffering"
+
+trigger_events:
+  - "Got a promotion with more responsibility"
+  - "Missed a deadline publicly"
+  - "Saw a colleague using something better"
+
+awareness_level: "problem_aware"
+
+language_patterns:
+  - "Casual but not slangy"
+  - "Uses 'honestly' and 'literally' for emphasis"
+  - "Responds to specific numbers over vague claims"

@@ -1,0 +1,31 @@
+# Problem - Agitation - Solution (PAS)
+# Best for: Problem-aware audiences who feel the pain but haven't found a solution
+
+name: "PAS"
+full_name: "Problem - Agitation - Solution"
+best_for:
+  - "problem_aware"
+  - "unaware"
+
+structure:
+  problem: "Name the specific pain the audience feels, using their exact words"
+  agitation: "Twist the knife — show what happens if they don't solve this"
+  solution: "Present the product as the natural answer"
+
+hook_templates:
+  - "Tired of {pain_point}? Here's what nobody tells you..."
+  - "If you're still {painful_action}, you're wasting {time_or_money}"
+  - "{Shocking_stat} of people struggle with {problem}. Are you one of them?"
+  - "I spent {time} dealing with {problem} before I found this."
+  - "Stop {painful_action}. There's a better way."
+
+callout_templates:
+  - "No more {pain}"
+  - "{Benefit} in {timeframe}"
+  - "{Social_proof_number} people switched"
+
+tone_guidance: |
+  Start empathetic — show you understand the pain. Build tension in the
+  agitation phase (but don't be manipulative). Then offer the solution
+  as relief, not a hard sell. The transition from agitation to solution
+  should feel like a breath of fresh air.

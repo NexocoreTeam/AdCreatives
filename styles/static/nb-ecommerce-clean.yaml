@@ -1,0 +1,55 @@
+# Adapted from: ZeroLu awesome-nanobanana-pro — Professional Product Photography pattern
+# Source: https://github.com/ZeroLu/awesome-nanobanana-pro
+
+name: "NB E-Commerce Clean"
+description: "Professional e-commerce product shot on pure white background. Auto-removes hands, clutter, and imperfections. The standard Amazon/Shopify product listing style."
+
+prompt_format: "text"
+
+prompt_template: |
+  Premium e-commerce product photography of {product_name}.
+  {product_description}.
+  Subject Isolation: Cleanly extracted product with no fingers, hands, or clutter.
+  Background: Pure white studio background (RGB 255, 255, 255) with a subtle,
+  natural contact shadow at the base to ground the product.
+  Lighting: Soft commercial studio lighting highlighting the product's texture
+  and material. Even illumination with no harsh glare.
+  Retouching: Sharp focus, corrected colors, professional finish.
+  The product looks brand new and premium.
+  {platform_modifier}
+
+negative_prompt: "hands, fingers, clutter, busy background, colored background, shadows on walls, text, watermark, blurry, distorted"
+
+composition:
+  layout: "product-center-white-bg"
+  callout_count: 0
+  text_position: ""
+
+platforms:
+  meta:
+    - width: 1080
+      height: 1080
+      label: "Meta Feed Square"
+    - width: 1080
+      height: 1350
+      label: "Meta Feed Portrait"
+
+fal_model: "fal-ai/flux-pro/v1.1"
+fal_params:
+  guidance_scale: 7.5
+  num_inference_steps: 28
+
+platform_modifiers:
+  meta: "clean commercial product listing, professional e-commerce standard"
+  tiktok: "clean but with slightly warmer tones, approachable product shot"
+
+source: "https://github.com/ZeroLu/awesome-nanobanana-pro"
+
+tags:
+  - "ecommerce"
+  - "white-background"
+  - "product-listing"
+  - "clean"
+  - "nano-banana"
+  - "awareness:product_aware"
+  - "awareness:most_aware"

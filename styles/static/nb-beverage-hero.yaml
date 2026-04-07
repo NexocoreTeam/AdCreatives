@@ -1,0 +1,81 @@
+# Adapted from: Ultimate Nano Banana Pro Collection — beverage hero shot pattern
+# Source: https://github.com/0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+
+name: "NB Beverage Hero"
+description: "Ultra-realistic luxury beverage product photography with splash/condensation effects. Nano Banana native prompt. Best for drink brands, supplement bottles, canned products."
+
+prompt_format: "json_manifest"
+
+prompt_template: |
+  Ultra-realistic luxury {product_name} product photography.
+  {product_description}.
+  The container appears crisp and glossy with realistic highlights,
+  subtle reflections, and visible cold texture with condensation droplets.
+  Dynamic liquid splash frozen in mid-air, crown-shaped.
+  Shot in a minimalist commercial beverage advertising style.
+  Background: {background_color} gradient with dramatic studio lighting.
+  Camera: {camera_body} with {lens}, shallow depth of field.
+  Film emulation: {film_emulation}.
+  Lighting: {lighting_rig}.
+  8K resolution, photorealistic, commercial quality.
+  {platform_modifier}
+
+negative_prompt: "watermark, text overlay, cartoon, illustration, blurry, low resolution, extra objects, human hands, distorted bottle, incorrect label"
+
+camera:
+  camera_body: "Canon EOS R5"
+  lens: "100mm macro f/2.8"
+  film_emulation: "Kodak Portra 400"
+  lighting_rig: "Key light 45° left, rim light behind, white bounce fill, subtle blue gel accent"
+
+composition:
+  layout: "product-center-splash"
+  callout_count: 0
+  text_position: ""
+
+platforms:
+  meta:
+    - width: 1080
+      height: 1350
+      label: "Meta Feed Portrait"
+    - width: 1080
+      height: 1080
+      label: "Meta Feed Square"
+  tiktok:
+    - width: 1080
+      height: 1920
+      label: "TikTok Full Screen"
+
+fal_model: "fal-ai/flux-pro/v1.1"
+fal_params:
+  guidance_scale: 8.0
+  num_inference_steps: 30
+
+variants:
+  - name: "icy-refresh"
+    prompt_override: "Frozen ice crystals surrounding the product, arctic blue tones, misty cold air"
+    mood: "refreshing, energizing"
+  - name: "golden-hour"
+    prompt_override: "Warm golden sunset lighting, amber reflections, summer evening mood"
+    mood: "warm, premium, relaxed"
+  - name: "dark-luxury"
+    prompt_override: "Deep black background, dramatic single spotlight, metallic reflections, moody"
+    mood: "premium, exclusive, mysterious"
+  - name: "tropical-splash"
+    prompt_override: "Tropical fruit elements, vibrant green and orange, fresh leaves, splashing juice"
+    mood: "vibrant, fresh, energetic"
+
+platform_modifiers:
+  meta: "polished commercial photography, premium feel, clean composition"
+  tiktok: "dynamic and eye-catching, high contrast, bold splash movement"
+
+source: "https://github.com/0aicoder0/Ultimate-Nano-Banana-Pro-Collection"
+
+tags:
+  - "product-focused"
+  - "beverage"
+  - "splash"
+  - "premium"
+  - "nano-banana"
+  - "awareness:product_aware"
+  - "awareness:most_aware"

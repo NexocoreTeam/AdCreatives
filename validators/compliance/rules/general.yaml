@@ -1,0 +1,58 @@
+# General compliance rules — apply to all ad categories
+rules:
+  - name: "Absolute guarantee claim"
+    severity: "ERROR"
+    category: "claims"
+    patterns:
+      - "guaranteed results"
+      - "100% guaranteed"
+      - "money back guaranteed"
+      - "guaranteed to work"
+      - "regex:guarante\\w+\\s+(result|outcome|success)"
+
+  - name: "Miracle/magic claim"
+    severity: "ERROR"
+    category: "claims"
+    patterns:
+      - "miracle"
+      - "magic solution"
+      - "overnight success"
+      - "instant results"
+      - "works like magic"
+
+  - name: "False urgency/scarcity"
+    severity: "WARNING"
+    category: "urgency"
+    patterns:
+      - "last chance"
+      - "only X left"
+      - "ending tonight"
+      - "regex:only \\d+ (left|remaining|available)"
+
+  - name: "Unsubstantiated superlative"
+    severity: "WARNING"
+    category: "claims"
+    patterns:
+      - "the best"
+      - "the #1"
+      - "number one"
+      - "world's best"
+      - "the most powerful"
+      - "the only solution"
+
+  - name: "Income/earnings claim"
+    severity: "ERROR"
+    category: "financial"
+    patterns:
+      - "make money"
+      - "earn $"
+      - "regex:\\$\\d+[kK]?\\s*(per|a|every)\\s*(day|week|month)"
+      - "financial freedom"
+      - "passive income"
+      - "get rich"
+
+  - name: "Profanity"
+    severity: "ERROR"
+    category: "language"
+    patterns:
+      - "regex:\\b(damn|hell|shit|fuck|ass|crap)\\b"

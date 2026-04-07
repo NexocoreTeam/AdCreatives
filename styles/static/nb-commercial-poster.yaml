@@ -1,0 +1,77 @@
+# Adapted from: ZeroLu awesome-nanobanana-pro — Commercial Promotional Poster pattern
+# + YouMind — Japanese Commercial Ad style
+# Sources: https://github.com/ZeroLu/awesome-nanobanana-pro
+#          https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts
+
+name: "NB Commercial Poster"
+description: "Professional promotional poster with product, text integration areas, and offer styling. Cinematic composition designed for text overlay in post-production."
+
+prompt_format: "text"
+
+prompt_template: |
+  Professional promotional poster for {product_name}.
+  Composition: A cinematic {visual_direction} with {brand_tone} atmosphere.
+  Product prominently featured in the center-left of frame.
+  Color scheme: {primary_color} and {secondary_color} palette with {background_color} base.
+  Text Integration Areas (leave clean space for overlay):
+  1. Top area: space for main headline
+  2. Side area: space for offer or benefit callouts
+  3. Bottom area: space for CTA and fine print
+  Quality: Commercial poster photography, dramatic lighting,
+  high contrast, editorial quality, 4K.
+  Bright studio lighting, soft shadows, vibrant colors, sharp focus,
+  clean commercial composition, modern advertising aesthetic.
+  No text, no logos, no typography in the generated image.
+  {platform_modifier}
+
+negative_prompt: "text, typography, letters, words, logos, watermark, blurry, low quality, cluttered"
+
+composition:
+  layout: "poster-product-center-text-areas"
+  callout_count: 3
+  callout_style: "clean overlay zones for post-production text"
+  text_position: "top, right side, bottom"
+
+platforms:
+  meta:
+    - width: 1080
+      height: 1350
+      label: "Meta Feed Portrait"
+    - width: 1080
+      height: 1080
+      label: "Meta Feed Square"
+  tiktok:
+    - width: 1080
+      height: 1920
+      label: "TikTok Full Screen"
+
+fal_model: "fal-ai/flux-pro/v1.1"
+fal_params:
+  guidance_scale: 8.0
+  num_inference_steps: 30
+
+variants:
+  - name: "warm-cozy"
+    prompt_override: "Warm amber tones, cozy autumn atmosphere, rustic textures"
+    mood: "comforting, inviting"
+  - name: "bold-energetic"
+    prompt_override: "High saturation, bold geometric color blocks, energetic diagonal composition"
+    mood: "exciting, youthful"
+  - name: "minimal-elegant"
+    prompt_override: "Muted tones, generous whitespace, minimal elements, luxury feel"
+    mood: "sophisticated, premium"
+
+platform_modifiers:
+  meta: "editorial quality, balanced composition, premium poster feel"
+  tiktok: "bold and vertical, high impact, bright and attention-grabbing"
+
+source: "https://github.com/ZeroLu/awesome-nanobanana-pro + https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts"
+
+tags:
+  - "poster"
+  - "promotional"
+  - "text-overlay"
+  - "editorial"
+  - "nano-banana"
+  - "awareness:problem_aware"
+  - "awareness:solution_aware"

@@ -1,0 +1,33 @@
+# Attention - Interest - Desire - Action (AIDA)
+# Best for: Broad audiences, works across all awareness levels
+
+name: "AIDA"
+full_name: "Attention - Interest - Desire - Action"
+best_for:
+  - "unaware"
+  - "problem_aware"
+  - "solution_aware"
+
+structure:
+  attention: "Stop the scroll with a bold hook, surprising stat, or provocative question"
+  interest: "Build curiosity with a relevant benefit or story"
+  desire: "Make them want it — paint the 'after' picture"
+  action: "Clear, specific CTA with low friction"
+
+hook_templates:
+  - "{Bold_claim} — and here's the proof"
+  - "What if you could {desired_outcome} in just {timeframe}?"
+  - "{Number} reasons why {audience} are switching to {product}"
+  - "The secret {audience} use to {desired_outcome}"
+  - "You've been doing {activity} wrong. Here's proof."
+
+callout_templates:
+  - "{Key_benefit}"
+  - "Join {number}+ {audience_group}"
+  - "{Timeframe} to see results"
+
+tone_guidance: |
+  Each phase builds on the last. Attention grabs, Interest holds,
+  Desire converts, Action closes. Don't rush to the CTA — earn it.
+  The most common mistake is weak Interest (jumping from Attention
+  straight to Desire).

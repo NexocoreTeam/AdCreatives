@@ -1,0 +1,49 @@
+# Supplement / health product compliance rules (FDA-regulated)
+rules:
+  - name: "Disease treatment claim"
+    severity: "ERROR"
+    category: "health"
+    patterns:
+      - "cure"
+      - "treat"
+      - "prevent disease"
+      - "heal"
+      - "remedy"
+      - "regex:(cure|treat|prevent|heal)s?\\s+(cancer|diabetes|heart disease|alzheimer)"
+
+  - name: "Weight loss specific claim"
+    severity: "ERROR"
+    category: "health"
+    patterns:
+      - "regex:lose \\d+\\s*(lbs?|pounds?|kg)"
+      - "melt fat"
+      - "burn belly fat"
+      - "shed pounds"
+      - "rapid weight loss"
+      - "regex:\\d+\\s*(lbs?|pounds?)\\s+in\\s+\\d+\\s*(days?|weeks?)"
+
+  - name: "Before/after implication"
+    severity: "WARNING"
+    category: "health"
+    patterns:
+      - "before and after"
+      - "transformation"
+      - "see the difference"
+      - "look at these results"
+
+  - name: "Doctor/medical endorsement"
+    severity: "WARNING"
+    category: "health"
+    patterns:
+      - "doctor recommended"
+      - "clinically proven"
+      - "medically approved"
+      - "FDA approved"
+      - "scientifically proven"
+
+  - name: "Missing supplement disclaimer"
+    severity: "WARNING"
+    category: "disclaimer"
+    patterns:
+      # This is a "must include" check — inverted logic handled by scanner
+      - "regex:^(?!.*these statements have not been evaluated).*$"

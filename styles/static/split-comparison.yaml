@@ -1,0 +1,48 @@
+name: "Split Comparison"
+description: "Before/after or problem/solution split image. Left side shows the pain state, right side shows the solution. Powerful for problem-aware audiences."
+
+prompt_template: |
+  Split-screen product advertisement. Left side shows a {pain_visual}
+  scene in muted, desaturated tones representing the problem.
+  Right side shows a {solution_visual} scene in vibrant {primary_color}
+  tones representing the solution with {product_name}.
+  Clean vertical divider between the two halves.
+  Commercial photography quality, dramatic contrast between sides.
+  {visual_direction}
+  {platform_modifier}
+
+negative_prompt: "text, watermark, blurry, low quality, inconsistent lighting between halves"
+
+composition:
+  layout: "split-vertical-before-after"
+  callout_count: 0
+  text_position: "above or below split"
+
+platforms:
+  meta:
+    - width: 1080
+      height: 1080
+      label: "Meta Feed Square"
+    - width: 1080
+      height: 1350
+      label: "Meta Feed Portrait"
+  tiktok:
+    - width: 1080
+      height: 1920
+      label: "TikTok Full Screen"
+
+fal_model: "fal-ai/flux-pro/v1.1"
+fal_params:
+  guidance_scale: 8.0
+  num_inference_steps: 30
+
+platform_modifiers:
+  meta: "polished and dramatic, clear contrast, premium before/after"
+  tiktok: "bold transformation reveal, high energy contrast, scroll-stopping"
+
+tags:
+  - "comparison"
+  - "before-after"
+  - "transformation"
+  - "awareness:problem_aware"
+  - "awareness:unaware"

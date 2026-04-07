@@ -1,0 +1,42 @@
+# Brand Profile Template
+# Copy this folder for each new client: cp -r clients/_template clients/your-client-name
+
+name: "Client Name"
+
+colors:
+  primary: "#1E40AF"       # Main brand color
+  secondary: "#F59E0B"     # Secondary/contrast color
+  background: "#FFFFFF"    # Default ad background
+  text: "#111827"          # Default text color
+  accent: null             # Optional accent color
+
+typography:
+  heading: "Montserrat Bold"
+  body: "Inter"
+  accent: null             # Optional display font
+
+tone: "professional, trustworthy, modern"
+
+audience:
+  age_range: "25-45"
+  gender: "mixed"          # male, female, mixed
+  interests:
+    - "technology"
+    - "productivity"
+  demographics_for_ugc: "professional millennial, diverse"
+  locations:
+    - "United States"
+
+platforms:
+  - meta
+  - tiktok
+
+logo_path: "assets/logo.png"    # Relative to this client folder
+
+guidelines_notes: |
+  Additional brand guidelines or AI instructions go here.
+  Example: "Never use exclamation marks. Always lead with data."
+
+prohibited_terms:
+  - "guaranteed"
+  - "miracle"

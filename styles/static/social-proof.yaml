@@ -1,0 +1,48 @@
+name: "Social Proof"
+description: "Product image anchored by social proof elements — star ratings, review quotes, user count. Builds trust for skeptical audiences. Best for solution-aware to product-aware."
+
+prompt_template: |
+  Professional product advertisement for {product_name} with a trust-building
+  composition. Product centered on a {background_color} background.
+  Clean space around the product for overlaying review quotes and ratings.
+  Warm, trustworthy lighting. Subtle elements suggesting community and
+  reliability. Premium commercial photography quality.
+  {visual_direction}
+  {platform_modifier}
+
+negative_prompt: "text, watermark, blurry, low quality, distorted, dark mood, cold tones"
+
+composition:
+  layout: "product-center-proof-around"
+  callout_count: 2
+  callout_style: "review quote cards with star ratings"
+  text_position: "above and below product"
+
+platforms:
+  meta:
+    - width: 1080
+      height: 1080
+      label: "Meta Feed Square"
+    - width: 1080
+      height: 1350
+      label: "Meta Feed Portrait"
+  tiktok:
+    - width: 1080
+      height: 1920
+      label: "TikTok Full Screen"
+
+fal_model: "fal-ai/flux-pro/v1.1"
+fal_params:
+  guidance_scale: 7.5
+  num_inference_steps: 28
+
+platform_modifiers:
+  meta: "clean and trustworthy, warm tones, premium feel"
+  tiktok: "authentic review style, casual trust signals, real-feeling"
+
+tags:
+  - "social-proof"
+  - "trust"
+  - "reviews"
+  - "awareness:solution_aware"
+  - "awareness:product_aware"

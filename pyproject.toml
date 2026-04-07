@@ -1,0 +1,46 @@
+[project]
+name = "adcreatives"
+version = "0.1.0"
+description = "AI-powered ad creative generation for Meta and TikTok"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.1",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "fal-client>=0.5",
+    "httpx>=0.27",
+    "rich>=13.0",
+    "Pillow>=10.0",
+    "openai>=1.50",
+    "anthropic>=0.40",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.8",
+]
+scraping = [
+    "praw>=7.7",           # Reddit API
+    "beautifulsoup4>=4.12",
+]
+validation = [
+    "opencv-python>=4.9",  # Brand compliance checking
+    "scikit-learn>=1.4",   # K-means color clustering
+    "numpy>=1.26",
+]
+
+[project.scripts]
+adc = "cli:cli"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

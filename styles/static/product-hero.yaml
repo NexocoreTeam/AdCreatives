@@ -1,0 +1,45 @@
+name: "Product Hero"
+description: "Clean product shot on solid or gradient background. The product is the star — minimal text, maximum visual impact. Best for product-aware audiences."
+
+prompt_template: |
+  Professional product photography of {product_name}, {product_description}.
+  Centered on a clean {background_color} background with subtle gradient.
+  Studio lighting with soft shadows, commercial quality, 4K resolution,
+  sharp focus on product details. {visual_direction}
+  {platform_modifier}
+
+negative_prompt: "text, watermark, logo, blurry, low quality, distorted, cluttered background, people"
+
+composition:
+  layout: "product-center"
+  callout_count: 0
+  text_position: ""
+  person_position: ""
+
+platforms:
+  meta:
+    - width: 1080
+      height: 1080
+      label: "Meta Feed Square"
+    - width: 1080
+      height: 1350
+      label: "Meta Feed Portrait"
+  tiktok:
+    - width: 1080
+      height: 1920
+      label: "TikTok Full Screen"
+
+fal_model: "fal-ai/flux-pro/v1.1"
+fal_params:
+  guidance_scale: 7.5
+  num_inference_steps: 28
+
+platform_modifiers:
+  meta: "polished commercial photography, clean and premium"
+  tiktok: "slightly casual product photo, natural lighting feel, authentic"
+
+tags:
+  - "product-focused"
+  - "minimal"
+  - "awareness:product_aware"
+  - "awareness:most_aware"

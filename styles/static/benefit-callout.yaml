@@ -1,0 +1,49 @@
+name: "Benefit Callout"
+description: "Product image with 2-4 benefit callouts overlaid. Combines visual appeal with specific value propositions. Works across all awareness levels."
+
+prompt_template: |
+  Professional product advertisement for {product_name}.
+  {product_description}. Product positioned on the left side of frame
+  against a {background_color} to {secondary_color} gradient background.
+  Right side has clean open space for text overlay.
+  {callout_count} distinct benefit areas visible in the composition.
+  Commercial quality, 4K, studio lighting with {brand_tone} aesthetic.
+  {visual_direction}
+  {platform_modifier}
+
+negative_prompt: "text, watermark, blurry, low quality, distorted, busy background, multiple products"
+
+composition:
+  layout: "product-left-callouts-right"
+  callout_count: 3
+  callout_style: "rounded rectangles with subtle shadow"
+  text_position: "right third of image"
+
+platforms:
+  meta:
+    - width: 1080
+      height: 1080
+      label: "Meta Feed Square"
+    - width: 1080
+      height: 1350
+      label: "Meta Feed Portrait"
+  tiktok:
+    - width: 1080
+      height: 1920
+      label: "TikTok Full Screen"
+
+fal_model: "fal-ai/flux-pro/v1.1"
+fal_params:
+  guidance_scale: 7.5
+  num_inference_steps: 28
+
+platform_modifiers:
+  meta: "polished and professional, clean typography areas, premium feel"
+  tiktok: "bold and eye-catching, high contrast, scroll-stopping composition"
+
+tags:
+  - "product-focused"
+  - "text-heavy"
+  - "callouts"
+  - "awareness:solution_aware"
+  - "awareness:product_aware"

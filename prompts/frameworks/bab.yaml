@@ -1,0 +1,31 @@
+# Before - After - Bridge (BAB)
+# Best for: Solution-aware audiences, transformation narratives
+
+name: "BAB"
+full_name: "Before - After - Bridge"
+best_for:
+  - "problem_aware"
+  - "solution_aware"
+
+structure:
+  before: "Paint a vivid picture of life WITH the problem"
+  after: "Show the transformed reality AFTER the solution"
+  bridge: "Your product is the bridge between the two"
+
+hook_templates:
+  - "I went from {before_state} to {after_state} in {timeframe}"
+  - "Life before {product}: {pain}. Life after: {outcome}."
+  - "What changed when I stopped {old_way} and started {new_way}"
+  - "From {relatable_struggle} to {aspirational_outcome}"
+  - "6 months ago I was {before}. Today I {after}. Here's what happened."
+
+callout_templates:
+  - "Before: {pain}"
+  - "After: {outcome}"
+  - "The bridge: {product_name}"
+
+tone_guidance: |
+  The 'Before' should be painfully relatable — the reader should think
+  "that's me." The 'After' should be aspirational but believable.
+  The 'Bridge' (your product) should feel like the obvious, natural
+  connection. Works exceptionally well with visual split-screen ads.

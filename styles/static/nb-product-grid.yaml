@@ -1,0 +1,85 @@
+# Adapted from: Ultimate Nano Banana Pro Collection — sneaker grid / contact sheet pattern
+# Source: https://github.com/0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+
+name: "NB Product Grid"
+description: "3x3 contact sheet grid showing a product from multiple angles and in multiple scenarios. Creates a complete campaign visual set in one generation. Great for carousel ads."
+
+prompt_format: "grid"
+
+prompt_template: |
+  A 3x3 image grid showcasing {product_name} across 9 distinct panels.
+  Each panel features the exact same product with consistent branding in {primary_color}.
+  {product_description}.
+
+  Global directives: Ultra-high fidelity product rendering, consistent color accuracy
+  across all panels, {brand_tone} aesthetic, commercial photography quality.
+
+  Grid cells:
+  1. Hero Still Life — product centered on {background_color}, dramatic studio lighting
+  2. Extreme Macro Detail — close-up of product texture, material quality, craftsmanship
+  3. Dynamic Interaction — product in use, motion blur, energy
+  4. Minimal Sculptural — product as art object, geometric shadows, gallery aesthetic
+  5. Lifestyle Context — product in natural environment, warm lighting
+  6. Color Story — product surrounded by color-matched props and elements
+  7. Scale Comparison — product next to everyday objects for size reference
+  8. Benefit Highlight — visual metaphor for the key benefit ({benefits})
+  9. Social Proof — product surrounded by subtle trust elements, warm tones
+
+  {platform_modifier}
+
+negative_prompt: "text, watermark, inconsistent product between panels, different products, blurry, low quality"
+
+composition:
+  layout: "3x3-grid"
+  callout_count: 0
+
+grid_cells:
+  - concept: "Hero Still Life"
+    prompt: "product centered, dramatic studio lighting, clean background"
+  - concept: "Extreme Macro Detail"
+    prompt: "extreme close-up, texture detail, material quality, shallow DOF"
+  - concept: "Dynamic Interaction"
+    prompt: "product in motion or use, energy, motion blur accents"
+  - concept: "Minimal Sculptural"
+    prompt: "product as art, geometric shadows, minimal gallery aesthetic"
+  - concept: "Lifestyle Context"
+    prompt: "product in natural environment, warm natural lighting"
+  - concept: "Color Story"
+    prompt: "product with color-matched props, cohesive palette"
+  - concept: "Scale Comparison"
+    prompt: "product next to everyday objects, size context"
+  - concept: "Benefit Highlight"
+    prompt: "visual metaphor for key benefit, conceptual"
+  - concept: "Social Proof"
+    prompt: "product with trust elements, warm welcoming tones"
+
+platforms:
+  meta:
+    - width: 1080
+      height: 1080
+      label: "Meta Feed Square (full grid)"
+  tiktok:
+    - width: 1080
+      height: 1920
+      label: "TikTok (vertical grid)"
+
+fal_model: "fal-ai/flux-pro/v1.1"
+fal_params:
+  guidance_scale: 7.5
+  num_inference_steps: 30
+
+platform_modifiers:
+  meta: "clean professional grid, consistent lighting across panels, polished"
+  tiktok: "bold and eye-catching grid, high contrast between panels, scroll-stopping"
+
+source: "https://github.com/0aicoder0/Ultimate-Nano-Banana-Pro-Collection"
+
+tags:
+  - "grid"
+  - "multi-shot"
+  - "carousel"
+  - "campaign-set"
+  - "nano-banana"
+  - "product-focused"
+  - "awareness:solution_aware"
+  - "awareness:product_aware"
