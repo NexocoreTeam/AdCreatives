@@ -1,0 +1,35 @@
+id: cooper-29-ugc-viral-post
+name: UGC + Viral Post Overlay
+category: ugc
+description: Casual selfie with a Reddit/Twitter post screenshot overlaid. Looks completely
+  organic.
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '9:16'
+tags:
+- ugc
+- viral
+- reddit
+- twitter
+- organic
+- native
+- scroll-stopper
+template_prompt: 'Use the attached images as brand reference for product color ONLY.
+  Do NOT use ad layouts or polish. This should look completely native and organic.
+  Create: a casual selfie of [PERSON like a man in mid-20s, beanie, crewneck] doing
+  something mundane [ACTION like brushing teeth, making coffee]. iPhone front camera,
+  slightly grainy, bathroom/kitchen lighting, no professional setup. Overlaid in the
+  center: a realistic screenshot of a [PLATFORM like Reddit / Twitter / X] post. [POST
+  DETAILS like subreddit name, username, timestamp, upvote count]. Post title in bold:
+  "[PROVOCATIVE OPINION HEADLINE]". Post body: "[2-3 sentences expanding on the opinion]".
+  The post should feel like the person is reacting to it. No product visible. No brand
+  logo. No CTA. The hook is the opinion. 9:16 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

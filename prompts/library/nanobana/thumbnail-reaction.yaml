@@ -1,0 +1,34 @@
+id: nb-thumbnail-reaction
+name: Viral Video Thumbnail
+source: ZeroLu/awesome-nanobanana-pro
+category: thumbnail
+description: Video thumbnail with person reacting/pointing at the product. Bold text
+  overlay. YouTube/TikTok native.
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '16:9'
+- '1:1'
+tags:
+- thumbnail
+- reaction
+- youtube
+- tiktok
+- scroll-stopper
+- pointing
+template_prompt: 'Use the attached images as brand reference. Create: a viral video
+  thumbnail. Face Consistency: [PERSON DESCRIPTION] with an expression of [EMOTION
+  like excitement / surprise / amazement]. Action: Pose the person on the left side,
+  pointing their finger towards the right side of the frame. Subject: On the right
+  side, place [YOUR PRODUCT] photographed clearly with studio lighting. Graphics:
+  Add a bold [BRAND COLOR] arrow connecting the person''s finger to the product. Text:
+  Overlay massive, pop-style text in the center: ''[HOOK TEXT, 3-5 words]''. Use a
+  thick white outline and drop shadow. Background: A blurred, bright [SETTING] background.
+  High saturation and contrast. 16:9 aspect ratio.'
+platforms:
+- meta
+- tiktok

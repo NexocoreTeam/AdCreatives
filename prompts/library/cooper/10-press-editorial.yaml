@@ -1,0 +1,29 @@
+id: cooper-10-press-editorial
+name: Press/Editorial
+category: editorial
+description: Authority play. Vogue back-page energy.
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- press
+- editorial
+- authority
+- premium
+- trust
+template_prompt: 'Use the attached images as brand reference. Create: a press ad on
+  off-white linen background. Top: "As Featured In" in small [BRAND COLOR] uppercase
+  wide-tracked text. Below: five grayscale publication logos. Center: italic serif
+  pull-quote in [BRAND COLOR]: "[PRESS QUOTE]" with attribution. Lower third: [PRODUCT]
+  at 85mm f/2.8, soft side light. [BRAND] logo bottom left. Generous white space.
+  Full-page Vogue energy. 4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

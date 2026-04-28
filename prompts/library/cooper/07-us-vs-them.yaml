@@ -1,0 +1,29 @@
+id: cooper-07-us-vs-them
+name: Us vs Them
+category: comparison
+description: Side-by-side comparison. Photography quality gap IS the argument.
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- comparison
+- vs
+- competitive
+- split-screen
+- trust
+template_prompt: 'Use the attached images as brand reference. Create: a side-by-side
+  divided vertically. Left: muted gray-blue background. Right: [PRIMARY BRAND COLOR].
+  Center top: white circle with "VS". Left header: "[COMPETITOR CATEGORY]" + generic
+  competitor product + list with X marks: "[WEAKNESS 1-5]". Right header: "[YOUR BRAND]"
+  + [YOUR PRODUCT] + list with checkmarks: "[STRENGTH 1-5]". [BRAND] logo bottom right.
+  4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

@@ -1,0 +1,31 @@
+id: cooper-02-offer
+name: Offer/Promotion
+category: offer
+description: Promotional ad with split background. The money-maker. Test your core
+  offer.
+product_types:
+- any
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '9:16'
+- '4:5'
+tags:
+- offer
+- promotion
+- discount
+- split-background
+- conversion
+template_prompt: 'Use the attached images as brand reference. Match exact brand colors
+  and typography style. Create: a promotional ad with a split background. Top 60%
+  is [PRIMARY BRAND COLOR] and bottom 40% is [CONTRAST COLOR like warm cream]. [YOUR
+  PRODUCT] sits centered where colors meet, soft studio lighting. Upper area: large
+  [CONTRAST TEXT] sans-serif reading "[YOUR OFFER like YOUR FIRST MONTH FREE]". Below:
+  "[OFFER DETAILS]". Lower section: small [BRAND COLOR] text with [VALUE ADDS]. [BRAND]
+  logo bottom right. 9:16 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

@@ -1,0 +1,30 @@
+id: cooper-01-headline
+name: Headline
+category: headline
+description: Bold headline ad. Tests text rendering. If this comes back clean, the
+  model handles copy.
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: awareness
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- headline
+- bold-statement
+- text-heavy
+- scroll-stopper
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  colors, typography style, and brand tone precisely. Create: a static ad with a [BACKGROUND]
+  background. Top third: large bold sans-serif headline reading "[YOUR HEADLINE, under
+  10 words]". Below in smaller text: "[YOUR SUBHEAD, one sentence]". Bottom half:
+  [YOUR PRODUCT] on the surface with [DETAILS]. Shot at 50mm f/2.8 from slightly above.
+  [BRAND] logo bottom right. Clean, authoritative. 4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

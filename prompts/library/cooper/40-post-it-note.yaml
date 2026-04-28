@@ -1,0 +1,39 @@
+id: cooper-40-post-it-note
+name: Native / Ugly Post-It Note Style
+category: native
+description: Ugly-on-purpose. Product hero with handwritten post-it note. Blends into
+  feed as organic content.
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+- solution_aware
+funnel_stage: awareness
+aspect_ratios:
+- '4:5'
+tags:
+- native
+- ugly-ad
+- post-it
+- organic
+- feed-blend
+- handwritten
+template_prompt: 'Use the attached images as brand reference. Match the exact [PRODUCT
+  DESCRIPTION] precisely. Create: a lifestyle product photo set in [REAL-LIFE SETTING]
+  with [LIGHTING DESCRIPTION] and a naturally blurred background showing [BACKGROUND
+  DETAILS]. Frame is very slightly off-center — product not perfectly centered, feels
+  found rather than composed. Slight natural sensor grain consistent with a phone
+  camera. Center of frame: [FULL PRODUCT DESCRIPTION] sitting on [SURFACE], slightly
+  angled toward the viewer. [SCATTERED SURFACE DETAIL] on the surface around the base
+  of the product. Stuck directly onto the front face of the product: a [POST-IT COLOR
+  — yellow default] square post-it note, slightly crooked. Realistic paper texture
+  with a horizontal crease. Subtle curl at bottom-right corner. Held at the top by
+  a small piece of [TAPE COLOR] tape. Handwritten in thick black marker-style lettering,
+  imperfect and uneven, lowercase: "[LINE 1]" "[LINE 2]" "[LINE 3]" "[LINE 4 — optional]".
+  No brand logo in frame. Brand identity carried by the product packaging. [MOOD].
+  4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

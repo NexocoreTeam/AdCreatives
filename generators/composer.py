@@ -1,12 +1,19 @@
-"""Compose final image generation prompts from brand + style + brief."""
+"""Compose final image generation prompts from brand + style + brief + product characteristics.
+
+CRITICAL: All prompts include real product characteristics extracted from the
+actual product image. We NEVER describe an imagined product — only the real one.
+"""
 
 from __future__ import annotations
+
+import re
 
 from models.avatar import CustomerAvatar
 from models.brand import Brand
 from models.brief import CreativeBrief
 from models.product import Product
 from models.style import Style
+from generators.product_analyzer import characteristics_to_prompt_fragment
 
 
 def compose_prompt(
@@ -17,7 +24,17 @@ def compose_prompt(
     avatar: CustomerAvatar | None = None,
     platform: str = "meta",
 ) -> str:
-    """Merge brand + product + style + brief into a final fal.ai prompt."""
+    """Merge brand + product + style + brief into a final fal.ai prompt.
+
+    If product.product_characteristics is populated (from analyze-product),
+    those real product details are injected into the prompt to ensure
+    the generated image shows the ACTUAL product.
+    """
+    # Build the real product description from analyzed characteristics
+    product_detail = ""
+    if product.product_characteristics:
+        product_detail = characteristics_to_prompt_fragment(product.product_characteristics)
+
     # Build substitution context
     context = {
         # Brand
@@ -27,9 +44,14 @@ def compose_prompt(
         "background_color": brand.colors.background,
         "text_color": brand.colors.text,
         "brand_tone": brand.tone,
-        # Product
+        # Product — use real characteristics when available
         "product_name": product.name,
-        "product_description": product.description,
+        "product_description": (
+            f"{product.description} {product_detail}"
+            if product_detail
+            else product.description
+        ),
+        "product_characteristics": product_detail,
         "benefits": ", ".join(product.benefits[:4]),
         "price": product.price or "",
         "unique_mechanism": product.unique_mechanism or "",
@@ -39,6 +61,18 @@ def compose_prompt(
         # Platform modifier
         "platform_modifier": style.platform_modifiers.get(platform, ""),
     }
+
+    # Camera specs from style
+    if style.camera:
+        context["camera_body"] = style.camera.camera_body
+        context["lens"] = style.camera.lens
+        context["film_emulation"] = style.camera.film_emulation
+        context["lighting_rig"] = style.camera.lighting_rig
+    else:
+        context["camera_body"] = ""
+        context["lens"] = ""
+        context["film_emulation"] = ""
+        context["lighting_rig"] = ""
 
     # Brief-specific context
     if brief:
@@ -75,8 +109,17 @@ def compose_prompt(
     for key, value in context.items():
         prompt = prompt.replace(f"{{{key}}}", str(value))
 
+    # If we have real product characteristics, prepend a strong instruction
+    # to use the reference image as the source of truth for the product
+    if product.product_characteristics:
+        reference_instruction = (
+            "IMPORTANT: Use the provided reference image as the definitive source "
+            "for the product's appearance. The product in the output MUST match "
+            "the reference image exactly — same colors, text, graphics, and shape. "
+        )
+        prompt = reference_instruction + prompt
+
     # Clean up any unfilled placeholders
-    import re
     prompt = re.sub(r"\{[a-z_]+\}", "", prompt)
 
     # Remove empty lines and extra whitespace
@@ -105,6 +148,5 @@ def get_sizes_for_platform(style: Style, platform: str) -> list[tuple[int, int, 
     """Get output image sizes for a platform."""
     platform_sizes = style.platforms.get(platform, [])
     if not platform_sizes:
-        # Default sizes
         return [(1080, 1080, "default")]
     return [(s.width, s.height, s.label) for s in platform_sizes]

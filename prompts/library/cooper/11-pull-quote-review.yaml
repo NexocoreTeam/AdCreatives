@@ -1,0 +1,39 @@
+id: cooper-11-pull-quote-review
+name: Pull-Quote Review Card
+category: social-proof
+description: Emotional quote headline over truncated review card. The Read more creates
+  an open loop.
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+- '4:5'
+tags:
+- review
+- pull-quote
+- open-loop
+- curiosity
+- trust
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  colors and brand tone precisely. Create: a review-driven ad with a solid [BRAND
+  COLOR with hex] color block background filling the entire image. Top half: large
+  bold italic serif text in white with curly quotation marks reading "[PULL-QUOTE
+  — the most emotional 4-8 word phrase from the review]". Directly below the quote:
+  five large filled gold/yellow star icons in a horizontal row. Bottom left, overlapping
+  the color background: a white rounded-corner review card with subtle shadow, containing:
+  a small gray circular default avatar icon, beside it "[FIRST NAME + LAST INITIAL]"
+  in bold dark sans-serif with a small [FLAG EMOJI], below the name a blue checkmark
+  icon with "[VERIFIED REVIEWER]" in small blue text. Below the reviewer info: the
+  review body text in medium-weight dark sans-serif, 4-6 lines that trails off mid-sentence,
+  ending with "...Read more" in bold [BRAND COLOR] text. Below the review text: "Was
+  this review helpful?" in small gray text with a thumbs-up icon and "[HELPFULNESS
+  COUNT]" beside it. Bottom right, overlapping both the card and the color background:
+  [YOUR PRODUCT] angled slightly toward the viewer. 1:1 or 4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

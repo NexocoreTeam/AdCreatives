@@ -1,0 +1,32 @@
+id: cooper-08-before-after-ugc
+name: Before & After (UGC Native)
+category: ugc
+description: Mirror selfie transformation. Must look like a real person posted it.
+product_types:
+- beauty
+- supplement
+- fitness
+- health
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- ugc
+- before-after
+- transformation
+- authentic
+- tiktok-native
+template_prompt: 'Use the attached images as brand reference for product color ONLY.
+  This should look like a real person''s post. Create: TikTok before-and-after. LEFT:
+  grainy iPhone mirror selfie, [PERSON] in dimly lit bathroom, [BEFORE STATE], harsh
+  lighting. White handwritten text: "[BEFORE DATE]". RIGHT: same person, same bathroom,
+  bright natural light, [AFTER STATE], [PRODUCT] visible on counter. White text: "[AFTER
+  DATE]". Top center: "[TIMEFRAME] on [BRAND]" with emoji. Should look stitched in
+  CapCut. 9:16 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

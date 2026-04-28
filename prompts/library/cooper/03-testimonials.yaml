@@ -1,0 +1,29 @@
+id: cooper-03-testimonials
+name: Testimonials
+category: testimonial
+description: Real environments + text overlays. Tests composition depth.
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+- '4:5'
+tags:
+- testimonial
+- review
+- social-proof
+- lifestyle
+- trust
+template_prompt: 'Use the attached images as brand reference. Create: a testimonial
+  ad set in [SETTING like bright bathroom / kitchen] with warm natural light. [YOUR
+  PRODUCT] on [SURFACE], slightly out of focus. Overlaid: large bold white sans-serif
+  "[SHORT HEADLINE]". Below: "[FULL QUOTE 2-3 sentences]. [NAME], [CREDENTIAL]." Five
+  filled [BRAND COLOR] stars. [BRAND] logo bottom right in white. Shot on 35mm f/2.0.
+  9:16 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

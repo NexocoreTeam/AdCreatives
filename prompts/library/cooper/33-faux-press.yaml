@@ -1,0 +1,33 @@
+id: cooper-33-faux-press
+name: Faux Press / News Articles Screenshot
+category: editorial
+description: Looks like a real online news article screenshot. Authority through publication
+  mastheads.
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '4:5'
+tags:
+- press
+- news
+- faux
+- authority
+- editorial
+- native
+template_prompt: 'Use the attached images as brand reference. Create: a static ad
+  designed to look like a real online news article screenshot. Top 25%: white background
+  with a realistic major publication masthead in large bold black serif text [PUBLICATION
+  STYLE]. Below: thin gray rule. Small gray text "Latest Headlines". Then: bold black
+  serif headline: "[HEADLINE like The $[PRICE] [PRODUCT CATEGORY] with over [NUMBER]
+  five-star reviews]". Bottom 60%: two side-by-side casual UGC-style photos of [PEOPLE]
+  each holding [YOUR PRODUCT] in a casual selfie pose. Photos should look like real
+  customer submissions. No brand logo. No CTA. Should look like an organic article
+  screenshot. 4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

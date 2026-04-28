@@ -114,74 +114,160 @@ def brief(client: str, product: str, angles: int, platform: str):
     console.print("Generate images: adc generate --client {client} --brief <brief-id> --style <style>")
 
 
-# ─── Image Generation ────────────────────────────────────────────────────────
+# ─── Mode 1: "Make it like this" ─────────────────────────────────────────────
 
 
 @cli.command()
 @click.option("--client", required=True, help="Client slug")
 @click.option("--product", required=True, help="Product slug")
-@click.option("--style", "style_name", required=True, help="Style template slug")
-@click.option("--brief-id", default=None, help="Brief ID to use (from 'adc brief')")
+@click.option("--reference", required=True, help="Path to reference ad image")
 @click.option("--platform", default="meta", help="Target platform: meta, tiktok")
-@click.option("--count", default=1, help="Number of variations per size")
-@click.option("--reference", default=None, help="Path to reference image (overrides style)")
-def generate(
-    client: str,
-    product: str,
-    style_name: str,
-    brief_id: str | None,
-    platform: str,
-    count: int,
-    reference: str | None,
-):
-    """Generate ad images from style + brief."""
-    from models.loader import load_brand, load_product, load_style, load_avatar, load_brief
-    from generators.image_generator import generate_ad_image, generate_from_reference
-    from generators.reference_analyzer import analyze_reference_image
+@click.option("--aspect-ratio", default="1:1", help="Aspect ratio: 1:1, 4:5, 9:16")
+@click.option("--count", default=1, help="Number of variations")
+@click.option("--thinking", default="disabled", help="Thinking level: disabled, minimal, high")
+def make_like(client: str, product: str, reference: str, platform: str,
+              aspect_ratio: str, count: int, thinking: str):
+    """Generate an ad that looks like a reference image, using your real product."""
+    from models.loader import load_brand, load_product, load_avatar
+    from generators.image_generator import generate_like_this
 
     with console.status("Loading client data..."):
         brand = load_brand(client)
         prod = load_product(client, product)
         avatar = load_avatar(client)
-        brief_obj = load_brief(client, brief_id) if brief_id else None
 
-    if reference:
-        console.print(f"Analyzing reference image: {reference}")
-        with console.status("Analyzing reference image with GPT-4o vision..."):
-            analysis = analyze_reference_image(reference)
+    console.print(f"[cyan]Analyzing reference ad:[/cyan] {reference}")
+    console.print(f"[cyan]Product:[/cyan] {prod.name}")
+    console.print(f"[cyan]Product image:[/cyan] {prod.image_url or prod.image_path}")
+    console.print()
 
-        console.print(f"[green]Detected style: {analysis.get('overall', {}).get('ad_format', 'unknown')}[/green]")
+    with console.status("Claude is analyzing the reference ad and writing a prompt..."):
+        prompt, results = generate_like_this(
+            reference_image_path=reference,
+            brand=brand,
+            product=prod,
+            avatar=avatar,
+            platform=platform,
+            aspect_ratio=aspect_ratio,
+            client_slug=client,
+            num_images=count,
+            thinking_level=thinking,
+        )
 
-        with console.status("Generating images from reference..."):
-            results = generate_from_reference(
-                brand=brand,
-                product=prod,
-                reference_analysis=analysis,
-                platform=platform,
-                client_slug=client,
-            )
-    else:
-        with console.status(f"Loading style '{style_name}'..."):
-            style = load_style(style_name)
-
-        with console.status(f"Generating {count} variation(s)..."):
-            results = generate_ad_image(
-                brand=brand,
-                product=prod,
-                style=style,
-                brief=brief_obj,
-                avatar=avatar,
-                platform=platform,
-                count=count,
-                client_slug=client,
-            )
-
-    console.print(f"\n[green]Generated {len(results)} images:[/green]")
+    console.print(f"\n[dim]Prompt used:[/dim]")
+    console.print(f"[dim]{prompt[:200]}...[/dim]")
+    console.print(f"\n[green]Generated {len(results)} image(s):[/green]")
     for r in results:
-        if r.local_path:
-            console.print(f"  {r.local_path}")
-        else:
-            console.print(f"  {r.image_url}")
+        console.print(f"  {r.local_path or r.image_url}")
+
+
+# ─── Mode 2: "Use this library prompt" ──────────────────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--product", required=True, help="Product slug")
+@click.option("--prompt", "prompt_id", required=True, help="Library prompt ID (e.g. cooper-07)")
+@click.option("--platform", default="meta", help="Target platform: meta, tiktok")
+@click.option("--aspect-ratio", default=None, help="Override aspect ratio")
+@click.option("--count", default=1, help="Number of variations")
+@click.option("--setting", default=None, help="Override the scene setting")
+@click.option("--person", default=None, help="Override the person description")
+@click.option("--thinking", default="disabled", help="Thinking level: disabled, minimal, high")
+def use_prompt(client: str, product: str, prompt_id: str, platform: str,
+               aspect_ratio: str | None, count: int, setting: str | None,
+               person: str | None, thinking: str):
+    """Generate an ad using a library prompt template, customized for your product."""
+    from models.loader import load_brand, load_product, load_avatar
+    from models.library import load_prompt as load_lib_prompt
+    from generators.image_generator import generate_from_library
+
+    with console.status("Loading client data..."):
+        brand = load_brand(client)
+        prod = load_product(client, product)
+        avatar = load_avatar(client)
+
+    lib_prompt = load_lib_prompt(prompt_id)
+    console.print(f"[cyan]Template:[/cyan] {lib_prompt.name} ({lib_prompt.id})")
+    console.print(f"[cyan]Product:[/cyan] {prod.name}")
+
+    # Build modifications dict from CLI flags
+    modifications = {}
+    if setting:
+        modifications["setting/scene"] = setting
+    if person:
+        modifications["person/model description"] = person
+
+    if modifications:
+        console.print(f"[cyan]Modifications:[/cyan] {modifications}")
+
+    console.print()
+
+    with console.status("Claude is customizing the prompt for your product..."):
+        prompt, results = generate_from_library(
+            prompt_id=prompt_id,
+            brand=brand,
+            product=prod,
+            avatar=avatar,
+            platform=platform,
+            aspect_ratio=aspect_ratio,
+            modifications=modifications or None,
+            client_slug=client,
+            num_images=count,
+            thinking_level=thinking,
+        )
+
+    console.print(f"\n[dim]Prompt used:[/dim]")
+    console.print(f"[dim]{prompt[:200]}...[/dim]")
+    console.print(f"\n[green]Generated {len(results)} image(s):[/green]")
+    for r in results:
+        console.print(f"  {r.local_path or r.image_url}")
+
+
+# ─── Mode 3: "What would you recommend?" ────────────────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--product", required=True, help="Product slug")
+@click.option("--count", default=10, help="Number of recommendations")
+@click.option("--platform", default="meta", help="Target platform")
+def recommend(client: str, product: str, count: int, platform: str):
+    """Get prompt recommendations for a product based on brand, audience, and product type."""
+    from models.loader import load_brand, load_product, load_avatar
+    from generators.image_generator import get_recommendations
+
+    with console.status("Loading client data..."):
+        brand = load_brand(client)
+        prod = load_product(client, product)
+        avatar = load_avatar(client)
+
+    with console.status("Claude is analyzing your brand and searching the prompt library..."):
+        recs = get_recommendations(
+            brand=brand,
+            product=prod,
+            avatar=avatar,
+            count=count,
+            platform=platform,
+        )
+
+    table = Table(title=f"Recommended Prompts — {prod.name}")
+    table.add_column("#", style="dim")
+    table.add_column("Prompt ID", style="cyan")
+    table.add_column("Reasoning", style="green", max_width=60)
+    table.add_column("Modifications", style="yellow", max_width=40)
+
+    for i, rec in enumerate(recs, 1):
+        table.add_row(
+            str(i),
+            rec.get("id", "?"),
+            rec.get("reasoning", "")[:60],
+            rec.get("suggested_modifications", "")[:40],
+        )
+
+    console.print(table)
+    console.print(f"\n[green]To generate, run:[/green]")
+    console.print(f"  adc use-prompt --client {client} --product {product} --prompt <prompt-id>")
 
 
 # ─── VOC Mining ──────────────────────────────────────────────────────────────
@@ -420,31 +506,50 @@ def validate(image: str, client: str | None, platform: str):
             console.print(f"  {icon} {c.detail}")
 
 
-# ─── List Styles ─────────────────────────────────────────────────────────────
+# ─── Browse Prompt Library ───────────────────────────────────────────────────
 
 
 @cli.command()
-@click.option("--category", default="static", help="Style category: static, video")
-def list_styles(category: str):
-    """List available style templates."""
-    from models.loader import list_styles as _list_styles, load_style
+@click.option("--category", default=None, help="Filter by category: headline, comparison, ugc, etc.")
+@click.option("--product-type", default=None, help="Filter by product type: apparel, food, etc.")
+@click.option("--source", default=None, help="Filter by source dir: cooper, nanobana, custom")
+@click.option("--platform", default=None, help="Filter by platform: meta, tiktok")
+def browse_library(category: str | None, product_type: str | None,
+                   source: str | None, platform: str | None):
+    """Browse the prompt library with optional filters."""
+    from models.library import list_prompts, list_categories
 
-    styles = _list_styles(category)
-    if not styles:
-        console.print(f"[yellow]No styles found in styles/{category}/[/yellow]")
+    prompts = list_prompts(
+        category=category,
+        product_type=product_type,
+        platform=platform,
+        source_dir=source,
+    )
+
+    if not prompts:
+        console.print("[yellow]No prompts found matching filters.[/yellow]")
+        console.print(f"[dim]Available categories: {', '.join(list_categories())}[/dim]")
         return
 
-    table = Table(title=f"Styles ({category})")
-    table.add_column("Slug", style="cyan")
-    table.add_column("Name", style="green")
-    table.add_column("Description", max_width=50)
-    table.add_column("Tags", style="dim")
+    table = Table(title=f"Prompt Library ({len(prompts)} prompts)")
+    table.add_column("ID", style="cyan", max_width=30)
+    table.add_column("Name", style="green", max_width=25)
+    table.add_column("Category", style="yellow")
+    table.add_column("Products", style="dim", max_width=20)
+    table.add_column("Tags", style="dim", max_width=30)
 
-    for slug in styles:
-        style = load_style(slug, category)
-        table.add_row(slug, style.name, style.description[:50] + "...", ", ".join(style.tags[:3]))
+    for p in prompts:
+        table.add_row(
+            p.id,
+            p.name,
+            p.category,
+            ", ".join(p.product_types[:3]),
+            ", ".join(p.tags[:4]),
+        )
 
     console.print(table)
+    console.print(f"\n[green]To use a prompt:[/green]")
+    console.print("  adc use-prompt --client <client> --product <product> --prompt <id>")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,29 @@
+id: cooper-09-negative-marketing
+name: Negative Marketing (Bait & Switch)
+category: scroll-stopper
+description: Fake bad review that is actually a rave. Scroll-stopper.
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- bait-switch
+- scroll-stopper
+- review
+- curiosity
+- native
+template_prompt: 'Use the attached images as brand reference. Create: Background is
+  close-up of [PRODUCT], slightly blurred. Center: white rounded-rectangle review
+  card (Amazon-style). Gray user icon, "[NAME]", one gold star + four gray, orange
+  "Verified Purchase" badge, bold text: "[BAIT that sounds negative but is positive]".
+  Bottom: bold white sans-serif "[PUNCHLINE like THE REVIEWS ARE IN.]". [BRAND] logo
+  bottom right. 4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

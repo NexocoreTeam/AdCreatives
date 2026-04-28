@@ -1,0 +1,35 @@
+id: cooper-25-us-vs-them-color
+name: Us vs. Them Color Split
+category: comparison
+description: Color-split comparison. Your brand color vs muted competitor side.
+product_types:
+- food
+- beverage
+- supplement
+- beauty
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- comparison
+- vs
+- color-split
+- checkmarks
+- competitive
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design and colors precisely. Create: a side-by-side comparison ad divided vertically.
+  Left half: [PRIMARY BRAND COLOR] background. [YOUR PRODUCT] photographed with dynamic
+  energy — [ACTION DETAIL]. Brand logo in bold white upper-left. Below product: vertical
+  stack of 4 benefits with green circle checkmarks: "[STRENGTH 1-4]" in bold white
+  uppercase. Right half: [CONTRAST COLOR like pale cream] background. Generic unbranded
+  competitor product [DESCRIPTION]. Header: "[COMPETITOR CATEGORY]" in dark text.
+  Below: vertical stack of 4 weaknesses with red circle X marks: "[WEAKNESS 1-4]"
+  in bold dark uppercase. Center divider: a comic-style "VS" burst graphic. 1:1 aspect
+  ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

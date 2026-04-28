@@ -1,0 +1,33 @@
+id: cooper-16-curiosity-gap
+name: Curiosity Gap / Hook Quote Testimonial
+category: scroll-stopper
+description: Provocative headline forces the double-take. The reveal reframes it.
+  Scroll-stop machine.
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '1:1'
+tags:
+- curiosity-gap
+- bait-switch
+- scroll-stopper
+- testimonial
+- hook
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design, colors, and typography style precisely. Create: a static ad on a clean white
+  background. Top center: large [ACCENT COLOR] opening quotation marks. Below: mixed-weight
+  headline in black — the first line in italic serif reading "[SETUP LINE]", the next
+  two lines in enormous heavy-weight bold all-caps sans-serif reading "[BAIT PHRASE]",
+  followed by a smaller sentence-case line reading "[REVEAL]". Closing quotation marks
+  and "[ATTRIBUTION]" in regular weight. Left side bottom: [YOUR PRODUCT] at a slight
+  angle with [PRODUCT DETAILS]. To the left of the product: a [TRUST BADGE]. Right
+  side bottom: [NUMBER] filled [ACCENT COLOR] stars and bold text reading "[REVIEW
+  COUNT] 5-Star Reviews". 1:1 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

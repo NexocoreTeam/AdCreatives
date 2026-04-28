@@ -1,0 +1,24 @@
+# Brief 1: Identity Angle (PAS framework)
+# Targets the "boy mama identity" pain point — highest intensity
+
+brief_id: "sbg-boymama-001"
+client: "sbg-co"
+product: "Boy Mama Collection"
+awareness_level: "solution_aware"
+framework: "pas"
+
+angle: "Boy mama identity badge — wearing your proudest title"
+hook: "Boy mama life is the hardest and best thing you'll ever do 🖤"
+
+pain_point: "Feeling unseen or unappreciated as a boy mom"
+benefit_callouts:
+  - "Matching mommy & me set"
+  - "Made with love in NC"
+  - "Sizes infant to 4XL"
+cta: "Shop the Set"
+body_copy: ""
+
+visual_direction: "Warm, candid moment — mom and young son both wearing the matching set, laughing together. Natural light, cozy home or outdoor setting. Not posed — feels like a real moment captured."
+tone_override: ""
+target_platform: "meta"
+source_insight: "avatar_pain_point_high_intensity"

@@ -1,160 +1,224 @@
-"""Main image generation orchestrator — ties everything together."""
+"""Image generation orchestrator — ties prompt engine + fal client + validators together.
+
+Three generation modes matching the prompt engine:
+1. generate_from_reference: "Make it like this" ad
+2. generate_from_library: Use a library prompt template
+3. generate_from_recommendation: Let the system pick the best templates
+
+All modes pass real product images alongside the prompt to Nano Banana 2.
+"""
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 
 from models.avatar import CustomerAvatar
 from models.brand import Brand
-from models.brief import CreativeBrief
+from models.library import LibraryPrompt, load_prompt
 from models.product import Product
-from models.style import Style
-
-from generators.composer import compose_prompt, get_negative_prompt, get_sizes_for_platform
-from generators.fal_client import GenerationResult, generate_and_save
-from generators.platform_adapter import get_platform_prompt_suffix
-
-
-@dataclass
-class GenerationJob:
-    client: str
-    product: str
-    style: str
-    brief_id: str = ""
-    platform: str = "meta"
-    count: int = 1
-    results: list[GenerationResult] = field(default_factory=list)
+from generators.fal_client import (
+    GenerationResult,
+    generate_and_save,
+    resolve_product_images,
+)
+from generators.prompt_engine import (
+    prompt_from_library,
+    prompt_from_reference,
+    recommend_prompts,
+)
 
 
-def generate_ad_image(
+def _get_product_image_urls(product: Product, client_slug: str) -> list[str]:
+    """Collect all product image URLs for passing to Nano Banana 2."""
+    urls = []
+
+    # Primary image URL (preferred)
+    if product.image_url:
+        urls.append(product.image_url)
+
+    # If no URL, try uploading local files
+    if not urls and product.image_path:
+        local = Path("clients") / client_slug / product.image_path
+        if not local.exists():
+            local = Path(product.image_path)
+        urls = resolve_product_images(product_image_paths=[local])
+
+    if not urls:
+        raise ValueError(
+            f"No product images found for '{product.name}'. "
+            "Real product images are REQUIRED. Add image_url or image_path to the product YAML."
+        )
+
+    return urls
+
+
+def _build_output_dir(client_slug: str, label: str) -> Path:
+    today = date.today().isoformat()
+    return Path("output") / client_slug / today / label
+
+
+# ─── Mode 1: "Make it like this" ────────────────────────────────────────────
+
+
+def generate_like_this(
+    reference_image_path: str,
     brand: Brand,
     product: Product,
-    style: Style,
-    brief: CreativeBrief | None = None,
     avatar: CustomerAvatar | None = None,
     platform: str = "meta",
-    output_dir: Path | None = None,
-    count: int = 1,
+    aspect_ratio: str = "1:1",
     client_slug: str = "",
-) -> list[GenerationResult]:
-    """Generate ad images for a product using a style template.
+    output_dir: Path | None = None,
+    num_images: int = 1,
+    thinking_level: str = "disabled",
+) -> tuple[str, list[GenerationResult]]:
+    """Analyze a reference ad and generate a similar one for your product.
 
-    Returns one image per size defined in the style for the target platform,
-    multiplied by count (for variations).
+    Returns (prompt_used, generation_results).
     """
-    sizes = get_sizes_for_platform(style, platform)
-    if not sizes:
-        sizes = [(1080, 1080, "default")]
+    # Get real product images
+    product_urls = _get_product_image_urls(product, client_slug)
 
-    # Compose the base prompt
-    base_prompt = compose_prompt(
+    # Claude writes the prompt based on the reference ad
+    prompt = prompt_from_reference(
+        reference_image_path=reference_image_path,
         brand=brand,
         product=product,
-        style=style,
-        brief=brief,
         avatar=avatar,
+        platform=platform,
+        aspect_ratio=aspect_ratio,
+    )
+
+    # Generate with Nano Banana 2
+    if output_dir is None:
+        output_dir = _build_output_dir(client_slug, "make-like-this")
+
+    product_slug = product.name.lower().replace(" ", "-")
+    results = generate_and_save(
+        prompt=prompt,
+        product_image_urls=product_urls,
+        save_dir=output_dir,
+        filename_prefix=product_slug,
+        aspect_ratio=aspect_ratio,
+        num_images=num_images,
+        thinking_level=thinking_level,
+    )
+
+    return prompt, results
+
+
+# ─── Mode 2: "Use this library prompt" ──────────────────────────────────────
+
+
+def generate_from_library(
+    prompt_id: str,
+    brand: Brand,
+    product: Product,
+    avatar: CustomerAvatar | None = None,
+    platform: str = "meta",
+    aspect_ratio: str | None = None,
+    modifications: dict | None = None,
+    client_slug: str = "",
+    output_dir: Path | None = None,
+    num_images: int = 1,
+    thinking_level: str = "disabled",
+) -> tuple[str, list[GenerationResult]]:
+    """Generate an ad using a library prompt template customized for your product.
+
+    Returns (prompt_used, generation_results).
+    """
+    # Load the template
+    library_prompt = load_prompt(prompt_id)
+
+    # Get real product images
+    product_urls = _get_product_image_urls(product, client_slug)
+
+    # Claude customizes the template
+    prompt = prompt_from_library(
+        library_prompt=library_prompt,
+        brand=brand,
+        product=product,
+        avatar=avatar,
+        platform=platform,
+        aspect_ratio=aspect_ratio,
+        modifications=modifications,
+    )
+
+    # Use template's aspect ratio if not overridden
+    final_ratio = aspect_ratio or (
+        library_prompt.aspect_ratios[0] if library_prompt.aspect_ratios else "1:1"
+    )
+
+    # Generate with Nano Banana 2
+    if output_dir is None:
+        output_dir = _build_output_dir(client_slug, library_prompt.id)
+
+    product_slug = product.name.lower().replace(" ", "-")
+    results = generate_and_save(
+        prompt=prompt,
+        product_image_urls=product_urls,
+        save_dir=output_dir,
+        filename_prefix=f"{product_slug}_{library_prompt.id}",
+        aspect_ratio=final_ratio,
+        num_images=num_images,
+        thinking_level=thinking_level,
+    )
+
+    return prompt, results
+
+
+# ─── Mode 3: "What would you recommend?" ────────────────────────────────────
+
+
+def get_recommendations(
+    brand: Brand,
+    product: Product,
+    avatar: CustomerAvatar | None = None,
+    count: int = 10,
+    platform: str = "meta",
+) -> list[dict]:
+    """Get prompt recommendations for a product. Does NOT generate images.
+
+    Returns a ranked list of recommended prompt IDs with reasoning.
+    Use generate_from_library() to actually generate images from a recommendation.
+    """
+    return recommend_prompts(
+        brand=brand,
+        product=product,
+        avatar=avatar,
+        count=count,
+        product_type=product.category or None,
         platform=platform,
     )
 
-    negative = get_negative_prompt(style)
 
-    # Build output directory
-    if output_dir is None:
-        today = date.today().isoformat()
-        output_dir = Path("output") / client_slug / today / style.name.lower().replace(" ", "-")
-
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    # Get model and params from style
-    model = style.fal_model
-    extra_params = dict(style.fal_params)
-
-    results = []
-    product_slug = product.name.lower().replace(" ", "-")
-
-    for variant in range(count):
-        for width, height, label in sizes:
-            # Add platform-specific suffix
-            platform_suffix = get_platform_prompt_suffix(platform)
-            full_prompt = base_prompt
-            if platform_suffix:
-                full_prompt = f"{base_prompt} {platform_suffix}"
-
-            # Build filename
-            size_label = f"{width}x{height}"
-            filename = f"{product_slug}_{size_label}_v{variant + 1}.png"
-            save_path = output_dir / filename
-
-            result = generate_and_save(
-                prompt=full_prompt,
-                save_path=save_path,
-                model=model,
-                width=width,
-                height=height,
-                negative_prompt=negative,
-                **extra_params,
-            )
-            results.append(result)
-
-    return results
+# ─── Batch generation ────────────────────────────────────────────────────────
 
 
-def generate_from_reference(
+def generate_batch(
+    prompt_ids: list[str],
     brand: Brand,
     product: Product,
-    reference_analysis: dict,
+    avatar: CustomerAvatar | None = None,
     platform: str = "meta",
-    output_dir: Path | None = None,
     client_slug: str = "",
-) -> list[GenerationResult]:
-    """Generate ad images based on a reference image analysis."""
-    from generators.reference_analyzer import reference_to_prompt_context
+    num_images: int = 1,
+) -> list[tuple[str, list[GenerationResult]]]:
+    """Generate ads from multiple library prompts in sequence.
 
-    ref_context = reference_to_prompt_context(reference_analysis)
-
-    # Use the suggested prompt from the analysis, filling in product details
-    suggested = ref_context.get("suggested_prompt", "")
-    if suggested:
-        prompt = suggested.format(
-            product_name=product.name,
-            product_description=product.description,
-            background_color=brand.colors.background,
-            primary_color=brand.colors.primary,
-            secondary_color=brand.colors.secondary,
-            brand_tone=brand.tone,
-            benefits=", ".join(product.benefits[:3]),
+    Returns list of (prompt_used, results) tuples.
+    """
+    all_results = []
+    for prompt_id in prompt_ids:
+        prompt, results = generate_from_library(
+            prompt_id=prompt_id,
+            brand=brand,
+            product=product,
+            avatar=avatar,
+            platform=platform,
+            client_slug=client_slug,
+            num_images=num_images,
         )
-    else:
-        # Fallback: construct prompt from analysis context
-        prompt = (
-            f"Professional advertisement for {product.name}. {product.description}. "
-            f"{ref_context.get('visual_direction', '')} "
-            f"Color scheme: {ref_context.get('primary_color', '')} and "
-            f"{ref_context.get('secondary_color', '')}. "
-            f"Commercial quality, 4K resolution."
-        )
-
-    if output_dir is None:
-        today = date.today().isoformat()
-        output_dir = Path("output") / client_slug / today / "reference-match"
-
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    product_slug = product.name.lower().replace(" ", "-")
-    sizes = [(1080, 1080, "square"), (1080, 1350, "portrait")]
-
-    results = []
-    for width, height, label in sizes:
-        filename = f"{product_slug}_ref_{label}.png"
-        save_path = output_dir / filename
-        result = generate_and_save(
-            prompt=prompt,
-            save_path=save_path,
-            width=width,
-            height=height,
-        )
-        results.append(result)
-
-    return results
+        all_results.append((prompt, results))
+    return all_results

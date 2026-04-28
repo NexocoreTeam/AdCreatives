@@ -1,0 +1,27 @@
+id: cooper-05-bullet-points
+name: Bullet-Points
+category: benefits
+description: Split composition. Product left, benefits right.
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- bullets
+- benefits
+- split-layout
+- clean
+template_prompt: 'Use the attached images as brand reference. Create: a benefit-list
+  ad, split composition on [BACKGROUND] background. Left 40%: [YOUR PRODUCT] on [SURFACE],
+  shot at 85mm f/2.8. Right 60%: vertical stack of five lines with filled [BRAND COLOR]
+  circles: "[BENEFIT 1-5]". Clean sans-serif, generous spacing. [BRAND] logo bottom
+  right. 4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

@@ -1,13 +1,23 @@
-"""fal.ai API client for image generation."""
+"""fal.ai client for Nano Banana 2 image generation.
+
+Uses fal-ai/nano-banana-2/edit for all ad generation — this endpoint
+accepts product images as reference alongside the text prompt.
+
+Real product images are ALWAYS required. We never generate without them.
+"""
 
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import fal_client
 import httpx
+
+# Model endpoints
+NB2_TEXT = "fal-ai/nano-banana-2"
+NB2_EDIT = "fal-ai/nano-banana-2/edit"
 
 
 @dataclass
@@ -17,6 +27,9 @@ class GenerationResult:
     model: str = ""
     prompt_used: str = ""
     local_path: Path | None = None
+    product_images_used: list[str] = field(default_factory=list)
+    aspect_ratio: str = ""
+    resolution: str = ""
 
 
 def _ensure_fal_key() -> None:
@@ -24,54 +37,139 @@ def _ensure_fal_key() -> None:
         raise EnvironmentError("FAL_KEY not set. See .env.example")
 
 
-def generate_image(
+def upload_image(image_path: Path) -> str:
+    """Upload a local image to fal.ai and return a URL."""
+    _ensure_fal_key()
+    return fal_client.upload_file(image_path)
+
+
+def resolve_product_images(
+    product_image_urls: list[str] | None = None,
+    product_image_paths: list[Path] | None = None,
+) -> list[str]:
+    """Resolve product images to URLs usable by fal.ai.
+
+    Accepts URLs (already public) or local paths (uploaded to fal.ai).
+    At least one product image is REQUIRED.
+    """
+    urls = []
+
+    if product_image_urls:
+        urls.extend(product_image_urls)
+
+    if product_image_paths:
+        for path in product_image_paths:
+            if path.exists():
+                urls.append(upload_image(path))
+            else:
+                raise FileNotFoundError(f"Product image not found: {path}")
+
+    if not urls:
+        raise ValueError(
+            "No product images provided. Real product images are REQUIRED. "
+            "Pass image URLs or local file paths."
+        )
+
+    return urls
+
+
+def generate(
     prompt: str,
-    model: str = "fal-ai/flux-pro/v1.1",
-    width: int = 1080,
-    height: int = 1080,
-    negative_prompt: str = "",
-    guidance_scale: float = 7.5,
-    num_inference_steps: int = 28,
+    product_image_urls: list[str],
+    aspect_ratio: str = "1:1",
+    resolution: str = "1K",
+    num_images: int = 1,
     seed: int | None = None,
-    **extra_params,
-) -> GenerationResult:
-    """Generate a single image via fal.ai."""
+    thinking_level: str = "disabled",
+    output_format: str = "png",
+    safety_tolerance: int = 4,
+) -> list[GenerationResult]:
+    """Generate images using Nano Banana 2 with product images as reference.
+
+    Uses the /edit endpoint which accepts image_urls as reference.
+    The model sees both the text prompt AND the product images,
+    so it can reproduce the real product faithfully.
+    """
     _ensure_fal_key()
 
     arguments: dict = {
         "prompt": prompt,
-        "image_size": {"width": width, "height": height},
-        "num_inference_steps": num_inference_steps,
-        "guidance_scale": guidance_scale,
+        "image_urls": product_image_urls,
+        "aspect_ratio": aspect_ratio,
+        "resolution": resolution,
+        "num_images": num_images,
+        "output_format": output_format,
+        "safety_tolerance": safety_tolerance,
     }
 
-    if negative_prompt:
-        arguments["negative_prompt"] = negative_prompt
     if seed is not None:
         arguments["seed"] = seed
+    if thinking_level != "disabled":
+        arguments["thinking_level"] = thinking_level
 
-    arguments.update(extra_params)
+    result = fal_client.subscribe(NB2_EDIT, arguments=arguments)
 
-    result = fal_client.subscribe(
-        model,
-        arguments=arguments,
-    )
+    results = []
+    for image in result.get("images", []):
+        results.append(GenerationResult(
+            image_url=image.get("url", ""),
+            seed=result.get("seed"),
+            model=NB2_EDIT,
+            prompt_used=prompt,
+            product_images_used=product_image_urls,
+            aspect_ratio=aspect_ratio,
+            resolution=resolution,
+        ))
 
-    # fal.ai returns different response shapes per model
-    images = result.get("images", [])
-    if images:
-        image_url = images[0].get("url", "")
-    elif "image" in result:
-        image_url = result["image"].get("url", "")
-    else:
-        raise RuntimeError(f"Unexpected fal.ai response format: {list(result.keys())}")
+    if not results:
+        raise RuntimeError(f"No images returned. Response keys: {list(result.keys())}")
 
-    return GenerationResult(
-        image_url=image_url,
-        seed=result.get("seed"),
-        model=model,
-        prompt_used=prompt,
-    )
+    return results
+
+
+def generate_text_only(
+    prompt: str,
+    aspect_ratio: str = "1:1",
+    resolution: str = "1K",
+    num_images: int = 1,
+    seed: int | None = None,
+    thinking_level: str = "disabled",
+    output_format: str = "png",
+) -> list[GenerationResult]:
+    """Generate images using Nano Banana 2 text-to-image (no reference images).
+
+    Use sparingly — most ad generation should use product images as reference.
+    This is only for cases like generating backgrounds or scenes without products.
+    """
+    _ensure_fal_key()
+
+    arguments: dict = {
+        "prompt": prompt,
+        "aspect_ratio": aspect_ratio,
+        "resolution": resolution,
+        "num_images": num_images,
+        "output_format": output_format,
+    }
+
+    if seed is not None:
+        arguments["seed"] = seed
+    if thinking_level != "disabled":
+        arguments["thinking_level"] = thinking_level
+
+    result = fal_client.subscribe(NB2_TEXT, arguments=arguments)
+
+    results = []
+    for image in result.get("images", []):
+        results.append(GenerationResult(
+            image_url=image.get("url", ""),
+            seed=result.get("seed"),
+            model=NB2_TEXT,
+            prompt_used=prompt,
+            aspect_ratio=aspect_ratio,
+            resolution=resolution,
+        ))
+
+    return results
 
 
 def download_image(url: str, save_path: Path) -> Path:
@@ -86,25 +184,32 @@ def download_image(url: str, save_path: Path) -> Path:
 
 def generate_and_save(
     prompt: str,
-    save_path: Path,
-    model: str = "fal-ai/flux-pro/v1.1",
-    width: int = 1080,
-    height: int = 1080,
+    product_image_urls: list[str],
+    save_dir: Path,
+    filename_prefix: str = "ad",
+    aspect_ratio: str = "1:1",
+    resolution: str = "1K",
+    num_images: int = 1,
+    thinking_level: str = "disabled",
     **kwargs,
-) -> GenerationResult:
-    """Generate an image and save it locally."""
-    result = generate_image(
+) -> list[GenerationResult]:
+    """Generate images and save them locally."""
+    results = generate(
         prompt=prompt,
-        model=model,
-        width=width,
-        height=height,
+        product_image_urls=product_image_urls,
+        aspect_ratio=aspect_ratio,
+        resolution=resolution,
+        num_images=num_images,
+        thinking_level=thinking_level,
         **kwargs,
     )
-    local = download_image(result.image_url, save_path)
-    return GenerationResult(
-        image_url=result.image_url,
-        seed=result.seed,
-        model=result.model,
-        prompt_used=result.prompt_used,
-        local_path=local,
-    )
+
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    for i, result in enumerate(results):
+        suffix = f"_v{i + 1}" if len(results) > 1 else ""
+        filename = f"{filename_prefix}_{aspect_ratio.replace(':', 'x')}{suffix}.png"
+        local_path = download_image(result.image_url, save_dir / filename)
+        result.local_path = local_path
+
+    return results

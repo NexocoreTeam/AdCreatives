@@ -1,0 +1,36 @@
+id: cooper-34-faux-iphone-notes
+name: Faux iPhone Notes / App Screenshot
+category: native
+description: Disguised as an iPhone Notes app screenshot. Blends into feed completely.
+product_types:
+- supplement
+- health
+- beauty
+- food
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- faux
+- iphone
+- notes
+- native
+- feed-blend
+- trust
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design and packaging precisely. Create: a static ad disguised as an iPhone Notes
+  app screenshot. Top: realistic iOS status bar (time "[TIME]", signal bars, wifi
+  icon, battery icon). Below: iOS Notes navigation — blue "< All iCloud" back arrow
+  left, share icon right. Below nav: small gray timestamp text "[DATE]". Main content
+  area on white background: bold black serif headline "[HEADLINE like In Just [DOSAGE]
+  A Day]". Below: [3 BENEFIT ROWS], each with a [BRAND COLOR] filled circle checkmark
+  + [EMOJI] + bold black text: "[BENEFIT 1-3]". Right side, overlapping the benefit
+  text slightly: [YOUR PRODUCT] at a slight angle with details. Clean white background
+  throughout. 1:1 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

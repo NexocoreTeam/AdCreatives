@@ -1,0 +1,35 @@
+id: cooper-13-stat-surround
+name: Stat Surround / Callout Radial
+category: product-hero
+description: Product is the sun. Stats are the planets. Arrows make it scannable in
+  under 2 seconds.
+product_types:
+- food
+- beverage
+- supplement
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- stats
+- callouts
+- radial
+- product-hero
+- data-driven
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design, colors, and typography style precisely. Create: a static ad on a white-to-[LIGHT
+  GRADIENT COLOR] gradient background. Top: large bold [TEXT COLOR] sans-serif headline
+  reading "[HEADLINE]". Center: [YOUR PRODUCT] on white background, soft studio lighting.
+  Floating near the product: a small circular badge reading "[PRICE POINT]" in [BADGE
+  COLOR]. Flanking the product on both sides: four stat callouts with curved arrows
+  pointing toward the product. Left side: "[STAT 1]" with "[LABEL]", "[STAT 2]" with
+  "[LABEL]". Right side: "[STAT 3]" with "[LABEL]", "[STAT 4]" with "[LABEL]" and
+  five filled gold stars beneath. Arrows are simple hand-drawn-style curved lines.
+  No brand logo. Clean, informational, appetizing. 1:1 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

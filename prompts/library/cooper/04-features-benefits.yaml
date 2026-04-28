@@ -1,0 +1,29 @@
+id: cooper-04-features-benefits
+name: Features/Benefits Point-Out
+category: educational
+description: Educational diagram-style layout with callout boxes.
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- features
+- benefits
+- educational
+- diagram
+- callouts
+template_prompt: 'Use the attached images as brand reference. Create: an educational
+  diagram-style ad on white background. Top: bold [BRAND COLOR] text "[HEADER like
+  What Makes [PRODUCT] Different]". Below: [YOUR PRODUCT] centered, even studio lighting.
+  Four callout boxes with connecting lines: "[BENEFIT 1-4]". Each has a small [BRAND
+  COLOR] circle. "[WEBSITE]" bottom center. [BRAND] logo bottom right. Scientific
+  diagram redesigned by a luxury agency. 4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

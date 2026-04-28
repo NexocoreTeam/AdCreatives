@@ -1,0 +1,32 @@
+id: cooper-20-advertorial
+name: Advertorial / Editorial Content Card
+category: editorial
+description: Looks like a news post, not an ad. Designed to blend into feed.
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '4:5'
+tags:
+- advertorial
+- editorial
+- native
+- feed-blend
+- authority
+template_prompt: 'Use the attached images as brand reference for tone ONLY. Do NOT
+  use polished ad layouts. This should look like organic editorial content. Create:
+  a full-bleed moody portrait photo of [PERSON DESCRIPTION], warm amber-toned lighting,
+  shot on 50mm f/1.8, shallow depth of field, cinematic color grade. Lower 45% is
+  a text overlay zone: a prominent white rounded-rectangle pill label reading "[CATEGORY
+  TAG like HOT TOPIC]" in centered uppercase sans-serif. Below: very large, dominant,
+  bold all-caps condensed sans-serif headline in white text with key words in [HIGHLIGHT
+  COLOR]: "[HEADLINE like [BRAND] IS BLOWING UP ON TIKTOK]". The headline should be
+  oversized. Bottom center: "[@HANDLE]" in small white text. No product shot, no CTA
+  button, no stars. 4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

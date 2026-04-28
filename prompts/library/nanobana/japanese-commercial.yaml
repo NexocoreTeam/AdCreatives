@@ -1,0 +1,37 @@
+id: nb-japanese-commercial
+name: Japanese Commercial Style
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+category: lifestyle
+description: High-resolution Japanese commercial style. Bold geometric color blocks,
+  bright studio lighting, playful and energetic.
+product_types:
+- apparel
+- beauty
+- food
+- beverage
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '1:1'
+- '4:5'
+tags:
+- japanese
+- commercial
+- colorful
+- energetic
+- bold
+- lifestyle
+template_prompt: 'Use the attached images as brand reference. Create: High-resolution
+  Japanese commercial advertisement style photo, [PERSON DESCRIPTION matching target
+  demographic] posing against a clean white background with bold geometric color blocks
+  ([BRAND COLORS] arranged diagonally). [PERSON] is [ACTION like holding / wearing
+  / using] [YOUR PRODUCT] with [EXPRESSION like a genuine smile / excited look / casual
+  confidence]. Bright studio lighting, soft shadows, vibrant colors, sharp focus,
+  clean commercial composition, modern Japanese advertising aesthetic, playful and
+  energetic mood, ultra-detailed, crisp skin tones. No text, no logos, no typography
+  anywhere in the image. 1:1 aspect ratio.'
+platforms:
+- meta
+- tiktok

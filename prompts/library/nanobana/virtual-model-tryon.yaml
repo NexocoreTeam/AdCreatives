@@ -1,0 +1,39 @@
+id: nb-virtual-model-tryon
+name: Virtual Model Try-On
+source: ZeroLu/awesome-nanobanana-pro
+category: lifestyle
+description: Put your garment on a model. Hyper-realistic full-body fashion photo
+  with natural draping and folds.
+product_types:
+- apparel
+- fashion
+- accessories
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '9:16'
+tags:
+- model
+- try-on
+- fashion
+- lifestyle
+- apparel
+- virtual-fitting
+template_prompt: 'Use the attached images as brand reference — Image 1 is the garment,
+  use it to match exact colors, print, and design. Create: a hyper-realistic full-body
+  fashion photo where [PERSON DESCRIPTION matching target demographic] is wearing
+  the garment. Crucial Fit Details: The garment must drape naturally on the model''s
+  body, conforming to their posture and creating realistic folds and wrinkles. High-Fidelity
+  Preservation: Preserve the original fabric texture, color, and any logos/graphics
+  from the product image with extreme accuracy. Seamless Integration: Blend the garment
+  into the scene by perfectly matching the ambient lighting, color temperature, and
+  shadow direction. Photography Style: [STYLE like clean e-commerce lookbook / casual
+  street style / editorial fashion]. Shot on a Canon EOS R5 with a 50mm f/1.8 lens
+  for a natural, professional look. [SETTING like studio with neutral background /
+  urban street / cozy home]. 4:5 aspect ratio.'
+platforms:
+- meta
+- tiktok

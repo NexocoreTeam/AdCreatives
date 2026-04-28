@@ -1,0 +1,36 @@
+id: nb-product-grid-3x3
+name: Product Grid 3x3 Campaign Set
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+category: campaign-set
+description: 3x3 grid showing product from 9 angles/contexts. Great for carousel ads
+  and campaign visual sets.
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- grid
+- 3x3
+- campaign
+- carousel
+- multi-shot
+- product-focused
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely. Create: A 3x3 image grid showcasing [YOUR PRODUCT] across 9 distinct
+  panels. Each panel features the exact same product with consistent branding. Global
+  directives: Ultra-high fidelity product rendering, consistent color accuracy across
+  all panels, commercial photography quality. Grid cells: 1. Hero Still Life — product
+  centered, dramatic studio lighting 2. Extreme Macro Detail — close-up of product
+  texture and craftsmanship 3. Dynamic Interaction — product in use, motion energy
+  4. Minimal Sculptural — product as art object, geometric shadows 5. Lifestyle Context
+  — product in natural environment 6. Color Story — product with color-matched props
+  7. Scale Comparison — product next to everyday objects 8. Benefit Highlight — visual
+  metaphor for key benefit 9. Social Proof — product with warm trust elements. 1:1
+  aspect ratio.'
+platforms:
+- meta
+- tiktok

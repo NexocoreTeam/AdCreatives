@@ -1,0 +1,38 @@
+id: nb-bento-grid-infographic
+name: Product Infographic (Bento Grid)
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+category: educational
+description: Multi-card bento grid layout with product hero, benefits, metrics, and
+  usage info. Information-dense but scannable.
+product_types:
+- supplement
+- food
+- beauty
+- health
+- saas
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- infographic
+- bento-grid
+- educational
+- data-driven
+- multi-card
+- benefits
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely. Create: a bento grid product infographic with 6-8 cards arranged
+  in a modern grid layout on [BACKGROUND COLOR] background. Card 1 (large, top): Hero
+  product shot with [HEADLINE]. Card 2: Key stat in large bold text ''[STAT like 20g
+  Protein]'' with small label below. Card 3: Ingredient/benefit visual with icon and
+  ''[BENEFIT]''. Card 4: Star rating ''[RATING]'' with ''[REVIEW COUNT] reviews''.
+  Card 5: Usage instruction ''[HOW TO USE]'' with simple icon. Card 6: Price/CTA ''[PRICE]''
+  with ''[CTA like Shop Now]''. Cards have rounded corners, subtle shadows, and [BRAND
+  COLOR] accents. Clean, modern, information-dense but scannable. 4:5 aspect ratio.'
+platforms:
+- meta
+- tiktok

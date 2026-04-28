@@ -1,0 +1,32 @@
+id: nb-commercial-poster
+name: Commercial Promotional Poster
+source: ZeroLu/awesome-nanobanana-pro
+category: poster
+description: Professional promotional poster with text integration areas for post-production
+  overlay.
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: awareness
+aspect_ratios:
+- '4:5'
+- '9:16'
+tags:
+- poster
+- promotional
+- text-overlay
+- editorial
+- commercial
+template_prompt: 'Use the attached images as brand reference. Design a professional
+  promotional poster for [BRAND NAME]. Composition: A cinematic close-up of [PRODUCT
+  SCENE DESCRIPTION] in a [MOOD like cozy / energetic / premium] atmosphere. Text
+  Integration: 1. Main Title: ''[HEADLINE]'' written in elegant, [BRAND COLOR] [FONT
+  STYLE like serif / sans-serif] typography at the top. 2. Offer: ''[OFFER TEXT]''
+  clearly displayed in a modern badge or sticker style on the side. 3. Footer: ''[CTA
+  TEXT]'' in small, clean text at the bottom. Quality: Ensure all text is perfectly
+  spelled, centered, and integrated into the image''s depth of field. 4:5 aspect ratio.'
+platforms:
+- meta
+- tiktok

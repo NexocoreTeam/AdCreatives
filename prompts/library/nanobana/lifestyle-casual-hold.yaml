@@ -1,0 +1,35 @@
+id: nb-lifestyle-casual-hold
+name: Casual Product Hold (UGC Style)
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+category: ugc
+description: Casual person holding/using product. iPhone quality, not overly produced.
+  UGC-native for TikTok/Reels.
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: awareness
+aspect_ratios:
+- '9:16'
+- '4:5'
+tags:
+- ugc
+- casual
+- authentic
+- lifestyle
+- tiktok-native
+- hand-held
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design and packaging precisely. Do NOT use polished ad layouts. This must look like
+  a real person''s Instagram Story or TikTok. Create: a casual photo of [PERSON DESCRIPTION
+  matching target demographic]''s hand holding [YOUR PRODUCT] in a natural grip, shot
+  over [SURFACE/SETTING like a kitchen counter / desk / bathroom shelf]. Natural overhead
+  daylight, slightly warm, iPhone quality. Background slightly blurred with [LIFESTYLE
+  PROPS like coffee mug, keys, everyday items] scattered casually. Not centered —
+  slightly off-center framing. Slight natural grain. The person''s face is not visible
+  — just their hand and forearm. Product label clearly visible. No text overlay. Should
+  feel completely native and organic. 9:16 aspect ratio.'
+platforms:
+- meta
+- tiktok

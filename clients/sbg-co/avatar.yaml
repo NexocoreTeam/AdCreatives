@@ -1,0 +1,100 @@
+# Customer Avatar — SBG Co.
+# Primary buyer for the Boy Mama Collection
+
+name: "Faithful Boy Mom Brittany"
+demographic: "Women 26-38, suburban/small-town US, household income $55k-$100k, married or partnered, 1-3 kids (at least one boy)"
+
+psychographic: |
+  Faith is woven into her daily life — not performatively, but genuinely.
+  She's the mom who prays before dinner, posts Bible verses on Instagram
+  stories, and wants her kids to grow up knowing God's love. She values
+  authenticity over perfection and gravitates toward brands that feel
+  personal and real, not corporate.
+
+  She's active on Instagram and Facebook, follows mom influencers, and
+  loves matching family outfits for photos. She shops online but is
+  price-conscious — she'll pay a premium for something meaningful but
+  needs to feel it's worth it. Supporting small and woman-owned businesses
+  matters to her.
+
+  She's sentimental about motherhood. The "boy mama" identity resonates
+  deeply — raising boys is her proudest, hardest, most joyful thing.
+
+pain_points:
+  - pain: "Can't find faith-based clothing that actually looks cute"
+    intensity: "high"
+    customer_language:
+      - "Why does all Christian apparel look like it was made in 2003?"
+      - "I want to wear my faith but I also want to look good"
+      - "Everything at the Christian bookstore is so cheesy"
+    source: "social_media"
+
+  - pain: "Generic matching mom-and-kid sets feel mass-produced and soulless"
+    intensity: "medium"
+    customer_language:
+      - "I don't want the same Amazon set everyone else has"
+      - "I want something that actually means something"
+    source: "reviews"
+
+  - pain: "Feeling unseen or unappreciated as a boy mom"
+    intensity: "high"
+    customer_language:
+      - "Boy mom life is WILD and nobody talks about it"
+      - "Raising boys is the hardest and best thing I've ever done"
+      - "I need other boy mamas to know I see them"
+    source: "social_media"
+
+  - pain: "Guilt about spending money on herself"
+    intensity: "medium"
+    customer_language:
+      - "I always buy for the kids first"
+      - "Is it okay to treat myself?"
+      - "I deserve something nice too, right?"
+    source: "social_media"
+
+desires:
+  - desire: "Wear her faith and her identity as a mom proudly"
+    customer_language:
+      - "I want people to see my shirt and just KNOW"
+      - "It's not just a sweatshirt, it's who I am"
+
+  - desire: "Create precious matching moments with her son"
+    customer_language:
+      - "The matching photos are going to be SO cute"
+      - "He won't want to match with me forever, gotta do it now"
+      - "These are the memories I'm living for"
+
+  - desire: "Support small, faith-based, woman-owned businesses"
+    customer_language:
+      - "I'd rather support a real person than Amazon"
+      - "Love knowing a real family made this"
+
+objections:
+  - "$44 for a sweatshirt is a lot when I have kids to clothe"
+  - "Made to order means I have to wait — will it arrive in time for Mother's Day?"
+  - "What if it doesn't fit and I can't return it?"
+  - "The design might not look as good in person"
+
+current_solutions:
+  - "Generic matching sets from Amazon or Etsy"
+  - "Plain solid-color mom-and-kid outfits"
+  - "DIY iron-on transfers (don't last)"
+  - "Nothing — just wishing something like this existed"
+
+trigger_events:
+  - "Mother's Day approaching"
+  - "Son's birthday or milestone (first steps, first day of school)"
+  - "Saw another mom wearing a matching set on Instagram"
+  - "Having a rough boy-mom day and needs a pick-me-up"
+  - "Family photo session coming up"
+  - "Pregnancy announcement — finding out it's a boy"
+
+awareness_level: "solution_aware"
+
+language_patterns:
+  - "Casual, warm, uses emoji freely 🖤"
+  - "Says 'y'all', 'mama', 'littles', 'sweet boy'"
+  - "Uses 'obsessed' and 'I'm crying' as positive reactions"
+  - "Heart-driven, not logic-driven — leads with feeling"
+  - "Tags friends in comments: 'omg you NEED this'"
+  - "Responds to 'made for you' and 'small batch' language"

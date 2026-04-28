@@ -11,13 +11,24 @@ class Product(BaseModel):
     )
     price: str | None = Field(default=None, description="Price or price range, e.g. '$49/mo'")
     category: str = Field(default="", description="Product category for compliance rules")
-    image_path: str | None = Field(
-        default=None,
-        description="Relative path to primary product image",
+    image_path: str = Field(
+        description="REQUIRED. Relative path to primary product image. "
+        "Real product images must ALWAYS be used — never generate without one.",
+    )
+    image_url: str = Field(
+        default="",
+        description="Public URL to the product image (used for fal.ai image-to-image). "
+        "If not set, the local image_path is uploaded to fal.ai before generation.",
     )
     additional_images: list[str] = Field(
         default_factory=list,
         description="Relative paths to additional product images",
+    )
+    product_characteristics: dict = Field(
+        default_factory=dict,
+        description="Auto-populated by product image analyzer. Structured YAML describing "
+        "the product's portable visual characteristics (colors, materials, textures, shape). "
+        "Run 'adc analyze-product' to populate this.",
     )
     url: str | None = Field(default=None, description="Product landing page URL")
     unique_mechanism: str = Field(

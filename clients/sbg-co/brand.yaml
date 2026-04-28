@@ -1,0 +1,68 @@
+# SBG Co. (Saved by Grace Co.) — Brand Profile
+# Founded: October 2016 by Whitney Vaughn
+# Featured on the Today Show
+# Woman-owned, made with love in North Carolina
+
+name: "Saved by Grace Co."
+
+colors:
+  primary: "#463939"       # Dark warm brown (main text/brand color)
+  secondary: "#f78469"     # Coral/salmon (accent, highlights)
+  background: "#f9f3eb"    # Warm cream (site background)
+  text: "#463939"          # Dark brown
+  accent: "#ffe5da"        # Warm peach (secondary background)
+
+typography:
+  heading: "Serif Bold"
+  body: "Clean Sans-Serif"
+  accent: "Hand-lettered Script"
+
+tone: "warm, encouraging, faith-forward, family-centered, authentic, approachable — like a friend sharing something meaningful, never preachy"
+
+audience:
+  age_range: "25-42"
+  gender: "female"
+  interests:
+    - "faith"
+    - "motherhood"
+    - "family"
+    - "Christian lifestyle"
+    - "kids fashion"
+    - "home decor"
+    - "patriotic"
+  demographics_for_ugc: "Christian mom in her late 20s to early 30s, warm smile, approachable, casual style, could be any ethnicity"
+  locations:
+    - "United States"
+
+platforms:
+  - meta
+  - tiktok
+
+logo_path: "assets/sbg-logo.png"
+
+guidelines_notes: |
+  Faith is central but the tone should feel INVITING, not exclusive. Think
+  "sharing something beautiful" not "preaching." Whitney's voice is personal,
+  transparent about imperfection, and community-building.
+
+  Key brand pillars:
+  - "See God in everyday places"
+  - Woman of color owned
+  - Made with love in NC (North Carolina)
+  - Family-run business (Whitney, daughter Aiyana, sister Destiny, partner Ty)
+  - Featured on the Today Show
+
+  Visual style leans warm, soft, cream/peach/coral palette. Never cold or
+  corporate. Product photography should feel cozy and aspirational but
+  accessible — like something you'd see on a friend's Instagram, not a
+  high-fashion editorial.
+
+  Never use aggressive sales language ("BUY NOW!!!", "HURRY!!!").
+  Keep it gentle: "Shop now", "Made for you", "Find yours".
+
+prohibited_terms:
+  - "religious"
+  - "church lady"
+  - "preachy"
+  - "guaranteed"
+  - "miracle cure"

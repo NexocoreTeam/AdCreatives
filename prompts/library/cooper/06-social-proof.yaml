@@ -1,0 +1,29 @@
+id: cooper-06-social-proof
+name: Social Proof
+category: social-proof
+description: Member count + review card + press logos. The trust stack.
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- social-proof
+- reviews
+- press
+- trust
+- authority
+template_prompt: 'Use the attached images as brand reference. Create: a social proof
+  ad on [BACKGROUND like warm cream]. Top: "[HEADLINE like Join 1,000,000+ Members]"
+  in bold [BRAND COLOR]. Five filled stars with "Rated [X] out of 5". Center: [YOUR
+  PRODUCT] at 50mm f/4. Below: frosted white card with five-star rating, "[REVIEW
+  TITLE]", "[2-3 SENTENCE REVIEW]", "[ATTRIBUTION]" in italic. Below card: "As Featured
+  In" with five grayscale logos. [BRAND] logo bottom right. 4:5 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

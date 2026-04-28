@@ -1,0 +1,34 @@
+id: cooper-31-comparison-grid
+name: Comparison Grid / Table
+category: comparison
+description: Structured comparison grid. Meme-format that goes viral on X or Reddit.
+product_types:
+- food
+- beverage
+- supplement
+- beauty
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- comparison
+- grid
+- table
+- meme-format
+- viral
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  packaging precisely. Create: a structured comparison grid ad on white background.
+  Top row divided 50/50: Left: [YOUR PRODUCT] packaging on white. Right: [COMPETITOR
+  PRODUCT] packaging on white. Below: three horizontal rows spanning full width, each
+  divided 50/50. Each row compares one attribute: Row 1: "[YOUR ADVANTAGE]" vs "[COMPETITOR
+  WEAKNESS]". Row 2: "[YOUR ADVANTAGE]" vs "[COMPETITOR WEAKNESS]". Row 3: "[YOUR
+  ADVANTAGE]" vs "[COMPETITOR WEAKNESS]". All text in bold black serif or heavy sans-serif.
+  No icons, no colors, no checkmarks — the copy contrast does the work. Should feel
+  like a meme-format comparison. 1:1 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

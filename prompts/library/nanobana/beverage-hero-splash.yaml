@@ -1,0 +1,36 @@
+id: nb-beverage-hero-splash
+name: Beverage Hero with Splash
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+category: product-hero
+description: Ultra-realistic luxury beverage shot with condensation, splash effects,
+  and dramatic lighting.
+product_types:
+- beverage
+- food
+- supplement
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '2:3'
+- '4:5'
+tags:
+- beverage
+- splash
+- premium
+- luxury
+- hero-shot
+- condensation
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design, label, and colors precisely. Create: Ultra-realistic luxury product photography
+  of [YOUR PRODUCT]. The container appears crisp and glossy with realistic highlights,
+  subtle reflections, and visible cold texture with condensation water droplets. Dynamic
+  liquid splash frozen in mid-air, crown-shaped splash at the base. Shot in a minimalist
+  commercial beverage advertising style against a [BACKGROUND COLOR] gradient background.
+  Camera: Canon EOS R5 with 100mm macro f/2.8 lens. Lighting: Key light 45 degrees
+  left, rim light behind, white bounce fill, subtle accent gel. Film emulation: Kodak
+  Portra 400. 8K resolution, photorealistic, commercial quality. 2:3 aspect ratio.'
+platforms:
+- meta
+- tiktok

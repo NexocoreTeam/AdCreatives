@@ -1,0 +1,36 @@
+id: nb-food-cinematic
+name: Cinematic Food Ad
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+category: product-hero
+description: Hollywood-quality food product photography with cinematic lighting and
+  dynamic elements.
+product_types:
+- food
+- beverage
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '2:3'
+- '4:5'
+tags:
+- food
+- cinematic
+- luxury
+- dynamic
+- appetite-appeal
+- premium
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design, packaging, and label precisely. Create: Cinematic food product photography.
+  [YOUR PRODUCT] as the hero element, shot on ARRI Alexa 65, anamorphic lens, film
+  emulation Kodak Portra 400. Artistic direction: [MOOD like warm and indulgent /
+  fresh and vibrant / dark and luxurious]. Zero-gravity dynamic elements — [INGREDIENT
+  ELEMENTS like scattered pieces, crumbs, drips, splashes] floating in mid-air around
+  the product, creating motion and appetite appeal. Lighting: Dramatic rim light from
+  behind, soft key from 45 degrees, warm fill. Background: [BACKGROUND like dark moody
+  gradient / clean white / rustic wood surface]. Commercial advertising quality, 8K,
+  photorealistic detail. 2:3 aspect ratio.'
+platforms:
+- meta
+- tiktok

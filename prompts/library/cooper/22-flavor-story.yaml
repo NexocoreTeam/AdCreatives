@@ -1,0 +1,32 @@
+id: cooper-22-flavor-story
+name: Flavor Story / "Tastes Like"
+category: product-hero
+description: Flavor visualization. Background IS the taste. Product is the payoff.
+product_types:
+- food
+- beverage
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- flavor
+- food
+- indulgent
+- lifestyle
+- appetite-appeal
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design, colors, and packaging precisely. Create: a flavor-visualization ad. Full
+  background is a photorealistic close-up food scene of [INDULGENT FOOD]. Shot at
+  50mm f/2.8, shallow depth of field, warm bakery lighting. Top third: large bold
+  white sans-serif headline reading "[HEADLINE like A protein bar that tastes like...]"
+  with one key word in bold italic. [YOUR PRODUCT] placed bottom-right, angled 15
+  degrees. Bottom: semi-transparent white bar with three stat columns: "[STAT 1]"
+  | "[STAT 2]" | "[STAT 3]". Very bottom: "[CLEAN LABEL CLAIM]". Food is the hero
+  — product is the payoff. 1:1 aspect ratio.'
+source: Alex Cooper / Adcrate (adcrate.notion.site)
+platforms:
+- meta
+- tiktok

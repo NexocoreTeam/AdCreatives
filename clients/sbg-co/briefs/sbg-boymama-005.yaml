@@ -1,0 +1,24 @@
+# Brief 5: Support Small / Anti-Amazon Angle (FAB framework)
+# Targets the desire to support small, woman-owned businesses
+
+brief_id: "sbg-boymama-005"
+client: "sbg-co"
+product: "Boy Mama Collection"
+awareness_level: "solution_aware"
+framework: "fab"
+
+angle: "Support a real family, not a warehouse"
+hook: "A real mama in NC made this with her family. Not a factory."
+
+pain_point: "Generic matching sets from Amazon feel mass-produced and soulless"
+benefit_callouts:
+  - "Woman of color owned"
+  - "Family-run since 2016"
+  - "Featured on the Today Show"
+cta: "Support Small"
+body_copy: ""
+
+visual_direction: "Behind-the-scenes feel — the brand story. Could show the product alongside warm, personal brand imagery. Think 'meet the maker' aesthetic. Warm tones, authentic, not overly polished. The kind of image that makes you feel good about where your money goes."
+tone_override: "personal, authentic, community-building"
+target_platform: "tiktok"
+source_insight: "avatar_desire_support_small_business"

@@ -1,0 +1,24 @@
+# Brief 2: Matching Moment Angle (BAB framework)
+# Targets the desire for precious matching moments
+
+brief_id: "sbg-boymama-002"
+client: "sbg-co"
+product: "Boy Mama Collection"
+awareness_level: "solution_aware"
+framework: "bab"
+
+angle: "Fleeting matching moments — he won't match with you forever"
+hook: "He won't want to match with mama forever. Do it now. 🖤"
+
+pain_point: "Generic matching sets from Amazon feel mass-produced and meaningless"
+benefit_callouts:
+  - "Made to order, just for you"
+  - "Faith-rooted, family-first"
+  - "As seen on the Today Show"
+cta: "Match with Your Boy"
+body_copy: ""
+
+visual_direction: "Product-focused with emotional context. The sweatshirt and pullover laid flat together on a cozy surface (wood table, knit blanket), styled with small props (toy truck, coffee cup). Warm cream and coral tones."
+tone_override: "sentimental, tender, 'these are the days'"
+target_platform: "meta"
+source_insight: "avatar_desire_matching_moments"
