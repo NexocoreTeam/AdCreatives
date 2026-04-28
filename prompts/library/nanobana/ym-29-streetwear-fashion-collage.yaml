@@ -1,0 +1,58 @@
+id: ym-29-streetwear-fashion-collage
+name: Streetwear Fashion Collage
+category: campaign-set
+description: Multi-frame fashion collage (3 panels). Full body + profile + detail
+  shot. Modify clothing for your product.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+- '4:5'
+tags:
+- collage
+- multi-frame
+- streetwear
+- fashion
+- editorial
+- detail-shots
+modifications_needed: Modify what person is wearing to your product.
+template_prompt: 'Hyper realistic fashion photo collage consisting of three detailed
+  frames. Show a [PERSON DESCRIPTION matching target demographic] in an urban setting
+  against a background of [BACKGROUND — dark gray metal shutters / brick wall / concrete].
+  Color palette: [BRAND COLORS], with [ACCENT] accents.
+
+
+  Left frame (full body portrait):
+
+  Stylish [PERSON] standing in a relaxed pose, looking straight at camera. Wearing
+  [YOUR PRODUCT — exact description from product images], paired with [COMPLEMENTARY
+  ITEMS]. [BRAND ATTITUDE — confident streetwear / cozy casual / premium minimal].
+
+
+  Top right frame (profile shot):
+
+  Close-up side profile. Focus on the [PRODUCT DETAIL — sleeve texture, collar, graphic
+  print]. [POSE DETAIL — hand gesture, hood up, looking away].
+
+
+  Bottom right frame (detail shot):
+
+  Close-up of [PRODUCT DETAIL — hands adjusting collar / zipper / showing the graphic
+  print]. Emphasize [TEXTURE DETAILS — fabric grain, stitching, print quality].
+
+
+  Lighting: cinematic and contrasty with soft reflections. Highly detailed textures
+  on fabric, skin, and background. Premium editorial style, modern fashion campaign
+  look.
+
+
+  1:1 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

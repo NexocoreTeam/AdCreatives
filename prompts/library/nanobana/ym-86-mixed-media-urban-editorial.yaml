@@ -1,0 +1,47 @@
+id: ym-86-mixed-media-urban-editorial
+name: Mixed Media Urban Fashion Editorial
+category: editorial
+description: Fashion editorial blending realistic photography with 2D cartoon characters
+  and hand-drawn graphic elements.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '1:1'
+- '4:5'
+tags:
+- mixed-media
+- editorial
+- cartoon
+- urban
+- fashion
+- creative
+modifications_needed: Change cartoon characters to match brand personality. Adjust
+  outfit to your product.
+template_prompt: 'A full-body fashion editorial featuring a [PERSON DESCRIPTION matching
+  target demographic] sitting casually on a [SURFACE — concrete ledge / park bench
+  / steps] in a bright, sunlit urban environment. Wearing [YOUR PRODUCT — exact description
+  from product images], paired with [COMPLEMENTARY ITEMS].
+
+
+  The image is a mixed-media composition blending high-end photorealism with classic
+  2D animation. To the left, [CARTOON CHARACTER 1 — e.g. a playful illustrated mascot
+  / brand character] leans coolly against [SURFACE]. To the right, [CARTOON CHARACTER
+  2 — or additional illustrated elements / brand icons].
+
+
+  The scene is accented with hand-drawn graphic elements, including black motion lines,
+  hand-drawn arrows, and sparkling yellow stars. Lighting is crisp with strong natural
+  shadows, set against a clear blue sky, creating a vibrant, high-contrast, magazine-quality
+  aesthetic.
+
+
+  1:1 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

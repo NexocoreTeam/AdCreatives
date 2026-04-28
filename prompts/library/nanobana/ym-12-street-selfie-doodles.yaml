@@ -1,0 +1,48 @@
+id: ym-12-street-selfie-doodles
+name: Street Selfie with Doodles
+category: lifestyle
+description: Walking selfie with playful hand-drawn doodle annotations. Originally
+  European — modify for American street.
+product_types:
+- apparel
+- fashion
+- accessories
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '9:16'
+- '4:5'
+tags:
+- selfie
+- doodles
+- street
+- annotations
+- playful
+- instagram
+modifications_needed: Americanize city setting. Modify doodle labels for each product.
+template_prompt: 'A stylish [PERSON DESCRIPTION matching target demographic] walking
+  down a [AMERICAN STREET SETTING — charming downtown street / tree-lined sidewalk
+  / urban neighborhood], holding a coffee cup in one hand and taking a selfie with
+  a smartphone in the other, wearing [YOUR PRODUCT — exact description], [COMPLEMENTARY
+  ITEMS — pants, shoes, bag]. Soft natural sunlight, warm tones, shallow depth of
+  field, aesthetic travel vibe, [EXPRESSION — smiling / confident / playful], [HAIR/ACCESSORIES],
+  urban lifestyle photography, candid moment.
+
+
+  With playful white hand-drawn doodles and text around the subject: [DOODLE LABELS
+  — customize for your product, e.g. arrows pointing to shirt with "boy mama vibes",
+  coffee cup with "fuel", bag with "essentials", shoes with "comfy"]. Stars, arrows,
+  and swirls scattered around.
+
+
+  Influencer-style composition, casual luxury vibe, clean aesthetic, high resolution,
+  lifestyle photography.
+
+
+  9:16 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

@@ -1,0 +1,45 @@
+id: ym-38-street-style-selfie-doodles
+name: Street Style Selfie with Doodle Annotations
+category: educational
+description: Casual urban selfie with hand-drawn white doodle annotations labeling
+  outfit elements. Great for product callouts.
+product_types:
+- apparel
+- fashion
+- accessories
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '9:16'
+tags:
+- selfie
+- doodles
+- annotations
+- callouts
+- street-style
+- educational
+modifications_needed: Customize doodle labels for your specific product features.
+template_prompt: "{\n  \"scene\": \"a [PERSON DESCRIPTION] taking a selfie while walking\
+  \ on a quiet urban street\",\n  \"composition\": {\n    \"camera_angle\": \"handheld\
+  \ selfie, slightly above eye level\",\n    \"lens\": \"wide-angle smartphone lens\"\
+  ,\n    \"framing\": \"upper body centered, extended arm visible\"\n  },\n  \"subject\"\
+  : {\n    \"appearance\": \"[PERSON with HAIR DESCRIPTION], wearing sunglasses\"\
+  ,\n    \"expression\": \"smiling\",\n    \"outfit\": {\n      \"top\": \"[YOUR PRODUCT\
+  \ — exact description]\",\n      \"bottom\": \"[COMPLEMENTARY BOTTOM]\",\n     \
+  \ \"shoes\": \"[SHOES]\",\n      \"accessories\": [\n        \"[ACCESSORY 1]\",\n\
+  \        \"[ACCESSORY 2 — e.g. coffee cup]\"\n      ]\n    }\n  },\n  \"environment\"\
+  : {\n    \"location\": \"[AMERICAN STREET SETTING]\",\n    \"details\": [\"parked\
+  \ cars\", \"trees\", \"clean sidewalk\"]\n  },\n  \"lighting\": {\n    \"type\"\
+  : \"natural daylight\",\n    \"condition\": \"bright sunny day\"\n  },\n  \"overlays\"\
+  : {\n    \"style\": \"hand-drawn white doodles and annotations\",\n    \"elements\"\
+  : [\n      \"arrows pointing to [PRODUCT] with label '[PRODUCT CALLOUT]'\",\n  \
+  \    \"arrows to [ACCESSORY] with label '[ACCESSORY NAME]'\",\n      \"arrows to\
+  \ shoes with label '[SHOE DESCRIPTION]'\",\n      \"[ADDITIONAL DOODLE LABELS for\
+  \ brand elements]\"\n    ]\n  }\n}\n\n4:5 aspect ratio."
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

@@ -1,0 +1,58 @@
+id: ym-52-cinematic-festival-portrait
+name: Cinematic Festival Portrait
+category: lifestyle
+description: Energetic outdoor festival photo with neon lighting. Originally referenced
+  a celebrity — use your own model.
+product_types:
+- apparel
+- fashion
+- accessories
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '9:16'
+tags:
+- festival
+- cinematic
+- neon
+- energetic
+- outdoor
+- youth
+modifications_needed: Remove celebrity reference. Use target demographic description.
+template_prompt: 'Create a highly detailed, cinematic, photorealistic lifestyle photograph
+  of [PERSON DESCRIPTION matching target demographic — NO celebrity references] at
+  an outdoor festival during early evening. They have [HAIR DESCRIPTION] and a playful
+  expression, smiling while looking back over their shoulder directly at the camera.
+  Makeup is light and natural.
+
+
+  Wearing [YOUR PRODUCT — exact description from product images], paired with [COMPLEMENTARY
+  ITEMS]. On their feet, [SHOES].
+
+
+  Pose is dynamic and confident: standing with back partially facing camera, torso
+  twisted looking over shoulder. One arm slightly raised with relaxed hand, weight
+  on one leg, creating casual and energetic posture.
+
+
+  Setting is a lively outdoor festival / amusement park. Background: large Ferris
+  wheel illuminated with neon pink and white lights. Blurred figures walking in background.
+
+
+  Lighting combines soft dusk light with strong cool artificial ambient from neon
+  lights. Neon creates glowing rim light around hair, shoulders, and silhouette, while
+  soft front fill illuminates face and body.
+
+
+  Mood: vibrant, youthful, energetic, cinematic summer festival. Color palette: neon
+  pink, bright white, [BRAND COLORS].
+
+
+  Portrait orientation (9:16), slightly low camera angle, 85-135mm telephoto lens,
+  shallow depth of field, sharp subject with soft bokeh background. 8K resolution.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

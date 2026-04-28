@@ -1,0 +1,64 @@
+id: ym-10-photorealistic-makeup-portrait
+name: Hyper-Photorealistic Lifestyle Portrait
+category: lifestyle
+description: Hyper-photorealistic casual portrait. Originally Douyin/Asian city —
+  modify for American setting.
+product_types:
+- apparel
+- fashion
+- beauty
+- accessories
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- photorealistic
+- portrait
+- casual
+- lifestyle
+- candid
+modifications_needed: Americanize — remove Asian city/writing from background. Change
+  makeup style to match brand.
+template_prompt: 'Create image: A hyper-photorealistic shot of [PERSON DESCRIPTION
+  matching target demographic], use the same subject in the attached image for facial
+  features, ultra-realistic face, visible pores, natural dewy skin, [MAKEUP STYLE
+  — natural glam / minimal / bold lip].
+
+
+  Expression / Pose: [POSE — relaxed lounging / standing casually / walking], gaze
+  soft and [DIRECTION — toward camera / slightly away], natural candid energy.
+
+
+  Camera: [CAMERA STYLE — old CCD digital camera with direct flash / modern smartphone
+  / DSLR with shallow DOF], [GRAIN/STYLE NOTES].
+
+
+  Hair: [HAIR DESCRIPTION].
+
+
+  Outfit: [YOUR PRODUCT — exact garment description from product images], [COMPLEMENTARY
+  ITEMS].
+
+
+  Background: [AMERICAN SETTING — inside car on American street / cafe patio / park
+  bench / apartment balcony], [LIGHTING — sunlight casting highlights / warm indoor
+  glow / overcast soft light], [BACKGROUND DETAILS — no foreign-language signage].
+
+
+  Composition: [FRAMING — close-up upper body / full body / waist-up], natural and
+  candid.
+
+
+  Negative prompt: stiff pose, unrealistic body, plastic skin, blur, foreign text
+  or signage.
+
+
+  4:5 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

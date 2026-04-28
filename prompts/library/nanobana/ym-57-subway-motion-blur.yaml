@@ -1,0 +1,54 @@
+id: ym-57-subway-motion-blur
+name: Subway Platform with Motion Blur
+category: lifestyle
+description: Cinematic photo on subway platform with passing train creating motion
+  blur. Subject in sharp focus. Modifiable settings.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '9:16'
+tags:
+- subway
+- motion-blur
+- cinematic
+- urban
+- fashion
+- dramatic
+modifications_needed: Setting can be modified (subway, train station, busy street,
+  etc).
+template_prompt: 'Create a realistic cinematic photo of [PERSON DESCRIPTION matching
+  target demographic] using the face from the uploaded image. Standing on a [SETTING
+  — subway platform / train station / busy city sidewalk] while a [MOVING ELEMENT
+  — train passes / traffic streams / crowd walks] behind at high speed, creating motion
+  blur.
+
+
+  The subject is still and in sharp focus, looking slightly to the side with a calm
+  and confident expression. Holding [PROP — bouquet of flowers / coffee cup / shopping
+  bag / nothing] in one hand.
+
+
+  Outfit: [YOUR PRODUCT — exact description from product images], paired with [COMPLEMENTARY
+  ITEMS].
+
+
+  Lighting is soft but cinematic, with natural indoor tones from [LIGHT SOURCE — station
+  lights / street lamps / ambient city glow]. Background shows the [MOVING ELEMENT]
+  blurred with streaks of motion. Floor reflects light, adding depth.
+
+
+  Cinematic photography, motion blur effect, atmospheric depth, realistic shadows,
+  high detail, aesthetic composition.
+
+
+  4:5 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

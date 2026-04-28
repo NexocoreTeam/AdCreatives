@@ -1,0 +1,49 @@
+id: ym-08-mirror-selfie-otaku-room
+name: Mirror Selfie Room Scene
+category: lifestyle
+description: Detailed mirror-selfie in a styled room. Originally otaku/Asian themed
+  — modify background for your brand's aesthetic.
+product_types:
+- apparel
+- fashion
+- accessories
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- mirror-selfie
+- room-scene
+- lifestyle
+- detailed
+- fashion
+modifications_needed: Americanize background (remove Asian/otaku theme). Change room
+  decor to match brand.
+template_prompt: "### Scene\nMirror selfie in a [STYLED ROOM DESCRIPTION — e.g. cozy\
+  \ bedroom corner / modern vanity setup / minimalist apartment], [COLOR TONE] color\
+  \ tone.\n\n### Subject\n* Gender expression: [GENDER]\n* Age: around [AGE]\n* Ethnicity:\
+  \ [ETHNICITY matching target demographic]\n* Body type: [BODY TYPE], natural body\
+  \ proportions\n* Skin tone: [SKIN TONE]\n* Hairstyle:\n    * Length: [HAIR LENGTH]\n\
+  \    * Style: [HAIR STYLE]\n    * Color: [HAIR COLOR]\n* Pose:\n    * Stance: standing\
+  \ in a slight contrapposto pose\n    * Right hand: holding a smartphone in front\
+  \ of face (identity partially hidden)\n    * Left arm: naturally hanging down alongside\
+  \ the torso\n* Clothing:\n    * [YOUR PRODUCT — describe the exact garment from\
+  \ product images]\n    * [ADDITIONAL CLOTHING ITEMS]\n\n### Environment\n* Description:\
+  \ [ROOM DESCRIPTION] seen through a wall-mounted mirror\n* Furnishings:\n    * [LIST\
+  \ 5-8 ROOM ELEMENTS that match brand aesthetic]\n* Color scheme: [BRAND COLORS applied\
+  \ to room decor]\n\n### Lighting\n* Light source: daylight coming from a large window,\
+  \ through sheer curtains\n* Light quality: soft, diffused light\n* White balance\
+  \ (K): 5200\n\n### Camera\n* Mode: smartphone rear camera shooting via mirror (no\
+  \ portrait/bokeh mode)\n* Equivalent focal length (mm): 26\n* Focus: focus on the\
+  \ torso and clothing in the mirror image\n* Depth of field: natural smartphone deep\
+  \ depth of field\n* Composition:\n    * Aspect ratio: 1:1\n    * Crop: from top\
+  \ of head to mid-thigh\n    * Angle: slightly high angle from mirror's POV\n\n###\
+  \ Negative prompts\n* Beauty filters/over-smoothed skin\n* Exaggerated or distorted\
+  \ anatomy\n* Logos, brand names, or readable text (unless on product)\n* Fake portrait-mode\
+  \ blur, CGI/illustration feel"
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

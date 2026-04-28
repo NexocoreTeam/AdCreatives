@@ -1,0 +1,45 @@
+id: ym-50-podcast-studio-portrait
+name: Cinematic Podcast Studio Portrait
+category: thumbnail
+description: Professional podcast host in modern studio. Warm accent lighting, realistic
+  equipment details.
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '16:9'
+- '1:1'
+tags:
+- podcast
+- studio
+- portrait
+- cinematic
+- youtube
+- thumbnail
+modifications_needed: As-is. Good for brand content thumbnails.
+template_prompt: 'A professional [PERSON DESCRIPTION — e.g. podcast host / brand founder
+  / content creator] sitting at a wooden desk in a modern studio setup, facing the
+  camera with a confident and friendly expression. Wearing [OUTFIT — e.g. fitted black
+  shirt / brand merch / casual blazer]. Sitting in a comfortable chair. A high-quality
+  podcast microphone on a boom arm positioned close to mouth.
+
+
+  On the desk: a notebook with handwritten notes, a coffee mug, and an audio interface
+  with connected cables. Background features [BACKGROUND — stylish indoor plants and
+  warm accent lighting / bookshelf / brand colors on wall], creating a clean, cinematic
+  studio atmosphere.
+
+
+  Soft key lighting on face, subtle rim lighting, shallow depth of field, ultra-realistic
+  details, 50mm lens, f/1.8, professional color grading, high contrast, 8K, YouTube
+  podcast aesthetic.
+
+
+  16:9 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

@@ -1,0 +1,46 @@
+id: ym-22-tropical-beach-fashion
+name: Tropical Beach Sunset Fashion
+category: lifestyle
+description: Fashion editorial at beach sunset. Direct flash for cinematic contrast.
+  Modify outfit for your product.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '2:3'
+- '4:5'
+tags:
+- beach
+- sunset
+- fashion
+- editorial
+- tropical
+- golden-hour
+modifications_needed: Modify what model is wearing to your product.
+template_prompt: 'A [PERSON DESCRIPTION matching target demographic] sitting on [SETTING
+  — large rocks by the ocean / sandy beach / wooden dock] at sunset, wearing [YOUR
+  PRODUCT — exact garment description from product images]. [HAIR DESCRIPTION], and
+  dewy glowing skin. The sky is a gradient of warm orange and pink tones, with waves
+  crashing gently in the background. Shot with direct flash, creating a contrast between
+  the warm sunset ambiance and glossy highlights on skin. The mood is dreamy, tropical,
+  and fashion editorial with a cinematic beach aesthetic.
+
+
+  Style: tropical fashion editorial, candid flash photography.
+
+  Lighting: golden hour sunset mixed with direct flash, warm tones, glossy highlights.
+
+  Camera: 50mm lens, shallow depth of field, centered framing.
+
+  Quality: high detail, ultra realistic, sharp focus.
+
+
+  2:3 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

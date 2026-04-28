@@ -1,0 +1,54 @@
+id: ym-07-candid-mirror-selfie-beauty
+name: Candid Mirror Selfie Beauty Portrait
+category: lifestyle
+description: Close-up beauty portrait mirror selfie. Chic, relaxed look with stylized
+  background.
+product_types:
+- apparel
+- fashion
+- beauty
+- accessories
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- mirror-selfie
+- beauty
+- close-up
+- candid
+- portrait
+- instagram
+modifications_needed: Remove graffiti art background. Americanize model. No celebrity
+  lookalikes.
+template_prompt: 'An ultra-realistic extreme close-up beauty portrait of a stylish
+  [PERSON DESCRIPTION matching target demographic — no celebrity references] taking
+  a mirror selfie, framed from shoulders up. They are wearing [YOUR PRODUCT — visible
+  near collarbone/shoulders], softly draped for a relaxed yet chic look. Their hand
+  is gently holding the garment near the collar, adding a natural candid feel.
+
+
+  Hair: [HAIR DESCRIPTION] framing face with soft texture and movement. A few strands
+  fall delicately across forehead and cheeks.
+
+
+  Facial features: glowing skin with a dewy finish, smooth complexion, highlighted
+  cheekbones, subtle contour, natural blush. Makeup is minimal but refined. Expression
+  is calm, confident, and slightly introspective, with direct eye contact into the
+  mirror.
+
+
+  Realistic soft lighting enhances skin texture and facial depth, while a subtle white
+  outline glow surrounds hair and silhouette, adding a dreamy aesthetic. Background
+  is a [BLURRED BACKGROUND — soft bokeh city lights / warm interior / abstract color
+  gradient] — softly out of focus to keep attention on face and product.
+
+
+  Instagram-style edit, cinematic tones, shallow depth of field, HD quality, portrait
+  orientation. 9:16 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

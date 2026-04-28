@@ -1,0 +1,54 @@
+id: ym-02-realistic-mirror-selfie
+name: Realistic Mirror Selfie (Fashion Focus)
+category: ugc
+description: Ultra-realistic smartphone mirror selfie. Focus on clothing/product,
+  NOT model's physical features.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+tags:
+- mirror-selfie
+- ugc
+- realistic
+- fashion
+- iphone
+modifications_needed: Remove focus on model's physical features. Center attention
+  on the clothing/product.
+template_prompt: 'Ultra-realistic smartphone mirror selfie, natural daylight, high
+  detail, realistic textures, clean modern room.
+
+
+  Camera: smartphone rear camera via mirror, close mirror reflection, chest level,
+  24mm-28mm smartphone lens, sharp focus, deep focus, 4K.
+
+
+  Subject: [PERSON DESCRIPTION matching target demographic — age, general appearance,
+  but NOT detailed physical features]. Wearing [YOUR PRODUCT — exact description from
+  product images]. Expression is relaxed and natural, looking at phone screen.
+
+
+  Outfit focus: [DETAILED DESCRIPTION OF YOUR PRODUCT as worn — how it drapes, fits,
+  the exact text/graphics visible].
+
+
+  Environment: bright modern [SETTING — bedroom / living room / hallway], full-length
+  mirror with [FRAME STYLE], [FLOOR TYPE], natural daylight from window.
+
+
+  Rendering notes: extreme realism, natural weight and fabric draping, correct mirror
+  reflection geometry, no distortion, accurate anatomy, consistent lighting, high
+  texture detail on clothing. The clothing/product is the hero — it should be the
+  sharpest, most detailed element in the frame.
+
+
+  4:5 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

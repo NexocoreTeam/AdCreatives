@@ -1,0 +1,53 @@
+id: ym-92-boutique-mirror-selfie
+name: Ultra-Realistic Boutique Mirror Selfie
+category: ugc
+description: Hyper-realistic boutique owner mirror selfie for Instagram. Exact outfit
+  recreation with store environment.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '5:7'
+- '4:5'
+tags:
+- boutique
+- mirror-selfie
+- ugc
+- instagram
+- hyper-realistic
+- ecommerce
+modifications_needed: As-is. Perfect for apparel brands.
+template_prompt: "{\n  \"goal\": \"Ultra-realistic smartphone mirror selfie of a [PERSON\
+  \ DESCRIPTION matching target demographic] showcasing [YOUR PRODUCT — exact outfit\
+  \ description], indistinguishable from a real Instagram post.\",\n  \"identity_consistency\"\
+  : {\n    \"priority\": \"critical\",\n    \"reference\": \"Use uploaded image as\
+  \ absolute truth for product appearance\",\n    \"match\": [\"face (natural, not\
+  \ overly detailed)\", \"body type & proportions\", \"skin tone & texture (pores,\
+  \ imperfections)\", \"hair (color, density, natural strands)\"]\n  },\n  \"outfit_accuracy\"\
+  : {\n    \"priority\": \"extreme\",\n    \"match\": [\"fabric, folds, stitching,\
+  \ fit\", \"wrinkles, tension\", \"colors (exact)\", \"text/graphics on garment (exact)\"\
+  ],\n    \"behavior\": \"Natural wear with realistic gravity and body interaction\"\
+  ,\n    \"rules\": [\"Do not redesign or simplify the product\", \"Exact recreation\
+  \ from reference images\"]\n  },\n  \"environment\": {\n    \"type\": \"[SETTING\
+  \ — realistic boutique store / bedroom / walk-in closet]\",\n    \"elements\": [\"\
+  mirrors\", \"clothing racks or hangers\", \"lifestyle decor\"],\n    \"lighting\"\
+  : \"soft, slightly warm retail/home lighting\"\n  },\n  \"scene\": {\n    \"action\"\
+  : [\"holding smartphone\", \"taking mirror selfie\", \"looking at phone screen\"\
+  ],\n    \"pose\": \"natural, relaxed, confident, slight hip shift\",\n    \"energy\"\
+  : \"[BRAND ENERGY — fashion entrepreneur / cozy mom / confident trendsetter]\"\n\
+  \  },\n  \"camera\": {\n    \"type\": \"smartphone\",\n    \"aspect_ratio\": \"\
+  4:5 vertical\",\n    \"framing\": \"mid to full body\",\n    \"features\": [\"slight\
+  \ perspective distortion\", \"accurate mirror alignment\"]\n  },\n  \"realism_details\"\
+  : {\n    \"clothing\": \"visible texture, natural folds & pressure from real wear\"\
+  ,\n    \"mirror\": \"accurate reflections\",\n    \"hands\": \"anatomically correct,\
+  \ natural grip on phone\",\n    \"imperfections\": [\"slight noise\", \"minor lighting\
+  \ inconsistencies\"]\n  },\n  \"final_expectation\": \"Feels like a real person\
+  \ casually posting a mirror selfie showcasing their outfit.\"\n}\n\n4:5 aspect ratio."
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok

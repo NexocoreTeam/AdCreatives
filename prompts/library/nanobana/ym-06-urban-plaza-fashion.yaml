@@ -1,0 +1,44 @@
+id: ym-06-urban-plaza-fashion
+name: Urban Plaza Fashion Portrait
+category: lifestyle
+description: Confident person in a modern urban plaza. Cinematic golden hour photography.
+product_types:
+- apparel
+- fashion
+- accessories
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- urban
+- fashion
+- golden-hour
+- cinematic
+- lifestyle
+- portrait
+modifications_needed: Change model to match client demographic. Remove suitcase —
+  adjust pose/prop.
+template_prompt: 'A confident [PERSON DESCRIPTION matching target demographic] in
+  the middle of a [LOCATION — modern American urban plaza / downtown sidewalk / city
+  park]. They have [HAIR DESCRIPTION], wearing [YOUR PRODUCT — exact description],
+  paired with [COMPLEMENTARY CLOTHING AND ACCESSORIES]. Their pose is relaxed yet
+  stylish — [POSE DESCRIPTION — e.g. standing with one hand in pocket, leaning against
+  railing, walking mid-stride]. Expression is [EXPRESSION — cool and contemplative
+  / warm and approachable / confident and direct].
+
+
+  The background features [URBAN BACKGROUND — modern glass buildings / tree-lined
+  street / city skyline], captured from a [ANGLE — low angle / eye level] during golden
+  hour daylight. Professional cinematic photography, sharp details, realistic textures,
+  natural lighting with soft reflections, high resolution, photorealistic, 8k.
+
+
+  4:5 aspect ratio.'
+source: YouMind-OpenLab/awesome-nano-banana-pro-prompts
+platforms:
+- meta
+- tiktok
