@@ -114,160 +114,64 @@ def brief(client: str, product: str, angles: int, platform: str):
     console.print("Generate images: adc generate --client {client} --brief <brief-id> --style <style>")
 
 
-# ─── Mode 1: "Make it like this" ─────────────────────────────────────────────
+# ─── Show Prompt Template ────────────────────────────────────────────────────
 
 
 @cli.command()
-@click.option("--client", required=True, help="Client slug")
-@click.option("--product", required=True, help="Product slug")
-@click.option("--reference", required=True, help="Path to reference ad image")
-@click.option("--platform", default="meta", help="Target platform: meta, tiktok")
-@click.option("--aspect-ratio", default="1:1", help="Aspect ratio: 1:1, 4:5, 9:16")
-@click.option("--count", default=1, help="Number of variations")
-@click.option("--thinking", default="disabled", help="Thinking level: disabled, minimal, high")
-def make_like(client: str, product: str, reference: str, platform: str,
-              aspect_ratio: str, count: int, thinking: str):
-    """Generate an ad that looks like a reference image, using your real product."""
-    from models.loader import load_brand, load_product, load_avatar
-    from generators.image_generator import generate_like_this
-
-    with console.status("Loading client data..."):
-        brand = load_brand(client)
-        prod = load_product(client, product)
-        avatar = load_avatar(client)
-
-    console.print(f"[cyan]Analyzing reference ad:[/cyan] {reference}")
-    console.print(f"[cyan]Product:[/cyan] {prod.name}")
-    console.print(f"[cyan]Product image:[/cyan] {prod.image_url or prod.image_path}")
-    console.print()
-
-    with console.status("Claude is analyzing the reference ad and writing a prompt..."):
-        prompt, results = generate_like_this(
-            reference_image_path=reference,
-            brand=brand,
-            product=prod,
-            avatar=avatar,
-            platform=platform,
-            aspect_ratio=aspect_ratio,
-            client_slug=client,
-            num_images=count,
-            thinking_level=thinking,
-        )
-
-    console.print(f"\n[dim]Prompt used:[/dim]")
-    console.print(f"[dim]{prompt[:200]}...[/dim]")
-    console.print(f"\n[green]Generated {len(results)} image(s):[/green]")
-    for r in results:
-        console.print(f"  {r.local_path or r.image_url}")
-
-
-# ─── Mode 2: "Use this library prompt" ──────────────────────────────────────
-
-
-@cli.command()
-@click.option("--client", required=True, help="Client slug")
-@click.option("--product", required=True, help="Product slug")
-@click.option("--prompt", "prompt_id", required=True, help="Library prompt ID (e.g. cooper-07)")
-@click.option("--platform", default="meta", help="Target platform: meta, tiktok")
-@click.option("--aspect-ratio", default=None, help="Override aspect ratio")
-@click.option("--count", default=1, help="Number of variations")
-@click.option("--setting", default=None, help="Override the scene setting")
-@click.option("--person", default=None, help="Override the person description")
-@click.option("--thinking", default="disabled", help="Thinking level: disabled, minimal, high")
-def use_prompt(client: str, product: str, prompt_id: str, platform: str,
-               aspect_ratio: str | None, count: int, setting: str | None,
-               person: str | None, thinking: str):
-    """Generate an ad using a library prompt template, customized for your product."""
-    from models.loader import load_brand, load_product, load_avatar
+@click.option("--prompt", "prompt_id", required=True, help="Library prompt ID (e.g. cooper-07-us-vs-them)")
+def show_prompt(prompt_id: str):
+    """Show a prompt template's full details and raw template text."""
     from models.library import load_prompt as load_lib_prompt
-    from generators.image_generator import generate_from_library
 
-    with console.status("Loading client data..."):
-        brand = load_brand(client)
-        prod = load_product(client, product)
-        avatar = load_avatar(client)
+    p = load_lib_prompt(prompt_id)
 
-    lib_prompt = load_lib_prompt(prompt_id)
-    console.print(f"[cyan]Template:[/cyan] {lib_prompt.name} ({lib_prompt.id})")
-    console.print(f"[cyan]Product:[/cyan] {prod.name}")
-
-    # Build modifications dict from CLI flags
-    modifications = {}
-    if setting:
-        modifications["setting/scene"] = setting
-    if person:
-        modifications["person/model description"] = person
-
-    if modifications:
-        console.print(f"[cyan]Modifications:[/cyan] {modifications}")
-
-    console.print()
-
-    with console.status("Claude is customizing the prompt for your product..."):
-        prompt, results = generate_from_library(
-            prompt_id=prompt_id,
-            brand=brand,
-            product=prod,
-            avatar=avatar,
-            platform=platform,
-            aspect_ratio=aspect_ratio,
-            modifications=modifications or None,
-            client_slug=client,
-            num_images=count,
-            thinking_level=thinking,
-        )
-
-    console.print(f"\n[dim]Prompt used:[/dim]")
-    console.print(f"[dim]{prompt[:200]}...[/dim]")
-    console.print(f"\n[green]Generated {len(results)} image(s):[/green]")
-    for r in results:
-        console.print(f"  {r.local_path or r.image_url}")
+    console.print(f"\n[bold cyan]{p.name}[/bold cyan] ({p.id})")
+    console.print(f"[dim]Source: {p.source}[/dim]")
+    console.print(f"[dim]Category: {p.category} | Products: {', '.join(p.product_types)} | "
+                  f"Funnel: {p.funnel_stage}[/dim]")
+    console.print(f"[dim]Aspect ratios: {', '.join(p.aspect_ratios)} | "
+                  f"Audience: {', '.join(p.audience_fit)}[/dim]")
+    if p.description:
+        console.print(f"\n{p.description}")
+    console.print(f"\n[bold]Template Prompt:[/bold]")
+    console.print(f"\n{p.template_prompt}")
+    console.print(f"\n[green]To use this, ask Claude to customize it for your client/product.[/green]")
+    console.print(f"Or copy the template and fill in the [PLACEHOLDERS] manually.")
 
 
-# ─── Mode 3: "What would you recommend?" ────────────────────────────────────
+# ─── Show Client Context ────────────────────────────────────────────────────
 
 
 @cli.command()
 @click.option("--client", required=True, help="Client slug")
 @click.option("--product", required=True, help="Product slug")
-@click.option("--count", default=10, help="Number of recommendations")
-@click.option("--platform", default="meta", help="Target platform")
-def recommend(client: str, product: str, count: int, platform: str):
-    """Get prompt recommendations for a product based on brand, audience, and product type."""
+def show_context(client: str, product: str):
+    """Show the full brand + product + avatar context for a client.
+
+    Use this to give Claude (in chat) all the context it needs to write
+    customized prompts for your product. Copy-paste the output into Claude.
+    """
     from models.loader import load_brand, load_product, load_avatar
-    from generators.image_generator import get_recommendations
+    from generators.prompt_engine import _build_product_context
 
-    with console.status("Loading client data..."):
-        brand = load_brand(client)
-        prod = load_product(client, product)
-        avatar = load_avatar(client)
+    brand = load_brand(client)
+    prod = load_product(client, product)
+    avatar = load_avatar(client)
 
-    with console.status("Claude is analyzing your brand and searching the prompt library..."):
-        recs = get_recommendations(
-            brand=brand,
-            product=prod,
-            avatar=avatar,
-            count=count,
-            platform=platform,
-        )
+    context = _build_product_context(brand, prod, avatar)
 
-    table = Table(title=f"Recommended Prompts — {prod.name}")
-    table.add_column("#", style="dim")
-    table.add_column("Prompt ID", style="cyan")
-    table.add_column("Reasoning", style="green", max_width=60)
-    table.add_column("Modifications", style="yellow", max_width=40)
+    console.print(f"\n[bold cyan]Client Context: {brand.name} / {prod.name}[/bold cyan]")
+    console.print(f"[dim]Copy this into Claude to give it full brand context.[/dim]\n")
+    console.print(context)
 
-    for i, rec in enumerate(recs, 1):
-        table.add_row(
-            str(i),
-            rec.get("id", "?"),
-            rec.get("reasoning", "")[:60],
-            rec.get("suggested_modifications", "")[:40],
-        )
-
-    console.print(table)
-    console.print(f"\n[green]To generate, run:[/green]")
-    console.print(f"  adc use-prompt --client {client} --product {product} --prompt <prompt-id>")
+    # Also show product image URLs
+    console.print(f"\n[bold]Product Images (attach these in Higgsfield/Nano Banana 2):[/bold]")
+    if prod.image_url:
+        console.print(f"  Primary: {prod.image_url}")
+    if prod.image_path:
+        console.print(f"  Local: clients/{client}/{prod.image_path}")
+    for img in prod.additional_images:
+        console.print(f"  Additional: clients/{client}/{img}")
 
 
 # ─── VOC Mining ──────────────────────────────────────────────────────────────
