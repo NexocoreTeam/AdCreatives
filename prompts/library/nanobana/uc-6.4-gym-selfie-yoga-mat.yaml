@@ -1,0 +1,52 @@
+id: uc-6.4-gym-selfie-yoga-mat
+name: Gym Mirror Selfie on Yoga Mat
+category: ugc
+description: Cross-legged on yoga mat, mirror selfie with phone. Realistic post-exercise
+  details. Minimal modern gym environment.
+product_types:
+- apparel
+- fitness
+- supplement
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '9:16'
+tags:
+- gym
+- mirror-selfie
+- yoga
+- fitness
+- ugc
+- authentic
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  A [PERSON DESCRIPTION matching target demographic] sits cross-legged on a [COLOR]
+  yoga mat taking a mirror selfie with smartphone after a workout. Realistic post-exercise
+  details: flushed skin, natural sweat sheen, [HAIR — messy ponytail / headband].
+
+
+  Wearing [YOUR PRODUCT — exact description from product images]. [ADDITIONAL ITEMS
+  — sneakers beside mat / water bottle / resistance bands in foreground].
+
+
+  Gym environment: minimal modern space with [EQUIPMENT — power rack / dumbbells /
+  kettlebells] visible in mirror reflection. Large mirror wall.
+
+
+  Camera: smartphone photography, moderate depth of field.
+
+  Lighting: bright natural indoor lighting, even illumination, soft shadows.
+
+  Expression: [EXPRESSION — relaxed smile / taking a break / proud].
+
+
+  4:5 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

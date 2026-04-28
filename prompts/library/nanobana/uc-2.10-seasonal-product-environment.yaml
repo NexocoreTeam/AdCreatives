@@ -1,0 +1,54 @@
+id: uc-2.10-seasonal-product-environment
+name: Seasonal Product in Natural Environment
+category: product-hero
+description: Product placed in a themed natural environment matching its flavor/season.
+  Bottle interacts with surroundings through condensation, splashes, scattered ingredients.
+product_types:
+- beverage
+- food
+- beauty
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- seasonal
+- environmental
+- product
+- nature
+- cinematic
+- atmospheric
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Photorealistic advertising shot of [YOUR PRODUCT] placed in [NATURAL ENVIRONMENT
+  matching product theme — e.g. snowy mountain clearing / tropical beach / autumn
+  forest / spring garden]. The product sits on [NATURAL SURFACE — mossy rock / sandy
+  ground / fallen leaves / grass].
+
+
+  Surrounding elements: [MATCHING INGREDIENTS/FRUITS] scattered naturally around the
+  base. Condensation on the product surface. [ATMOSPHERIC ELEMENTS — morning mist
+  / snow falling / golden hour light / cherry blossoms].
+
+
+  Camera: cinematic close-up, hyper-realistic textures, slight lens flare.
+
+  Lighting: natural environment lighting — [LIGHT DESCRIPTION matching scene].
+
+  Color scheme: [DOMINANT COLORS of the scene].
+
+  Mood: [MOOD — refreshing / cozy / vibrant / serene].
+
+
+  Product label clearly visible and readable. Magazine-quality advertising photography.
+
+
+  9:16 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

@@ -1,0 +1,56 @@
+id: uc-16.8-landmark-travel-portrait
+name: Travel Portrait at Famous Landmark
+category: lifestyle
+description: Person at famous landmark during blue hour/twilight. Gazing into distance
+  with illuminated architecture behind. Shallow DOF, 35mm film grain aesthetic.
+product_types:
+- apparel
+- fashion
+- accessories
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '3:4'
+tags:
+- travel
+- landmark
+- twilight
+- cinematic
+- portrait
+- golden-hour
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  A [PERSON DESCRIPTION matching target demographic] sits on a stone ledge at [LANDMARK
+  — famous location / architectural site / scenic overlook] during [TIME — blue hour
+  twilight / golden hour sunset / early morning]. [POSE — gazing into the distance
+  with one hand running through hair / leaning forward with elbows on knees / looking
+  over shoulder at camera].
+
+
+  Wearing [YOUR PRODUCT — exact description]. [ACCESSORIES — sunglasses on head /
+  bag / watch].
+
+
+  The illuminated [LANDMARK] glows warm golden behind against a deep [SKY COLOR —
+  blue evening / orange sunset / pink dawn] sky.
+
+
+  Camera: portrait prime 50-85mm, f/2.8 shallow DOF, 8K resolution, subtle 35mm film
+  grain.
+
+  Lighting: mixed cinematic — warm key on subject, warm tungsten on architecture,
+  cool ambient from sky.
+
+  Mood: [MOOD — contemplative and aspirational / adventurous / peaceful].
+
+
+  3:4 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

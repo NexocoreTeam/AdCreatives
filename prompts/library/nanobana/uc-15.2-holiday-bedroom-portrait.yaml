@@ -1,0 +1,49 @@
+id: uc-15.2-holiday-bedroom-portrait
+name: Seasonal / Holiday Bedroom Portrait
+category: lifestyle
+description: Person in themed clothing lying/lounging on bed. Seasonal decor in background.
+  Warm intimate lighting. Focus on photography style.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '9:16'
+- '4:5'
+tags:
+- seasonal
+- holiday
+- bedroom
+- intimate
+- cozy
+- portrait
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  A [PERSON DESCRIPTION matching target demographic] in [YOUR PRODUCT — seasonal/themed
+  clothing] lies on a bed with [LINEN COLOR] linens, propped on elbows in a [POSE
+  — relaxed / pouting / playful] pose.
+
+
+  [SEASONAL DECOR — Christmas garland lights and small tree / autumn leaves and candles
+  / spring flowers / summer beach elements] in background.
+
+
+  Warm indoor ambient lighting, vertical high-angle framing looking slightly down
+  at subject. Intimate, cozy mood.
+
+  Expression: [EXPRESSION — soft smile / playful pout / relaxed gaze].
+
+  Hair: [HAIR DESCRIPTION].
+
+
+  Vertical orientation. 9:16 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

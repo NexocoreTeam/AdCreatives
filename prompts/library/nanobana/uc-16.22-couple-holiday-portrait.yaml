@@ -1,0 +1,50 @@
+id: uc-16.22-couple-holiday-portrait
+name: Couple Holiday Portrait (Flash)
+category: lifestyle
+description: Candid flash photo of couple on floor with holiday decor. Authentic smartphone
+  flash look with dim room and warm shadows.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '3:4'
+tags:
+- couple
+- holiday
+- flash
+- candid
+- christmas
+- intimate
+- authentic
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Candid flash photo of a couple on the floor in front of a [HOLIDAY DECOR — decorated
+  Christmas tree / Thanksgiving table / birthday setup]. [PERSON 1] in foreground
+  holds [PROP — wine glass / mug / gift] and wears [YOUR PRODUCT — exact description].
+  [PERSON 2] behind wraps arm around them, wearing [COMPLEMENTARY OUTFIT].
+
+
+  Authentic smartphone flash look: bright on faces, dim room behind, warm shadows
+  from [AMBIENT LIGHT — tree lights / candles / string lights], subtle grain.
+
+
+  [GIFTS/DECOR — wrapped presents / party items / seasonal elements] in foreground.
+
+  Cozy [ROOM SETTING — living room / dining room].
+
+
+  Camera: 28-35mm equivalent, smartphone/compact flash, slightly above eye level.
+
+
+  3:4 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

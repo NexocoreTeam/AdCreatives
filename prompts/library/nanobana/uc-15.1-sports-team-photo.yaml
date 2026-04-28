@@ -1,0 +1,50 @@
+id: uc-15.1-sports-team-photo
+name: Sports Team / Group Photo
+category: lifestyle
+description: Indoor group photo of 2-4 people in matching outfits posing playfully.
+  Team snapshot aesthetic. Focus on photography style and model posing.
+product_types:
+- apparel
+- fitness
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- group
+- team
+- matching-outfits
+- playful
+- casual
+- sports
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Indoor [SETTING — gym / studio / hallway] team-style photo of [NUMBER] [PEOPLE DESCRIPTION
+  matching target demographic] in matching [YOUR PRODUCT — exact description]. Each
+  person has a distinct pose: [POSE 1 — standing with hands on hips], [POSE 2 — squatting
+  / crouching playfully], [POSE 3 — back turned showing back of garment]. Expressions
+  are [EXPRESSIONS — smiling, tongue out, playful].
+
+
+  Casual celebratory team snapshot aesthetic.
+
+  [TEAM TEXT or BRAND NAME] visible on [WALL / BANNER] behind them.
+
+  Floor: [FLOOR TYPE — polished wood / gym floor / concrete].
+
+
+  Camera: eye-level, sharp focus on subjects and text.
+
+  Lighting: indoor ambient, even frontal, soft with no harsh shadows.
+
+
+  9:16 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

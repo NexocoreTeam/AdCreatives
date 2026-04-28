@@ -1,0 +1,55 @@
+id: uc-16.1-studio-portrait-multi-panel
+name: Studio Portrait Multi-Panel Collage
+category: campaign-set
+description: Multi-panel (3-4) studio portraits showing model in varied shots — macro,
+  medium, full body. Ultra-photorealistic 8K. Seamless background.
+product_types:
+- apparel
+- fashion
+- beauty
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '3:4'
+- '4:5'
+tags:
+- studio
+- multi-panel
+- portrait
+- editorial
+- beauty
+- campaign
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Four-panel collage of studio portraits showing a [PERSON DESCRIPTION matching target
+  demographic — NO celebrity references] in [YOUR PRODUCT — exact outfit description]:
+
+
+  Panel 1: Extreme close-up — [ACTION like eating a fruit / applying product / touching
+  face], beauty macro detail
+
+  Panel 2: Medium shot — thigh-up, [POSE — standing / seated / leaning], direct eye
+  contact
+
+  Panel 3: Full body — [POSE — seated on stool / standing / walking], showing complete
+  outfit
+
+  Panel 4: [ANGLE — side profile / three-quarter / over-shoulder], different perspective
+
+
+  Ultra-photorealistic 8K textures, dewy skin, [MAKEUP STYLE]. Seamless [BACKGROUND
+  COLOR — off-white / cream / light gray] studio background.
+
+  Lighting: large diffuse softbox key + reflector fill, specular highlights on skin.
+
+
+  3:4 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

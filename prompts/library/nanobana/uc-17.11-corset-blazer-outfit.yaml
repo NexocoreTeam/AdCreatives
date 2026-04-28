@@ -1,0 +1,50 @@
+id: uc-17.11-corset-blazer-outfit
+name: Layered Fashion Portrait (City Night)
+category: lifestyle
+description: Fashion portrait with layered outfit against large windows showing city
+  nightscape with bokeh lights. Glamour lighting with soft shadows.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '3:4'
+- '4:5'
+tags:
+- fashion
+- city-night
+- glamour
+- portrait
+- layered-outfit
+- bokeh
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Fashion portrait of a [PERSON DESCRIPTION matching target demographic] in [YOUR
+  PRODUCT — exact outfit description, with layering details]. [OUTERWEAR — blazer
+  / jacket / cardigan] draped over shoulders. Standing front-facing with direct eye
+  contact.
+
+
+  Background: large glass windows showing [BLURRED BACKGROUND — city nightscape with
+  bokeh lights / sunset skyline / rainy street]. Modern urban interior.
+
+
+  Camera: medium shot (waist-up), eye-level.
+
+  Lighting: glamour lighting — soft indoor ambient mixed with cool outdoor lighting
+  through windows. Soft shadows, highlights on hair and shoulders.
+
+  Color palette: [DOMINANT COLORS from outfit and brand].
+
+
+  4:5 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

@@ -1,0 +1,36 @@
+id: uc-2.7-vintage-box-retro
+name: Vintage Product Box & CD-ROM (Retro)
+category: creative
+description: Transform any brand/website into a physical 1995-era software box with
+  CD-ROM. Nostalgic retro packaging aesthetic.
+product_types:
+- saas
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '1:1'
+- '4:5'
+tags:
+- retro
+- vintage
+- '1995'
+- creative
+- packaging
+- nostalgic
+- scroll-stopper
+template_prompt: '[YOUR BRAND/WEBSITE] turned into a product box with a CD-ROM as
+  if it was from [ERA — default 1995]. The box features era-appropriate design with
+  [BRAND COLORS], [BRAND NAME] prominently displayed, and [TAGLINE or PRODUCT DESCRIPTION]
+  on the front. Retro packaging aesthetics, Windows 95/Mac OS era graphic design.
+  The CD-ROM sits beside the box, visible and matching the brand. [SURFACE — on carpet
+  / on desk / on shelf]. Nostalgic, authentic vintage tech product photography.
+
+
+  1:1 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

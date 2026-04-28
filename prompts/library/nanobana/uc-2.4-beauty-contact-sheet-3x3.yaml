@@ -1,0 +1,65 @@
+id: uc-2.4-beauty-contact-sheet-3x3
+name: Beauty Product 3x3 Contact Sheet
+category: campaign-set
+description: 3x3 grid collage of 9 beauty panels — one model in varied poses with
+  a product. Pure white background. Magazine campaign quality.
+product_types:
+- beauty
+- cosmetics
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '4:5'
+tags:
+- 3x3-grid
+- beauty
+- campaign
+- contact-sheet
+- multi-panel
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Ultra-photoreal beauty campaign contact sheet on pure white seamless background.
+  A 3x3 grid collage of nine panels featuring ONE [PERSON DESCRIPTION] with [HAIR
+  DESCRIPTION]. The model has [BUILD DESCRIPTION] and an attractive high-fashion look.
+  Skin is luminous with realistic texture. Makeup: [MAKEUP DESCRIPTION coordinating
+  with product].
+
+
+  Product: [YOUR PRODUCT — exact description]. The product stays consistent across
+  all panels.
+
+
+  9 Panel variety:
+
+  1) Model holds product horizontally over eyes; lips puckered
+
+  2) Close-up applying/using the product; brand name visible
+
+  3) Model laughing wide-mouth; product held near face
+
+  4) Beauty angle portrait holding product near chin; confident gaze
+
+  5) Extreme close-up smile with teeth; product held lightly
+
+  6) Wink + playful expression; product visible
+
+  7) Using product again with elegant hand pose
+
+  8) Kissy face wink; cheek highlight strong
+
+  9) Tight crop smile; crisp detail
+
+
+  Lighting: beauty studio — large soft key + fill + subtle rim, bright and clean.
+  Camera: 85mm beauty lens, f/8. No watermark, no extra logos.
+
+
+  4:5 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

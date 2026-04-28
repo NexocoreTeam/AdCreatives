@@ -1,0 +1,53 @@
+id: uc-2.14-smartphone-surreal-product
+name: Smartphone Surreal Product Ad (Trans-Dimensional)
+category: creative
+description: Surreal composite — a real hand pours/interacts with a product that crosses
+  from the physical world into a phone screen. Trans-dimensional effect.
+product_types:
+- beverage
+- food
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '3:4'
+- '4:5'
+tags:
+- surreal
+- smartphone
+- creative
+- scroll-stopper
+- mixed-reality
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Hyper-realistic surreal composite: a real human hand [ACTION — pours / holds / presents]
+  [YOUR PRODUCT] that interacts with a person displayed on a smartphone screen. The
+  [PRODUCT ELEMENT — liquid / item / effect] crosses from the physical realm into
+  the digital realm, creating a trans-dimensional effect.
+
+
+  The phone lies flat on a [SURFACE — wooden table / marble counter / studio surface].
+  On the phone screen: a [PERSON DESCRIPTION] in [SETTING — kitchen / cafe / outdoor]
+  reaching toward the product.
+
+
+  Miniature [RELATED PROPS — cups / fruit / ingredients] scattered on the table around
+  the phone.
+
+
+  Camera: high-angle looking down, tight framing on phone and hand.
+
+  Lighting: warm natural light, soft diffused volumetric shadows.
+
+  Quality: photorealistic, seamless blend between real and digital elements.
+
+
+  4:5 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

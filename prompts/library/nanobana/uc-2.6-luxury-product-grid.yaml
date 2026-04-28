@@ -1,0 +1,62 @@
+id: uc-2.6-luxury-product-grid
+name: Luxury Product Photography 3x3 Grid
+category: campaign-set
+description: 3x3 grid of high-end commercial product shots — 9 different creative
+  scenarios from hero still life to surreal fusion. Maintains identical product fidelity
+  across all panels.
+product_types:
+- beauty
+- luxury
+- beverage
+- any
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '3:4'
+tags:
+- luxury
+- 3x3-grid
+- product
+- campaign
+- multi-concept
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  A 3x3 image grid of high-end commercial product shots showing [YOUR PRODUCT] in
+  nine different creative scenarios. Each frame maintains identical product fidelity.
+
+
+  1. Hero Still Life — product on [ACCENT MATERIAL like marble/velvet/wood] pedestal,
+  dramatic studio lighting
+
+  2. Extreme Macro Detail — ultra-close on product texture, material quality, label
+  detail
+
+  3. Dynamic Interaction — [LIQUID/SPLASH/MOVEMENT element], frozen mid-action
+
+  4. Minimal Sculptural — product on geometric shapes, clean shadows, gallery aesthetic
+
+  5. Floating Elements — product suspended with [RELATED ELEMENTS like petals/drops/ingredients]
+  orbiting
+
+  6. Sensory Close-up — close texture shot emphasizing material and finish
+
+  7. Color-Driven Scene — product on [BRAND COLOR] backdrop with matched props
+
+  8. Symbolic Abstraction — conceptual scene connecting product to its benefit
+
+  9. Surreal Fusion — product merged with an unexpected natural element
+
+
+  Hyperreal cinematic quality, ultra-sharp focus, consistent product rendering across
+  all panels.
+
+
+  3:4 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

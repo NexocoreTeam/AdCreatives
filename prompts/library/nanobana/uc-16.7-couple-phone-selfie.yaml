@@ -1,0 +1,53 @@
+id: uc-16.7-couple-phone-selfie
+name: Couple Portrait Through Phone Screen
+category: lifestyle
+description: Candid editorial mirror/phone selfie — couple visible through smartphone
+  display. Phone fills most of frame. Warm cinematic lighting with subtle film grain.
+product_types:
+- apparel
+- fashion
+- accessories
+- jewelry
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '2:3'
+tags:
+- couple
+- phone-selfie
+- candid
+- editorial
+- jewelry
+- intimate
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Candid editorial selfie taken through a smartphone interface. The phone fills most
+  of the frame with realistic glass reflections and screen glare. Inside the display:
+  a couple — [PERSON 1 DESCRIPTION] and [PERSON 2 DESCRIPTION] sit close together.
+  [INTERACTION — one kisses the other''s cheek / they lean heads together / arms around
+  each other]. [EXPRESSION — playful smirk / genuine laugh / soft smile].
+
+
+  [YOUR PRODUCT — jewelry / accessories / matching outfits] prominently displayed
+  on the phone-holding hand or visible on the subjects.
+
+
+  Environment inside phone: [SETTING — cafe / lounge / park bench / couch].
+
+  Camera: iPhone-like candid shot, warm indoor cinematic, subtle analog film grain.
+
+  Lighting: warm tungsten + soft fill, faces tack sharp, background bokeh.
+
+  Hands and [JEWELRY/ACCESSORIES] prominently rendered.
+
+
+  2:3 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

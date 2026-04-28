@@ -1,0 +1,67 @@
+id: uc-17.24-beauty-routine-3x3-grid
+name: Beauty Routine 3x3 Lifestyle Grid
+category: campaign-set
+description: 3x3 grid showing a beauty/getting-ready routine across 9 panels — mirror
+  application, flat lays, close-ups, portraits. Luxury setting with natural daylight.
+product_types:
+- beauty
+- jewelry
+- accessories
+- apparel
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '1:1'
+tags:
+- 3x3-grid
+- beauty-routine
+- getting-ready
+- lifestyle
+- luxury
+- jewelry
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  A 3x3 grid collage showing a [PERSON DESCRIPTION matching target demographic]''s
+  beauty/getting-ready routine across nine panels. [HAIR DESCRIPTION]. Wearing [YOUR
+  PRODUCT — outfit visible across panels].
+
+
+  Panel 1: Applying makeup in a lit vanity mirror, [COSMETIC PRODUCTS] on counter
+
+  Panel 2: Flat lay overhead — [YOUR PRODUCT / ACCESSORIES] arranged on [SURFACE —
+  marble / silk / wood]
+
+  Panel 3: Putting on [ACCESSORY — earrings / necklace / bracelet] near a window,
+  natural light
+
+  Panel 4: Extreme close-up of [ACCESSORY] on [BODY PART — ear / wrist / neck]
+
+  Panel 5: Side profile portrait, [EXPRESSION — serene / contemplative]
+
+  Panel 6: Waist-up portrait, [POSE — adjusting outfit / looking at camera]
+
+  Panel 7: Touching hair, [EXPRESSION — gentle smile], backlit
+
+  Panel 8: Laughing in mirror reflection, warm and candid
+
+  Panel 9: Flat lay of [PRODUCTS / ACCESSORIES] on [FABRIC — silk cloth / linen]
+
+
+  Setting: [LOCATION — luxury hotel suite / modern bathroom / bedroom vanity].
+
+  Lighting: mix of natural daylight and warm artificial vanity lighting.
+
+  Consistent outfit and accessories across all panels.
+
+
+  4:5 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

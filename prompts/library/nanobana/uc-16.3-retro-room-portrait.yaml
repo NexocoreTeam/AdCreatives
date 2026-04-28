@@ -1,0 +1,52 @@
+id: uc-16.3-retro-room-portrait
+name: Retro Room Portrait (Direct Flash)
+category: lifestyle
+description: Direct-flash portrait in a densely decorated room. 80s-90s film aesthetic
+  with warm tungsten tones and bold flash contrast. Focus on photography style.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '3:4'
+- '4:5'
+tags:
+- retro
+- flash
+- portrait
+- room
+- vintage
+- film-aesthetic
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Direct-flash portrait of a [PERSON DESCRIPTION matching target demographic] in a
+  [ROOM THEME — retro gaming den / cozy reading nook / craft room / music room], seated
+  on a [SEATING — couch / chair / floor cushion] holding [PROP — controller / book
+  / drink / phone]. Wearing [YOUR PRODUCT — exact description] with [ACCESSORIES —
+  headphones / hat / jewelry].
+
+
+  Shelves behind densely packed with [SHELF CONTENTS matching room theme — collectibles
+  / books / records / plants]. [PLUSH TOY or DECOR ITEM] beside them.
+
+
+  Camera: 35mm prime, f/2.0, ISO 400-800.
+
+  Lighting: strong direct on-camera flash + warm tungsten [AMBIENT SOURCE — desk lamp
+  / string lights / neon sign] in background. Sharp shadow falloff. 80s-90s film aesthetic.
+
+
+  Low eye-level perspective. Nostalgic, authentic feel.
+
+
+  3:4 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

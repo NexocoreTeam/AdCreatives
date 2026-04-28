@@ -1,0 +1,53 @@
+id: uc-6.1-post-workout-hydration
+name: Post-Workout Hydration (Fitness Scene)
+category: lifestyle
+description: Woman on yoga mat after workout — wiping sweat, holding water bottle.
+  Authentic gym selfie aesthetic with realistic post-exercise details.
+product_types:
+- apparel
+- beverage
+- supplement
+- fitness
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- fitness
+- gym
+- workout
+- lifestyle
+- authentic
+- ugc
+- health
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  A [PERSON DESCRIPTION matching target demographic] sits on a yoga mat after a workout,
+  wiping sweat with the back of one hand and holding [YOUR PRODUCT — water bottle
+  / supplement / towel showing brand] in the other. Authentic gym selfie aesthetic.
+
+
+  Realistic post-exercise details: flushed skin with natural sheen, [HAIR — messy
+  ponytail with flyaways / headband], visible sweat on forehead and arms. Wearing
+  [YOUR APPAREL PRODUCT or WORKOUT OUTFIT — sports bra and leggings / tank and shorts].
+
+
+  Setting: modern gym studio with [EQUIPMENT — dumbbells / resistance bands / mirrors]
+  blurred behind.
+
+  Camera: smartphone front camera selfie, slightly above eye level.
+
+  Lighting: bright overhead LED gym lighting, even coverage.
+
+  Expression: [EXPRESSION — accomplished smile / exhausted but happy / taking a breath].
+
+
+  9:16 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

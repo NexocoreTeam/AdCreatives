@@ -1,0 +1,53 @@
+id: uc-16.9-relaxed-couch-portrait
+name: Relaxed Loungewear Portrait on Couch
+category: lifestyle
+description: Person lounging on couch in branded clothing. Natural features visible.
+  Modern living room with statement art. Influencer lifestyle aesthetic.
+product_types:
+- apparel
+- fashion
+- loungewear
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '3:4'
+- '4:5'
+tags:
+- loungewear
+- couch
+- home
+- lifestyle
+- influencer
+- relaxed
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  A [PERSON DESCRIPTION matching target demographic] lounges on a [COUCH COLOR] couch
+  in [YOUR PRODUCT — exact loungewear / apparel description showing brand text/graphic].
+  Natural features visible: real skin texture, [NATURAL DETAILS — freckles / tan lines].
+  [POSE — reclining with one arm behind head / legs tucked / leaning on arm rest].
+
+
+  Modern living room with [WALL ART — statement art pieces / prints / gallery wall]
+  and ambient lighting. [ROOM DECOR — plants / books / candles / throw pillows].
+
+
+  Camera: 35-50mm portrait lens, low-medium ISO, sharp face with slight background
+  DOF blur.
+
+  Lighting: soft diffused indoor mix of window light + warm [LIGHT SOURCE — wall sconce
+  / lamp / candles].
+
+  Aesthetic: influencer lifestyle, 2000s digital camera vibe, hyper-detailed skin
+  textures.
+
+
+  4:5 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

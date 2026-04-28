@@ -1,0 +1,54 @@
+id: uc-2.3-beauty-product-macro
+name: Beauty Product Macro Shot
+category: product-hero
+description: Editorial beauty macro — model holds product close to camera with dramatic
+  foreshortening. Product tack-sharp, face in soft bokeh. White seamless background.
+product_types:
+- beauty
+- cosmetics
+- accessories
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '3:4'
+tags:
+- beauty
+- macro
+- product-hero
+- editorial
+- close-up
+- hands
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Ultra-photoreal editorial beauty macro shot. A [PERSON DESCRIPTION matching target
+  demographic] holds [YOUR PRODUCT] extremely close to the camera with dramatic perspective.
+  The product is the main focus (tack sharp), while the face is softly out of focus
+  behind it. Pure white seamless background.
+
+
+  Camera: wide-close macro perspective (24-35mm feel), f/2.0-f/2.8, shallow DOF.
+
+  Lighting: clean high-key studio, soft shadows, crisp specular highlights on product.
+
+  Subject: [HAIR DESCRIPTION], [MAKEUP coordinating with product color].
+
+  Hands: both hands framing and holding the product close to lens. [NAIL COLOR matching
+  product]. Perfect hands, five fingers each.
+
+  Product: [EXACT PRODUCT DESCRIPTION from reference images — shape, color, label
+  text, branding].
+
+
+  Quality: ultra realistic skin texture, no plastic smoothing, natural eye catchlights,
+  product label readable and correct, high-end magazine beauty advertising look.
+
+
+  3:4 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

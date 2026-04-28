@@ -1,0 +1,48 @@
+id: uc-15.3-flash-portrait-seasonal
+name: Flash Portrait with Seasonal Background
+category: lifestyle
+description: Candid flash portrait in home setting with seasonal decor. On-camera
+  flash creates hard shadows mixed with warm ambient light. Authentic snapshot feel.
+product_types:
+- apparel
+- fashion
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '4:5'
+tags:
+- flash
+- candid
+- seasonal
+- home
+- snapshot
+- authentic
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Candid portrait of a [PERSON DESCRIPTION matching target demographic] in [YOUR PRODUCT
+  — sweater / hoodie / loungewear] posing with a [EXPRESSION — kissy face / laugh
+  / peace sign / hands pressed to cheeks]. Shot with on-camera flash creating hard
+  shadows and bright highlights, mixed with warm ambient [LIGHT SOURCE — Christmas
+  tree lights / string lights / candles / lamp].
+
+
+  [HOME SETTING — living room at night / cozy den / bedroom] with [DECOR — seasonal
+  decorations / wall art / bookshelves] visible behind. Window [DETAIL — blinds reflecting
+  flash / curtains].
+
+
+  Camera: smartphone camera, wide aperture, fast shutter (flash), high ISO.
+
+  High contrast between flash and ambient. Authentic candid snapshot feel.
+
+
+  4:5 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

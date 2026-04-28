@@ -1,0 +1,58 @@
+id: uc-17.22-vintage-street-style-collage
+name: Vintage Street Style Multi-Panel Editorial
+category: campaign-set
+description: 3-frame editorial poster collage — reflective window shot, ultra-wide
+  street portrait, overhead selfie. Includes translucent UI overlay graphic. Retro
+  analog-digital fusion.
+product_types:
+- apparel
+- fashion
+- accessories
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- vintage
+- street-style
+- multi-panel
+- editorial
+- collage
+- retro
+key_value: Photography style and model posing — not background/setting.
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design precisely.
+
+
+  Editorial poster-style multi-panel collage (3 frames) showing a [PERSON DESCRIPTION
+  matching target demographic] in [YOUR PRODUCT — exact outfit description] with [ACCESSORIES
+  — sunglasses / hat / earphones / watch].
+
+
+  Frame 1: [SHOT TYPE — reflective window / mirror / glass] shot — subject visible
+  through reflection, [URBAN SETTING] behind.
+
+  Frame 2: Ultra-wide [SETTING — cobblestone street / sidewalk / park path] portrait,
+  full body, dramatic perspective.
+
+  Frame 3: Overhead selfie — subject looking up at camera, holding [PROP — drink /
+  phone / bag].
+
+
+  Optional: translucent [UI OVERLAY — music player / social media notification / text
+  message] graphic element overlaid on one panel.
+
+
+  Color palette: [DOMINANT COLORS — warm amber / cool blue / muted earth tones].
+
+  Overcast natural lighting + architectural reflections. Retro analog-digital fusion
+  aesthetic.
+
+
+  9:16 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

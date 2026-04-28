@@ -1,0 +1,52 @@
+id: uc-4.6-flat-lay-social-ad
+name: Flat Lay Social Media Ad (Instagram Post Style)
+category: social-proof
+description: Top-down flat lay of people around a table, designed to look like an
+  Instagram post. Physical table has white strips mimicking IG UI elements.
+product_types:
+- food
+- beverage
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '1:1'
+- '4:5'
+tags:
+- flat-lay
+- overhead
+- social-media
+- instagram
+- creative
+- group
+template_prompt: 'Use the attached images as brand reference.
+
+
+  Ultra-wide-angle top-down flat lay photograph of [NUMBER — 2-4] people sitting around
+  a square dining table, designed to look like an Instagram post. The table has physical
+  white strips at top and bottom edges mimicking Instagram UI (profile picture circle,
+  [USERNAME], verified tick at top; heart/comment/share icons at bottom).
+
+
+  Table center: painted [BRAND COLOR] with [YOUR PRODUCTS / FOOD ITEMS] arranged within
+  it. People seated at each edge wearing [CLOTHING STYLE — casual / branded / coordinated],
+  each [INTERACTING with the product — eating / holding / reaching].
+
+
+  Floor: [FLOOR COLOR] creating visual separation.
+
+  Lighting: professional studio lighting with distinct drop shadows.
+
+  Mood: [MOOD — fun and social / premium / casual hangout].
+
+
+  Shot from directly overhead. Magazine-quality production.
+
+
+  1:1 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok

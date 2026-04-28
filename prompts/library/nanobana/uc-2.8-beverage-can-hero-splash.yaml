@@ -1,0 +1,50 @@
+id: uc-2.8-beverage-can-hero-splash
+name: Beverage Can Hero with Crown Splash
+category: product-hero
+description: Ultra-realistic luxury beverage can photography — condensation droplets,
+  dramatic crown splash behind, fruit and ice at base. Dark themed.
+product_types:
+- beverage
+- food
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '2:3'
+tags:
+- beverage
+- can
+- splash
+- hero
+- luxury
+- condensation
+- dark-theme
+template_prompt: 'Use the attached images as brand reference. Match the exact product
+  design, label, and colors precisely.
+
+
+  Ultra-realistic luxury [YOUR PRODUCT — beverage can/bottle] product photography.
+  The container is centered in frame, covered in ultra-fine condensation droplets
+  with realistic refraction. A dramatic crown-shaped splash of [LIQUID COLOR matching
+  flavor] erupts upward from behind the product.
+
+
+  Background: [DARK COLOR matching product theme] gradient.
+
+  Base: fresh [FRUIT/INGREDIENT TYPE] pieces and crystalline ice scattered at the
+  base.
+
+  Camera: macro lens focus on can and droplets, 8K resolution.
+
+  Lighting: studio, cinematic, high detail, specular highlights on metallic surface.
+
+  Product label: [BRAND NAME] and [FLAVOR TEXT] must be crisp, readable, and correctly
+  spelled.
+
+
+  2:3 aspect ratio.'
+source: 0aicoder0/Ultimate-Nano-Banana-Pro-Collection
+platforms:
+- meta
+- tiktok
