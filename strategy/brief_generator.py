@@ -41,7 +41,7 @@ def generate_briefs(
     """
     awareness = classify_awareness(avatar)
     strategy = get_awareness_strategy(awareness)
-    frameworks = select_frameworks(awareness, count=2)
+    frameworks = select_frameworks(awareness, count=4)
     primary_framework = frameworks[0]
 
     # Build extra context from winning patterns if available
@@ -59,7 +59,7 @@ def generate_briefs(
         brand=brand,
         awareness_strategy=strategy,
         count=count,
-        framework=primary_framework.value,
+        frameworks=[f.value for f in frameworks],
     )
 
     briefs = []
@@ -78,6 +78,9 @@ def generate_briefs(
             framework=framework,
             angle=angle_data.get("angle", ""),
             hook=angle_data.get("hook", ""),
+            hook_type=angle_data.get("hook_type", ""),
+            slot=angle_data.get("slot"),
+            hook_source=angle_data.get("source", ""),
             pain_point=angle_data.get("pain_addressed", ""),
             benefit_callouts=angle_data.get("benefit_callouts", product.benefits[:3]),
             cta=angle_data.get("cta", strategy.get("cta", "Shop Now")),

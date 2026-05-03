@@ -206,6 +206,107 @@ def mine_voc(client: str, category: str):
     console.print("Use this to update your avatar: clients/{client}/avatar.yaml")
 
 
+# ─── VOC → Avatar Sync ───────────────────────────────────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--mode", type=click.Choice(["replace", "merge"]), default="replace",
+              help="replace = overwrite avatar fields with VOC; merge = append")
+@click.option("--apply/--dry-run", default=False,
+              help="--dry-run (default) prints diff only; --apply writes changes")
+def voc_to_avatar(client: str, mode: str, apply: bool):
+    """Sync extracted VOC into the client's avatar.yaml.
+
+    Reads clients/{client}/voc/extracted_pains.yaml and updates avatar.yaml.
+    Always preserves: name, demographic, psychographic, awareness_level.
+    Replaces or merges: pain_points, desires, objections, trigger_events, language_patterns.
+
+    Default is dry-run — preview the diff before committing with --apply.
+    """
+    import yaml as _yaml
+    from models.loader import load_avatar, save_avatar
+    from strategy.voc_miner import voc_to_avatar_fields
+
+    voc_path = Path("clients") / client / "voc" / "extracted_pains.yaml"
+    if not voc_path.exists():
+        console.print(f"[red]No extracted VOC found at {voc_path}[/red]")
+        console.print(f"Run: adc mine-voc --client {client} --category <category>")
+        raise SystemExit(1)
+
+    with open(voc_path) as f:
+        voc_data = _yaml.safe_load(f)
+
+    new_fields = voc_to_avatar_fields(voc_data)
+    avatar = load_avatar(client)
+    if avatar is None:
+        console.print(f"[red]No existing avatar at clients/{client}/avatar.yaml[/red]")
+        raise SystemExit(1)
+
+    before = {
+        "pain_points": len(avatar.pain_points),
+        "desires": len(avatar.desires),
+        "objections": len(avatar.objections),
+        "trigger_events": len(avatar.trigger_events),
+        "language_patterns": len(avatar.language_patterns),
+    }
+
+    if mode == "replace":
+        avatar.pain_points = new_fields["pain_points"]
+        avatar.desires = new_fields["desires"]
+        avatar.objections = new_fields["objections"]
+        avatar.trigger_events = new_fields["trigger_events"]
+        avatar.language_patterns = new_fields["language_patterns"]
+    else:  # merge — append, dedup by primary key
+        existing_pains = {p.pain for p in avatar.pain_points}
+        avatar.pain_points.extend(
+            p for p in new_fields["pain_points"] if p.pain not in existing_pains
+        )
+        existing_desires = {d.desire for d in avatar.desires}
+        avatar.desires.extend(
+            d for d in new_fields["desires"] if d.desire not in existing_desires
+        )
+        avatar.objections = list(dict.fromkeys(avatar.objections + new_fields["objections"]))
+        avatar.trigger_events = list(dict.fromkeys(
+            avatar.trigger_events + new_fields["trigger_events"]
+        ))
+        avatar.language_patterns = list(dict.fromkeys(
+            avatar.language_patterns + new_fields["language_patterns"]
+        ))
+
+    after = {
+        "pain_points": len(avatar.pain_points),
+        "desires": len(avatar.desires),
+        "objections": len(avatar.objections),
+        "trigger_events": len(avatar.trigger_events),
+        "language_patterns": len(avatar.language_patterns),
+    }
+
+    table = Table(title=f"Avatar field counts ({mode} mode)")
+    table.add_column("Field", style="cyan")
+    table.add_column("Before", style="dim")
+    table.add_column("After", style="green")
+    table.add_column("Delta", style="yellow")
+    for key in before:
+        delta = after[key] - before[key]
+        sign = "+" if delta >= 0 else ""
+        table.add_row(key, str(before[key]), str(after[key]), f"{sign}{delta}")
+    console.print(table)
+
+    console.print("\n[cyan]Preserved (untouched):[/cyan]")
+    console.print(f"  name: {avatar.name}")
+    console.print(f"  demographic: {avatar.demographic[:80]}...")
+    console.print(f"  awareness_level: {avatar.awareness_level}")
+
+    if apply:
+        path = save_avatar(client, avatar, backup=True)
+        console.print(f"\n[green]Wrote {path}[/green]")
+        console.print(f"[dim]Backup at {path.with_suffix('.yaml.bak')}[/dim]")
+    else:
+        console.print("\n[yellow]Dry run — no changes written.[/yellow]")
+        console.print(f"Re-run with --apply to write changes to clients/{client}/avatar.yaml")
+
+
 # ─── Performance Feedback Loop ───────────────────────────────────────────────
 
 

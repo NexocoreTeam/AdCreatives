@@ -1,0 +1,26 @@
+brief_id: sbg-co-boy-mama-collection-ee78dc
+client: sbg-co
+product: Boy Mama Collection
+awareness_level: solution_aware
+framework: fab
+angle: "As seen on the Today Show \u2014 credibility through national recognition"
+hook: "This little NC sweatshirt made it onto the Today Show. Here's why moms can't\
+  \ stop ordering it. \U0001F5A4"
+hook_type: Surprising Stat
+slot: 1
+hook_source: "Social proof \u2014 Featured on the Today Show; woman-owned family-run\
+  \ business since 2016"
+pain_point: "Generic matching mom-and-kid sets feel mass-produced and soulless \u2014\
+  \ she wants something that actually means something"
+benefit_callouts:
+- As seen on the Today Show
+- "Made to order in North Carolina \u2014 not a warehouse"
+- Sizes infant through 4XL so y'all match perfectly
+cta: "Shop the set that made national TV \U0001F5A4"
+body_copy: ''
+visual_direction: "Split image \u2014 Today Show logo or TV moment on one side, real\
+  \ mom and toddler son wearing matching sets at home on the other. Warm, cozy, authentic\
+  \ feel. No studio lighting."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

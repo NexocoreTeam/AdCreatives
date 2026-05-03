@@ -44,6 +44,27 @@ def load_avatar(client_slug: str) -> CustomerAvatar | None:
     return CustomerAvatar(**_load_yaml(path))
 
 
+def save_avatar(client_slug: str, avatar: CustomerAvatar, backup: bool = True) -> Path:
+    """Save an avatar to disk. Backs up the existing file to avatar.yaml.bak by default."""
+    import shutil
+
+    path = CLIENTS_DIR / client_slug / "avatar.yaml"
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    if backup and path.exists():
+        shutil.copy2(path, path.with_suffix(".yaml.bak"))
+
+    with open(path, "w") as f:
+        yaml.dump(
+            avatar.model_dump(mode="json"),
+            f,
+            default_flow_style=False,
+            sort_keys=False,
+            allow_unicode=True,
+        )
+    return path
+
+
 def load_style(style_slug: str, category: str = "static") -> Style:
     path = STYLES_DIR / category / f"{style_slug}.yaml"
     if not path.exists():

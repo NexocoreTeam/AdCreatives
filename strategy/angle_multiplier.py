@@ -81,10 +81,14 @@ You operate under the hook-methodology and hook-formulas skills below.
 Output valid YAML only, no markdown fences."""
 
 ANGLE_PROMPT = """Generate {count} distinct messaging angles for this product, one per
-diversity slot. Do not repeat hook_type across slots.
+diversity slot. Do not repeat hook_type across slots. Vary the framework across
+slots — do not pick one framework and apply it to all angles.
 
 DIVERSITY MATRIX (use these hook types in this order):
 {diversity_matrix}
+
+AVAILABLE FRAMEWORKS (pick one per slot, vary across the set):
+{frameworks}
 
 PRODUCT:
   Name: {product_name}
@@ -113,7 +117,7 @@ angles:
     hook: "the actual scroll-stopping hook text"
     source: "which research element this hook came from (pain X, benefit Y, quote Z)"
     pain_addressed: "which pain point this targets"
-    framework: "{framework}"
+    framework: "one of the frameworks above — pick the best fit for this slot"
     benefit_callouts:
       - "Short punchy callout 1"
       - "Short punchy callout 2"
@@ -122,9 +126,11 @@ angles:
     visual_direction: "What the image should convey to support this angle"
     why_it_works: "1-sentence explanation of the psychological trigger"
 
-Quality check before returning: every hook must be traceable to a specific
-research element via the `source` field. If you can't point to where it came
-from, regenerate it."""
+Quality checks before returning:
+1. Every hook must be traceable to a specific research element via `source`.
+   If you can't point to where it came from, regenerate it.
+2. Frameworks must vary across slots. If you find yourself using the same
+   framework twice, swap one for a different framework from the available list."""
 
 
 def generate_angles(
@@ -133,19 +139,26 @@ def generate_angles(
     brand: Brand,
     awareness_strategy: dict,
     count: int = 6,
-    framework: str = "pas",
+    frameworks: list[str] | None = None,
 ) -> list[dict]:
     """Generate multiple messaging angles for a product/avatar combo.
 
     Default count is 6 to fill the first six slots of the diversity matrix
     (Stat, Story, FOMO, Curiosity, Call-out, Contrast/Enemy) — the same set
     DV0x's creative-ad-agent uses for one campaign.
+
+    `frameworks` is a list of CopyFramework values (e.g. ["pas", "bab", "fab"]);
+    the model is instructed to vary the framework across slots. Defaults to a
+    sensible set covering most awareness levels.
     """
     if count > len(DIVERSITY_MATRIX):
         raise ValueError(
             f"count={count} exceeds diversity matrix size ({len(DIVERSITY_MATRIX)}). "
             "Extend DIVERSITY_MATRIX or request fewer angles."
         )
+
+    if not frameworks:
+        frameworks = ["pas", "aida", "bab", "fab"]
 
     pain_summary = "\n".join(
         f"  - [{p.intensity}] {p.pain}: {', '.join(p.customer_language[:2])}"
@@ -155,10 +168,12 @@ def generate_angles(
         f"  - {d.desire}: {', '.join(d.customer_language[:2])}"
         for d in avatar.desires[:3]
     )
+    frameworks_text = "\n".join(f"  - {f}" for f in frameworks)
 
     prompt = ANGLE_PROMPT.format(
         count=count,
         diversity_matrix=_diversity_matrix_text(count),
+        frameworks=frameworks_text,
         product_name=product.name,
         product_description=product.description,
         benefits=", ".join(product.benefits[:5]),
@@ -172,7 +187,6 @@ def generate_angles(
         language_patterns=", ".join(avatar.language_patterns[:3]) or "casual and direct",
         brand_tone=brand.tone,
         approach=awareness_strategy.get("approach", ""),
-        framework=framework,
     )
 
     result = claude_complete(prompt, system=ANGLE_SYSTEM)

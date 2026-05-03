@@ -26,7 +26,7 @@ def claude_complete(prompt: str, system: str = "", max_tokens: int = 4096) -> st
     """Simple Claude completion wrapper."""
     client = get_anthropic_client()
     messages = [{"role": "user", "content": prompt}]
-    kwargs: dict = {"model": "claude-sonnet-4-20250514", "max_tokens": max_tokens, "messages": messages}
+    kwargs: dict = {"model": "claude-sonnet-4-6", "max_tokens": max_tokens, "messages": messages}
     if system:
         kwargs["system"] = system
     response = client.messages.create(**kwargs)

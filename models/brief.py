@@ -42,6 +42,22 @@ class CreativeBrief(BaseModel):
     hook: str = Field(
         description="The opening hook / headline that stops the scroll"
     )
+    hook_type: str = Field(
+        default="",
+        description="Diversity matrix hook type: Surprising Stat, Story / Result, "
+        "FOMO / Urgency, Curiosity Gap, Direct Address / Call-out, Contrast / Enemy, "
+        "Question, Pattern Interrupt, Controversial, Problem-Solution",
+    )
+    slot: int | None = Field(
+        default=None,
+        description="Slot in the diversity matrix (1-10) — used to verify the brief "
+        "set covers distinct emotional triggers",
+    )
+    hook_source: str = Field(
+        default="",
+        description="Which research element this hook came from (pain X, benefit Y, "
+        "verbatim quote Z). Enforces the research-first methodology.",
+    )
     pain_point: str = Field(
         default="",
         description="The specific pain being addressed (in customer language)",
