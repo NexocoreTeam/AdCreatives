@@ -10,11 +10,15 @@ Strategy Layer          →  Generation Layer  →  Validation Layer
 
 • VOC Mining               • Prompt Composer      • Brand Compliance
 • Schwartz Awareness       • fal.ai Client        • Platform Specs
-• Angle Multiplier         • Reference Analyzer   • Legal/Compliance
-• Brief Generator          • Platform Adapter     • Performance Loop
-• Pattern Learner
+• Angle Multiplier         • Reference Analyzer   • Copy char limits
+• Brief Generator          • Platform Adapter     • Legal/Compliance
+• Pattern Learner                                 • Performance Loop
 • Matrix Builder
 ```
+
+The strategy layer loads markdown skills from [prompts/skills/](prompts/skills/) as
+LLM system context. Each skill carries an attribution header — see
+[Skill provenance](#skill-provenance) below.
 
 ## Quick Start
 
@@ -112,6 +116,62 @@ Create brand profile (colors, fonts, tone, audience), add products, add customer
 | BAB | Transformation | Before → After → Bridge |
 | FAB | Features | Features → Advantages → Benefits |
 | SLAP | Most Aware | Stop → Look → Act → Purchase |
+
+## Hook Diversity Matrix
+
+The angle multiplier enforces one hook per emotional trigger so generated sets
+vary across cognitive levers, not just phrasing.
+
+| Slot | Hook Type | Trigger |
+|---|---|---|
+| 1 | Surprising Stat | Social Proof / Credibility |
+| 2 | Story / Result | Empathy + Relief |
+| 3 | FOMO / Urgency | Loss Aversion |
+| 4 | Curiosity Gap | Intrigue |
+| 5 | Direct Address / Call-out | Recognition |
+| 6 | Contrast / Enemy | Differentiation |
+| 7 | Question | Self-reference |
+| 8 | Pattern Interrupt | Pattern break |
+| 9 | Controversial | Polarization |
+| 10 | Problem-Solution | Pain → relief |
+
+## Copy Validation
+
+Check ad copy against platform char limits before shipping:
+
+```bash
+# Single check
+adc check-copy --text "Your headline" --platform meta --field headline --trim
+
+# See all platform/field limits
+adc list-copy-specs
+```
+
+Supported: meta, google, tiktok, linkedin, x — full table in
+[validators/copy_checker.py](validators/copy_checker.py).
+
+## Phase 2 — Video (scaffolded, not yet wired)
+
+Per-client video output goes under `clients/<slug>/videos/<campaign>/`. The
+directory layout mirrors the [tvc-director](references/tvc-director/) skill —
+see [clients/_template/videos/README.md](clients/_template/videos/README.md)
+for the structure, narrative models, and intended workflow.
+
+## Skill provenance
+
+Markdown skills in [prompts/skills/](prompts/skills/) are imported from
+third-party MIT-licensed repos. Each file has an attribution header.
+
+| Skill | Source repo | Used by |
+|---|---|---|
+| customer-research.md | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | `strategy/voc_miner.py` |
+| product-marketing-context.md | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | brand/avatar context expansion |
+| hook-methodology.md | [DV0x/creative-ad-agent](https://github.com/DV0x/creative-ad-agent) | `strategy/angle_multiplier.py` |
+| hook-formulas.md | [DV0x/creative-ad-agent](https://github.com/DV0x/creative-ad-agent) | `strategy/angle_multiplier.py` |
+
+Reference snapshot of the [tvc-director](references/tvc-director/) skill
+([Ethanxwang/tvc-director](https://github.com/Ethanxwang/tvc-director), MIT)
+is kept under `references/` for the future Phase 2 video pipeline.
 
 ## Requirements
 

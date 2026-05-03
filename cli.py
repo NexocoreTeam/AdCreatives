@@ -373,6 +373,50 @@ def check_compliance(text: str | None, brief_id: str | None, client: str | None,
             console.print(f"  [yellow]WARN[/yellow]  [{i.category}] {i.rule}: matched '{i.match}'")
 
 
+# ─── Check Copy Length ───────────────────────────────────────────────────────
+
+
+@cli.command()
+@click.option("--text", required=True, help="The ad copy text to check")
+@click.option("--platform", required=True, help="Platform: meta, google, tiktok, linkedin, x")
+@click.option("--field", required=True, help="Field: headline, primary_text, description, etc. (use --list-fields to see)")
+@click.option("--trim/--no-trim", default=False, help="Show a trimmed suggestion if over limit")
+def check_copy(text: str, platform: str, field: str, trim: bool):
+    """Check ad copy text against platform char limits."""
+    from validators.copy_checker import Severity, check_copy as _check, suggest_trim
+
+    result = _check(text, platform=platform, field=field)
+
+    icon = {
+        Severity.OK: "[green]PASS[/green]",
+        Severity.WARNING: "[yellow]WARN[/yellow]",
+        Severity.ERROR: "[red]FAIL[/red]",
+    }[result.severity]
+
+    console.print(f"\n{icon} {result.platform}/{result.field}: {result.detail}")
+
+    if not result.passed and trim:
+        suggestion = suggest_trim(text, target=result.recommended)
+        console.print(f"\n[cyan]Trimmed to {result.recommended} chars:[/cyan]")
+        console.print(f"  {suggestion}")
+
+
+@cli.command()
+def list_copy_specs():
+    """List all platforms and fields with their char limits."""
+    from validators.copy_checker import PLATFORM_LIMITS, list_platforms
+
+    for platform in list_platforms():
+        table = Table(title=f"{platform.upper()} ad copy limits")
+        table.add_column("Field", style="cyan")
+        table.add_column("Recommended", style="green")
+        table.add_column("Hard max", style="yellow")
+        for field, limits in PLATFORM_LIMITS[platform].items():
+            hard = str(limits["hard_max"]) if limits["hard_max"] is not None else "—"
+            table.add_row(field, str(limits["recommended"]), hard)
+        console.print(table)
+
+
 # ─── Validate Image ──────────────────────────────────────────────────────────
 
 

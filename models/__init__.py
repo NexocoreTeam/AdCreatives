@@ -4,6 +4,7 @@ from models.style import Style, PlatformSize, CompositionRule, Variant, CameraSp
 from models.avatar import CustomerAvatar, PainPoint, Desire
 from models.brief import CreativeBrief, CopyFramework, AwarenessLevel
 from models.result import CreativeResult, WinningPatterns
+from models.skills import load_skill, list_skills
 
 __all__ = [
     "Brand",
@@ -24,4 +25,6 @@ __all__ = [
     "AwarenessLevel",
     "CreativeResult",
     "WinningPatterns",
+    "load_skill",
+    "list_skills",
 ]
