@@ -58,6 +58,26 @@ class CreativeBrief(BaseModel):
         description="Which research element this hook came from (pain X, benefit Y, "
         "verbatim quote Z). Enforces the research-first methodology.",
     )
+    hook_tactic: str = Field(
+        default="",
+        description="Specific tactic from Motion's hook-tactics library "
+        "(e.g. 'Specific stat with a story', 'Pattern interrupt with a confession')",
+    )
+    persona: str = Field(
+        default="",
+        description="Persona segment this brief targets (from Motion's "
+        "creative-strategy-engine pain × persona mapping)",
+    )
+    creative_mechanic: str = Field(
+        default="",
+        description="Structural mechanic from Motion's creative-mechanics library "
+        "(e.g. 'Pattern Interrupt with Reveal', 'Before/After Split')",
+    )
+    visual_format: str = Field(
+        default="",
+        description="Visual format from Motion's visual-formats library "
+        "(e.g. 'UGC Static', 'Split-screen video', 'Text-on-product photo')",
+    )
     pain_point: str = Field(
         default="",
         description="The specific pain being addressed (in customer language)",

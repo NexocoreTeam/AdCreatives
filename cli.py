@@ -61,6 +61,375 @@ def list_clients():
     console.print(table)
 
 
+# ─── Brand Research (auto + interactive) ────────────────────────────────────
+
+
+def _flatten(field):
+    """Strip {value, confidence, source} envelopes recursively to plain values."""
+    if isinstance(field, dict) and "value" in field and "confidence" in field:
+        return field["value"]
+    if isinstance(field, dict):
+        return {k: _flatten(v) for k, v in field.items()}
+    if isinstance(field, list):
+        return [_flatten(item) for item in field]
+    return field
+
+
+def _slugify(text: str) -> str:
+    import re
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-") or "untitled"
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug (will be created if missing)")
+@click.option("--url", required=True, help="Brand homepage URL")
+@click.option("--max-products", default=3, type=int, help="Max products to focus on")
+@click.option("--auto/--review", default=False,
+              help="--auto skips PHASE 4 confirmations and accepts all extractions as-is")
+def research(client: str, url: str, max_products: int, auto: bool):
+    """Brand research using Motion's interview-first methodology.
+
+    Phase 1: 6 batched seed questions about products, audience, competitors,
+    constraints, and existing creative.
+    Phase 2: Web research — fetches homepage and standard sub-pages.
+    Phase 3: Compiles a comprehensive brand-context.md doc using the
+    motion/brand-intake skill + structured data with confidence tagging.
+    Phase 4: Interactive review — confirm extractions, fill gaps, write YAMLs.
+    """
+    import shutil
+    import yaml as _yaml
+
+    from strategy.researcher import (
+        INTAKE_QUESTIONS,
+        confidence_buckets,
+        fetch_pages,
+        run_brand_intake,
+    )
+
+    client_dir = Path("clients") / client
+
+    if not client_dir.exists():
+        if not click.confirm(
+            f"Client '{client}' doesn't exist. Create from template?", default=True
+        ):
+            raise SystemExit(0)
+        shutil.copytree("clients/_template", client_dir)
+        console.print(f"[green]Created clients/{client}/[/green]")
+    elif (client_dir / "brand.yaml").exists():
+        console.print(f"[yellow]Warning: clients/{client}/brand.yaml already exists.[/yellow]")
+        if not click.confirm("Overwrite existing files at the end?", default=False):
+            raise SystemExit(0)
+
+    # ─── PHASE 1: INTAKE INTERVIEW ────────────────────────────────────────
+    console.print("\n[bold cyan]PHASE 1 — INTAKE INTERVIEW[/bold cyan]")
+    console.print("[dim]Answer all questions before research begins. Type 'skip' to leave blank.[/dim]\n")
+    brand_name = click.prompt("  Brand name", default="")
+    console.print()
+    for q in INTAKE_QUESTIONS:
+        console.print(f"  [yellow]Q[/yellow] {q['prompt']}")
+    console.print()
+
+    seed_answers: dict[str, str] = {}
+    for q in INTAKE_QUESTIONS:
+        ans = click.prompt(f"  [{q['key']}]", default=q["default"])
+        seed_answers[q["key"]] = "" if ans.lower() == "skip" else ans
+
+    # ─── PHASE 2: WEB RESEARCH ────────────────────────────────────────────
+    console.print("\n[bold cyan]PHASE 2 — WEB RESEARCH[/bold cyan]")
+    with console.status(f"Fetching pages from {url}..."):
+        pages = fetch_pages(url)
+
+    if not pages:
+        console.print(f"[red]No pages fetched from {url}. Check the URL.[/red]")
+        raise SystemExit(1)
+    console.print(f"[green]Fetched {len(pages)} pages:[/green]")
+    for page_url in pages:
+        console.print(f"  - {page_url}")
+
+    # ─── PHASE 3: BUILD BRAND CONTEXT ─────────────────────────────────────
+    console.print("\n[bold cyan]PHASE 3 — BUILDING BRAND CONTEXT[/bold cyan]")
+    with console.status("Compiling brand-context.md + structured data with Claude Sonnet 4.6..."):
+        result = run_brand_intake(
+            brand_name=brand_name,
+            brand_url=url,
+            seed_answers=seed_answers,
+            pages=pages,
+        )
+    data = result.data
+    console.print("[green]Compiled.[/green]\n")
+
+    context_path = client_dir / "brand-context.md"
+    context_path.write_text(result.brand_context_md, encoding="utf-8")
+    console.print(f"[green]Wrote {context_path}[/green]")
+    console.print(f"[dim]Open it: cat {context_path}[/dim]\n")
+
+    # ─── PHASE 4: REVIEW & CONFIRM ────────────────────────────────────────
+    console.print("[bold cyan]PHASE 4 — REVIEW EXTRACTIONS[/bold cyan]\n")
+    if auto:
+        console.print("[dim](--auto mode: skipping interactive review, accepting all extractions)[/dim]\n")
+    buckets = confidence_buckets(data)
+
+    if buckets["high"]:
+        console.print(f"[bold green]HIGH CONFIDENCE — {len(buckets['high'])} items auto-accepted:[/bold green]")
+        for path, field in buckets["high"]:
+            val = field.get("value")
+            display = str(val)[:80] + ("..." if len(str(val)) > 80 else "")
+            console.print(f"  [green]✓[/green] {path}: {display!r}")
+            console.print(f"      [dim]from {field.get('source', '')}[/dim]")
+        console.print()
+
+    if buckets["medium"]:
+        console.print(f"[bold yellow]MEDIUM CONFIDENCE — {len(buckets['medium'])} items:[/bold yellow]")
+        for path, field in buckets["medium"]:
+            console.print(f"\n  {path}: {field.get('value')!r}")
+            console.print(f"  [dim]source: {field.get('source', '')}[/dim]")
+            if not auto and not click.confirm("  Accept?", default=True):
+                new_val = click.prompt("  Correct value (or empty to skip)", default="")
+                if new_val:
+                    field["value"] = new_val
+        console.print()
+
+    if buckets["low"] or buckets["unknown"]:
+        items = buckets["low"] + buckets["unknown"]
+        console.print(f"[bold red]LOW / UNKNOWN — {len(items)} items:[/bold red]")
+        for path, field in items:
+            console.print(f"\n  {path}")
+            current = field.get("value")
+            if current:
+                console.print(f"  [dim]My guess: {current!r} ({field.get('source', 'inference')})[/dim]")
+            if not auto:
+                answer = click.prompt("  Value (or 'skip')", default=str(current) if current else "skip")
+                if answer.lower() != "skip":
+                    field["value"] = answer
+        console.print()
+
+    questions = data.get("questions_for_user", []) or []
+    if questions and not auto:
+        console.print(f"[bold cyan]LLM ASKS — {len(questions)} clarifying questions:[/bold cyan]")
+        extra_answers = {}
+        for q in questions:
+            console.print(f"\n  [cyan]{q.get('field', '?')}[/cyan]")
+            console.print(f"  Q: {q.get('question', '')}")
+            console.print(f"  [dim]Why: {q.get('why_asking', '')}[/dim]")
+            answer = click.prompt("  A (or 'skip')", default="skip")
+            if answer.lower() != "skip":
+                extra_answers[q.get("field", "")] = answer
+        for field_path, value in extra_answers.items():
+            parts = field_path.split(".")
+            target = data
+            for part in parts[:-1]:
+                target = target.setdefault(part, {})
+            if isinstance(target.get(parts[-1]), dict) and "value" in target[parts[-1]]:
+                target[parts[-1]]["value"] = value
+            else:
+                target[parts[-1]] = {"value": value, "confidence": "high", "source": "user"}
+    elif questions and auto:
+        console.print(f"[dim]LLM had {len(questions)} clarifying questions — skipped in --auto mode.[/dim]")
+        for q in questions:
+            console.print(f"  [dim]- {q.get('field')}: {q.get('question')}[/dim]")
+
+    products = data.get("products", []) or []
+    chosen_products = []
+    if products:
+        console.print(f"\n[bold]PRODUCTS — {len(products)} found:[/bold]")
+        for i, p in enumerate(products, 1):
+            name = _flatten(p.get("name", "?"))
+            price = _flatten(p.get("price", "?"))
+            hero = " [HERO]" if p.get("is_likely_hero") else ""
+            console.print(f"  [{i}] {name} — {price}{hero}")
+        default_choice = ",".join(
+            str(i + 1) for i, p in enumerate(products[:max_products])
+            if p.get("is_likely_hero")
+        ) or "1"
+        if auto:
+            choice = default_choice
+            console.print(f"\n  [dim](--auto: picking {default_choice})[/dim]")
+        else:
+            choice = click.prompt(
+                f"\n  Which to focus on? (comma-separated, max {max_products}, or 'all')",
+                default=default_choice,
+            )
+        if choice.strip().lower() == "all":
+            chosen_products = products[:max_products]
+        else:
+            indices = [int(i.strip()) - 1 for i in choice.split(",") if i.strip().isdigit()]
+            chosen_products = [products[i] for i in indices if 0 <= i < len(products)][:max_products]
+
+        for product in chosen_products:
+            pname = _flatten(product.get("name", "?"))
+            console.print(f"\n  [cyan]Follow-ups for: {pname}[/cyan]")
+            if not auto:
+                mech = click.prompt("    Unique mechanism / why it works (or 'skip')", default="skip")
+                if mech.lower() != "skip":
+                    product["_unique_mechanism"] = mech
+                benefits = click.prompt("    Top 3 benefits, comma-separated (or 'skip')", default="skip")
+                if benefits.lower() != "skip":
+                    product["_benefits"] = [b.strip() for b in benefits.split(",")]
+
+    console.print("\n[bold magenta]CUSTOMER AVATAR[/bold magenta] (site can't tell us this — please share):")
+    signals = data.get("avatar_signals", {}) or {}
+    if signals:
+        console.print(f"  [dim]Site signals: {signals.get('inferred_demographic', '?')}[/dim]")
+
+    auto_pains: list[str] = []
+    auto_desires: list[str] = []
+    auto_objections: list[str] = []
+    auto_triggers: list[str] = []
+
+    if auto:
+        demo = str(signals.get("inferred_demographic", ""))
+        psycho = ""
+        aware = signals.get("inferred_awareness_level", "problem_aware")
+        # Use the raw lists directly — comma-splitting breaks on punctuation inside sentences.
+        auto_pains = [p for p in signals.get("inferred_pain_points", []) if p]
+        auto_desires = [d for d in signals.get("inferred_desires", []) if d]
+        auto_objections = [o for o in signals.get("inferred_objections", []) if o]
+        auto_triggers = [t for t in signals.get("inferred_trigger_events", []) if t]
+        pain_input = desire_input = objection_input = trigger_input = "skip"
+        console.print("  [dim](--auto: using signals from research)[/dim]")
+    else:
+        demo = click.prompt(
+            "  Demographic (age, gender, location, income)",
+            default=str(signals.get("inferred_demographic", "")),
+        )
+        psycho = click.prompt(
+            "  Psychographic (values, lifestyle — 1-2 sentences)", default=""
+        )
+        aware = click.prompt(
+            "  Awareness level",
+            type=click.Choice(
+                ["unaware", "problem_aware", "solution_aware", "product_aware", "most_aware"]
+            ),
+            default=signals.get("inferred_awareness_level", "problem_aware"),
+        )
+        pain_input = click.prompt("  Top 3 pain points, comma-separated (or 'skip')", default="skip")
+        desire_input = click.prompt("  Top desires, comma-separated (or 'skip')", default="skip")
+        objection_input = click.prompt("  Top objections, comma-separated (or 'skip')", default="skip")
+        trigger_input = click.prompt("  Trigger events that make them buy (or 'skip')", default="skip")
+
+    brand_data = data.get("brand", {})
+    brand_yaml = {
+        "name": _flatten(brand_data.get("name", {"value": ""})),
+        "colors": {
+            "primary": _flatten(brand_data.get("colors", {}).get("primary", {"value": "#000000"})),
+            "secondary": _flatten(brand_data.get("colors", {}).get("secondary", {"value": "#FFFFFF"})),
+            "background": _flatten(brand_data.get("colors", {}).get("background", {"value": "#FFFFFF"})),
+        },
+        "typography": {
+            "heading": _flatten(brand_data.get("typography", {}).get("heading", {"value": "Sans-Serif"})),
+            "body": _flatten(brand_data.get("typography", {}).get("body", {"value": "Sans-Serif"})),
+        },
+        "tone": _flatten(brand_data.get("tone", {"value": ""})),
+        "audience": {
+            "age_range": _flatten(brand_data.get("audience", {}).get("age_range", {"value": ""})),
+            "gender": _flatten(brand_data.get("audience", {}).get("gender", {"value": ""})),
+            "interests": _flatten(brand_data.get("audience", {}).get("interests", {"value": []})),
+        },
+        "platforms": ["meta", "tiktok"],
+        "press_mentions": _flatten(brand_data.get("press_mentions", {"value": []})),
+        "social_proof": _flatten(brand_data.get("social_proof", {"value": []})),
+        "founded": _flatten(brand_data.get("founded", {"value": ""})),
+        "founder": _flatten(brand_data.get("founder", {"value": ""})),
+        "mission": _flatten(brand_data.get("mission", {"value": ""})),
+        "tagline": _flatten(brand_data.get("tagline", {"value": ""})),
+    }
+
+    if auto:
+        pain_list = [
+            {"pain": p, "intensity": "medium", "customer_language": [], "source": "auto_from_site_signals"}
+            for p in auto_pains
+        ]
+        desire_list = [{"desire": d, "customer_language": []} for d in auto_desires]
+        objection_list = list(auto_objections)
+        trigger_list = list(auto_triggers)
+    else:
+        pain_list = (
+            []
+            if pain_input.lower() == "skip"
+            else [
+                {"pain": p.strip(), "intensity": "medium", "customer_language": [], "source": "research_interview"}
+                for p in pain_input.split(",") if p.strip()
+            ]
+        )
+        desire_list = (
+            []
+            if desire_input.lower() == "skip"
+            else [
+                {"desire": d.strip(), "customer_language": []}
+                for d in desire_input.split(",") if d.strip()
+            ]
+        )
+        objection_list = (
+            [] if objection_input.lower() == "skip"
+            else [o.strip() for o in objection_input.split(",") if o.strip()]
+        )
+        trigger_list = (
+            [] if trigger_input.lower() == "skip"
+            else [t.strip() for t in trigger_input.split(",") if t.strip()]
+        )
+
+    avatar_yaml = {
+        "name": "Auto-drafted — please review and rename",
+        "demographic": demo,
+        "psychographic": psycho,
+        "pain_points": pain_list,
+        "desires": desire_list,
+        "objections": objection_list,
+        "trigger_events": trigger_list,
+        "awareness_level": aware,
+        "language_patterns": [],
+        "current_solutions": [],
+    }
+
+    console.print("\n[bold]READY TO WRITE:[/bold]")
+    console.print(f"  brand.yaml ({len([k for k in brand_yaml if brand_yaml[k]])} populated fields)")
+    console.print(f"  {len(chosen_products)} product YAML(s)")
+    console.print(f"  avatar.yaml (DRAFT — please review)")
+
+    if not auto and not click.confirm(f"\nWrite to clients/{client}/?", default=True):
+        console.print("[yellow]Aborted, no files written.[/yellow]")
+        raise SystemExit(0)
+
+    (client_dir / "brand.yaml").write_text(
+        _yaml.dump(brand_yaml, sort_keys=False, allow_unicode=True), encoding="utf-8"
+    )
+
+    products_dir = client_dir / "products"
+    products_dir.mkdir(exist_ok=True)
+    written_products = []
+    for product in chosen_products:
+        pname = _flatten(product.get("name", "untitled"))
+        slug = _slugify(pname)
+        prod_yaml = {
+            "name": pname,
+            "description": _flatten(product.get("description", {"value": ""})),
+            "price": str(_flatten(product.get("price", {"value": ""}))),
+            "category": "general",
+            "image_url": _flatten(product.get("image_url", {"value": ""})),
+            "url": _flatten(product.get("url", {"value": ""})),
+            "unique_mechanism": product.get("_unique_mechanism", ""),
+            "benefits": product.get("_benefits", []),
+            "objections": [],
+            "social_proof": [],
+        }
+        path = products_dir / f"{slug}.yaml"
+        path.write_text(_yaml.dump(prod_yaml, sort_keys=False, allow_unicode=True), encoding="utf-8")
+        written_products.append(slug)
+
+    (client_dir / "avatar.yaml").write_text(
+        _yaml.dump(avatar_yaml, sort_keys=False, allow_unicode=True), encoding="utf-8"
+    )
+
+    console.print(f"\n[green]Wrote brand.yaml, {len(written_products)} product(s), and avatar.yaml.[/green]")
+    console.print("\n[bold]Next steps:[/bold]")
+    console.print(f"  1. Review the files: clients/{client}/brand.yaml, avatar.yaml, products/")
+    console.print(f"  2. Add customer reviews to clients/{client}/voc/ (.json or .txt)")
+    console.print(f"  3. adc mine-voc --client {client} --category <category>")
+    console.print(f"  4. adc voc-to-avatar --client {client} --apply  (after reviewing the VOC)")
+    if written_products:
+        console.print(f"  5. adc brief --client {client} --product {written_products[0]} --angles 6")
+
+
 # ─── Strategy: Brief Generation ─────────────────────────────────────────────
 
 

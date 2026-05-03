@@ -44,12 +44,21 @@ CONFIDENCE SCORING — label every insight with a confidence level:
 SAMPLE BIAS — note that online reviewers skew toward power users and people with
 strong opinions. Don't over-generalize from a small sample.
 
-You operate under the customer-research skill below. Follow its extraction
-framework, synthesis steps, and quality guardrails.
+You operate under TWO complementary skills below:
+1. customer-research (coreyhaines31) — JTBD, confidence scoring, sample bias
+2. motion/review-audit (Motion) — 5-tier review quality scoring, 5 insight buckets
+   (pain points, trigger moments, objections, transformations, standout language)
 
----
+Apply BOTH frameworks. Score reviews 1-5 per Motion's rubric, discard 1s, and
+extract the structured fields below from the rest.
+
+--- CUSTOMER RESEARCH SKILL ---
 
 """ + load_skill("customer-research") + """
+
+--- REVIEW AUDIT SKILL (Motion) ---
+
+""" + load_skill("motion/review-audit") + """
 
 ---
 
@@ -60,7 +69,15 @@ VOC_EXTRACTION_PROMPT = """Analyze these customer reviews for {product_category}
 REVIEWS:
 {reviews}
 
+Per Motion's review-audit methodology, score every review 1-5 first, discard
+1s, and prioritize 4s and 5s for quote extraction.
+
 Extract and return as YAML with this structure:
+
+review_quality_scores:
+  total: <integer>
+  by_score: {{1: <int>, 2: <int>, 3: <int>, 4: <int>, 5: <int>}}
+  discarded: <int>  # those scored 1
 
 jobs_to_be_done:
   - job: "the outcome they're hiring the product for"
@@ -78,6 +95,12 @@ pain_points:
       - "another exact quote"
     source: "{source}"
 
+trigger_moments:
+  # Motion bucket 2: what finally made them buy
+  - trigger: "the moment, event, or realization"
+    customer_language: ["exact quote"]
+    confidence: "high/medium/low"
+
 desires:
   - desire: "what they want"
     confidence: "high/medium/low"
@@ -85,10 +108,16 @@ desires:
       - "exact quote"
 
 objections:
-  - objection: "the concern"
+  - objection: "the concern (often past-tense in positive reviews: 'I was skeptical but...')"
     confidence: "high/medium/low"
     customer_language:
       - "exact quote"
+
+transformations:
+  # Motion bucket 4: before/after change customers describe
+  - transformation: "what changed for them"
+    customer_language: ["exact before/after quote"]
+    confidence: "high/medium/low"
 
 trigger_events:
   - event: "what made them look for a solution"
@@ -102,8 +131,9 @@ language_patterns:
   - "how they talk — formal/casual, jargon, emotional register"
 
 money_quotes:
+  # Motion bucket 5: standout language ready for ad copy
   - quote: "the verbatim quote"
-    theme: "which theme it represents (pain, desire, etc.)"
+    theme: "pain | trigger | objection | transformation | standout"
     why_it_matters: "what makes this quote useful for ad copy"
 
 sample_notes:
@@ -111,8 +141,9 @@ sample_notes:
   bias_warnings: ["any biases worth flagging"]
   recency: "how recent the reviews are if discernible"
 
-Return 5-10 pain points ranked by intensity, 3-5 desires, 3-5 objections, 3-5 trigger
-events, 3-5 jobs-to-be-done, 5-10 money quotes. Use ONLY language that actually
+Return 5-10 pain points ranked by intensity, 3-5 desires, 3-5 objections,
+3-5 trigger events, 3-5 trigger moments, 3-5 transformations, 3-5
+jobs-to-be-done, 5-10 money quotes. Use ONLY language that actually
 appears in the reviews. Do not invent quotes."""
 
 
@@ -185,13 +216,16 @@ def _merge_insights(insights_list: list[dict]) -> dict:
     merged = {
         "jobs_to_be_done": [],
         "pain_points": [],
+        "trigger_moments": [],
         "desires": [],
         "objections": [],
+        "transformations": [],
         "trigger_events": [],
         "alternatives_considered": [],
         "language_patterns": [],
         "money_quotes": [],
         "sample_notes": [],
+        "review_quality_scores": [],
     }
     for insights in insights_list:
         for key in merged:

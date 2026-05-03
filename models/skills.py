@@ -13,16 +13,19 @@ from pathlib import Path
 SKILLS_DIR = Path("prompts/skills")
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=32)
 def load_skill(name: str) -> str:
     """Load a skill markdown file by name (without .md extension).
+
+    Supports nested paths: 'motion/brand-intake' resolves to
+    prompts/skills/motion/brand-intake.md.
 
     Strips the leading HTML attribution comment so the returned content is
     ready to use as LLM system context.
     """
     path = SKILLS_DIR / f"{name}.md"
     if not path.exists():
-        available = sorted(p.stem for p in SKILLS_DIR.glob("*.md")) if SKILLS_DIR.exists() else []
+        available = list_skills()
         raise FileNotFoundError(
             f"Skill '{name}' not found at {path}. Available: {', '.join(available) or '(none)'}"
         )
@@ -39,7 +42,13 @@ def load_skill(name: str) -> str:
 
 
 def list_skills() -> list[str]:
-    """Return names of all available skills (without .md extension)."""
+    """Return names of all available skills (without .md extension).
+
+    Includes nested skills under subdirectories, e.g. 'motion/brand-intake'.
+    """
     if not SKILLS_DIR.exists():
         return []
-    return sorted(p.stem for p in SKILLS_DIR.glob("*.md"))
+    return sorted(
+        str(p.relative_to(SKILLS_DIR).with_suffix("")).replace("\\", "/")
+        for p in SKILLS_DIR.rglob("*.md")
+    )

@@ -157,17 +157,51 @@ directory layout mirrors the [tvc-director](references/tvc-director/) skill —
 see [clients/_template/videos/README.md](clients/_template/videos/README.md)
 for the structure, narrative models, and intended workflow.
 
+## Brand Onboarding (interview-first research)
+
+```bash
+adc research --client my-client --url https://example.com
+```
+
+Phase 1 collects 6 batched seed questions (products, audience, competitors,
+constraints, existing creative). Phase 2 fetches the homepage and standard
+sub-pages. Phase 3 compiles a comprehensive `brand-context.md` doc using
+Motion's [brand-intake skill](prompts/skills/motion/brand-intake.md).
+Phase 4 walks through extracted fields by confidence (high = auto-accept,
+medium = quick confirm, low/unknown = your input), then writes
+`brand.yaml`, `products/<slug>.yaml`, and a draft `avatar.yaml`.
+
 ## Skill provenance
 
 Markdown skills in [prompts/skills/](prompts/skills/) are imported from
 third-party MIT-licensed repos. Each file has an attribution header.
 
-| Skill | Source repo | Used by |
-|---|---|---|
-| customer-research.md | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | `strategy/voc_miner.py` |
-| product-marketing-context.md | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | brand/avatar context expansion |
-| hook-methodology.md | [DV0x/creative-ad-agent](https://github.com/DV0x/creative-ad-agent) | `strategy/angle_multiplier.py` |
-| hook-formulas.md | [DV0x/creative-ad-agent](https://github.com/DV0x/creative-ad-agent) | `strategy/angle_multiplier.py` |
+### From [Motion](https://github.com/motion-team/creative-strategy-skills) (Alysha @ Motion)
+
+| Skill | Used by |
+|---|---|
+| [motion/brand-intake.md](prompts/skills/motion/brand-intake.md) | `strategy/researcher.py` (interview + research → brand-context.md) |
+| [motion/review-audit.md](prompts/skills/motion/review-audit.md) | `strategy/voc_miner.py` (5-tier review scoring + 5 insight buckets) |
+| [motion/creative-strategy-engine.md](prompts/skills/motion/creative-strategy-engine.md) | `strategy/angle_multiplier.py` (pain × persona × awareness matrix) |
+| [motion/hook-tactics.md](prompts/skills/motion/hook-tactics.md) | `strategy/angle_multiplier.py` (35+ tactical hook formats) |
+| [motion/hook-writing.md](prompts/skills/motion/hook-writing.md) | `strategy/angle_multiplier.py` (psychologically driven composition) |
+| [motion/hook-voice-patterns.md](prompts/skills/motion/hook-voice-patterns.md) | `strategy/angle_multiplier.py` (native-feed swipe file) |
+| [motion/creative-mechanics.md](prompts/skills/motion/creative-mechanics.md) | `generators/prompt_engine.py` (structural ad concepts) |
+| [motion/visual-formats.md](prompts/skills/motion/visual-formats.md) | `generators/prompt_engine.py` (45+ Meta/paid social formats) |
+
+### From [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills)
+
+| Skill | Used by |
+|---|---|
+| [customer-research.md](prompts/skills/customer-research.md) | `strategy/voc_miner.py` (JTBD, confidence scoring, sample bias) |
+| [product-marketing-context.md](prompts/skills/product-marketing-context.md) | reference for brand/avatar schema expansion |
+
+### From [DV0x/creative-ad-agent](https://github.com/DV0x/creative-ad-agent)
+
+| Skill | Used by |
+|---|---|
+| [hook-methodology.md](prompts/skills/hook-methodology.md) | `strategy/angle_multiplier.py` (research-first hook extraction) |
+| [hook-formulas.md](prompts/skills/hook-formulas.md) | `strategy/angle_multiplier.py` (10 hook types, organized by emotional trigger) |
 
 Reference snapshot of the [tvc-director](references/tvc-director/) skill
 ([Ethanxwang/tvc-director](https://github.com/Ethanxwang/tvc-director), MIT)

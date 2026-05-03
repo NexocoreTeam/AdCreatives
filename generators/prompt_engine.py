@@ -20,6 +20,7 @@ from models.avatar import CustomerAvatar
 from models.brand import Brand
 from models.library import LibraryPrompt, list_prompts
 from models.product import Product
+from models.skills import load_skill
 from generators.product_analyzer import characteristics_to_prompt_fragment
 from strategy.llm import claude_complete, gpt4o_vision
 
@@ -40,8 +41,19 @@ CRITICAL RULES:
 5. Include photography direction: lens, lighting, composition, mood.
 6. The output should be a single prompt string ready to paste into Nano Banana 2.
    No explanations, no markdown — just the prompt.
+7. If the brief specifies a creative_mechanic and visual_format, use them as
+   the structural backbone of the prompt — see Motion's libraries below.
 
-OUTPUT: Return ONLY the prompt text. Nothing else."""
+OUTPUT: Return ONLY the prompt text. Nothing else.
+
+--- CREATIVE MECHANICS (Motion) ---
+
+""" + load_skill("motion/creative-mechanics") + """
+
+--- VISUAL FORMATS (Motion, 45+ formats) ---
+
+""" + load_skill("motion/visual-formats") + """
+"""
 
 REFERENCE_ANALYZER_SYSTEM = """You are an ad creative analyst. Analyze advertisement images
 and extract their structural format so it can be recreated with a different product.
