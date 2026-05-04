@@ -1,42 +1,72 @@
 name: Saved by Grace Co. (SBG Co.)
 colors:
-  primary: '#4a4443'
-  secondary: '#6b6463'
-  background: '#ffffff'
+  primary: ''
+  secondary: ''
+  background: '#FFFFFF'
 typography:
   heading: Archivo Narrow
   body: Archivo Narrow
-tone: Warm, playful, and faith-grounded — the brand speaks like a funny, proud Christian
-  mom who loves her boys, her coffee, and Jesus, in a voice that feels like community
-  rather than commerce.
+visual_identity:
+  aesthetic: Modern Christian farmhouse for the aspirational suburban mom. It's the
+    visual equivalent of a Joanna Gaines-designed home that smells like freshly baked
+    bread and plays gentle worship music in the background.
+  photography_style: Aspirational lifestyle UGC & clean product flat lays. Photos
+    feel like they were taken by a mom-influencer on a sunny afternoon in a beautifully
+    tidy home or on a family beach trip.
+  design_language: Modern Farmhouse Minimalism. It's clean, type-driven, and uncluttered,
+    but maintains a warmth and coziness that avoids feeling sterile.
+  typography_feel: A mix of clean, geometric sans-serifs for statements and a quirky,
+    hand-lettered script for personality. Think Madewell's simple type meets a crafty
+    mom's Cricut font library.
+  mascot_or_character: none
+  visual_references:
+  - Magnolia / Joanna Gaines' 'Modern Farmhouse' empire
+  - The filtered, warm-haze aesthetic of Instagram family bloggers
+  - Text-only apparel from brands like Madewell or The Daily Grace Co.
+  - Target's Hearth & Hand collection
+  mood:
+  - Wholesome
+  - Sincere
+  - Gentle
+  - Aspirational
+  - Faithful
+  notable_visual_signatures:
+  - Short, centered, all-caps sans-serif phrases on apparel and decor.
+  - Use of Comfort Colors or similar garment-dyed, lived-in t-shirt blanks.
+  - Combining a single, playful script word with a clean sans-serif phrase.
+  - Photography with a hazy, sun-drenched, slightly overexposed filter.
+  - Staging products against neutral backdrops like shiplap walls, sandy beaches,
+    or cozy, cream-colored furniture.
+  color_mood: Earthy, garment-dyed tones. Think dusty brick red, faded denim, oatmeal,
+    olive green, warm creams, and charcoal.
+tone: Warm, sincere, and quietly proud — faith is worn as identity, not performance.
+  The brand speaks like a close friend who loves Jesus, roots for her boys, and isn't
+  afraid to be a little playful about the beautiful chaos of motherhood.
 audience:
   age_range: 25–42
-  gender: Primarily female (moms)
+  gender: Female (primary); children as secondary beneficiary
   interests:
-  - Faith / Christianity
-  - Motherhood
-  - Raising boys (Boy Mama identity)
-  - Kids sports (basketball, soccer)
-  - American patriotism
-  - Home decorating
-  - Coffee culture
-  - Dog ownership
-  - Reading / book clubs
-  - Diet Coke / Dr. Pepper
+  - Christian faith and worship
+  - Boy-mom identity and community
+  - Matching family apparel moments
+  - Farmhouse / modern home aesthetics
+  - Supporting small / woman-owned businesses
+  - Patriotism and American values
+  - Motherhood humor and relatability
+  - Curly hair / natural hair representation
 platforms:
 - meta
 - tiktok
 press_mentions:
-- NBC Today Show (featured)
+- Featured on the Today Show (NBC)
 social_proof:
-- Featured on the Today Show
-- Made to order in North Carolina, USA
-- Available wholesale via Faire
-- 800+ products in catalog
-- Nationally recognized on many platforms (site copy)
-founded: unknown
-founder: unknown
-mission: To make faith-forward apparel and home goods for Christian moms, kids, and
-  families — items that feel personal, not preachy, and made with genuine craftsmanship
-  in North Carolina.
-tagline: For You, Your Home & Your People
+- Featured on the Today Show — displayed in site header announcement bar and homepage
+  trust icons
+- 14 business day made-to-order turnaround communicated as quality/craftsmanship signal
+- 800+ products in catalog indicating established brand scale
+founded: '2016'
+founder: Whitney Vaughn
+mission: To create faith-inspired apparel and lifestyle products that let Christian
+  moms and their children wear their values beautifully — made to order, with intention,
+  from North Carolina.
+tagline: Christian Clothing for Moms & Kids

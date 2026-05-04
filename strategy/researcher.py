@@ -215,6 +215,8 @@ def parse_shopify_product_cards(html: str, base_url: str) -> list[ProductCard]:
     pull a name (preferring img alt text from later in the page) and a price
     (preferring the price closest to the product link).
     """
+    import html as _html_lib
+
     base_url = normalize_url(base_url)
     cards: list[ProductCard] = []
     seen_slugs: set[str] = set()
@@ -252,9 +254,10 @@ def parse_shopify_product_cards(html: str, base_url: str) -> list[ProductCard]:
         if not name:
             name = slug.replace("-", " ").title()
 
-        # Find an image url in the context
+        # Find an image url in the context (HTML-decode entities so URLs like
+        # "?v=...&amp;width=..." become fetcher-safe)
         img_match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', context, re.IGNORECASE)
-        image_url = img_match.group(1) if img_match else None
+        image_url = _html_lib.unescape(img_match.group(1)) if img_match else None
         if image_url and image_url.startswith("//"):
             image_url = "https:" + image_url
 
@@ -347,20 +350,48 @@ def discover_visual_identity_images(homepage_html: str, base_url: str, bestselle
     return images[:max_images]
 
 
+_RASTER_EXTS = (".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp")
+_PLACEHOLDER_HINTS = ("default.svg", "placeholder", "default-product")
+
+
+def _is_likely_raster_image(url: str) -> bool:
+    """Return True if URL likely points at a raster image Gemini can read.
+
+    Strips query string before checking the extension. Excludes SVGs (vector,
+    rejected by most vision APIs) and Shopify default placeholders.
+    """
+    if not url:
+        return False
+    lower = url.lower()
+    for hint in _PLACEHOLDER_HINTS:
+        if hint in lower:
+            return False
+    path = lower.split("?")[0].split("#")[0]
+    return path.endswith(_RASTER_EXTS)
+
+
 def _validate_image_urls(urls: list[str], timeout: float = 5.0) -> list[str]:
-    """Filter out URLs that 404 or fail to fetch — Gemini multi-image fails
-    the whole batch if even one URL is bad."""
+    """Filter out URLs that 404, return non-image content, or are vector/placeholder.
+
+    Gemini multi-image fails the whole batch if even one URL is bad — this
+    is a defensive filter that protects the call.
+    """
     headers = {"User-Agent": USER_AGENT}
     valid: list[str] = []
     with httpx.Client(timeout=timeout, follow_redirects=True, headers=headers) as client:
         for url in urls:
+            if not _is_likely_raster_image(url):
+                continue
             try:
                 resp = client.head(url)
                 if resp.status_code == 405:
-                    # Some servers reject HEAD; try a short GET
                     resp = client.get(url, headers={**headers, "Range": "bytes=0-0"})
-                if 200 <= resp.status_code < 400:
-                    valid.append(url)
+                if not (200 <= resp.status_code < 400):
+                    continue
+                content_type = resp.headers.get("content-type", "").lower()
+                if content_type and not content_type.startswith("image/"):
+                    continue
+                valid.append(url)
             except (httpx.RequestError, httpx.TimeoutException):
                 continue
     return valid

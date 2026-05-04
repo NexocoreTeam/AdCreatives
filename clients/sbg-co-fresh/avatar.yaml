@@ -1,67 +1,69 @@
 name: Auto-drafted — please review and rename
-demographic: Christian mom, ages 25–42, likely married with young children (toddler
-  to early elementary age), at least one son. Southern or Midwest US. Suburban or
-  small-town lifestyle. Active on Facebook and Instagram. Shops small brands she discovers
-  through social or word of mouth.
+demographic: Christian woman, ages 25–42, suburban, likely married with children (1+
+  boys), college-educated, household income $60K–$120K, values faith, family, and
+  supporting small/woman-owned businesses. May be Black or mixed-race given founder
+  identity and 'Wild Like My Curls' product prominence. Active on Instagram and Pinterest.
+  Follows faith-adjacent mom influencers.
 psychographic: ''
 pain_points:
-- pain: Can't find Christian kids' apparel that actually looks cool and modern — everything
-    feels either cheesy or generic
+- pain: Can't find apparel that speaks to BOTH her faith AND her specific identity
+    as a boy mom
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Boy Mama products barely exist — most kids' clothing skews girl-forward or
-    gender-neutral
+- pain: Generic Christian bookstore apparel feels dated and unfashionable
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Tired of Etsy randomness — no brand story, no consistency, no quality guarantee
+- pain: Etsy matching sets are inconsistent in quality and have no real brand behind
+    them
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Amazon Christian apparel is low quality and feels mass-produced
+- pain: Amazon shirts feel mass-produced and soulless — she wants something that means
+    something
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Wants to express her faith and her mom identity without looking like she's
-    wearing a church bulletin
+- pain: Wants matching mom-and-son moments but struggles to find cohesive, faith-aligned
+    options
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Feels like her wildest, most chaotic kid (her son) is never 'seen' in cute
-    clothing the way girls are
+- pain: Feels like most Christian apparel is made for someone older or doesn't reflect
+    her aesthetic
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
 desires:
-- desire: Feel seen as a Boy Mama — products that celebrate the specific joy of raising
-    sons
+- desire: To wear her faith proudly without feeling preachy or frumpy
   customer_language: []
-- desire: Find a brand that 'gets' her — her faith, her humor, her love for her kids
+- desire: To find matching sets that celebrate the specific bond of raising boys
   customer_language: []
-- desire: Dress her kid in something that makes other moms stop and ask 'where'd you
-    get that?'
+- desire: To support a brand with a real story — founder-led, woman-owned, American-made
   customer_language: []
-- desire: Buy from a brand she feels good about — American made, small business, faith-aligned
+- desire: To dress her family in pieces that reflect their values AND look beautiful
+    in photos
   customer_language: []
-- desire: Create coordinating family looks or holiday outfits without hunting across
-    five different stores
+- desire: Products that she's proud to wear in public, at church, and on vacation
   customer_language: []
-- desire: Be part of a community, not just a customer
+- desire: To feel seen as a boy mom — not just 'a mom'
   customer_language: []
 objections:
-- 14 business day turnaround — she's used to Prime speed and may balk at the wait
-- Price may be higher than Amazon alternatives — needs quality and story to justify
-- Made to order means she can't easily return or swap — risk feels higher
-- She may not have heard of SBG Co. yet — brand awareness is the first hurdle
-- Will this actually look good in real life, or just cute on screen?
+- 14-day turnaround is a long wait — will it arrive in time for the occasion I need
+  it for?
+- I can get something similar on Amazon for less — is it really worth the price premium?
+- I've ordered from small shops before and quality was inconsistent
+- Will the sizing be right? I can't return easily with a made-to-order item
+- Is this brand actually faith-authentic or just using Christianity as an aesthetic?
 trigger_events:
-- Just had a baby boy — first-time Boy Mama, building her identity
-- Milestone moment — son's first birthday, first sports season, first Easter
-- Saw a friend share or wear an SBG Co. product on social media
-- Holiday or seasonal shopping window (Easter, 4th of July, back to school)
-- Baby shower gift searching — for her own shower or a friend's
-- Today Show segment surfaces the brand organically
-awareness_level: problem_aware
+- Seeing a matching mom-and-son photo on Instagram and wanting that moment
+- A new season or holiday approaching (Easter, 4th of July, Back to School)
+- Her son's birthday or a family milestone
+- A friend or influencer sharing an SBG Co. product
+- Finding the brand through the Today Show mention or organic search for 'boy mom
+  shirts'
+- A baby shower or expecting a new son
+awareness_level: solution_aware
 language_patterns: []
 current_solutions: []
