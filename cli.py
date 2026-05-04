@@ -136,6 +136,151 @@ def personas(client: str, max_personas: int):
     console.print(table)
 
 
+# ─── Offers (Stage 3) ───────────────────────────────────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--url", default=None,
+              help="Brand homepage URL — defaults to brand context if available")
+def offers(client: str, url: str | None):
+    """Extract existing offers + generate suggested offers for a client.
+
+    Crawls FAQ, shipping/returns policies, subscription pages on the brand's
+    site for offers already running. Then runs offer engineering principles
+    (value equation, offer stack, premium positioning) over the brand context
+    to suggest new offers tailored to the brand.
+
+    Output: clients/<slug>/offers.yaml
+    """
+    from models.loader import (
+        list_products as _list_products,
+        load_avatar,
+        load_brand,
+        load_product,
+    )
+    from strategy.offers import build_offers, fetch_offer_pages, save_offers
+    from strategy.researcher import fetch_pages
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    brand = load_brand(client)
+    avatar = load_avatar(client)
+    avatars = [avatar] if avatar else []
+
+    # Pull additional personas if Stage 2 has run
+    avatars_dir = client_dir / "avatars"
+    if avatars_dir.exists():
+        from models.avatar import CustomerAvatar
+        for f in sorted(avatars_dir.glob("*.yaml")):
+            if f.name.startswith("_"):
+                continue
+            try:
+                with open(f, encoding="utf-8") as fh:
+                    data = yaml.safe_load(fh)
+                avatars.append(CustomerAvatar(**data))
+            except Exception:
+                continue
+
+    product_slugs = [s for s in _list_products(client) if not s.startswith("example")]
+    products = []
+    for slug in product_slugs[:5]:
+        try:
+            products.append(load_product(client, slug))
+        except Exception:
+            continue
+
+    if not url:
+        url = _infer_url_from_products(products)
+    if not url:
+        console.print(
+            "[red]No URL provided and couldn't infer one from products. "
+            "Pass --url https://yourbrand.com[/red]"
+        )
+        raise SystemExit(1)
+
+    brand_context_md = ""
+    context_path = client_dir / "brand-context.md"
+    if context_path.exists():
+        brand_context_md = context_path.read_text(encoding="utf-8")
+
+    homepage_html = ""
+    with console.status(f"Fetching homepage + offer pages from {url}..."):
+        homepage_pages = fetch_pages(url, paths=["/"])
+        if homepage_pages:
+            homepage_html = next(iter(homepage_pages.values()))
+        offer_pages = fetch_offer_pages(url)
+
+    console.print(
+        f"[green]Fetched {len(offer_pages)} offer-bearing pages[/green]"
+        + (" + homepage" if homepage_html else "")
+    )
+
+    console.print(
+        f"\n[bold cyan]Extracting + generating offers for {brand.name}[/bold cyan]"
+    )
+
+    with console.status("Extracting existing + generating suggested offers (Sonnet 4.6)..."):
+        result = build_offers(
+            brand=brand,
+            avatars=avatars,
+            products=products,
+            offer_pages=offer_pages,
+            homepage_html=homepage_html,
+            brand_context_md=brand_context_md,
+        )
+
+    out_path = save_offers(client, result)
+    console.print(f"\n[green]Wrote {out_path}[/green]\n")
+
+    if result.existing_offers:
+        table = Table(title=f"Existing offers ({len(result.existing_offers)})")
+        table.add_column("Name", style="cyan")
+        table.add_column("Type", style="yellow")
+        table.add_column("Where", style="dim")
+        for o in result.existing_offers:
+            table.add_row(
+                str(o.get("name", ""))[:50],
+                str(o.get("type", "")),
+                str(o.get("where_found", ""))[:40],
+            )
+        console.print(table)
+
+    if result.suggested_offers:
+        table = Table(title=f"Suggested offers ({len(result.suggested_offers)})")
+        table.add_column("Name", style="cyan")
+        table.add_column("Type", style="yellow")
+        table.add_column("Persona", style="green")
+        table.add_column("Lift", style="dim")
+        for o in result.suggested_offers:
+            table.add_row(
+                str(o.get("name", ""))[:50],
+                str(o.get("type", "")),
+                str(o.get("target_persona", "")),
+                str(o.get("estimated_lift", "")),
+            )
+        console.print(table)
+
+    notes = result.notes or {}
+    if notes.get("highest_priority_test"):
+        console.print(
+            f"\n[bold]Highest priority test:[/bold] {notes['highest_priority_test']}"
+        )
+
+
+def _infer_url_from_products(products: list) -> str | None:
+    """Extract a brand URL from product page URLs if available."""
+    for p in products:
+        if p.url and p.url.startswith("http"):
+            from urllib.parse import urlparse
+            parsed = urlparse(p.url)
+            return f"{parsed.scheme}://{parsed.netloc}"
+    return None
+
+
 # ─── Strategy Matrix (Stage 5) ──────────────────────────────────────────────
 
 

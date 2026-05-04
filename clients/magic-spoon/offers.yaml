@@ -1,0 +1,483 @@
+existing_offers:
+- name: Limited Edition Spring Granola — Urgency Bar
+  type: seasonal_promo
+  details: 'Rotating announcement bar message: ''Limited Edition Spring Granola Ends
+    Soon'' — no explicit end date shown in copy, scarcity implied via ''Ends Soon''
+    language. Links to Custom Mixed Bundle 6-Box.'
+  where_found: Homepage announcement bar (promo-rotate slot 1); also present on FAQ,
+    refund policy, shipping policy, subscription, refer-a-friend pages — sitewide
+  on_brand: true
+  notes: Urgency mechanic is on-brand and consistent with the playful, limited-drop
+    energy. However, no specific countdown or date visible in the HTML, which reduces
+    urgency credibility. Missing an explicit deadline weakens the scarcity claim.
+- name: Free Bowl Set for New Subscribers
+  type: subscription
+  details: 'Rotating announcement bar message: ''Limited! FREE Bowl Set for New Subscribers!''
+    — tangible physical gift-with-subscription incentive. Marked ''Limited'' to imply
+    quantity scarcity. No explicit bowl set SKU, value, or qualifying threshold visible
+    in the bar copy.'
+  where_found: Homepage announcement bar (promo-rotate slot 2); also sitewide on FAQ,
+    refund policy, shipping policy, subscription, refer-a-friend pages
+  on_brand: true
+  notes: High-perceived-value incentive because it pairs perfectly with cereal — the
+    bowl is the exact item needed to consume the product. Lean into the 'eat cereal
+    like a kid again' brand moment. The word 'Limited' adds urgency but without a
+    quantity or deadline it may read as hollow. Strongest subscriber acquisition lever
+    currently running.
+- name: Subscribe and Save on Cereal Variety Pack
+  type: subscription
+  details: Subscribe & save plan confirmed via Shopify selling_plan parameter (selling_plan=3408035902)
+    on the Original Protein Variety 6-Pack product URL and Granola Variety 6-Pack
+    URL and Treats Variety 6-Pack URL. Exact discount percentage not extractable from
+    page HTML alone — discount amount not displayed in crawled pages.
+  where_found: 'Navigation product links on homepage, FAQ page, refund policy page,
+    shipping policy page, subscription page: /products/variety-1-case-6-boxes-1?selling_plan=3408035902
+    and /products/variety-6-6-bags-of-granola?selling_plan=3408035902 and /products/sweet-n-salty-variety-pack?selling_plan=3408035902'
+  on_brand: true
+  notes: Subscribe & save is the continuity engine. Applies across cereal, granola,
+    and treats lines. Discount magnitude not confirmed — recommend surfacing % clearly
+    in announcement bar or product page to close the value gap skeptics feel at $35+
+    price point.
+- name: Custom Mixed Bundle Builder — Bestseller Positioning
+  type: bundle
+  details: Dedicated bundle builder product page at /products/custom-mixed-bundle-6-box.
+    Labeled 'Bestseller' via navigation pill badge (ms21-link-pill--bundle). Mix-and-match
+    any 6 boxes across cereal lineup. No explicit bundle discount shown in crawled
+    HTML — positioning is on variety/customization value rather than price savings.
+  where_found: Homepage navigation (Bundle Builder link with 'Bestseller' pill), mobile
+    nav CTA 'build your own bundle →', announcement bar link URL, sitewide navigation
+  on_brand: true
+  notes: 'Smart premium-brand move — the bundle is positioned on personalization and
+    bestseller social proof, not on discount. This is the #1 bestseller signal. The
+    ''Bestseller'' pill is a strong conversion lever. No price advantage shown means
+    the value is in variety discovery, not savings — consistent with premium positioning.'
+- name: Refer-a-Friend Program (Discontinued)
+  type: refer_a_friend
+  details: 'Page at /pages/refer-a-friend exists but displays message: ''We''re sorry,
+    this referral offer is no longer valid. The Magic Spoon refer-a-friend program
+    has been discontinued.'' Page is noindex-tagged.'
+  where_found: https://magicspoon.com/pages/refer-a-friend
+  on_brand: false
+  notes: Program is dead. This is a meaningful gap — Magic Spoon has 80,000+ 5-star
+    reviews and a passionate superfan base. Discontinuing referral removes a low-CAC
+    acquisition channel. Flagged as opportunity in suggested offers.
+- name: Subscription Management Portal
+  type: subscription
+  details: Dedicated subscription page at /pages/subscription exists with subscription.scss.css
+    and bundle-builder.scss.css loaded — confirms active subscriber self-management
+    portal. Customers can presumably manage cadence, skip, cancel. Exact perks/terms
+    not visible in crawled HTML.
+  where_found: https://magicspoon.com/pages/subscription
+  on_brand: true
+  notes: Existence of a branded subscription management page signals subscription
+    is a core LTV mechanic. The bundle-builder stylesheet loaded alongside subscription
+    CSS suggests subscribers can customize their box — this is a strong retention
+    feature if communicated clearly in acquisition funnel.
+- name: 80,000+ Five-Star Reviews Social Proof Bar
+  type: other
+  details: 'Rotating announcement bar message (slot 3): ''✨High Protein, 0-2g Sugar,
+    and 80,000+ 5-Star Reviews✨'' on desktop. Mobile version: ''✨80,000+ 5-Star Reviews✨''.
+    Functions as trust/proof nudge in lieu of a direct offer.'
+  where_found: Homepage announcement bar (promo-rotate slot 3); sitewide
+  on_brand: true
+  notes: Not a transactional offer but functions as perceived-likelihood lever within
+    the value equation. Anchors credibility at the top of every page. Strategically
+    smart placement — addresses the ICP's top objection ('this probably doesn't taste
+    good') before they even hit the product page. Consider pairing with a specific
+    quote rather than just a count for higher resonance.
+- name: Refund Policy (terms not fully extractable)
+  type: refund_guarantee
+  details: Refund policy page exists at /pages/refund-policy. Exact terms (window,
+    conditions, process) not rendered in the crawled HTML — only navigation chrome
+    was captured. Policy exists but terms unknown from this extraction.
+  where_found: https://magicspoon.com/policies/refund-policy
+  on_brand: true
+  notes: A visible, prominently messaged satisfaction guarantee (e.g., 'Love it or
+    your money back') would be a powerful conversion lever for first-time buyers skeptical
+    of the $35+ price. If this policy is generous, it should be featured on product
+    pages and PDPs, not buried in a policy URL. Gap identified.
+- name: Shipping Policy (terms not fully extractable)
+  type: other
+  details: Shipping policy page exists at /pages/shipping-policy. Free shipping threshold
+    and carrier details not extractable from crawled HTML — only navigation chrome
+    rendered. No free shipping threshold was visible in any announcement bar or nav
+    copy.
+  where_found: https://magicspoon.com/policies/shipping-policy
+  on_brand: true
+  notes: Absence of a visible free shipping threshold in the announcement bar or navigation
+    is a notable gap. For a $35-per-case brand, shipping cost is likely a checkout
+    abandonment trigger. If free shipping exists at any threshold, it should be surfaced
+    in the promo bar.
+suggested_offers:
+- name: The Cereal Aisle Challenge — First Box Taste Guarantee
+  type: trial
+  rationale: 'The ICP''s #1 objection is ''healthy cereal never tastes like real cereal.''
+    This guarantee directly collapses that objection by transferring the risk from
+    the buyer to the brand. Magic Spoon''s 80,000+ 5-star reviews and 1-year reformulation
+    process give genuine confidence to back it. Greg and Gabi built this product because
+    nothing else tasted right — the founders themselves are the proof of concept.
+    A taste guarantee on the first box removes the final barrier for solution-aware
+    skeptics who''ve been burned by other ''healthy'' cereals.'
+  target_persona: primary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Eat a bowl of cereal that actually tastes like Frosted Flakes or
+      Cocoa Puffs, feel full and energized instead of crashing at 10am, and do it
+      guilt-free every single morning
+    perceived_likelihood_lever: 80,000+ five-star reviews + founders who spent a year
+      formulating because nothing else tasted right + explicit money-back taste guarantee
+      that proves the brand believes in the product
+    time_delay_lever: First bowl delivers the result — taste is immediate, no 30-day
+      commitment to see results unlike supplements
+    effort_lever: One box shipped to door, no prep, no recipe, no lifestyle overhaul
+      — just pour and eat
+  suggested_structure: 'Add ''Love Your First Box or We''ll Make It Right'' guarantee
+    badge on Variety 6-Pack PDP and at checkout. If customer contacts support after
+    first order citing taste disappointment, offer replacement box of different flavors
+    (not refund first — replacement preserves trial intent and exposes more SKUs).
+    Frame publicly as: ''Not your flavor? We''ll find one that is. Try a different
+    box on us.'''
+  risk_reversal: Flavor replacement guarantee on first order — swap for any other
+    flavor combination, no return shipping required. Positions brand as confident
+    rather than defensive.
+  urgency_mechanic: None required — the guarantee itself removes hesitation without
+    needing time pressure
+  pricing_anchor_logic: 'Frame against the cost of a week of mediocre breakfasts that
+    leave you hungry by 10am, not against a $5 grocery store cereal box. ''6 boxes,
+    ~30 bowls, about $1.17 per bowl of cereal that actually keeps you full.'' Also
+    anchor against specialty coffee: ''Less than a cold brew, more protein than a
+    protein bar.'''
+  estimated_lift: high
+  creative_angle: 'We spent a year making this taste exactly like the cereal you grew
+    up on — so we''re not worried if you want to try it first. Ad creative: side-by-side
+    of grocery store cereal label vs Magic Spoon label, same flavor name, completely
+    different inside.'
+  notes: 'Avoid full monetary refund as primary mechanism — it trains refund-shoppers.
+    Replacement box is smarter: keeps customer in the brand, surfaces more SKUs, maintains
+    LTV. This offer should be permanent policy, not a promo, and communicated with
+    the brand''s confident tone rather than defensive fine print.'
+- name: Build Your Morning Ritual Bundle — Cereal + Treats + Granola Discovery Box
+  type: bundle
+  rationale: 'The ICP is a health-conscious millennial who wants to eat better throughout
+    the whole day, not just breakfast. Magic Spoon has expanded into Treats, Pastries,
+    and Granola — but these categories are likely underdiscovered by cereal-first
+    buyers. This cross-category bundle solves the ''what else can I eat'' problem
+    and increases AOV and LTV simultaneously. The Custom Mixed Bundle is the #1 bestseller,
+    signaling buyers love curation control — a curated cross-category discovery bundle
+    gives them a guided version of that same experience. Addresses the desire to replace
+    sugar-laden snacks at every eating occasion.'
+  target_persona: primary
+  target_awareness_stage: product_aware
+  value_equation:
+    dream_outcome: Replace every sugary snack moment in your day — morning cereal,
+      afternoon treat, yogurt topping — with something that tastes like childhood
+      but doesn't wreck your macros
+    perceived_likelihood_lever: All four product lines included, allowing taste proof
+      across formats. Curated by Magic Spoon as 'the full day starter kit' signals
+      editorial confidence
+    time_delay_lever: One order replaces four separate purchase decisions — entire
+      snack ecosystem solved immediately
+    effort_lever: Pre-curated, no selection paralysis, ships as one box
+  suggested_structure: 'Offer a fixed ''Morning to Night Discovery Bundle'' containing
+    2 cereal boxes (1 classic, 1 new like Marshmallows or Fiber variety), 4 Treats,
+    1 Granola bag, 4 Pastries. Price at a perceived value that reflects the variety
+    premium, not a discount. Market as ''the complete Magic Spoon experience'' not
+    as a savings vehicle. Optional: add a branded bowl (tie to existing free bowl
+    subscriber offer — make bowl purchasable for non-subscribers at a premium).'
+  risk_reversal: Flavor replacement guarantee applies. Include a 'not your vibe?'
+    card in box with QR code to swap any item on next order.
+  urgency_mechanic: Limited seasonal variants can create natural rotation urgency
+    — e.g., Spring Granola inclusion makes this a seasonal window offer without forcing
+    discounts
+  pricing_anchor_logic: 'Anchor against buying each line separately. Show ''If you
+    bought these individually: $X. Your bundle: $Y.'' The premium is justified by
+    curation + variety + discovery value, not by deep discounting.'
+  estimated_lift: high
+  creative_angle: You've been eating Magic Spoon for breakfast. Here's what happens
+    when you take over the rest of the day. UGC-style creative showing a full day
+    of snacking with the bundle contents.
+  notes: Do not position this as a 'sampler' or trial — that language implies uncertainty.
+    Position as an 'upgrade' or 'complete experience.' Keeps premium brand feel while
+    expanding category penetration.
+- name: The Subscriber Pantry Pass — Locked-In Delivery Cadence with Exclusive New
+    Flavor First Access
+  type: subscription
+  rationale: Current subscribe & save only solves the replenishment problem. The ICP's
+    objection to subscription is 'what if I get bored of the same flavors?' Magic
+    Spoon keeps launching new SKUs (Marshmallows, Fiber variety, Pastries, Spring
+    Granola) — subscribers should be the first to know and first to receive. This
+    transforms subscription from a logistics convenience into a cultural membership,
+    which is far stickier. Addresses the problem-aware buyer who wants variety AND
+    the continuity value without feeling locked in to sameness. Also directly leverages
+    Magic Spoon's innovation velocity as a retention engine.
+  target_persona: primary
+  target_awareness_stage: most_aware
+  value_equation:
+    dream_outcome: Never run out of Magic Spoon, always have your current favorites
+      in stock, and be the first person to try every new flavor before it sells out
+      — all without thinking about it
+    perceived_likelihood_lever: Existing proof of rapid flavor innovation (Marshmallows,
+      Fiber variety, Pastries all launched recently). Early access creates tangible,
+      verifiable exclusivity
+    time_delay_lever: Pantry never goes empty — no running out, no gap in the morning
+      routine, no reorder friction
+    effort_lever: Set cadence once, adjust anytime, skip easily. New flavors automatically
+      added to next box — no manual selection required
+  suggested_structure: 'Upgrade existing subscribe & save with a named tier: ''Magic
+    Spoon Pantry Pass.'' Benefits: (1) current save % on all orders, (2) new flavor
+    early access — subscribers receive new SKU samples 2 weeks before public launch,
+    (3) customizable cadence (every 3, 4, or 6 weeks), (4) free bowl set for new sign-ups
+    (current offer). Name matters — ''Pantry Pass'' vs ''Subscription'' frames it
+    as access not obligation.'
+  risk_reversal: Skip any shipment anytime, no questions. Cancel anytime. First box
+    covered by taste guarantee.
+  urgency_mechanic: New flavor early access is inherently scarce — subscriber allocation
+    for new launches is limited. 'Only Pantry Pass members get the first shipment
+    of [new flavor]' creates genuine FOMO.
+  pricing_anchor_logic: Emphasize the early access value alongside the savings. 'You're
+    not just saving on cereal. You're first in line for every new Magic Spoon drop.'
+    Positions subscription as insider access, not a budget move.
+  estimated_lift: high
+  creative_angle: 'Most people find out about new Magic Spoon flavors when they''re
+    already sold out. Subscribers don''t have that problem. Ad hook: ''We launched
+    a new flavor last week. Our subscribers already tried it.'''
+  notes: Early access requires operational coordination with product launch sequencing.
+    Even a 1-2 week head start on a new SKU is meaningful if communicated well. This
+    offer should be tested via email to existing subscribers first to validate demand
+    before advertising.
+- name: The Macro-Perfect Gift Box — Premium Holiday and Gifting Bundle
+  type: seasonal
+  rationale: Magic Spoon's nostalgic childhood aesthetic makes it an ideal gift —
+    it unlocks the memory of cereal for someone you love while giving them something
+    genuinely better for them. The gifting occasion (holidays, birthdays, Father's
+    Day, 'just because') removes the price objection entirely because gift buyers
+    use different value calculus. A $50-60 gift box is easier to justify than a $35
+    personal purchase for skeptics. Addresses the solution-aware persona's secondary
+    objection ('$35 for cereal is a lot for me') by reframing the purchase as a gift.
+    Also a natural retail/gifting channel play.
+  target_persona: secondary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Give someone you love a gift that makes them feel like a kid again
+      and proves you actually thought about what they'd enjoy — not just another generic
+      gift card or candle
+    perceived_likelihood_lever: 80,000+ five-star reviews visible on packaging or
+      gift card insert. Founder story in gift note creates emotional connection and
+      justifies premium
+    time_delay_lever: Ships directly to recipient with gift messaging — zero wrapping,
+      zero store trip, instant order confirmation
+    effort_lever: Pre-curated box, gift note option, no assembly required. One-click
+      gifting from PDP.
+  suggested_structure: 'Create a ''Gift Box'' SKU at /products/gift-box — curated
+    6-box cereal set in enhanced gift-ready packaging with printed gift note card
+    featuring the Greg + Gabi founder story. Price at slight premium vs standard bundle
+    to reflect packaging. Add gift message field at checkout. Seasonal variants: Holiday
+    Box (winter), Birthday Box (evergreen), Summer Cereal Haul (warm season). Include
+    a card that gives the recipient 15% off their first subscription — drives new
+    subscriber acquisition from gifted customers.'
+  risk_reversal: 'Full replacement guarantee if box arrives damaged. Gift recipient
+    version: ''If they don''t love it, we''ll send a different box directly to them.'''
+  urgency_mechanic: Seasonal holiday packaging windows create natural deadlines —
+    'Order by December 18 for Christmas delivery.' Evergreen birthday gifting has
+    no urgency needed.
+  pricing_anchor_logic: Frame against the cost of sending flowers ($60-80 that die
+    in a week) or a generic gift card ($50 that says 'I ran out of ideas'). Magic
+    Spoon gift box = thoughtful, personal, usable, nostalgic, and better for them.
+  estimated_lift: medium
+  creative_angle: 'Stop sending gifts people pretend to like. This one hits different.
+    Creative angle: reaction video of someone opening the box and immediately recognizing
+    their favorite childhood cereal flavor, upgraded.'
+  notes: 'The gift note card with a subscriber discount code converts gift recipients
+    into subscribers — this is a high-value acquisition mechanic. Ensure the subscriber
+    CTA in the box feels like a perk, not a sales pitch. Brand voice: ''A little magic
+    for whoever opens this.'' Not ''scan here to save 15%.'''
+- name: 30-Day Morning Upgrade Challenge — Email Lead Magnet
+  type: lead_magnet
+  rationale: The unaware-to-solution-aware gap is the hardest to close in paid acquisition.
+    The ICP doesn't know they need a protein cereal upgrade — they just know they
+    feel terrible by 10am and assume that's normal. A '30-Day Morning Upgrade Challenge'
+    email sequence functions as a free educational lead magnet that moves cold traffic
+    through the awareness funnel while building the email list. Magic Spoon's brand
+    voice is perfectly suited for this — playful, actionable, not preachy. Directly
+    addresses the 'the protein/keto thing is probably just marketing' objection by
+    educating on the real mechanism (sustained blood sugar, protein satiety) before
+    asking for a purchase.
+  target_persona: primary
+  target_awareness_stage: problem_aware
+  value_equation:
+    dream_outcome: Wake up every morning, eat something that tastes like childhood,
+      stay full and focused until lunch, and never think about 'eating healthy at
+      breakfast' again because it just became automatic
+    perceived_likelihood_lever: Nutritionist-validated 30-day protocol, customer testimonials
+      from people who made the switch, Greg and Gabi's own morning routine shared
+      as social proof
+    time_delay_lever: Day 1 email includes a first-bowl guide — immediate first result
+      on the first morning. Challenge structure creates micro-wins every day
+    effort_lever: Just sign up and eat cereal. No meal prep, no macros calculator,
+      no behavior change beyond swapping one thing
+  suggested_structure: 'Popup or landing page: ''Get the 30-Day Morning Upgrade Challenge
+    — free email series.'' Day 1-3: education on why sugary cereal crashes you (no
+    guilt, just science). Day 4-7: intro to Magic Spoon mechanism. Day 8: $5 off first
+    order offer (not as a coupon but as a ''you''ve earned it'' reward for following
+    along). Day 9-30: recipe ideas, subscriber stories, flavor discovery guides. No
+    purchase required to start — email address only. Alternatively, gate with quiz:
+    ''Which Magic Spoon flavor matches your childhood cereal?'' — captures email and
+    serves personalized product recommendation.'
+  risk_reversal: No purchase required to start the challenge. The challenge itself
+    is the risk reversal — experiencing the education removes the 'I don't know if
+    this is real' objection before money is involved.
+  urgency_mechanic: Quiz or challenge starts immediately upon sign-up — instant gratification
+    on email opt-in. No urgency needed; the curiosity loop ('which flavor are you?')
+    drives opt-in.
+  pricing_anchor_logic: The challenge is free. The price conversation happens on day
+    8 after the customer has already self-identified as someone who wants a better
+    morning — the $35 purchase decision happens in a completely different psychological
+    frame than a cold ad click.
+  estimated_lift: medium
+  creative_angle: 'You already know breakfast matters. You just haven''t found one
+    that tastes good enough to actually stick to. Quiz ad variant: ''Are you a Frosted
+    Flakes person or a Cocoa Puffs person? We made both. Find your flavor.'' Click
+    leads to quiz opt-in, not product page.'
+  notes: The flavor quiz variant has viral/shareable mechanics — 'I got Cinnamon Crunch'
+    is highly shareable. Flavor quiz also generates zero-party data for segmented
+    follow-up (e.g., chocolate lovers get Cocoa Puffs-adjacent content first). Avoid
+    naming this 'keto challenge' — brand positioning de-emphasizes keto as primary
+    identity.
+- name: 'Win-Back: The ''We Made Something New'' Lapsed Subscriber Reactivation'
+  type: winback
+  rationale: Cereal subscription churn often happens because of flavor fatigue, not
+    brand abandonment. A customer who loved Magic Spoon but cancelled their subscription
+    is still a warm lead — they've already been convinced on taste and macros. The
+    brand's ongoing innovation (Pastries, Fiber variety, Marshmallows, Spring Granola)
+    gives a genuine, non-discount reason to re-engage. The win-back message 'we made
+    something you haven't tried yet' is more powerful than a discount because it reactivates
+    curiosity rather than training price sensitivity.
+  target_persona: primary
+  target_awareness_stage: most_aware
+  value_equation:
+    dream_outcome: Come back to the morning routine that actually worked, now with
+      flavors you haven't tried — and discover that Magic Spoon got even better while
+      you were gone
+    perceived_likelihood_lever: New SKU proof (Pastries, Marshmallows, Fiber variety
+      are real, tangible new products). 'Since you left, we launched X new products'
+      is concrete and verifiable
+    time_delay_lever: First new-flavor box ships within standard lead time — no delay
+      in experiencing what's new
+    effort_lever: One-click reactivation from email. Pre-selected 'What's New Bundle'
+      removes flavor decision fatigue.
+  suggested_structure: 'Email sequence to lapsed subscribers (cancelled 60-180 days
+    ago): Email 1 subject: ''We''ve been busy while you were gone.'' Body: list of
+    every new product launched since their cancellation date with imagery. No discount.
+    CTA: ''Try what''s new.'' Email 2 (day 7 if no open): ''One thing we think you
+    missed.'' Feature single highest-rated new SKU. Email 3 (day 14 if no click):
+    ''Still here if you want us.'' Offer free upgrade to next box size (e.g., 6-box
+    to 8-box) rather than percentage discount — premium brand move.'
+  risk_reversal: Reactivation protected by taste guarantee on any new flavors tried.
+    If a new flavor misses, swap immediately.
+  urgency_mechanic: Limited seasonal products (Spring Granola, holiday variants) create
+    genuine 'if you wait, you miss it' urgency without fabricating pressure.
+  pricing_anchor_logic: Do not lead with price in win-back. Lead with novelty. Price
+    is not why they churned — flavor fatigue or life change was. Reactivating on innovation
+    is stickier than reactivating on discount.
+  estimated_lift: medium
+  creative_angle: We launched 4 new products since you left. Come see what you've
+    been missing. Static ad showing the new product lineup with a single CTA. Could
+    also run as a retargeting sequence to website visitors who were former customers.
+  notes: Requires integration with subscriber data to segment by cancellation date
+    and identify which products are genuinely new to that specific customer. Personalization
+    increases open rates significantly. Do not offer a blanket discount to all lapsed
+    subscribers — it devalues the brand and misdiagnoses the churn reason.
+- name: The Protein Cereal Starter Kit — Single-Flavor 2-Box Trial Entry Point
+  type: core
+  rationale: The $35+ price point for a 4-6 box case is the single biggest barrier
+    for first-time buyers who are skeptical about taste ('it probably doesn't taste
+    like real cereal'). A lower price-point entry option — not a discount, but a smaller
+    quantity — reduces the commitment risk without training discount behavior. This
+    is especially relevant for solution-aware buyers who want to try before committing
+    to a full case. Magic Spoon's current lineup jumps straight to 4-6 box quantities,
+    which means there's no low-friction entry product for the truly skeptical but
+    curious first-timer.
+  target_persona: primary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Find out if Magic Spoon actually tastes like the cereal from childhood
+      — without committing $35+ to a product you're not sure about
+    perceived_likelihood_lever: Taste guarantee on starter kit. Featured reviews from
+      first-time buyers specifically. Greg and Gabi's own 'we tried everything and
+      nothing worked' story makes the product's taste claim believable
+    time_delay_lever: Two boxes arrive and you know by the first bowl whether this
+      is your cereal — no 30-day trial period, no waiting for results
+    effort_lever: Choose one or two flavors, order once, decide with your taste buds.
+      Lower commitment = lower decision fatigue
+  suggested_structure: 'Create a ''2-Box Starter Kit'' SKU at $16-18 (2 single-flavor
+    boxes). Available in: Frosted (classic entry), Cocoa (most familiar), or Fruity
+    (bright/fun). PDP copy: ''Not sure where to start? Try two boxes first.'' After
+    purchase, email sequence pushes Starter Kit buyers toward Variety 6-Pack or subscription
+    with ''now that you know your flavor'' messaging. Note: price this to cover COGS
+    + shipping without margin compromise — the objective is acquisition, not immediate
+    profit on this SKU.'
+  risk_reversal: Full flavor-replacement guarantee on Starter Kit. 'If you don't love
+    it, we'll send you the other flavor free.' This replaces the refund dynamic with
+    a discovery dynamic.
+  urgency_mechanic: None required at this stage — price point alone reduces hesitation.
+    Urgency is counterproductive for first-time buyers who need to feel comfortable,
+    not pressured.
+  pricing_anchor_logic: 'Per-box cost at full 6-pack is ~$5.83. Starter Kit 2-box
+    at $16 is ~$8/box — the premium is positioned as ''try-before-you-commit'' convenience
+    pricing, not a discount. Frame: ''Your first two bowls, commitment-free.'' After
+    they try it, the 6-pack at $35 feels like a deal compared to individual pricing.'
+  estimated_lift: high
+  creative_angle: 'You shouldn''t have to buy 6 boxes of cereal to find out if you
+    like it. So we made a starter. Direct response ad: ''Two boxes. One decision.
+    If you don''t love it, we''ll fix it.'''
+  notes: This offer directly addresses the ICP's top stated objection. Shipping economics
+    on a 2-box order may be tight — consider offering Starter Kit as an add-on to
+    an existing cart or bundling with a digital bonus (e.g., 'Your Starter Kit includes
+    our 5-day High Protein Breakfast Guide PDF') to increase perceived value at low
+    COGS. Do not call it a 'trial' or 'sample' — call it a 'Starter Kit' to maintain
+    premium language.
+notes:
+  brand_premium_constraints: Magic Spoon must never compete on price against legacy
+    cereal brands — their unit economics and positioning cannot support Kellogg's
+    pricing and their ICP is not a bargain-hunter. Offers that lead with percentage
+    discounts (10% off, 20% off) erode the premium brand story that justifies $35+
+    for cereal. Blanket sitewide sales, flash sales, and BOGO mechanics are all off-brand
+    and would attract the wrong buyer while training existing customers to wait for
+    deals. Gift-with-purchase (free bowl, new flavor access) and quantity-based entry
+    points (Starter Kit) are the premium-safe levers. Risk reversals and guarantees
+    are acceptable as they convey confidence, not desperation.
+  category_dynamics: Functional food/protein snack DTC brands operate on a subscription-first
+    LTV model — the first purchase is typically acquisition-cost-negative and profitability
+    is achieved on recurring orders 2-4. This means the highest-value offer mechanic
+    is anything that (a) lowers first-purchase friction without a discount and (b)
+    creates a natural path to subscription. Cereal specifically has a 'pantry staple'
+    consumption pattern — when a family finds a cereal they love, they reorder automatically
+    for years. Magic Spoon's challenge is not retention once adopted, it is getting
+    the skeptical first bowl eaten. Limited edition / seasonal SKU drops (Spring Granola,
+    marshmallow variant) create organic urgency and word-of-mouth that commodity food
+    brands cannot replicate — this rotation mechanic should be systematized. Gifting
+    is an underutilized channel in functional food that typically over-indexes in
+    wellness adjacents like supplements — Magic Spoon's nostalgic aesthetic makes
+    it uniquely giftable in a way competitors are not.
+  highest_priority_test: 'The Protein Cereal Starter Kit (2-Box Entry Point) should
+    be tested first because it directly addresses the #1 stated objection (''$35 is
+    insane for cereal I haven''t tried'') without requiring a discount, without eroding
+    brand premium, and without depending on new operational capabilities. It can be
+    implemented as a new product SKU in Shopify within days. Expected impact: measurable
+    lift in cold traffic conversion rate from paid social where the price objection
+    is the primary scroll-stopper. Run A/B test against current Variety 6-Pack PDP
+    as primary cold acquisition landing page. Secondary test: The First Box Taste
+    Guarantee badge on the existing Variety 6-Pack PDP — zero operational cost to
+    implement, high conversion impact, tests the risk-reversal hypothesis before committing
+    to full Starter Kit inventory.'
+  audience_specific_recommendations: 'For the solution-aware skeptic (primary persona
+    — ''healthy versions never taste right''): Lead with Starter Kit + Taste Guarantee.
+    The offer stack must collapse taste doubt before price ever comes up. For most-aware
+    repeat buyers: Lead with Subscriber Pantry Pass + Early Flavor Access. They already
+    believe in the product — the offer should reward loyalty with exclusivity, not
+    with savings. For gift buyers and secondhand discoverers: Lead with Gift Box SKU
+    and make the gifting flow effortless. The gift recipient becomes the next subscriber
+    via the box insert coupon. For lapsed subscribers: Lead with new product announcements,
+    not discounts — their churn was almost certainly flavor fatigue, not price sensitivity,
+    and offering a discount to someone who loved the product misdiagnoses the problem
+    and cheapens the brand in their eyes.'
