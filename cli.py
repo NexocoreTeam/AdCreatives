@@ -102,10 +102,10 @@ def research(client: str, url: str, max_products: int, auto: bool):
     from strategy.researcher import (
         INTAKE_QUESTIONS,
         confidence_buckets,
-        extract_brand_colors_via_vision,
+        discover_visual_identity_images,
+        extract_visual_identity,
         fetch_pages,
         fetch_shopify_bestsellers,
-        find_logo_url,
         is_shopify_site,
         parse_shopify_product_cards,
         run_brand_intake,
@@ -170,24 +170,24 @@ def research(client: str, url: str, max_products: int, auto: bool):
             for c in bestsellers[:5]:
                 console.print(f"    [dim]{c.rank}. {c.name}[/dim]")
 
-    # Find the logo and run GPT-4o vision to extract real brand colors
-    vision_colors = None
-    logo_url = find_logo_url(homepage_html, url)
-    if logo_url:
-        console.print(f"\n[cyan]Found logo: {logo_url}[/cyan]")
-        with console.status("Running GPT-4o vision on logo for brand colors..."):
-            vision_colors = extract_brand_colors_via_vision(logo_url)
-        if vision_colors and vision_colors.get("primary"):
-            console.print(
-                f"[green]Vision colors:[/green] "
-                f"primary={vision_colors.get('primary')} "
-                f"secondary={vision_colors.get('secondary')} "
-                f"accent={vision_colors.get('accent', 'none')}"
-            )
+    # Visual identity capture (multi-image, Gemini 2.5 Pro via OpenRouter,
+    # falls back to Claude vision if OPENROUTER_API_KEY not set).
+    # Brand colors are NOT extracted — clients fill those in manually.
+    visual_identity = None
+    vi_images = discover_visual_identity_images(homepage_html, url, bestsellers=bestsellers)
+    if vi_images:
+        console.print(f"\n[cyan]Visual identity capture — analyzing {len(vi_images)} image(s):[/cyan]")
+        for img in vi_images:
+            console.print(f"  - {img[:100]}")
+        with console.status("Running multi-image vision (Gemini 2.5 Pro / Claude fallback)..."):
+            visual_identity = extract_visual_identity(vi_images)
+        if visual_identity:
+            console.print(f"[green]Visual identity captured.[/green] Aesthetic: "
+                          f"{visual_identity.get('aesthetic', '')[:100]}")
         else:
-            console.print("[yellow]Vision extraction returned no colors — falling back to CSS extraction.[/yellow]")
+            console.print("[yellow]Visual identity extraction returned nothing — brand-context will be text-only.[/yellow]")
     else:
-        console.print("[yellow]Couldn't find logo URL — colors will come from CSS extraction only.[/yellow]")
+        console.print("[yellow]No images found for visual identity analysis.[/yellow]")
 
     # ─── PHASE 3: BUILD BRAND CONTEXT ─────────────────────────────────────
     console.print("\n[bold cyan]PHASE 3 — BUILDING BRAND CONTEXT[/bold cyan]")
@@ -198,7 +198,7 @@ def research(client: str, url: str, max_products: int, auto: bool):
             seed_answers=seed_answers,
             pages=pages,
             bestsellers=bestsellers,
-            vision_colors=vision_colors,
+            visual_identity=visual_identity,
         )
     data = result.data
     console.print("[green]Compiled.[/green]\n")
@@ -213,31 +213,25 @@ def research(client: str, url: str, max_products: int, auto: bool):
     if auto:
         console.print("[dim](--auto mode: skipping interactive review, accepting all extractions)[/dim]\n")
 
-    # Brand colors get special treatment — always reviewed because they're
-    # high-impact and CSS extraction is unreliable.
+    # Visual identity gets a dedicated display (it's the most actionable
+    # output for downstream creative generation).
     brand = data.get("brand", {})
-    color_fields = brand.get("colors", {}) or {}
-    if color_fields:
-        console.print("[bold magenta]BRAND COLORS — special review (high impact, unreliable extraction):[/bold magenta]")
-        for color_name in ("primary", "secondary", "background", "accent"):
-            field = color_fields.get(color_name)
-            if not isinstance(field, dict):
-                continue
-            current = field.get("value", "")
-            source = field.get("source", "")
-            console.print(f"  [cyan]{color_name}[/cyan]: [bold]{current}[/bold]  [dim]({source})[/dim]")
-            if not auto:
-                new_val = click.prompt(f"    Confirm {color_name} (Enter to accept, or paste a hex)", default=str(current))
-                if new_val and new_val != current:
-                    field["value"] = new_val
-                    field["confidence"] = "high"
-                    field["source"] = "user override"
-        if auto:
-            console.print(
-                "  [yellow]REVIEW NEEDED:[/yellow] auto mode used CSS/vision extraction. "
-                "Verify these match your real brand palette before generating creative."
-            )
+    vi = brand.get("visual_identity") or {}
+    if vi:
+        console.print("[bold magenta]VISUAL IDENTITY (from multi-image vision):[/bold magenta]")
+        for key in ("aesthetic", "design_language", "photography_style", "typography_feel",
+                    "mascot_or_character", "color_mood", "mood"):
+            val = vi.get(key)
+            if val:
+                console.print(f"  [cyan]{key}[/cyan]: {val}")
+        for key in ("visual_references", "notable_visual_signatures"):
+            items = vi.get(key) or []
+            if items:
+                console.print(f"  [cyan]{key}[/cyan]:")
+                for item in items[:5]:
+                    console.print(f"    - {item}")
         console.print()
+        console.print("  [dim]Brand colors are NOT auto-extracted — fill them in manually in brand.yaml.[/dim]\n")
 
     buckets = confidence_buckets(data)
 
@@ -383,14 +377,15 @@ def research(client: str, url: str, max_products: int, auto: bool):
     brand_yaml = {
         "name": _flatten(brand_data.get("name", {"value": ""})),
         "colors": {
-            "primary": _flatten(brand_data.get("colors", {}).get("primary", {"value": "#000000"})),
-            "secondary": _flatten(brand_data.get("colors", {}).get("secondary", {"value": "#FFFFFF"})),
-            "background": _flatten(brand_data.get("colors", {}).get("background", {"value": "#FFFFFF"})),
+            "primary": "",  # Fill in manually — research no longer extracts these
+            "secondary": "",
+            "background": "#FFFFFF",
         },
         "typography": {
-            "heading": _flatten(brand_data.get("typography", {}).get("heading", {"value": "Sans-Serif"})),
-            "body": _flatten(brand_data.get("typography", {}).get("body", {"value": "Sans-Serif"})),
+            "heading": _flatten(brand_data.get("typography", {}).get("heading", {"value": ""})),
+            "body": _flatten(brand_data.get("typography", {}).get("body", {"value": ""})),
         },
+        "visual_identity": brand_data.get("visual_identity") or {},
         "tone": _flatten(brand_data.get("tone", {"value": ""})),
         "audience": {
             "age_range": _flatten(brand_data.get("audience", {}).get("age_range", {"value": ""})),

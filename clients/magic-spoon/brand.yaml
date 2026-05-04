@@ -1,44 +1,90 @@
 name: Magic Spoon
 colors:
-  primary: '#3F0791'
-  secondary: '#5b00ed'
-  background: '#dad9ff'
+  primary: ''
+  secondary: ''
+  background: '#FFFFFF'
 typography:
-  heading: Unknown — likely custom/display font based on logo SVG path rendering
-  body: Unknown
-tone: Playful and nostalgic with a confident, no-apology directness — Magic Spoon
-  talks like a brand that knows it solved an impossible problem and wants you to feel
-  the joy of finding out. Warm, first-person founder energy; never clinical, never
-  preachy.
+  heading: Custom rounded display wordmark (proprietary); heading typeface on site
+    appears to be a bold rounded sans — specific font name not extractable from CSS
+  body: Clean sans-serif body type; specific font name not extractable from fetched
+    HTML
+visual_identity:
+  aesthetic: Nostalgic childhood cereal box energy remixed for health-conscious adults
+    — it feels like Saturday morning cartoons went to the gym and came back wearing
+    ironic glasses.
+  photography_style: Product-focused studio packaging shots; no lifestyle photography
+    — the packaging IS the hero, treated as collectible art objects arranged in a
+    cascading fan display.
+  design_language: Maximalist flat-illustration cartoon with deliberate retro-naive
+    charm — think mid-century children's book illustration colliding with modern DTC
+    boldness. Dense, joyful, zero negative space on the front panel.
+  typography_feel: 'Chunky rounded display type for the wordmark with a slightly bouncy
+    baseline — not quite hand-lettered but has warmth. Stats typography is bold tabular
+    sans, clinical in contrast to the illustration chaos. Two-speed typographic system:
+    playful display vs. utilitarian data.'
+  mascot_or_character: A stylized flat-illustrated girl with pink round goggle-glasses,
+    dark ponytail, and a purple tank top riding a large green fantasy creature (moose
+    or dragon-adjacent). Characters are limbless-simple in the Charley Harper / mid-century
+    editorial illustration tradition. Not a fixed mascot — more of a recurring illustrated
+    world.
+  visual_references:
+  - Kellogg's and General Mills 1970s–80s cereal box illustration energy, deliberately
+    quoted and subverted
+  - Charley Harper flat wildlife illustration — simplified forms, bold color fills,
+    minimal linework
+  - Ivan Brunetti / New Yorker cover cartoon flatness
+  - Glossier and other DTC brands' use of a single dominant brand color per SKU
+  - Mid-century Penguin paperback cover design — color-blocked, type-heavy spine
+  mood: Playful, nostalgic, irreverent, confident, sugar-rush
+  notable_visual_signatures:
+  - One saturated hero color owns the entire front panel per SKU — the illustration
+    floats on it with no background break
+  - Floating cereal pieces (rings, loops) scattered as decorative elements around
+    the illustration, treated like confetti
+  - Bold nutrition callouts (13g, 0g, 4g) in a stacked pill/badge format — making
+    health stats feel like a cheat code, not a warning label
+  - Side panel spine used as a color-coded flavor identifier in the multi-box lineup
+    — collectible set mentality
+  - Circular badge reading 'Hold on to the Dream' with a brain graphic — brand philosophy
+    treated as a wax-seal motif
+  - The tagline 'Childlike Cereal for Grown-Ups' runs as a long vertical text block
+    on the side panel in small caps — almost like a legal disclaimer used as a manifesto
+  - Characters rendered in exactly 3-4 flat colors, no gradients, no shadows — hard
+    Risograph-adjacent palette discipline within each illustration
+  color_mood: Per-SKU hyper-saturated single-color dominance — hot bubblegum pink,
+    royal purple, burnt sienna, deep cocoa brown, dusty periwinkle — each box a different
+    candy-bright primary anchored by deep jewel secondaries. Collectively they read
+    like a neon-soaked retro candy aisle.
+tone: Playful and nostalgic but nutritionally confident — speaks like a smart friend
+  who grew up on Saturday morning cartoons, not a nutritionist or a cereal box character.
+  Permission-giving, never restrictive. Warm, irreverent, direct.
 audience:
-  age_range: 25–42
-  gender: Skews slightly male (keto/fitness/JRE audience) but meaningfully gender-neutral;
-    female audience growing with granola and pastries expansion
+  age_range: 25–45
+  gender: Skews slightly female based on visual aesthetic and DTC cereal category
+    norms, but broadly gender-neutral; male audience confirmed via JRE podcast channel
   interests:
-  - keto and low-carb dieting
-  - fitness and gym culture
-  - macro tracking
-  - nostalgia for 90s/2000s childhood
-  - podcast listening
-  - convenient nutrition
-  - wellness optimization
-  - gluten-free eating
+  - Keto and low-carb eating
+  - Fitness and gym culture
+  - Macro tracking and nutritional optimization
+  - Long-form podcasts (JRE audience specifically)
+  - Nostalgia and pop culture
+  - Better-for-you food and wellness
+  - DTC and direct brand relationships
 platforms:
 - meta
 - tiktok
 press_mentions:
-- Press section exists on homepage (bg-baby-blue section) but content was truncated
-  — specific outlets not confirmed from fetched pages. Known historical coverage includes
-  Forbes, New York Times, Food52, Men's Health.
+- Press section exists on homepage but content truncated before loading — specific
+  outlets not captured
 social_proof:
-- 80,000+ 5-star reviews (confirmed from promo bar)
-- Happiness 100% Guaranteed policy (confirmed from Our Story page CTA)
-- Joe Rogan / JRE endorsement (user-provided, widely documented)
-- 'Verified buyer review: ''My wife has gluten sensitivity issues...this is an incredible
-  product'' (confirmed from mobile nav review section)'
+- 80,000+ five-star reviews (confirmed from promo bar)
+- Happiness 100% Guaranteed (confirmed from Our Story page footer CTA)
+- 'Featured verified buyer review: ''My wife has gluten sensitivity issues... this
+  is an incredible product and I recommend it to all of my friends with food issues.'''
+- Joe Rogan Experience endorsement (user-confirmed)
 founded: '2019'
 founder: Greg Sewitz and Gabi Lewis
-mission: To create a guilt-free cereal that tastes like the sugary childhood classics
-  adults remember, but with grown-up nutrition — high protein, zero sugar, keto-friendly
-  — so people never have to choose between taste and health.
+mission: To create a cereal inspired by the flavors and nostalgia of Saturday-morning-cartoon
+  cereal but upgraded for a 21st-century consumer — a guilt-free treat that tastes
+  like you remember and you can eat at any time of day.
 tagline: Childhood Classics. Grown-Up Ingredients.

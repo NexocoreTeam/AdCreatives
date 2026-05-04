@@ -1,78 +1,66 @@
 name: Auto-drafted — please review and rename
-demographic: Millennial adult 27–42, health-conscious, likely urban or suburban, active
-  lifestyle (gym, running, or generally fitness-aware), disposable income to support
-  $9–10+/box cereal habit, grew up in the US eating General Mills or Kellogg's cereal
-  in the 1990s–2000s, likely podcast listener, possible keto or low-carb dieter or
-  macro tracker, may have tried and abandoned cereal as an adult before finding Magic
-  Spoon
+demographic: Health-conscious adults 25–45, predominantly millennials who grew up
+  in the 1990s–2000s with Kellogg's and General Mills cereals as a core childhood
+  memory. Skews toward fitness-aware, nutritionally literate, podcast-consuming consumers
+  who are comfortable buying premium DTC food products online.
 psychographic: ''
 pain_points:
-- pain: Misses the nostalgic joy of eating childhood cereal but can't justify the
-    sugar and empty carbs anymore
+- pain: Missing the taste and comfort of childhood cereals but unwilling to eat something
+    so sugary anymore
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Frustrated that 'healthy' alternatives to cereal taste like cardboard or rabbit
-    food
+- pain: No cereal option existed that was genuinely enjoyable AND aligned with keto/low-carb/macro
+    goals
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Tired of the same boring high-protein breakfast options (eggs, protein shakes,
-    Greek yogurt)
+- pain: Feeling like eating 'fun' food means sacrificing their health goals — forced
+    to choose between taste and nutrition
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Experiences energy crashes mid-morning after traditional cereal
+- pain: Post-sugar-cereal energy crash disrupting productivity
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Feels guilty when eating something that tastes indulgent
+- pain: Boredom or joylessness of 'adult' breakfast options (plain oats, egg whites,
+    protein shakes)
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Has given up entire food categories (cereal, pastries, granola bars) to maintain
-    diet goals
-  intensity: medium
-  customer_language: []
-  source: auto_from_site_signals
-- pain: Gluten sensitivity making beloved breakfast foods off-limits
+- pain: Gluten sensitivity limiting cereal options
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
 desires:
-- desire: Permission to eat something that tastes amazing without nutritional guilt
+- desire: Permission to eat something that feels indulgent without it actually being
+    indulgent
   customer_language: []
-- desire: High-protein breakfast that doesn't require cooking or prep
+- desire: Breakfast (or any-time-of-day snack) that tastes great AND fuels them
   customer_language: []
-- desire: To feel like a kid again in the morning without setting back health goals
+- desire: The nostalgic ritual of a bowl of cereal without the guilt
   customer_language: []
-- desire: A product that fits their keto/low-carb macros without sacrificing flavor
+- desire: Food that feels like a treat but aligns with their lifestyle
   customer_language: []
-- desire: Convenience — grab, pour, eat, move on
-  customer_language: []
-- desire: Something they can genuinely look forward to eating every morning
-  customer_language: []
-- desire: To rediscover the joy of cereal
+- desire: A brand that gets them — that understands the tension between who they were
+    and who they are now
   customer_language: []
 objections:
-- That's so expensive for cereal — $9+ per box seems crazy
-- Can it actually taste that good if it has no sugar?
-- I've tried other 'healthy' cereals and they all taste like sawdust
-- I don't know if the macros are as good as they claim
-- Artificial sweeteners — I'm not sure what's in it
-- Ordering cereal online feels weird — what if I hate the flavor?
-- Is the protein number per serving or per box?
+- That price — $35 for 4 boxes of cereal? I can get a whole cart at Costco for that.
+- Does it actually taste good, or does it taste like cardboard with a branding budget?
+- I've tried 'healthy' cereals before and they all disappoint — why is this different?
+- The macros sound too good to be true — what's the catch?
+- I don't need a subscription and don't want to be locked in
 trigger_events:
-- Starting a new diet (keto, low-carb, calorie deficit) and realizing cereal is off
-  the table
-- Listening to a podcast ad for Magic Spoon (JRE and others)
-- Seeing a friend or social media account post about it
-- New Year's resolution / diet restart moment
-- Craving cereal while at the grocery store and realizing every option is loaded with
-  sugar
-- Reaching a weight loss milestone and wanting to 'treat' themselves healthily
-- Gluten diagnosis requiring complete category replacement
-- Post-workout nutrition optimization phase
+- Starting a keto or low-carb diet and realizing they have to give up cereal
+- Hearing a Magic Spoon ad on a podcast (especially JRE) from a trusted host
+- Seeing someone they follow on social media eating it
+- Standing in the grocery aisle reaching for Lucky Charms, putting them back, feeling
+  defeated
+- Macro tracking and discovering their 'healthy' granola had 40g of sugar
+- A life transition moment (new diet, new year, post-holiday reset) that triggered
+  a search for better breakfast options
 awareness_level: solution_aware
 language_patterns: []
 current_solutions: []

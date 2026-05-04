@@ -1,4 +1,4 @@
-from models.brand import Brand, ColorPalette, Typography, AudienceProfile
+from models.brand import Brand, ColorPalette, Typography, AudienceProfile, VisualIdentity
 from models.product import Product
 from models.style import Style, PlatformSize, CompositionRule, Variant, CameraSpec
 from models.avatar import CustomerAvatar, PainPoint, Desire
@@ -10,6 +10,7 @@ __all__ = [
     "Brand",
     "ColorPalette",
     "Typography",
+    "VisualIdentity",
     "AudienceProfile",
     "Product",
     "Style",

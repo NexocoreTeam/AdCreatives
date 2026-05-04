@@ -1,9 +1,10 @@
-name: Custom Mixed Bundle (6-Box)
-description: Build-your-own 6-box bundle — choose any combination of cereal flavors,
-  granola, treats, or pastries. Highest AOV conversion product; subscription available.
-price: Unknown — price not confirmed from fetched pages
+name: Custom Mixed Bundle 6-Box
+description: Build-your-own mix-and-match 6-box bundle across all Magic Spoon product
+  lines — cereal, treats, granola, and pastries. Top-ranked product by sales.
+price: Unknown — not loaded from product detail page
 category: general
-image_url: https://magicspoon.com/cdn/shop/files/custom-case.webp?v=1760729939
+image_path: ''
+image_url: https://cdn.shopify.com/s/files/1/0081/3826/0542/files/custom-case.webp?v=1760729939
 url: https://magicspoon.com/products/custom-mixed-bundle-6-box
 unique_mechanism: ''
 benefits: []

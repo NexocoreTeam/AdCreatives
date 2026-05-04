@@ -23,7 +23,7 @@ import httpx
 import yaml
 
 from models.skills import load_skill
-from strategy.llm import claude_complete, claude_vision
+from strategy.llm import claude_complete, claude_vision, gemini_vision
 
 CANDIDATE_PATHS = [
     "/",
@@ -95,7 +95,7 @@ class BrandIntakeResult:
     data: dict
     is_shopify: bool = False
     logo_url: str | None = None
-    vision_colors: dict | None = None
+    visual_identity: dict | None = None
     bestseller_count: int = 0
 
 
@@ -306,41 +306,99 @@ def find_logo_url(html: str, base_url: str) -> str | None:
     return None
 
 
-def extract_brand_colors_via_vision(logo_url: str) -> dict | None:
-    """Use Claude Sonnet 4.6 vision on the logo to identify real brand colors.
+def discover_visual_identity_images(homepage_html: str, base_url: str, bestsellers: list[ProductCard] | None = None, max_images: int = 5) -> list[str]:
+    """Pick the best images for visual-identity analysis, ordered by signal strength.
 
-    Returns dict with primary/secondary/accent hex values, or None on failure.
-    Logo is a stronger signal than CSS theme colors (which include navigation,
-    body text, neutral backgrounds, etc.).
+    Order matters because the Claude single-image fallback only uses image[0]:
+    1. Top product hero shot (shows packaging design language — strongest signal)
+    2. 2-3 more product shots from bestsellers (shows range)
+    3. Logo (shows typography + mascot)
+    4. og:image (lifestyle/hero fallback)
     """
-    if not logo_url:
+    images: list[str] = []
+
+    if bestsellers:
+        for card in bestsellers[:6]:
+            if card.image_url and card.image_url not in images:
+                images.append(card.image_url)
+                if len(images) >= max_images - 1:
+                    break
+
+    logo = find_logo_url(homepage_html, base_url)
+    if logo and logo not in images:
+        images.append(logo)
+
+    if len(images) < max_images:
+        og_match = re.search(
+            r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']',
+            homepage_html,
+            re.IGNORECASE,
+        )
+        if og_match:
+            import html as _html_lib
+            og = _html_lib.unescape(og_match.group(1))
+            if og.startswith("//"):
+                og = "https:" + og
+            elif og.startswith("/"):
+                og = urljoin(normalize_url(base_url), og)
+            if og not in images:
+                images.append(og)
+
+    return images[:max_images]
+
+
+def extract_visual_identity(image_urls: list[str]) -> dict | None:
+    """Use Gemini 2.5 Pro (via OpenRouter) on multiple brand images to
+    extract a structured visual identity description.
+
+    This replaces the old brand-color extraction. Visual identity (aesthetic,
+    photography style, design language, mood) is far more useful for ad
+    generation than raw hex codes.
+
+    Falls back to Claude Sonnet 4.6 vision on a single image if OpenRouter
+    isn't configured.
+    """
+    if not image_urls:
         return None
 
-    prompt = (
-        "Identify the BRAND COLORS in this logo. Ignore the page background "
-        "behind the logo — focus only on the colors that appear inside the "
-        "logo design itself.\n\n"
-        "Return YAML in this exact format (no markdown fences):\n\n"
-        "primary: \"#RRGGBB\"      # the main/dominant brand color\n"
-        "secondary: \"#RRGGBB\"    # the accent or supporting brand color\n"
-        "accent: \"#RRGGBB\"       # optional third color, only if clearly present\n"
-        "logo_description: \"brief 1-sentence description of the logo design\"\n"
-        "confidence: high|medium|low\n\n"
-        "Hex codes must be your best estimate of the actual brand colors. "
-        "Round to common palette values when reasonable (e.g., '#1a1a1a' for "
-        "near-black, '#ffffff' for white)."
+    prompt = """Examine these brand images (logo, products, hero shots) and describe
+the BRAND'S VISUAL IDENTITY — what a creative strategist would document so a
+designer or AI image model could produce on-brand creative.
+
+Return YAML only (no markdown fences) with this exact structure:
+
+aesthetic: "1-2 sentence overall vibe — what does this brand FEEL like visually?"
+photography_style: "Is it studio? Lifestyle UGC? Editorial? Flat lay? Mixed?"
+design_language: "Minimalist, maximalist, retro, cartoon, editorial, brutalist, etc."
+typography_feel: "Modern sans, handwritten, retro display, classic serif, hand-lettered, etc."
+mascot_or_character: "Describe any mascots/characters, or 'none'"
+visual_references:
+  - "Adjacent brands or design movements (e.g., 'Wes Anderson palettes', 'Y2K design', 'Trader Joe's hand-drawn aesthetic')"
+  - "Cultural reference points"
+mood: "3-5 adjectives capturing the emotional register"
+notable_visual_signatures:
+  - "Specific, repeatable visual elements that define this brand"
+  - "Things a designer would copy if asked to make on-brand creative"
+color_mood: "Palette feel WITHOUT hex codes — 'warm earth tones', 'high-saturation neon', 'monochromatic charcoal', 'pastel candy colors', etc."
+
+Be specific and opinionated. Don't write generic strategist-speak. Reference real brands, design eras, and visual idioms when they apply."""
+
+    system = (
+        "You are a creative director and brand strategist. You can look at a brand's "
+        "visual assets and articulate exactly what makes them visually distinct, in "
+        "language a designer can act on."
     )
+
     try:
-        result = claude_vision(
+        result = gemini_vision(
             prompt=prompt,
-            image_url=logo_url,
-            system="You are a brand identity expert. You identify exact hex colors from logos.",
-            max_tokens=512,
+            image_urls=image_urls,
+            system=system,
+            max_tokens=2048,
         )
     except Exception as e:
-        # Surface the error type for easier diagnosis but don't crash the run
         import sys
-        print(f"[vision error: {type(e).__name__}: {str(e)[:200]}]", file=sys.stderr)
+        print(f"[visual identity error: {type(e).__name__}: {str(e)[:200]}]", file=sys.stderr)
         return None
 
     result = result.strip()
@@ -382,14 +440,19 @@ def run_brand_intake(
     seed_answers: dict[str, str],
     pages: dict[str, str],
     bestsellers: list[ProductCard] | None = None,
-    vision_colors: dict | None = None,
+    visual_identity: dict | None = None,
 ) -> BrandIntakeResult:
     """Combine seed answers + fetched pages + bestsellers + vision-extracted
-    colors into a brand-context doc + data.
+    visual identity into a brand-context doc + data.
 
     System context: motion/brand-intake (full Motion methodology).
     Returns both the human-readable markdown context AND structured data
     for our YAML pipeline.
+
+    Note: brand colors are NOT extracted by research (CSS extraction was
+    unreliable; logo vision often missed the actual palette). Clients fill
+    colors directly in brand.yaml. Visual identity captures the broader
+    design language which is more useful for ad generation.
     """
     if not pages:
         raise ValueError(
@@ -421,19 +484,15 @@ def run_brand_intake(
             "the top 20 is the likely hero collection."
         )
 
-    vision_text = ""
-    if vision_colors and isinstance(vision_colors, dict) and vision_colors.get("primary"):
-        vision_text = (
-            f"\n\nLOGO VISION ANALYSIS (extracted by GPT-4o vision from the brand "
-            f"logo image — these are the REAL brand colors, more reliable than CSS "
-            f"theme variables):\n"
-            f"  primary: {vision_colors.get('primary')}\n"
-            f"  secondary: {vision_colors.get('secondary')}\n"
-            f"  accent: {vision_colors.get('accent', 'none')}\n"
-            f"  logo: {vision_colors.get('logo_description', '')}\n"
-            f"  vision_confidence: {vision_colors.get('confidence', 'medium')}\n\n"
-            "Use these as the SOURCE OF TRUTH for brand.colors. Mark them as "
-            "high confidence with source 'logo via GPT-4o vision'."
+    visual_identity_text = ""
+    if visual_identity and isinstance(visual_identity, dict):
+        vi_yaml = yaml.dump(visual_identity, default_flow_style=False, sort_keys=False)
+        visual_identity_text = (
+            f"\n\nVISUAL IDENTITY ANALYSIS (extracted by Gemini 2.5 Pro from "
+            f"multiple brand images — logo + product shots + hero):\n{vi_yaml}\n"
+            "Use this verbatim as visual_identity in the structured data. Also "
+            "weave it into the 'Brand Voice & Tone' and 'Must-Know Strategic "
+            "Context' sections of the brand-context.md."
         )
 
     prompt = f"""You are doing a brand intake. The user has answered seed questions
@@ -450,7 +509,8 @@ sources, flag gaps).
 
 PART 2: After `---STRUCTURED-DATA---`, return YAML matching this schema (used
 to populate brand.yaml, products/*.yaml, avatar.yaml). Confidence-tag every
-brand field:
+brand field. DO NOT include brand colors — those are filled in directly by
+the client, not extracted from the site.
 
 ```yaml
 brand:
@@ -459,10 +519,6 @@ brand:
   mission: {{value: "...", confidence: ..., source: ...}}
   founded: {{value: "YYYY", confidence: ..., source: ...}}
   founder: {{value: "...", confidence: ..., source: ...}}
-  colors:
-    primary: {{value: "#RRGGBB", confidence: ..., source: ...}}
-    secondary: {{value: "#RRGGBB", confidence: ..., source: ...}}
-    background: {{value: "#RRGGBB", confidence: ..., source: ...}}
   typography:
     heading: {{value: "...", confidence: ..., source: ...}}
     body: {{value: "...", confidence: ..., source: ...}}
@@ -470,6 +526,18 @@ brand:
     value: "1-2 sentence brand voice description"
     confidence: ...
     source: ...
+  visual_identity:
+    # Use the VISUAL IDENTITY ANALYSIS provided in the input verbatim if available;
+    # otherwise leave fields empty for the client to fill in.
+    aesthetic: "..."
+    photography_style: "..."
+    design_language: "..."
+    typography_feel: "..."
+    mascot_or_character: "..."
+    visual_references: ["..."]
+    mood: "..."
+    notable_visual_signatures: ["..."]
+    color_mood: "..."
   audience:
     age_range: {{value: "...", confidence: ..., source: ...}}
     gender: {{value: "...", confidence: ..., source: ...}}
@@ -517,7 +585,7 @@ SEED ANSWERS FROM USER:
 PAGES FETCHED ({len(pages)} pages):
 {pages_text}
 {bestsellers_text}
-{vision_text}
+{visual_identity_text}
 
 Respond with PART 1 markdown, then `---STRUCTURED-DATA---`, then PART 2 YAML.
 No code fences in PART 2."""
@@ -541,11 +609,16 @@ No code fences in PART 2."""
         yaml_part = yaml_part.rsplit("```", 1)[0]
 
     data = yaml.safe_load(yaml_part) or {}
+    # Inject visual_identity directly into the data so it survives the YAML round-trip
+    # even if the model didn't echo it back perfectly
+    if visual_identity and isinstance(visual_identity, dict):
+        data.setdefault("brand", {})["visual_identity"] = visual_identity
+
     return BrandIntakeResult(
         brand_context_md=md_part,
         data=data,
         bestseller_count=len(bestsellers) if bestsellers else 0,
-        vision_colors=vision_colors,
+        visual_identity=visual_identity,
     )
 
 
