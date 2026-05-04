@@ -33,7 +33,7 @@ class VisualIdentity(BaseModel):
     typography_feel: str = Field(default="", description="modern sans / handwritten / serif / display / etc.")
     mascot_or_character: str = Field(default="", description="describe any mascot/character, or empty if none")
     visual_references: list[str] = Field(default_factory=list, description="adjacent brands, design movements, cultural references")
-    mood: str = Field(default="", description="playful, energetic, premium, etc.")
+    mood: list[str] = Field(default_factory=list, description="3-5 adjectives capturing emotional register")
     notable_visual_signatures: list[str] = Field(default_factory=list, description="specific visual elements that define this brand")
     color_mood: str = Field(default="", description="palette feel WITHOUT hex codes — warm, vibrant, muted, monochromatic, etc.")
 

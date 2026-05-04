@@ -1,10 +1,11 @@
 name: Custom Mixed Bundle 6-Box
-description: Build-your-own mix-and-match 6-box bundle across all Magic Spoon product
-  lines — cereal, treats, granola, and pastries. Top-ranked product by sales.
-price: Unknown — not loaded from product detail page
+description: Build-your-own bundle of 6 cereal boxes — mix and match any flavors across
+  the cereal lineup. Top-ranked bestseller indicating strong repeat-buyer and variety-seeker
+  behavior.
+price: Unknown — approximately $35–$40 per 4-box case inferred; 6-box price not confirmed
 category: general
 image_path: ''
-image_url: https://cdn.shopify.com/s/files/1/0081/3826/0542/files/custom-case.webp?v=1760729939
+image_url: https://magicspoon.com/cdn/shop/files/custom-case.webp?v=1760729939
 url: https://magicspoon.com/products/custom-mixed-bundle-6-box
 unique_mechanism: ''
 benefits: []

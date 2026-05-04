@@ -4,87 +4,74 @@ colors:
   secondary: ''
   background: '#FFFFFF'
 typography:
-  heading: Custom rounded display wordmark (proprietary); heading typeface on site
-    appears to be a bold rounded sans — specific font name not extractable from CSS
-  body: Clean sans-serif body type; specific font name not extractable from fetched
-    HTML
+  heading: Custom chunky geometric sans-serif (specific name unknown — similar feel
+    to a modernized Cooper Black or Nunito Black)
+  body: Unknown — clean sans-serif inferred from site rendering
 visual_identity:
-  aesthetic: Nostalgic childhood cereal box energy remixed for health-conscious adults
-    — it feels like Saturday morning cartoons went to the gym and came back wearing
-    ironic glasses.
-  photography_style: Product-focused studio packaging shots; no lifestyle photography
-    — the packaging IS the hero, treated as collectible art objects arranged in a
-    cascading fan display.
-  design_language: Maximalist flat-illustration cartoon with deliberate retro-naive
-    charm — think mid-century children's book illustration colliding with modern DTC
-    boldness. Dense, joyful, zero negative space on the front panel.
-  typography_feel: 'Chunky rounded display type for the wordmark with a slightly bouncy
-    baseline — not quite hand-lettered but has warmth. Stats typography is bold tabular
-    sans, clinical in contrast to the illustration chaos. Two-speed typographic system:
-    playful display vs. utilitarian data.'
-  mascot_or_character: A stylized flat-illustrated girl with pink round goggle-glasses,
-    dark ponytail, and a purple tank top riding a large green fantasy creature (moose
-    or dragon-adjacent). Characters are limbless-simple in the Charley Harper / mid-century
-    editorial illustration tradition. Not a fixed mascot — more of a recurring illustrated
-    world.
+  aesthetic: A grown-up's lucid dream of the Saturday morning cartoon aisle. It's
+    the playful, sugary nostalgia of childhood cereal filtered through the slick,
+    hyper-functional lens of a modern DTC wellness brand.
+  photography_style: Mixed. The treats and pastries use hyper-real, high-contrast
+    studio food photography emphasizing texture and appetite appeal. The hero cereal
+    line, however, relies entirely on illustration.
+  design_language: Illustrative Maximalism on a Minimalist Grid. It uses a rigid,
+    almost Swiss-inspired layout for information, but fills the space with surreal,
+    character-driven illustrations and bold, flat color.
+  typography_feel: Custom chunky geometric sans-serif. It's friendly, confident, and
+    almost edible-looking, like a modern, more refined Cooper Black designed for Instagram.
+  mascot_or_character: A rotating cast of anonymous, stylized human figures in dynamic
+    poses with fantastical, oversized animal companions (e.g., a person riding a giant
+    toucan-like bird). They represent the 'inner child' and the 'dream' state.
   visual_references:
-  - Kellogg's and General Mills 1970s–80s cereal box illustration energy, deliberately
-    quoted and subverted
-  - Charley Harper flat wildlife illustration — simplified forms, bold color fills,
-    minimal linework
-  - Ivan Brunetti / New Yorker cover cartoon flatness
-  - Glossier and other DTC brands' use of a single dominant brand color per SKU
-  - Mid-century Penguin paperback cover design — color-blocked, type-heavy spine
-  mood: Playful, nostalgic, irreverent, confident, sugar-rush
+  - Oatly's quirky illustration style meets the bold color-blocking of a brand like
+    Starface or Graza.
+  - Reimagined 90s cereal box nostalgia (think Froot Loops, Trix) for the macro-tracking
+    generation.
+  mood:
+  - Playful
+  - Surreal
+  - Confident
+  - Nostalgic
+  - Energetic
   notable_visual_signatures:
-  - One saturated hero color owns the entire front panel per SKU — the illustration
-    floats on it with no background break
-  - Floating cereal pieces (rings, loops) scattered as decorative elements around
-    the illustration, treated like confetti
-  - Bold nutrition callouts (13g, 0g, 4g) in a stacked pill/badge format — making
-    health stats feel like a cheat code, not a warning label
-  - Side panel spine used as a color-coded flavor identifier in the multi-box lineup
-    — collectible set mentality
-  - Circular badge reading 'Hold on to the Dream' with a brain graphic — brand philosophy
-    treated as a wax-seal motif
-  - The tagline 'Childlike Cereal for Grown-Ups' runs as a long vertical text block
-    on the side panel in small caps — almost like a legal disclaimer used as a manifesto
-  - Characters rendered in exactly 3-4 flat colors, no gradients, no shadows — hard
-    Risograph-adjacent palette discipline within each illustration
-  color_mood: Per-SKU hyper-saturated single-color dominance — hot bubblegum pink,
-    royal purple, burnt sienna, deep cocoa brown, dusty periwinkle — each box a different
-    candy-bright primary anchored by deep jewel secondaries. Collectively they read
-    like a neon-soaked retro candy aisle.
-tone: Playful and nostalgic but nutritionally confident — speaks like a smart friend
-  who grew up on Saturday morning cartoons, not a nutritionist or a cereal box character.
-  Permission-giving, never restrictive. Warm, irreverent, direct.
+  - Surreal, flat-style illustrations of characters riding giant, friendly creatures,
+    often shaded with a distinct stipple/grain texture.
+  - The hard vertical column of repetitive, benefit-driven text on the left side of
+    the packaging ('High-Protein, Keto-Friendly, Gluten-Free...').
+  - Using a single, intensely saturated, solid color as the entire background for
+    each product flavor, creating a rainbow on the shelf.
+  - For non-illustrated products, using crisp, high-flash studio photos of the food
+    in cross-section to reveal fillings and texture.
+  color_mood: High-saturation candy colors. Electric pink, bright yellow, royal purple,
+    and sky blue used in bold, unapologetic monochromatic blocks.
+tone: Playful and nostalgic with a confident wellness-fluent edge — Magic Spoon writes
+  like a health-conscious millennial who knows nutrition matters but refuses to be
+  lectured about it, leading with joy and craving rather than guilt or restriction.
 audience:
   age_range: 25–45
-  gender: Skews slightly female based on visual aesthetic and DTC cereal category
-    norms, but broadly gender-neutral; male audience confirmed via JRE podcast channel
+  gender: Both male and female; fitness-adjacent skew may index slightly male but
+    brand aesthetic appeals broadly
   interests:
-  - Keto and low-carb eating
-  - Fitness and gym culture
-  - Macro tracking and nutritional optimization
-  - Long-form podcasts (JRE audience specifically)
-  - Nostalgia and pop culture
-  - Better-for-you food and wellness
-  - DTC and direct brand relationships
+  - keto / low-carb eating
+  - high-protein diets
+  - fitness and gym culture
+  - podcast listening
+  - nostalgia / pop culture
+  - wellness
+  - macro tracking
+  - gluten-free eating
 platforms:
 - meta
 - tiktok
 press_mentions:
-- Press section exists on homepage but content truncated before loading — specific
-  outlets not captured
+- 'Fast Company: ''Magic Spoon is an adult version of what you loved as a kid.'''
 social_proof:
-- 80,000+ five-star reviews (confirmed from promo bar)
-- Happiness 100% Guaranteed (confirmed from Our Story page footer CTA)
-- 'Featured verified buyer review: ''My wife has gluten sensitivity issues... this
-  is an incredible product and I recommend it to all of my friends with food issues.'''
-- Joe Rogan Experience endorsement (user-confirmed)
+- 80,000+ five-star reviews (displayed in promo bar)
+- Verified buyer review highlighting gluten-free appeal featured in mobile nav
+- Happiness 100% Guaranteed (footer banner)
 founded: '2019'
 founder: Greg Sewitz and Gabi Lewis
-mission: To create a cereal inspired by the flavors and nostalgia of Saturday-morning-cartoon
-  cereal but upgraded for a 21st-century consumer — a guilt-free treat that tastes
-  like you remember and you can eat at any time of day.
+mission: To create a guilt-free treat that tastes like the cereal you remember and
+  that you can eat at any time of day — Saturday-morning-cartoon nostalgia upgraded
+  for a 21st-century consumer.
 tagline: Childhood Classics. Grown-Up Ingredients.

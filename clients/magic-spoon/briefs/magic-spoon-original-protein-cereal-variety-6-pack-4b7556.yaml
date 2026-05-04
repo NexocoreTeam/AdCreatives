@@ -1,0 +1,35 @@
+brief_id: magic-spoon-original-protein-cereal-variety-6-pack-4b7556
+client: magic-spoon
+product: Original Protein Cereal Variety 6-Pack
+awareness_level: solution_aware
+framework: fab
+angle: "There's a specific reason this cereal doesn't spike your blood sugar \u2014\
+  \ and it's not just 'less sugar'"
+hook: It's not that they just took the sugar out. That's what every other brand does.
+  There's actually a different reason this one doesn't wreck your morning.
+hook_type: Curiosity Gap
+slot: 4
+hook_source: "Pain: 'blood sugar crashes after eating traditional cereal derail their\
+  \ mornings' \u2014 Objection: 'the protein/keto thing is probably just a marketing\
+  \ angle'"
+hook_tactic: "Withhold the mechanism \u2014 hint that there's a reason it works that\
+  \ most people don't know"
+persona: Skeptical, nutrition-literate millennial who has been burned by 'healthy'
+  marketing before and wants to understand the actual mechanism
+creative_mechanic: "Curiosity Loop \u2014 open the question in the hook, withhold\
+  \ the answer, make clicking feel like closing an open loop"
+visual_format: "Text-scroll static ad \u2014 clean white background, copy-forward\
+  \ design, the hook line is the only visual needed"
+pain_point: Blood sugar crashes after eating traditional cereal derail their mornings
+benefit_callouts:
+- High protein slows glucose absorption
+- 4g sugar instead of 40g
+- "No mid-morning crash \u2014 actually tested on real mornings"
+cta: "Here's what's actually different \u2014 try the 6-pack"
+body_copy: ''
+visual_direction: "Minimal and editorial \u2014 white background with the cereal box\
+  \ and a single bold question mark or unfinished sentence in large type, feels more\
+  \ like a magazine cover than an ad, invites reading"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

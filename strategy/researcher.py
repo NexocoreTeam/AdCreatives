@@ -347,6 +347,25 @@ def discover_visual_identity_images(homepage_html: str, base_url: str, bestselle
     return images[:max_images]
 
 
+def _validate_image_urls(urls: list[str], timeout: float = 5.0) -> list[str]:
+    """Filter out URLs that 404 or fail to fetch — Gemini multi-image fails
+    the whole batch if even one URL is bad."""
+    headers = {"User-Agent": USER_AGENT}
+    valid: list[str] = []
+    with httpx.Client(timeout=timeout, follow_redirects=True, headers=headers) as client:
+        for url in urls:
+            try:
+                resp = client.head(url)
+                if resp.status_code == 405:
+                    # Some servers reject HEAD; try a short GET
+                    resp = client.get(url, headers={**headers, "Range": "bytes=0-0"})
+                if 200 <= resp.status_code < 400:
+                    valid.append(url)
+            except (httpx.RequestError, httpx.TimeoutException):
+                continue
+    return valid
+
+
 def extract_visual_identity(image_urls: list[str]) -> dict | None:
     """Use Gemini 2.5 Pro (via OpenRouter) on multiple brand images to
     extract a structured visual identity description.
@@ -358,6 +377,11 @@ def extract_visual_identity(image_urls: list[str]) -> dict | None:
     Falls back to Claude Sonnet 4.6 vision on a single image if OpenRouter
     isn't configured.
     """
+    if not image_urls:
+        return None
+
+    # Drop any URLs that 404 — Gemini multi-image fails the whole batch on one bad URL.
+    image_urls = _validate_image_urls(image_urls)
     if not image_urls:
         return None
 

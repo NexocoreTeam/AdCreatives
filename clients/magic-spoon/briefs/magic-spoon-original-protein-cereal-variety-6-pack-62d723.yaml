@@ -1,0 +1,32 @@
+brief_id: magic-spoon-original-protein-cereal-variety-6-pack-62d723
+client: magic-spoon
+product: Original Protein Cereal Variety 6-Pack
+awareness_level: solution_aware
+framework: fab
+angle: 13g protein in a bowl of cereal that actually tastes like your childhood
+hook: 13 grams of protein. 4 grams of sugar. One bowl of Frosted cereal that tastes
+  like you're 9 years old again.
+hook_type: Surprising Stat
+slot: 1
+hook_source: "Key benefit: high-protein / low-sugar mechanism \u2014 paired with desire:\
+  \ 'feel like a kid on Saturday morning'"
+hook_tactic: Specific stat that reframes what the audience already believes is impossible
+persona: Fitness-adjacent millennial who gave up cereal when they started eating cleaner
+  but genuinely misses it
+creative_mechanic: "Stat Reveal with Sensory Anchor \u2014 open on the number, land\
+  \ on the emotional payoff"
+visual_format: "Text-on-product photo \u2014 macro shot of a cereal-filled spoon,\
+  \ nutrition callouts overlaid in bold"
+pain_point: Blood sugar crashes after traditional cereal derail their mornings
+benefit_callouts:
+- 13g protein per bowl
+- 4g sugar (not a typo)
+- Tastes like Frosted cereal. Because it is.
+cta: "Try the Variety 6-Pack \u2014 see which flavor you finish first"
+body_copy: ''
+visual_direction: "Close-up of a spoon heaped with Frosted cereal over a bright bowl,\
+  \ with clean typography overlaying the 13g / 4g contrast \u2014 feels like a nutrition\
+  \ label got a glow-up"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

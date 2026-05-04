@@ -1,0 +1,36 @@
+brief_id: magic-spoon-original-protein-cereal-variety-6-pack-66d0a8
+client: magic-spoon
+product: Original Protein Cereal Variety 6-Pack
+awareness_level: solution_aware
+framework: four_cs
+angle: "Everyone in the fitness and podcast world has already switched \u2014 you're\
+  \ the last hold-out eating sad bran flakes"
+hook: At this point your group chat has already tried Magic Spoon. You're just the
+  one still eating the sad flakes.
+hook_type: FOMO / Urgency
+slot: 3
+hook_source: "Audience: podcast listeners and fitness-adjacent community, higher disposable\
+  \ income \u2014 paired with objection: '$35 for cereal is insane \u2014 this better\
+  \ actually be worth it'"
+hook_tactic: "Bandwagon urgency \u2014 the peer group has already moved on and you're\
+  \ the last to know"
+persona: Podcast-listening, fitness-adjacent millennial who tracks what their peer
+  group is into and doesn't want to be behind the curve
+creative_mechanic: "Social Mirror \u2014 reflects the audience's own community back\
+  \ at them, creating mild social pressure through recognition"
+visual_format: "Meme-style static \u2014 split image or reaction format with text\
+  \ overlay, designed to be screenshot-able and shareable"
+pain_point: Every 'healthy' cereal alternative they've tried tastes like cardboard
+  or sawdust
+benefit_callouts:
+- The cereal your group chat is already on
+- "6 flavors in one box \u2014 pick your side"
+- Subscribe and never run out
+cta: Join the variety pack. See what the noise is about.
+body_copy: ''
+visual_direction: "Bold, minimal graphic \u2014 think a phone notification-style visual\
+  \ or group chat bubble format, Magic Spoon box featured like it's being passed around,\
+  \ playful and a little smug in tone"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

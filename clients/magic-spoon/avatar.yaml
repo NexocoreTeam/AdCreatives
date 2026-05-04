@@ -1,66 +1,62 @@
 name: Auto-drafted — please review and rename
-demographic: Health-conscious adults 25–45, predominantly millennials who grew up
-  in the 1990s–2000s with Kellogg's and General Mills cereals as a core childhood
-  memory. Skews toward fitness-aware, nutritionally literate, podcast-consuming consumers
-  who are comfortable buying premium DTC food products online.
+demographic: Millennial adults 25–45 who grew up in the 80s–90s with strong cereal
+  nostalgia, now following some form of health-conscious eating (keto, low-carb, high-protein,
+  or simply 'cleaner' diet). Podcast listeners and fitness-adjacent. Higher disposable
+  income given premium price tolerance. Both genders, slight male lean via JRE channel.
 psychographic: ''
 pain_points:
-- pain: Missing the taste and comfort of childhood cereals but unwilling to eat something
-    so sugary anymore
+- pain: Gave up sugary cereal when they started eating healthy and genuinely miss
+    it
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: No cereal option existed that was genuinely enjoyable AND aligned with keto/low-carb/macro
-    goals
+- pain: Every 'healthy' cereal alternative they've tried tastes like cardboard or
+    sawdust
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Feeling like eating 'fun' food means sacrificing their health goals — forced
-    to choose between taste and nutrition
+- pain: Feel like they have to choose between eating well and eating the foods they
+    actually enjoy
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Post-sugar-cereal energy crash disrupting productivity
+- pain: Blood sugar crashes after eating traditional cereal derail their mornings
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Boredom or joylessness of 'adult' breakfast options (plain oats, egg whites,
-    protein shakes)
+- pain: Gluten sensitivity has made breakfast options even more limited
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Gluten sensitivity limiting cereal options
+- pain: Protein bars and meal replacements feel clinical and joyless
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
 desires:
-- desire: Permission to eat something that feels indulgent without it actually being
-    indulgent
+- desire: Eat cereal again without guilt or a sugar spike
   customer_language: []
-- desire: Breakfast (or any-time-of-day snack) that tastes great AND fuels them
+- desire: Feel like a kid on Saturday morning — even for just one bowl
   customer_language: []
-- desire: The nostalgic ritual of a bowl of cereal without the guilt
+- desire: Find a breakfast that tastes great AND supports their fitness goals
   customer_language: []
-- desire: Food that feels like a treat but aligns with their lifestyle
+- desire: Discover that healthy eating doesn't have to be boring or punishing
   customer_language: []
-- desire: A brand that gets them — that understands the tension between who they were
-    and who they are now
+- desire: A food product they actually look forward to eating
   customer_language: []
 objections:
-- That price — $35 for 4 boxes of cereal? I can get a whole cart at Costco for that.
-- Does it actually taste good, or does it taste like cardboard with a branding budget?
-- I've tried 'healthy' cereals before and they all disappoint — why is this different?
-- The macros sound too good to be true — what's the catch?
-- I don't need a subscription and don't want to be locked in
+- It probably doesn't taste like real cereal — 'healthy' versions never do
+- $35 for cereal is insane — this better actually be worth it
+- The protein/keto thing is probably just a marketing angle
+- My kids/family won't want to eat this, so why bother?
+- I've been burned by 'healthy' food brands before
 trigger_events:
-- Starting a keto or low-carb diet and realizing they have to give up cereal
-- Hearing a Magic Spoon ad on a podcast (especially JRE) from a trusted host
-- Seeing someone they follow on social media eating it
-- Standing in the grocery aisle reaching for Lucky Charms, putting them back, feeling
-  defeated
-- Macro tracking and discovering their 'healthy' granola had 40g of sugar
-- A life transition moment (new diet, new year, post-holiday reset) that triggered
-  a search for better breakfast options
+- Starting a new keto or low-carb diet and realizing they can't eat cereal anymore
+- Hearing Magic Spoon on JRE or another podcast they trust
+- Seeing a friend or influencer eat it on Instagram and thinking 'that looks like
+  real cereal'
+- Grocery store moment — realizing every cereal on the shelf is 25g+ of sugar
+- Parent realizing they want to offer kids a better option than Lucky Charms
+- Post-workout looking for a high-protein, satisfying snack that isn't a bar
 awareness_level: solution_aware
 language_patterns: []
 current_solutions: []

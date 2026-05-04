@@ -1,0 +1,39 @@
+brief_id: magic-spoon-original-protein-cereal-variety-6-pack-74de9f
+client: magic-spoon
+product: Original Protein Cereal Variety 6-Pack
+awareness_level: solution_aware
+framework: four_cs
+angle: "Every other 'healthy' cereal tastes like a punishment \u2014 this one tastes\
+  \ like Saturday morning"
+hook: Every other 'healthy' cereal is basically flavored cardboard pretending to be
+  food. Magic Spoon is the one that actually got it right.
+hook_type: Contrast / Enemy
+slot: 6
+hook_source: "Pain: 'every healthy cereal alternative they've tried tastes like cardboard\
+  \ or sawdust' \u2014 Objection: 'it probably doesn't taste like real cereal \u2014\
+  \ healthy versions never do'"
+hook_tactic: Name the enemy category (sad health food) and draw a hard line between
+  it and this product
+persona: Disappointed repeat-trier of healthy cereals who has been let down enough
+  times to be genuinely skeptical but still hasn't stopped hoping something actually
+  works
+creative_mechanic: "Enemy Framing with Category Contrast \u2014 define what Magic\
+  \ Spoon is by being explicit about what it refuses to be"
+visual_format: "Side-by-side static \u2014 bland beige competitor-style packaging\
+  \ on the left (generic, no brand name) vs. Magic Spoon's colorful Variety 6-Pack\
+  \ on the right, stark visual contrast"
+pain_point: Every 'healthy' cereal alternative they've tried tastes like cardboard
+  or sawdust
+benefit_callouts:
+- Not cardboard. Actually Cocoa.
+- Not a compromise. 13g protein and real flavor.
+- "Not one sad flavor \u2014 six of them"
+cta: The 6-Pack that finally gets it right. Try it.
+body_copy: ''
+visual_direction: "The competitor side should feel visually dull \u2014 muted colors,\
+  \ clinical design \u2014 while the Magic Spoon side pops with color and personality.\
+  \ The image should make the choice feel obvious without a single word of copy needing\
+  \ to explain it"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
