@@ -1,0 +1,30 @@
+brief_id: magic-spoon-original-protein-cereal-variety-6-pack-4489a8
+client: magic-spoon
+product: Original Protein Cereal Variety 6-Pack
+awareness_level: solution_aware
+framework: fab
+angle: "13g protein, 0g sugar \u2014 numbers that shouldn't coexist in a cereal bowl"
+hook: 13 grams of protein. Zero sugar. And it tastes like the Cocoa Puffs you ate
+  in your pajamas at age 9.
+hook_type: Surprising Stat
+slot: 1
+hook_source: "Key benefit: 13\u201314g protein, 0\u20132g sugar; pain: misses childhood\
+  \ cereal but can't justify the sugar"
+hook_tactic: Specific stat with a disbelief reframe
+persona: Nostalgic millennial macro-tracker who gave up cereal as an adult
+creative_mechanic: Stat Reveal with Visual Contradiction
+visual_format: Text-on-product photo
+pain_point: Misses nostalgic joy of childhood cereal but can't justify the sugar and
+  empty carbs
+benefit_callouts:
+- 13g protein per bowl
+- "0g sugar \u2014 not 2, not 5, zero"
+- "Cocoa, Fruity, Frosted, PB, Cinnamon \u2014 the whole lineup"
+cta: Grab the variety 6-pack and do the math yourself
+body_copy: ''
+visual_direction: "Flat lay of all 6 boxes against a bright retro-colored background\
+  \ with the macros printed in oversized type as if they are the headline \u2014 make\
+  \ the numbers feel impossible"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

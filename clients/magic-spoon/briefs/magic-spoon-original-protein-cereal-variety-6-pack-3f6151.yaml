@@ -1,0 +1,32 @@
+brief_id: magic-spoon-original-protein-cereal-variety-6-pack-3f6151
+client: magic-spoon
+product: Original Protein Cereal Variety 6-Pack
+awareness_level: solution_aware
+framework: four_cs
+angle: "The health-conscious cereal category is moving fast \u2014 people who tried\
+  \ it aren't going back to eggs and protein shakes every morning"
+hook: Everyone who discovers this stops eating sad breakfasts. The people who haven't
+  tried it yet are the only ones still doing eggs for the fourth morning in a row.
+hook_type: FOMO / Urgency
+slot: 3
+hook_source: 'Pain: tired of same boring high-protein breakfast options (eggs, protein
+  shakes, Greek yogurt); desire: high-protein breakfast that doesn''t require cooking
+  or prep'
+hook_tactic: Bandwagon urgency with social momentum framing
+persona: Keto or macro tracker stuck in a repetitive breakfast rotation
+creative_mechanic: Social Witness with Implied Crowd
+visual_format: Carousel static ad
+pain_point: Tired of the same boring high-protein breakfast options
+benefit_callouts:
+- Zero prep. Pour and eat.
+- More protein than two eggs
+- Keto-friendly, gluten-free, actually delicious
+cta: Join them. 6-pack ships fast.
+body_copy: ''
+visual_direction: "Slide 1 shows a sad, repetitive breakfast spread \u2014 same eggs,\
+  \ same shaker bottle, muted colors. Slide 2 cuts to a bright, colorful cereal bowl\
+  \ with all five flavors fanned out behind it. The contrast should feel like Monday\
+  \ vs. Saturday morning."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

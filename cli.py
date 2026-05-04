@@ -477,6 +477,7 @@ def research(client: str, url: str, max_products: int, auto: bool):
             "description": _flatten(product.get("description", {"value": ""})),
             "price": str(_flatten(product.get("price", {"value": ""}))),
             "category": "general",
+            "image_path": "",
             "image_url": _flatten(product.get("image_url", {"value": ""})),
             "url": _flatten(product.get("url", {"value": ""})),
             "unique_mechanism": product.get("_unique_mechanism", ""),

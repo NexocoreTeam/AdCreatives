@@ -12,8 +12,9 @@ class Product(BaseModel):
     price: str | None = Field(default=None, description="Price or price range, e.g. '$49/mo'")
     category: str = Field(default="", description="Product category for compliance rules")
     image_path: str = Field(
-        description="REQUIRED. Relative path to primary product image. "
-        "Real product images must ALWAYS be used — never generate without one.",
+        default="",
+        description="Relative path to primary product image. Required before "
+        "image generation but may be empty during research/strategy phases.",
     )
     image_url: str = Field(
         default="",

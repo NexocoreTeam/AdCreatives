@@ -1,0 +1,33 @@
+brief_id: magic-spoon-original-protein-cereal-variety-6-pack-1c6287
+client: magic-spoon
+product: Original Protein Cereal Variety 6-Pack
+awareness_level: solution_aware
+framework: four_cs
+angle: "Traditional cereal companies optimized for your kid self \u2014 Magic Spoon\
+  \ is the first one built for who you are now"
+hook: General Mills built their cereal for a 10-year-old who doesn't care about protein.
+  Magic Spoon built theirs for you at 34 who does.
+hook_type: Contrast / Enemy
+slot: 6
+hook_source: 'Avatar: grew up eating General Mills or Kellogg''s; pain: energy crashes
+  mid-morning after traditional cereal; desire: permission to eat something that tastes
+  amazing without nutritional guilt; brand tone: no-apology directness'
+hook_tactic: Name the enemy explicitly then reframe the entire category
+persona: Former Big Cereal loyalist who outgrew the nutrition profile but not the
+  craving
+creative_mechanic: Us vs. Them Contrast Split
+visual_format: Side-by-side comparison static
+pain_point: Experiences energy crashes mid-morning after traditional cereal
+benefit_callouts:
+- 'Their cereal: 36g sugar. This cereal: 0g.'
+- 'Their protein: 2g. This protein: 13g.'
+- 'Their target audience: children. Yours: you.'
+cta: Switch to the grown-up version. Variety 6-pack available now.
+body_copy: ''
+visual_direction: 'Clean two-column layout: left column shows a recognizable legacy
+  cereal box (generic stand-in, not branded) with its nutrition label zoomed in on
+  the sugar row. Right column shows Magic Spoon with its label zoomed on the protein
+  row. Same format, opposite story. No words needed beyond the numbers.'
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
