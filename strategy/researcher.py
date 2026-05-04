@@ -645,7 +645,15 @@ PAGES FETCHED ({len(pages)} pages):
 Respond with PART 1 markdown, then `---STRUCTURED-DATA---`, then PART 2 YAML.
 No code fences in PART 2."""
 
-    system = load_skill("motion/brand-intake")
+    # Layer two skills as system context: Motion's brand-intake methodology
+    # plus coreyhaines/product-marketing-context (12-section schema) for
+    # comprehensive coverage of positioning, customer language, switching
+    # dynamics, anti-personas, etc.
+    system = (
+        load_skill("motion/brand-intake")
+        + "\n\n--- ADDITIONAL: PRODUCT MARKETING CONTEXT SCHEMA ---\n\n"
+        + load_skill("product-marketing-context")
+    )
     raw = claude_complete(prompt, system=system, max_tokens=12000)
 
     if "---STRUCTURED-DATA---" not in raw:

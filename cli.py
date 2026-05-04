@@ -136,6 +136,79 @@ def personas(client: str, max_personas: int):
     console.print(table)
 
 
+# ─── Onboard wrapper (runs stages 1-5 in sequence) ──────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug (will be created if missing)")
+@click.option("--url", required=True, help="Brand homepage URL")
+@click.option("--max-products", default=3, type=int)
+@click.option("--max-personas", default=3, type=int)
+@click.option("--skip", multiple=True,
+              type=click.Choice(["research", "personas", "product-deep-dive", "offers", "strategy-matrix"]),
+              help="Stage(s) to skip (can be repeated)")
+@click.pass_context
+def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, skip: tuple):
+    """Run the full onboarding pipeline (stages 1-5) end-to-end.
+
+    Sequence: research → product-deep-dive → personas → offers → strategy-matrix.
+    Each stage builds on the previous. Use --skip to omit any stage that's
+    already done or not needed.
+
+    All stages run with --auto where applicable. Use the individual commands
+    if you want interactive review.
+    """
+    skipped = set(skip)
+
+    def banner(num: int, name: str):
+        console.print()
+        console.print(f"[bold magenta]{'═' * 60}[/bold magenta]")
+        console.print(f"[bold magenta]STAGE {num} — {name.upper()}[/bold magenta]")
+        console.print(f"[bold magenta]{'═' * 60}[/bold magenta]")
+
+    if "research" in skipped:
+        console.print("[yellow]Skipping research[/yellow]")
+    else:
+        banner(1, "Research")
+        ctx.invoke(research, client=client, url=url, max_products=max_products, auto=True)
+
+    if "product-deep-dive" in skipped:
+        console.print("[yellow]Skipping product-deep-dive[/yellow]")
+    else:
+        banner(4, "Product Deep-Dive")
+        ctx.invoke(product_deep_dive, client=client, product=None)
+
+    if "personas" in skipped:
+        console.print("[yellow]Skipping personas[/yellow]")
+    else:
+        banner(2, "Personas")
+        ctx.invoke(personas, client=client, max_personas=max_personas)
+
+    if "offers" in skipped:
+        console.print("[yellow]Skipping offers[/yellow]")
+    else:
+        banner(3, "Offers")
+        ctx.invoke(offers, client=client, url=url)
+
+    if "strategy-matrix" in skipped:
+        console.print("[yellow]Skipping strategy-matrix[/yellow]")
+    else:
+        banner(5, "Strategy Matrix")
+        ctx.invoke(strategy_matrix, client=client, max_products=max_products)
+
+    console.print()
+    console.print(f"[bold green]✓ Onboarding complete for '{client}'[/bold green]")
+    console.print()
+    console.print("[bold]Files now under clients/{}/:[/bold]".format(client))
+    console.print("  - brand.yaml, brand-context.md")
+    console.print("  - avatar.yaml + avatars/<id>.yaml × N")
+    console.print("  - products/<id>.yaml × N (enriched)")
+    console.print("  - offers.yaml")
+    console.print("  - strategy-matrix.md, strategy-matrix.yaml")
+    console.print()
+    console.print("[bold]Next:[/bold] adc brief --client {} --product <id> --angles 6".format(client))
+
+
 # ─── Product Deep-Dive (Stage 4) ────────────────────────────────────────────
 
 
