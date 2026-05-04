@@ -20,6 +20,40 @@ benefits:
   the fun of food'
 - '[social] Shareable as a gift or discovery for friends with dietary restrictions
   (gluten sensitivity, keto, low-sugar lifestyles)'
+- '[functional] High protein per serving (product positioned as ''High-Protein'' in
+  page title)'
+- '[functional] Keto-friendly formulation (page title explicitly states ''Keto Cereal'')'
+- '[functional] 0-2g sugar per serving (from promo bar copy)'
+- '[functional] 6 distinct flavors in one pack: Fruity, Frosted, Cocoa, Peanut Butter,
+  Blueberry Muffin, and Cinnamon Crunch'
+- '[functional] Gluten-free formulation (mentioned in on-page review)'
+- '[functional] Subscribe & save option available (selling_plan parameter present
+  in links)'
+- '[emotional] Recaptures the joy of childhood Saturday morning cereal without the
+  guilt'
+- '[emotional] Feel indulgent and nostalgic eating something that is actually good
+  for you'
+- '[emotional] Permission to love cereal again — a food many health-conscious adults
+  felt they had to give up'
+- '[social] Be the person who found the cereal that is actually healthy and still
+  tastes amazing'
+- '[social] Share something family members with dietary restrictions (gluten sensitivity,
+  keto) can finally enjoy too'
+- '[social] Signal health-consciousness without sacrificing a recognizable, fun food
+  identity'
+- '[functional] 0-2g sugar per serving'
+- '[functional] Grain-free cereal'
+- '[functional] 6 boxes covering all original flavors: Frosted, Cocoa, Fruity, Blueberry
+  Muffin, Peanut Butter, Cinnamon Crunch'
+- '[functional] Subscribe & save purchasing option available'
+- '[emotional] Recaptures the feeling of childhood Saturday morning cereal rituals'
+- '[emotional] Allows adults to enjoy nostalgic sweet cereal without guilt or restriction'
+- '[emotional] Enables diabetics and low-sugar dieters to eat cereal again'
+- '[emotional] Satisfying and filling — removes the sense of deprivation from eating
+  healthy'
+- '[social] Makes health-conscious eaters look like they haven''t sacrificed indulgence'
+- '[social] Shareable with kids and grandkids — bridges generational enjoyment'
+- '[social] Positions buyers as nutrition-savvy rather than diet-obsessed'
 price: Unknown â€” ~$35 per 4-pack equivalent inferred from user input; exact 6-pack
   price unconfirmed
 category: general
@@ -27,53 +61,64 @@ image_path: ''
 image_url: https://magicspoon.com/cdn/shop/files/MS_C_VARIETY_6PACK_HERO.png?v=1733411891
 additional_images: []
 product_characteristics:
-  materials_or_ingredients: []
+  materials_or_ingredients:
+  - No added sugar (0-2g sugar per serving)
+  - High protein (exact grams per serving not confirmed from page text)
+  - Grain-free
+  - Gluten-free
+  - Specific ingredient list not rendered in extracted HTML
   shipping_and_fulfillment:
-  - Subscribe & save selling plan available (selling_plan=3408035902)
-  - Limited edition promotions suggest inventory urgency (e.g. Spring Granola ending
-    soon)
-  - No explicit lead time, shipping speed, or fulfillment notes rendered in provided
-    HTML
+  - Ships direct-to-consumer via magicspoon.com
+  - Subscribe & save option available on this SKU
+  - Delivery speed and shipping cost not confirmed in extracted HTML
   ratings_and_reviews_meta:
     star_rating: ''
-    review_count: 80,000+ 5-star reviews (promo bar claim — not a structured review
-      widget count)
-    review_widget: OKE Reviews (okendo) — template tag 'oke-reviews-body-template'
-      present in HTML; widget content not rendered in provided HTML
-  guarantees: []
+    review_count: 80,000+ 5-star reviews (referenced in promo bar; per-product count
+      not rendered in extracted HTML)
+    review_widget: OkendoReviews (oke-reviews widget detected in HTML template tags)
+  guarantees:
+  - No satisfaction guarantee, refund policy, or money-back language found in extracted
+    HTML
   cross_sells_or_bundles:
-  - Custom Mixed Bundle 6-Box (Build Your Own Bundle) — /products/custom-mixed-bundle-6-box
-  - Protein + Fiber Cereal Variety Pack — /products/cinnamon-crunch-fiber-1-case-4-boxes
-  - New! Protein Cereal + Marshmallows — /products/classic-smores-protein-cereal-marshmallows-1case-4boxes
-  - Pastries Variety 6-Pack — /products/pastries-variety-6-1-case-6-boxes-copy
-  - Treats Sweet-n-Salty Variety Pack — /products/sweet-n-salty-variety-pack
-  - Granola Variety 6-Pack — /products/variety-6-6-bags-of-granola
-  - Marshmallow Treats — /products/marshmallow-16-cereal-treats-1
-  - Double Chocolate Treats — /products/double-chocolate-pack-16-cereal-treats-4-boxes
-  - Dark Chocolate Almond Granola — /products/dark-chocolate-almond-4-bags-of-granola
-  - Mixed Berry Granola — /products/mixed-berry-4-granola
+  - Custom Mixed Bundle - 6 boxes (Build Your Own Bundle)
+  - Custom Mixed Bundle - 8 boxes
+  - Protein + Fiber Cereal Variety Pack (new)
+  - Protein Cereal + Marshmallows (new)
+  - Pastries Variety 6-Pack
+  - Treats Variety 6-Pack (Sweet N Salty)
+  - Granola Variety 6-Pack
+  - 'Individual flavor boxes: Frosted, Cocoa, Fruity, Blueberry Muffin, Peanut Butter,
+    Cinnamon Crunch'
+  - Free Bowl & Spoon Set (subscriber gift)
   customer_language_quotes:
-  - losing baked goods, pastries, bread, etc. has really been demoralizing to her
-  - Magic Spoon found a way to make GF cereal with great flavors
-  - an incredible product
-  - I recommend it to all of my friends with food issues
-  - We've reimagined all your favorite childhood cereals
+  - Cold cereal is a ritual.
+  - When I have Magic Spoon cereal, I am taken back to Saturday morning.
+  - There were no lower sugar alternatives, so I stopped eating cereal.
+  - Magic Spoon gives me a solution that I can use to return cereal to my diet.
+  - A cereal I can enjoy being a diabetic
+  - Losing baked goods, pastries, bread, etc. has really been demoralizing to her.
+  - Magic Spoon found a way to make GF cereal with great flavors!
+  - I recommend it to all of my friends with food issues.
+  - No sugar added & lots of protein.
+  - Really satisfying.
+  - As good as a candy bar but, better for you.
   - High Protein, 0-2g Sugar
   - 80,000+ 5-Star Reviews
-  extraction_confidence: low
-  extraction_notes: The HTML provided is predominantly navigation, header, and CSS/JS
-    scaffolding — the actual product detail page body (price, full product description,
-    nutrition facts, ingredient list, review widget content, guarantee text, add-to-cart
-    section) was not included in the rendered HTML. Price is not visible and is almost
-    certainly injected via Shopify's JavaScript or Liquid templates at runtime. The
-    only review content present is a single testimonial embedded in the mobile navigation
-    sidebar, not the main review widget. The Okendo review widget (oke-reviews-body-template)
-    is present as a DOM template but contains no loaded review data. The 80,000+ 5-star
-    reviews figure comes from a promo bar element, not a structured rating widget,
-    so no aggregate star rating is extractable. Ingredients, nutrition panel, and
-    satisfaction guarantee language would require the full rendered page body to extract.
-    Recommend re-scraping with a headless browser (Puppeteer, Playwright) after JavaScript
-    execution to capture dynamic content.
+  - We've reimagined all your favorite childhood cereals.
+  extraction_confidence: medium
+  extraction_notes: Price was not rendered in the extracted HTML — the add-to-cart
+    and pricing section did not appear in the cleaned page content; marked unknown.
+    Exact protein grams per serving and full ingredient list were not present in the
+    extracted text. The review widget appears to be Okendo (oke-reviews template tag
+    visible in head), but the actual product-level review feed for this specific SKU
+    (Variety 6-Pack) was not loaded in the HTML — the 20 reviews provided via the
+    review-widget API are from multiple products (granola, treats, spring crunch pack)
+    and only two reviews (Keith M., Debbie J.) are directly product-category-relevant
+    for cereal; no reviews explicitly name the Variety 6-Pack SKU. Social proof quotes
+    sourced from the API reviews were scored and filtered accordingly. The '80,000+
+    5-Star Reviews' figure comes from the site-wide promo bar and is brand-level,
+    not SKU-level. Subscription pricing and one-time purchase pricing differential
+    not confirmed. FAQ section not present in extracted HTML.
 url: https://magicspoon.com/products/variety-1-case-6-boxes-1
 unique_mechanism: 'Magic Spoon reimagines classic childhood cereal flavors — Fruity,
   Frosted, Cocoa, Peanut Butter, Blueberry Muffin, Cinnamon Crunch — by rebuilding
@@ -87,8 +132,33 @@ objections:
   in the one visible review (gluten sensitivity use case)
 - Not sure which flavor to get — variety pack format directly resolves flavor indecision
   for first-time buyers
+- Taste skepticism — page meta description and brand framing centers on 'reimagined'
+  classic flavors, preemptively signaling that healthy does not mean flavorless
+- Dietary restriction concerns — on-page review specifically calls out gluten-free
+  suitability for people with gluten sensitivity
+- Price/value hesitation — subscribe & save option offered to reduce per-order cost
+  and commitment friction
+- Social proof volume — 80,000+ 5-star reviews cited in promo bar to overcome 'too
+  good to be true' skepticism
+- 'Taste concern: brand positions flavors as reimagined childhood favorites, implying
+  it actually tastes good'
+- 'Sugar/health concern: ''0-2g sugar'' and ''high protein'' claims directly counter
+  the assumption that tasty cereal must be unhealthy'
+- 'Gluten sensitivity: gluten-free formulation addressed in on-page review featured
+  in nav'
+- 'Subscription hesitation: subscribe & save is offered as an option alongside one-time
+  purchase'
 social_proof:
 - My wife has gluten sensitivity issues, and losing baked goods, pastries, bread,
   etc. has really been demoralizing to her. So happy that Magic Spoon found a way
   to make GF cereal with great flavors! All in all, this is an incredible product
   and I recommend it to all of my friends with food issues.
+- I have been a fan of sweet cereal since I was a kid. However, now with diabetes,
+  there were no lower sugar alternatives, so I stopped eating cereal. Magic Spoon
+  gives me a solution that I can use to return cereal to my diet. Cold cereal is a
+  ritual. When I have Magic Spoon cereal, I am taken back to Saturday morning.
+- This cereal is Full of flavor I was so excited that there is a cereal I can enjoy
+  being a diabetic
+- I love that there's no sugar added & lots of protein. I decided to try the mail
+  order & save some money.
+- Go well with milk, yogurt, or by themselves. Highly recommended.

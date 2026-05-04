@@ -20,6 +20,38 @@ benefits:
   good AND hits macros'
 - '[social] Gift-ready bundle format signals thoughtfulness for health-conscious friends
   or family'
+- '[functional] 6 full-size cereal boxes in one order'
+- '[functional] Mix and match any flavors across the entire Magic Spoon cereal lineup'
+- '[functional] High protein per serving (brand-wide claim: 13-14g protein per serving)'
+- '[functional] 0-2g sugar per serving (brand-wide claim visible in promo bar)'
+- '[functional] Gluten-free formulation available across flavors'
+- '[emotional] Feel like a kid again eating cereal — without the sugar crash or dietary
+  guilt'
+- '[emotional] Excitement of customizing your own bundle rather than accepting a pre-set
+  variety'
+- '[emotional] Relief of finding a cereal that fits dietary restrictions without sacrificing
+  flavor or joy'
+- '[social] Be the person who figured out how to eat cereal on a health-conscious
+  diet'
+- '[social] Share a product you can recommend confidently to friends with food sensitivities
+  or dietary goals'
+- '[functional] 6 boxes of cereal in a single order'
+- '[functional] Mix and match any flavors across the full Magic Spoon cereal lineup'
+- '[functional] High protein per serving (brand claims ''High Protein'' in promo bar)'
+- '[functional] 0-2g sugar per serving (stated in promo bar)'
+- '[functional] Gluten-free formulation available across lineup'
+- '[functional] Variety satisfies different taste and texture preferences across the
+  cereal range'
+- '[emotional] Recreates the Saturday morning cereal ritual of childhood'
+- '[emotional] Feels like a treat — not a compromise — for adults managing sugar or
+  carb intake'
+- '[emotional] Gratifying sense of control and personalization from building your
+  own bundle'
+- '[emotional] Relief and joy for people with dietary restrictions (diabetes, gluten
+  sensitivity) who thought cereal was off-limits'
+- '[social] Demonstrates health-consciousness without the suffering optics of ''diet
+  food'''
+- '[social] Shareable as a thoughtful gift for friends or family with dietary restrictions'
 price: Unknown â€” approximately $35â€“$40 per 4-box case inferred; 6-box price not
   confirmed
 category: general
@@ -28,17 +60,17 @@ image_url: https://magicspoon.com/cdn/shop/files/custom-case.webp?v=1760729939
 additional_images: []
 product_characteristics:
   materials_or_ingredients:
-  - No specific ingredient list visible on this page for the bundle itself — ingredients
-    vary by individual flavor SKU
+  - No ingredient list visible in the extracted HTML for this specific product
   shipping_and_fulfillment:
-  - No specific shipping lead time, fulfillment details, or made-to-order information
-    visible in the extracted HTML
+  - No specific shipping lead time or fulfillment details visible in the extracted
+    page HTML
   ratings_and_reviews_meta:
     star_rating: ''
-    review_count: 80,000+ 5-Star Reviews (referenced in promo bar)
-    review_widget: OkendoReviews (oke-reviews-body-template detected in HTML)
+    review_count: 80,000+ 5-star reviews (brand-level claim shown in promo bar, not
+      product-specific)
+    review_widget: OkendoReviews (oke-reviews template detected in page HTML)
   guarantees:
-  - No explicit guarantee or refund policy language visible in the extracted page
+  - No satisfaction guarantee or refund policy language visible in the extracted page
     HTML
   cross_sells_or_bundles:
   - Original Protein Variety Pack (6 boxes)
@@ -53,28 +85,46 @@ product_characteristics:
   - Granola Variety 6-Pack
   - Dark Chocolate Almond Granola
   - Mixed Berry Granola
-  - FREE Bowl Set for New Subscribers (promo bar callout)
-  - Limited Edition Spring Granola (promo bar callout)
   customer_language_quotes:
-  - losing baked goods, pastries, bread, etc. has really been demoralizing to her
-  - So happy that Magic Spoon found a way to make GF cereal with great flavors
-  - this is an incredible product and I recommend it to all of my friends with food
-    issues
-  extraction_confidence: low
-  extraction_notes: Price is not visible in the extracted HTML — no product price,
-    variant pricing, or subscription pricing was rendered in the portion of the page
-    provided. The page appears to be a bundle-builder with a dynamic product selector;
-    pricing is almost certainly rendered via JavaScript after page load and was not
-    captured in this HTML snapshot. The one review quote present was pulled from the
-    mobile navigation sidebar (not a dedicated review widget section), suggesting
-    the main review content is loaded dynamically and was not captured. The OkendoReviews
-    widget template tag is present in the HTML head, confirming a review widget exists,
-    but no review data rendered. The 80,000+ 5-Star Reviews figure is from a rotating
-    promo bar — it refers to the brand overall, not specifically this SKU. No ingredients,
-    nutrition facts, or serving size information was visible in this HTML. No FAQ
-    section, guarantee copy, or refund policy was present in the extracted content.
-    Full product page body (below the fold) appears to have been truncated or not
-    captured.
+  - Cold cereal is a ritual.
+  - I am taken back to Saturday morning.
+  - There were no lower sugar alternatives, so I stopped eating cereal.
+  - Magic Spoon gives me a solution that I can use to return cereal to my diet.
+  - Losing baked goods, pastries, bread, etc. has really been demoralizing to her.
+  - I recommend it to all of my friends with food issues.
+  - It's very gratifying to be able to choose from the various cereals available.
+  - Cereals differ in constituance and in taste.
+  extraction_confidence: medium
+  extraction_notes: 'Price was not present in the extracted HTML — no price element
+    rendered or included in the cleaned page source. Likely loaded dynamically via
+    Shopify variant JS or hidden behind a paywall/login gate in the scrape. Recommend
+    a live browser-rendered capture to retrieve price.
+
+
+    The OkendoReviews widget (template ID ''oke-reviews-body-template'' detected)
+    renders reviews client-side via JavaScript — only 2 reviews were surfaced via
+    the review-widget API fetch. The 80,000+ 5-star review claim in the promo bar
+    is brand-level social proof, not product-specific to the Custom Mixed Bundle 6-Box.
+
+
+    One review in the API fetch (Joseph A.) was for the 8-box variant, not the 6-box
+    — noted but included given relevance to bundle mechanic.
+
+
+    The testimonial appearing in the navigation menu review widget (gluten sensitivity
+    quote) is a site-wide featured quote, not a verified product review for this specific
+    SKU — flagged accordingly but included given its high quality and relevance to
+    the product category.
+
+
+    No ingredient list, nutritional facts, shipping policy, or satisfaction guarantee
+    copy was present in the extracted HTML for this product. These are likely rendered
+    in page sections not captured in the provided HTML or loaded dynamically.
+
+
+    Navigation pill label ''Bestseller'' on the Bundle Builder link is the only bestseller
+    designation visible — no sales rank data or volume claim attached to this specific
+    SKU.'
 url: https://magicspoon.com/products/custom-mixed-bundle-6-box
 unique_mechanism: Magic Spoon engineers nostalgia-forward cereal flavors on top of
   a high-protein, low-sugar base — so you get the taste of the sugary cereals you
@@ -87,8 +137,22 @@ objections:
   review quote
 - Flavor fatigue / boredom objection addressed by the bundle-builder's mix-and-match
   mechanic itself
+- Gluten sensitivity concern — page surfaces a review specifically about gluten-free
+  formulation working for someone with gluten sensitivity issues, signaling this objection
+  is proactively acknowledged via social proof
+- Taste skepticism — implicit in the brand's positioning and review surfacing around
+  flavor quality despite health constraints
+- Dietary restrictions (diabetes, gluten sensitivity) — addressed via a featured customer
+  testimonial in the navigation menu review widget
+- Flavor variety fatigue — addressed by the mix-and-match bundle mechanic itself
 social_proof:
 - My wife has gluten sensitivity issues, and losing baked goods, pastries, bread,
   etc. has really been demoralizing to her. So happy that Magic Spoon found a way
   to make GF cereal with great flavors! All in all, this is an incredible product
   and I recommend it to all of my friends with food issues.
+- I have been a fan of sweet cereal since I was a kid. However, now with diabetes,
+  there were no lower sugar alternatives, so I stopped eating cereal. Magic Spoon
+  gives me a solution that I can use to return cereal to my diet. Cold cereal is a
+  ritual. When I have Magic Spoon cereal, I am taken back to Saturday morning.
+- It's very gratifying to be able to choose from the various cereals available @ Magic
+  Spoon, because cereals differ in constituance and in taste.

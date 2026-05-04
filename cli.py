@@ -282,15 +282,17 @@ def product_deep_dive(client: str, product: str | None):
     table.add_column("Status", style="green")
     table.add_column("Price", style="yellow")
     table.add_column("Benefits", style="dim")
-    table.add_column("Reviews", style="dim")
+    table.add_column("Quotes", style="dim")
+    table.add_column("Reviews API", style="magenta")
     table.add_column("Confidence", style="dim")
     for name, info in summary.items():
         table.add_row(
             name[:40],
             info.get("status", "?"),
-            str(info.get("price", "")),
+            str(info.get("price", ""))[:30],
             str(info.get("benefit_count", "")),
             str(info.get("social_proof_count", "")),
+            f"{info.get('review_vendor', 'none')} ({info.get('reviews_fetched', 0)})",
             str(info.get("confidence", "")),
         )
     console.print(table)

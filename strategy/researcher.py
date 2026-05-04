@@ -468,6 +468,36 @@ Be specific and opinionated. Don't write generic strategist-speak. Reference rea
         return None
 
 
+def fetch_product_pages_with_raw(urls: list[str]) -> dict[str, dict[str, str]]:
+    """Fetch product pages, return both raw and cleaned HTML.
+
+    Vendor detection (review widgets) needs the raw HTML because <script>
+    tags carry the identifiers (e.g. Okendo subscriberId). The LLM extraction
+    needs cleaned HTML for prompt-size reasons.
+
+    Returns: {url: {"raw": str, "cleaned": str}}
+    """
+    headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
+    results: dict[str, dict[str, str]] = {}
+    total_chars = 0
+    with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
+        for url in urls:
+            try:
+                resp = client.get(url)
+            except (httpx.RequestError, httpx.TimeoutException):
+                continue
+            if resp.status_code != 200:
+                continue
+            raw = resp.text
+            cleaned = clean_html(raw)[:MAX_HTML_PER_PAGE]
+            if cleaned:
+                results[url] = {"raw": raw, "cleaned": cleaned}
+                total_chars += len(cleaned)
+                if total_chars >= MAX_TOTAL_HTML:
+                    break
+    return results
+
+
 def fetch_product_pages(urls: list[str]) -> dict[str, str]:
     headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
     results: dict[str, str] = {}

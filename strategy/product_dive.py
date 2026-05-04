@@ -22,7 +22,14 @@ from models.brand import Brand
 from models.product import Product
 from models.skills import load_skill
 from strategy.llm import claude_complete
-from strategy.researcher import fetch_product_pages
+from strategy.researcher import fetch_product_pages_with_raw
+from strategy.reviews import (
+    Review,
+    VendorSignal,
+    fetch_product_reviews,
+    filter_reviews_by_product,
+    save_reviews_as_voc,
+)
 
 
 PRODUCT_DIVE_SYSTEM = """You are an ecommerce product strategist. Your job is
@@ -67,8 +74,36 @@ def enrich_product(
     brand: Brand,
     product: Product,
     page_html: str,
+    fetched_reviews: list[Review] | None = None,
 ) -> ProductDiveResult:
-    """Run an LLM extraction on a product detail page to enrich the product YAML."""
+    """Run an LLM extraction on a product detail page to enrich the product YAML.
+
+    If `fetched_reviews` is provided (from a vendor API like Okendo/Yotpo), the
+    review text is appended to the prompt so the LLM can extract real verbatim
+    customer language instead of trying to scrape it from the JS-rendered page.
+    """
+    reviews_text = ""
+    if fetched_reviews:
+        # Pass the top 30 reviews — enough volume for review-audit to work,
+        # bounded for prompt size
+        sampled = fetched_reviews[:30]
+        rows = []
+        for r in sampled:
+            if not r.body:
+                continue
+            rows.append(
+                f"Rating: {r.rating}/5 | Title: {r.title} | "
+                f"Reviewer: {r.reviewer} | Product: {r.product_name}\n"
+                f"  {r.body}"
+            )
+        reviews_text = (
+            f"\n\nREAL REVIEWS FETCHED FROM REVIEW-WIDGET API "
+            f"({len(sampled)} reviews):\n"
+            + "\n\n".join(rows)
+            + "\n\nApply motion/review-audit's 5-tier quality scoring. Pull "
+            "verbatim quotes from 4-5s only. Use the review_count to ground the "
+            "ratings_and_reviews_meta block."
+        )
 
     prompt = f"""Extract structured product data from this product detail page
 for {brand.name}'s "{product.name}".
@@ -85,6 +120,7 @@ BRAND CONTEXT:
 
 PRODUCT PAGE HTML (cleaned):
 {page_html[:35000]}
+{reviews_text}
 
 ---
 
@@ -237,6 +273,13 @@ def deep_dive_products(
 ) -> dict[str, dict]:
     """Run deep-dive on each product, write enriched YAMLs back.
 
+    For each product:
+    1. Fetch the product detail page HTML
+    2. Detect the review-widget vendor and pull real reviews from its public API
+    3. Pass HTML + real reviews to the LLM with motion/review-audit guidance
+    4. Save raw reviews to clients/<slug>/voc/<vendor>-reviews.json (mine-voc compatible)
+    5. Merge enrichment back into the product YAML
+
     Returns a map of {product_name: extraction_summary} for CLI display.
     """
     if not products:
@@ -246,16 +289,72 @@ def deep_dive_products(
     if not urls:
         return {}
 
-    pages = fetch_product_pages(urls)
+    pages = fetch_product_pages_with_raw(urls)
     summary: dict[str, dict] = {}
+
+    # Fetch reviews ONCE per detected vendor — for store-level vendors (Okendo)
+    # one call returns reviews across all products. For per-product vendors
+    # (Yotpo, Judge.me) we'll need one call per product.
+    cached_reviews_by_vendor: dict[str, list[Review]] = {}
+    cached_signal_by_vendor: dict[str, VendorSignal] = {}
 
     for product in products:
         if not product.url or product.url not in pages:
             summary[product.name] = {"status": "skipped", "reason": "no URL or fetch failed"}
             continue
 
-        result = enrich_product(brand=brand, product=product, page_html=pages[product.url])
+        raw_html = pages[product.url]["raw"]
+        cleaned_html = pages[product.url]["cleaned"]
+
+        # Pull vendor reviews — cache by vendor since store-level endpoints
+        # (Okendo) return reviews across all products in one call
+        product_reviews: list[Review] = []
+        signal: VendorSignal | None = None
+        try:
+            from urllib.parse import urlparse
+            base_url = f"{urlparse(product.url).scheme}://{urlparse(product.url).netloc}"
+            cache_key = None
+            from strategy.reviews import detect_review_vendor
+            preliminary_signal = detect_review_vendor(raw_html)  # raw — has scripts
+            if preliminary_signal.vendor == "okendo":
+                cache_key = f"okendo:{preliminary_signal.identifiers.get('subscriber_id', '')}"
+            if cache_key and cache_key in cached_reviews_by_vendor:
+                all_reviews = cached_reviews_by_vendor[cache_key]
+                signal = cached_signal_by_vendor[cache_key]
+            else:
+                all_reviews, signal = fetch_product_reviews(
+                    html=raw_html,  # raw HTML so identifiers in <script> survive
+                    product_url=product.url,
+                    base_url=base_url,
+                )
+                if cache_key:
+                    cached_reviews_by_vendor[cache_key] = all_reviews
+                    cached_signal_by_vendor[cache_key] = signal
+
+            product_reviews = (
+                filter_reviews_by_product(all_reviews, product.name)
+                if all_reviews
+                else []
+            )
+        except Exception as e:
+            import sys
+            print(f"[reviews fetch error for {product.name}: {type(e).__name__}: {str(e)[:200]}]", file=sys.stderr)
+            signal = None
+
+        result = enrich_product(
+            brand=brand,
+            product=product,
+            page_html=cleaned_html,  # cleaned for LLM prompt size
+            fetched_reviews=product_reviews,
+        )
         merged = merge_enrichment_into_product(product, result.enriched)
+
+        # Save raw reviews to voc/ so mine-voc can use them too
+        if product_reviews and signal:
+            try:
+                save_reviews_as_voc(client_slug, signal.vendor, product_reviews)
+            except Exception:
+                pass
 
         # Write back to disk
         from models.loader import CLIENTS_DIR
@@ -280,6 +379,8 @@ def deep_dive_products(
             "benefit_count": len(merged.get("benefits") or []),
             "social_proof_count": len(merged.get("social_proof") or []),
             "confidence": result.enriched.get("extraction_confidence", "medium"),
+            "reviews_fetched": len(product_reviews),
+            "review_vendor": signal.vendor if signal else "none",
         }
 
     return summary
