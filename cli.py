@@ -102,7 +102,12 @@ def research(client: str, url: str, max_products: int, auto: bool):
     from strategy.researcher import (
         INTAKE_QUESTIONS,
         confidence_buckets,
+        extract_brand_colors_via_vision,
         fetch_pages,
+        fetch_shopify_bestsellers,
+        find_logo_url,
+        is_shopify_site,
+        parse_shopify_product_cards,
         run_brand_intake,
     )
 
@@ -146,6 +151,44 @@ def research(client: str, url: str, max_products: int, auto: bool):
     for page_url in pages:
         console.print(f"  - {page_url}")
 
+    # Detect Shopify and pull best-sellers if so
+    homepage_html = next(iter(pages.values()), "")
+    bestsellers = []
+    if is_shopify_site(homepage_html):
+        console.print("\n[cyan]Detected Shopify store — fetching best-sellers (3 pages)...[/cyan]")
+        with console.status("Pulling /collections/all?sort_by=best-selling..."):
+            best_pages = fetch_shopify_bestsellers(url, page_count=3)
+            for page_url, page_html in best_pages:
+                cards = parse_shopify_product_cards(page_html, url)
+                # Re-rank by overall position across pages
+                for card in cards:
+                    card.rank = len(bestsellers) + 1
+                    bestsellers.append(card)
+        console.print(f"[green]Parsed {len(bestsellers)} best-selling products from {len(best_pages)} pages.[/green]")
+        if bestsellers:
+            console.print("  [dim]Top 5:[/dim]")
+            for c in bestsellers[:5]:
+                console.print(f"    [dim]{c.rank}. {c.name}[/dim]")
+
+    # Find the logo and run GPT-4o vision to extract real brand colors
+    vision_colors = None
+    logo_url = find_logo_url(homepage_html, url)
+    if logo_url:
+        console.print(f"\n[cyan]Found logo: {logo_url}[/cyan]")
+        with console.status("Running GPT-4o vision on logo for brand colors..."):
+            vision_colors = extract_brand_colors_via_vision(logo_url)
+        if vision_colors and vision_colors.get("primary"):
+            console.print(
+                f"[green]Vision colors:[/green] "
+                f"primary={vision_colors.get('primary')} "
+                f"secondary={vision_colors.get('secondary')} "
+                f"accent={vision_colors.get('accent', 'none')}"
+            )
+        else:
+            console.print("[yellow]Vision extraction returned no colors — falling back to CSS extraction.[/yellow]")
+    else:
+        console.print("[yellow]Couldn't find logo URL — colors will come from CSS extraction only.[/yellow]")
+
     # ─── PHASE 3: BUILD BRAND CONTEXT ─────────────────────────────────────
     console.print("\n[bold cyan]PHASE 3 — BUILDING BRAND CONTEXT[/bold cyan]")
     with console.status("Compiling brand-context.md + structured data with Claude Sonnet 4.6..."):
@@ -154,6 +197,8 @@ def research(client: str, url: str, max_products: int, auto: bool):
             brand_url=url,
             seed_answers=seed_answers,
             pages=pages,
+            bestsellers=bestsellers,
+            vision_colors=vision_colors,
         )
     data = result.data
     console.print("[green]Compiled.[/green]\n")
@@ -167,6 +212,33 @@ def research(client: str, url: str, max_products: int, auto: bool):
     console.print("[bold cyan]PHASE 4 — REVIEW EXTRACTIONS[/bold cyan]\n")
     if auto:
         console.print("[dim](--auto mode: skipping interactive review, accepting all extractions)[/dim]\n")
+
+    # Brand colors get special treatment — always reviewed because they're
+    # high-impact and CSS extraction is unreliable.
+    brand = data.get("brand", {})
+    color_fields = brand.get("colors", {}) or {}
+    if color_fields:
+        console.print("[bold magenta]BRAND COLORS — special review (high impact, unreliable extraction):[/bold magenta]")
+        for color_name in ("primary", "secondary", "background", "accent"):
+            field = color_fields.get(color_name)
+            if not isinstance(field, dict):
+                continue
+            current = field.get("value", "")
+            source = field.get("source", "")
+            console.print(f"  [cyan]{color_name}[/cyan]: [bold]{current}[/bold]  [dim]({source})[/dim]")
+            if not auto:
+                new_val = click.prompt(f"    Confirm {color_name} (Enter to accept, or paste a hex)", default=str(current))
+                if new_val and new_val != current:
+                    field["value"] = new_val
+                    field["confidence"] = "high"
+                    field["source"] = "user override"
+        if auto:
+            console.print(
+                "  [yellow]REVIEW NEEDED:[/yellow] auto mode used CSS/vision extraction. "
+                "Verify these match your real brand palette before generating creative."
+            )
+        console.print()
+
     buckets = confidence_buckets(data)
 
     if buckets["high"]:

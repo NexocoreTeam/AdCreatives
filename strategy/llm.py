@@ -67,3 +67,25 @@ def gpt4o_vision(prompt: str, image_url: str, system: str = "") -> str:
         max_tokens=4096,
     )
     return response.choices[0].message.content or ""
+
+
+def claude_vision(prompt: str, image_url: str, system: str = "", max_tokens: int = 1024) -> str:
+    """Claude with vision — analyze an image via URL.
+
+    Same API key as the rest of the strategy layer (no separate OpenAI key
+    needed). Uses Sonnet 4.6.
+    """
+    client = get_anthropic_client()
+    content = [
+        {"type": "image", "source": {"type": "url", "url": image_url}},
+        {"type": "text", "text": prompt},
+    ]
+    kwargs: dict = {
+        "model": "claude-sonnet-4-6",
+        "max_tokens": max_tokens,
+        "messages": [{"role": "user", "content": content}],
+    }
+    if system:
+        kwargs["system"] = system
+    response = client.messages.create(**kwargs)
+    return response.content[0].text

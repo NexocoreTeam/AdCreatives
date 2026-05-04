@@ -1,40 +1,42 @@
 name: Saved by Grace Co. (SBG Co.)
 colors:
-  primary: '#cd9c82'
-  secondary: '#ffe5da'
-  background: '#FFFFFF'
+  primary: '#4a4443'
+  secondary: '#6b6463'
+  background: '#ffffff'
 typography:
   heading: Archivo Narrow
-  body: Archivo Narrow (inherited)
-tone: Warm, sincere, and boutique-editorial — faith is woven naturally into lifestyle
-  language without preaching; speaks like a stylish Christian mom texting her best
-  friend about a find she loves
+  body: Archivo Narrow
+tone: Warm, playful, and faith-grounded — the brand speaks like a funny, proud Christian
+  mom who loves her boys, her coffee, and Jesus, in a voice that feels like community
+  rather than commerce.
 audience:
   age_range: 25–42
-  gender: Female (primary) — mothers and Christian women
+  gender: Primarily female (moms)
   interests:
-  - Christian faith and scripture
-  - Mom identity (especially boy mom)
-  - Matching mom-and-kid outfits
-  - Small business and woman-owned brands
-  - Seasonal family moments (Easter, Christmas, birthdays)
-  - Faith-forward home decor
-  - Suburban family lifestyle
+  - Faith / Christianity
+  - Motherhood
+  - Raising boys (Boy Mama identity)
+  - Kids sports (basketball, soccer)
+  - American patriotism
+  - Home decorating
+  - Coffee culture
+  - Dog ownership
+  - Reading / book clubs
+  - Diet Coke / Dr. Pepper
 platforms:
 - meta
 - tiktok
 press_mentions:
-- Today Show (NBC) — featured, date unknown
+- NBC Today Show (featured)
 social_proof:
 - Featured on the Today Show
-- Made to order — personalized craftsmanship
-- Made in North Carolina, USA
-- Nationally recognized on many platforms (site copy)
+- Made to order in North Carolina, USA
+- Available wholesale via Faire
 - 800+ products in catalog
-- Wholesale available on Faire
-founded: '2016'
-founder: unknown — woman of color, woman-owned
-mission: To create faith-forward, stylish Christian apparel and lifestyle products
-  for moms, kids, and families — made with intentionality in North Carolina, rooted
-  in the belief that faith can be expressed through everyday style
-tagline: unknown
+- Nationally recognized on many platforms (site copy)
+founded: unknown
+founder: unknown
+mission: To make faith-forward apparel and home goods for Christian moms, kids, and
+  families — items that feel personal, not preachy, and made with genuine craftsmanship
+  in North Carolina.
+tagline: For You, Your Home & Your People

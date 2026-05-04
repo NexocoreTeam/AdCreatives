@@ -1,76 +1,85 @@
 # Brand Context: Saved by Grace Co. (SBG Co.)
-*Generated: 2025 | Focus: Boy Mama Collection (within full brand context)*
+*Generated: 2025 | Focus: Boy Mama Collection (with full brand catalog documented)*
 
 ---
 
 ## Brand Overview
 
-Saved by Grace Co. (SBG Co.) is a faith-forward Christian apparel and lifestyle brand founded in 2016 and made in North Carolina, USA. The brand sells stylish, meaning-laden clothing and accessories for Christian women, moms, babies, and kids — with a strong emphasis on matching mom-and-child sets, seasonal collections, and identity-driven pieces that allow faith to be worn proudly. Founded by a woman of color, SBG Co. is a small, woman-owned business that has earned national recognition including a feature on the Today Show. Products are made to order, with approximately 800 SKUs spanning apparel, home décor, hats, baby goods, and Bibles.
+Saved by Grace Co. (SBG Co.) is a faith-forward lifestyle brand making Christian apparel and home goods for moms, kids, and families. Everything is made to order in North Carolina, USA — a meaningful differentiator in a market flooded with mass-produced fast fashion. The brand sits at the intersection of Southern charm, Christian identity, and modern mom culture: think playful graphics, warm community energy, and messages that feel like a hug rather than a sermon. SBG Co. has been nationally recognized on the Today Show and sells wholesale through Faire.
 
 ---
 
 ## Brand Story & Origin
 
-SBG Co. was founded in 2016 by a woman of color in North Carolina. The brand name itself — "Saved by Grace" — is a direct theological statement (Ephesians 2:8), anchoring the business identity in Christian faith from its inception. The brand was not built as a generic gift shop that happens to have scripture on it; it was built as a mission-aligned business where faith is the product's core DNA. The founder has grown the brand from a small-batch operation into a nationally recognized label while staying true to its made-to-order, handcrafted-in-NC roots. The Today Show feature is prominently displayed sitewide, functioning as a credibility anchor and proof of mainstream cultural resonance. A "Prayer Request" page in the site nav — a non-commercial feature with no transactional function — signals that this brand genuinely sees itself as a ministry-adjacent community, not just a retail brand.
+The brand name itself — "Saved by Grace" — signals a deeply personal faith foundation. The name isn't decorative; it's the entire posture of the brand. SBG Co. was built for Christian women who want their faith woven into everyday life without feeling preachy or performative. The made-in-North-Carolina, made-to-order model suggests this started as a small founder-driven operation (likely a mom herself) that scaled into a nationally recognized brand. The tagline visible in the logo — "For You, Your Home & Your People" — makes explicit the brand's scope: clothing and goods for moms, their kids, and the life they've built.
+
+**Gaps:** Founder name, founding year, and origin story not confirmed from pages fetched. About page exists at `/pages/about-us` but was not in the fetched set.
 
 ---
 
 ## Product Catalog
 
-SBG Co. carries approximately 800 products organized into thematic collections. The **Boy Mama Collection** (labeled "SBG Co. Kids – Boys" / "For the Boys") is the focus collection for this context document, but the full brand catalog is documented below for downstream reference.
+SBG Co. has 800+ products across a wide collection architecture. Below are the confirmed collections and top-selling SKUs.
 
-**Core Product Categories:**
+### Collection Architecture
 
-| Collection | Description | Audience Focus |
-|---|---|---|
-| The Faith Edit / All Faith | Christian graphic tees, faith-message tops | Women (primary), kids |
-| SBG Co. Kids – Boys | Boys' faith & lifestyle apparel | Boys/moms of boys |
-| SBG Co. Kids – Girls | Girls' faith & lifestyle apparel | Girls/moms of girls |
-| SBG Co. Baby | Newborn and infant apparel, onesies | New moms, gift-givers |
-| Baby Blankets + More | Swaddles, blankets, baby accessories | Baby shower, new moms |
-| Made for Moms / The Mama Edit | Women's tops, mom-identity pieces | Moms 25–42 |
-| Expecting Mama's | Maternity apparel | Pregnant women |
-| Jammies, Sets + More | Matching pajamas and loungewear sets | Families, mom+kid matching |
-| Hair Bows + Accessories | Girls' hair accessories | Girls/moms of girls |
-| Inspired Living Home Decor | Faith-based signs, wall art | Christian homes |
-| Custom Signs | Personalized quote signs | Gift buyers, home decorators |
-| Doormats | Faith-message doormats | Christian homeowners |
-| Trucker Hats | Faith & lifestyle hats | Women |
-| Holiday Collections | Valentine's Day, Easter, St. Patrick's Day, 4th of July, Birthday | Seasonal buyers |
-| Diet Coke + Dr. Pepper | Humor/lifestyle apparel (non-faith) | Millennial moms with personality |
-| Animal Lovers Collection | Pet-themed apparel | Animal-loving moms |
-| The Book Lover's Club | Book-themed apparel | Reader moms |
-| Bibles, Devotionals + More | Physical Bibles and devotional books | Faith community |
-| Spring + Summer Collection | Current seasonal hero collection | Whole family |
+| Collection Group | Sub-Collections |
+|---|---|
+| **Inspired Living Home Decor** | Custom Signs, Doormats, Home Decor |
+| **The Faith Edit** | Faith Tees (women's), Kids Faith Tees, All Faith |
+| **SBG Co. Kids** | Boys, Girls, Baby, Jammies & Sets, Hair Bows, Baby Blankets |
+| **Made for Moms** | The Mama Edit, Expecting Mamas |
+| **Holiday Collections** | Valentine's, St. Patrick's, Easter, 4th of July, Birthday |
+| **Lifestyle Collections** | Diet Coke + Dr. Pepper, Animal Lovers, The Book Lover's Club |
+| **Trucker Hats** | — |
+| **Bibles, Devotionals + More** | — |
 
-**Hero Product Signal:** The homepage currently features the **Checkered Flare Pants (Pink)** as the explicitly labeled "best selling item" alongside the Spring + Summer Collection. The Spring + Summer Collection is the current primary hero.
+### Top-Selling SKUs (Ranked by Sales — Hero Products)
 
-**Boy Mama Collection Focus:** The "For the Boys" / "SBG Co. Kids – Boys" collection is the specific focus for this engagement. This collection sits within the broader Kids ecosystem alongside Girls and Baby.
+| # | Product | Key Signal | Audience |
+|---|---|---|---|
+| 1 | **Custom Quote** (Sign) | #1 seller — personalized home decor | Moms, gift-givers |
+| 2 | **The World Needs Who You Were Made To Be** | Inspirational message tee/sign | Moms, kids |
+| 3 | **Loves Jesus America Too** | Patriotic + faith crossover | Christian moms |
+| 4 | **Wild Like My Curls** | Girl power + personality | Girls/moms |
+| 5 | **Feral Pullover** | Playful boy energy — likely Boy Mama core | Boy mamas |
+| 6 | **Love Dogs Jesus** | Faith + lifestyle identity | Moms |
+| 7 | **Kicks Over Chicks Sweatshirt** | Basketball/boy culture | Boy mamas |
+| 8 | **Loves Her Babies America Too Tee** | Mama identity + patriotic | Moms |
+| 9 | **Mamas Dude Checkered Tee** | Boy mama identity explicit | Boy mamas |
+| 10 | **Toddlerhood It's A Lifestyle** | Toddler mom humor | Moms of toddlers |
+| 11 | **Kicks Over Chicks (Style 2 Kids Tee)** | Boy sports culture | Boys |
+| 12 | **Feral Tee** | Playful boy wildness | Boys/boy mamas |
+| 13 | **Mom Pocket Style Tee** | Simple mom identity | Moms |
+| 14 | **Walk By Faith Pocket Tee** | Faith messaging on apparel | Christian women |
+| 15 | **Heaven Sent Onesie** | Newborn/baby faith | New moms, gift |
+| 16 | **My Mama Needs Coffee Jesus Toddler Tee** | Toddler + mom humor | Moms of toddlers |
+| 17 | **All American Boys Club** | Patriotic + boy identity | Boy mamas |
+| 18 | **Mama Checkered Sweatshirt** | Mom identity fashion | Moms |
+| 19 | **For I Know The Plans Kids Youth Tee** | Faith scripture — Jer. 29:11 | Christian families |
+| 20 | **All American Mamas Club** | Mom + patriotic identity | Moms |
 
-**Free shipping threshold:** $125+
-**Turnaround time:** 14 business days (made to order)
+**Boy Mama Collection Hero SKUs** (focused on the client's requested focus):
+- Feral Pullover / Feral Tee
+- Kicks Over Chicks (multiple variants)
+- Mamas Dude Checkered Tee
+- All American Boys Club
+- Toddlerhood It's A Lifestyle
+- My Mama Needs Coffee Jesus Toddler Tee
 
 ---
 
 ## What Makes Them Different
 
-**1. Made-to-Order in the USA (North Carolina)**
-This is stated explicitly on-site: *"Each item is made to order, ensuring quality. Made in North Carolina, USA."* This is not mass production. Every item is produced after purchase, which signals intentionality, craft, and a small-business ethos — all of which resonate deeply with the target audience.
+**Three compounding differentiators:**
 
-**2. Faith as Core Identity, Not Decoration**
-Unlike mass-market Christian apparel (Christian bookstore merch, Amazon graphic tees with generic scripture), SBG Co. integrates faith into styling — items are fashion-forward, trend-aware (checkered, flare pants, trucker hats), and happen to carry faith messaging. The brand does not look like a church gift shop. It looks like a boutique brand that happens to be deeply Christian.
+1. **Made to Order, Made in North Carolina.** In a market where Christian apparel is overwhelmingly dropshipped or mass-printed overseas, SBG Co. explicitly calls out domestic handcrafted production. This isn't just a supply chain fact — it's a brand value. Copy reads: *"Each item is made to order, ensuring quality. Made in North Carolina, USA."*
 
-**3. Woman-of-Color Owned, Small Business**
-This is a meaningful differentiator for an audience that cares about supporting independent, underrepresented founders. The brand's identity carries a "support a real family's business" emotional weight that Etsy generics and Amazon cannot replicate.
+2. **Faith-Forward Without Being Preachy.** The brand threads the needle that most Christian brands miss: it's not a tract, it's a vibe. Products like "Feral," "Kicks Over Chicks," "My Mama Needs Coffee + Jesus," and "Toddlerhood It's A Lifestyle" are funny, warm, and modern — faith is present but it doesn't dominate every SKU. This makes the brand feel wearable to the Christian mom who doesn't want to look like she's coming from a church event.
 
-**4. National Media Validation**
-The Today Show feature is prominently displayed in the announcement bar, header icons, and sitewide trust signals. This functions as a "mainstream culture sees us" badge that validates the brand for moms who care what trusted cultural tastemakers approve.
+3. **"For You, Your Home & Your People."** The scope is explicitly mom-centric family life — clothing for her, decor for her home, clothes for her kids. This creates a natural purchase ecosystem where a mom can shop her own wardrobe, her baby's onesie, and a sign for her wall in the same session. The Custom Quote sign being the #1 seller signals that home decor is a meaningful revenue driver alongside apparel.
 
-**5. Mom + Kid Matching as a Core Category**
-Matching sets — particularly "Mama + Me" and seasonal matching — are a clear pillar. The Boy Mama Collection specifically feeds into a deeply emotional identity: the sentimental, celebratory culture of boy moms who want to visibly express that identity through fashion.
-
-**6. Community-Adjacent Brand (Prayer Request Page)**
-Having a literal "Prayer Request" nav link is an extraordinary differentiator. No Amazon seller, no Etsy shop, no Christian bookstore chain does this. It signals that the brand is embedded in the faith community as a participant, not just a vendor.
+4. **Today Show Feature.** Prominently displayed in announcement bar AND trust icon section — *"SBG Co. has been nationally recognized on many platforms."* This is social proof deployed as a positioning tool, elevating SBG Co. above Etsy-level perception.
 
 ---
 
@@ -78,71 +87,75 @@ Having a literal "Prayer Request" nav link is an extraordinary differentiator. N
 
 | Competitor | Their Positioning | How SBG Co. Differs |
 |---|---|---|
-| Etsy (generic sellers) | Custom/handmade aesthetic, cheap price point, no brand identity | SBG Co. has a coherent brand, national press, and a community — not just a shop |
-| Amazon mass-produced Christian tees | Price-driven, fast shipping, zero craftsmanship story | SBG Co. is made-to-order in USA; quality + intentionality narrative; faith is DNA not decoration |
-| Christian bookstore apparel (Dayspring, Lifeway merch) | Institutional, gift-market positioning, traditional aesthetic | SBG Co. is fashion-forward, boutique, culturally current, trendy silhouettes |
-| Elevated faith apparel brands (Elevated Faith, etc.) | Minimalist, cross-demographic faith jewelry/apparel | SBG Co. is more mom/kid/family focused; seasonal; more emotionally specific (boy mom identity) |
-| Generic mom apparel brands (Etsy mom tees, etc.) | Mom humor/identity without faith | SBG Co. combines mom identity + faith + craft quality in one |
+| **Generic Etsy sellers** | Mass-volume, low price, inconsistent quality, often dropshipped | SBG Co. is made-to-order in NC, curated brand identity, Today Show credibility |
+| **Amazon Christian apparel** | Commodity pricing, no brand story, generic scripture graphics | SBG Co. has a distinct voice, humor, mom-culture fluency, and community feel |
+| **Ily Bean / Paisley & Sparrow** | Faith-lifestyle apparel for women | SBG Co. serves the whole family unit + has explicit Boy Mama niche |
+| **Iron & Thread / Elevated Faith** | More overtly devotional/scripture-forward | SBG Co. is warmer, more playful, less "ministry merch" |
+| **Cents of Style** | Budget Christian women's fashion | SBG Co. is more premium, made-to-order, higher craft signal |
+
+**Note:** Competitor names beyond Etsy and Amazon are inferred from category knowledge. Confirm which specific brands this client considers direct threats.
 
 ---
 
 ## The Alternative Solution
 
-Before SBG Co., the Christian mom buying matching sets or faith-message apparel for her boys was:
+Before finding SBG Co., this customer was likely:
+- Browsing Etsy for "Christian mom shirt" and getting generic results with no brand identity
+- Shopping Amazon for kids' faith tees and getting low-quality screen prints with generic verse quotes
+- Buying plain tees from Old Navy or Target and accepting that faith-forward style doesn't exist at the level of quality or specificity she wants
+- Getting custom items made one-off by local small shops without the curation or story
 
-- **Searching Etsy** and getting inconsistent quality from random sellers with no brand story
-- **Going to a Christian bookstore** and finding apparel that looked dated, institutional, or gift-shop generic
-- **Buying from Amazon** and getting cheap print-on-demand items that didn't feel special or personal
-- **Settling for secular matching sets** (Carter's, Old Navy, etc.) and getting nothing faith-forward
-- **DIY-ing it** — ordering custom iron-on items or making her own because nothing on the market was both stylish AND Christian AND boy-focused
-
-The core emotional tension: she wanted to dress her son and herself in a way that expressed her faith AND looked current AND felt like it came from a brand that understood her identity as a Christian boy mom. That combination didn't exist at scale before brands like SBG Co.
+The core "old way" SBG Co. replaces: **settling for generic Christian products that don't match her personality, her style, or her specific identity as a Boy Mama.** She wanted something that felt made for *her* — not stamped out for the masses.
 
 ---
 
 ## Core Audience(s)
 
-**Primary: Christian Boy Moms (Focus Collection)**
-- **Age:** 25–42
-- **Gender:** Female (mothers)
-- **Location/Lifestyle:** Suburban, family-oriented, faith community active (church, Bible study, small group)
-- **Identity Signals:** Strong "boy mom" identity — this is not just a product preference, it's a cultural badge they wear proudly. Instagram captions, car decals, matching outfits at church. Being a boy mom is a *personality* in this demographic.
-- **Faith Relationship:** Faith-driven but not performatively religious. They want to express their Christianity through lifestyle and aesthetic, not just Sunday behavior. Faith is woven into how they parent, shop, dress, and post.
-- **Values:** Authenticity, small business support, woman-owned brands, made-in-USA, quality over cheapness
-- **Shopping Behavior:** Discovery-driven (Instagram, Pinterest, TikTok), emotional purchasers (sentimental about mom-kid moments), gift-givers (buy for other moms, baby showers, holidays), seasonal buyers (Easter, Christmas, birthday moments)
-- **Pain Point:** Can't find faith-forward boys' apparel that actually looks good — most Christian kids' stuff is either babyish, cheesy, or obviously cheap.
+**Primary: Christian Moms, Ages 25–42**
+- Predominantly mothers of young children (toddlers through early elementary)
+- Strong subset: **Boy Mamas** — moms of one or more sons who wear that identity proudly
+- Southern-leaning or faith-community-adjacent lifestyle
+- Values: family, faith, fun, authenticity
+- She's on Instagram and Facebook, likely in a mom Facebook group or two
+- She buys to express identity — who she is as a mom, as a Christian, as a person with a personality
+- She's the one who dresses her kids intentionally; matching family looks or coordinating holiday outfits are in her world
+- She appreciates humor that "gets" mom life (toddler chaos, coffee dependency, the wildness of boys)
 
-**Secondary: General Christian Moms (Whole Brand)**
-- Women 25–42 who shop faith-forward apparel for themselves and their kids (boys and girls)
-- Expectant mothers, new moms (baby gifting market)
-- Gift buyers for baby showers, Mother's Day, Easter
+**Secondary: Gift-Givers**
+- Grandmothers, aunts, friends shopping for baby showers, Mother's Day, Christmas
+- Drawn to the Custom Quote sign (#1 seller) and newborn items like Heaven Sent Onesie
+- Likely find the brand via the primary audience sharing products on social media
 
-**Secondary: Christian Women Without Kids**
-- Buying for themselves from The Faith Edit, Trucker Hats, Diet Coke/humor collections
-- Slightly wider age range, less mom-identity driven
+**Secondary: Expecting Mamas**
+- Maternity collection signals she targets women in pregnancy who are already building their family identity
+- High emotional purchase window — identity is crystallizing around becoming a mom
+
+**Key signals from product names:**
+- "Mamas Dude" — explicit Boy Mama identity
+- "All American Boys Club" — pride in raising boys
+- "My Mama Needs Coffee + Jesus" — she dresses her toddler in her own humor
+- "Feral" — she doesn't romanticize motherhood, she laughs at it
+- "Kicks Over Chicks" — she's raising sports kids and she's proud of it
 
 ---
 
 ## Brand Voice & Tone
 
-**Adjectives:** Warm, sincere, celebratory, faith-rooted, boutique-casual, gently playful, community-minded
+**Adjectives:** Warm, playful, grounded, proud, real, Southern without being provincial, faith-present without being churchy.
 
-**Voice Patterns Observed:**
-- Uses heart emojis and informal punctuation to signal warmth (🤍)
-- Mixes faith language naturally into product descriptions without it feeling like a sermon (*"Faith-filled favorites"*, *"meaningful messages"*)
-- Collection names are styled and editorial: *"The Faith Edit," "The Mama Edit," "Inspired Living," "The All-American Edit"* — editorial voice that mirrors fashion brand language
-- Trust signals are stated simply and warmly: *"Each item is made to order, ensuring quality. Made in North Carolina, USA"*
-- The Prayer Request page is a brand voice statement in itself — this brand speaks to its community as a community member
-- CTAs are soft and inviting: "Shop Now," "View the collection" — not urgency-driven
-- Holiday and seasonal framing uses family-inclusive language: *"for the whole family 🤍"*
+**Voice patterns:**
+- Uses "+" liberally ("Diet Coke + Dr. Pepper," "Free shipping $125+", "Jammies, Sets + More") — feels inclusive and additive rather than exclusive
+- Warm affirmations over scripture citations — the brand *lives* faith more than it quotes it
+- Humor through product naming rather than copy — the wit is in the concept ("Feral," "Toddlerhood It's A Lifestyle," "My Mama Needs Coffee Jesus") not in the body copy
+- Body copy is clean and benefit-led: *"Each item is made to order, ensuring quality."* No hyperbole, no hard sell
+- Collection naming is aspirational and warm: "The Faith Edit," "Made for Moms," "Inspired Living," "The Mama Edit" — editorial language, not product-category language
+- Navigation includes a "Prayer Request" page — this is a significant brand signal. It tells you this brand sees its customer relationship as a community, not a transaction.
 
-**What They Avoid:**
-- Aggressive sales language (no "limited time," "act now," countdown timers in voice)
-- Preachy or overtly evangelical tone — faith is expressed through style, not through scripture-heavy marketing copy
-- Secular humor that would alienate the faith community
-- Trend-chasing that disconnects from the core faith identity
-
-**Brand Voice in One Sentence:** *"The kind of thing a stylish, faith-loving Christian mom texts her best friend about — warm, genuine, a little editorial, and never trying too hard."*
+**What they avoid:**
+- Heavy theological language or denominational signaling
+- Before/after transformation language
+- Urgency/scarcity tactics in primary copy (though sale messaging exists in announcement bar)
+- Anything that reads as preachy, guilt-based, or performatively religious
 
 ---
 
@@ -150,66 +163,50 @@ The core emotional tension: she wanted to dress her son and herself in a way tha
 
 | Constraint | Type | Notes |
 |---|---|---|
-| Faith-forward but never preachy | Confirmed (user-stated) | Copy and creative should express faith naturally, not lecture. Think "lifestyle Christian" not "evangelical campaign." |
-| Family-safe, all-ages appropriate | Confirmed (user-stated) | No edgy humor, no innuendo, no aggressive or confrontational framing |
-| No aggressive sales language | Confirmed (user-stated) | Avoid countdown timers, scarcity pressure, or pushy CTA language. Invitation, not urgency. |
-| Woman-owned brand voice | Confirmed (user-stated) | Warmth, community, authenticity — not corporate or bro-coded |
-| Made-to-order / 14-day turnaround | Confirmed (site) | Ads should not imply fast/same-week delivery. Manage expectation. Can be framed as a quality signal. |
-| $125 free shipping threshold | Confirmed (site) | Below threshold = shipping cost. Not a deal-breaker for this audience but worth noting in creative framing if addressing price |
-| No health/medical claims | Inferred | Apparel brand — not applicable to product claims, but standard platform compliance |
-| Boy Mama identity is celebratory, not exclusionary | Inferred | Creative celebrating boy moms should not feel like it's othering girl moms or non-moms. Tone is celebratory inclusion, not club mentality. |
-| No before/after or comparative claims | Inferred | Not a beauty/health product, but worth noting that competitor call-outs should stay tasteful |
-| Platform ad policies (Meta/TikTok) | Inferred | Apparel is low-risk category. Faith messaging is permitted. "Prayer Request" angle and religious language are fine but should feel natural rather than solicitation-coded |
+| Faith-forward, not preachy | **Confirmed** (user-stated) | Faith can be present but should feel like identity, not sermon. Avoid heavy scripture drops in hooks. |
+| Family-safe / wholesome | **Confirmed** (inferred from brand DNA) | No edge, sarcasm, or dark humor. Brand humor is warm and self-aware, not cutting. |
+| No health/medical claims | **Confirmed** (N/A — apparel category) | Not relevant here |
+| Made-to-order turnaround (14 business days) | **Confirmed** (site copy) | Do not position as "fast shipping" or "ship tomorrow." Address turnaround proactively in ads if delivery timeline is a potential objection. |
+| Price sensitivity unknown | **Low confidence** | Prices not confirmed from pages fetched. Infer mid-range ($25–$55 for apparel based on category norms). High-volume sales suggest accessible price point but not commodity pricing. |
+| Not a dropship / not Amazon | **Inferred** | Positioning advantage — can lean into domestic small-batch production. Don't undercut this by running heavily discounted "deals" framing. |
+| Boy Mama Collection scope | **Confirmed** (user-stated) | For focused ad creative: keep messaging in the Boy Mama world unless explicitly expanding scope. |
 
 ---
 
 ## Must-Know Strategic Context
 
-- **The Today Show Feature is the #1 trust signal.** It appears in the announcement bar AND the icon trust-bar on the homepage. For paid creative, this should be treated as a premium credibility badge that separates SBG Co. from every Etsy and Amazon competitor in one line.
+- **The "Prayer Request" page is a brand differentiator.** No Etsy seller, no Amazon brand has this. It signals a community relationship that goes beyond product. This is an emotional hook waiting to be used in brand-level creative — *"We're not just a shop."*
 
-- **Made-to-Order in NC is a feature AND a constraint.** The 14-business-day turnaround is real. Creative should lean into "made especially for you" framing rather than fast-shipping convenience. This is a premium quality signal, not a fulfillment weakness.
+- **14-business-day turnaround must be addressed in paid ads.** This is the likely #1 purchase objection. Customers used to Amazon Prime will hesitate. Reframe as a *feature* ("made with care, not cranked out") not a liability.
 
-- **The Boy Mama identity is a cultural moment, not just a product category.** "Boy mom" is an active identity badge in the 25–42 Christian suburban mom demographic. She posts about it, wears it, gifts it, and organizes her social identity around it. Creative should mirror the way she already talks about herself.
+- **Free shipping threshold is $125+.** This is higher than typical free-shipping triggers. Bundle behavior is likely — a mom buying a tee for herself + one for her kid + a doormat is a natural $125+ order. Creative that suggests bundle/family outfitting could help AOV.
 
-- **Matching sets are an emotional product, not a functional one.** No one *needs* a matching mom-and-son outfit. They *want* it because it creates a moment — a photo, a church morning, a holiday memory. Creative should sell the moment, not the product.
+- **Today Show feature is your biggest trust accelerator.** It should appear in ad creative — as a text overlay, a UGC brag, or a hook opener. *"The Today Show featured this brand — and now I'm obsessed"* is a credible UGC angle.
 
-- **The brand has a Prayer Request page.** This is unusual and meaningful. It signals a community-first brand ethos that should be honored in creative tone. The audience trusts this brand partly because it feels like it *cares* beyond the transaction.
+- **The Boy Mama identity is a purchase *identity* play, not just a product.** The best-performing Boy Mama products (Feral, Kicks Over Chicks, Mamas Dude, All American Boys Club) aren't selling clothes — they're selling a badge. Hooks should address the feeling of being seen as a Boy Mama, not just the product specs.
 
-- **Woman-of-color owned since 2016** — this is part of the brand's story and resonates with a target audience that actively values supporting underrepresented founders. Can be a creative angle for the right execution.
+- **Wholesale via Faire** — brand is available wholesale, which signals some scale and legitimacy. Not a direct creative lever but good for brand positioning confidence.
 
-- **800 SKUs with strong seasonal collections** means there are always timely entry points — Easter, Mother's Day, Back to School, Christmas. Boy Mama Collection creative can be amplified around these moments.
+- **Seasonal relevance is high.** Spring/Summer, Easter, 4th of July, back to school, birthday collections all active. Time-to-season matters for ad creative selection.
 
-- **Wholesale is available (Faire)** — signals the brand has wholesale traction, which is an additional credibility signal for consumers even if not foregrounded in DTC ads.
-
-- **The font is Archivo Narrow** (confirmed via CSS). This is a clean, slightly editorial sans-serif — consistent with the boutique-brand positioning.
-
-- **Color palette from CSS/theme:** Primary accent `#cd9c82` (warm terracotta/blush), dark text `#1A1A1B`, body text `#7A7A7A`, background appears light/neutral. The secondary announcement bar background is `#ffe5da` (soft peach). This palette is warm, feminine, and earthy — consistent with faith + boutique positioning.
+- **The brand has a broad catalog beyond faith.** Diet Coke + Dr. Pepper, Animal Lovers, Book Lover's Club — these signal that the customer is being served across *identity* dimensions, not just faith. The brand knows its customer is a whole person.
 
 ---
 
 ## Research Notes
 
-**Sources Consulted:**
-- `https://savedbygraceco.com/` (homepage — full fetch)
-- `https://savedbygraceco.com/collections/all` (full product collection listing)
-- `https://savedbygraceco.com/products` (collections catalog page)
+**Sources consulted:**
+- `https://savedbygraceco.com/` (homepage)
+- `https://savedbygraceco.com/collections/all` (full collection page)
+- `https://savedbygraceco.com/products` (collections index)
 - `https://savedbygraceco.com/shop` (redirects to homepage)
-- Seed answers provided by user
+- Top 30 best-selling products extracted from Shopify best-selling sort
+- Logo analyzed via GPT-4o vision for brand colors
 
-**Gaps / Low-Confidence Areas (need user confirmation or deeper research):**
-
-1. **Specific Boy Mama Collection products and prices** — The "For the Boys" / "SBG Co. Kids – Boys" collection page was not directly fetched. Individual SKUs, price points, and hero products within this collection are unknown. *Recommend fetching `/collections/for-the-boys` before writing Boy Mama-specific hooks.*
-
-2. **Founder name** — Not surfaced in pages fetched. The About Us page (`/pages/about-us`) was not fetched. Founder identity/story could be a powerful creative angle. *Recommend fetching the About page.*
-
-3. **Exact tagline** — The logo file is named "Main_Logo_with_Tagline" but the tagline text was not extractable from the HTML. Unknown if there's an official tagline distinct from the brand name.
-
-4. **Social proof / review volume** — No review counts, star ratings, or customer testimonials were visible in the fetched pages. Platform review data (Shopify reviews, Trustpilot, etc.) unknown.
-
-5. **Pricing range** — No specific product prices were extracted from fetched pages. Price point is unknown beyond the free shipping threshold of $125+. *Inferred: mid-range boutique ($25–$60 per item, $40–$80 for sets).*
-
-6. **Boy Mama Collection specific SKUs** — Not fetched. Hero product within the boys' collection is unknown.
-
-7. **Active ad creative** — Meta Ad Library was not checked. Existing ad angles, winning formats, and competitor ad intelligence were not researched.
-
-8. **Instagram/TikTok presence** — Social following, UGC volume, and content style not verified from fetched pages.
+**Confirmed gaps / low-confidence areas:**
+- **Founder name and founding year** — About page not fetched; unknown
+- **Exact product pricing** — Not visible in fetched HTML; all prices marked unknown. Recommend checking 2–3 top product pages directly to confirm price range
+- **Boy Mama Collection as a named collection** — The user named this as the focus, but no collection called "Boy Mama Collection" appears in navigation. The relevant SKUs are spread across SBG Co. Kids - Boys, The Mama Edit, and holiday collections. Clarify with client whether this is an ad-targeting concept or a named collection.
+- **Specific competitor brands** beyond Etsy/Amazon — not confirmed; inferred from category knowledge
+- **Review language and customer voice** — No reviews fetched; this is a meaningful gap for hook writing. Recommend pulling 20–30 reviews from top Boy Mama SKUs before writing hooks.
+- **Active Meta/TikTok ad creative** — Meta Ad Library not checked in this pass; recommend checking `facebook.com/ads/library` for SBG Co. to see what's already running
