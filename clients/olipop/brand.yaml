@@ -1,0 +1,69 @@
+name: OLIPOP
+colors:
+  primary: ''
+  secondary: ''
+  background: '#FFFFFF'
+typography:
+  heading: WindsorEF-UltraHeavy / WindsorEF-Bold (custom brand adaptation)
+  body: AnoRegular / AnoBold (custom brand typeface)
+visual_identity:
+  aesthetic: A modern, groovy take on classic soda fountain nostalgia, blended with
+    a playful, health-conscious optimism. It looks how bubblegum-pop music sounds.
+  photography_style: Crisp, studio product photography, often featuring condensation
+    to emphasize refreshment against solid, complementary color backdrops.
+  design_language: Playful flat illustration with a retro-modern twist. It's clean
+    and vector-based, but with enough personality to avoid feeling sterile or corporate.
+  typography_feel: Custom bubbly sans-serif with an upbeat, arched baseline. It feels
+    like it was drawn by hand but perfected on a computer.
+  mascot_or_character: None, but each flavor features a central, character-like fruit
+    illustration with a distinct personality (e.g., the jaunty beach umbrella in the
+    cherry).
+  visual_references:
+  - The simplified, friendly shapes and color palettes of 1970s 'Schoolhouse Rock!'
+    cartoons.
+  - Modern DTC beverage brands like Recess or Ghia, but with more overt pop fun and
+    less minimalist restraint.
+  - The occasional use of neon-tube styling recalls 80s arcade and diner signage.
+  mood:
+  - Playful
+  - Nostalgic
+  - Optimistic
+  - Refreshing
+  - Approachable
+  notable_visual_signatures:
+  - The arched, bubbly 'OLIPOP' logotype is the primary, non-negotiable brand asset.
+  - A central, two-to-three color flat illustration representing the flavor, often
+    surrounded by small, 'sparkle'-like accent marks.
+  - The 'Plant Powered Microbiome Approved' circular badge, acting as a seal of healthy
+    credibility.
+  - Flavor-specific color blocking, using the entire can as a canvas.
+  color_mood: Vibrant, flavor-coded candy palettes that pair a pastel or mid-tone
+    base with high-saturation accent colors.
+tone: Playful, warm, and optimistic — OLIPOP sounds like a brand that genuinely loves
+  soda and genuinely cares about your gut, without ever being preachy, clinical, or
+  self-righteous about it.
+audience:
+  age_range: 25–40 (primary); 28–45 (secondary/moms)
+  gender: Skews female (primary), meaningful male crossover
+  interests:
+  - Gut health and digestive wellness
+  - Clean eating and better-for-you food/drink
+  - Nostalgia and retro culture
+  - Health-conscious parenting
+  - Functional beverages
+  - Sustainability and clean ingredients
+platforms:
+- meta
+- tiktok
+press_mentions: []
+social_proof:
+- 'Wide retail distribution: Whole Foods, Target, Kroger (confirmed from user seed
+  answers)'
+- '''Microbiome Approved'' badge on packaging'
+- Non-GMO, gluten-free, paleo, vegan certifications mentioned in meta description
+founded: '2018'
+founder: Ben Goodwin and David Lester
+mission: To create a healthier, tastier future through a new kind of soda made with
+  plant fiber and prebiotics that supports the gut microbiome without sacrificing
+  taste.
+tagline: Healthy Prebiotic Soda

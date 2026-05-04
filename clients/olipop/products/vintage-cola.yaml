@@ -1,0 +1,97 @@
+name: Vintage Cola
+description: OLIPOP's prebiotic cola â€” a direct challenger to Coke/Pepsi in the
+  classic soda category, with dramatically less sugar and added gut health benefits.
+benefits:
+- '[functional] 2g of sugar per can (vs. ~39g in a standard cola)'
+- '[functional] 9g of prebiotic fiber per can'
+- '[functional] Small batch prebiotic cola formula'
+- '[functional] Classic cola taste profile'
+- '[functional] Gut health support via prebiotic fiber blend'
+- '[functional] Low calorie soda alternative'
+- '[emotional] Enjoy the cola you love without the guilt of traditional soda'
+- '[emotional] A delightful balance of health and craving — you don''t have to choose'
+- '[emotional] Feel good about what you''re drinking'
+- '[emotional] The nostalgic satisfaction of a classic cola, reimagined'
+- '[social] Signal that you care about your health without giving up the things you
+  enjoy'
+- '[social] The soda drinker who made a smarter switch — without becoming the person
+  who lectures people about soda'
+price: $35.99 (12-pack)
+category: general
+image_path: ''
+image_url: https://drinkolipop.com/cdn/shop/files/Vintage-Cola_cgi-product-selector.png?crop=center&height=368&v=1745465198&width=896
+additional_images: []
+product_characteristics:
+  materials_or_ingredients:
+  - Prebiotic fiber blend (exact fiber sources not fully visible in HTML)
+  - Plant-based botanicals
+  - Natural cola flavor
+  - Cassava root syrup (inferred from OLIPOP standard formulation; not explicitly
+    confirmed in this HTML)
+  - Calendula flower extract (inferred from OLIPOP standard formulation; not explicitly
+    confirmed in this HTML)
+  - 'Note: full ingredient panel not rendered in provided HTML'
+  shipping_and_fulfillment:
+  - Direct-to-consumer via drinkolipop.com
+  - Subscription option available (30% off with code 30RESUB)
+  - In-stock product (not made-to-order)
+  - Specific lead times and shipping options not visible in provided HTML
+  ratings_and_reviews_meta:
+    star_rating: ''
+    review_count: ''
+    review_widget: unknown — review content not present in provided HTML; likely loaded
+      dynamically via a third-party app
+  guarantees:
+  - No explicit satisfaction guarantee or refund policy language visible in the provided
+    HTML
+  cross_sells_or_bundles:
+  - Shirley & Friends variety (referenced in promo banner — 30% off with SHIRLEY30)
+  - Tropical Punch flavor (referenced in promo banner — 20% off with PUNCH20)
+  - Winter Seasonal Cans (referenced in promo banner — 20% off with YETI20)
+  - Subscription/resubscription offer (30% off with 30RESUB)
+  - 'Note: full cross-sell widget or bundle builder likely present on page but not
+    rendered in provided HTML'
+  customer_language_quotes: []
+  extraction_confidence: low
+  extraction_notes: 'The HTML provided is almost entirely navigation, promotional
+    banners, and page scaffolding — the main product content block (product description
+    copy, ingredient panel, nutrition facts, review widget, FAQ accordion, and any
+    feature callouts) appears to be rendered dynamically via JavaScript and was not
+    present in the crawled HTML. Key gaps as a result:
+
+    - No review quotes available — customer_language_quotes and social_proof return
+    empty; do not fabricate
+
+    - No ingredient list confirmed — ingredient notes marked as inferred from known
+    OLIPOP formulation, not sourced from this page
+
+    - No explicit pricing for single-can or single-pack options; $35.99 sourced from
+    og:price meta tag (likely 12-pack price)
+
+    - No FAQ, shipping policy, or guarantee copy visible
+
+    - Benefits and unique mechanism partially inferred from meta description (''classic
+    taste of small batch prebiotic Cola'', ''delightful balance of health and craving'',
+    ''perfect Soda Alternative'') combined with publicly known OLIPOP brand positioning
+
+    - Recommend re-crawling with JavaScript rendering enabled (e.g. Puppeteer/Playwright)
+    to capture full product page content'
+url: https://drinkolipop.com/products/vintage-cola
+unique_mechanism: 'OLIPOP uses a proprietary blend of prebiotic fiber and plant-based
+  botanicals to feed the good bacteria in your gut — delivering the classic cola taste
+  you grew up with, but with dramatically less sugar and functional benefits that
+  traditional sodas actively work against. It''s not a diet soda and it''s not a supplement;
+  it''s soda doing something it was never supposed to do: actually be good for your
+  microbiome.'
+objections:
+- 'Taste concern: positioned as ''classic taste'' — implies it tastes like real cola,
+  not a health-food compromise'
+- 'Health vs. craving trade-off: explicitly framed as ''a delightful balance of health
+  and craving'' — addresses the ''healthy stuff never tastes good'' objection'
+- 'Price hesitation: multiple discount codes present (15%–30% off) suggesting price
+  is an active barrier being managed'
+- 'Commitment hesitation: back-in-stock notification modal suggests some flavors sell
+  out, adding scarcity/urgency framing'
+- 'Note: no visible FAQ section in the provided HTML; additional objection-handling
+  copy may be rendered dynamically'
+social_proof: []

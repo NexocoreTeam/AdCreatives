@@ -1,0 +1,62 @@
+name: Auto-drafted — please review and rename
+demographic: Health-conscious adults 25–40, skewing female, who grew up loving soda
+  and are now trying to be more intentional about what they consume. Likely shops
+  at Whole Foods or Target, follows wellness content, and is in the early-to-middle
+  stages of a gut health journey.
+psychographic: ''
+pain_points:
+- pain: Feels guilty drinking regular soda but misses the taste and ritual
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Tried sparkling water as a substitute but it doesn't hit the same way
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Diet soda feels worse than regular soda (artificial sweeteners, chemicals)
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Wants to make better choices but not at the expense of enjoyment
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Confused by gut health marketing — doesn't fully understand what prebiotics
+    do
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Concerned about sugar intake but doesn't want to give up sweet drinks entirely
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+desires:
+- desire: To drink something that tastes like the soda they grew up with — without
+    the guilt
+  customer_language: []
+- desire: To feel like their daily habits are actually supporting their health
+  customer_language: []
+- desire: A drink that works at meals, parties, and casual moments — not just as a
+    'health product'
+  customer_language: []
+- desire: To feel smart about what they're putting in their body without it becoming
+    a chore
+  customer_language: []
+- desire: Nostalgia — the taste memory of Root Beer floats, Cream Soda, Grape soda
+  customer_language: []
+objections:
+- '''It probably doesn''t taste like real soda'''
+- '''It''s too expensive compared to regular soda'''
+- '''I''ve tried other healthy sodas and they were bad'''
+- '''I don''t really understand what prebiotics do'''
+- '''I can just drink sparkling water instead'''
+trigger_events:
+- Trying to reduce sugar in their diet
+- Starting a gut health protocol (after reading about it online or from a doctor)
+- Seeing OLIPOP on a shelf at Target/Whole Foods for the first time
+- Seeing a friend or influencer post about it on Instagram/TikTok
+- Looking for a healthier option to serve at a gathering or to kids
+- Quitting or reducing alcohol and looking for interesting non-alcoholic beverages
+awareness_level: solution_aware
+language_patterns: []
+current_solutions: []

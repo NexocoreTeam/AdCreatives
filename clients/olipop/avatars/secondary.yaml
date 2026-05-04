@@ -1,0 +1,75 @@
+name: Lunchbox Label-Reader Lauren
+demographic: Woman, 32–44, suburban, married with 1–3 kids ages 4–12, household income
+  $80K–$140K, shops at Kroger or Target, involved in school and community activities,
+  drives an SUV, follows parenting and nutrition accounts
+psychographic: Lauren thinks of herself as a mostly-healthy mom who doesn't go overboard
+  but does read labels. She gave up fighting her kids over vegetables but she draws
+  a line at what goes in their cups. She's watched her kids demolish a Capri Sun before
+  she could say anything and decided she needed a better answer ready. She doesn't
+  want to be the mom who bans everything — she wants to be the mom who found the loophole.
+pain_points:
+- pain: Regular soda is everywhere — at parties, at grandma's house, at restaurants
+    — and she can't avoid it forever, she just wants a better version on hand
+  intensity: high
+  customer_language:
+  - I can't ban soda entirely. That's not realistic. I just need something I'm okay
+    with them having.
+  - Every birthday party it's a whole thing. I wish I just had something I could bring.
+  source: auto_from_brand_context
+- pain: Juice boxes and kids' drinks are loaded with sugar and she's tired of the
+    ingredient list being worse than she expected
+  intensity: high
+  customer_language:
+  - I flipped over the Capri Sun box once and that was the last time I bought them.
+  - Why does kids' fruit punch have more sugar than a Coke?
+  source: auto_from_brand_context
+- pain: Her kids reject 'healthy' versions of things immediately — they know when
+    something tastes like a substitute
+  intensity: medium
+  customer_language:
+  - My kids can smell a healthy version from a mile away. If it doesn't taste right
+    they won't touch it.
+  - I've bought so many 'better for you' snacks that went straight in the trash.
+  source: auto_from_brand_context
+desires:
+- desire: A drink that tastes like the real soda her kids recognize — Root Beer, Cream
+    Soda, Grape — so there's no pushback
+  customer_language:
+  - If it tastes like root beer to them, that's a win. They don't need to know anything
+    else.
+  - I just want something they'll actually drink that I don't have to feel bad about.
+- desire: To be able to say yes more often without having a nutritional conversation
+    every time
+  customer_language:
+  - I don't want to be the no-fun mom. I just want a better option.
+objections:
+- My kids are picky — if it doesn't taste exactly like the soda they already know,
+  they'll reject it and I've wasted $30 on a variety pack
+- Is the fiber okay for kids? I don't know enough about prebiotics to know if it's
+  safe for them
+- It's significantly more expensive than buying a 12-pack — hard to justify as an
+  everyday thing for the whole family
+current_solutions:
+- Regular soda served as an occasional treat — but the treats are happening more often
+  than she intended
+- Juice — feels healthier but she's starting to realize the sugar content isn't much
+  better
+- Sparkling water for herself, but the kids won't drink it
+- Trying to just buy less soda and endure the complaints
+trigger_events:
+- Reads the nutrition label on whatever her kid grabbed at a birthday party and the
+  sugar count is genuinely alarming
+- Her pediatrician mentions limiting added sugars and she realizes soda is the biggest
+  offender in her house
+- Sees a mom in a Facebook parenting group recommend OLIPOP and share that her kids
+  love the Root Beer flavor
+awareness_level: problem_aware
+language_patterns:
+- Mom-community vernacular — 'game changer,' 'obsessed,' 'this is the one,' 'you guys
+  have to try this'
+- 'Frames decisions through the lens of her kids'' reactions: ''my kids are picky,''
+  ''my 7-year-old loves it'''
+- 'Uses guilt and relief as emotional anchors: ''I felt so bad about,'' ''I finally
+  found something I''m okay with'''
+- Practical and approval-seeking simultaneously — asks questions in groups, shares
+  finds in groups

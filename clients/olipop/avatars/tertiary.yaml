@@ -1,0 +1,80 @@
+name: Gut-Issue Greg
+demographic: Man or woman, 28–50, any location, has experienced chronic digestive
+  discomfort (bloating, irregularity, IBS-adjacent symptoms), health-engaged but not
+  a wellness influencer type, household income varies widely, may have seen a GI doctor
+  or dietitian, shops wherever is convenient
+psychographic: Greg has a complicated relationship with his gut and he's tired of
+  it. He's tried the elimination diets, the probiotic capsules, the kombucha phase.
+  He doesn't lead with wellness — he leads with wanting to feel normal. He's not hunting
+  for the next health trend; he's looking for sustainable habits that don't require
+  suffering. When something actually works for him, he becomes quietly evangelical
+  about it.
+pain_points:
+- pain: Probiotic capsules and supplements feel clinical and easy to forget — he wants
+    something he'll actually incorporate into his routine because he enjoys it
+  intensity: high
+  customer_language:
+  - I keep buying probiotic supplements and they just sit in the cabinet.
+  - I don't want gut health to be a whole thing I have to remember to do. I want it
+    to just happen.
+  source: auto_from_brand_context
+- pain: Kombucha was supposed to help but the taste is polarizing — it's not something
+    he reaches for when he actually wants a drink
+  intensity: medium
+  customer_language:
+  - I tried kombucha for like a month and I never actually wanted to drink it. It
+    felt like medicine.
+  - I don't hate kombucha, I just don't love it enough to make it a habit.
+  source: auto_from_brand_context
+- pain: Regular soda genuinely makes his gut worse — the sugar, the artificial sweeteners,
+    or both — but he misses having something satisfying and carbonated
+  intensity: high
+  customer_language:
+  - I noticed I'd feel terrible after drinking diet soda but I couldn't figure out
+    if it was the sweetener or what.
+  - Carbonation used to bother me but I think it was everything else in the soda,
+    not the bubbles.
+  source: auto_from_brand_context
+desires:
+- desire: A prebiotic intake vehicle that he actually wants to consume — something
+    that feels like a reward, not a regimen
+  customer_language:
+  - If I'm going to do something for my gut every day, I want it to be something I
+    look forward to, not something I white-knuckle.
+  - I want gut health to feel like a normal part of my day, not a medical intervention.
+- desire: Measurable improvement in how his stomach feels day to day without a dramatic
+    overhaul of his diet
+  customer_language:
+  - I'm not trying to do a whole cleanse. I just want to feel less bloated.
+  - If I could just feel normal after meals, that would change everything.
+objections:
+- The prebiotic fiber content sounds good but I've tried fiber supplements before
+  and they made my bloating worse, not better
+- I don't know if 9g of plant fiber in a soda actually moves the needle compared to
+  a dedicated supplement
+- Is the low sugar sweetener going to mess with my gut the same way artificial sweeteners
+  did?
+current_solutions:
+- Probiotic capsule supplements — purchased but inconsistently taken
+- Kombucha — tried, didn't stick with it
+- Sparkling water as a soda replacement — satisfies carbonation but not the gut-support
+  goal
+- Dietary adjustments (cutting dairy, gluten) — partial relief but hasn't solved it
+  fully
+trigger_events:
+- Has a particularly bad week of digestive symptoms and decides he needs to actually
+  address his habits instead of just tolerating it
+- A GI doctor or dietitian mentions prebiotic fiber as something easy to add to his
+  diet and he starts researching options
+- Reads an article or sees a post specifically about prebiotic soda as a functional
+  alternative to kombucha and clicks through
+awareness_level: solution_aware
+language_patterns:
+- Outcome-focused and direct — 'does it actually work,' 'I noticed a difference,'
+  'it helped with my bloating'
+- Skeptical but open — doesn't default to wellness jargon but will use it if he's
+  found something that works
+- 'Frames habits through consistency: ''I can actually stick to this,'' ''I''ve been
+  doing it every day for two weeks'''
+- 'Recommends products with specific context: ''if you have gut issues you should
+  look into this'''

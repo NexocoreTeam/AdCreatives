@@ -1,0 +1,69 @@
+name: Clean-Label Cara
+demographic: Woman, 27–38, urban or suburban, college-educated, $65K–$110K household
+  income, rents or owns in a mid-to-large metro, single or partnered without kids
+  yet, shops at Whole Foods or Target, follows at least a few wellness accounts
+psychographic: Cara grew up on Coke and Dr Pepper but somewhere in her late twenties
+  started reading ingredient labels and feeling vaguely bad about what she was putting
+  in her body. She's not on a diet — she's on a slow, deliberate upgrade of her entire
+  lifestyle. She cares about gut health because she's heard enough about the microbiome
+  to be curious, and she's already spending money on greens powders or a probiotic
+  supplement. She wants to feel good without giving up the things she actually enjoys.
+pain_points:
+- pain: Sparkling water doesn't scratch the itch — she wants something that actually
+    tastes like soda, not flavored carbonation
+  intensity: high
+  customer_language:
+  - LaCroix is fine but it's not a Coke. It just isn't.
+  - I miss the sweetness. Sparkling water tastes like disappointment.
+  source: auto_from_brand_context
+- pain: Diet soda feels like trading one problem for another — artificial sweeteners
+    have their own baggage
+  intensity: high
+  customer_language:
+  - I stopped drinking Diet Coke because the aspartame thing freaked me out.
+  - Zero sugar sodas just feel like a different kind of bad.
+  source: auto_from_brand_context
+- pain: Regular soda is a guilt spiral — she'll drink one and immediately feel like
+    she undid something
+  intensity: medium
+  customer_language:
+  - I know one Coke isn't going to kill me but I still feel bad about it.
+  - It's not even that I want to quit soda, I just want a version I don't feel weird
+    about.
+  source: auto_from_brand_context
+desires:
+- desire: A soda that tastes real enough that she doesn't feel like she's settling,
+    and clean enough that she doesn't feel guilty
+  customer_language:
+  - I just want to enjoy a drink without doing math in my head.
+  - If it actually tastes good, I'll drink it every day.
+- desire: Something she can grab without thinking — a new default, not a special health
+    product
+  customer_language:
+  - I don't want it to feel like I'm taking a supplement. I just want a soda.
+objections:
+- Healthy sodas never actually taste like the real thing — this is probably just expensive
+  sparkling water with a wellness label
+- The fiber/prebiotic claims sound good but I don't know if they actually do anything
+- It's $3+ a can — I could buy a 12-pack of Coke for that
+current_solutions:
+- Sparkling water (LaCroix, Spindrift, Bubly) — satisfies the carbonation craving
+  but not the soda craving
+- Kombucha — she's tried it but finds it too vinegary or too expensive to drink daily
+- Regular soda consumed occasionally with residual guilt
+- Diet soda — actively trying to move away from it
+trigger_events:
+- Starts a new routine (Whole30, cutting sugar, working with a dietitian) and realizes
+  she needs to replace her daily afternoon soda
+- Sees OLIPOP in the cold case at Target while buying groceries and picks it up on
+  a whim after noticing the can design
+- A friend or wellness creator she follows posts about their gut health and recommends
+  prebiotic soda as an easy starting point
+awareness_level: solution_aware
+language_patterns:
+- Casual but informed — drops terms like 'microbiome,' 'gut health,' 'clean ingredients'
+  naturally without sounding clinical
+- 'Uses food and drink as a proxy for self-care language: ''nourishing,'' ''intentional,''
+  ''obsessed with'''
+- 'Talks in comparisons: ''it''s like X but actually good for you'''
+- Expresses brand loyalty through recommendation — 'you have to try this'

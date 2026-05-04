@@ -1,0 +1,16 @@
+personas:
+- id: primary
+  name: Clean-Label Cara
+  role: primary
+  awareness_level: solution_aware
+  confidence: high
+- id: secondary
+  name: Lunchbox Label-Reader Lauren
+  role: secondary
+  awareness_level: problem_aware
+  confidence: high
+- id: tertiary
+  name: Gut-Issue Greg
+  role: tertiary
+  awareness_level: solution_aware
+  confidence: medium

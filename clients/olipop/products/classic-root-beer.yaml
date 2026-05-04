@@ -1,0 +1,73 @@
+name: Classic Root Beer
+description: A prebiotic take on classic root beer â€” one of OLIPOP's original and
+  most iconic flavors. Anchors the brand's 'classic soda nostalgia' positioning.
+benefits:
+- '[functional] Prebiotic soda with gut health benefits'
+- '[functional] Botanically inspired blend with classic root beer flavor'
+- '[functional] Classic bite with sweet birch creaminess'
+- '[functional] Low sugar compared to traditional soda'
+- '[functional] Pairs well with ice cream (float-ready)'
+- '[emotional] Recapture the nostalgic taste of classic root beer without the guilt'
+- '[emotional] Feel like you''re doing something good for your body while enjoying
+  a treat'
+- '[emotional] Comfort of a beloved childhood soda, reimagined for grown-up health
+  goals'
+- '[social] Signal that you care about gut health without giving up the fun of soda'
+- '[social] One of OLIPOP''s original and most iconic flavors — being in-the-know
+  on a brand that''s leading the better-for-you soda movement'
+price: $35.99 (12-pack, inferred from og:price:amount meta tag)
+category: general
+image_path: ''
+image_url: https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+additional_images: []
+product_characteristics:
+  materials_or_ingredients:
+  - Prebiotic fiber (plant-based)
+  - Botanical blend
+  - Sweet birch
+  - Classic root beer botanicals
+  shipping_and_fulfillment:
+  - Ships direct-to-consumer via drinkolipop.com
+  - Subscription option available (30% off resubscription with code 30RESUB)
+  - In-stock product (back-in-stock notification modal present, suggesting occasional
+    out-of-stock situations)
+  ratings_and_reviews_meta:
+    star_rating: ''
+    review_count: ''
+    review_widget: unknown — review content not present in extracted HTML, likely
+      loaded dynamically via third-party widget
+  guarantees: []
+  cross_sells_or_bundles:
+  - Shirley & Friends (referenced in promotion banner — SHIRLEY30)
+  - Tropical Punch (referenced in promotion banner — PUNCH20)
+  - Winter Seasonal Cans (referenced in promotion banner — YETI20)
+  - Multiple other OLIPOP SKUs implied by variety of active discount codes
+  customer_language_quotes: []
+  extraction_confidence: medium
+  extraction_notes: Price of $35.99 is pulled from og:price:amount meta tag and is
+    consistent with OLIPOP's standard 12-pack pricing, but the purchase unit (single
+    can vs. multi-pack) is not explicitly confirmed in the HTML provided. No customer
+    reviews are visible in the extracted HTML — the review widget almost certainly
+    loads dynamically via JavaScript (likely Yotpo or a similar platform) and was
+    not captured in this page snapshot. No explicit ingredient list, nutrition facts
+    panel, or fiber/sugar gram counts were present in the extracted HTML section —
+    the page almost certainly renders this content lower on the page via JS. Flavor
+    description language ('botanically inspired blend,' 'classic bite,' 'sweet birch
+    creaminess,' 'Perfect with your beloved ice cream') pulled from meta description
+    and og:description tags, which are brand-authored. All customer_language_quotes
+    and social_proof entries are empty per policy — no fabricated review language
+    included.
+url: https://drinkolipop.com/products/classic-root-beer
+unique_mechanism: OLIPOP uses a prebiotic blend of plant fiber and botanicals to feed
+  the good bacteria in your gut — delivering the sensory experience of classic soda
+  (the fizz, the sweetness, the familiar flavor) through a formula built on functional
+  ingredients rather than empty sugar. Classic Root Beer specifically achieves its
+  signature taste through a botanically inspired blend, including sweet birch, that
+  replicates the traditional root beer bite and creaminess without relying on conventional
+  soda formulation.
+objections:
+- Implied objection that healthy soda won't taste like real soda — addressed via 'classic
+  bite and sweet birch creaminess' flavor language and nostalgic positioning
+- Implied objection about missing the ice cream float ritual — addressed by calling
+  out 'Perfect with your beloved ice cream' in meta description
+social_proof: []

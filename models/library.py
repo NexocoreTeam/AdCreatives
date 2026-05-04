@@ -131,7 +131,7 @@ def save_prompt(prompt: LibraryPrompt, subdir: str = "custom") -> Path:
     # Create filename from ID
     filename = prompt.id.replace("/", "-").replace(" ", "-") + ".yaml"
     path = dir_path / filename
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         yaml.dump(
             prompt.model_dump(mode="json"),
             f,

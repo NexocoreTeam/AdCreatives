@@ -19,7 +19,7 @@ RESULTS_DIR = Path("results")
 
 
 def _load_yaml(path: Path) -> dict:
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -54,7 +54,7 @@ def save_avatar(client_slug: str, avatar: CustomerAvatar, backup: bool = True) -
     if backup and path.exists():
         shutil.copy2(path, path.with_suffix(".yaml.bak"))
 
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         yaml.dump(
             avatar.model_dump(mode="json"),
             f,
@@ -109,7 +109,7 @@ def save_performance_log(client_slug: str, results: list[CreativeResult]) -> Non
     dir_path.mkdir(parents=True, exist_ok=True)
     path = dir_path / "performance_log.yaml"
     data = [r.model_dump(mode="json", exclude_none=True) for r in results]
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         yaml.dump(data, f, default_flow_style=False, sort_keys=False)
 
 
@@ -124,7 +124,7 @@ def save_winning_patterns(client_slug: str, patterns: WinningPatterns) -> None:
     dir_path = RESULTS_DIR / client_slug
     dir_path.mkdir(parents=True, exist_ok=True)
     path = dir_path / "winning_patterns.yaml"
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         yaml.dump(
             patterns.model_dump(mode="json", exclude_none=True),
             f,
@@ -137,7 +137,7 @@ def save_brief(client_slug: str, brief: CreativeBrief) -> Path:
     dir_path = CLIENTS_DIR / client_slug / "briefs"
     dir_path.mkdir(parents=True, exist_ok=True)
     path = dir_path / f"{brief.brief_id}.yaml"
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         yaml.dump(
             brief.model_dump(mode="json"),
             f,

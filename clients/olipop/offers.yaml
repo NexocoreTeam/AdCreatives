@@ -1,0 +1,569 @@
+existing_offers:
+- name: Resubscribe 30% Off
+  type: subscription
+  details: 30% off subscriptions for lapsed subscribers who resubscribe using code
+    30RESUB. Auto-applies at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: Win-back mechanic targeting churned subscribers. Deepest discount in the
+    rotation at 30%. Smart retention play but running sitewide means any visitor with
+    the code benefits, not just lapsed subs — potential margin bleed if this leaks
+    to affiliates.
+- name: Shirley Temple 30% Off (SHIRLEY30)
+  type: seasonal_promo
+  details: 30% off Shirley & Friends flavor collection with code SHIRLEY30. Auto-applies
+    at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: Named-flavor promotional push. Shirley Temple is a high-nostalgia, pop-culture
+    flavor — this discount is likely acquisition-focused to drive trial on a newer
+    SKU. 30% is aggressive but appropriate for a trial-driving mechanic.
+- name: Tropical Punch 20% Off (PUNCH20)
+  type: seasonal_promo
+  details: 20% off Tropical Punch flavor with code PUNCH20. Auto-applies at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: SKU-specific promotional code. Likely a channel-specific or partner code
+    driving acquisition on a high-appeal summer/evergreen flavor.
+- name: General 15% Off (DREAMY15)
+  type: other
+  details: 15% off any order. Code DREAMY15 auto-applies at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: Likely influencer or campaign-specific code. Code name 'DREAMY' suggests
+    a creative campaign or partnership context.
+- name: Early Access 30% Off (EARLY30)
+  type: seasonal_promo
+  details: Early access 30% off with code EARLY30. Auto-applies at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: Scarcity and exclusivity mechanic for product launches or new flavor drops.
+    High-value offer (30%) suggests this is for high-intent early adopters being rewarded
+    for loyalty or email/SMS opt-in.
+- name: Welcome 15% Off (WELCOME15)
+  type: trial
+  details: 15% off any order for new customers. Code WELCOME15 auto-applies at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: Standard new-customer welcome offer. This is the core DTC acquisition mechanic
+    and expected in the category. Aligns with the brand's accessibility goals without
+    being deeply erosive at 15%.
+- name: SIPSMART 20% Off
+  type: other
+  details: 20% off any order with code SIPSMART. Auto-applies at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: Code name suggests a health/wellness context — possibly a podcast sponsorship,
+    registered dietitian partnership, or health-content creator collaboration.
+- name: APRIL20 20% Off
+  type: seasonal_promo
+  details: 20% off any order with code APRIL20. Auto-applies at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: Calendar-based promotional code. Likely a monthly campaign code for April
+    activations.
+- name: Winter Seasonal 20% Off (YETI20)
+  type: seasonal_promo
+  details: 20% off Winter Seasonal Cans with code YETI20. Auto-applies at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: Seasonal limited-edition can promo. YETI branding suggests possible co-promotion
+    or winter campaign. Good scarcity framing for seasonal SKUs.
+- name: PHLY20 20% Off
+  type: other
+  details: 20% off any order with code PHLY20. Auto-applies at checkout.
+  where_found: homepage announcement bar / FAQ page / refund policy page / shipping
+    policy page / subscription page / rewards page / refer-a-friend page (sitewide
+    banner rotation)
+  on_brand: true
+  notes: City-specific or team-specific code. PHLY is shorthand for Philadelphia —
+    likely a sports sponsorship, local market activation, or regional partnership
+    code.
+- name: CITIUS25 25% Off
+  type: other
+  details: 25% off any order with code CITIUS25. Auto-applies at checkout.
+  where_found: FAQ page / refund policy page / shipping policy page / subscription
+    page / rewards page / refer-a-friend page (sitewide banner rotation)
+  on_brand: true
+  notes: CITIUS is Latin for 'faster' — likely a sports or athletics partnership code
+    (possibly track/running, Olympics reference). 25% is above standard but appropriate
+    for a niche audience activation.
+- name: SERVED20 20% Off
+  type: other
+  details: 20% off any order with code SERVED20. Auto-applies at checkout.
+  where_found: FAQ page / refund policy page / shipping policy page / subscription
+    page / rewards page / refer-a-friend page (sitewide banner rotation)
+  on_brand: true
+  notes: Tennis or pickleball partnership likely ('served' as in a serve). Consistent
+    with OLIPOP's sports lifestyle positioning.
+- name: TWG20 20% Off
+  type: other
+  details: 20% off any order with code TWG20. Auto-applies at checkout.
+  where_found: FAQ page / refund policy page / shipping policy page / subscription
+    page / rewards page / refer-a-friend page (sitewide banner rotation)
+  on_brand: true
+  notes: Likely an influencer, media, or podcast partner code. TWG could be an abbreviation
+    for a creator or brand partner.
+- name: FlyQuest 20% Off (FLYQUEST20)
+  type: other
+  details: 20% off any order with code FLYQUEST20. Auto-applies at checkout.
+  where_found: FAQ page / refund policy page / shipping policy page / subscription
+    page / rewards page / refer-a-friend page (sitewide banner rotation)
+  on_brand: true
+  notes: FlyQuest is a professional esports organization. This confirms OLIPOP has
+    a gaming/esports sponsorship and is reaching the gamer demographic — a smart play
+    given gaming's high consumption of sugary energy drinks that OLIPOP can displace.
+- name: BUZZIN15 15% Off
+  type: other
+  details: 15% off any order with code BUZZIN15. Auto-applies at checkout.
+  where_found: FAQ page / refund policy page / shipping policy page / subscription
+    page / rewards page / refer-a-friend page (sitewide banner rotation)
+  on_brand: true
+  notes: Likely an influencer or newsletter partner code. Playful code name aligns
+    with OLIPOP brand voice.
+- name: OLIPOPTEXT15 SMS Opt-In 15% Off
+  type: trial
+  details: 15% off any order with code OLIPOPTEXT15. Auto-applies at checkout.
+  where_found: FAQ page / refund policy page / shipping policy page / subscription
+    page / rewards page / refer-a-friend page (sitewide banner rotation)
+  on_brand: true
+  notes: Code name strongly implies this is the SMS/text marketing opt-in incentive.
+    This is a high-value retention channel acquisition play — capturing phone numbers
+    for ongoing marketing.
+- name: BRACKET20 20% Off
+  type: seasonal_promo
+  details: 20% off any order with code BRACKET20. Auto-applies at checkout.
+  where_found: FAQ page / refund policy page / shipping policy page / subscription
+    page / rewards page / refer-a-friend page (sitewide banner rotation)
+  on_brand: true
+  notes: March Madness / NCAA basketball bracket tournament seasonal tie-in. Sports
+    and cultural moment marketing.
+- name: OLIPOP Subscription Program
+  type: subscription
+  details: 'Subscribe and save on any order. Benefits include: save money on every
+    order, always receive free shipping, flavor-swap via text, and VIP concierge support.
+    No explicit percentage stated in page metadata but program exists at /pages/subscription.'
+  where_found: https://drinkolipop.com/pages/subscription (page title and meta description)
+  on_brand: true
+  notes: This is OLIPOP's primary LTV driver. The flavor-swap-by-text feature is a
+    strong differentiated benefit that lowers effort and churn risk. The VIP concierge
+    framing elevates the subscription beyond a commodity auto-ship.
+- name: OLIPOP Rewards Program
+  type: other
+  details: Points-based loyalty program. Earn points for purchases both online and
+    in-store. Redeem for exclusive merch, discounts, and more. Available at /pages/olipop-rewards.
+  where_found: https://drinkolipop.com/pages/rewards (page title and meta description)
+  on_brand: true
+  notes: Rare to see a CPG beverage brand with both retail and DTC point earning in
+    one loyalty program. The in-store earning feature is a meaningful differentiator
+    that bridges OLIPOP's DTC and retail channels, driving more repeat purchase data
+    regardless of where the consumer buys.
+- name: Refer-a-Friend Program
+  type: refer_a_friend
+  details: Refer-a-friend program exists at /pages/refer-a-friend. Specific reward
+    structure (dollar amounts, percentage off, credit) not extractable from HTML provided
+    — page redirects to homepage canonical.
+  where_found: https://drinkolipop.com/pages/refer-a-friend
+  on_brand: true
+  notes: Page resolves with homepage canonical, suggesting the program may be powered
+    by the Rediem app (rediem-152 CSS loaded sitewide). Referral programs are high-fit
+    for OLIPOP given its strong word-of-mouth dynamics — health-curious consumers
+    frequently discover better-for-you brands through trusted peer recommendations.
+suggested_offers:
+- name: The Taste-Test Starter Pack
+  type: trial
+  rationale: 'The ICP''s #1 objection is ''it probably doesn''t taste like real soda.''
+    OLIPOP cannot overcome this objection with copy alone — it requires a sensory
+    experience. A low-barrier, curated 4-can or 8-can tasting sampler priced at or
+    near cost-of-goods removes the financial risk of committing to a full 12-pack
+    before the consumer has tasted a single can. The variety pack is already in the
+    catalog; what is missing is an explicit framing of that first purchase as a risk-free
+    taste test rather than a standard order.'
+  target_persona: primary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Drink something cold and satisfying that actually tastes like the
+      soda you grew up loving — root beer, cream soda, cola — without the sugar crash,
+      gut issues, or guilt
+    perceived_likelihood_lever: Four different classic-soda flavors to try side-by-side
+      so the customer self-selects their personal proof of taste. Include a QR code
+      on the mailer linking to 3-star-or-lower reviews to preemptively acknowledge
+      and address the rare customer who finds a flavor too different.
+    time_delay_lever: Gratification happens the moment the first can is opened — no
+      waiting for gut health benefits, no research required, immediate sensory payoff
+    effort_lever: Pre-curated flavor selection removes decision paralysis. Framed
+      explicitly as a 'taste test' not a purchase decision, lowering cognitive commitment
+  suggested_structure: A curated 4-can Starter Sampler featuring Classic Root Beer,
+    Vintage Cola, Cream Soda, and one trending new flavor (currently Raspberry Sherbet
+    or Blackberry Vanilla). Priced at $7–$9 with $1 shipping or free shipping threshold.
+    Frame it as 'Try 4 classics, find your favorite — or your money back.' If customer
+    converts to a 12-pack or subscription within 14 days of starter pack purchase,
+    apply a $5 credit automatically.
+  risk_reversal: Full refund or credit if none of the 4 flavors satisfy. Given OLIPOP
+    already ships physical product, replacement credit is preferred over cash refund.
+  urgency_mechanic: New flavor drops (Raspberry Sherbet is currently featured as new
+    and trending) create natural windows to refresh the sampler mix and re-promote
+    with 'now includes the new flavor' messaging.
+  pricing_anchor_logic: Anchor against a gas station 20oz soda purchase ($2.50) or
+    a Starbucks drink ($6+). Four premium sodas with functional gut benefits for less
+    than a coffee is a favorable comparison. Avoid anchoring to full 12-pack price
+    — the goal is lowering entry, not justifying premium.
+  estimated_lift: high
+  creative_angle: We bet you can't tell this is good for you. Four classic sodas.
+    One bet. Zero sugar crash. Try the tasting kit.
+  notes: Cannibalization risk is low — the customer who needs a tasting kit was not
+    going to buy a 12-pack anyway. Biggest operational consideration is whether 4-can
+    shipping is cost-effective. If not, an 8-can version at $14–$16 works with the
+    same framing.
+- name: Subscribe Once, Never Run Out
+  type: subscription
+  rationale: OLIPOP already has a subscription program but the current framing on
+    the subscription page emphasizes logistics features (free shipping, flavor swap).
+    The value is being undersold to the ICP who objects to price. The real dream outcome
+    for a daily OLIPOP drinker is not 'I save on shipping' — it is 'I always have
+    OLIPOP in my fridge and I never run out.' Reframing subscription as a lifestyle
+    identity unlock rather than a discount mechanism shifts the offer from transactional
+    to aspirational, which aligns with the brand's premium positioning.
+  target_persona: primary
+  target_awareness_stage: product_aware
+  value_equation:
+    dream_outcome: A fridge that always has OLIPOP in it — the healthy soda ritual
+      becomes automatic, like having good coffee at home, without having to remember
+      to reorder
+    perceived_likelihood_lever: The flavor-swap-by-text feature is a genuine differentiator
+      that makes subscription feel flexible rather than locked in. Highlight that
+      subscribers can pause, swap, or cancel via text in under 60 seconds — no call
+      center, no forms.
+    time_delay_lever: Subscribe today, your first box ships within 48 hours. Set your
+      cadence once and the fridge stays stocked automatically — zero planning effort
+      for every future order
+    effort_lever: One decision, made once. Flavor swap by text means zero re-login,
+      no account navigation, no forms — change your order as easily as texting a friend
+  suggested_structure: 'Lead the subscription page with the lifestyle identity (''Become
+    a Fridge Person''), then present three cadence options: every 2 weeks for heavy
+    drinkers, monthly for casual drinkers, every 6 weeks for occasional drinkers.
+    Include a recommended cadence calculator (''How many OLIPOP cans do you drink
+    per week?''). Gate the subscription-exclusive savings percentage (recommend 15%)
+    behind at least a 2-box commitment to protect margins. Add a ''subscriber exclusives''
+    tier: early access to new flavors and limited editions, subscriber-only merch
+    bundle unlocks at 6-month and 12-month milestones.'
+  risk_reversal: Cancel any time by text. No minimums, no cancellation fees. If a
+    subscriber's first box does not arrive in perfect condition, replacement ships
+    immediately with no questions asked.
+  urgency_mechanic: New flavor early access is a genuine urgency lever — subscribers
+    get new drops 2 weeks before anyone else. This creates FOMO for non-subscribers
+    who miss drops.
+  pricing_anchor_logic: Frame subscription against the cost of buying OLIPOP at Target
+    or Whole Foods where single-can price is $2.50–$3.00 per can vs. subscription
+    DTC price. At 12 cans per month, subscriber saves $8–$12/month vs. retail while
+    also getting free shipping.
+  estimated_lift: high
+  creative_angle: Real OLIPOP people don't run out. Subscribe and become a Fridge
+    Person — your gut will thank you on autopilot.
+  notes: The Rediem app loaded on the subscription page suggests loyalty points integration
+    already exists or is planned. Subscriber-exclusive early flavor access is only
+    viable if it can be operationally enforced — requires subscriber-gated product
+    page or early access email/SMS flow.
+- name: The Gut Health Starter Bundle
+  type: bundle
+  rationale: The persona who is switching from regular soda is problem_aware about
+    gut health but has been burned by other 'healthy sodas' that tasted bad. They
+    want a transformation — not just a drink, but a habit. Bundling OLIPOP with a
+    gut-health content guide (digital, zero COGS) transforms the transaction into
+    a wellness onboarding kit. This increases perceived value without discounting
+    the product, directly counters the 'I've tried other healthy sodas and they were
+    bad' objection with a curated switching guide, and elevates the dream outcome
+    from 'a soda' to 'the beginning of a better relationship with your gut.'
+  target_persona: primary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Replace the daily soda habit with something that actually feels
+      good — better digestion, more energy, no bloating from the sugar bomb — without
+      giving up the ritual of cracking open a cold drink
+    perceived_likelihood_lever: 'Bundle the 12-pack with a free digital download:
+      ''The 30-Day Soda Swap Guide'' featuring the OLIPOP flavor-to-soda matchup chart
+      (e.g. ''If you love Coke, start here: Vintage Cola''), the science of the OLIPOP
+      Blend in plain English, and social proof from verified customers who switched
+      from daily Coke or Pepsi'
+    time_delay_lever: The flavor-matching guide removes trial-and-error — customer
+      picks the right starting flavor on day one instead of wasting a week on a flavor
+      that doesn't resonate
+    effort_lever: 'Done-for-you switch: ''Here is exactly what to replace your morning
+      Coke with, afternoon Mountain Dew with, and evening Dr. Pepper with'' — removes
+      all decision fatigue from the category switch'
+  suggested_structure: '12-pack variety pack (customer choice of Classic Soda or Fruity
+    Fun) bundled with a free digital download: ''The OLIPOP Soda Swap Guide — Your
+    30-Day Better Gut Playbook.'' Guide delivered instantly via email at purchase.
+    No price increase over standard 12-pack price. Position the guide as a $15 free
+    gift. Optional physical add-on: a branded OLIPOP koozie at checkout for $4 to
+    drive AOV and brand visibility.'
+  risk_reversal: If you complete your first 12-pack and your gut does not feel different,
+    contact us and we will send you another variety pack on us. This is a bold guarantee
+    but OLIPOP's fiber and prebiotic formula has genuine efficacy — the risk is low
+    and the conversion impact is high.
+  urgency_mechanic: Limit the digital guide to a specific version tied to current
+    new flavors ('Updated for 2025 with Raspberry Sherbet and Blackberry Vanilla pairings').
+    This creates a sense that the content is current and time-specific.
+  pricing_anchor_logic: Do not discount the product. Anchor the bundle value as 'a
+    $15 wellness guide, free with your first 12-pack' — adds perceived value without
+    touching product price integrity.
+  estimated_lift: medium
+  creative_angle: You've been drinking the wrong soda your whole life. Here is exactly
+    what to switch to — and a guide that makes the switch effortless.
+  notes: 'The digital guide requires internal content creation investment but zero
+    ongoing COGS. It also serves as a top-of-funnel lead magnet if gated behind email
+    capture separately from the bundle. Regulatory note: do not make specific gut
+    health claims in the guide that cross into disease treatment territory — frame
+    as ''supports your microbiome'' not ''cures bloating.'''
+- name: The 30-Day Soda Switch Challenge
+  type: lead_magnet
+  rationale: The ICP's objection 'I've tried other healthy sodas and they were bad'
+    reflects prior disappointment and low perceived likelihood of success. A time-framed
+    challenge reframes the product from a one-time purchase into a 30-day commitment
+    with a visible finish line. It lowers the perceived barrier ('just try it for
+    30 days') while building habit loops that increase LTV. It also generates UGC
+    (before/after content, weekly check-ins) that OLIPOP can repurpose as social proof
+    — directly addressing the credibility gap for solution_aware skeptics.
+  target_persona: primary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Quit regular soda for good — not feel like you are depriving yourself,
+      actually enjoy your drinks, notice your gut feels calmer and less bloated, and
+      feel proud of a habit you actually kept
+    perceived_likelihood_lever: A structured 30-day plan with weekly check-in emails
+      from Ben Goodwin's team, a private community (Facebook group or Discord), and
+      real customer results shared at each week milestone. The structure itself signals
+      that success is achievable and that OLIPOP will support the journey.
+    time_delay_lever: Participants get a weekly 'level up' email with flavor suggestions
+      calibrated to where they are in the switch journey — accelerating the taste
+      adaptation timeline from months to 30 days
+    effort_lever: 'Pre-planned: ''Week 1 is root beer week, week 2 is cola week''
+      — zero decisions required. Flavor rotation is pre-mapped to make the commitment
+      feel manageable'
+  suggested_structure: Email/SMS opt-in to join the '30-Day Soda Switch Challenge.'
+    Upon joining, customer receives a welcome email with a 15% off code for their
+    first order, a downloadable flavor calendar, and an invite to the community. Weekly
+    check-in emails from the OLIPOP team. At day 30, graduates receive an exclusive
+    'Soda Switcher' badge in the rewards program and a surprise discount on month
+    2. Promoted as a free challenge — email capture is the lead magnet, product purchase
+    is the conversion.
+  risk_reversal: If you complete 30 days and decide OLIPOP is not for you, we will
+    refund your first order in full. No fine print.
+  urgency_mechanic: Challenge opens on the 1st of each month, enrollment closes after
+    500 participants (creates genuine scarcity based on community management capacity).
+    Waitlist captures email even for those who miss the enrollment window.
+  pricing_anchor_logic: The challenge itself is free — zero price objection. The 15%
+    welcome discount handles the initial price-sensitivity objection for the first
+    purchase. The switching narrative ('what are you spending on regular soda per
+    month?') anchors cost of doing nothing.
+  estimated_lift: high
+  creative_angle: Bet you can't quit Coke for 30 days — and actually enjoy every soda
+    you drink instead. Challenge accepted?
+  notes: High production cost in year one (community management, email sequence creation)
+    but evergreen asset thereafter. UGC generated from challenge participants provides
+    months of authentic social content. Coordinate timing with new flavor launches
+    for maximum relevance.
+- name: The Office Fridge Bulk Bundle
+  type: bundle
+  rationale: OLIPOP is distributed through Whole Foods, Target, and Kroger, which
+    means it already has brand recognition among health-conscious workplace buyers.
+    The gap is DTC conversion for bulk office orders. Office managers and team leads
+    who already drink OLIPOP personally are a high-LTV B2B2C opportunity — a single
+    office order can represent 5-10x the AOV of a standard 12-pack. The current catalog
+    has no explicit bulk/office offer, leaving this purchase motivation unaddressed.
+  target_persona: secondary
+  target_awareness_stage: product_aware
+  value_equation:
+    dream_outcome: Stock the office fridge with something everyone will actually drink
+      and feel good about — upgrade the team from Red Bull and Coke to something that
+      supports focus and gut health, without anyone complaining that the healthy stuff
+      tastes weird
+    perceived_likelihood_lever: Offer a branded 'Office Variety Case' with 5+ flavor
+      options so there is something for everyone. Include a branded 'Why we switched
+      our office to OLIPOP' card — a social proof artifact the office manager can
+      display
+    time_delay_lever: Priority shipping upgrade for bulk orders over 4 cases — office
+      has drinks within 2 business days
+    effort_lever: Single checkout for 48 or 96 cans with pre-configured mix. No building
+      a cart flavor by flavor. Optional recurring office subscription with dedicated
+      account manager contact.
+  suggested_structure: 'Office Pack tiers: 24-can case ($X), 48-can case ($X, free
+    shipping), 96-can case ($X, free shipping + 10% bulk discount + branded OLIPOP
+    can holder or cooler bag). Available in curated Classics Mix or Office Crowd-Pleaser
+    Mix (highest-selling flavors). Dedicated /pages/office landing page with ''Request
+    a sample for your team'' CTA to capture B2B leads. Bulk orders over $150 automatically
+    qualify for free shipping.'
+  risk_reversal: If your team does not love the first case, we will replace it with
+    a different flavor mix at no charge — one replacement guarantee per business account.
+  urgency_mechanic: Tie bulk promotions to Q1 (New Year wellness initiatives), Q3
+    (back-to-office season), and Q4 (holiday gifting). These are natural B2B buying
+    windows.
+  pricing_anchor_logic: Anchor against the cost of stocking an office with regular
+    soda, energy drinks, or LaCroix. At 96 cans, OLIPOP DTC bulk price per can should
+    undercut Whole Foods single-can retail price while exceeding the functional value
+    of any existing office beverage.
+  estimated_lift: medium
+  creative_angle: Your team deserves better than gas station energy drinks. Stock
+    the office fridge with something that actually makes people feel good.
+  notes: B2B gifting angle is also relevant — OLIPOP variety packs as corporate holiday
+    gifts is an untapped revenue channel. Requires a dedicated landing page and potentially
+    a Shopify B2B or wholesale channel to manage net terms for larger offices.
+- name: 'Win Back: Your Gut Misses You'
+  type: winback
+  rationale: The 30RESUB code already exists as a winback mechanic but it is passive
+    — it only works if lapsed subscribers return to the site and see the banner. A
+    proactive winback sequence using the OLIPOPTEXT15 SMS channel and email can recover
+    churned subscribers who canceled due to price sensitivity or flavor fatigue (the
+    two most common subscription churn reasons for CPG beverage). The brand's playful,
+    warm tone is uniquely suited for a winback campaign that leans into humor and
+    emotional re-engagement rather than just a discount.
+  target_persona: primary
+  target_awareness_stage: most_aware
+  value_equation:
+    dream_outcome: Return to the daily ritual that made your gut feel better — without
+      it feeling like a painful recurring expense or a flavor you have grown tired
+      of
+    perceived_likelihood_lever: 'Personalized reactivation: show the lapsed subscriber
+      their last flavor order history and suggest ''we added 3 new flavors since you
+      left'' with images of Raspberry Sherbet, Blackberry Vanilla, and Shirley Temple
+      as proof of catalog growth'
+    time_delay_lever: Win-back offer expires in 7 days from send — creates genuine
+      urgency tied to a real expiration
+    effort_lever: One-tap reactivation link from the SMS or email that pre-fills their
+      last subscription configuration. Zero account navigation required.
+  suggested_structure: '3-touchpoint win-back sequence triggered at day 30, 45, and
+    60 post-cancellation. Touch 1 (day 30, SMS): ''Your gut misses you. And honestly,
+    so do we. 3 new flavors just dropped. Come back with 25% off your first reactivated
+    box — expires in 7 days. [link]''. Touch 2 (day 45, email): flavor-forward email
+    showing what they missed with ''Your neighbors are drinking these'' social proof
+    and 20% offer. Touch 3 (day 60, SMS): final exit offer at 30% (matching existing
+    30RESUB code) framed as last chance.'
+  risk_reversal: 'Returning subscribers get a ''satisfaction guarantee'': if the new
+    flavor they ordered on reactivation is not their favorite, they can swap the remaining
+    boxes at no charge and with no subscription pause required.'
+  urgency_mechanic: Each touchpoint has a hard expiry date (7 days from send) to drive
+    decision without feeling indefinite. The escalating discount structure (25% ->
+    20% -> 30%) rewards action takers at touch 1 while preserving the deepest discount
+    for the most resistant churners.
+  pricing_anchor_logic: 'Reference the cost per can at retail ($2.50–$3.00) versus
+    subscription DTC price. ''You are already paying more for OLIPOP at Target — reactivate
+    and get it cheaper, delivered.'' '
+  estimated_lift: medium
+  creative_angle: It has been a minute. Your gut called — it wants you back. New flavors,
+    same great gut feeling, one tap to reactivate.
+  notes: The escalating discount at touch 3 (30%) is highest cost but lowest volume
+    — only the most resistant churners will need it. Ensure the reactivation link
+    bypasses the account login screen if possible to minimize friction. Coordinate
+    with Rediem loyalty app to auto-restore lapsed subscriber loyalty tier on reactivation
+    as an additional retention incentive.
+- name: Seasonal Collab Drop with Early-Access Gating
+  type: seasonal
+  rationale: OLIPOP already does brand collabs (SpongeBob / Pineapple Paradise, Shirley
+    Temple). What is missing is a structured offer architecture around collab drops
+    that maximizes acquisition, email capture, and subscriber retention simultaneously.
+    Collab drops generate organic press and social virality — the offer architecture
+    should be designed to capture that attention spike into owned-channel subscribers
+    and DTC customers. The current approach (just a discount code in the announcement
+    bar) undermonetizes the cultural moment.
+  target_persona: primary
+  target_awareness_stage: problem_aware
+  value_equation:
+    dream_outcome: Be the first person in your friend group to try the new flavor
+      — the one that sells out. Experience the novelty and fun of a limited edition
+      that also happens to be good for your gut.
+    perceived_likelihood_lever: Limited production run announced publicly with unit
+      count ('only 50,000 cases produced') — creates genuine scarcity. Subscriber
+      early access 48 hours before general public launch proves the scarcity claim
+      is real when non-subscribers see 'sold out' during the public window.
+    time_delay_lever: Subscribers get access 48 hours before general public. Email/SMS
+      opt-in to the waitlist delivers access link the instant the drop opens. No waiting,
+      no refresh-the-page anxiety.
+    effort_lever: Waitlist opt-in is a single field (email or phone). Pre-launch landing
+      page with countdown timer requires zero purchase commitment to join — the effort
+      to get early access is as low as possible
+  suggested_structure: 'Pre-launch: dedicated landing page for the upcoming collab
+    drop with countdown timer and email/SMS waitlist opt-in. Waitlist confirmed =
+    early access guarantee. Existing subscribers automatically get early access (no
+    action required — this is a benefit reminder). 48 hours before public: subscribers
+    and waitlist receive access link. Public launch: general availability, but limited
+    inventory messaging (''XX cases remaining''). Post-sellout: waitlist for next
+    restock collects demand signal for reorder decisions. Collab drops should be built
+    on a 60–90 day cadence to maintain cultural momentum.'
+  risk_reversal: Waitlist members who miss the drop due to sellout receive a first-in-line
+    guarantee for the restock plus a free $5 credit for the inconvenience.
+  urgency_mechanic: Limited production run is the core urgency mechanic — it must
+    be genuine to maintain trust. Do not overstate scarcity. A sell-out event is a
+    brand win; a fake sell-out is a brand liability.
+  pricing_anchor_logic: Collab drops should be priced at or slightly above standard
+    12-pack pricing to signal premium collectibility. Avoid discounting collab SKUs
+    — the scarcity is the value. The EARLY30 code already exists for early access
+    scenarios but for collabs, early access exclusivity is the reward, not a discount.
+  estimated_lift: high
+  creative_angle: They made a soda that tastes like [collab IP]. It is also good for
+    your gut. It is going to sell out. Get on the list.
+  notes: 'This offer structure requires coordination with OLIPOP''s collab and product
+    development pipeline. The waitlist opt-in is a low-cost, high-value email/SMS
+    acquisition mechanic that does not require a discount. Regulatory note: licensed
+    collab drops require IP agreement compliance in all marketing language.'
+notes:
+  brand_premium_constraints: 'OLIPOP should not run blanket sitewide percentage-off
+    discounts as a permanent visible element on the homepage — this risks training
+    the audience to wait for discounts before purchasing and undermines the ''better
+    soda, worth the price'' positioning. The current banner rotation of 14+ active
+    discount codes is a meaningful brand risk: at this scale, the brand begins to
+    feel discount-dependent rather than premium. Flat cart discounts without a contextual
+    reason (influencer code, loyalty reward, seasonal event) erode perceived value.
+    BOGO mechanics are structurally incompatible with OLIPOP''s premium price point
+    in the $2.50/can range. Deep blanket discounts (30%+ on all products, any time)
+    compete with the brand''s existing retail channel pricing and can create retailer
+    tension.'
+  category_dynamics: 'Better-for-you functional beverages follow a trial-heavy acquisition
+    model — the primary conversion barrier is taste skepticism, not price. The category''s
+    standard offer ladder is: (1) low-barrier trial unit or sampler to acquire first
+    purchase, (2) variety pack as the core DTC order to encourage flavor exploration,
+    (3) subscription as the LTV engine with free shipping and flavor flexibility as
+    the primary value props, (4) loyalty/rewards to retain high-frequency purchasers.
+    Seasonal and limited-edition flavors serve as reactivation and cultural moment
+    plays. Influencer and partner codes are category-standard for performance marketing
+    attribution. OLIPOP currently executes steps 2, 3, and 4 well. The primary gap
+    is a structured, on-brand step 1 (trial) that does not rely on a blanket percentage
+    discount.'
+  highest_priority_test: 'The Taste-Test Starter Pack (suggested offer #1) should
+    be the first test because it directly addresses the #1 stated objection of the
+    solution_aware persona (''it probably does not taste like real soda''), requires
+    minimal new product development (variety packs already exist), and creates a natural
+    upgrade path to a 12-pack or subscription. The risk reversal (money-back if no
+    flavor satisfies) is low-cost to fulfill and high-impact on conversion. It also
+    gives OLIPOP a story to tell in performance creative that is more compelling than
+    a discount code: ''try 4 classic sodas, find your favorite, or get your money
+    back'' is a more emotionally resonant hook than ''15% off your first order.'''
+  audience_specific_recommendations: 'For the solution_aware skeptic (ICP): lead with
+    the Taste-Test Starter Pack and the 30-Day Soda Switch Challenge — both offers
+    are designed to overcome the taste and efficacy objections before asking for full
+    subscription commitment. For product_aware customers who have tried OLIPOP at
+    retail but not purchased DTC: the subscription program offer reframed around the
+    lifestyle identity (''Fridge Person'') and flavor-swap-by-text convenience is
+    the primary conversion lever — price savings versus retail is the anchor. For
+    lapsed subscribers: the proactive Win-Back sequence with personalized flavor history
+    and escalating urgency is higher-ROI than the passive 30RESUB code in the banner.
+    For the B2B/office buyer: the Office Fridge Bulk Bundle addresses a purchase motivation
+    that the current catalog and offer stack completely ignores, representing untapped
+    incremental revenue with no cannibalization risk to core DTC.'
