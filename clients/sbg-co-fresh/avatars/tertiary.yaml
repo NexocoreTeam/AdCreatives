@@ -1,0 +1,107 @@
+name: Curly-Haired Mama Camille
+demographic: Woman of color, 26–38, suburban, married or partnered, 1–3 young children,
+  household income $60K–$105K, active on Instagram and TikTok, likely college-educated,
+  lives in a metro-adjacent suburb in the South, Mid-Atlantic, or Midwest
+psychographic: Faith is central to her identity but she has often felt like an outsider
+  in the predominantly white Christian lifestyle space — her kids don't always see
+  themselves in the products, and the aesthetic of most faith brands doesn't match
+  her home or her culture. She is fiercely intentional about surrounding her children
+  with representation and celebrates their natural hair, their heritage, and their
+  faith simultaneously. She buys from founders who look like her when she can. She's
+  a maker-culture adjacent mom — crafty, Instagram-savvy, aesthetically driven, and
+  deeply community-oriented.
+pain_points:
+- pain: The Christian lifestyle market is almost entirely white in its imagery, product
+    design, and aesthetic reference points — she and her kids are invisible in it
+  intensity: high
+  customer_language:
+  - I can never find Christian kids clothes that look like my daughter
+  - All the faith brands have the same aesthetic and it's not mine. It's pretty, but
+    it's not for me.
+  - I want to dress my kids in their faith but everything shows blonde kids on a white
+    shiplap wall
+  source: auto_from_brand_context
+- pain: Products celebrating natural hair or Black girl identity almost never have
+    a faith component — she's forced to choose between representation and her values
+  intensity: high
+  customer_language:
+  - Why is it so hard to find something that celebrates her curls AND her faith at
+    the same time?
+  - I can find cute natural hair shirts all day. I can find Christian shirts. I cannot
+    find both.
+  source: auto_from_brand_context
+- pain: She's skeptical of brands that add one multicultural product as tokenism —
+    she wants to buy from someone who actually lives this, not someone who added a
+    'curly hair' SKU to check a box
+  intensity: medium
+  customer_language:
+  - I can always tell when a brand just threw in one 'diversity' product. It feels
+    gross.
+  - When I found out Whitney is a Black woman who actually built this I cried a little.
+    This is real.
+  source: auto_from_brand_context
+- pain: She has to search harder than any other buyer to find products that reflect
+    her family — the default search results for 'Christian kids apparel' never show
+    her kids
+  intensity: medium
+  customer_language:
+  - I spend twice as long looking for things for my kids because nothing is ever just
+    made for us
+  - I'm always the one who has to go looking. Nothing ever just shows up for me.
+  source: auto_from_brand_context
+desires:
+- desire: A faith brand that shows her family in its imagery and designs products
+    specifically for her kid's identity — where she doesn't have to adapt or settle
+  customer_language:
+  - I want a brand where I see my kid on the website without having to scroll forever
+  - I want to buy from someone who actually made this for us
+- desire: Products that teach her children their natural hair is beautiful, their
+    faith is theirs, and their identity is worth celebrating — all at once
+  customer_language:
+  - Wild like my curls. That's it. That's everything I want her to know about herself.
+  - I want her to grow up knowing her hair is gorgeous and God made her exactly like
+    this on purpose
+- desire: A trusted go-to brand built by a Black woman founder — a place she can return
+    to and recommend to her community knowing the representation is authentic
+  customer_language:
+  - I tell every Black mom I know about this shop. It's the one.
+  - I buy here because it matters where my money goes. Whitney built something real.
+objections:
+- Is this brand actually for her, or is 'Wild Like My Curls' one token product in
+  a catalog that's otherwise not designed with her in mind?
+- She needs to see her family in the brand's photography and UGC before she trusts
+  that this is genuinely inclusive — not performatively so
+- Made-to-order lead time is a risk when she's buying for a specific occasion or gifting
+  to another mom
+- If she's new to the brand, price-vs-Amazon skepticism applies — she needs social
+  proof from other women who look like her before committing
+current_solutions:
+- Natural hair celebration brands (non-faith) like Melanin Poppin apparel — representation
+  without the faith component
+- Generic Christian kids apparel from Amazon or DaySpring — faith without representation
+- DIY Cricut shirts combining faith and natural hair imagery — the most common workaround
+- Going without — buying neutral or non-identity-specific kids apparel because nothing
+  fits both needs
+trigger_events:
+- She sees another Black mom in her church, community, or Instagram feed wearing or
+  posting about 'Wild Like My Curls' and tags her friends immediately
+- She searches for 'natural hair faith shirt for girls' or 'Black girl Christian apparel'
+  and SBG Co. is the first result that looks real
+- She discovers Whitney Vaughn's founder story through a feature, podcast, or Instagram
+  post and the entire brand reframes for her — she goes straight to the shop
+- Her daughter starts asking why the kids on the Christian apparel she wears don't
+  look like her — and she decides to find something that does
+- A Black mom influencer she follows posts an honest review or unboxing of an SBG
+  Co. product and it lands with her community
+awareness_level: problem_aware
+language_patterns:
+- 'Representation-first language: ''for us by us,'' ''finally,'' ''made for my baby,''
+  ''I see my kid in this'''
+- 'Natural hair celebration language: ''curly girl,'' ''coily queen,'' ''wild and
+  free,'' ''her curls are everything'''
+- 'Faith integrated with identity: ''fearfully and wonderfully made,'' ''made in His
+  image,'' ''God knew exactly what He was doing'''
+- 'Community referral energy: ''I''m tagging every Black mom I know,'' ''my girls
+  NEED to see this,'' ''go buy this right now'''
+- 'Authentic skepticism toward performative inclusion: ''this is real representation,''
+  ''this isn''t a token thing,'' ''Whitney built this from her own life'''

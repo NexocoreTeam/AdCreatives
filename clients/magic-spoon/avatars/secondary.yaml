@@ -1,0 +1,83 @@
+name: Nostalgic Mom Nicole
+demographic: Female, 30–42, suburban, married with one or two kids under 10, household
+  income $85k–$140k dual income, college educated, manages most household food purchasing,
+  follows wellness accounts on Instagram but doesn't identify as a 'dieter'
+psychographic: Nicole cares deeply about what her family eats but refuses to let health
+  become joyless. She grew up on Cocoa Puffs and Lucky Charms and has complicated
+  feelings about feeding her kids the same thing — she wants to give them the happy
+  Saturday morning memory without the sugar crash. She buys for herself first, justifies
+  it with the nutrition label, and quietly hopes the kids will like it too. She doesn't
+  track macros but she reads ingredients and sugar grams on every box she picks up.
+pain_points:
+- pain: She wants to eat cereal — genuinely craves it — but the sugary ones she loves
+    feel off-limits now that she's paying attention to nutrition
+  intensity: high
+  customer_language:
+  - I know I shouldn't but I literally still want Lucky Charms every single morning
+  - I buy the healthy cereal, I eat it, and I feel nothing. It doesn't scratch the
+    itch.
+  source: auto_from_brand_context
+- pain: Healthy cereal alternatives she's tried have been tasteless, texture-wrong,
+    or obviously 'diet food' — none of them feel like an upgrade, just a compromise
+  intensity: high
+  customer_language:
+  - I've tried the bran cereals, the granola, all of it — it's fine but it's not cereal
+    cereal
+  - Everything that's good for you tastes like you're being punished for wanting something
+    nice
+  source: auto_from_brand_context
+- pain: At the premium price point she needs to feel confident the whole box won't
+    go uneaten before she commits
+  intensity: medium
+  customer_language:
+  - Eight dollars a box is not something I can just throw in the trash if nobody likes
+    it
+  - I need to know my kids will actually eat it before I spend that much
+  source: auto_from_brand_context
+desires:
+- desire: To eat the cereal she grew up loving and feel completely fine about it nutritionally
+    — no mental asterisk
+  customer_language:
+  - I want to eat cereal again. Like actually want it and not feel weird about it
+    after.
+  - I just want the guilt-free version of my childhood breakfast
+- desire: A household cereal everyone will eat without her having to police what's
+    in it
+  customer_language:
+  - If my kids like it and I like it and the sugar isn't insane, that's a win
+  - I want one cereal that works for all of us
+objections:
+- Will it actually taste like the real thing or will it have that fake-sweet protein
+  aftertaste she's experienced before
+- The price feels hard to justify for a family — she'd be spending significantly more
+  per month than she does on regular cereal
+- She's not sure gluten-free or keto-formulated food is appropriate for growing kids
+  even if it's technically fine
+current_solutions:
+- Buying the sugary cereal she grew up on and eating it occasionally with low-grade
+  guilt
+- Granola with yogurt as a 'responsible' swap that doesn't satisfy the craving
+- Oatmeal as a weekday default she tolerates but doesn't enjoy
+- Buying separate cereals for herself and her kids — a healthy one for her, a fun
+  one for them
+trigger_events:
+- Picks up a box of Cocoa Puffs for her kids at the grocery store and reads the label
+  for the first time in years — puts it back
+- Sees a Magic Spoon ad or Instagram post while scrolling and stops because it looks
+  exactly like the cereals she grew up with
+- A friend in her mom group mentions she switched to Magic Spoon and her kids love
+  it
+- Starts paying more attention to her own sugar intake after a doctor's comment or
+  a health goal reset in January
+awareness_level: solution_aware
+language_patterns:
+- Talks about food in terms of feelings and the family context — 'we love,' 'my kids
+  will eat,' 'I used to have this every Saturday'
+- Uses wellness-adjacent but not clinical language — 'clean,' 'real ingredients,'
+  'not too much sugar,' 'actually good for you'
+- 'Emotionally warm, slightly self-deprecating about cravings: ''I know I''m an adult
+  but I still want Froot Loops'''
+- Review reader — checks what other moms say, looks for taste comparisons with the
+  originals
+- Instagram and word-of-mouth driven — more likely to buy after seeing a real person's
+  bowl than a studio product shot

@@ -1,0 +1,101 @@
+name: Faith-First Mama Felicia
+demographic: Woman, 26–42, suburban or small-town South or Bible Belt Midwest, married
+  or single mom, 1–4 kids of mixed genders or a single child, household income $50K–$95K,
+  active church member, some college or college-educated
+psychographic: 'Her faith isn''t something she compartmentalizes — it shapes what
+  she hangs on her walls, what her kids wear on the first day of school, and what
+  she brings to a baby shower. She''s not necessarily a boy mom, but she''s deeply
+  intentional about raising her kids inside a visible faith culture. She shops with
+  her values: small businesses, American-made, woman-owned businesses get her loyalty.
+  She''s the person who buys three of the same tee for herself and two friends because
+  she found her people in a product.'
+pain_points:
+- pain: Most Christian apparel looks like it was designed in 2003 — clip art crosses,
+    Comic Sans energy, colors that belong on a VBS bulletin board
+  intensity: high
+  customer_language:
+  - I want to wear something with a Bible verse on it that doesn't look embarrassing
+  - Why does all Christian clothing look like it came from a church rummage sale?
+  - I believe these things but I'm not wearing that. It looks cheap.
+  source: auto_from_brand_context
+- pain: She can't find a baby shower or birthday gift that's both faith-meaningful
+    AND something the recipient will actually want to use in real life
+  intensity: high
+  customer_language:
+  - Every Christian baby gift is either a Bible or a onesie with a verse I've seen
+    a thousand times
+  - I want to give something that says 'I know you and I know your faith' not just
+    'I grabbed this at Hobby Lobby'
+  source: auto_from_brand_context
+- pain: She's discovered small Christian brands before and gotten burned — inconsistent
+    sizing, poor quality, shops that ghost after one order
+  intensity: medium
+  customer_language:
+  - I found this cute shop on Instagram and the shirt fell apart after two washes
+  - I ordered something for Easter and it never came. Never again.
+  source: auto_from_brand_context
+- pain: Mass-market Christian apparel (Kerusso, DaySpring, Amazon) doesn't feel personal
+    — it feels like buying faith off a shelf
+  intensity: medium
+  customer_language:
+  - Anyone can buy that on Amazon. I want something that actually means something.
+  - I don't want the same shirt as everyone at church. I want something that's actually
+    mine.
+  source: auto_from_brand_context
+desires:
+- desire: Faith-forward apparel and home goods that look so good she'd wear them even
+    if they didn't have a verse on them
+  customer_language:
+  - I want something I'd reach for every week, not just on Sundays
+  - I want to wear my faith like it's part of my style, not like I'm holding a sign
+- desire: A go-to shop she can trust for gifts across all of life's occasions — baby
+    showers, birthdays, holidays — where she knows the quality will land
+  customer_language:
+  - I want a place I can always go back to that I trust completely
+  - When someone has a baby I know exactly where to go and I know they're going to
+    love it
+- desire: To buy from a founder whose story she can get behind — a Black woman building
+    something beautiful in the Christian lifestyle space is a brand she wants to champion
+  customer_language:
+  - I love supporting women who built something real
+  - When I found out Whitney's story I was like — yes, this is exactly who I want
+    to give my money to
+objections:
+- Made-to-order lead times are a problem when she's buying for an event or shipping
+  to a friend — will it arrive in time?
+- Shipping costs on small orders make a single-item gift purchase feel expensive relative
+  to Amazon Prime
+- She hasn't heard of SBG Co. yet and needs a trust signal before her first purchase
+  — 'is this a real brand or just another Instagram shop?'
+- She's not sure which product is right for the recipient — the catalog is large and
+  she doesn't know where to start
+current_solutions:
+- DaySpring or Kerusso from a Christian bookstore — faith-forward but aesthetically
+  dated
+- The Daily Grace Co. — cleaner design but doesn't carry kids or matching sets
+- Hobby Lobby home décor section for gift items — convenient but impersonal
+- Generic Amazon Christian apparel — fast shipping, zero soul
+- Etsy one-off custom items — inconsistent and unreliable at scale
+trigger_events:
+- A friend in her church small group or mom group is wearing an SBG Co. tee and she
+  asks immediately where it's from
+- Easter, Mother's Day, or Christmas arrives and she starts searching for faith-forward
+  family apparel that actually looks good in photos
+- A friend announces a pregnancy and she goes looking for a baby shower gift that's
+  more meaningful than a Amazon registry item
+- She sees an SBG Co. product in a faith-mom influencer's Instagram stories or TikTok
+  and recognizes herself in it
+- She's gifted a generic Christian tee and thinks 'there has to be something better
+  than this' and starts searching
+awareness_level: solution_aware
+language_patterns:
+- 'Warmth-forward community language: ''my people,'' ''this is everything,'' ''I needed
+  this,'' ''God is good'''
+- 'Gift-giver framing: ''perfect for,'' ''my friend is going to lose it,'' ''this
+  is the one'''
+- 'Casual faith integration: ''blessed,'' ''covered in prayer,'' ''walk by faith,''
+  ''trust the process'''
+- 'Aesthetic awareness: ''obsessed with this,'' ''so cute,'' ''the vibe is everything,''
+  ''this is so her'''
+- 'Values-signaling buying language: ''small biz,'' ''woman-owned,'' ''made in America,''
+  ''supporting this'''

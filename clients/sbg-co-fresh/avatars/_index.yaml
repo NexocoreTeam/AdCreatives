@@ -1,0 +1,16 @@
+personas:
+- id: primary
+  name: Boy Mama Brittany
+  role: primary
+  awareness_level: product_aware
+  confidence: high
+- id: secondary
+  name: Faith-First Mama Felicia
+  role: secondary
+  awareness_level: solution_aware
+  confidence: high
+- id: tertiary
+  name: Curly-Haired Mama Camille
+  role: tertiary
+  awareness_level: problem_aware
+  confidence: medium

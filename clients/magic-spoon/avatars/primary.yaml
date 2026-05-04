@@ -1,0 +1,76 @@
+name: Macro-Tracking Marcus
+demographic: Male, 28–40, urban or suburban, single or partnered without kids, household
+  income $75k–$130k, likely in tech, finance, or a trade where performance matters,
+  gym membership is a fixed expense, spends meaningfully on food quality
+psychographic: Marcus tracks his macros — not obsessively, but consistently. He listens
+  to Joe Rogan, Andrew Huberman, or similar podcasts during his commute or workouts.
+  He identifies as someone who has 'figured out' nutrition but still genuinely misses
+  the dopamine hit of a bowl of Frosted Flakes on a Saturday morning. He believes
+  health and enjoyment shouldn't be a trade-off, and he's willing to pay more for
+  proof that they don't have to be.
+pain_points:
+- pain: Breakfast options that fit his macros are either boring (eggs again), medical-tasting
+    (protein shakes), or leave him hungry
+  intensity: high
+  customer_language:
+  - There is literally nothing good for breakfast when you're trying to hit protein
+    without blowing your carbs
+  - I've eaten the same three breakfasts for two years and I hate all of them
+  source: auto_from_brand_context
+- pain: Healthy cereal alternatives taste like cardboard or a punishment — nothing
+    has successfully replicated the real thing
+  intensity: high
+  customer_language:
+  - Every 'healthy' cereal I've tried tastes like I'm eating packing material with
+    milk
+  - If it doesn't taste like the actual thing I don't want it
+  source: auto_from_brand_context
+- pain: At $35 for a 4-pack he's skeptical the taste justifies the premium before
+    he's tried it
+  intensity: medium
+  customer_language:
+  - Eight dollars a box is a lot to find out it tastes like cardboard
+  - I want to try it but I'm not spending $35 on something that might be garbage
+  source: auto_from_brand_context
+desires:
+- desire: A breakfast that fits his macros and genuinely tastes like the cereal he
+    grew up on — no compromise
+  customer_language:
+  - I just want something that actually tastes good and doesn't destroy my macros
+  - If this actually tastes like Cocoa Puffs and has 13g of protein I will eat it
+    every single day
+- desire: To stop feeling like eating well means giving up the foods he loves
+  customer_language:
+  - I want to eat clean without feeling like I'm on a diet
+  - I don't want food to be a thing I have to white-knuckle through
+objections:
+- The taste claim sounds too good to be true — every 'healthy' version of a junk food
+  has disappointed him before
+- Thirty-five dollars for four boxes is hard to justify until he knows it's worth
+  it
+- He's seen protein cereals before and they all taste like protein powder mixed with
+  air
+current_solutions:
+- Greek yogurt with protein powder stirred in
+- Eggs in various forms he's sick of
+- Protein shakes that don't feel like a real meal
+- RXBAR or Quest bars he eats out of obligation, not enjoyment
+- Occasionally just eating a bowl of regular Frosted Flakes and logging it as a cheat
+trigger_events:
+- Hears Greg or a guest mention Magic Spoon on a podcast and the founder's origin
+  story rings true
+- Hits a wall with his current breakfast rotation and starts actively Googling high-protein
+  cereal alternatives
+- See a friend's Instagram story with a bowl of Magic Spoon and the macros listed
+  — pauses and screenshots it
+- Gets a cut-down on carbs directive from a trainer or starts a new macro protocol
+  and realizes cereal is off the table by old rules
+awareness_level: product_aware
+language_patterns:
+- Talks in macros — 'how many grams of protein,' 'net carbs,' 'hitting my numbers'
+- Casual but informed — not a bro, not a doctor, somewhere in between
+- 'Self-deprecating about his own cravings: ''I know it''s dumb but I just want cereal'''
+- Validates with data and reviews before buying — looks for before/after taste comparisons,
+  not just nutrition labels
+- 'Uses podcast shorthand: ''I heard about it on Rogan,'' ''Huberman said,'' ''my
+  trainer put me on'''

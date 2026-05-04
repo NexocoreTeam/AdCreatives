@@ -61,6 +61,81 @@ def list_clients():
     console.print(table)
 
 
+# ─── Personas (Stage 2) ─────────────────────────────────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--max-personas", default=4, type=int,
+              help="Maximum number of personas to generate (1-4)")
+def personas(client: str, max_personas: int):
+    """Expand single avatar to multiple structured personas.
+
+    Reads brand-context.md (which already identifies audience tiers) and
+    generates one full CustomerAvatar YAML per persona under
+    clients/<slug>/avatars/<persona-id>.yaml plus an _index.yaml roster.
+
+    Each persona is genuinely distinct — different pains, triggers, awareness
+    levels — so downstream stages (strategy matrix, brief) can target them.
+    """
+    from models.loader import load_brand
+    from strategy.personas import build_personas, save_personas
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    context_path = client_dir / "brand-context.md"
+    if not context_path.exists():
+        console.print(
+            f"[red]No brand-context.md at {context_path}. Run `adc research` first.[/red]"
+        )
+        raise SystemExit(1)
+
+    brand = load_brand(client)
+    brand_context_md = context_path.read_text(encoding="utf-8")
+
+    console.print(
+        f"\n[bold cyan]Expanding personas for {brand.name}[/bold cyan] "
+        f"(up to {max_personas})"
+    )
+
+    with console.status("Identifying tiers + building personas with Claude Sonnet 4.6..."):
+        result = build_personas(
+            brand=brand,
+            brand_context_md=brand_context_md,
+            max_personas=max_personas,
+        )
+
+    if not result.personas:
+        console.print("[yellow]No personas generated. Check brand-context.md content.[/yellow]")
+        raise SystemExit(1)
+
+    index_path, written = save_personas(client, result)
+    console.print(f"\n[green]Wrote {len(written)} persona file(s):[/green]")
+    for p in written:
+        console.print(f"  - {p}")
+    console.print(f"[green]Wrote roster: {index_path}[/green]")
+    console.print()
+
+    table = Table(title=f"Personas for {brand.name}")
+    table.add_column("ID", style="cyan")
+    table.add_column("Name", style="green")
+    table.add_column("Role", style="yellow")
+    table.add_column("Awareness", style="dim")
+    table.add_column("Confidence", style="dim")
+    for p in result.index.get("personas", []):
+        table.add_row(
+            p.get("id", ""),
+            p.get("name", ""),
+            p.get("role", ""),
+            p.get("awareness_level", ""),
+            p.get("confidence", ""),
+        )
+    console.print(table)
+
+
 # ─── Strategy Matrix (Stage 5) ──────────────────────────────────────────────
 
 

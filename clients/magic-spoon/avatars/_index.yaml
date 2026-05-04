@@ -1,0 +1,16 @@
+personas:
+- id: primary
+  name: Macro-Tracking Marcus
+  role: primary
+  awareness_level: product_aware
+  confidence: high
+- id: secondary
+  name: Nostalgic Mom Nicole
+  role: secondary
+  awareness_level: solution_aware
+  confidence: high
+- id: tertiary
+  name: Gluten-Free Gabe
+  role: tertiary
+  awareness_level: problem_aware
+  confidence: medium

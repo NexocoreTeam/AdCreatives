@@ -1,0 +1,83 @@
+name: Gluten-Free Gabe
+demographic: Male or female, 28–45, suburban or urban, any household configuration,
+  household income $70k–$120k, manages a gluten sensitivity or celiac diagnosis personally
+  or for a family member, has restructured grocery shopping significantly around dietary
+  needs
+psychographic: Gabe didn't choose a restricted diet — it was handed to them by a diagnosis.
+  What they lost wasn't just gluten; it was the comfort foods that came with it. They've
+  become expert label-readers out of necessity, not virtue. They follow gluten-free
+  accounts, know which brands are trustworthy versus cross-contamination risks, and
+  feel genuine relief when something that used to be off-limits is back on the table
+  — especially if it tastes the way they remember.
+pain_points:
+- pain: Most gluten-free cereals taste noticeably off — gummy, cardboard, or aggressively
+    health-foody — and don't replicate the cereals they grew up eating
+  intensity: high
+  customer_language:
+  - Every GF cereal I've tried either tastes like rice cakes or like someone described
+    cereal to a machine and this is what came out
+  - I just want something that tastes normal. That's the whole ask.
+  source: auto_from_brand_context
+- pain: Cereal specifically has been mostly off the table since diagnosis — it's one
+    of the foods they miss most because it was such a default comfort meal
+  intensity: high
+  customer_language:
+  - I used to eat cereal every single morning and I haven't had a real bowl since
+    I got diagnosed
+  - My wife has gluten sensitivity issues and finding something she can eat that actually
+    tastes good has been impossible
+  source: auto_from_brand_context
+- pain: They have to research every new food brand carefully before trusting it —
+    'gluten-free' on the label isn't always enough given cross-contamination risks
+  intensity: medium
+  customer_language:
+  - I've been burned by products that say GF on the front but aren't certified — I
+    don't mess around with that anymore
+  - I need to know it's actually safe, not just labeled safe
+  source: auto_from_brand_context
+desires:
+- desire: A cereal that is both genuinely safe for them to eat and genuinely tastes
+    like cereal — not a gluten-free approximation of cereal
+  customer_language:
+  - I can finally eat cereal again
+  - Something that tastes like the real thing and I can actually have without paying
+    for it later
+- desire: To feel normal at breakfast — to not have a whole separate routine just
+    because of their dietary needs
+  customer_language:
+  - I just want breakfast to not be a whole thing I have to navigate
+  - I want to eat what everyone else is eating and not have it be a big deal
+objections:
+- Is the gluten-free claim certified or just a label — they need to know about manufacturing
+  practices and cross-contamination protocols before trusting it
+- The premium price is harder to absorb when they're already spending more on specialty
+  GF versions of everything
+- Whey protein in the formula — some gluten-sensitive people also have dairy sensitivities
+  and they'll clock this immediately
+current_solutions:
+- Certified GF rice or corn-based cereals that taste bland or stale
+- Oatmeal with certified GF oats — nutritionally fine, emotionally unsatisfying as
+  a cereal substitute
+- Skipping cereal entirely and defaulting to eggs or yogurt
+- Eating regular cereal occasionally and accepting the consequences
+trigger_events:
+- Gets newly diagnosed with celiac or non-celiac gluten sensitivity and begins auditing
+  their entire pantry, including cereals
+- Has a reaction from a product they thought was safe and doubles down on finding
+  brands they can actually trust
+- Finds a recommendation in a gluten-free community forum or Facebook group specifically
+  praising Magic Spoon's taste versus other GF options
+- Standing in the cereal aisle reading labels on every box and finding nothing that
+  fits, then searches 'gluten free cereal that actually tastes good' on their phone
+awareness_level: problem_aware
+language_patterns:
+- Talks in terms of safety and trust first — 'certified GF,' 'cross-contamination,'
+  'manufactured in a dedicated facility'
+- 'Expresses relief more than excitement when something works: ''I can finally eat
+  this,'' ''it''s actually safe,'' ''doesn''t make me sick'''
+- Community-oriented — references subreddits, GF Facebook groups, celiac forums as
+  where they find recommendations
+- 'Taste praise is comparative and specific: ''tastes like actual Cocoa Puffs,'' ''doesn''t
+  have that weird GF texture'''
+- Less fitness/macro-fluent than the primary persona — more likely to say 'it's healthy'
+  than 'the macros are good'
