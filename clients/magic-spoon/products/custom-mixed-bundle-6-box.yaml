@@ -1,13 +1,94 @@
 name: Custom Mixed Bundle 6-Box
-description: Build-your-own bundle of 6 cereal boxes — mix and match any flavors across
-  the cereal lineup. Top-ranked bestseller indicating strong repeat-buyer and variety-seeker
-  behavior.
-price: Unknown — approximately $35–$40 per 4-box case inferred; 6-box price not confirmed
+description: Build-your-own bundle of 6 cereal boxes â€” mix and match any flavors
+  across the cereal lineup. Top-ranked bestseller indicating strong repeat-buyer and
+  variety-seeker behavior.
+benefits:
+- '[functional] Mix and match any 6 boxes from Magic Spoon''s full cereal lineup in
+  one order'
+- '[functional] High protein formulation across all cereal SKUs available to bundle'
+- '[functional] 0-2g sugar per serving across the product line'
+- '[functional] Gluten-free cereal options available within the lineup'
+- '[functional] Access to full product range including Protein Cereal, Fiber + Protein
+  Cereal, Pastries, Treats, and Granola'
+- '[emotional] Feel like a kid again eating cereal you grew up craving — without the
+  guilt'
+- '[emotional] Never get bored — total flavor freedom to build your perfect weekly
+  rotation'
+- '[emotional] Satisfaction of eating something indulgent that''s actually working
+  for your goals'
+- '[social] Be the person in your household who found the cereal that actually tastes
+  good AND hits macros'
+- '[social] Gift-ready bundle format signals thoughtfulness for health-conscious friends
+  or family'
+price: Unknown â€” approximately $35â€“$40 per 4-box case inferred; 6-box price not
+  confirmed
 category: general
 image_path: ''
 image_url: https://magicspoon.com/cdn/shop/files/custom-case.webp?v=1760729939
+additional_images: []
+product_characteristics:
+  materials_or_ingredients:
+  - No specific ingredient list visible on this page for the bundle itself — ingredients
+    vary by individual flavor SKU
+  shipping_and_fulfillment:
+  - No specific shipping lead time, fulfillment details, or made-to-order information
+    visible in the extracted HTML
+  ratings_and_reviews_meta:
+    star_rating: ''
+    review_count: 80,000+ 5-Star Reviews (referenced in promo bar)
+    review_widget: OkendoReviews (oke-reviews-body-template detected in HTML)
+  guarantees:
+  - No explicit guarantee or refund policy language visible in the extracted page
+    HTML
+  cross_sells_or_bundles:
+  - Original Protein Variety Pack (6 boxes)
+  - New! Protein Cereal + Marshmallows
+  - NEW! Protein + Fiber Cereal Variety Pack
+  - Pastries Variety 6-Pack
+  - S'mores Pastries
+  - Frosted Strawberry Pastries
+  - Treats Variety 6-Pack
+  - Marshmallow Treats
+  - Double Chocolate Treats
+  - Granola Variety 6-Pack
+  - Dark Chocolate Almond Granola
+  - Mixed Berry Granola
+  - FREE Bowl Set for New Subscribers (promo bar callout)
+  - Limited Edition Spring Granola (promo bar callout)
+  customer_language_quotes:
+  - losing baked goods, pastries, bread, etc. has really been demoralizing to her
+  - So happy that Magic Spoon found a way to make GF cereal with great flavors
+  - this is an incredible product and I recommend it to all of my friends with food
+    issues
+  extraction_confidence: low
+  extraction_notes: Price is not visible in the extracted HTML — no product price,
+    variant pricing, or subscription pricing was rendered in the portion of the page
+    provided. The page appears to be a bundle-builder with a dynamic product selector;
+    pricing is almost certainly rendered via JavaScript after page load and was not
+    captured in this HTML snapshot. The one review quote present was pulled from the
+    mobile navigation sidebar (not a dedicated review widget section), suggesting
+    the main review content is loaded dynamically and was not captured. The OkendoReviews
+    widget template tag is present in the HTML head, confirming a review widget exists,
+    but no review data rendered. The 80,000+ 5-Star Reviews figure is from a rotating
+    promo bar — it refers to the brand overall, not specifically this SKU. No ingredients,
+    nutrition facts, or serving size information was visible in this HTML. No FAQ
+    section, guarantee copy, or refund policy was present in the extracted content.
+    Full product page body (below the fold) appears to have been truncated or not
+    captured.
 url: https://magicspoon.com/products/custom-mixed-bundle-6-box
-unique_mechanism: ''
-benefits: []
-objections: []
-social_proof: []
+unique_mechanism: Magic Spoon engineers nostalgia-forward cereal flavors on top of
+  a high-protein, low-sugar base — so you get the taste of the sugary cereals you
+  loved as a kid, rebuilt from the ground up with better ingredients. The Custom Mixed
+  Bundle lets repeat buyers build their own variety so every week feels like a new
+  discovery rather than the same box.
+objections:
+- Taste skepticism implicitly addressed via 80,000+ 5-Star Reviews social proof banner
+- Dietary restriction concern addressed via gluten-free callout in featured navigation
+  review quote
+- Flavor fatigue / boredom objection addressed by the bundle-builder's mix-and-match
+  mechanic itself
+social_proof:
+- My wife has gluten sensitivity issues, and losing baked goods, pastries, bread,
+  etc. has really been demoralizing to her. So happy that Magic Spoon found a way
+  to make GF cereal with great flavors! All in all, this is an incredible product
+  and I recommend it to all of my friends with food issues.

@@ -136,6 +136,93 @@ def personas(client: str, max_personas: int):
     console.print(table)
 
 
+# ─── Product Deep-Dive (Stage 4) ────────────────────────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--product", default=None,
+              help="Specific product slug to enrich (omit to enrich all)")
+def product_deep_dive(client: str, product: str | None):
+    """Fetch product detail pages and enrich product YAMLs with benefits + reviews.
+
+    For each product (or one specific product if --product given), fetches
+    its detail page and runs an LLM extraction using motion/review-audit +
+    coreyhaines/customer-research as system context. Pulls functional/
+    emotional/social benefits, unique mechanism, real price, objections,
+    review quotes, and customer language verbatim quotes.
+
+    Updates clients/<slug>/products/*.yaml in place — preserves existing
+    fields, fills in empty ones, appends new lists with dedup.
+    """
+    from models.loader import (
+        list_products as _list_products,
+        load_brand,
+        load_product,
+    )
+    from strategy.product_dive import deep_dive_products
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    brand = load_brand(client)
+
+    if product:
+        try:
+            products = [load_product(client, product)]
+        except Exception as e:
+            console.print(f"[red]Failed to load product '{product}': {e}[/red]")
+            raise SystemExit(1)
+    else:
+        products = []
+        for slug in _list_products(client):
+            if slug.startswith("example"):
+                continue
+            try:
+                products.append(load_product(client, slug))
+            except Exception:
+                continue
+
+    if not products:
+        console.print(f"[yellow]No products to deep-dive for '{client}'.[/yellow]")
+        raise SystemExit(0)
+
+    products_with_url = [p for p in products if p.url]
+    products_without_url = [p for p in products if not p.url]
+
+    console.print(
+        f"\n[bold cyan]Deep-diving {len(products_with_url)} product page(s) for {brand.name}[/bold cyan]"
+    )
+    if products_without_url:
+        console.print(
+            f"[yellow]Skipping {len(products_without_url)} product(s) without URL: "
+            f"{', '.join(p.name for p in products_without_url)}[/yellow]"
+        )
+
+    with console.status("Fetching product pages + extracting with Sonnet 4.6..."):
+        summary = deep_dive_products(client, brand, products_with_url)
+
+    table = Table(title="Product enrichment results")
+    table.add_column("Product", style="cyan")
+    table.add_column("Status", style="green")
+    table.add_column("Price", style="yellow")
+    table.add_column("Benefits", style="dim")
+    table.add_column("Reviews", style="dim")
+    table.add_column("Confidence", style="dim")
+    for name, info in summary.items():
+        table.add_row(
+            name[:40],
+            info.get("status", "?"),
+            str(info.get("price", "")),
+            str(info.get("benefit_count", "")),
+            str(info.get("social_proof_count", "")),
+            str(info.get("confidence", "")),
+        )
+    console.print(table)
+
+
 # ─── Offers (Stage 3) ───────────────────────────────────────────────────────
 
 

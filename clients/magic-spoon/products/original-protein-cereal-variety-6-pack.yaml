@@ -1,14 +1,94 @@
 name: Original Protein Cereal Variety 6-Pack
-description: The core entry-point SKU — 6 boxes featuring Magic Spoon's original cereal
-  flavors (Frosted, Cocoa, Fruity, Blueberry, Peanut Butter, Cinnamon). Subscribe
+description: The core entry-point SKU â€” 6 boxes featuring Magic Spoon's original
+  cereal flavors (Frosted, Cocoa, Fruity, Blueberry, Peanut Butter, Cinnamon). Subscribe
   & save available. Primary first-purchase product.
-price: Unknown — ~$35 per 4-pack equivalent inferred from user input; exact 6-pack
+benefits:
+- '[functional] 6 boxes of cereal in one variety pack (Frosted, Cocoa, Fruity, Blueberry
+  Muffin, Peanut Butter, Cinnamon Crunch)'
+- '[functional] High protein per serving'
+- '[functional] 0-2g sugar'
+- '[functional] Keto-friendly formulation'
+- '[functional] Gluten-free'
+- '[functional] 80,000+ 5-star reviews'
+- '[functional] Subscribe & save option available'
+- '[emotional] Recaptures the joy of childhood cereals without the guilt — nostalgic
+  flavors reimagined for grown-up nutrition goals'
+- '[emotional] Eat what feels like a treat and still hit your macros'
+- '[emotional] Freedom to enjoy cereal again after years of avoiding it due to sugar
+  or dietary restrictions'
+- '[social] Signal to others that you eat well and intentionally without sacrificing
+  the fun of food'
+- '[social] Shareable as a gift or discovery for friends with dietary restrictions
+  (gluten sensitivity, keto, low-sugar lifestyles)'
+price: Unknown â€” ~$35 per 4-pack equivalent inferred from user input; exact 6-pack
   price unconfirmed
 category: general
 image_path: ''
 image_url: https://magicspoon.com/cdn/shop/files/MS_C_VARIETY_6PACK_HERO.png?v=1733411891
+additional_images: []
+product_characteristics:
+  materials_or_ingredients: []
+  shipping_and_fulfillment:
+  - Subscribe & save selling plan available (selling_plan=3408035902)
+  - Limited edition promotions suggest inventory urgency (e.g. Spring Granola ending
+    soon)
+  - No explicit lead time, shipping speed, or fulfillment notes rendered in provided
+    HTML
+  ratings_and_reviews_meta:
+    star_rating: ''
+    review_count: 80,000+ 5-star reviews (promo bar claim — not a structured review
+      widget count)
+    review_widget: OKE Reviews (okendo) — template tag 'oke-reviews-body-template'
+      present in HTML; widget content not rendered in provided HTML
+  guarantees: []
+  cross_sells_or_bundles:
+  - Custom Mixed Bundle 6-Box (Build Your Own Bundle) — /products/custom-mixed-bundle-6-box
+  - Protein + Fiber Cereal Variety Pack — /products/cinnamon-crunch-fiber-1-case-4-boxes
+  - New! Protein Cereal + Marshmallows — /products/classic-smores-protein-cereal-marshmallows-1case-4boxes
+  - Pastries Variety 6-Pack — /products/pastries-variety-6-1-case-6-boxes-copy
+  - Treats Sweet-n-Salty Variety Pack — /products/sweet-n-salty-variety-pack
+  - Granola Variety 6-Pack — /products/variety-6-6-bags-of-granola
+  - Marshmallow Treats — /products/marshmallow-16-cereal-treats-1
+  - Double Chocolate Treats — /products/double-chocolate-pack-16-cereal-treats-4-boxes
+  - Dark Chocolate Almond Granola — /products/dark-chocolate-almond-4-bags-of-granola
+  - Mixed Berry Granola — /products/mixed-berry-4-granola
+  customer_language_quotes:
+  - losing baked goods, pastries, bread, etc. has really been demoralizing to her
+  - Magic Spoon found a way to make GF cereal with great flavors
+  - an incredible product
+  - I recommend it to all of my friends with food issues
+  - We've reimagined all your favorite childhood cereals
+  - High Protein, 0-2g Sugar
+  - 80,000+ 5-Star Reviews
+  extraction_confidence: low
+  extraction_notes: The HTML provided is predominantly navigation, header, and CSS/JS
+    scaffolding — the actual product detail page body (price, full product description,
+    nutrition facts, ingredient list, review widget content, guarantee text, add-to-cart
+    section) was not included in the rendered HTML. Price is not visible and is almost
+    certainly injected via Shopify's JavaScript or Liquid templates at runtime. The
+    only review content present is a single testimonial embedded in the mobile navigation
+    sidebar, not the main review widget. The Okendo review widget (oke-reviews-body-template)
+    is present as a DOM template but contains no loaded review data. The 80,000+ 5-star
+    reviews figure comes from a promo bar element, not a structured rating widget,
+    so no aggregate star rating is extractable. Ingredients, nutrition panel, and
+    satisfaction guarantee language would require the full rendered page body to extract.
+    Recommend re-scraping with a headless browser (Puppeteer, Playwright) after JavaScript
+    execution to capture dynamic content.
 url: https://magicspoon.com/products/variety-1-case-6-boxes-1
-unique_mechanism: ''
-benefits: []
-objections: []
-social_proof: []
+unique_mechanism: 'Magic Spoon reimagines classic childhood cereal flavors — Fruity,
+  Frosted, Cocoa, Peanut Butter, Blueberry Muffin, Cinnamon Crunch — by rebuilding
+  them from scratch with high protein and 0-2g sugar, so the taste hits like nostalgia
+  but the nutrition works like a modern health food. The variety 6-pack is the entry-point
+  proof-of-concept: try every original flavor before committing to a favorite.'
+objections:
+- Tastes good despite being healthy — page leans into nostalgic flavor names to preempt
+  the 'health food tastes bad' objection
+- Works for dietary restrictions — gluten-free formulation specifically called out
+  in the one visible review (gluten sensitivity use case)
+- Not sure which flavor to get — variety pack format directly resolves flavor indecision
+  for first-time buyers
+social_proof:
+- My wife has gluten sensitivity issues, and losing baked goods, pastries, bread,
+  etc. has really been demoralizing to her. So happy that Magic Spoon found a way
+  to make GF cereal with great flavors! All in all, this is an incredible product
+  and I recommend it to all of my friends with food issues.
