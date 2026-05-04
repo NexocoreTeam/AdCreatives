@@ -61,6 +61,91 @@ def list_clients():
     console.print(table)
 
 
+# ─── Strategy Matrix (Stage 5) ──────────────────────────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--max-products", default=3, type=int, help="How many products to include in context")
+def strategy_matrix(client: str, max_products: int):
+    """Generate a Schwartz × persona strategy matrix for a client.
+
+    Reads brand.yaml, avatar.yaml, brand-context.md, and product YAMLs.
+    Produces strategy-matrix.md (human-readable) and strategy-matrix.yaml
+    (structured) under clients/<slug>/.
+
+    Each matrix cell maps one persona × one awareness stage to specific
+    messaging guidance: angle, hook style, example hook, framework,
+    creative mechanic, proof to surface, CTA, funnel placement.
+    """
+    from models.loader import (
+        list_products as _list_products,
+        load_avatar,
+        load_brand,
+        load_product,
+    )
+    from strategy.matrix import build_strategy_matrix, save_matrix
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    brand = load_brand(client)
+    avatar = load_avatar(client)
+    if not avatar:
+        console.print(f"[red]No avatar found for '{client}'. Run `adc research` first.[/red]")
+        raise SystemExit(1)
+
+    product_slugs = [s for s in _list_products(client) if not s.startswith("example")]
+    products = []
+    for slug in product_slugs[:max_products]:
+        try:
+            products.append(load_product(client, slug))
+        except Exception as e:
+            console.print(f"[yellow]Skipping product {slug}: {e}[/yellow]")
+
+    brand_context_md = ""
+    context_path = client_dir / "brand-context.md"
+    if context_path.exists():
+        brand_context_md = context_path.read_text(encoding="utf-8")
+
+    avatars = [avatar]
+
+    console.print(
+        f"\n[bold cyan]Building strategy matrix[/bold cyan] — "
+        f"{len(avatars)} persona × 5 awareness stages = {len(avatars) * 5} cells"
+    )
+    console.print(f"  brand: {brand.name}")
+    console.print(f"  products in scope: {', '.join(p.name for p in products) or '(none)'}")
+    console.print()
+
+    with console.status("Compiling matrix with Claude Sonnet 4.6 (motion/creative-strategy-engine + product-marketing-context)..."):
+        result = build_strategy_matrix(
+            brand=brand,
+            avatars=avatars,
+            products=products,
+            brand_context_md=brand_context_md,
+        )
+
+    md_path, yaml_path = save_matrix(client, result)
+    cell_count = sum(len(p.get("cells", [])) for p in result.data.get("matrix", []))
+
+    console.print(f"[green]Wrote {md_path}[/green]")
+    console.print(f"[green]Wrote {yaml_path}[/green]")
+    console.print(f"[dim]{cell_count} matrix cells generated[/dim]")
+    console.print()
+
+    obs = result.data.get("cross_stage_observations") or {}
+    if obs.get("highest_leverage_stages"):
+        console.print(
+            f"[bold]Highest leverage stages:[/bold] "
+            f"{', '.join(obs['highest_leverage_stages'])}"
+        )
+    if obs.get("ad_distribution_recommendation"):
+        console.print(f"[bold]Recommended distribution:[/bold] {obs['ad_distribution_recommendation']}")
+
+
 # ─── Brand Research (auto + interactive) ────────────────────────────────────
 
 
