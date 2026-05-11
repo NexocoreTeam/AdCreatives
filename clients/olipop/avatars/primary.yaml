@@ -67,3 +67,152 @@ language_patterns:
   ''obsessed with'''
 - 'Talks in comparisons: ''it''s like X but actually good for you'''
 - Expresses brand loyalty through recommendation — 'you have to try this'
+psychology_profile:
+  dominant_heuristics:
+  - heuristic: framing_effect
+    confidence: high
+    why: Cara's objections and desires are structurally built around comparisons and
+      reframes — she is already doing cost-benefit math and category substitution
+      in her head before the brand says a word.
+    evidence:
+    - 'objections: ''It''s $3+ a can — I could buy a 12-pack of Coke for that'''
+    - 'language_patterns: ''Talks in comparisons: it''s like X but actually good for
+      you'''
+    - 'desires: ''I just want to enjoy a drink without doing math in my head'''
+    - 'current_solutions: Kombucha listed as ''too expensive to drink daily'' — she
+      already has a comparison anchor for premium beverage pricing'
+    ad_implications: 'Never present price as a soda price — reframe as cost-per-day
+      wellness habit, or anchor against kombucha / probiotic supplement spend she
+      already accepts. Lead with the substitution frame: ''your afternoon soda, upgraded''
+      not ''a health product.'' Avoid any copy that forces her to do the 12-pack math.'
+  - heuristic: social_proof
+    confidence: high
+    why: Two of her three trigger events are socially mediated — creator recommendation
+      and friend word-of-mouth — and her brand loyalty expression is peer-broadcast,
+      not self-discovery.
+    evidence:
+    - 'trigger_events[2]: ''A friend or wellness creator she follows posts about their
+      gut health and recommends prebiotic soda as an easy starting point'''
+    - 'language_patterns: ''Expresses brand loyalty through recommendation — you have
+      to try this'''
+    - 'trigger_events[1]: ''Sees OLIPOP in the cold case at Target'' — passive ambient
+      exposure, not active research, confirming she relies on environmental and social
+      cues rather than solo investigation'
+    ad_implications: Lead with UGC voices, creator testimonials, and peer recommendation
+      framing. 'Everyone I know has switched' or 'my dietitian mentioned this' are
+      stronger than brand claims. Avoid corporate-voiced proof or generic star ratings
+      without a human face behind them.
+  - heuristic: effect_heuristic
+    confidence: medium
+    why: Her purchase triggers include an impulse grab driven by can design aesthetics,
+      and her desires are framed emotionally and experientially rather than analytically
+      — she wants to feel like she's not settling, not to verify a claim.
+    evidence:
+    - 'trigger_events[1]: ''picks it up on a whim after noticing the can design'''
+    - 'desires: ''A soda that tastes real enough that she doesn''t feel like she''s
+      settling, and clean enough that she doesn''t feel guilty'''
+    - 'language_patterns: ''Uses food and drink as a proxy for self-care language:
+      nourishing, intentional, obsessed with'''
+    - 'psychographic: ''She wants to feel good without giving up the things she actually
+      enjoys'' — emotional permission framing, not functional specification'
+    ad_implications: Aesthetics and emotional tone carry disproportionate weight at
+      first impression. OLIPOP's retro-playful visual identity is doing real conversion
+      work — ads should feel like the can looks. Lead with sensory and emotional cues
+      (taste, enjoyment, ease) before any functional or prebiotic claim.
+  weak_heuristics:
+  - heuristic: scarcity
+    why: Cara is a slow, deliberate lifestyle upgrader — her psychographic explicitly
+      codes her as a considered, incremental decision-maker, not an impulse buyer
+      responding to urgency windows. Manufactured scarcity would pattern-match to
+      the low-credibility tactics she already associates with diet soda marketing.
+    avoid: Countdowns, 'limited batch,' 'only while supplies last' framing on core
+      SKUs. Urgency language erodes the wellness-credibility positioning she needs
+      to trust the brand.
+  - heuristic: temporal_discounting
+    why: Her desired transformation is identity-level and gradual — 'a slow, deliberate
+      upgrade of her entire lifestyle.' She is skeptical of shortcuts based on her
+      existing distrust of diet soda 'quick fixes.' Fast-result promises will activate
+      the same skepticism she has toward zero-sugar soda claims.
+    avoid: '''Feel the difference today,'' ''instant gut health,'' or any copy that
+      promises rapid physiological outcomes. This pattern-matches to weight-loss pill
+      skepticism she already holds.'
+  - heuristic: authority_bias
+    why: She uses technical wellness vocabulary naturally but her trust is peer-vetted,
+      not institution-vetted — her triggers are creator and friend recommendations,
+      not clinical studies. Institutional authority alone (e.g., 'studied by researchers
+      at X') will underperform without a peer bridge.
+    avoid: 'Cold clinical authority: white-coat imagery, pharma-style citation drops,
+      or corporate-sponsored expert framing. Authority works for her only when filtered
+      through a trusted peer voice.'
+  emotional_position:
+    primary:
+      valence: positive
+      intensity: low
+      rationale: 'Cara''s dominant desire language is relief and permission — ''I
+        just want to enjoy a drink without doing math in my head,'' ''I just want
+        a soda.'' This is HV/LI: the emotional charge is decompression and quiet upgrade,
+        not breakthrough transformation. Pain intensity on flavor is high but the
+        emotional register is guilt-mild, not fear-acute. Her current solutions (sparkling
+        water, occasional regular soda with residual guilt) signal accepted compromise
+        rather than urgent crisis — she is managing, not suffering. The dominant creative
+        anchor is: the thing you already want, now available without the catch.'
+      use_for: ''
+    secondary:
+      valence: negative
+      intensity: low
+      rationale: ''
+      use_for: Variant testing that surfaces the quiet accumulated cost of the compromise
+        she has normalized. 'You've been drinking disappointment for three years and
+        calling it a wellness choice.' LV/LI anchors work when the primary HV/LI relief
+        frame is underperforming — particularly in colder audiences who haven't yet
+        named the dissatisfaction.
+  recommended_prompt_pairings:
+  - pairing: reframing_perception_plus_emotional_trigger
+    fits_because: 'Activates framing_effect + effect_heuristic — the two highest-leverage
+      levers for Cara. Flips ''soda = guilt spiral'' to ''soda = self-care default.''
+      Maps cleanly onto HV/LI primary quadrant: the reframe is permission, not transformation
+      hype.'
+  - pairing: tribal_belonging_plus_vulnerability
+    fits_because: Activates social_proof + effect_heuristic. Matches Cara's 'you have
+      to try this' peer-recommendation voice and her emotional desire to belong to
+      the group of people who've already solved the soda problem without sacrificing
+      taste. Fits HV/LI primary quadrant.
+  - pairing: anonymity_plus_social_proof
+    fits_because: Activates social_proof + processing_fluency. The 'overheard reviewer'
+      format mirrors how Cara actually discovers products — creator posts, friend
+      recommendations, ambient cold-case encounters — and keeps the trust architecture
+      peer-originated rather than brand-claimed.
+  - pairing: authority_borrowing_plus_data_insight
+    fits_because: Activates authority_bias (peer-filtered) + framing_effect. Allows
+      microbiome and prebiotic credibility to be cited through a dietitian or independent
+      researcher voice rather than brand assertion — bridging her technical vocabulary
+      without triggering institutional-authority skepticism. Fits HV/LI secondary
+      use as a credibility layer.
+  - pairing: contrast_plus_aspirational_identity
+    fits_because: Activates framing_effect + effect_heuristic. The before/after contrast
+      frame ('the version of you who still felt weird about every soda vs. the version
+      who doesn't') fits her identity-upgrade psychographic and HV/LI primary quadrant
+      without requiring transformation-level intensity.
+  - pairing: micro_story_plus_suspense
+    fits_because: 'Activates salience_bias + effect_heuristic. Short narrative format
+      matches her casual-scroll behavior (trigger_events[1]: impulse grab at Target
+      cold case suggests low decision bandwidth). Works across both primary HV/LI
+      and secondary LV/LI quadrant variants — story can open in the ache or the relief
+      depending on the test.'
+  avoid_pairings:
+  - pairing: gamification_plus_time_sensitive_offer
+    avoid_because: Violates her deliberate, slow-upgrader decision style. goal_gradient
+      is weak (no program or ladder behavior evidenced), scarcity is a weak heuristic,
+      and temporal_discounting is a weak heuristic. Urgency mechanics undermine the
+      wellness-credibility positioning she requires to trust the brand.
+  - pairing: shock_factor_plus_transformation_shortcut
+    avoid_because: Wrong quadrant (HV/HI intensity) and activates her existing skepticism
+      toward 'quick fix' health claims — the same pattern that drove her away from
+      diet soda. Transformation shortcut framing will read as the wellness-label gimmick
+      she names explicitly in her objections.
+  - pairing: curiosity_plus_reverse_psychology
+    avoid_because: Cara's casual-but-informed voice and deliberate upgrade posture
+      code her as a buyer who wants directness and genuine credibility, not cleverness.
+      Pattern-interrupt or contrarian-tease framing risks eroding the authenticity
+      signal she uses to evaluate whether a wellness brand is real or performative.
+  source: auto_from_psychology_profiling

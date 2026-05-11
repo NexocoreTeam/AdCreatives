@@ -206,7 +206,18 @@ def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, sk
     console.print("  - offers.yaml")
     console.print("  - strategy-matrix.md, strategy-matrix.yaml")
     console.print()
-    console.print("[bold]Next:[/bold] adc brief --client {} --product <id> --angles 6".format(client))
+    console.print("[bold]Next:[/bold]")
+    console.print(
+        f"  1. adc mine-voc --client {client} --category <category>  "
+        "[dim](optional but recommended)[/dim]"
+    )
+    console.print(
+        f"  2. adc profile-psychology --client {client}  "
+        "[dim](diagnose buyer heuristics + pairings)[/dim]"
+    )
+    console.print(
+        f"  3. adc brief --client {client} --product <id> --angles 6"
+    )
 
 
 # ─── Product Deep-Dive (Stage 4) ────────────────────────────────────────────
@@ -1076,6 +1087,124 @@ def show_context(client: str, product: str):
         console.print(f"  Local: clients/{client}/{prod.image_path}")
     for img in prod.additional_images:
         console.print(f"  Additional: clients/{client}/{img}")
+
+
+# ─── Psychology Profiling (Stage 1.5) ────────────────────────────────────────
+
+
+@cli.command(name="profile-psychology")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--avatar",
+    default=None,
+    help="Specific avatar to profile (e.g. 'primary'). Omit to profile every avatar.",
+)
+@click.option(
+    "--no-backup",
+    is_flag=True,
+    default=False,
+    help="Skip writing the .yaml.bak sibling before overwriting.",
+)
+def profile_psychology(client: str, avatar: str | None, no_backup: bool):
+    """Diagnose buyer psychology for an avatar — heuristics, valence/intensity, pairings.
+
+    Reads the avatar + brand context + (optional) extracted VOC, runs the
+    psychology-profiling skill via Sonnet 4.6, and writes a `psychology_profile`
+    block into the avatar yaml in place. Downstream angle generation reads this
+    to choose which psychological levers to activate.
+
+    Run AFTER `adc mine-voc` for highest-confidence output. Without VOC the
+    profiler will still run but flag confidence accordingly.
+    """
+    from strategy.psychology_profiler import (
+        profile_all_avatars,
+        profile_avatar_file,
+    )
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    backup = not no_backup
+
+    if avatar:
+        avatar_path = client_dir / "avatars" / f"{avatar}.yaml"
+        if not avatar_path.exists():
+            legacy = client_dir / "avatar.yaml"
+            if avatar in ("avatar", "default") and legacy.exists():
+                avatar_path = legacy
+            else:
+                console.print(f"[red]Avatar '{avatar}' not found at {avatar_path}[/red]")
+                raise SystemExit(1)
+
+        with console.status(f"Profiling psychology for {avatar} with Sonnet 4.6..."):
+            try:
+                profile = profile_avatar_file(client, avatar_path, backup=backup)
+            except ValueError as e:
+                console.print(f"[red]{e}[/red]")
+                raise SystemExit(1)
+
+        _render_psychology_summary({avatar: profile})
+    else:
+        with console.status(f"Profiling all avatars for '{client}' with Sonnet 4.6..."):
+            try:
+                profiles = profile_all_avatars(client, backup=backup)
+            except (FileNotFoundError, ValueError) as e:
+                console.print(f"[red]{e}[/red]")
+                raise SystemExit(1)
+        _render_psychology_summary(profiles)
+
+    console.print()
+    console.print(
+        f"[bold green]Psychology profiles written to clients/{client}/avatars/[/bold green]"
+    )
+    if backup:
+        console.print(
+            "[dim]Backups at <avatar>.yaml.bak - delete if you're happy with results.[/dim]"
+        )
+    console.print(
+        "\n[bold]Next:[/bold] briefs and angle generation will read "
+        "`psychology_profile` from each avatar automatically (wiring coming next)."
+    )
+
+
+def _render_psychology_summary(profiles):
+    """Print a compact table of each avatar's profile.
+
+    Rich treats `[...]` as markup, so square brackets in literal output must be
+    escaped with a backslash. We use parens for quadrant/confidence labels to
+    avoid the visual noise of escape sequences.
+    """
+    for name, profile in profiles.items():
+        console.print(f"\n[bold cyan]{name}[/bold cyan]")
+
+        if profile.emotional_position:
+            ep = profile.emotional_position
+            console.print(
+                f"  [dim]Position:[/dim] primary ({ep.primary.valence}/{ep.primary.intensity}), "
+                f"secondary ({ep.secondary.valence}/{ep.secondary.intensity})"
+            )
+
+        if profile.dominant_heuristics:
+            console.print("  [dim]Dominant:[/dim]")
+            for h in profile.dominant_heuristics:
+                console.print(f"    ({h.confidence:>6}) {h.heuristic}")
+
+        if profile.weak_heuristics:
+            console.print("  [dim]Avoid (weak):[/dim]")
+            for h in profile.weak_heuristics:
+                console.print(f"    {h.heuristic}")
+
+        if profile.recommended_prompt_pairings:
+            console.print("  [dim]Recommended pairings:[/dim]")
+            for p in profile.recommended_prompt_pairings:
+                console.print(f"    + {p.pairing}")
+
+        if profile.avoid_pairings:
+            console.print("  [dim]Avoid pairings:[/dim]")
+            for p in profile.avoid_pairings:
+                console.print(f"    - {p.pairing}")
 
 
 # ─── VOC Mining ──────────────────────────────────────────────────────────────
