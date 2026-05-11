@@ -315,34 +315,35 @@ Hard rule: **never list more than 3 heuristics at high confidence.** If you have
 
 ## Worked Example: Clean-Label Cara (Olipop primary avatar)
 
-Reference output produced from `clients/olipop/avatars/primary.yaml`. Shows the shape and the level of evidence-grounding expected.
+Calibrated reference produced by running this skill against `clients/olipop/avatars/primary.yaml` with Sonnet 4.6, then manually reviewed and approved. Shows the shape, evidence-grounding, and filtering judgment expected.
 
 ```yaml
 psychology_profile:
   dominant_heuristics:
-    - heuristic: social_proof
-      confidence: high
-      why: Cara's triggers and current behaviors are gated by community / creator endorsement.
-      evidence:
-        - "trigger_events[2]: 'wellness creator she follows posts about their gut health and recommends prebiotic soda'"
-        - "language_patterns: 'Expresses brand loyalty through recommendation — you have to try this'"
-      ad_implications: Lead with UGC + creator endorsements + "X thousand drinkers" framing. Avoid corporate-voiced proof.
-
     - heuristic: framing_effect
       confidence: high
-      why: She does explicit cost math; $3/can is a stated objection that requires reframe.
+      why: Her objections and desires are structurally built around comparisons and reframes — she's already doing cost-benefit math before the brand says a word.
       evidence:
         - "objections: 'It's $3+ a can — I could buy a 12-pack of Coke for that'"
         - "language_patterns: 'talks in comparisons: it's like X but actually good for you'"
-      ad_implications: Reframe price as cost-per-day, or as replacing kombucha / supplement spend — never as a soda price.
+        - "desires: 'I just want to enjoy a drink without doing math in my head'"
+      ad_implications: Never present price as a soda price — reframe as cost-per-day wellness habit, or anchor against kombucha / probiotic spend. Lead with substitution ("your afternoon soda, upgraded"), not health-product framing.
 
-    - heuristic: authority_bias
-      confidence: medium
-      why: She reads ingredient labels and uses technical wellness vocabulary, but trust is peer-vetted, not institution-vetted.
+    - heuristic: social_proof
+      confidence: high
+      why: Two of three trigger events are socially mediated (creator + friend), and her brand-loyalty expression is peer-broadcast, not self-discovery.
       evidence:
-        - "psychographic: 'started reading ingredient labels'"
-        - "language_patterns: 'drops terms like microbiome, gut health, clean ingredients naturally'"
-      ad_implications: Cite independent dietitians, peer-reviewed studies, or microbiome researchers — not corporate-sponsored experts.
+        - "trigger_events[2]: 'wellness creator she follows posts about their gut health and recommends prebiotic soda'"
+        - "language_patterns: 'Expresses brand loyalty through recommendation — you have to try this'"
+      ad_implications: Lead with UGC voices, creator testimonials, peer-recommendation framing. "Everyone I know has switched" beats brand claims. Avoid corporate-voiced proof or generic star ratings without a human face.
+
+    - heuristic: effect_heuristic
+      confidence: medium
+      why: Triggers include an impulse grab driven by can design, and her desires are framed emotionally rather than analytically — she wants to feel like she's not settling.
+      evidence:
+        - "trigger_events[1]: 'picks it up on a whim after noticing the can design'"
+        - "psychographic: 'wants to feel good without giving up the things she actually enjoys'"
+      ad_implications: Aesthetics and emotional tone carry disproportionate weight at first impression. Lead with sensory and emotional cues (taste, enjoyment, ease) before functional or prebiotic claims.
 
   weak_heuristics:
     - heuristic: scarcity
@@ -353,6 +354,10 @@ psychology_profile:
       why: Her transformation is slow and identity-driven, not symptom-relief.
       avoid: "Feel better today" / "instant results" promises — they pattern-match to weight-loss-pill skepticism.
 
+    - heuristic: authority_bias
+      why: She uses technical wellness vocabulary, but her trust is peer-vetted, not institution-vetted. Her triggers are creator and friend recommendations, never clinical studies. Institutional authority alone underperforms without a peer bridge.
+      avoid: White-coat imagery, pharma-style citation drops, corporate-sponsored expert framing. Authority works only when filtered through a trusted peer voice.
+
   emotional_position:
     primary:
       valence: positive
@@ -360,29 +365,38 @@ psychology_profile:
       rationale: |
         Dominant desire is "I just want to enjoy a drink without doing math in my head" —
         relief and permission, not breakthrough. Pain intensity on flavor is high but
-        the emotional charge is guilt-mild, not fear-acute.
+        the emotional charge is guilt-mild, not fear-acute. Current solutions signal
+        accepted compromise, not urgent crisis — she is managing, not suffering.
     secondary:
       valence: negative
       intensity: low
       use_for: |
-        Variant testing — the quiet ache that diet soda has been a years-long compromise.
-        "When did you decide aspartame anxiety was just part of being an adult?"
+        Variant testing the quiet accumulated cost of normalized compromise.
+        "You've been drinking disappointment for three years and calling it a
+        wellness choice." Works in colder audiences who haven't yet named the
+        dissatisfaction.
 
   recommended_prompt_pairings:
-    - pairing: tribal_belonging_plus_vulnerability
-      fits_because: Activates social_proof + effect; matches primary HV/LI quadrant; speaks her "you have to try this" peer voice.
     - pairing: reframing_perception_plus_emotional_trigger
-      fits_because: Activates framing + effect; flips "soda = guilt" to "soda = self-care upgrade."
-    - pairing: authority_borrowing_plus_data_insight
-      fits_because: Activates authority + framing; lets us cite microbiome research without sounding pharma.
+      fits_because: Activates the two highest-leverage levers (framing + effect). Flips "soda = guilt" to "soda = self-care default." Permission, not transformation hype.
+    - pairing: tribal_belonging_plus_vulnerability
+      fits_because: Activates social_proof + effect. Matches her "you have to try this" peer-recommendation voice and her desire to belong to people who already solved the soda problem.
     - pairing: anonymity_plus_social_proof
-      fits_because: Activates social_proof + processing_fluency; "overheard reviewer" voice matches her low-stakes browsing behavior.
+      fits_because: Activates social_proof + processing_fluency. "Overheard reviewer" format mirrors how she actually discovers products — keeps trust architecture peer-originated.
+    - pairing: authority_borrowing_plus_data_insight
+      fits_because: Activates filtered authority + framing. Lets us cite microbiome credibility through a dietitian or independent researcher voice, bridging her technical vocabulary without triggering institutional-authority skepticism.
+    - pairing: contrast_plus_aspirational_identity
+      fits_because: Activates framing + effect. Before/after frame ("the version of you who still felt weird about every soda vs. the version who doesn't") fits identity-upgrade psychographic.
+    - pairing: micro_story_plus_suspense
+      fits_because: Activates salience + effect. Short-narrative format matches her casual-scroll behavior. Works in both quadrants — story can open in the ache or the relief depending on the test.
 
   avoid_pairings:
     - pairing: gamification_plus_time_sensitive_offer
-      avoid_because: Violates her deliberate decision style; goal_gradient is weak, scarcity is weak.
+      avoid_because: Violates her deliberate decision style; goal_gradient is weak, scarcity is weak, temporal_discounting is weak. Urgency mechanics undermine wellness credibility.
     - pairing: shock_factor_plus_transformation_shortcut
-      avoid_because: Wrong intensity (HI) and triggers her aspartame-pill skepticism toward "shortcuts."
+      avoid_because: Wrong intensity (HI) and activates her existing skepticism toward "quick fix" health claims — same pattern that drove her away from diet soda.
+    - pairing: curiosity_plus_reverse_psychology
+      avoid_because: Her casual-but-informed voice and deliberate upgrade posture code her as a buyer who wants directness, not cleverness. Pattern-interrupt or contrarian-tease framing erodes the authenticity signal she uses to evaluate wellness brands.
 ```
 
 ---
