@@ -23,6 +23,11 @@ import httpx
 import yaml
 
 from models.skills import load_skill
+from strategy.firecrawl_client import (
+    firecrawl_map_urls,
+    firecrawl_scrape_html,
+    firecrawl_scrape_markdown,
+)
 from strategy.llm import claude_complete, claude_vision, gemini_vision
 
 CANDIDATE_PATHS = [
@@ -124,14 +129,43 @@ def clean_html(html: str) -> str:
 
 
 def fetch_pages(base_url: str, paths: list[str] | None = None) -> dict[str, str]:
+    """Fetch brand-site pages and return {url: cleaned_text}.
+
+    Strategy:
+      - If FIRECRAWL_API_KEY is set, use Firecrawl batch_scrape with
+        only_main_content=True. Returns clean Markdown (nav/footer stripped,
+        JS-rendered content captured).
+      - Otherwise, fall back to httpx + regex-cleaned HTML (the original path).
+    """
     base_url = normalize_url(base_url)
     paths = paths or CANDIDATE_PATHS
-    results: dict[str, str] = {}
+    candidate_urls = [urljoin(base_url + "/", p.lstrip("/")) for p in paths]
+
+    # ── Firecrawl path ────────────────────────────────────────────────────
+    fc_results = firecrawl_scrape_markdown(candidate_urls, only_main_content=True)
+    if fc_results:
+        # Trim to per-page + total budget so the LLM prompt doesn't explode.
+        results: dict[str, str] = {}
+        total_chars = 0
+        for url in candidate_urls:  # preserve candidate order
+            md = fc_results.get(url)
+            if not md:
+                continue
+            trimmed = md[:MAX_HTML_PER_PAGE]
+            results[url] = trimmed
+            total_chars += len(trimmed)
+            if total_chars >= MAX_TOTAL_HTML:
+                break
+        if results:
+            return results
+        # If Firecrawl returned nothing usable, drop through to httpx fallback.
+
+    # ── httpx fallback ────────────────────────────────────────────────────
+    results = {}
     total_chars = 0
     headers = {"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml"}
     with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
-        for path in paths:
-            url = urljoin(base_url + "/", path.lstrip("/"))
+        for url in candidate_urls:
             try:
                 resp = client.get(url)
             except (httpx.RequestError, httpx.TimeoutException):
@@ -149,6 +183,62 @@ def fetch_pages(base_url: str, paths: list[str] | None = None) -> dict[str, str]
             if total_chars >= MAX_TOTAL_HTML:
                 break
     return results
+
+
+def fetch_homepage_html(base_url: str) -> str:
+    """Fetch the homepage as full rendered HTML (head/meta/scripts intact).
+
+    Used for parsers that need structure Markdown discards: Shopify detection,
+    og:image meta tag, logo <img> regex. Tries Firecrawl first (JS-rendered),
+    falls back to httpx raw HTML.
+    """
+    url = normalize_url(base_url)
+    html = firecrawl_scrape_html(url)
+    if html:
+        return html
+    # Fallback
+    headers = {"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml"}
+    try:
+        with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
+            resp = client.get(url)
+            if resp.status_code == 200 and "html" in resp.headers.get("content-type", "").lower():
+                return resp.text
+    except (httpx.RequestError, httpx.TimeoutException):
+        pass
+    return ""
+
+
+def discover_product_urls_smart(base_url: str, limit: int = 8) -> list[str]:
+    """Discover product (PDP) URLs on the brand site via Firecrawl /map.
+
+    Returns canonical /products/<slug> URLs ordered by Firecrawl's signal.
+    Falls back to [] if Firecrawl is unavailable — callers should treat that
+    as "no PDPs discovered; rely on Shopify bestseller parsing instead".
+    """
+    all_urls = firecrawl_map_urls(base_url, limit=200)
+    if not all_urls:
+        return []
+    base_host = urlparse(normalize_url(base_url)).netloc
+    pdp_urls: list[str] = []
+    seen: set[str] = set()
+    for u in all_urls:
+        parsed = urlparse(u)
+        if parsed.netloc != base_host:
+            continue
+        if "/products/" not in parsed.path:
+            continue
+        # Skip the /products listing index itself, only individual PDPs
+        if parsed.path.rstrip("/").endswith("/products"):
+            continue
+        # Drop query strings — variant params produce duplicates
+        canonical = f"{parsed.scheme}://{parsed.netloc}{parsed.path.rstrip('/')}"
+        if canonical in seen:
+            continue
+        seen.add(canonical)
+        pdp_urls.append(canonical)
+        if len(pdp_urls) >= limit:
+            break
+    return pdp_urls
 
 
 def discover_product_urls(homepage_html: str, base_url: str, limit: int = 20) -> list[str]:
@@ -499,8 +589,32 @@ def fetch_product_pages_with_raw(urls: list[str]) -> dict[str, dict[str, str]]:
 
 
 def fetch_product_pages(urls: list[str]) -> dict[str, str]:
+    """Fetch PDPs and return {url: cleaned_text}. Firecrawl Markdown when
+    available (only_main_content=True), httpx HTML fallback otherwise.
+    """
+    if not urls:
+        return {}
+
+    # ── Firecrawl path ────────────────────────────────────────────────────
+    fc_results = firecrawl_scrape_markdown(urls, only_main_content=True)
+    if fc_results:
+        results: dict[str, str] = {}
+        total_chars = 0
+        for url in urls:  # preserve caller order
+            md = fc_results.get(url)
+            if not md:
+                continue
+            trimmed = md[:MAX_HTML_PER_PAGE]
+            results[url] = trimmed
+            total_chars += len(trimmed)
+            if total_chars >= MAX_TOTAL_HTML:
+                break
+        if results:
+            return results
+
+    # ── httpx fallback ────────────────────────────────────────────────────
     headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
-    results: dict[str, str] = {}
+    results = {}
     total_chars = 0
     with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
         for url in urls:

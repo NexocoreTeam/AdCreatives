@@ -580,9 +580,12 @@ def research(client: str, url: str, max_products: int, auto: bool):
     from strategy.researcher import (
         INTAKE_QUESTIONS,
         confidence_buckets,
+        discover_product_urls_smart,
         discover_visual_identity_images,
         extract_visual_identity,
+        fetch_homepage_html,
         fetch_pages,
+        fetch_product_pages,
         fetch_shopify_bestsellers,
         is_shopify_site,
         parse_shopify_product_cards,
@@ -629,8 +632,13 @@ def research(client: str, url: str, max_products: int, auto: bool):
     for page_url in pages:
         console.print(f"  - {page_url}")
 
-    # Detect Shopify and pull best-sellers if so
-    homepage_html = next(iter(pages.values()), "")
+    # Fetch the homepage as RAW HTML (Firecrawl rendered or httpx) so parsers
+    # downstream get <head>/<meta>/<script> — Markdown strips those.
+    homepage_html = fetch_homepage_html(url)
+    if not homepage_html:
+        # Last-resort: best-effort guess from whatever fetch_pages collected
+        homepage_html = next(iter(pages.values()), "")
+
     bestsellers = []
     if is_shopify_site(homepage_html):
         console.print("\n[cyan]Detected Shopify store — fetching best-sellers (3 pages)...[/cyan]")
@@ -647,6 +655,39 @@ def research(client: str, url: str, max_products: int, auto: bool):
             console.print("  [dim]Top 5:[/dim]")
             for c in bestsellers[:5]:
                 console.print(f"    [dim]{c.rank}. {c.name}[/dim]")
+
+    # ── Product page (PDP) discovery + fetch ──────────────────────────────
+    # Pricing, ingredients, and detailed product copy only live on PDPs —
+    # the candidate-path list never visits them. Use Firecrawl /map to
+    # discover PDPs, prefer those that appeared as bestsellers, and merge
+    # the top 3 into the pages dict before brand-intake compilation.
+    pdp_urls_from_map = discover_product_urls_smart(url, limit=12)
+    bestseller_pdp_urls: list[str] = []
+    for c in bestsellers:
+        if c.url and "/products/" in c.url and "menu_drawer" not in c.url:
+            if c.url not in bestseller_pdp_urls:
+                bestseller_pdp_urls.append(c.url)
+
+    # Ranked PDP list: bestsellers first (preserve their order), then any
+    # remaining /map-discovered PDPs not in that set.
+    pdp_urls: list[str] = []
+    seen: set[str] = set()
+    for u in bestseller_pdp_urls + pdp_urls_from_map:
+        if u not in seen:
+            seen.add(u)
+            pdp_urls.append(u)
+    pdp_urls = pdp_urls[:3]
+
+    if pdp_urls:
+        console.print(f"\n[cyan]Fetching {len(pdp_urls)} product page(s) for pricing + ingredients:[/cyan]")
+        for u in pdp_urls:
+            console.print(f"  - {u}")
+        pdp_pages = fetch_product_pages(pdp_urls)
+        if pdp_pages:
+            console.print(f"[green]Captured {len(pdp_pages)} PDP(s).[/green]")
+            pages.update(pdp_pages)
+        else:
+            console.print("[yellow]PDP fetch returned nothing.[/yellow]")
 
     # Visual identity capture (multi-image, Gemini 2.5 Pro via OpenRouter,
     # falls back to Claude vision if OPENROUTER_API_KEY not set).

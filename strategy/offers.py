@@ -23,6 +23,7 @@ import yaml
 from models.brand import Brand
 from models.avatar import CustomerAvatar
 from models.product import Product
+from strategy.firecrawl_client import firecrawl_scrape_markdown
 from strategy.llm import claude_complete
 from strategy.researcher import (
     USER_AGENT,
@@ -60,13 +61,30 @@ OFFER_CANDIDATE_PATHS = [
 
 
 def fetch_offer_pages(base_url: str) -> dict[str, str]:
-    """Fetch pages that commonly carry offer language."""
+    """Fetch pages that commonly carry offer language. Firecrawl Markdown
+    when FIRECRAWL_API_KEY is set, httpx HTML fallback otherwise.
+    """
     base_url = normalize_url(base_url)
+    candidate_urls = [
+        urljoin(base_url + "/", p.lstrip("/")) for p in OFFER_CANDIDATE_PATHS
+    ]
+
+    # ── Firecrawl path ────────────────────────────────────────────────────
+    fc_results = firecrawl_scrape_markdown(candidate_urls, only_main_content=True)
+    if fc_results:
+        results: dict[str, str] = {}
+        for url in candidate_urls:
+            md = fc_results.get(url)
+            if md:
+                results[url] = md[:MAX_HTML_PER_PAGE]
+        if results:
+            return results
+
+    # ── httpx fallback ────────────────────────────────────────────────────
     results: dict[str, str] = {}
     headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
     with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
-        for path in OFFER_CANDIDATE_PATHS:
-            url = urljoin(base_url + "/", path.lstrip("/"))
+        for url in candidate_urls:
             try:
                 resp = client.get(url)
             except (httpx.RequestError, httpx.TimeoutException):
