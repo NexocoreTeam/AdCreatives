@@ -8,3 +8,9 @@ dist/
 *.egg-info/
 competitors/cache/
 clients/*/voc/*.json
+# Drive ingestion: cached Drive file analyses (keyed by file_id + modifiedTime).
+# Local-only; regenerated on demand.
+clients/*/.drive_cache/
+# Scratch directory for one-off generated assets (PDFs, images via fal.ai).
+# Test fixtures, not committed.
+scratch/

@@ -1,0 +1,39 @@
+filename: 13995e9eaa7af7736abf5fb972023e8813cb9f4213d6916d437088e22bdb4e42.mp4
+file_id: 11nDxjdyuKzTDfV65NkPkIze92pZcXvGa
+mime_type: video/mp4
+is_video_frame: true
+analysis:
+  hook_visible: '9g fiber!
+
+    Based on a 12 oz can of refrigerated OLIPOP (9g fiber) and 4 cups of broccoli.
+    OLIPOP is not nutritionally equivalent to whole foods, which provide a variety
+    of fibers and other nutrients. Enjoy as part of a well rounded diet.'
+  hook_type: contrast
+  copy_treatment: A large graphic overlay acts as the primary hook, with a smaller,
+    lighter font legal disclaimer overlay in the bottom half.
+  visual_format: product_hero
+  creative_mechanic: visual metaphor comparison
+  elements_present:
+  - product_shot
+  - text_overlay
+  - logo_visible
+  - studio_aesthetic
+  mood:
+  - playful
+  - clever
+  - minimalist
+  color_palette_dominant:
+  - '#C47C72'
+  - '#00594C'
+  composition_notes: A seesaw forms a strong diagonal line, drawing the eye from a
+    small broccoli floret up to the hero product, which is visually weighted by a
+    large text callout.
+  likely_strengths: The visual metaphor is instantly understandable and memorable,
+    clearly communicating the high-fiber benefit in a surprising way that encourages
+    a pattern interrupt.
+  likely_weaknesses: The comparison to broccoli might be perceived as strange or unappetizing.
+    The necessary disclaimer text is small and may be overlooked by fast scrollers.
+  extraction_confidence: medium
+  confidence_notes: This is a single frame from a video, so the full context of motion,
+    timing, and sound is unknown. The primary hook and visual concept are clear, but
+    the full narrative arc is an inference.

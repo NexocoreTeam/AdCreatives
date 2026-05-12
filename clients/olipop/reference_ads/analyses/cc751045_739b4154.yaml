@@ -1,0 +1,37 @@
+filename: cc75104587fce0b531034ca7dad8d36968d31563b606bb954eb8a958739b4154.mp4
+file_id: 1tVH4C76VEDLXhKBFfS7qgXQMk9PIq5v8
+mime_type: video/mp4
+is_video_frame: true
+analysis:
+  hook_visible: more fiber than a cup of peas!
+  hook_type: contrast
+  copy_treatment: The main hook is a large, stylized text overlay, while a smaller,
+    detailed disclaimer is placed at the bottom of the frame.
+  visual_format: product_hero
+  creative_mechanic: surprising nutritional comparison
+  elements_present:
+  - product_shot
+  - text_overlay
+  - logo_visible
+  - studio_aesthetic
+  mood:
+  - playful
+  - surprising
+  - informative
+  color_palette_dominant:
+  - '#2AB4E3'
+  - '#F8D5D0'
+  composition_notes: The viewer's eye is drawn to the large text overlay, then guided
+    by a directional arrow to the hero product, with the comparison item (peas) placed
+    off-center.
+  likely_strengths: The ad makes a surprising and easily digestible health claim by
+    comparing the product to a universally recognized healthy food, effectively positioning
+    the soda as a functional beverage.
+  likely_weaknesses: The small disclaimer text at the bottom, while legally necessary,
+    could be perceived as undermining the main claim if read closely, and the minimalist
+    studio look may lack the authenticity some audiences prefer.
+  extraction_confidence: high
+  confidence_notes: This frame appears to be the core message of the video, making
+    the concept fully understandable. As it's from a video, the full context of motion
+    or surrounding frames is missing, but the static composition is very strong on
+    its own.

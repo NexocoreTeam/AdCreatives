@@ -65,6 +65,13 @@ class Brand(BaseModel):
         description="Target ad platforms",
     )
     logo_path: str | None = Field(default=None, description="Relative path to logo file")
+    drive_folder_id: str | None = Field(
+        default=None,
+        description="Google Drive folder ID for client assets. Folder must be shared "
+        "with the GOOGLE_APPLICATION_CREDENTIALS service account. Expected layout: "
+        "<folder>/brand/* (logos, brand books, mood boards) + <folder>/reference-ads/* "
+        "(past performant ads). Consumed by `adc enrich-brand` and `adc analyze-references`.",
+    )
     guidelines_notes: str = Field(
         default="",
         description="Additional brand guidelines or notes for the AI",

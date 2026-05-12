@@ -1163,6 +1163,187 @@ def show_context(client: str, product: str):
         console.print(f"  Additional: clients/{client}/{img}")
 
 
+# ─── Drive Asset Ingestion (Phase A) ─────────────────────────────────────────
+
+
+@cli.command(name="enrich-brand")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--apply/--dry-run",
+    default=False,
+    help="--dry-run (default) prints the proposed diff only; --apply writes brand.yaml.",
+)
+@click.option(
+    "--force",
+    is_flag=True,
+    default=False,
+    help="Bypass the Drive-modifiedTime cache and re-run vision on every asset.",
+)
+@click.option(
+    "--no-backup",
+    is_flag=True,
+    default=False,
+    help="Skip writing a .yaml.bak before overwriting brand.yaml.",
+)
+def enrich_brand(client: str, apply: bool, force: bool, no_backup: bool):
+    """Pull `brand/` assets from the client's Drive folder, vision-analyze, merge into brand.yaml.
+
+    Reads `drive_folder_id` from brand.yaml, then ingests the `brand/` subfolder
+    of that Drive folder (images via Gemini multi-image vision, PDFs via
+    pdftotext + page-image vision). Defaults to dry-run with a diff preview;
+    pass `--apply` to commit changes.
+    """
+    from strategy.brand_enricher import enrich_brand_from_drive
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    backup = not no_backup
+    with console.status(f"Pulling brand assets from Drive for '{client}'..."):
+        try:
+            result = enrich_brand_from_drive(
+                client_slug=client,
+                apply=apply,
+                force=force,
+                backup=backup,
+            )
+        except (ValueError, EnvironmentError, FileNotFoundError) as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+
+    _render_enrichment_summary(client, result, apply=apply)
+
+
+def _render_enrichment_summary(client: str, result, *, apply: bool):
+    """Print the proposed diff and run statistics."""
+    console.print()
+    console.print(
+        f"[dim]images analyzed: {result.images_analyzed}  "
+        f"pdfs analyzed: {result.pdfs_analyzed}  "
+        f"cache hits: {result.cache_hits}  "
+        f"skipped: {len(result.skipped)}[/dim]"
+    )
+
+    for filename, reason in result.skipped:
+        console.print(f"[yellow]  skipped {filename}: {reason}[/yellow]")
+
+    if not result.changes:
+        console.print("[green]No proposed changes — brand.yaml already reflects Drive assets.[/green]")
+        return
+
+    console.print(f"\n[bold]Proposed {len(result.changes)} change(s) to brand.yaml:[/bold]")
+    table = Table(show_header=True, header_style="bold")
+    table.add_column("Field", style="cyan", max_width=32)
+    table.add_column("Before", style="dim", max_width=50)
+    table.add_column("After", style="green", max_width=50)
+    for change in result.changes:
+        before_str = _format_field_value(change.before)
+        after_str = _format_field_value(change.after)
+        table.add_row(change.path, before_str, after_str)
+    console.print(table)
+
+    if apply:
+        console.print(
+            f"\n[bold green]Applied. Wrote clients/{client}/brand.yaml "
+            f"(backup at brand.yaml.bak).[/bold green]"
+        )
+    else:
+        console.print(
+            f"\n[yellow]Dry run — no changes written.[/yellow]\n"
+            f"Re-run with --apply to commit: "
+            f"[bold]adc enrich-brand --client {client} --apply[/bold]"
+        )
+
+
+def _format_field_value(value) -> str:
+    """Format a brand-field value for table display."""
+    if isinstance(value, list):
+        if not value:
+            return "[]"
+        joined = ", ".join(str(v) for v in value[:3])
+        if len(value) > 3:
+            joined += f", +{len(value) - 3} more"
+        return joined
+    if value == "":
+        return "(empty)"
+    return str(value)[:200]
+
+
+@cli.command(name="analyze-references")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--force",
+    is_flag=True,
+    default=False,
+    help="Bypass cache and re-run vision on every reference ad.",
+)
+def analyze_references(client: str, force: bool):
+    """Pull `reference-ads/` from Drive, vision-analyze each, cache per-file YAMLs.
+
+    Static images go straight to vision. Videos have a representative frame
+    extracted via ffmpeg, then vision runs on that frame. Output lives at
+    clients/<slug>/reference_ads/analyses/, with a _summary.yaml index.
+    """
+    from strategy.reference_ads import analyze_references_from_drive
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    with console.status(f"Analyzing reference ads for '{client}' via Sonnet/Gemini..."):
+        try:
+            result = analyze_references_from_drive(client_slug=client, force=force)
+        except (ValueError, EnvironmentError, FileNotFoundError) as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+
+    _render_references_summary(client, result)
+
+
+def _render_references_summary(client: str, result):
+    """Print compact analyzed-ad table."""
+    console.print()
+    console.print(
+        f"[dim]analyzed: {len(result.analyses)}  "
+        f"new: {result.new_analyses}  "
+        f"cache hits: {result.cache_hits}  "
+        f"skipped: {len(result.skipped)}[/dim]"
+    )
+    for name, reason in result.skipped:
+        console.print(f"[yellow]  skipped {name}: {reason}[/yellow]")
+
+    if not result.analyses:
+        return
+
+    table = Table(title="Reference ad analyses", show_header=True, header_style="bold")
+    table.add_column("File", style="cyan", max_width=28)
+    table.add_column("Fmt", style="dim", max_width=6)
+    table.add_column("Hook type", style="green", max_width=18)
+    table.add_column("Visual format", style="yellow", max_width=16)
+    table.add_column("Mechanic", style="magenta", max_width=28)
+    table.add_column("Mood", style="dim", max_width=24)
+
+    for a in result.analyses:
+        p = a.payload
+        fmt = "video" if a.is_video_frame else "img"
+        mood = ", ".join((p.get("mood") or [])[:3])
+        table.add_row(
+            a.filename[:26],
+            fmt,
+            (p.get("hook_type") or "")[:18],
+            (p.get("visual_format") or "")[:16],
+            (p.get("creative_mechanic") or "")[:28],
+            mood[:24],
+        )
+    console.print(table)
+    console.print(
+        f"\n[bold green]Wrote analyses to clients/{client}/reference_ads/analyses/[/bold green]"
+    )
+
+
 # ─── Psychology Profiling (Stage 1.5) ────────────────────────────────────────
 
 
