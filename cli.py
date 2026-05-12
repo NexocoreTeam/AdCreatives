@@ -984,36 +984,110 @@ def research(client: str, url: str, max_products: int, auto: bool):
 @click.option("--product", required=True, help="Product slug")
 @click.option("--angles", default=5, help="Number of messaging angles to generate")
 @click.option("--platform", default="meta", help="Target platform: meta, tiktok")
-def brief(client: str, product: str, angles: int, platform: str):
+@click.option(
+    "--avatar",
+    default=None,
+    help="Specific avatar to use (e.g. 'primary'). Loads from clients/<slug>/avatars/<name>.yaml. "
+    "Omit to fall back to legacy clients/<slug>/avatar.yaml.",
+)
+@click.option(
+    "--ignore-psychology",
+    is_flag=True,
+    default=False,
+    help="Skip the avatar's psychology_profile guardrails (filter + prompt block). "
+    "Useful for before/after comparison.",
+)
+def brief(
+    client: str,
+    product: str,
+    angles: int,
+    platform: str,
+    avatar: str | None,
+    ignore_psychology: bool,
+):
     """Generate creative briefs with messaging angles for a product."""
-    from models.loader import load_brand, load_product, load_avatar, load_winning_patterns, save_brief
+    import yaml
+
+    from models.avatar import CustomerAvatar
+    from models.loader import (
+        load_brand,
+        load_product,
+        load_avatar as _load_legacy_avatar,
+        load_winning_patterns,
+        save_brief,
+    )
     from strategy.brief_generator import generate_briefs
 
     with console.status("Loading client data..."):
         brand = load_brand(client)
         prod = load_product(client, product)
-        avatar = load_avatar(client)
         patterns = load_winning_patterns(client)
 
-    if not avatar:
+        # Resolve avatar: explicit --avatar wins, then avatars/primary.yaml,
+        # then legacy avatar.yaml.
+        avatar_obj: CustomerAvatar | None = None
+        avatar_source = ""
+        if avatar:
+            path = Path("clients") / client / "avatars" / f"{avatar}.yaml"
+            if not path.exists():
+                console.print(f"[red]Avatar '{avatar}' not found at {path}[/red]")
+                raise SystemExit(1)
+            with open(path, encoding="utf-8") as fh:
+                avatar_obj = CustomerAvatar(**yaml.safe_load(fh))
+            avatar_source = str(path)
+        else:
+            primary = Path("clients") / client / "avatars" / "primary.yaml"
+            if primary.exists():
+                with open(primary, encoding="utf-8") as fh:
+                    avatar_obj = CustomerAvatar(**yaml.safe_load(fh))
+                avatar_source = str(primary)
+            else:
+                avatar_obj = _load_legacy_avatar(client)
+                avatar_source = f"clients/{client}/avatar.yaml (legacy)"
+
+    if not avatar_obj:
         console.print(
             f"[yellow]No avatar found for '{client}'. "
             f"Run 'adc mine-voc' or create clients/{client}/avatar.yaml[/yellow]"
         )
         raise SystemExit(1)
 
-    with console.status(f"Generating {angles} creative briefs..."):
-        briefs = generate_briefs(
-            client_slug=client,
-            product=prod,
-            brand=brand,
-            avatar=avatar,
-            count=angles,
-            platform=platform,
-            winning_patterns=patterns,
+    console.print(f"[dim]Avatar source: {avatar_source}[/dim]")
+    use_profile = not ignore_psychology
+    if avatar_obj.psychology_profile and use_profile:
+        n_dom = len(avatar_obj.psychology_profile.dominant_heuristics)
+        n_pairings = len(avatar_obj.psychology_profile.recommended_prompt_pairings)
+        console.print(
+            f"[dim]Psychology profile applied: {n_dom} dominant heuristics, "
+            f"{n_pairings} recommended pairings.[/dim]"
+        )
+    elif avatar_obj.psychology_profile and ignore_psychology:
+        console.print(
+            "[yellow]Profile present but --ignore-psychology was set; skipping guardrails.[/yellow]"
+        )
+    else:
+        console.print(
+            "[yellow]No psychology profile on this avatar. "
+            "Run `adc profile-psychology` first for heuristic-aware angle generation.[/yellow]"
         )
 
-    table = Table(title=f"Creative Briefs — {brand.name} / {prod.name}")
+    with console.status(f"Generating {angles} creative briefs..."):
+        try:
+            briefs = generate_briefs(
+                client_slug=client,
+                product=prod,
+                brand=brand,
+                avatar=avatar_obj,
+                count=angles,
+                platform=platform,
+                winning_patterns=patterns,
+                use_profile=use_profile,
+            )
+        except ValueError as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+
+    table = Table(title=f"Creative Briefs - {brand.name} / {prod.name}")
     table.add_column("#", style="dim")
     table.add_column("Hook", style="cyan", max_width=50)
     table.add_column("Angle", style="green", max_width=30)
@@ -1021,12 +1095,12 @@ def brief(client: str, product: str, angles: int, platform: str):
     table.add_column("Brief ID", style="dim")
 
     for i, b in enumerate(briefs, 1):
-        path = save_brief(client, b)
+        save_brief(client, b)
         table.add_row(str(i), b.hook, b.angle, b.framework.value, b.brief_id)
 
     console.print(table)
     console.print(f"\n[green]Saved {len(briefs)} briefs to clients/{client}/briefs/[/green]")
-    console.print("Generate images: adc generate --client {client} --brief <brief-id> --style <style>")
+    console.print(f"Generate images: adc generate --client {client} --brief <brief-id> --style <style>")
 
 
 # ─── Show Prompt Template ────────────────────────────────────────────────────

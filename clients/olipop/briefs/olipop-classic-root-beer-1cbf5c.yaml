@@ -1,0 +1,35 @@
+brief_id: olipop-classic-root-beer-1cbf5c
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: fab
+angle: 'Called out: the woman who quit Diet Coke but still wants a Coke'
+hook: This one's for the person who gave up Diet Coke because of the aspartame thing
+  but still genuinely, deeply misses having a real soda.
+hook_type: Direct Address / Call-out (Recognition)
+slot: 5
+hook_source: 'Pain point: ''I stopped drinking Diet Coke because the aspartame thing
+  freaked me out'' + desire: ''a soda that tastes real enough she doesn''t feel like
+  she''s settling'''
+hook_tactic: "Demographic callout \u2014 hyper-specific situation recognition that\
+  \ makes her say 'how do they know'"
+persona: "The ex-Diet-Coke drinker: she made a deliberate health decision, she's proud\
+  \ of it, but she hasn't found anything that actually fills the gap \u2014 sparkling\
+  \ water isn't it and she knows it"
+creative_mechanic: tribal_belonging_plus_vulnerability
+visual_format: "Static UGC-style image \u2014 woman holding OLIPOP can, casual setting,\
+  \ no styling artifice"
+pain_point: "Diet soda feels like trading one problem for another \u2014 and now she's\
+  \ stuck in a no-man's land with no good options"
+benefit_callouts:
+- No aspartame. No sucralose. No weird aftertaste.
+- Low sugar. Real flavor.
+- Prebiotic, not just pretty packaging
+cta: You found it. Try Classic Root Beer.
+body_copy: ''
+visual_direction: "Real woman, real moment \u2014 grabbing a can from a fridge or\
+  \ cracking it open at a kitchen counter. The visual should feel like something she'd\
+  \ see on a friend's Instagram story, not an ad. Warm, intimate, zero perfection."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

@@ -1,0 +1,39 @@
+brief_id: olipop-classic-root-beer-68cc8c
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: four_cs
+angle: "LaCroix vs. what she actually wanted \u2014 and the $3 conversation reframed\
+  \ as daily habit, not soda splurge"
+hook: 'LaCroix: $1.20 a can. Diet Coke: guilt. Regular Coke: more guilt. OLIPOP: $2.99
+  and you stop thinking about it.'
+hook_type: Contrast / Enemy (Differentiation)
+slot: 6
+hook_source: 'Pain points: sparkling water doesn''t scratch the itch + diet soda trades
+  one problem for another + objection: ''it''s $3+ a can'' + desire: ''something she
+  can grab without thinking'''
+hook_tactic: "Contrast \u2014 explicit before/after reframe positioning OLIPOP against\
+  \ the category it replaces"
+persona: "The category refugee: she's done the rounds \u2014 tried sparkling water,\
+  \ left diet soda, feels bad about regular soda \u2014 she's not looking for a health\
+  \ product, she's looking for a replacement default"
+creative_mechanic: contrast_plus_aspirational_identity
+visual_format: "Split-panel static \u2014 three cans/options on one side (LaCroix,\
+  \ Diet Coke, regular soda) with a single OLIPOP Classic Root Beer on the other,\
+  \ clean graphic treatment"
+pain_point: "Every option she has right now is either unsatisfying (sparkling water),\
+  \ suspect (diet soda), or guilt-inducing (regular soda) \u2014 she's stuck in a\
+  \ broken category"
+benefit_callouts:
+- Tastes like the real thing
+- Prebiotic fiber instead of empty sugar
+- No guilt math, no aspartame, no compromise
+cta: Replace the rotation. Start with Classic Root Beer.
+body_copy: ''
+visual_direction: "Side-by-side panel \u2014 left side shows the cluttered 'bad option'\
+  \ category (sparkling water, diet soda, regular soda), right side is one OLIPOP\
+  \ can. Clean, graphic, a little playful. The contrast is visual and emotional \u2014\
+  \ not clinical, not shaming."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

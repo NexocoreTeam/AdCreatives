@@ -1,0 +1,35 @@
+brief_id: olipop-classic-root-beer-b90f95
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: quest
+angle: The question she already asks herself every time she reaches for a drink
+hook: When's the last time you grabbed a drink and didn't immediately second-guess
+  it?
+hook_type: Question (Self-reference)
+slot: 7
+hook_source: 'Desire: ''I just want to enjoy a drink without doing math in my head''
+  + pain: guilt spiral around regular soda'
+hook_tactic: "Question \u2014 self-diagnostic prompt that mirrors her internal negotiation\
+  \ without naming the product"
+persona: "The wellness-fatigued upgrader: she's informed enough to feel guilty but\
+  \ tired enough to resent the guilt \u2014 she doesn't want to quit soda, she wants\
+  \ a version she doesn't have to negotiate with herself about"
+creative_mechanic: reframing_perception_plus_emotional_trigger
+visual_format: "Text-only static with OLIPOP brand typography \u2014 question as headline,\
+  \ minimal product visual below, retro-playful color palette"
+pain_point: "The constant low-grade mental tax of making 'good' drink choices \u2014\
+  \ the guilt spiral and the never-ending negotiation"
+benefit_callouts:
+- Real root beer taste. No regret.
+- Gut-friendly prebiotic blend
+- Low sugar. High satisfaction.
+cta: Meet your new default. Classic Root Beer by OLIPOP.
+body_copy: ''
+visual_direction: "The question occupies most of the frame in OLIPOP's playful retro\
+  \ typography. Below it, the Classic Root Beer can \u2014 not heroic, just present.\
+  \ The visual should feel like the brand is on her side, not selling at her. Warm\
+  \ cream or root beer amber background."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
