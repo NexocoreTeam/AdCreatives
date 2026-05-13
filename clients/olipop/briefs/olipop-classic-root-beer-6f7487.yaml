@@ -1,0 +1,38 @@
+brief_id: olipop-classic-root-beer-6f7487
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: four_cs
+angle: "Diet soda solved nothing \u2014 OLIPOP is what the category should have been\
+  \ the whole time"
+hook: Diet soda took out the sugar and put in a bunch of stuff that's arguably worse.
+  OLIPOP took a different path.
+hook_type: Contrast / Enemy
+slot: 6
+hook_source: 'Pain: Diet soda feels worse than regular soda (artificial sweeteners,
+  chemicals) + unique mechanism: prebiotic blend of plant fiber and botanicals rather
+  than empty sugar'
+hook_tactic: "Contrast \u2014 juxtapose the old category against the new one to reveal\
+  \ a structural difference, not just a preference"
+persona: "The disillusioned diet soda drinker \u2014 someone who tried the 'better'\
+  \ soda and felt like they got duped twice"
+creative_mechanic: "Reframe \u2014 position the enemy (diet soda) not as a competitor\
+  \ to beat but as a failed attempt to solve the same problem OLIPOP actually solved,\
+  \ which elevates OLIPOP as the category's logical evolution"
+visual_format: "Talking head video with B-roll cutaways \u2014 person sets up the\
+  \ contrast verbally, B-roll shows the OLIPOP can and the ingredients, framing lands\
+  \ as 'this is what they should have done.'"
+pain_point: Diet soda feels worse than regular soda (artificial sweeteners, chemicals)
+benefit_callouts:
+- No artificial sweeteners
+- "Plant fiber and botanicals \u2014 not chemicals"
+- Built to support your gut, not just reduce calories
+cta: This is what better actually looks like.
+body_copy: ''
+visual_direction: "The visual should feel like a reveal \u2014 maybe an ingredient\
+  \ list or a clean, readable side of the can contrasted against the overwhelming,\
+  \ unreadable back of a diet soda can. The OLIPOP ingredients should look like a\
+  \ farmer's market list compared to a chemistry exam."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

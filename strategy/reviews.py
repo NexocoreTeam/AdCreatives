@@ -38,16 +38,21 @@ class Review:
 
 @dataclass
 class VendorSignal:
-    vendor: str   # "okendo" | "yotpo" | "judgeme" | "loox" | "stamped" | "none"
+    vendor: str   # okendo|yotpo|judgeme|loox|stamped|junip|reviewsio|shopify-native|fera|none
     identifiers: dict = field(default_factory=dict)
     confidence: str = "high"  # high | medium | low
 
 
 def detect_review_vendor(html: str) -> VendorSignal:
-    """Sniff the HTML for review-widget vendor signals + extract identifiers."""
+    """Sniff the HTML for review-widget vendor signals + extract identifiers.
+
+    Detection prefers strong widget signatures (staticw2.yotpo, jdgm-rev,
+    junip-product-summary) over generic name mentions (which can be cookie
+    banners, blog posts, or unrelated text).
+    """
 
     # --- Okendo ---
-    if re.search(r"okendo\.io|oke-reviews|okendoSubscriberId", html, re.IGNORECASE):
+    if re.search(r"oke-reviews|okendoSubscriberId|cdn\.okendo\.io", html, re.IGNORECASE):
         ids: dict = {}
         for pat in [
             r'okendoSubscriberId["\']?\s*[:=]\s*["\']([^"\']+)["\']',
@@ -64,8 +69,8 @@ def detect_review_vendor(html: str) -> VendorSignal:
             confidence="high" if ids.get("subscriber_id") else "low",
         )
 
-    # --- Yotpo ---
-    if re.search(r"yotpo\.com|yotpo-widget|staticw2\.yotpo\.com", html, re.IGNORECASE):
+    # --- Yotpo ---  (require an actual widget signature, not just the word "yotpo")
+    if re.search(r"staticw2\.yotpo\.com|yotpo-widget-instance|yotpo-main-widget", html, re.IGNORECASE):
         ids = {}
         for pat in [
             r'data-yotpo-app-key=["\']([^"\']+)["\']',
@@ -76,27 +81,33 @@ def detect_review_vendor(html: str) -> VendorSignal:
             if m:
                 ids["app_key"] = m.group(1)
                 break
-        # Yotpo uses Shopify product ID (the big number)
-        m = re.search(r'"id"\s*:\s*(\d{12,})', html)
-        if m:
-            ids["product_id"] = m.group(1)
+        # Yotpo uses Shopify product ID (the big number). Try several locations.
+        for pat in [
+            r'data-product-id=["\'](\d{10,})["\']',
+            r'yotpo-product-id=["\'](\d{10,})["\']',
+            r'"product_id"\s*:\s*["\']?(\d{10,})',
+            r'"id"\s*:\s*(\d{12,})',
+        ]:
+            m = re.search(pat, html)
+            if m:
+                ids["product_id"] = m.group(1)
+                break
         return VendorSignal(
             vendor="yotpo",
             identifiers=ids,
             confidence="high" if ids.get("app_key") else "low",
         )
 
-    # --- Judge.me ---
-    if re.search(r"judge\.me|jdgm-|judgeme-", html, re.IGNORECASE):
+    # --- Judge.me --- (require actual widget classes, not just "judge.me" mentions)
+    if re.search(r"jdgm-rev|jdgm-widget|judge\.me/api|judge\.me/widget", html, re.IGNORECASE):
         ids = {}
         m = re.search(r'data-shop-domain=["\']([^"\']+)["\']', html)
         if m:
             ids["shop_domain"] = m.group(1)
-        # Product handle is in URL
         return VendorSignal(vendor="judgeme", identifiers=ids, confidence="medium")
 
-    # --- Loox ---
-    if re.search(r"loox\.io|loox-rating", html, re.IGNORECASE):
+    # --- Loox --- (require widget script, not blog mentions)
+    if re.search(r"loox\.io/widget|loox\.app/widget|loox-rating", html, re.IGNORECASE):
         ids = {}
         m = re.search(r'data-loox-shop=["\']([^"\']+)["\']', html)
         if m:
@@ -104,8 +115,47 @@ def detect_review_vendor(html: str) -> VendorSignal:
         return VendorSignal(vendor="loox", identifiers=ids, confidence="low")
 
     # --- Stamped.io ---
-    if re.search(r"stamped\.io|stamped-product-reviews", html, re.IGNORECASE):
+    if re.search(r"stamped-product-reviews|stamped\.io/widget", html, re.IGNORECASE):
         return VendorSignal(vendor="stamped", confidence="low")
+
+    # --- Junip ---
+    if re.search(r"junip-product-summary|junip-product-review|junip\.co", html, re.IGNORECASE):
+        ids = {}
+        m = re.search(r'data-junip-store-key=["\']([^"\']+)["\']', html)
+        if m:
+            ids["store_key"] = m.group(1)
+        m = re.search(r'data-junip-product-id=["\']([^"\']+)["\']', html)
+        if m:
+            ids["product_id"] = m.group(1)
+        return VendorSignal(
+            vendor="junip",
+            identifiers=ids,
+            confidence="high" if ids.get("store_key") else "low",
+        )
+
+    # --- Reviews.io ---
+    if re.search(r"widget\.reviews\.io|ruk-reviews-summary|reviewsio-(rating|product)", html, re.IGNORECASE):
+        ids = {}
+        m = re.search(r'data-store=["\']([^"\']+)["\']', html)
+        if m:
+            ids["store_id"] = m.group(1)
+        return VendorSignal(
+            vendor="reviewsio",
+            identifiers=ids,
+            confidence="high" if ids.get("store_id") else "low",
+        )
+
+    # --- Native Shopify Product Reviews ---
+    if re.search(r'spr-container|"shopify-product-reviews"|spr-reviews|spr-summary', html, re.IGNORECASE):
+        ids = {}
+        m = re.search(r'data-product-id=["\'](\d+)["\']', html)
+        if m:
+            ids["product_id"] = m.group(1)
+        return VendorSignal(vendor="shopify-native", identifiers=ids, confidence="medium")
+
+    # --- Fera.ai ---
+    if re.search(r"fera\.ai/v3|app\.fera\.ai|fera-rating", html, re.IGNORECASE):
+        return VendorSignal(vendor="fera", confidence="low")
 
     return VendorSignal(vendor="none", confidence="high")
 

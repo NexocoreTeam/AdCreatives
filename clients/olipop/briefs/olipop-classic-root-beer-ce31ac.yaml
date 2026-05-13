@@ -1,0 +1,35 @@
+brief_id: olipop-classic-root-beer-ce31ac
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: fab
+angle: "Most sodas are just sugar water \u2014 OLIPOP is doing something structurally\
+  \ different"
+hook: Regular root beer has 39g of sugar. OLIPOP Classic Root Beer has 2g. Same taste.
+  Completely different formula.
+hook_type: Surprising Stat
+slot: 1
+hook_source: 'Key benefit: Low sugar compared to traditional soda + unique mechanism:
+  functional ingredients rather than empty sugar'
+hook_tactic: "Specific stat with a story \u2014 lead with an unexpected number that\
+  \ reframes the category"
+persona: "Health-conscious 25\u201340 female who grew up loving soda and is now in\
+  \ early stages of a gut health journey"
+creative_mechanic: "Side-by-Side Reveal \u2014 two cans or nutritional labels placed\
+  \ next to each other, one traditional brand, one OLIPOP, letting the numbers speak\
+  \ without narration"
+visual_format: "Text-on-product photo \u2014 clean flat lay of the OLIPOP can with\
+  \ the sugar stat overlaid in bold typography"
+pain_point: Feels guilty drinking regular soda but misses the taste and ritual
+benefit_callouts:
+- 2g sugar vs. 39g in traditional root beer
+- Prebiotic fiber that actually feeds your gut
+- "Same nostalgic bite \u2014 none of the guilt"
+cta: Try the one that actually does something
+body_copy: ''
+visual_direction: "Clean, bright image of the Classic Root Beer can on a white or\
+  \ pale surface \u2014 the stat should feel like a mic drop, not a lecture. No clutter.\
+  \ Let the number land."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

@@ -1,0 +1,37 @@
+brief_id: secondkind-gut-balance-2789c3
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+framework: quest
+angle: "The person who did everything right and still felt terrible \u2014 until they\
+  \ understood the probiotic-postbiotic gap"
+hook: I was eating clean, taking my probiotic every morning, and still bloated by
+  2pm every single day. Turns out the problem wasn't my diet.
+hook_type: Story / Result
+slot: 2
+hook_source: 'Customer avatar: persistent bloating despite established wellness routine;
+  unique mechanism: probiotics depend on live bacteria surviving transit'
+hook_tactic: "First-person confession arc \u2014 tried everything, stumbled on the\
+  \ actual fix"
+persona: "The clean eater who has optimized everything and still feels physically\
+  \ off \u2014 attributing the failure to themselves, not the product category"
+creative_mechanic: "Talking Head Confession \u2014 personal narrative delivered to\
+  \ camera, no graphics until the product reveal at the end; the story does the heavy\
+  \ lifting"
+visual_format: "UGC-style vertical video \u2014 handheld camera, natural lighting,\
+  \ kitchen or wellness space background. Speaker is direct, conversational, slightly\
+  \ frustrated in the setup then visibly relieved in the payoff."
+pain_point: Persistent bloating that doesn't go away even when eating clean
+benefit_callouts:
+- Less bloating, even after big meals.*
+- Gut lining support most supplements skip.*
+- 'Postbiotics: the part of probiotics that actually works.*'
+cta: "Try Gut Balance for 30 days \u2014 see what changes."
+body_copy: ''
+visual_direction: 'Woman in her early 30s sitting at a kitchen counter, minimal makeup,
+  speaking directly to camera. First half: slightly furrowed brow, hand gesture toward
+  stomach. Second half: open posture, lighter energy. Product shown briefly in hand
+  at close. No text overlays until the final CTA frame.'
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

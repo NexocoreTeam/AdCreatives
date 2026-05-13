@@ -1,0 +1,41 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-68cc8c
+Product:         Classic Root Beer
+Slot:            6 / Contrast / Enemy (Differentiation)
+Mechanic:        contrast_plus_aspirational_identity
+Format:          Split-screen static — left side shows a competitor-style soda can with '2g fiber' in small print, right side shows OLIPOP Classic Root Beer label zoomed into '9g plant fiber.' No brand names needed.
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-11
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-68cc8c_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Create a clean, high-contrast split-screen static ad image divided vertically down the center by a thin neutral dividing line. The overall background is white (#FFFFFF). The composition is bold, label-forward, and deliberately analytical in tone — this is a visual argument, not a lifestyle shot. Macro product photography style, flat lay aesthetic, sharp focus, studio lighting with no shadows or glare obscuring label text.
+
+LEFT PANEL — deliberately generic, no real brand name visible. Show a sleek, modern soda can in muted, generic colors (light pastel or neutral gray-toned), styled to evoke the "better-for-you soda" category aesthetic without identifying any real brand. The can label should be partially zoomed so a single stat is legible and hero: "2g fiber" printed in small, understated type — almost buried in the label hierarchy, as if it were not meant to be the headline. The overall visual impression is polished marketing with thin nutritional substance. No logos, no recognizable brand marks.
+
+RIGHT PANEL — show the OLIPOP Classic Root Beer can from the attached reference images, zoomed in tightly on the front label panel so the text "9g Plant Fiber" is the dominant, unmistakable hero element. Match the exact OLIPOP Classic Root Beer can design: the warm root beer color palette, the OLIPOP wordmark, the illustrated botanical graphics, and the full label typography exactly as shown in the reference. The can should feel honest, ingredient-forward, and confident — the label doing the selling itself.
+
+TYPOGRAPHY OVERLAID ON IMAGE (rendered as clean sans-serif text, dark charcoal or near-black):
+
+Top center above the split, in bold headline type: "One can. 9 grams of fiber. Not 2."
+
+Below that in slightly smaller weight: "There's a reason the math matters."
+
+Bottom left beneath the generic can, small caption text: "2g fiber"
+
+Bottom right beneath the OLIPOP can, small caption text in OLIPOP brand tone: "9g plant fiber. Cassava root. Chicory root. Jerusalem artichoke. A dose that actually moves the needle."
+
+Bottom center CTA text in understated but confident type: "Read the label. Then decide."
+
+Lighting: flat, even studio lighting. No dramatic shadows. Every label detail must be readable. The visual argument is in the numbers — nothing should distract from the contrast between "2g" and "9g." Photography direction: macro label detail, editorial food-brand aesthetic, crisp and clinical in the best sense — like a side-by-side ingredient comparison you'd trust.
+
+1:1 aspect ratio.

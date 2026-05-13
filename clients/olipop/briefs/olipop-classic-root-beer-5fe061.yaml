@@ -1,0 +1,36 @@
+brief_id: olipop-classic-root-beer-5fe061
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: quest
+angle: "The person who quit soda but never stopped missing it \u2014 and finally found\
+  \ the thing that fixed that"
+hook: I gave up soda three years ago and I was fine with it. Then I had OLIPOP Classic
+  Root Beer and realized I'd been white-knuckling it the whole time.
+hook_type: Story / Result
+slot: 2
+hook_source: 'Pain: Feels guilty drinking regular soda but misses the taste and ritual
+  + desire: To drink something that tastes like the soda they grew up with without
+  the guilt'
+hook_tactic: "Storytelling \u2014 open mid-moment in a relatable before/after arc,\
+  \ confession energy"
+persona: "The reformed soda drinker \u2014 health-intentional adult who made peace\
+  \ with giving up soda but never loved the tradeoff"
+creative_mechanic: "Talking Head Confession \u2014 person speaks directly to camera\
+  \ with low-production, authentic energy. No script feel. The emotional truth carries\
+  \ the ad."
+visual_format: "UGC-style vertical video \u2014 handheld, natural light, person holding\
+  \ the can mid-story. Feels like a recommendation from a friend, not an ad."
+pain_point: Feels guilty drinking regular soda but misses the taste and ritual
+benefit_callouts:
+- "Tastes like the real thing \u2014 botanically"
+- Prebiotic, not a compromise
+- Float-ready. Life-ready.
+cta: See what you've been missing
+body_copy: ''
+visual_direction: "Genuine, warm, slightly imperfect. Person in a kitchen or couch\
+  \ setting. The can is present but not staged. The emotion \u2014 relief, mild surprise\
+  \ \u2014 is the visual story."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

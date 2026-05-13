@@ -1,0 +1,95 @@
+name: Probiotic-Burned Paige
+demographic: Female, 30–42, suburban or mid-size city, likely a parent or planning
+  to be, household income $75K–$120K, college-educated, works full-time or has recently
+  returned to work after having children
+psychographic: Paige takes her health seriously — she tracks what she eats, has a
+  gym routine, and has spent real money on her wellness. She's not a hypochondriac;
+  she's a diligent self-optimizer who is quietly exhausted by doing everything right
+  and still feeling off. She reads ingredient labels, follows wellness accounts on
+  Instagram, and has probably tried three or four gut health products in the last
+  two years. She's moved past hoping and into a more skeptical, prove-it-to-me mindset.
+pain_points:
+- pain: Has been on at least one probiotic — often Seed or Culturelle — and noticed
+    nothing meaningful after a full bottle
+  intensity: high
+  customer_language:
+  - I've tried probiotics before and honestly didn't notice much
+  - I did a whole month on Seed and I still felt exactly the same
+  - It felt like I was just paying $50 for expensive pee
+  source: auto_from_brand_context
+- pain: Persistent bloating that appears even when she's eating clean — no apparent
+    food trigger, just a baseline level of distension that builds throughout the day
+  intensity: high
+  customer_language:
+  - Bloating was always my main concern
+  - Eating clean, working out, and still bloated by dinner
+  - I don't eat gluten, I don't eat dairy, and I'm still waking up with a flat stomach
+    and going to bed looking six months pregnant
+  source: auto_from_brand_context
+- pain: A low-level brain fog and energy dip she has normalized as baseline but suspects
+    isn't inevitable
+  intensity: medium
+  customer_language:
+  - brain fog I didn't even realize I had until it was gone
+  - I just thought I was tired. I didn't realize how off I felt until I started feeling
+    better
+  - I assumed the afternoon crash was just life
+  source: auto_from_brand_context
+- pain: Supplement fatigue — she has a cabinet of things that kind of work, and she's
+    skeptical of adding another
+  intensity: medium
+  customer_language:
+  - I'm not adding another supplement that doesn't do anything
+  - I have so many half-finished bottles I should probably throw away
+  - Every brand claims to be different. They're not.
+  source: auto_from_brand_context
+desires:
+- desire: Digestive consistency — to feel genuinely comfortable in her body throughout
+    the day, not just in the morning before she's eaten anything
+  customer_language:
+  - I just want to feel normal after a meal
+  - I want to stop thinking about my stomach
+- desire: Confidence that the product is actually doing something — she wants to feel
+    results within the first week, not be told to wait three months
+  customer_language:
+  - I need to feel it working or I'm not going to keep buying it
+  - Just tell me what to expect and when
+- desire: To feel like herself again — the version of her that isn't managing symptoms
+  customer_language:
+  - feeling like yourself again
+  - I forgot what it felt like to not be bloated
+objections:
+- This sounds like another probiotic in different packaging — how is a postbiotic
+  actually different?
+- I've been burned before. What's the guarantee if it doesn't work?
+- $50 a bottle is a lot when I've already wasted money on supplements that did nothing
+- The science sounds impressive but supplement brands always have impressive-sounding
+  science
+current_solutions:
+- Daily probiotic (Seed, Culturelle, Garden of Life, or similar)
+- Elimination diet or low-FODMAP eating to manage bloating
+- Digestive enzymes taken reactively before meals
+- Fiber supplements or prebiotics (Metamucil, AG1)
+- Living with it and calling it normal
+trigger_events:
+- Finishes a second bottle of her current probiotic brand with zero change and decides
+  she's done with the category — then reads something about postbiotics that stops
+  her mid-scroll
+- Sees a TikTok or Instagram reel explaining that probiotics have to survive stomach
+  acid to work, and most don't — for the first time the mechanism makes sense and
+  she realizes why nothing worked
+- A close friend mentions she switched from probiotics to something called a postbiotic
+  and her bloating basically disappeared — she asks what it is
+- Postpartum gut issues that haven't resolved even a year later prompt her to research
+  more aggressively than she used to
+awareness_level: solution_aware
+language_patterns:
+- Conversational but health-literate — she knows what CFUs and gut microbiome mean
+  but doesn't lead with jargon
+- Frustrated but measured — not catastrophizing, just tired of inconsistency
+- Uses phrases like 'doing everything right,' 'I've tried everything,' 'I just want
+  it to actually work'
+- Skeptical qualifier before she endorses anything — 'I was really skeptical at first
+  but...'
+- 'Instagram/TikTok-native health vocabulary: gut health, microbiome, bloat, inflammation,
+  brain fog'

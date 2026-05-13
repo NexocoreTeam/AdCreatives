@@ -1,0 +1,34 @@
+brief_id: olipop-classic-root-beer-223879
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: four_cs
+angle: "Root beer floats used to be off-limits. Not anymore \u2014 and everyone's\
+  \ figured this out but you."
+hook: Everyone's making root beer floats again. They just switched what's in the glass.
+hook_type: FOMO / Urgency
+slot: 3
+hook_source: "Key benefit: Pairs well with ice cream (float-ready) + desire: A drink\
+  \ that works at meals, parties, and casual moments \u2014 not just as a health product"
+hook_tactic: "FOMO \u2014 social bandwagon pressure framed around a cultural moment\
+  \ the viewer is missing"
+persona: "The social health-conscious eater \u2014 someone who wants to participate\
+  \ in food rituals and gatherings without being 'the person with the sad drink'"
+creative_mechanic: "Social Witness \u2014 show other people already enjoying the thing,\
+  \ making the viewer feel like they're the last one to know"
+visual_format: "Carousel static \u2014 frame 1: the float being assembled, frame 2:\
+  \ close-up of the fizz, frame 3: the OLIPOP can with a simple 'yep, this is the\
+  \ one'"
+pain_point: Wants to make better choices but not at the expense of enjoyment
+benefit_callouts:
+- Float-ready out of the can
+- Prebiotic. Low sugar. Full nostalgia.
+- Made for real life, not just wellness routines
+cta: Make the float. Feel good about it.
+body_copy: ''
+visual_direction: "Warm, nostalgic, slightly retro color palette. A root beer float\
+  \ in a diner-style glass \u2014 the kind that triggers a memory. The OLIPOP can\
+  \ beside it tells you everything without explaining anything."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

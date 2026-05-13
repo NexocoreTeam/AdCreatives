@@ -1,9 +1,10 @@
 """Image generation orchestrator — ties prompt engine + fal client + validators together.
 
-Three generation modes matching the prompt engine:
+Four generation modes matching the prompt engine:
 1. generate_from_reference: "Make it like this" ad
 2. generate_from_library: Use a library prompt template
 3. generate_from_recommendation: Let the system pick the best templates
+4. generate_from_brief: Drive both prompt + image from a CreativeBrief
 
 All modes pass real product images alongside the prompt to Nano Banana 2.
 """
@@ -15,6 +16,7 @@ from pathlib import Path
 
 from models.avatar import CustomerAvatar
 from models.brand import Brand
+from models.brief import CreativeBrief
 from models.library import LibraryPrompt, load_prompt
 from models.product import Product
 from generators.fal_client import (
@@ -23,6 +25,8 @@ from generators.fal_client import (
     resolve_product_images,
 )
 from generators.prompt_engine import (
+    infer_aspect_ratio,
+    prompt_from_brief,
     prompt_from_library,
     prompt_from_reference,
     recommend_prompts,
@@ -222,3 +226,52 @@ def generate_batch(
         )
         all_results.append((prompt, results))
     return all_results
+
+
+# ─── Mode 4: "Turn this brief into a finished ad image" ──────────────────────
+
+
+def generate_from_brief(
+    brief: CreativeBrief,
+    brand: Brand,
+    product: Product,
+    avatar: CustomerAvatar | None = None,
+    client_slug: str = "",
+    output_dir: Path | None = None,
+    num_images: int = 1,
+    aspect_ratio: str | None = None,
+    thinking_level: str = "disabled",
+) -> tuple[str, list[GenerationResult]]:
+    """Take a CreativeBrief, write the prompt with prompt_from_brief(), then
+    generate the image(s) with Nano Banana 2 using the product's real images.
+
+    Returns (prompt_used, generation_results). Each GenerationResult has
+    its local_path populated.
+    """
+    product_urls = _get_product_image_urls(product, client_slug)
+
+    if aspect_ratio is None:
+        aspect_ratio = infer_aspect_ratio(brief)
+
+    prompt = prompt_from_brief(
+        brief=brief,
+        brand=brand,
+        product=product,
+        avatar=avatar,
+        aspect_ratio=aspect_ratio,
+    )
+
+    if output_dir is None:
+        output_dir = Path("ai-ads") / client_slug / "images"
+
+    results = generate_and_save(
+        prompt=prompt,
+        product_image_urls=product_urls,
+        save_dir=output_dir,
+        filename_prefix=brief.brief_id,
+        aspect_ratio=aspect_ratio,
+        num_images=num_images,
+        thinking_level=thinking_level,
+    )
+
+    return prompt, results

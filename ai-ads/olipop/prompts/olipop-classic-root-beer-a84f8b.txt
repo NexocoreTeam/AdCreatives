@@ -1,0 +1,33 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-a84f8b
+Product:         Classic Root Beer
+Slot:            2 / Story / Result (Empathy + Relief)
+Mechanic:        micro_story_plus_suspense
+Format:          UGC-style talking head video — casual setting, natural light, no brand staging
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-11
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-a84f8b_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Shoot a single still frame styled as casual UGC content — the kind of photo someone takes on their phone and posts without overthinking it. Natural afternoon light coming through a window, warm and soft. A woman in her late 20s to mid-30s is settled deep into a couch, relaxed and unhurried — she's mid-sip on an OLIPOP Classic Root Beer can. The can is held naturally in one hand, slightly angled toward camera so the label is clearly legible. Reproduce the OLIPOP Classic Root Beer can exactly as shown in the reference images — same label typography, same color palette, same logo placement, same overall can design. Nothing staged. No ring light. No brand backdrop.
+
+The composition is slightly loose and intimate — cropped somewhere between her lap and just above her head, off-center, as if a friend snapped it. She looks genuinely at ease. Not performing wellness. Not smiling for the camera. Just... finally relaxing. The relief is in the stillness.
+
+Overlaid on the image in a casual, handwritten-style or clean sans-serif font — as if typed in a native Instagram or TikTok text layer — display the following text block broken across two or three lines:
+
+"I used to finish a Coke and spend the next hour feeling vaguely terrible about it. Now I drink root beer every single afternoon and the math is just gone."
+
+Place the text in the upper third or lower third of the frame so it doesn't obscure the can. Text color should be warm off-white or soft cream so it reads naturally over the couch/background without looking like a designed ad.
+
+In smaller text near the bottom of the frame, include three benefit callouts stacked or spaced naturally: "No guilt. Actual root beer taste." / "9g prebiotic fiber per can" / "Soda that works for you, not against you." Below those, a soft CTA line: "Make it your afternoon thing."
+
+Mood: warm, quiet, lived-in. Color palette is natural and muted — no oversaturation. The kind of content that stops a scroll because it feels like a real moment, not an ad. 1:1 aspect ratio.

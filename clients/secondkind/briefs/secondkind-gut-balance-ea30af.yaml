@@ -1,0 +1,40 @@
+brief_id: secondkind-gut-balance-ea30af
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+framework: quest
+angle: "Why your probiotic isn't failing you \u2014 it's failing before it even gets\
+  \ to you"
+hook: Your probiotic might be completely dead before you even swallow it. Here's why
+  that matters more than the strain count.
+hook_type: Curiosity Gap
+slot: 4
+hook_source: 'Unique mechanism: live probiotics face survival uncertainty in transit
+  to the colon; postbiotics are already finished compounds; avatar objection: why
+  would this be different'
+hook_tactic: "Explainer curiosity \u2014 withhold the 'why' until they're committed\
+  \ to watching"
+persona: "The analytical optimizer \u2014 reads studies, compares CFU counts, and\
+  \ still can't figure out why their expensive probiotic isn't working"
+creative_mechanic: "Open Loop Education \u2014 hook poses a problem the viewer didn't\
+  \ know they had, body delivers the mechanism, product is the logical resolution"
+visual_format: "Animated explainer carousel \u2014 4\u20135 slides starting with the\
+  \ hook as Slide 1 text-only, Slide 2 simple diagram of probiotic bacteria dying\
+  \ in transit, Slide 3 contrast with postbiotic stability, Slide 4 product + benefit\
+  \ summary, Slide 5 CTA"
+pain_point: Tried probiotics and felt nothing meaningful
+benefit_callouts:
+- "Postbiotics don't need to survive \u2014 they're already active.*"
+- Shelf-stable. Clinically studied. Actually absorbed.*
+- "BiomeBalance\u2122: the mechanism behind the results.*"
+cta: Learn the difference. Try Gut Balance.
+body_copy: ''
+visual_direction: "Slide 1: Bold white text on deep navy \u2014 'Your probiotic might\
+  \ already be dead.' Slide 2: Simple flat illustration \u2014 bacteria capsule with\
+  \ a dotted-line journey to the gut, most bacteria shown fading out mid-path. Slide\
+  \ 3: Same path but with a gold-toned postbiotic molecule arriving intact, labeled\
+  \ 'Already active.' Slide 4: Gut Balance bottle with three bullet callouts. Slide\
+  \ 5: CTA on brand color background."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

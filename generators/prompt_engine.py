@@ -1,9 +1,10 @@
 """Prompt Engine — the brain that writes Nano Banana 2 prompts.
 
-Three modes:
+Four modes:
 1. prompt_from_reference: Analyze any ad image → write a NB2 prompt for your product
 2. prompt_from_library: Take a library template → customize for your client/product
 3. recommend_prompts: Given a client/product, recommend best-fit library prompts
+4. prompt_from_brief: Take a CreativeBrief → write a NB2 prompt around its mechanic/format/angle
 
 In ALL modes, Claude writes/modifies the generation prompt AND the real
 product images are passed alongside the prompt to Nano Banana 2.
@@ -18,6 +19,7 @@ import yaml
 
 from models.avatar import CustomerAvatar
 from models.brand import Brand
+from models.brief import CreativeBrief
 from models.library import LibraryPrompt, list_prompts
 from models.product import Product
 from models.skills import load_skill
@@ -313,4 +315,90 @@ def _build_product_context(
     if brand.prohibited_terms:
         parts.append(f"PROHIBITED TERMS: {', '.join(brand.prohibited_terms)}")
 
+    return "\n".join(parts)
+
+
+# ─── Mode 4: "Turn this brief into a prompt" ─────────────────────────────────
+
+
+def prompt_from_brief(
+    brief: CreativeBrief,
+    brand: Brand,
+    product: Product,
+    avatar: CustomerAvatar | None = None,
+    aspect_ratio: str | None = None,
+) -> str:
+    """Take a CreativeBrief and write a Nano Banana 2 prompt for a STATIC ad
+    image. Uses the brief's creative_mechanic and visual_format as the
+    structural backbone, with hook/angle/pain/benefits as the content."""
+
+    if not aspect_ratio:
+        aspect_ratio = infer_aspect_ratio(brief)
+
+    product_context = _build_product_context(brand, product, avatar)
+    brief_context = _build_brief_context(brief)
+
+    prompt = claude_complete(
+        prompt=(
+            f"Write a Nano Banana 2 prompt for the following creative brief. "
+            f"This is for a STATIC ad image — even if the brief's visual_format "
+            f"mentions video, generate a single still frame that captures the "
+            f"creative concept.\n\n"
+            f"The CREATIVE MECHANIC and VISUAL FORMAT are the structural backbone. "
+            f"Build the prompt around them. Quote the HOOK as on-image text if the "
+            f"format calls for it. Honor VISUAL DIRECTION for mood and composition.\n\n"
+            f"CREATIVE BRIEF:\n{brief_context}\n\n"
+            f"PRODUCT & BRAND CONTEXT:\n{product_context}\n\n"
+            f"TARGET PLATFORM: {brief.target_platform}\n"
+            f"ASPECT RATIO: {aspect_ratio}\n\n"
+            f"Write the prompt now. Start with 'Use the attached images as brand reference.'"
+        ),
+        system=PROMPT_WRITER_SYSTEM,
+    )
+
+    return prompt.strip()
+
+
+def infer_aspect_ratio(brief: CreativeBrief) -> str:
+    """Pick an aspect ratio from the brief's visual_format and target_platform."""
+    fmt = brief.visual_format.lower()
+    if any(kw in fmt for kw in ["vertical", "story", "reel", "tiktok", "9:16"]):
+        return "9:16"
+    if "4:5" in fmt or "portrait" in fmt:
+        return "4:5"
+    if brief.target_platform.lower() == "tiktok":
+        return "9:16"
+    return "1:1"
+
+
+def _build_brief_context(brief: CreativeBrief) -> str:
+    """Render the brief's strategic fields as a context block for the prompt writer."""
+    parts = [
+        f"AWARENESS LEVEL: {brief.awareness_level.value}",
+        f"FRAMEWORK: {brief.framework.value}",
+        f"ANGLE: {brief.angle}",
+        f"HOOK: {brief.hook}",
+    ]
+    if brief.hook_type:
+        parts.append(f"HOOK TYPE: {brief.hook_type}")
+    if brief.hook_tactic:
+        parts.append(f"HOOK TACTIC: {brief.hook_tactic}")
+    if brief.persona:
+        parts.append(f"PERSONA: {brief.persona}")
+    if brief.creative_mechanic:
+        parts.append(f"CREATIVE MECHANIC: {brief.creative_mechanic}")
+    if brief.visual_format:
+        parts.append(f"VISUAL FORMAT: {brief.visual_format}")
+    if brief.pain_point:
+        parts.append(f"PAIN POINT: {brief.pain_point}")
+    if brief.benefit_callouts:
+        parts.append(f"BENEFIT CALLOUTS: {', '.join(brief.benefit_callouts)}")
+    if brief.cta:
+        parts.append(f"CTA: {brief.cta}")
+    if brief.body_copy:
+        parts.append(f"BODY COPY: {brief.body_copy}")
+    if brief.visual_direction:
+        parts.append(f"VISUAL DIRECTION: {brief.visual_direction}")
+    if brief.tone_override:
+        parts.append(f"TONE OVERRIDE: {brief.tone_override}")
     return "\n".join(parts)

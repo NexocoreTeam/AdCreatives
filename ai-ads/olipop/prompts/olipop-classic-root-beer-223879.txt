@@ -1,0 +1,41 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-223879
+Product:         Classic Root Beer
+Slot:            3 / FOMO / Urgency
+Mechanic:        Social Witness — show other people already enjoying the thing, making the viewer feel like they're the last one to know
+Format:          Carousel static — frame 1: the float being assembled, frame 2: close-up of the fizz, frame 3: the OLIPOP can with a simple 'yep, this is the one'
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-04
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-223879_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Create a single static 1:1 square image designed to function as Frame 1 of a carousel ad for OLIPOP Classic Root Beer. This is the hook frame — the one that stops the scroll.
+
+SCENE: A classic diner-style root beer float being assembled in a tall, clear soda fountain glass with a flared lip. A scoop of vanilla ice cream sits at the bottom of the glass, and the OLIPOP Classic Root Beer is mid-pour — the dark, amber liquid cascading over the ice cream, creating a dramatic frothy head of foam and tiny rising bubbles. The OLIPOP Classic Root Beer can sits upright beside the glass, label fully visible and facing camera. The can design must be reproduced exactly as shown in the reference image — same label typography, same color palette, same graphic elements, same proportions.
+
+COMPOSITION: Slightly elevated three-quarter angle, product and glass centered with generous breathing room on either side. The can is positioned to the right of the glass, slightly behind it, like it's been casually set down mid-pour. A long-handled stainless diner spoon leans against the glass rim.
+
+TYPOGRAPHY / ON-IMAGE TEXT: In the upper portion of the frame, set in warm cream or off-white text using a clean, slightly rounded sans-serif font: "Everyone's making root beer floats again." Below it, in smaller weight: "They just switched what's in the glass." Text should feel hand-placed, not stiff — like someone typed it on a vintage typewriter or set it in a retro menu. Do not use a hard drop shadow. Subtle warmth or a soft glow behind the text is acceptable for legibility.
+
+SURFACE & PROPS: The float sits on a pale speckled diner counter or a warm cream linoleum surface. A thin paper straw in red-and-white stripe is tucked into the float. Soft suggestion of a diner booth in the blurred background — warm amber leather, soft overhead lighting — but background stays very shallow depth of field so the product is unmistakably the hero.
+
+LIGHTING: Warm, golden, slightly soft — the kind of late-afternoon diner light that makes everything look like a memory. Light source comes from slightly above and behind the glass, catching the bubbles and the foam edge. Lens flare is minimal but the warmth should feel almost nostalgic.
+
+COLOR PALETTE: Warm cream, root beer amber, vanilla white, soft copper and caramel tones. No harsh whites, no clinical brightness. The overall mood is: you remember this. A little retro, a little cozy, entirely craveable.
+
+MOOD: The scene should feel like a cultural moment you almost missed — the float is already being poured, the can is already open. Everyone else is already doing this. You're arriving just in time.
+
+BOTTOM STRIP: A thin warm cream band across the bottom of the frame containing the CTA text: "Make the float. Feel good about it." — set in the same warm retro type treatment as the hook text.
+
+No people visible. No hands. Pure product and environment. High-end food photography aesthetic executed with warmth, not sterility.
+
+1:1 aspect ratio.

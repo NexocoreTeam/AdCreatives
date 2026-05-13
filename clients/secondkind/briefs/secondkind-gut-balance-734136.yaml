@@ -1,0 +1,39 @@
+brief_id: secondkind-gut-balance-734136
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+framework: fab
+angle: For the person who does everything right and still can't explain why their
+  brain feels slow
+hook: You eat well. You sleep. You take your supplements. So why does your brain still
+  feel like it's running through fog every afternoon?
+hook_type: Direct Address / Call-out
+slot: 5
+hook_source: 'Avatar pain: brain fog, difficulty concentrating, feeling mentally slow;
+  avatar context: established wellness routine that hasn''t resolved symptoms; desire:
+  mental clarity and sharper focus'
+hook_tactic: "Hyper-specific demographic callout \u2014 names the exact situation\
+  \ so precisely they feel seen"
+persona: The high-functioning woman who has optimized her external inputs and still
+  has a persistent internal performance gap she can't diagnose
+creative_mechanic: "Mirror Moment \u2014 hook reflects the viewer's exact internal\
+  \ monologue back at them with such precision it stops scroll through recognition,\
+  \ not persuasion"
+visual_format: "Talking head static image \u2014 close crop on a woman's face, slightly\
+  \ distracted expression, morning light. Headline overlaid: 'You do everything right.\
+  \ So why is your brain still slow?' Subtle brand lockup at bottom."
+pain_point: "Brain fog \u2014 difficulty concentrating, feeling mentally slow"
+benefit_callouts:
+- "The gut-brain connection is real \u2014 and under-supported.*"
+- Gut Balance targets the gut lining where that signal starts.*
+- Clearer head. Steadier days. 30-day supply.*
+cta: "Start with your gut. \u2192"
+body_copy: ''
+visual_direction: "Lifestyle photo of a woman in her early 30s at a desk or kitchen\
+  \ table, holding a coffee mug, looking slightly unfocused \u2014 not distressed,\
+  \ just subtly off. Natural morning light. Minimal clutter. Text overlay in clean\
+  \ sans-serif: 'You do everything right. So why is your brain still slow?' Brand\
+  \ logo and CTA in bottom third. Color palette: warm neutrals, nothing clinical."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

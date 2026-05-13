@@ -1,0 +1,35 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-6f7487
+Product:         Classic Root Beer
+Slot:            6 / Contrast / Enemy
+Mechanic:        Reframe — position the enemy (diet soda) not as a competitor to beat but as a failed attempt to solve the same problem OLIPOP actually solved, which elevates OLIPOP as the category's logical evolution
+Format:          Talking head video with B-roll cutaways — person sets up the contrast verbally, B-roll shows the OLIPOP can and the ingredients, framing lands as 'this is what they should have done.'
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-04
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-6f7487_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Create a single static 1:1 square image styled as a frozen "reveal" moment — the structural backbone is a side-by-side contrast between a diet soda ingredient panel and the OLIPOP Classic Root Beer ingredient panel, executed as a clean, high-contrast flat-lay or tabletop composition shot on a warm white (#FFFFFF) background.
+
+LEFT SIDE — "The Old Path": Show the back panel of a generic diet soda can, slightly blurred or desaturated, angled casually as if discarded. The ingredient text visible on the panel should appear dense, cramped, and unreadable — a wall of chemical-looking words like "aspartame," "acesulfame potassium," "phosphoric acid," "caramel color," "sodium benzoate" printed in tiny, clinical type. The overall feeling is cold, industrial, and overwhelming — a chemistry exam, not a drink. Slight cool-gray color cast over this side.
+
+RIGHT SIDE — "The Different Path": The OLIPOP Classic Root Beer can — reproduced exactly as in the reference image, with its precise label colors, logo treatment, "Classic Root Beer" text, and illustrated can design — stands upright, centered, and warmly lit. Beside or below it, show a clean ingredient list printed in warm, readable serif or rounded sans-serif type: "Cassava Root Fiber, Sweet Birch, Calendula, Nopal Cactus, Kudzu Root, Chicory Root Inulin." The list should feel like a handwritten farmer's market chalkboard — generous spacing, natural, approachable, legible. Warm golden-amber light washes over this side.
+
+A thin natural dividing line or subtle shadow separates the two halves — not a harsh graphic rule, but an organic visual split, as if the two objects naturally fell apart.
+
+Overlay the following on-image text in bold, clean, modern sans-serif — positioned across the top third of the image: "Diet soda took out the sugar and put in a bunch of stuff that's arguably worse." Set in dark charcoal or near-black type, left-aligned, confident but not aggressive.
+
+At the bottom of the frame, centered, in slightly smaller weight: "OLIPOP took a different path." followed one line below in warm accent type (matching the OLIPOP brand warmth): "This is what better actually looks like."
+
+Photography direction: overhead or slight 15-degree tilt tabletop shot, soft diffused natural window light from the upper left, no harsh shadows, warm and honest mood — feels like a wellness creator's kitchen counter, not a studio. Depth of field is shallow enough to feel real but sharp on both the OLIPOP can and the ingredient text. The overall emotional tone is a calm, confident reveal — not a takedown, but an elevation. OLIPOP is the logical conclusion the category was always building toward.
+
+1:1 aspect ratio.

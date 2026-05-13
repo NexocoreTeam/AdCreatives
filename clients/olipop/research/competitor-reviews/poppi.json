@@ -1,0 +1,21 @@
+{
+  "competitor": {
+    "name": "Poppi",
+    "slug": "poppi",
+    "url": "https://drinkpoppi.com",
+    "type": "direct",
+    "priority": "tier1",
+    "notes": "Closest DTC rival. ACV-based prebiotic soda. Bright/Gen Z aesthetic.\nHeavy influencer marketing. PepsiCo acquired for $1.95B.\nThe actual creative battlefield.\n"
+  },
+  "vendor": "none",
+  "reviews": [],
+  "scraped_pages": [
+    "https://drinkpoppi.com/products/short-list",
+    "https://drinkpoppi.com/products/crowd-pleasers",
+    "https://drinkpoppi.com/products/shirley-temple",
+    "https://drinkpoppi.com/products/doc-pop",
+    "https://drinkpoppi.com/products/classic-cola"
+  ],
+  "fetched_at": "2026-05-11T20:48:24.383799Z",
+  "notes": "No reviews extracted from 5 page(s). Detected vendors: none. Either no supported review widget is present or vendor identifiers could not be parsed."
+}

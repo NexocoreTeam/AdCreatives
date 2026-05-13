@@ -1,0 +1,107 @@
+name: Newly Diagnosed Nicole
+demographic: Female, 28–45, broad geographic distribution, likely has young children
+  or is postpartum, household income $60K–$100K, may have received an IBS or functional
+  gut disorder diagnosis in the past two years or is actively seeking one, spends
+  significant time in health-condition-specific online communities
+psychographic: Nicole isn't doing casual wellness optimization — she has a specific,
+  recurring problem that has been significantly affecting her quality of life. She's
+  been to the doctor, possibly more than once, and left with either a vague diagnosis
+  (IBS, 'sensitive gut') or no diagnosis at all and a prescription that helped marginally.
+  She's now in self-directed research mode, exploring functional and integrative approaches
+  that conventional medicine hasn't offered her. She wants to feel in control of something
+  that has made her feel chronically out of control.
+pain_points:
+- pain: IBS or chronic digestive symptoms — cramping, urgency, inconsistency, bloating
+    — that interfere with daily plans and cause genuine anxiety about food and social
+    situations
+  intensity: high
+  customer_language:
+  - I have IBS and my gut is always bothering me
+  - I can't go to a dinner without knowing exactly where the bathroom is
+  - I've struggled with digestion for years
+  - I've had to cancel plans because of my stomach
+  source: auto_from_brand_context
+- pain: Postpartum gut changes that haven't resolved — pregnancy and delivery shifted
+    her gut microbiome and nothing has fully corrected it
+  intensity: high
+  customer_language:
+  - My gut has never been the same since I had my daughter
+  - I used to be able to eat anything. After having kids, everything sets me off.
+  - Nobody told me pregnancy could permanently change your digestion
+  source: auto_from_brand_context
+- pain: Clinical disappointment — she was told by a doctor to try probiotics, they
+    didn't work, and she now feels like the medical system has nothing more to offer
+    her
+  intensity: high
+  customer_language:
+  - My doctor basically told me to eat more fiber and take Culturelle. That was it.
+  - The GI specialist just said IBS and sent me home with a pamphlet
+  - I've tried everything they told me to try and I'm still dealing with the same
+    stuff
+  source: auto_from_brand_context
+- pain: Anxiety specifically around eating — she has become hypervigilant about food,
+    which is exhausting and socially isolating
+  intensity: medium
+  customer_language:
+  - I'm so scared to eat something that sets off my stomach that I've basically stopped
+    eating out
+  - Every meal is a gamble
+  - I've done low-FODMAP for three months and I'm miserable and still having bad days
+  source: auto_from_brand_context
+desires:
+- desire: Predictability — she wants to eat a meal and have a reasonably confident
+    expectation that her gut will cooperate
+  customer_language:
+  - I just want to eat a meal like a normal person
+  - I want to stop planning my day around my stomach
+- desire: A solution that works at the mechanism level — she's done treating symptoms
+    and wants something that addresses why her gut is dysregulated
+  customer_language:
+  - I don't want another thing that just masks the symptoms
+  - I want my gut to actually heal, not just be managed
+- desire: To trust her body again — the emotional relationship with her own digestion
+    has been so fraught she wants to feel neutral about eating, not anxious
+  customer_language:
+  - I want food to just be food again
+  - I used to love going out to eat. Now I dread it.
+objections:
+- My doctor recommended probiotics and they did nothing — why would a postbiotic be
+  any different if it's coming from the same category?
+- I have an actual diagnosed condition — is this actually formulated for IBS or is
+  it just general 'gut wellness'?
+- I've already spent hundreds of dollars on supplements and elimination diets that
+  made my life miserable and didn't fix anything
+- If this doesn't work I'm going to be even more demoralized than I already am — I'm
+  scared to try something new and fail again
+current_solutions:
+- Doctor-recommended probiotics (Culturelle, Florastor) that provided inconsistent
+  or no improvement
+- Low-FODMAP or elimination diets — effective for some triggers but restrictive and
+  socially limiting
+- Prescription antispasmodics or antidiarrheals for acute episodes
+- Peppermint oil capsules for cramping
+- IBS-specific apps or symptom tracking journals
+- Fiber supplements and stool softeners
+trigger_events:
+- Has a particularly severe flare-up after a period of relative stability — the unpredictability
+  of her symptoms makes her determined to try something new
+- Stumbles onto a Reddit thread or Facebook group (IBS support community) where someone
+  describes the same probiotic failure pattern she has and someone else mentions postbiotics
+  as the thing that finally helped
+- Postpartum follow-up appointment where she mentions her gut still isn't right —
+  doctor dismisses it as normal — and she leaves the office determined to figure it
+  out herself
+- Has to cancel a social event or work obligation because of a flare-up, hits a frustration
+  threshold, and opens her phone to research
+awareness_level: problem_aware
+language_patterns:
+- Clinical vocabulary mixed with emotional frustration — she knows the terminology
+  (IBS, dysbiosis, gut motility) but talks about her symptoms with visible distress
+- Forum and community language — posts in r/ibs, IBS Facebook groups, reads other
+  people's symptom descriptions looking for recognition
+- Uses 'finally' and 'actually' as intensifiers when something works — these are high-signal
+  words for her copywriting
+- Detailed and specific about her symptoms in a way general wellness consumers aren't
+  — she describes duration, timing, triggers
+- '''Nothing worked'' is her dominant narrative — she leads with failure before she''ll
+  admit hope'

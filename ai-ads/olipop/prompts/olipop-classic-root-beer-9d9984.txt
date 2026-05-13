@@ -1,0 +1,46 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-9d9984
+Product:         Classic Root Beer
+Slot:            8 / Pattern Interrupt (Pattern break)
+Mechanic:        anonymity_plus_social_proof
+Format:          Text-only motion graphic — words appear one line at a time on a warm cream background, building rhythm before the can appears at the end as punctuation
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-11
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-9d9984_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Create a single static 1:1 square image that captures the final frame of a text-reveal sequence — the moment just after the last line has landed and the OLIPOP Classic Root Beer can has arrived on screen as punctuation.
+
+Background: warm cream (#F5F0E8), flat and clean with no texture or noise. The warmth should feel analog and considered — not clinical white, not beige — exactly the color of something that takes itself seriously without announcing it.
+
+The image is structured as stacked lines of dark espresso-brown text, flush left, set in a clean modern serif or refined sans-serif with generous line spacing. Each line reads as its own beat. The text stack reads exactly as follows, top to bottom:
+
+"No aspartame."
+"No sucralose."
+"No two grams of fiber they hope you don't do math on."
+"Just root beer that actually does something."
+
+Below that, with slightly more breathing room separating it from the lines above, a smaller line in the same typeface but lighter weight:
+
+"Check the label yourself."
+
+The text occupies the left two-thirds of the image. The lines should feel unhurried — each one a complete thought, not a bullet point. No bold. No caps. No exclamation marks. The restraint is the message.
+
+On the right side of the frame, the OLIPOP Classic Root Beer can enters from the right edge — partially cropped, as if it just slid in. The can is shown at roughly two-thirds height, upright, the label facing forward. Reproduce the can exactly as shown in the reference image: the warm root beer colorway, the OLIPOP wordmark, the "Classic Root Beer" flavor name, the illustrated botanical graphics, and all label text exactly as they appear. The can should feel like it arrived quietly, not like it was placed there for a hero shot.
+
+No drop shadows. No glow. No decorative elements. No brand logo lockup separate from the can. The composition should feel like a full-page magazine ad that wandered onto someone's Instagram feed and didn't change a thing about itself.
+
+Lighting: flat and even across the entire image — no dramatic highlights, no vignette. The can may carry its own label sheen as it appears in the reference, but nothing added.
+
+Mood: the confidence of something that doesn't need to convince you — it just states the facts and lets you do the math.
+
+1:1 aspect ratio.

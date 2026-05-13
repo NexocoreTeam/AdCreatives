@@ -1,0 +1,21 @@
+{
+  "competitor": {
+    "name": "Spindrift",
+    "slug": "spindrift",
+    "url": "https://drinkspindrift.com",
+    "type": "adjacent",
+    "priority": "tier2",
+    "notes": "Real fruit sparkling water. Not a soda but in the consideration set \u2014\nwhat Olipop's target was drinking before they discovered prebiotic soda.\n"
+  },
+  "vendor": "none",
+  "reviews": [],
+  "scraped_pages": [
+    "https://drinkspindrift.com/products/peach-tea",
+    "https://drinkspindrift.com/products/cranberry-punch",
+    "https://drinkspindrift.com/products/orange-cream-float-soda",
+    "https://drinkspindrift.com/products/concord-freeze-soda",
+    "https://drinkspindrift.com/products/shirley-temple-soda"
+  ],
+  "fetched_at": "2026-05-11T20:48:49.027820Z",
+  "notes": "No reviews extracted from 5 page(s). Detected vendors: none. Either no supported review widget is present or vendor identifiers could not be parsed."
+}

@@ -1,0 +1,35 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-ce31ac
+Product:         Classic Root Beer
+Slot:            1 / Surprising Stat
+Mechanic:        Side-by-Side Reveal — two cans or nutritional labels placed next to each other, one traditional brand, one OLIPOP, letting the numbers speak without narration
+Format:          Text-on-product photo — clean flat lay of the OLIPOP can with the sugar stat overlaid in bold typography
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-04
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-ce31ac_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Flat lay product photography, 1:1 square format, shot from directly overhead on a clean white surface. Center the OLIPOP Classic Root Beer can — reproduce the exact label design, colors, typography, and graphics from the reference image with total fidelity. The can should be the undisputed hero of the frame, crisp and fully in focus, styled with a single soft drop shadow to lift it off the white surface.
+
+To the left of the can, place a minimal typographic callout in bold, oversized sans-serif type — large enough to dominate the left third of the frame — reading exactly: "Regular root beer: 39g sugar." Style this text in a muted, neutral tone (dark gray or soft charcoal) as if it belongs to the old world. Draw a single clean horizontal strikethrough line through "39g sugar" — not aggressive, just final.
+
+To the right of the can, place a second typographic callout in the same bold sans-serif but rendered in a warm, vibrant earthy brown or cream tone that echoes the OLIPOP Classic Root Beer label palette, reading exactly: "OLIPOP: 2g." The "2g" should be noticeably larger than everything else on the image — this is the mic drop. Give it visual weight and breathing room. No decorative clutter around it.
+
+Below the can, centered, in a smaller but still confident sans-serif, include the line: "Same taste. Completely different formula." Set in a warm neutral tone, tightly leaded, no more than two lines.
+
+At the very bottom of the frame, in a clean, small-caps or lightweight sans-serif, place the CTA exactly: "Try the one that actually does something." Keep it understated — confident, not shouty.
+
+Lighting: soft, diffused studio light from slightly above and front-left — no harsh shadows, no lens flare, no texture on the surface. The surface is pure white or barely-warm off-white. No props, no ice, no lifestyle elements. Just the can, the numbers, and the white space doing the work.
+
+Mood: editorial restraint meets warm optimism. The image should feel like it belongs in a clean wellness editorial and a confident paid social feed simultaneously. The number "2g" is the emotional center of the entire composition.
+
+1:1 aspect ratio.

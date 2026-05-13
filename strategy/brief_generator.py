@@ -25,6 +25,22 @@ def _make_brief_id(client: str, product: str, index: int) -> str:
     return f"{client}-{product}-{short_hash}"
 
 
+def _load_competitive_gaps(client_slug: str) -> dict | None:
+    """Load competitive-gaps.yaml if it exists. Returns None if missing or empty."""
+    from pathlib import Path
+    import yaml as _yaml
+    path = Path("clients") / client_slug / "research" / "competitive-gaps.yaml"
+    if not path.exists():
+        return None
+    try:
+        data = _yaml.safe_load(path.read_text(encoding="utf-8"))
+        if isinstance(data, dict) and data.get("synthesis"):
+            return data
+    except Exception:
+        return None
+    return None
+
+
 def generate_briefs(
     client_slug: str,
     product: Product,
@@ -33,17 +49,27 @@ def generate_briefs(
     count: int = 5,
     platform: str = "meta",
     winning_patterns: WinningPatterns | None = None,
+    competitive_gaps: dict | None = None,
     use_profile: bool = True,
 ) -> list[CreativeBrief]:
     """Generate a set of creative briefs for a product.
 
-    If winning_patterns is provided, the generator will weight angles
-    toward patterns that have historically performed well.
+    Two layered constraints are applied at angle-generation time:
 
-    When `use_profile=True` (default) and the avatar has a `psychology_profile`,
-    the angle multiplier filters the diversity matrix by the avatar's dominant
-    heuristics and applies hard constraints from the profile. Set `False` to
-    bypass — useful for before/after comparison or for avatars without a profile.
+    1. PSYCHOLOGY PROFILE (Stage 1.5) — when `use_profile=True` (default) and
+       the avatar has a `psychology_profile`, the angle multiplier filters
+       the diversity matrix by the avatar's dominant heuristics and applies
+       hard constraints from the profile. Set `use_profile=False` to bypass —
+       useful for before/after comparison or for avatars without a profile.
+
+    2. COMPETITIVE GAP MAP (Stage 5.5) — when `competitive_gaps` is None
+       (default), the function auto-loads it from
+       clients/<slug>/research/competitive-gaps.yaml if that file exists.
+       The synthesis block is injected so at least half of generated angles
+       target a specific competitor weakness.
+
+    If `winning_patterns` is provided, the generator will also weight angles
+    toward patterns that have historically performed well.
     """
     awareness = classify_awareness(avatar)
     strategy = get_awareness_strategy(awareness)
@@ -59,6 +85,10 @@ def generate_briefs(
             + "\n".join(f"- {r}" for r in winning_patterns.recommendations[:3]),
         }
 
+    # Auto-load competitive gaps if not passed in
+    if competitive_gaps is None:
+        competitive_gaps = _load_competitive_gaps(client_slug)
+
     angles = generate_angles(
         product=product,
         avatar=avatar,
@@ -66,6 +96,7 @@ def generate_briefs(
         awareness_strategy=strategy,
         count=count,
         frameworks=[f.value for f in frameworks],
+        competitive_gaps=competitive_gaps,
         use_profile=use_profile,
     )
 

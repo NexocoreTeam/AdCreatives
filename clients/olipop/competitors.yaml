@@ -1,0 +1,55 @@
+# Olipop competitors for competitive gap analysis.
+# `type`: direct (same category, head-to-head) | adjacent (overlapping use case) | switch-from (legacy category)
+# `priority`: tier1 = primary battlefield; tier2 = adjacent context; tier3 = backdrop only
+# `amazon_urls`: product URLs for `adc research-amazon` to scrape (1-3 per competitor;
+#                prefer variety packs which accumulate the most reviews)
+
+competitors:
+  - name: Poppi
+    slug: poppi
+    url: https://drinkpoppi.com
+    type: direct
+    priority: tier1
+    notes: |
+      Closest DTC rival. ACV-based prebiotic soda. Bright/Gen Z aesthetic.
+      Heavy influencer marketing. PepsiCo acquired for $1.95B.
+      The actual creative battlefield.
+    amazon_urls:
+      - https://www.amazon.com/Sparkling-Prebiotic-Immunity-Benefits-Beverages/dp/B09B8CCPCZ
+      - https://www.amazon.com/poppi-Sparkling-Prebiotic-Strawberry-Raspberry/dp/B084RR2DQX
+
+  - name: Culture Pop
+    slug: culture-pop
+    url: https://culturepopsoda.com
+    type: direct
+    priority: tier1
+    notes: |
+      Probiotic (not prebiotic) soda. Adds live cultures vs Olipop's prebiotic fiber.
+      Smaller scale but same gut-health-soda positioning.
+    amazon_urls:
+      - https://www.amazon.com/Culture-Pop-Sparkling-Probiotic-Calories/dp/B0BJ4P5995
+      - https://www.amazon.com/Culture-Pop-Sparkling-Probiotic-Grapefruit/dp/B08XZR488Q
+
+  - name: Health-Ade
+    slug: health-ade
+    url: https://www.health-ade.com
+    type: adjacent
+    priority: tier2
+    notes: |
+      Kombucha. Different format but same "gut health" promise.
+      Strong retail presence. More fermentation-forward.
+    amazon_urls:
+      - https://www.amazon.com/Health-Ade-Signature-Kombucha-Probiotics-Detoxifying/dp/B0DJCRQV9R
+      - https://www.amazon.com/Signature-Kombucha-Probiotics-Detoxifying-Supports/dp/B0CFYKDQ7X
+
+  - name: Spindrift
+    slug: spindrift
+    url: https://drinkspindrift.com
+    type: adjacent
+    priority: tier2
+    notes: |
+      Real fruit sparkling water. Not a soda but in the consideration set —
+      what Olipop's target was drinking before they discovered prebiotic soda.
+    amazon_urls:
+      - https://www.amazon.com/Spindrift-Sparkling-Variety-Squeezed-Seltzer/dp/B07FCQKZ4F
+      - https://www.amazon.com/Spindrift-Sparkling-Flavor-Variety-Seltzer/dp/B084TSNYPD

@@ -1,0 +1,34 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-5c20c3
+Product:         Classic Root Beer
+Slot:            4 / Curiosity Gap
+Mechanic:        Mechanism Reveal — introduce the functional ingredient as a story beat, building intrigue before the payoff (it tastes like the real thing because of something real)
+Format:          Text-on-video — slow zoom on the can with ingredient callout text appearing line by line. Feels like a discovery, not a commercial.
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-04
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-5c20c3_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Shoot a close-up lifestyle still of a hand casually holding an OLIPOP Classic Root Beer can — the exact can from the reference images, with all original label colors, typography, illustration, and text reproduced faithfully — angled so the ingredients panel or lower label area is partially visible and invites closer reading. The grip is relaxed and natural, fingers wrapped loosely around the can, as if the person just picked it up and started reading the back. The hand belongs to a woman in her late 20s to mid-30s, natural skin, no heavy styling. Background is soft and warm — a sun-lit kitchen counter or wooden table surface, slightly out of focus, with warm amber and cream tones. Natural window light falls across the can from the upper left, creating a gentle highlight along the edge of the can and casting a soft shadow beneath the hand. The mood is intimate and curious — like a quiet moment of discovery, not a product shoot.
+
+Overlaid on the image in clean, modern sans-serif type — styled like editorial ingredient callout text, warm off-white or cream color, left-aligned — are three lines of staggered text placed to the right of or above the can, each on its own line as if appearing one at a time:
+
+Line 1 (largest, hook weight): "There's a tree bark in this soda."
+Line 2 (slightly smaller, secondary): "Sweet birch. It's the reason it tastes exactly like the root beer you grew up with."
+Line 3 (small, tertiary callout weight): "Real flavor from real ingredients. No artificial flavoring. No shortcuts."
+Line 4 (CTA, smallest, understated): "Read the can. It'll make sense."
+
+Text treatment should feel editorial and warm — not clinical, not loud. Typeface should be clean and modern but slightly humanist, not sterile. Letter spacing is relaxed. No hard drop shadows — subtle soft text shadow only if needed for legibility against the background.
+
+The overall composition reads like a magazine ingredient feature or a wellness creator's "ingredients I didn't expect" content — an invitation to look closer, not a commercial. The can is the hero but the words are the story. Warm, soft, intimate, curious.
+
+1:1 aspect ratio.

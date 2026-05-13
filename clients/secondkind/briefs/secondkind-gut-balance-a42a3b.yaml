@@ -1,0 +1,37 @@
+brief_id: secondkind-gut-balance-a42a3b
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+framework: four_cs
+angle: The supplement world quietly moved on from probiotics. Most people missed the
+  memo.
+hook: "Probiotics had their moment. The gut health world has moved on \u2014 and your\
+  \ bloating is probably why."
+hook_type: FOMO / Urgency
+slot: 3
+hook_source: 'Unique mechanism: postbiotics as a newer, more stable category; avatar
+  pain: tried probiotics, felt nothing; desire: feel lighter and less physically uncomfortable'
+hook_tactic: "Bandwagon urgency \u2014 the shift is already happening and you're behind"
+persona: "The informed wellness consumer who tracks trends and hates feeling behind\
+  \ \u2014 reads ingredient labels, follows health creators, considers themselves\
+  \ knowledgeable"
+creative_mechanic: "Category Shift Frame \u2014 positions the ad not as a product\
+  \ pitch but as a category education moment the viewer narrowly caught in time"
+visual_format: "Scroll-stop static with bold headline \u2014 split between a crossed-out\
+  \ probiotic visual on the left and Gut Balance on the right. Feels editorial, not\
+  \ advertorial."
+pain_point: Tried probiotics and felt nothing meaningful; persistent bloating
+benefit_callouts:
+- 'Postbiotics: what probiotics were trying to be.*'
+- Stable. Immediate. No refrigeration required.*
+- 1 trillion bioactives your gut can actually use.*
+cta: "Don't get left behind. Try Gut Balance \u2192"
+body_copy: ''
+visual_direction: 'Two-panel static image. Left: a generic probiotic bottle with a
+  faded, slightly washed-out treatment and the word ''Yesterday'' in small grey type
+  beneath it. Right: Gut Balance bottle in full color, sharp, with ''Today'' beneath
+  it. Headline runs across the top: ''The gut health world moved on. Did you?'' Clean
+  white background.'
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

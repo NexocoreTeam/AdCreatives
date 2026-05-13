@@ -19,6 +19,10 @@ dependencies = [
     "google-auth>=2.0",
     "pypdfium2>=4.0",      # PDF page rendering for vision
     "json-repair>=0.30",   # Tolerant parsing of LLM JSON output
+    # Session 3 additions
+    "exa-py>=1.0",         # Neural web search for unfiltered VoC
+    "apify-client>=1.6",   # Amazon Reviews scraping
+    "streamlit>=1.30",     # Interactive web dashboard
 ]
 
 [project.optional-dependencies]

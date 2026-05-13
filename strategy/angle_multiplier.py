@@ -11,9 +11,20 @@ Uses four layered skills as system context (loaded from prompts/skills/):
 The diversity matrix enforces one hook per emotional trigger; Motion's strategic
 framework anchors the *what* (pain × persona); the hook libraries supply the *how*.
 
-When the avatar carries a psychology_profile (from Stage 1.5 `adc profile-psychology`),
-the matrix is filtered to slots that activate the avatar's dominant heuristics, and
-the prompt is augmented with hard constraints on weak heuristics + banned pairings.
+Two layered constraints can also be applied at generation time:
+
+1. PSYCHOLOGY PROFILE (Stage 1.5 `adc profile-psychology`) — when the avatar
+   carries a `psychology_profile`, the diversity matrix is filtered to slots
+   that activate the avatar's dominant heuristics, and the prompt is augmented
+   with hard constraints on weak heuristics + banned creative-mechanic pairings.
+
+2. COMPETITIVE GAP MAP (Stage 5.5 `adc analyze-gaps`) — when the client has a
+   competitive-gaps.yaml, the synthesis block (exploitable gaps, shared
+   dealbreakers, defensive priorities) is injected into the prompt so at least
+   half the angles target a specific competitor weakness.
+
+Psychology decides WHICH slots and mechanics fit this persona.
+Gaps provide WHAT content (proof, evidence, ad angles) to use within those slots.
 """
 
 from __future__ import annotations
@@ -246,7 +257,7 @@ CUSTOMER AVATAR:
 
 BRAND TONE: {brand_tone}
 MESSAGING APPROACH: {approach}
-
+{competitive_gaps_section}
 For each angle, return:
 
 angles:
@@ -275,7 +286,69 @@ Quality checks before returning:
 2. Frameworks vary across slots — no repeats.
 3. Creative mechanics vary across slots — no repeats.
 4. Visual formats vary across slots when possible.
-5. Hooks read like real human language, not ad copy."""
+5. Hooks read like real human language, not ad copy.
+6. When COMPETITIVE GAPS are provided, AT LEAST half of the angles should
+   exploit a specific gap. Use `source` to reference the gap (e.g.,
+   "competitive-gap: Poppi's gut-health claim legally discredited") and
+   incorporate the customer evidence quote into the hook construction."""
+
+
+def _format_competitive_gaps(gaps_data: dict | None) -> str:
+    """Render the synthesis section of competitive-gaps.yaml into a prompt block.
+
+    Includes only the strategic high-leverage sections (exploitable_gaps,
+    shared_dealbreakers, defensive_priorities). Per-brand analyses are skipped
+    here — they'd blow up token usage and aren't directly actionable as hook
+    fodder.
+    """
+    if not gaps_data:
+        return ""
+    syn = gaps_data.get("synthesis", {})
+    if not isinstance(syn, dict) or not syn:
+        return ""
+
+    parts = ["", "COMPETITIVE GAP MAP (use as primary hook fodder):", ""]
+
+    if syn.get("summary"):
+        parts.extend(["STRATEGIC THESIS:", f"  {syn['summary']}", ""])
+
+    gaps = syn.get("exploitable_gaps") or []
+    if gaps:
+        parts.append("EXPLOITABLE GAPS (each is a ready-made angle source):")
+        for i, g in enumerate(gaps[:8], 1):
+            opp = g.get("opportunity", "")
+            comps = ", ".join(g.get("competitors_failing", []) or [])
+            evidence = (g.get("customer_evidence", "") or "").strip()
+            advantage = (g.get("our_advantage", "") or "").strip()
+            angle = (g.get("ad_angle", "") or "").strip()
+            parts.extend([
+                f"  Gap {i}: {opp}",
+                f"    competitors failing: {comps}",
+                f"    customer evidence: \"{evidence[:300]}\"",
+                f"    our advantage: {advantage[:300]}",
+                f"    ad angle direction: {angle[:300]}",
+            ])
+        parts.append("")
+
+    dealbreakers = syn.get("shared_dealbreakers") or []
+    if dealbreakers:
+        parts.append("CATEGORY-WIDE DEALBREAKERS (lead with our solution):")
+        for d in dealbreakers[:4]:
+            parts.append(
+                f"  - {d.get('issue', '')[:200]} -> our response: {d.get('our_response', '')[:200]}"
+            )
+        parts.append("")
+
+    defensive = syn.get("defensive_priorities") or []
+    if defensive:
+        parts.append("DEFENSIVE PRIORITIES (objections to pre-empt, not lead with):")
+        for d in defensive[:4]:
+            parts.append(
+                f"  - {d.get('objection', '')[:150]} -> pre-empt: {d.get('pre_empt', '')[:200]}"
+            )
+        parts.append("")
+
+    return "\n".join(parts)
 
 
 def generate_angles(
@@ -286,6 +359,7 @@ def generate_angles(
     count: int = 6,
     frameworks: list[str] | None = None,
     use_profile: bool = True,
+    competitive_gaps: dict | None = None,
 ) -> list[dict]:
     """Generate multiple messaging angles for a product/avatar combo.
 
@@ -297,11 +371,19 @@ def generate_angles(
     the model is instructed to vary the framework across slots. Defaults to a
     sensible set covering most awareness levels.
 
-    When `use_profile=True` (default) and the avatar carries a `psychology_profile`,
-    the diversity matrix is filtered to slots that activate the avatar's dominant
-    heuristics, and the prompt is augmented with explicit guardrails on weak
-    heuristics + recommended/banned Tether Lab pairings. Set `use_profile=False`
-    to bypass — useful for before/after comparison.
+    Two layered constraints:
+
+    1. When `use_profile=True` (default) and the avatar carries a
+       `psychology_profile`, the diversity matrix is filtered to slots that
+       activate the avatar's dominant heuristics, and the prompt is augmented
+       with explicit guardrails on weak heuristics + recommended/banned Tether
+       Lab pairings. Set `use_profile=False` to bypass — useful for
+       before/after comparison.
+
+    2. When `competitive_gaps` is provided (typically auto-loaded from
+       clients/<slug>/research/competitive-gaps.yaml by the caller), its
+       synthesis block is injected so at least half of generated angles target
+       a specific competitor weakness.
     """
     profile = avatar.psychology_profile if use_profile else None
 
@@ -339,6 +421,7 @@ def generate_angles(
         psychology_block=psychology_block,
         brand_tone=brand.tone,
         approach=awareness_strategy.get("approach", ""),
+        competitive_gaps_section=_format_competitive_gaps(competitive_gaps),
     )
 
     result = claude_complete(prompt, system=ANGLE_SYSTEM)

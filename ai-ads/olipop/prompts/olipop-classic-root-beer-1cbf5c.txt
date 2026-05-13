@@ -1,0 +1,36 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-1cbf5c
+Product:         Classic Root Beer
+Slot:            5 / Direct Address / Call-out (Recognition)
+Mechanic:        tribal_belonging_plus_vulnerability
+Format:          Static product photo with text overlay — can front-and-center, ingredient highlights overlaid, warm retro color palette
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-11
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-1cbf5c_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Shoot a warm, slightly overhead flat-lay still photograph of a single OLIPOP Classic Root Beer can — reproduce the can exactly as shown in the reference: the deep root-beer-brown and cream label, the OLIPOP wordmark, the "CLASSIC ROOT BEER" flavor name, and all visible label graphics and text. The can sits on a slightly worn, warm-toned surface — think aged cream paper or a soft caramel linen texture, the kind of surface that feels like a kitchen counter in afternoon light, not a studio table. Natural, analog warmth. No harsh shadows. Soft directional light from upper left, golden and intimate.
+
+Beside the can, slightly overlapping its base, sits a small handwritten-style note on off-white paper — torn or folded casually at one corner — with the handwritten text: "checked the label. this one's actually different." Written in a warm dark ink, imperfect letterforms, like a friend left it for you.
+
+Overlaid on the image in a clean but slightly worn serif or mixed serif/sans type — referencing retro soda label typography, warm off-white or cream colored text — display the following lines stacked in the upper or lower third of the frame:
+
+Line 1 (largest, hook): "For everyone who checks the ingredients, hates the aftertaste, and is still lowkey grieving the Coke they gave up three years ago."
+
+Below that, three small benefit callout lines in slightly smaller weight:
+"No aftertaste. Finish the whole can."
+"The fiber's real. It's on the label."
+"Tastes like root beer. Works like a prebiotic."
+
+Bottom of frame, small CTA text: "Try the one that doesn't disappoint."
+
+The overall mood is warm, analog, personal — feels like a recommendation passed between friends, not a brand advertisement. Slightly muted warm palette: caramels, creams, amber, soft browns. No clinical white. No hard product-shot lighting. This should feel like something you'd pin to your fridge, not see on a billboard. 1:1 aspect ratio.

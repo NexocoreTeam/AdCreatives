@@ -1,0 +1,36 @@
+brief_id: olipop-classic-root-beer-55317b
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: quest
+angle: "Sparkling water isn't soda and you know it \u2014 this is for the person who's\
+  \ been settling"
+hook: This one's for whoever has been drinking sparkling water and telling themselves
+  it's basically the same thing. It's not. And you know it.
+hook_type: Direct Address / Call-out
+slot: 5
+hook_source: 'Pain: Tried sparkling water as a substitute but it doesn''t hit the
+  same way + desire: To drink something that tastes like the soda they grew up with
+  without the guilt'
+hook_tactic: "Demographic callout \u2014 hyper-specific identity recognition that\
+  \ makes the right person feel immediately seen"
+persona: "The reluctant health trade-off maker \u2014 someone who made the 'responsible\
+  \ swap' to sparkling water but has never fully made peace with it"
+creative_mechanic: "Implied Answer \u2014 the hook poses the situation, and the visual\
+  \ (the OLIPOP can) answers it without the copy having to explain anything"
+visual_format: "Split-screen static \u2014 left side: plain sparkling water can looking\
+  \ sad and utilitarian, right side: OLIPOP Classic Root Beer looking warm and inviting.\
+  \ No text needed except the hook."
+pain_point: Tried sparkling water as a substitute but it doesn't hit the same way
+benefit_callouts:
+- Actually tastes like root beer
+- Gut-health benefits built in
+- The upgrade you didn't know existed
+cta: Stop settling. Start here.
+body_copy: ''
+visual_direction: "The split should feel emotional, not clinical \u2014 the sparkling\
+  \ water side is flat, gray, joyless. The OLIPOP side is warm, slightly nostalgic,\
+  \ alive. The contrast does the persuasion work."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

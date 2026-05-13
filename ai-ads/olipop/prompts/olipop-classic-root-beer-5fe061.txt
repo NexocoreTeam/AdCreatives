@@ -1,0 +1,25 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-5fe061
+Product:         Classic Root Beer
+Slot:            2 / Story / Result
+Mechanic:        Talking Head Confession — person speaks directly to camera with low-production, authentic energy. No script feel. The emotional truth carries the ad.
+Format:          UGC-style vertical video — handheld, natural light, person holding the can mid-story. Feels like a recommendation from a friend, not an ad.
+Aspect ratio:    9:16
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-04
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-5fe061_9x16.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Single still frame captured mid-confession, vertical 9:16 format, UGC-style. A woman in her late twenties to mid-thirties sits on a couch or leans against a kitchen counter in soft, warm natural light — the kind that comes through a window in the late morning. She is mid-sentence, looking directly into the camera lens with an expression that reads as mild disbelief and genuine relief — like she's telling a friend something she's been sitting on for a while. Her mouth is slightly open, caught mid-thought, eyebrows gently raised. She holds the OLIPOP Classic Root Beer can loosely in one hand at roughly chest height — not posed, just present, the way you'd hold a drink while talking. The can is the exact OLIPOP Classic Root Beer design: match the warm cream and deep brown colorway, the OLIPOP wordmark, the "Classic Root Beer" flavor text, the illustrated botanicals and retro label aesthetic from the reference images precisely. The setting is lived-in and real — a throw blanket on the couch arm, a plant in the background, soft clutter of a real home. Not staged. The camera angle is slightly below eye level, handheld feel, very slight vignette at the edges. Natural color grading — warm, slightly golden, not oversaturated. Shallow depth of field, background softly blurred.
+
+Overlay text in the upper third of the frame in a clean, friendly sans-serif font in off-white or warm white: "I gave up soda three years ago and I was fine with it." Then a second line beneath in slightly smaller type: "Then I had OLIPOP Classic Root Beer." The text sits natively over the image as if added in a phone editing app — not a polished graphic lockup, but native caption-style text placement that feels like an Instagram Story or TikTok text tool. At the bottom of the frame, in smaller accent text: "See what you've been missing." The OLIPOP logo from the reference images appears in the bottom corner, small and unobtrusive. The emotional story — relief, mild surprise, confession energy — is the visual hero. The can is the quiet proof.
+
+9:16 aspect ratio.

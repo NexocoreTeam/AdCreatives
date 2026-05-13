@@ -1,0 +1,34 @@
+{
+  "product_url": "https://www.amazon.com/Health-Ade-Signature-Kombucha-Probiotics-Detoxifying/dp/B0DJCRQV9R",
+  "competitor_slug": "health-ade",
+  "competitor_name": "Health-Ade",
+  "asin": "B0DJCRQV9R",
+  "product_title": "Health-Ade Signature Variety Pack Kombucha Tea, Organic Drink with Living Probiotics, Detoxifying Acids, Supports Gut Health, Non-GMO, Vegan, Gluten Free, 12 Pack (16 Fl Oz Bottles)",
+  "star_filter": "one_star",
+  "reviews": [
+    {
+      "title": "Yummy",
+      "body": "I have tried many. Health -aid is my favorite. I enjoy the many flowers. We started dealing it at work.",
+      "rating": 5,
+      "reviewer": "AEQJ5YMTQYTHH7HXFK4JJ2JGWPRQ",
+      "date": "2026-04-22",
+      "product_name": "Health-Ade Signature Variety Pack Kombucha Tea, Organic Drink with Living Probiotics, Detoxifying Acids, Supports Gut Health, Non-GMO, Vegan, Gluten Free, 12 Pack (16 Fl Oz Bottles)",
+      "product_id": "B0DJCRQV9R",
+      "verified": false,
+      "helpful_count": 0
+    },
+    {
+      "title": "Refreshing whole body drink",
+      "body": "Love you're gut. So true nothing beats a cold bottle. The right fizz to flavor is great. Way better then coffe in my opinion.",
+      "rating": 5,
+      "reviewer": "AGXC76X3QY5HRZOK37CYHTA5UVFA",
+      "date": "2026-03-27",
+      "product_name": "Health-Ade Signature Variety Pack Kombucha Tea, Organic Drink with Living Probiotics, Detoxifying Acids, Supports Gut Health, Non-GMO, Vegan, Gluten Free, 12 Pack (16 Fl Oz Bottles)",
+      "product_id": "B0DJCRQV9R",
+      "verified": false,
+      "helpful_count": 0
+    }
+  ],
+  "fetched_at": "2026-05-12T01:14:02.784694Z",
+  "notes": "2 reviews extracted. Apify free tier caps each run at ~8 reviews; upgrade to the Starter plan to access more."
+}

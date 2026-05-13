@@ -1,0 +1,21 @@
+{
+  "competitor": {
+    "name": "Health-Ade",
+    "slug": "health-ade",
+    "url": "https://www.health-ade.com",
+    "type": "adjacent",
+    "priority": "tier2",
+    "notes": "Kombucha. Different format but same \"gut health\" promise.\nStrong retail presence. More fermentation-forward.\n"
+  },
+  "vendor": "yotpo",
+  "reviews": [],
+  "scraped_pages": [
+    "https://health-ade.com/products/kombucha-cayenne-cleanse",
+    "https://health-ade.com/products/kombucha-ginger-lemon",
+    "https://health-ade.com/products/kombucha-pomegranate-blueberry",
+    "https://health-ade.com/products/kombucha-blood-orange-carrot-ginger",
+    "https://health-ade.com/products/kombucha-pink-lady-apple"
+  ],
+  "fetched_at": "2026-05-11T20:48:42.055449Z",
+  "notes": "No reviews extracted from 5 page(s). Detected vendors: yotpo. Either no supported review widget is present or vendor identifiers could not be parsed."
+}

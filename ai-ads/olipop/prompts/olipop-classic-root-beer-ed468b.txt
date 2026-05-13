@@ -1,0 +1,25 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-ed468b
+Product:         Classic Root Beer
+Slot:            4 / Curiosity Gap (Intrigue)
+Mechanic:        reframing_perception_plus_emotional_trigger
+Format:          Text-on-screen video — words appear over slow pour of Classic Root Beer into a glass with ice, no voiceover needed
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-11
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-ed468b_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Create a single static 1:1 square ad image for OLIPOP Classic Root Beer. The visual is a split-moment composition: on the left side, a close-up of an OLIPOP Classic Root Beer can — the exact label design from the reference image, with its warm brown and cream tones — beside a tall clear glass filled with ice, a rich dark brown pour of root beer cascading into it, a foamy tan head rising at the top, condensation forming on the outside of the glass. The pour looks mid-action, satisfying, almost cinematic — lit with warm, slightly golden natural light from the right, creating a glowing amber quality in the liquid. On the right side of the frame, slightly out of focus and pushed to the edge, sits a half-empty can of plain sparkling water — generic, flat-looking, with no fizz visible — resting abandoned on a white countertop. The contrast between the two sides is entirely visual: abundance and warmth on the left, resignation on the right. No arrows, no explicit labels comparing them.
+
+Centered over the image in clean, modern sans-serif type — white with a subtle dark shadow for legibility — display the hook text in two stacked lines: "The reason diet soda never felt like a solution." Below that, in slightly smaller weight: "No aspartame. No sucralose. No asterisk." At the bottom of the frame, in a warm cream or off-white pill-shaped button treatment, display the CTA: "See what you've been missing."
+
+The overall mood is warm, nostalgic, and quietly confident — this is not a clinical wellness ad. It looks like soda. It feels like Saturday afternoon. Soft shadows, no harsh studio lighting. Background is a clean white or very light warm cream (#FFFFFF). OLIPOP logo appears in the lower left corner, sized modestly, in brand-accurate colors from the reference image. 1:1 aspect ratio.

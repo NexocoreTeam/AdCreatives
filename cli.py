@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import re
 import shutil
+import sys
 from datetime import date
 from pathlib import Path
 
@@ -1027,9 +1029,11 @@ def research(client: str, url: str, max_products: int, auto: bool):
 @click.option("--platform", default="meta", help="Target platform: meta, tiktok")
 @click.option(
     "--avatar",
+    "avatar_name",
     default=None,
-    help="Specific avatar to use (e.g. 'primary'). Loads from clients/<slug>/avatars/<name>.yaml. "
-    "Omit to fall back to legacy clients/<slug>/avatar.yaml.",
+    help="Specific avatar to use (e.g. 'primary'). Loads from "
+    "clients/<slug>/avatars/<name>.yaml. Omit to use primary.yaml then fall "
+    "back to legacy clients/<slug>/avatar.yaml.",
 )
 @click.option(
     "--ignore-psychology",
@@ -1043,12 +1047,16 @@ def brief(
     product: str,
     angles: int,
     platform: str,
-    avatar: str | None,
+    avatar_name: str | None,
     ignore_psychology: bool,
 ):
-    """Generate creative briefs with messaging angles for a product."""
-    import yaml
+    """Generate creative briefs with messaging angles for a product.
 
+    Layers automatically applied when present:
+      - Psychology profile (if avatar has one) -> filters slots + injects guardrails
+      - Competitive gap map (if competitive-gaps.yaml exists) -> biases angles to exploit gaps
+    """
+    import yaml as _yaml
     from models.avatar import CustomerAvatar
     from models.loader import (
         load_brand,
@@ -1068,19 +1076,19 @@ def brief(
         # then legacy avatar.yaml.
         avatar_obj: CustomerAvatar | None = None
         avatar_source = ""
-        if avatar:
-            path = Path("clients") / client / "avatars" / f"{avatar}.yaml"
-            if not path.exists():
-                console.print(f"[red]Avatar '{avatar}' not found at {path}[/red]")
+        if avatar_name:
+            apath = Path("clients") / client / "avatars" / f"{avatar_name}.yaml"
+            if not apath.exists():
+                console.print(f"[red]Avatar '{avatar_name}' not found at {apath}[/red]")
                 raise SystemExit(1)
-            with open(path, encoding="utf-8") as fh:
-                avatar_obj = CustomerAvatar(**yaml.safe_load(fh))
-            avatar_source = str(path)
+            with open(apath, encoding="utf-8") as fh:
+                avatar_obj = CustomerAvatar(**_yaml.safe_load(fh))
+            avatar_source = str(apath)
         else:
             primary = Path("clients") / client / "avatars" / "primary.yaml"
             if primary.exists():
                 with open(primary, encoding="utf-8") as fh:
-                    avatar_obj = CustomerAvatar(**yaml.safe_load(fh))
+                    avatar_obj = CustomerAvatar(**_yaml.safe_load(fh))
                 avatar_source = str(primary)
             else:
                 avatar_obj = _load_legacy_avatar(client)
@@ -1141,7 +1149,10 @@ def brief(
 
     console.print(table)
     console.print(f"\n[green]Saved {len(briefs)} briefs to clients/{client}/briefs/[/green]")
-    console.print(f"Generate images: adc generate --client {client} --brief <brief-id> --style <style>")
+    console.print(f"\n[green]Next:[/green] adc menu --client {client}")
+
+    from strategy.cost_tracker import log_cost
+    log_cost(client, "adc brief", note=f"{len(briefs)} briefs for {product}")
 
 
 # ─── Show Prompt Template ────────────────────────────────────────────────────
@@ -1460,9 +1471,14 @@ def profile_psychology(client: str, avatar: str | None, no_backup: bool):
             "[dim]Backups at <avatar>.yaml.bak - delete if you're happy with results.[/dim]"
         )
     console.print(
-        "\n[bold]Next:[/bold] briefs and angle generation will read "
-        "`psychology_profile` from each avatar automatically (wiring coming next)."
+        f"\n[bold]Next:[/bold] adc brief --client {client} --product <id> --angles 6 "
+        "(psychology profile auto-applies)"
     )
+
+    from strategy.cost_tracker import log_cost
+    n_profiled = 1 if avatar else len(profiles)
+    log_cost(client, "adc profile-psychology", multiplier=n_profiled,
+             note=f"{n_profiled} avatar(s) profiled")
 
 
 def _render_psychology_summary(profiles):
@@ -1887,6 +1903,575 @@ def validate(image: str, client: str | None, platform: str):
 # ─── Browse Prompt Library ───────────────────────────────────────────────────
 
 
+# ─── Interactive Web Dashboard ──────────────────────────────────────────────
+
+
+@cli.command()
+@click.option("--port", default=8501, type=int, help="Local port (default 8501)")
+@click.option("--public", is_flag=True, default=False,
+              help="Bind to 0.0.0.0 so other devices on your LAN can reach it. "
+              "Default binds to localhost only (safer).")
+def dashboard(port: int, public: bool):
+    """Launch the interactive web dashboard (Streamlit).
+
+    Opens in your browser at http://localhost:<port>/. Reads the same files
+    the `adc status` command reads — no API calls, no data leaves your machine.
+
+    Stop with Ctrl-C.
+    """
+    import subprocess
+
+    repo_root = Path(__file__).resolve().parent
+    app_path = repo_root / "dashboard" / "app.py"
+    if not app_path.exists():
+        console.print(f"[red]Dashboard app not found at {app_path}[/red]")
+        raise SystemExit(1)
+
+    address = "0.0.0.0" if public else "localhost"
+    console.print(
+        f"[green]Launching dashboard at http://{address}:{port}/[/green]\n"
+        f"[dim]Press Ctrl-C to stop.[/dim]\n"
+    )
+    cmd = [
+        sys.executable, "-m", "streamlit", "run", str(app_path),
+        "--server.port", str(port),
+        "--server.address", address,
+        "--server.headless", "false",
+        "--browser.gatherUsageStats", "false",
+    ]
+    try:
+        subprocess.run(cmd, check=False)
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Dashboard stopped.[/yellow]")
+
+
+# ─── Client Status Dashboard ────────────────────────────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--save",
+    is_flag=True,
+    default=False,
+    help="Also write the dashboard to clients/<slug>/STATUS.md for sharing.",
+)
+def status(client: str, save: bool):
+    """Dashboard view: what's done for a client, what to run next.
+
+    Pure local-file inspection — free, fast (<1s), no API calls.
+    """
+    from strategy.status_dashboard import (
+        ad_assets_status,
+        build_recommendations,
+        competitive_research_status,
+        strategy_status,
+    )
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    strategy_stages = strategy_status(client)
+    competitive_stages = competitive_research_status(client)
+    asset_stages = ad_assets_status(client)
+    recommendations = build_recommendations(
+        client, strategy_stages, competitive_stages, asset_stages
+    )
+
+    def _render_section(title: str, stages):
+        table = Table(title=title)
+        table.add_column(" ", justify="center", style="bold", width=6)
+        table.add_column("Stage", style="cyan", min_width=24)
+        table.add_column("Details", style="green", max_width=48)
+        table.add_column("Age", style="dim", justify="right")
+        for s in stages:
+            # Use plain words instead of [x]/[ ] — Rich treats square brackets as markup
+            check = "[green]OK[/green]" if s.done else "[yellow]--[/yellow]"
+            age = ""
+            if s.age_days is not None:
+                if s.age_days == 0:
+                    age = "today"
+                elif s.age_days == 1:
+                    age = "1 day"
+                else:
+                    age = f"{s.age_days} days"
+            details = s.summary
+            if s.notes:
+                details += f" -- {'; '.join(s.notes)}"
+            table.add_row(check, s.name, details, age)
+        console.print(table)
+
+    console.print(f"\n[bold magenta]Status for client: {client}[/bold magenta]\n")
+    _render_section("Strategy", strategy_stages)
+    _render_section("Competitive Research", competitive_stages)
+    _render_section("Ad Assets", asset_stages)
+
+    console.print("\n[bold]Recommended next steps:[/bold]")
+    for r in recommendations:
+        console.print(f"  -> {r}")
+    console.print()
+
+    if save:
+        from datetime import datetime as _dt
+        md_lines = [
+            f"# Status — {client}",
+            f"_Generated {_dt.now().strftime('%Y-%m-%d %H:%M')}_",
+            "",
+        ]
+
+        def _md_section(title: str, stages):
+            md_lines.append(f"## {title}\n")
+            md_lines.append("| Status | Stage | Details | Age |")
+            md_lines.append("|---|---|---|---|")
+            for s in stages:
+                check = "OK" if s.done else "--"
+                age = ""
+                if s.age_days is not None:
+                    if s.age_days == 0:
+                        age = "today"
+                    elif s.age_days == 1:
+                        age = "1 day"
+                    else:
+                        age = f"{s.age_days} days"
+                details = s.summary
+                if s.notes:
+                    details += f" — {'; '.join(s.notes)}"
+                md_lines.append(
+                    f"| {check} | {s.name} | {details} | {age} |"
+                )
+            md_lines.append("")
+
+        _md_section("Strategy", strategy_stages)
+        _md_section("Competitive Research", competitive_stages)
+        _md_section("Ad Assets", asset_stages)
+
+        md_lines.append("## Recommended next steps\n")
+        for r in recommendations:
+            md_lines.append(f"- {r}")
+
+        out_path = client_dir / "STATUS.md"
+        out_path.write_text("\n".join(md_lines), encoding="utf-8")
+        console.print(f"[green]Saved dashboard to: {out_path}[/green]")
+
+
+# ─── Competitor Research ────────────────────────────────────────────────────
+
+
+@cli.command(name="research-competitors")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--force-refresh",
+    is_flag=True,
+    default=False,
+    help="Re-run Exa queries and re-scrape competitor sites even if cached.",
+)
+@click.option(
+    "--skip-onsite",
+    is_flag=True,
+    default=False,
+    help="Skip competitor on-site review scraping (Exa-only run).",
+)
+def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
+    """Pull all competitive research: on-site reviews + Exa sentiment-stratified queries."""
+    from models.loader import load_brand
+    from strategy.competitor_research import (
+        cache_competitor_bundle,
+        load_competitors,
+        pull_competitor_reviews,
+    )
+    from strategy.exa_research import (
+        cache_result,
+        competitive_queries_for_brand,
+        run_query,
+    )
+
+    brand = load_brand(client)
+    competitors = load_competitors(client)
+
+    if not competitors:
+        console.print(
+            f"[red]No competitors.yaml found for {client}.[/red]\n"
+            f"[dim]Create clients/{client}/competitors.yaml first.[/dim]"
+        )
+        raise SystemExit(1)
+
+    console.print(f"[cyan]Competitive research: {brand.name} vs {len(competitors)} competitors[/cyan]")
+    for c in competitors:
+        console.print(f"  - {c.name} ({c.priority}, {c.type}) -> {c.url}")
+
+    console.print(
+        f"\n[yellow]This run includes:[/yellow] Exa web sentiment (Reddit, Trustpilot, news) "
+        f"+ on-site reviews via Firecrawl.\n"
+        f"[yellow]NOT included:[/yellow] Amazon reviews. Run separately with: "
+        f"[cyan]adc research-amazon --client {client}[/cyan]\n"
+    )
+
+    # 1) On-site competitor review scraping
+    onsite_table = Table(title="On-site Reviews via Firecrawl")
+    onsite_table.add_column("Competitor", style="cyan")
+    onsite_table.add_column("Vendor", style="yellow")
+    onsite_table.add_column("Reviews", justify="right", style="green")
+    onsite_table.add_column("Pages tried", justify="right", style="dim")
+    onsite_table.add_column("Notes", style="dim", max_width=40)
+
+    if not skip_onsite:
+        onsite_cache = Path("clients") / client / "research" / "competitor-reviews"
+        for competitor in competitors:
+            cache_path = onsite_cache / f"{competitor.slug}.json"
+            if cache_path.exists() and not force_refresh:
+                import json as _json
+                data = _json.loads(cache_path.read_text(encoding="utf-8"))
+                onsite_table.add_row(
+                    competitor.name,
+                    data.get("vendor", "?"),
+                    str(len(data.get("reviews", []))),
+                    str(len(data.get("scraped_pages", []))),
+                    "(cached)",
+                )
+                continue
+
+            with console.status(f"Scraping {competitor.name}..."):
+                bundle = pull_competitor_reviews(competitor)
+            cache_competitor_bundle(client, bundle)
+            onsite_table.add_row(
+                competitor.name,
+                bundle.vendor,
+                str(len(bundle.reviews)),
+                str(len(bundle.scraped_pages)),
+                bundle.notes[:80],
+            )
+        console.print(onsite_table)
+
+    # 2) Exa sentiment-stratified queries
+    queries = competitive_queries_for_brand(
+        own_brand=brand.name,
+        competitor_names=[c.name for c in competitors],
+    )
+
+    exa_table = Table(title="Exa Web Sentiment")
+    exa_table.add_column("#", justify="right", style="dim")
+    exa_table.add_column("Label", style="cyan")
+    exa_table.add_column("Category", style="yellow")
+    exa_table.add_column("Hits", justify="right", style="green")
+    exa_table.add_column("Top domain", style="dim")
+
+    exa_cache = Path("clients") / client / "research" / "exa" / "raw"
+    for i, q in enumerate(queries, 1):
+        from strategy.exa_research import _slugify
+        cache_path = exa_cache / f"{_slugify(q.label)}.json"
+        if cache_path.exists() and not force_refresh:
+            import json as _json
+            data = _json.loads(cache_path.read_text(encoding="utf-8"))
+            top_domain = data["results"][0]["domain"] if data.get("results") else "-"
+            exa_table.add_row(
+                str(i), q.label, q.category, str(len(data.get("results", []))), top_domain
+            )
+            continue
+
+        try:
+            with console.status(f"Exa: {q.label}..."):
+                result = run_query(q)
+            cache_result(client, result)
+            top_domain = result.results[0].domain if result.results else "-"
+            exa_table.add_row(
+                str(i), q.label, q.category, str(len(result.results)), top_domain
+            )
+        except Exception as e:
+            exa_table.add_row(
+                str(i), q.label, q.category, "ERROR", str(e)[:40]
+            )
+
+    console.print(exa_table)
+    console.print(
+        f"\n[green]Cached competitor reviews: clients/{client}/research/competitor-reviews/[/green]\n"
+        f"[green]Cached Exa results: clients/{client}/research/exa/raw/[/green]\n\n"
+        f"[bold]Recommended next steps:[/bold]\n"
+        f"  - [cyan]adc research-amazon --client {client}[/cyan]   "
+        f"(pull Amazon reviews; ~$1-5)\n"
+        f"  - [cyan]adc analyze-gaps --client {client}[/cyan]      "
+        f"(synthesize what's cached so far; ~$1.50)"
+    )
+
+    from strategy.cost_tracker import log_cost
+    log_cost(client, "adc research-competitors",
+             note=f"{len(competitors)} competitor(s), {len(queries)} Exa queries")
+
+
+@cli.command(name="research-amazon")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--max-reviews", default=100, type=int,
+    help="Max reviews per Amazon product per star tier (default 100). "
+    "On the Apify free tier, each call is capped at ~8 reviews anyway.",
+)
+@click.option(
+    "--stars", default="5,3,1",
+    help="Comma-separated star tiers to pull (default '5,3,1' matching the gap "
+    "analysis framework). Use '5,4,3,2,1' for full stratification, or '0' for "
+    "no filter (returns recent reviews only).",
+)
+@click.option(
+    "--force-refresh", is_flag=True, default=False,
+    help="Re-scrape Amazon even if cached.",
+)
+def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bool):
+    """Scrape Amazon reviews stratified by star rating for each competitor.
+
+    Reads amazon_urls from clients/<slug>/competitors.yaml. Each star tier is a
+    separate Apify call — on the free plan this multiplies per-product review
+    yield by the number of tiers (typically 3 = 5/3/1 star).
+    """
+    from strategy.apify_amazon import (
+        DEFAULT_STAR_FILTERS,
+        STAR_FILTER_SHORT_NAMES,
+        _extract_asin,
+        cache_amazon_bundle,
+        scrape_amazon_reviews,
+    )
+    from strategy.competitor_research import load_competitors
+
+    # Map user input to Apify's filter values
+    star_map = {
+        "5": "five_star", "4": "four_star", "3": "three_star",
+        "2": "two_star", "1": "one_star", "0": "all_stars",
+    }
+    star_filters: list[str] = []
+    for s in stars.split(","):
+        s = s.strip()
+        if s in star_map:
+            star_filters.append(star_map[s])
+        else:
+            console.print(f"[red]Invalid star value: '{s}'. Use 1-5 or 0 for no filter.[/red]")
+            raise SystemExit(1)
+    if not star_filters:
+        star_filters = DEFAULT_STAR_FILTERS
+
+    competitors = load_competitors(client)
+    if not competitors:
+        console.print(f"[red]No competitors.yaml found for {client}.[/red]")
+        raise SystemExit(1)
+
+    targets = [(c, url) for c in competitors for url in (c.amazon_urls or [])]
+    if not targets:
+        console.print(
+            f"[yellow]No amazon_urls set in clients/{client}/competitors.yaml.[/yellow]\n"
+            f"[dim]Add an `amazon_urls:` list to each competitor with 1-3 product URLs, then re-run.[/dim]"
+        )
+        raise SystemExit(1)
+
+    total_calls = len(targets) * len(star_filters)
+    console.print(
+        f"[cyan]Amazon Reviews via Apify[/cyan] — {len(targets)} product(s) "
+        f"x {len(star_filters)} star tier(s) = {total_calls} call(s)"
+    )
+    console.print(
+        f"[dim]Actor: junglee/amazon-reviews-scraper. Star tiers: "
+        f"{', '.join(star_filters)}. Free tier yields ~8 reviews/call (~{8 * total_calls} total).[/dim]\n"
+    )
+
+    cache_dir = Path("clients") / client / "research" / "amazon-reviews"
+    table = Table(title="Amazon Review Scraping (Stratified)")
+    table.add_column("#", style="dim", justify="right")
+    table.add_column("Competitor", style="cyan")
+    table.add_column("ASIN", style="yellow")
+    table.add_column("Tier", style="magenta")
+    table.add_column("Reviews", style="green", justify="right")
+    table.add_column("Notes", style="dim", max_width=40)
+
+    call_num = 0
+    for competitor, url in targets:
+        asin = _extract_asin(url)
+        asin_part = asin or re.sub(r"[^a-zA-Z0-9]+", "-", url)[:20]
+        for star_filter in star_filters:
+            call_num += 1
+            short = STAR_FILTER_SHORT_NAMES.get(star_filter, star_filter)
+            cache_path = cache_dir / f"{competitor.slug}-{asin_part}-{short}.json"
+
+            if cache_path.exists() and not force_refresh:
+                import json as _json
+                data = _json.loads(cache_path.read_text(encoding="utf-8"))
+                table.add_row(
+                    str(call_num),
+                    competitor.name,
+                    asin or "?",
+                    short,
+                    str(len(data.get("reviews", []))),
+                    "(cached)",
+                )
+                continue
+
+            with console.status(
+                f"Scraping {competitor.name} {short} ({asin or 'no-ASIN'})..."
+            ):
+                bundle = scrape_amazon_reviews(
+                    product_url=url,
+                    competitor_slug=competitor.slug,
+                    competitor_name=competitor.name,
+                    max_reviews=max_reviews,
+                    star_filter=star_filter,
+                )
+            cache_amazon_bundle(client, bundle)
+            table.add_row(
+                str(call_num),
+                competitor.name,
+                bundle.asin or "?",
+                short,
+                str(len(bundle.reviews)),
+                (bundle.notes or "OK")[:40],
+            )
+
+    console.print(table)
+
+    # Tally totals per competitor
+    from collections import defaultdict
+    totals: dict[str, int] = defaultdict(int)
+    for path in cache_dir.glob("*.json"):
+        try:
+            import json as _json
+            d = _json.loads(path.read_text(encoding="utf-8"))
+            totals[d.get("competitor_name", "?")] += len(d.get("reviews", []))
+        except Exception:
+            continue
+    total_all = sum(totals.values())
+
+    console.print(
+        f"\n[green]Cached to: clients/{client}/research/amazon-reviews/[/green]"
+    )
+    console.print(f"[bold]Review totals per competitor:[/bold]")
+    for name, n in sorted(totals.items(), key=lambda x: -x[1]):
+        console.print(f"  {name}: {n}")
+    console.print(f"  [bold]TOTAL: {total_all} reviews[/bold]\n")
+    console.print(
+        f"[dim]Next: adc analyze-gaps --client {client} "
+        f"(will include Amazon data, stratified by star)[/dim]"
+    )
+
+    from strategy.cost_tracker import log_cost
+    log_cost(client, "adc research-amazon", multiplier=call_num,
+             note=f"{call_num} call(s), {total_all} review(s)")
+
+
+@cli.command(name="analyze-gaps")
+@click.option("--client", required=True, help="Client slug")
+@click.option("--synthesis-only", is_flag=True, default=False,
+              help="Re-run only the cross-competitor synthesis using existing per-brand analyses")
+def analyze_gaps(client: str, synthesis_only: bool):
+    """Run competitive gap analysis on cached research. Produces competitive-gaps.md/.yaml."""
+    from models.loader import load_brand
+    from strategy.gap_analyzer import analyze_competitive_gaps
+
+    brand = load_brand(client)
+    if synthesis_only:
+        console.print(f"[cyan]Re-synthesizing competitive gaps for {brand.name}...[/cyan]\n")
+    else:
+        console.print(f"[cyan]Analyzing competitive gaps for {brand.name}...[/cyan]")
+        console.print("[dim]This runs ~5-6 Claude passes (~$1-2 total). Hold tight.[/dim]\n")
+
+    output = analyze_competitive_gaps(client, brand.name, synthesis_only=synthesis_only)
+
+    syn = output.get("synthesis", {})
+    if syn.get("summary"):
+        console.print(f"[green]TL;DR:[/green] {syn['summary']}\n")
+
+    if syn.get("exploitable_gaps"):
+        table = Table(title="Exploitable Gaps")
+        table.add_column("Opportunity", style="cyan", max_width=40)
+        table.add_column("Competitors failing", style="yellow", max_width=25)
+        table.add_column("Ad angle", style="green", max_width=50)
+        for g in syn["exploitable_gaps"]:
+            table.add_row(
+                str(g.get("opportunity", ""))[:60],
+                ", ".join(g.get("competitors_failing", []))[:30],
+                str(g.get("ad_angle", ""))[:80],
+            )
+        console.print(table)
+
+    console.print(
+        f"\n[green]Saved:[/green]\n"
+        f"  clients/{client}/research/competitive-gaps.md\n"
+        f"  clients/{client}/research/competitive-gaps.yaml"
+    )
+
+    from strategy.cost_tracker import log_cost
+    cmd_name = "adc analyze-gaps-synthesis" if synthesis_only else "adc analyze-gaps"
+    log_cost(client, cmd_name,
+             note="synthesis only" if synthesis_only else "full per-brand + synthesis")
+
+
+# ─── Exa Web Research ───────────────────────────────────────────────────────
+
+
+@cli.command(name="research-web")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--competitors",
+    default=None,
+    help="Comma-separated competitor brand names (e.g. 'poppi,Health-Ade')",
+)
+@click.option(
+    "--category",
+    default=None,
+    help="Comma-separated category terms for discussion queries "
+    "(e.g. 'prebiotic soda,gut health drinks')",
+)
+@click.option(
+    "--force-refresh",
+    is_flag=True,
+    default=False,
+    help="Re-run queries even if cached. Default: skip cached (free re-runs).",
+)
+def research_web(client: str, competitors: str | None, category: str | None,
+                 force_refresh: bool):
+    """Run Exa web research for a client — Reddit + comparison + reviews + category."""
+    from models.loader import load_brand
+    from strategy.exa_research import run_research_bundle
+
+    brand = load_brand(client)
+    comp_list = [c.strip() for c in competitors.split(",")] if competitors else None
+    cat_list = [c.strip() for c in category.split(",")] if category else None
+
+    console.print(f"[cyan]Running Exa research for {brand.name}...[/cyan]")
+    if comp_list:
+        console.print(f"  Competitors: {', '.join(comp_list)}")
+    if cat_list:
+        console.print(f"  Category terms: {', '.join(cat_list)}")
+
+    results = run_research_bundle(
+        client_slug=client,
+        brand_name=brand.name,
+        competitors=comp_list,
+        category_terms=cat_list,
+        skip_cached=not force_refresh,
+    )
+
+    table = Table(title=f"Exa Research - {brand.name}")
+    table.add_column("#", style="dim", justify="right")
+    table.add_column("Label", style="cyan")
+    table.add_column("Category", style="yellow")
+    table.add_column("Hits", style="green", justify="right")
+    table.add_column("Top domain", style="dim")
+
+    for i, r in enumerate(results, 1):
+        top_domain = r.results[0].domain if r.results else "-"
+        table.add_row(
+            str(i),
+            r.query.label,
+            r.query.category,
+            str(len(r.results)),
+            top_domain,
+        )
+
+    console.print(table)
+    out_dir = Path("clients") / client / "research" / "exa" / "raw"
+    console.print(f"\n[green]Cached to: {out_dir}/[/green]")
+    console.print(
+        f"[dim]Total queries: {len(results)} | "
+        f"Re-run free (cached) | --force-refresh to override[/dim]"
+    )
+
+
 @cli.command()
 @click.option("--category", default=None, help="Filter by category: headline, comparison, ugc, etc.")
 @click.option("--product-type", default=None, help="Filter by product type: apparel, food, etc.")
@@ -2016,6 +2601,276 @@ def swipe_sync(library: str, category: str | None, max_per_category: int,
         table.add_row(s.category, str(s.fetched), str(s.downloaded),
                       str(s.skipped), str(s.errors))
     console.print(table)
+
+
+# ─── AI Ad Creation: Menu + Prompts ─────────────────────────────────────────
+
+
+AI_ADS_DIR = Path("ai-ads")
+
+
+def _truncate(s: str, n: int) -> str:
+    s = (s or "").replace("\n", " ").strip()
+    return s if len(s) <= n else s[: n - 3] + "..."
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--product", default=None, help="Optional: filter to a single product slug")
+def menu(client: str, product: str | None):
+    """Show all briefs for a client as a pickable menu."""
+    from models.loader import load_all_briefs
+
+    briefs = load_all_briefs(client)
+    if product:
+        briefs = [b for b in briefs if b.product == product]
+
+    if not briefs:
+        msg = f"No briefs found for '{client}'"
+        if product:
+            msg += f" / product '{product}'"
+        console.print(f"[yellow]{msg}.[/yellow]")
+        console.print(f"[dim]Run: adc brief --client {client} --product <product-slug>[/dim]")
+        return
+
+    table = Table(title=f"Brief Menu — {client}" + (f" / {product}" if product else ""))
+    table.add_column("#", style="bold cyan", justify="right")
+    table.add_column("Product", style="green", max_width=20)
+    table.add_column("Slot", style="yellow", justify="right")
+    table.add_column("Hook", style="white", max_width=60)
+    table.add_column("Angle", style="magenta", max_width=35)
+    table.add_column("Mechanic", style="blue", max_width=30)
+    table.add_column("Format", style="dim", max_width=30)
+    table.add_column("ID", style="dim")
+
+    for i, b in enumerate(briefs, 1):
+        table.add_row(
+            str(i),
+            b.product,
+            str(b.slot) if b.slot else "—",
+            _truncate(b.hook, 60),
+            _truncate(b.angle, 35),
+            _truncate(b.creative_mechanic, 30),
+            _truncate(b.visual_format, 30),
+            b.brief_id[-6:],
+        )
+
+    console.print(table)
+    console.print(
+        f"\n[green]Pick the ones you want and run:[/green]\n"
+        f"  adc prompts --client {client} --pick 1,3,5"
+    )
+
+
+def _format_notes_header(
+    brief: "CreativeBrief", product: "Product", aspect_ratio: str, image_refs: list[str]
+) -> str:
+    lines = [
+        "***** NOTES *****",
+        f"Brief:           {brief.brief_id}",
+        f"Product:         {product.name}",
+        f"Slot:            {brief.slot or '—'} / {brief.hook_type or 'unspecified'}",
+        f"Mechanic:        {brief.creative_mechanic or '—'}",
+        f"Format:          {brief.visual_format or '—'}",
+        f"Aspect ratio:    {aspect_ratio}",
+        f"Model:           fal-ai/nano-banana-2/edit",
+        f"Platform:        {brief.target_platform}",
+    ]
+    if image_refs:
+        lines.append(f"Product images:  {image_refs[0]}")
+        for ref in image_refs[1:]:
+            lines.append(f"                 {ref}")
+    else:
+        lines.append("Product images:  (none — add image_url or image_path to the product YAML)")
+    lines.append(f"Generated:       {date.today().isoformat()}")
+    lines.append("***** END NOTES *****")
+    return "\n".join(lines)
+
+
+def _collect_product_image_refs(product, client_slug: str) -> list[str]:
+    refs: list[str] = []
+    if product.image_url:
+        refs.append(product.image_url)
+    if product.image_path:
+        local = Path("clients") / client_slug / product.image_path
+        refs.append(str(local) if local.exists() else product.image_path)
+    refs.extend(product.additional_images or [])
+    return refs
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--pick", required=True, help="Comma-separated menu numbers from `adc menu`, e.g. 1,3,5")
+@click.option("--product", default=None, help="Optional: scope to a single product (must match `adc menu --product`)")
+def prompts(client: str, pick: str, product: str | None):
+    """Generate fal.ai prompts for the briefs you picked off `adc menu`."""
+    from models.loader import (
+        load_all_briefs,
+        load_brand,
+        load_product_by_name,
+        load_avatar,
+    )
+    from generators.prompt_engine import prompt_from_brief, infer_aspect_ratio
+
+    try:
+        picks = [int(x.strip()) for x in pick.split(",") if x.strip()]
+    except ValueError:
+        console.print("[red]Invalid --pick. Use comma-separated integers, e.g. 1,3,5[/red]")
+        raise SystemExit(1)
+
+    briefs = load_all_briefs(client)
+    if product:
+        briefs = [b for b in briefs if b.product == product]
+    if not briefs:
+        console.print(f"[yellow]No briefs found for '{client}'.[/yellow]")
+        raise SystemExit(1)
+
+    bad = [n for n in picks if n < 1 or n > len(briefs)]
+    if bad:
+        console.print(f"[red]Out-of-range picks: {bad}. Menu has {len(briefs)} briefs.[/red]")
+        raise SystemExit(1)
+
+    selected = [briefs[n - 1] for n in picks]
+
+    out_dir = AI_ADS_DIR / client / "prompts"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    brand = load_brand(client)
+    avatar = load_avatar(client)
+    product_cache: dict[str, object] = {}
+
+    for brief in selected:
+        if brief.product not in product_cache:
+            product_cache[brief.product] = load_product_by_name(client, brief.product)
+        prod = product_cache[brief.product]
+
+        aspect_ratio = infer_aspect_ratio(brief)
+        image_refs = _collect_product_image_refs(prod, client)
+
+        with console.status(f"Writing prompt for slot {brief.slot} — {brief.brief_id[-6:]}..."):
+            prompt_text = prompt_from_brief(
+                brief=brief,
+                brand=brand,
+                product=prod,
+                avatar=avatar,
+                aspect_ratio=aspect_ratio,
+            )
+
+        notes = _format_notes_header(brief, prod, aspect_ratio, image_refs)
+        out_path = out_dir / f"{brief.brief_id}.txt"
+        out_path.write_text(notes + "\n\n" + prompt_text + "\n", encoding="utf-8")
+        console.print(f"[green]\\[OK][/green] {out_path}")
+
+    console.print(
+        f"\n[green]Wrote {len(selected)} prompt(s) to {out_dir}/[/green]\n"
+        f"[dim]Paste each .txt into fal.ai along with the product images listed in its NOTES block.[/dim]"
+    )
+
+    from strategy.cost_tracker import log_cost
+    log_cost(client, "adc prompts", multiplier=len(selected),
+             note=f"{len(selected)} prompt(s)")
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--pick", required=True, help="Comma-separated menu numbers from `adc menu`, e.g. 1,3,5")
+@click.option("--product", default=None, help="Optional: scope to a single product")
+@click.option("--num-images", default=1, type=int, help="How many image variations per pick (default 1)")
+@click.option("--aspect-ratio", default=None, help="Override aspect ratio (default: inferred from brief)")
+@click.option("--thinking", default="disabled", help="NB2 thinking level: disabled, low, medium, high")
+def generate(client: str, pick: str, product: str | None, num_images: int,
+             aspect_ratio: str | None, thinking: str):
+    """Generate finished ad images for picked briefs — writes prompts AND calls fal.ai."""
+    from models.loader import (
+        load_all_briefs,
+        load_brand,
+        load_product_by_name,
+        load_avatar,
+    )
+    from generators.image_generator import generate_from_brief
+    from generators.prompt_engine import infer_aspect_ratio
+
+    try:
+        picks = [int(x.strip()) for x in pick.split(",") if x.strip()]
+    except ValueError:
+        console.print("[red]Invalid --pick. Use comma-separated integers, e.g. 1,3,5[/red]")
+        raise SystemExit(1)
+
+    briefs = load_all_briefs(client)
+    if product:
+        briefs = [b for b in briefs if b.product == product]
+    if not briefs:
+        console.print(f"[yellow]No briefs found for '{client}'.[/yellow]")
+        raise SystemExit(1)
+
+    bad = [n for n in picks if n < 1 or n > len(briefs)]
+    if bad:
+        console.print(f"[red]Out-of-range picks: {bad}. Menu has {len(briefs)} briefs.[/red]")
+        raise SystemExit(1)
+
+    selected = [briefs[n - 1] for n in picks]
+
+    prompts_dir = AI_ADS_DIR / client / "prompts"
+    images_dir = AI_ADS_DIR / client / "images"
+    prompts_dir.mkdir(parents=True, exist_ok=True)
+    images_dir.mkdir(parents=True, exist_ok=True)
+
+    brand = load_brand(client)
+    avatar = load_avatar(client)
+    product_cache: dict[str, object] = {}
+
+    for brief in selected:
+        if brief.product not in product_cache:
+            product_cache[brief.product] = load_product_by_name(client, brief.product)
+        prod = product_cache[brief.product]
+
+        ar = aspect_ratio or infer_aspect_ratio(brief)
+        image_refs = _collect_product_image_refs(prod, client)
+
+        with console.status(
+            f"Slot {brief.slot} ({brief.brief_id[-6:]}) — writing prompt + generating {num_images} image(s)..."
+        ):
+            prompt_text, results = generate_from_brief(
+                brief=brief,
+                brand=brand,
+                product=prod,
+                avatar=avatar,
+                client_slug=client,
+                output_dir=images_dir,
+                num_images=num_images,
+                aspect_ratio=ar,
+                thinking_level=thinking,
+            )
+
+        local_paths = [str(r.local_path) for r in results if r.local_path]
+        seed = results[0].seed if results else None
+
+        notes = _format_notes_header(brief, prod, ar, image_refs)
+        if local_paths:
+            extra = ["", "***** GENERATED *****"]
+            extra.append(f"Seed:            {seed}")
+            extra.append(f"Output image(s): {local_paths[0]}")
+            for p in local_paths[1:]:
+                extra.append(f"                 {p}")
+            extra.append("***** END GENERATED *****")
+            notes = notes + "\n" + "\n".join(extra)
+
+        prompt_path = prompts_dir / f"{brief.brief_id}.txt"
+        prompt_path.write_text(notes + "\n\n" + prompt_text + "\n", encoding="utf-8")
+
+        console.print(f"[green]\\[OK][/green] {prompt_path}")
+        for p in local_paths:
+            console.print(f"       {p}")
+
+    console.print(
+        f"\n[green]Generated {len(selected)} ad(s) × {num_images} image(s) "
+        f"to {images_dir}/[/green]"
+    )
+
+    from strategy.cost_tracker import log_cost
+    total_images = len(selected) * num_images
+    log_cost(client, "adc generate", multiplier=total_images,
+             note=f"{total_images} image(s)")
 
 
 if __name__ == "__main__":

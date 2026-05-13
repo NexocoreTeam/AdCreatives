@@ -1,0 +1,33 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-55317b
+Product:         Classic Root Beer
+Slot:            5 / Direct Address / Call-out
+Mechanic:        Implied Answer — the hook poses the situation, and the visual (the OLIPOP can) answers it without the copy having to explain anything
+Format:          Split-screen static — left side: plain sparkling water can looking sad and utilitarian, right side: OLIPOP Classic Root Beer looking warm and inviting. No text needed except the hook.
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-04
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-55317b_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Create a 1:1 square static ad image using a split-screen composition divided cleanly down the center — left half and right half in equal portions. The overall mood contrast is the entire point: left side feels deflating and joyless, right side feels warm, nostalgic, and alive.
+
+LEFT SIDE — "The Settling Side": Flat, desaturated, slightly cool-gray atmosphere. A plain, generic sparkling water can — slim, white or silver, minimal branding, no personality. The can sits alone on a flat surface, slightly slumped or ordinary in its posture. The lighting is flat and fluorescent, the background a muted gray-white. No warmth. No texture. The visual energy is low. The can should feel like the responsible but disappointing choice — functional, forgettable. Mood: resignation.
+
+RIGHT SIDE — "The OLIPOP Side": Warm, golden-amber tones. The OLIPOP Classic Root Beer can — reproduce the exact can design from the reference image with complete fidelity: the correct OLIPOP logo typography, the Classic Root Beer label text, the exact illustrated label art, packaging colors, and any graphic elements shown on the can. The can is upright, confident, slightly tilted toward the viewer as if leaning in. Warm backlighting with a soft amber glow, as if lit by late afternoon sun or nostalgic neon. The background hints at a classic diner or retro counter — warm wood tones, a slight blur of nostalgia without being literal. The can feels like a reward. Mood: warmth, satisfaction, homecoming.
+
+DIVIDING LINE: A thin, clean vertical line or a natural lighting transition separates the two halves — not harsh or clinical, more like the moment before and after a decision.
+
+ON-IMAGE TEXT: In the upper third of the image, centered across both halves, place the hook in clean, confident sans-serif typography: "This one's for whoever has been drinking sparkling water and telling themselves it's basically the same thing. It's not. And you know it." Text should be legible in white with a subtle shadow so it reads across both backgrounds. In the lower third, centered, place the CTA in bold: "Stop settling. Start here." Use the OLIPOP brand typographic style — playful but grounded, not clinical.
+
+The emotional contrast between the two halves does the persuasion work. No arrows, no labels, no clinical comparison markers — just two realities side by side, and the viewer's gut does the rest.
+
+1:1 aspect ratio.

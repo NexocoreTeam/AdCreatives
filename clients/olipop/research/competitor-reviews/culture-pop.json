@@ -1,0 +1,17 @@
+{
+  "competitor": {
+    "name": "Culture Pop",
+    "slug": "culture-pop",
+    "url": "https://culturepopsoda.com",
+    "type": "direct",
+    "priority": "tier1",
+    "notes": "Probiotic (not prebiotic) soda. Adds live cultures vs Olipop's prebiotic fiber.\nSmaller scale but same gut-health-soda positioning.\n"
+  },
+  "vendor": "none",
+  "reviews": [],
+  "scraped_pages": [
+    "https://culturepopsoda.com"
+  ],
+  "fetched_at": "2026-05-11T20:48:31.387442Z",
+  "notes": "No product pages found for https://culturepopsoda.com. Site may not be Shopify or sitemap is unavailable."
+}

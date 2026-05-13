@@ -37,6 +37,20 @@ def load_product(client_slug: str, product_slug: str) -> Product:
     return Product(**_load_yaml(path))
 
 
+def load_product_by_name(client_slug: str, product_name: str) -> Product:
+    """Find a product by its display name (CreativeBrief stores name, not slug)."""
+    products_dir = CLIENTS_DIR / client_slug / "products"
+    if not products_dir.exists():
+        raise FileNotFoundError(f"Products dir not found: {products_dir}")
+    for path in products_dir.glob("*.yaml"):
+        product = Product(**_load_yaml(path))
+        if product.name == product_name:
+            return product
+    raise FileNotFoundError(
+        f"No product with name '{product_name}' in {products_dir}"
+    )
+
+
 def load_avatar(client_slug: str) -> CustomerAvatar | None:
     path = CLIENTS_DIR / client_slug / "avatar.yaml"
     if not path.exists():
@@ -152,3 +166,13 @@ def load_brief(client_slug: str, brief_id: str) -> CreativeBrief:
     if not path.exists():
         raise FileNotFoundError(f"Brief not found: {path}")
     return CreativeBrief(**_load_yaml(path))
+
+
+def load_all_briefs(client_slug: str) -> list[CreativeBrief]:
+    """Load every brief on disk for a client, sorted by product then slot."""
+    dir_path = CLIENTS_DIR / client_slug / "briefs"
+    if not dir_path.exists():
+        return []
+    briefs = [CreativeBrief(**_load_yaml(p)) for p in sorted(dir_path.glob("*.yaml"))]
+    briefs.sort(key=lambda b: (b.product, b.slot or 0, b.brief_id))
+    return briefs

@@ -1,0 +1,38 @@
+brief_id: olipop-classic-root-beer-5c20c3
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: fab
+angle: "The reason OLIPOP tastes like root beer isn't artificial flavoring \u2014\
+  \ it's something most people have never heard of"
+hook: There's a tree bark in this soda. And it's the reason it tastes exactly like
+  the root beer you grew up with.
+hook_type: Curiosity Gap
+slot: 4
+hook_source: 'Unique mechanism: botanically inspired blend including sweet birch that
+  replicates the traditional root beer bite and creaminess'
+hook_tactic: "Curiosity \u2014 tease a mechanism the viewer doesn't understand yet\
+  \ but wants to"
+persona: "The curious wellness explorer \u2014 someone who reads ingredient labels,\
+  \ follows nutrition content, and wants to understand why something works, not just\
+  \ that it does"
+creative_mechanic: "Mechanism Reveal \u2014 introduce the functional ingredient as\
+  \ a story beat, building intrigue before the payoff (it tastes like the real thing\
+  \ because of something real)"
+visual_format: "Text-on-video \u2014 slow zoom on the can with ingredient callout\
+  \ text appearing line by line. Feels like a discovery, not a commercial."
+pain_point: "Confused by gut health marketing \u2014 doesn't fully understand what\
+  \ prebiotics do"
+benefit_callouts:
+- "Sweet birch \u2014 the botanical behind the bite"
+- No artificial flavoring. No shortcuts.
+- Real flavor from real ingredients
+cta: Read the can. It'll make sense.
+body_copy: ''
+visual_direction: "Close-up on the can label \u2014 specifically the ingredient area\
+  \ \u2014 with natural, warm light. The image should feel like an invitation to look\
+  \ closer, not a product shot. Maybe a hand holding the can casually while someone\
+  \ appears to be reading it."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

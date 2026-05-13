@@ -1,0 +1,39 @@
+brief_id: secondkind-gut-balance-fdbee8
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+framework: quest
+angle: "The reason her mood crashes mid-afternoon has nothing to do with her mind\
+  \ \u2014 it's her gut"
+hook: "What if the reason you feel emotionally flat by 3pm isn't stress, hormones,\
+  \ or your job \u2014 and nobody's ever tested the right thing?"
+hook_type: Curiosity Gap
+slot: 4
+hook_source: 'Pain point: unexplained mood swings and emotional flatness they haven''t
+  linked to gut health; key benefit: supports gut-brain connection'
+hook_tactic: "Unexplained connection between two things the viewer has never linked\
+  \ \u2014 gut health and mood \u2014 opened as a question that implies hidden knowledge\
+  \ the brand holds"
+persona: "Woman 30\u201344 who has tried therapy, tracked her cycle, adjusted her\
+  \ sleep, and still experiences emotional instability she can't explain \u2014 open\
+  \ to the idea that she's been looking in the wrong place"
+creative_mechanic: "Open Loop with Mechanism Tease \u2014 question is genuinely unanswered\
+  \ in the hook itself; the visual and body copy introduce the gut-brain axis as the\
+  \ reveal, creating intellectual momentum"
+visual_format: "Split-screen static \u2014 left side: person staring at laptop looking\
+  \ foggy and flat; right side: same person, brighter, more present; gut health copy\
+  \ bridges the two images without being explicit"
+pain_point: Unexplained mood swings, stress, or emotional flatness they haven't linked
+  to gut health
+benefit_callouts:
+- Your gut makes 90% of your body's serotonin
+- "BiomeBalance\u2122 works through the gut-brain axis"
+- Emotional clarity starts in the microbiome
+cta: Learn why your gut affects your mood
+body_copy: ''
+visual_direction: "Left panel is slightly desaturated and soft-focus; right panel\
+  \ is color-corrected warm and sharp \u2014 same person, different gut \u2014 no\
+  \ text on faces, stat or mechanism callout runs across the bottom"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

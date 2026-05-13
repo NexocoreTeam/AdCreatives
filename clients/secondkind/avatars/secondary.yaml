@@ -1,0 +1,103 @@
+name: Gut-Brain Connector Gabby
+demographic: Female, 26–38, urban or college-town adjacent, single or early-relationship,
+  income $55K–$90K, likely works in a creative, tech, or education-adjacent field,
+  highly online, Instagram and TikTok user who follows wellness and mental health
+  content
+psychographic: Gabby has done a lot of personal growth work — therapy, journaling,
+  mindfulness apps — and she's genuinely curious about the connection between her
+  body and her mental state. She's been reading about the gut-brain axis, serotonin
+  production in the gut, and the microbiome's role in mood. She doesn't think of herself
+  as someone with a 'gut health' problem; she thinks of herself as someone managing
+  anxiety, low mood, or energy inconsistency who is now discovering the body systems
+  underneath it. The science clicks for her because it reframes her mental experience
+  as something physically addressable.
+pain_points:
+- pain: Mood instability and low-grade anxiety she can't fully attribute to life circumstances
+    — it feels physiological but she hasn't been able to connect it to anything actionable
+  intensity: high
+  customer_language:
+  - I do everything right — I exercise, I sleep okay, I go to therapy — and I still
+    just feel kind of flat
+  - My anxiety doesn't make sense in context. There's nothing objectively wrong.
+  - I feel like I'm running on 70%. I can't figure out why.
+  source: auto_from_brand_context
+- pain: Brain fog and focus problems that affect her work and make her feel like she's
+    underperforming relative to her actual capabilities
+  intensity: high
+  customer_language:
+  - brain fog I didn't even realize I had
+  - I keep rereading the same sentence
+  - I feel like I used to be sharper
+  source: auto_from_brand_context
+- pain: Sleep that isn't restorative — she gets enough hours but wakes up unrefreshed,
+    which she's starting to suspect is connected to something systemic
+  intensity: medium
+  customer_language:
+  - I sleep for eight hours and wake up exhausted
+  - My sleep quality is just bad. I wake up multiple times.
+  - I never feel rested even when I get enough sleep
+  source: auto_from_brand_context
+- pain: Skepticism about standalone mood supplements — she's tried magnesium gummies
+    and ashwagandha and found them underwhelming, and she suspects they're treating
+    symptoms rather than causes
+  intensity: medium
+  customer_language:
+  - Ashwagandha did basically nothing for me
+  - I feel like these wellness gummies are just expensive sugar
+  - I want something that addresses why I feel this way, not just something that kind
+    of takes the edge off
+  source: auto_from_brand_context
+desires:
+- desire: Mental clarity and emotional steadiness that feel earned by her body working
+    correctly, not just managed through supplements or coping strategies
+  customer_language:
+  - I want to feel like my brain is actually working
+  - I want to feel stable. Not just less bad.
+- desire: A scientific framework that explains her symptoms — she wants to understand
+    the mechanism, not just be told something works
+  customer_language:
+  - Once I understood that most of your serotonin is made in your gut, everything
+    clicked
+  - I like knowing the why. I'm not going to just take something because a brand says
+    so.
+- desire: Better sleep that actually translates into energy and presence the next
+    day
+  customer_language:
+  - I want to wake up and feel like I slept
+  - I just want one week where I'm not exhausted by 2pm
+objections:
+- I already tried magnesium and ashwagandha and felt nothing — why would this be different?
+- Is the gut-brain connection actually proven or is this just the new wellness trend
+  with a science-y name?
+- I'm not sure I want melatonin in something I'm taking daily — doesn't that make
+  you dependent on it?
+- This feels like it's trying to do too many things — gut health AND mood? Which one
+  does it actually do?
+current_solutions:
+- Magnesium glycinate or magnesium gummies for sleep and anxiety
+- Ashwagandha or adaptogen supplements
+- Therapy or mindfulness apps (Headspace, Calm)
+- Trying to optimize sleep hygiene — no screens, consistent bedtime
+- Caffeine cycling to manage energy crashes
+- B-complex vitamins for energy and focus
+trigger_events:
+- Watches a video or reads an article about the gut-brain axis — specifically the
+  statistic that 91% of serotonin is produced in the gut — and has a 'wait, that explains
+  everything' moment
+- Therapist or doctor mentions that gut health may be contributing to her anxiety
+  or mood symptoms, and she goes down a research rabbit hole
+- Has a particularly bad week of brain fog and flat mood with no obvious external
+  cause, decides she has to try something different
+- Sees a peer on social media crediting a postbiotic for their improved mood and focus
+  in a way that sounds genuinely specific rather than like an ad
+awareness_level: problem_aware
+language_patterns:
+- More introspective and emotionally articulate than the primary persona — she describes
+  her internal experience with nuance
+- 'Draws on therapy language: ''nervous system,'' ''dysregulated,'' ''I''ve been working
+  on,'' ''my body''s response to stress'''
+- Scientifically curious — will go read the cited study rather than just accept the
+  claim
+- Uses 'I feel like' constructions a lot — her symptoms are felt, not measured
+- 'Instagram wellness vocabulary: gut-brain axis, nervous system, serotonin, inflammation,
+  microbiome, nervous system regulation'

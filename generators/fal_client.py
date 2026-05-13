@@ -73,6 +73,20 @@ def resolve_product_images(
     return urls
 
 
+def _extract_seed(result: dict) -> int | None:
+    """fal.ai's NB2 response shape varies; try every place the seed might live."""
+    if not isinstance(result, dict):
+        return None
+    for key in ("seed", "request_seed", "used_seed"):
+        if result.get(key) is not None:
+            return result[key]
+    for nested_key in ("metadata", "data", "request"):
+        nested = result.get(nested_key)
+        if isinstance(nested, dict) and nested.get("seed") is not None:
+            return nested["seed"]
+    return None
+
+
 def generate(
     prompt: str,
     product_image_urls: list[str],
@@ -109,11 +123,14 @@ def generate(
 
     result = fal_client.subscribe(NB2_EDIT, arguments=arguments)
 
+    response_seed = _extract_seed(result)
+
     results = []
     for image in result.get("images", []):
+        per_image_seed = image.get("seed") if isinstance(image, dict) else None
         results.append(GenerationResult(
             image_url=image.get("url", ""),
-            seed=result.get("seed"),
+            seed=per_image_seed if per_image_seed is not None else response_seed,
             model=NB2_EDIT,
             prompt_used=prompt,
             product_images_used=product_image_urls,
@@ -158,11 +175,14 @@ def generate_text_only(
 
     result = fal_client.subscribe(NB2_TEXT, arguments=arguments)
 
+    response_seed = _extract_seed(result)
+
     results = []
     for image in result.get("images", []):
+        per_image_seed = image.get("seed") if isinstance(image, dict) else None
         results.append(GenerationResult(
             image_url=image.get("url", ""),
-            seed=result.get("seed"),
+            seed=per_image_seed if per_image_seed is not None else response_seed,
             model=NB2_TEXT,
             prompt_used=prompt,
             aspect_ratio=aspect_ratio,

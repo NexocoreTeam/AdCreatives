@@ -1,0 +1,46 @@
+***** NOTES *****
+Brief:           magic-spoon-original-protein-cereal-variety-6-pack-62d723
+Product:         Original Protein Cereal Variety 6-Pack
+Slot:            1 / Surprising Stat
+Mechanic:        Stat Reveal with Sensory Anchor — open on the number, land on the emotional payoff
+Format:          Text-on-product photo — macro shot of a cereal-filled spoon, nutrition callouts overlaid in bold
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://magicspoon.com/cdn/shop/files/MS_C_VARIETY_6PACK_HERO.png?v=1733411891
+Generated:       2026-05-04
+***** END NOTES *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Create a single high-impact static ad image for Magic Spoon Original Protein Cereal. The visual format is a macro product photo with bold nutrition callouts overlaid as clean typography — a nutrition label that got a glow-up.
+
+HERO VISUAL: Extreme close-up macro shot of a heaped cereal spoon loaded with Magic Spoon Frosted cereal pieces — small, pillowy, puffed pieces with a light frosted sugar-crystal appearance — lifted just above a bright white ceramic bowl filled with milk. The cereal pieces are the clear focal point. The spoon is silver, tilted slightly toward the camera so the pile of cereal reads as generous and abundant. Shallow depth of field keeps the cereal in crisp focus while the bowl and background fall into a soft, slightly blurred warmth. The background is pure white (#FFFFFF) with a subtle warm light source from the upper left giving the milk a faint golden shimmer. The mood is bright, clean, appetizing — like a premium food magazine shot crossed with a confident DTC brand.
+
+LIGHTING: Bright, high-key natural-style lighting. Soft shadows under the spoon. The cereal pieces should look slightly luminous — tactile, crunchy, craveable. No dark or moody tones. This is a morning energy image, not a dinnertime image.
+
+TEXT OVERLAYS — placed cleanly over the image in a bold, modern sans-serif typeface (think clean geometric type, white text with subtle dark drop shadow or a frosted pill-shaped background so it reads on the bright photo):
+
+Top center or upper-left area, largest text on the image:
+"13g protein. 4g sugar."
+Set in two lines, very large and bold — these numbers should dominate the upper portion of the image like a stat callout.
+
+Directly beneath, in slightly smaller but still prominent text:
+"One bowl of Frosted cereal that tastes like you're 9 years old again."
+This line is set in a slightly lighter weight than the stat line — still bold but conversational.
+
+Three benefit pill/badge callouts arranged horizontally below the main headline (small rounded-rectangle label style, white background with brand-colored text or vice versa):
+— "13g Protein Per Bowl"
+— "4g Sugar (not a typo)"
+— "Tastes like Frosted cereal. Because it is."
+
+Bottom of the frame, in clean smaller type:
+"Try the Variety 6-Pack — see which flavor you finish first."
+
+The Magic Spoon logo should appear in the lower-right corner, reproduced exactly as shown in the reference image — same wordmark, same color treatment.
+
+COMPOSITION: The spoon occupies roughly the center-left 60% of the frame. Text lives in the upper portion and bottom strip, leaving the macro cereal shot breathing room. The layout feels like a premium food brand that also happens to have a nutrition story worth shouting — not a supplement label, not a diet ad. Playful confidence. Clean grid. Nothing cluttered.
+
+OVERALL MOOD: Nostalgic but modern. The cereal looks undeniably delicious — like something you'd eat as a kid — but the typography is crisp and wellness-fluent. The stat contrast (13g protein vs. 4g sugar) is the visual hero. The spoon shot is the emotional anchor. Together they deliver: this is real cereal that is somehow also the smart choice.
+
+1:1 aspect ratio.

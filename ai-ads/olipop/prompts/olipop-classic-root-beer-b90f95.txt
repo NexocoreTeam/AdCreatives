@@ -1,0 +1,36 @@
+***** NOTES *****
+Brief:           olipop-classic-root-beer-b90f95
+Product:         Classic Root Beer
+Slot:            7 / Question (Self-reference)
+Mechanic:        reframing_perception_plus_emotional_trigger
+Format:          Lifestyle video — someone reaching past a LaCroix in the fridge and grabbing the OLIPOP instead, shot from inside the fridge looking out. Mundane moment made satisfying.
+Aspect ratio:    1:1
+Model:           fal-ai/nano-banana-2/edit
+Platform:        meta
+Product images:  https://drinkolipop.com/cdn/shop/files/Classic-Root-Beer_cgi-product-selector.png?crop=center&height=368&v=1745465203&width=896
+Generated:       2026-05-11
+***** END NOTES *****
+
+***** GENERATED *****
+Seed:            None
+Output image(s): ai-ads\olipop\images\olipop-classic-root-beer-b90f95_1x1.png
+***** END GENERATED *****
+
+Use the attached images as brand reference. Match the exact product design, colors, and packaging precisely.
+
+Shoot a single still frame from inside a refrigerator looking outward — a POV shot through chilled glass shelves and soft interior fridge light. A woman's hand and forearm reach confidently into frame from the right, fingers already wrapped around an OLIPOP Classic Root Beer can — the exact can from the reference images, reproducing the label design, color palette, typography, and any illustrated graphics faithfully. In the background, slightly out of focus and pushed to the left, sits a can of LaCroix sparkling water — passed over, ignored. The OLIPOP can is centered, sharp, and lit warmly by the fridge's interior glow. There is no hesitation in the hand — the reach is direct, certain, already done.
+
+The mood is quietly satisfying. Not celebratory, not dramatic — just a woman taking the thing she actually wants. The fridge light creates a cool blue-white ambient glow that makes the OLIPOP can's warm label colors pop. Condensation visible on the can surface. Shelves faintly visible in soft focus behind.
+
+Overlay the following text elements in clean, modern sans-serif typography — warm and confident in tone, consistent with OLIPOP's playful brand voice:
+
+Top of frame, centered: "What if the soda you actually want is also the one that's good for your gut?"
+
+Bottom left, stacked in three short lines:
+"Classic root beer flavor. For real."
+"Prebiotic fiber from real botanicals."
+"The soda that doesn't ask you to settle."
+
+Bottom right, bold: "Stop settling for sparkling water."
+
+White background outside the fridge frame if any bleed is needed. Photography direction: macro-leaning wide angle, shallow depth of field, warm practical fridge light as key light, cool ambient fill. Composition anchors on the can and the hand — everything else recedes. 1:1 aspect ratio.

@@ -1,0 +1,86 @@
+name: Auto-drafted — please review and rename
+demographic: Health-conscious adults 28–45, skewing female, likely urban or suburban,
+  college-educated, mid-to-high income ($60K+). Has an established wellness routine
+  (gym, clean eating, supplements) but experiences persistent symptoms — bloating,
+  brain fog, low energy, mood swings — that their current regimen hasn't resolved.
+  Has previously purchased and been disappointed by probiotics. Treats their body
+  like a system they want to optimize, not just symptoms to suppress.
+psychographic: ''
+pain_points:
+- pain: Persistent bloating that doesn't go away even when eating clean
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Brain fog — difficulty concentrating, feeling mentally slow
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Low or inconsistent energy throughout the day
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Mood instability — irritability, feeling emotionally off without a clear reason
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Tried probiotics (often multiple brands) and felt nothing meaningful
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Irregular digestion — constipation, unpredictable gut
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Difficulty unwinding or sleeping well
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Feeling 'off' despite doing everything right — diet, exercise, sleep
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Frustration with supplement industry overpromising and underdelivering
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+desires:
+- desire: Feel lighter and less physically uncomfortable after meals
+  customer_language: []
+- desire: Mental clarity and sharper focus
+  customer_language: []
+- desire: Emotional steadiness and stress resilience
+  customer_language: []
+- desire: A supplement that actually works — not another 'maybe'
+  customer_language: []
+- desire: Understand why they feel the way they feel (science credibility matters)
+  customer_language: []
+- desire: Feel like themselves again
+  customer_language: []
+- desire: Consistent energy without crashes
+  customer_language: []
+- desire: Better sleep and morning recovery
+  customer_language: []
+- desire: A daily ritual that visibly supports whole-body health
+  customer_language: []
+objections:
+- I've tried probiotics before and they didn't work — why would this be different?
+- Is this just another overhyped supplement?
+- $50/month is a lot to spend on something that might not work
+- What even is a postbiotic? I've never heard of this
+- Will it cause bloating or adjustment symptoms like some probiotics do?
+- Is there real clinical evidence behind this or just marketing claims?
+- I'm not sure if my gut is actually the problem
+trigger_events:
+- Started a new health kick / New Year's resolution
+- Post-pregnancy body recovery and gut dysbiosis
+- Increased stress levels from work or life changes causing gut/mood symptoms to worsen
+- Recently diagnosed or self-identified with IBS or gut sensitivity
+- Tried and abandoned a popular probiotic brand
+- Saw content about the gut-brain axis (serotonin being made in the gut) and made
+  the connection to their mood symptoms
+- Doctor or nutritionist recommended gut support
+- Friend or family member recommended SecondKind specifically
+- Persistent bloating before a social event / vacation
+awareness_level: solution_aware
+language_patterns: []
+current_solutions: []

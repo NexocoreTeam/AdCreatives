@@ -14,3 +14,17 @@ clients/*/.drive_cache/
 # Scratch directory for one-off generated assets (PDFs, images via fal.ai).
 # Test fixtures, not committed.
 scratch/
+
+# Per-client output directories. Only the canonical template + intentionally-
+# committed test clients live in git. New `adc init-client` / `adc research`
+# runs create local-only working dirs that should not clutter `git status`.
+clients/*/
+!clients/_template/
+!clients/magic-spoon/
+!clients/olipop/
+!clients/sbg-co/
+!clients/sbg-co-fresh/
+!clients/secondkind/
+
+# Cost log per client — append-only, regenerable, not source-of-truth
+clients/*/.cost-log.jsonl
