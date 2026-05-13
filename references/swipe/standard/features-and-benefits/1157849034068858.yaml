@@ -1,0 +1,102 @@
+ad_id: '1157849034068858'
+foreplay_id: LcIeL6f33DKq0sfMN798
+brand: Bloom Nutrition
+brand_id: 64hvNXqYTBVCGVaLK7Q4
+library: standard
+category: features-and-benefits
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Bloom Nutrition
+  brand_id: 64hvNXqYTBVCGVaLK7Q4
+  niche: Health/Wellness
+  classifier: foreplay-ui-content-style
+  classification:
+    category: features-and-benefits
+    source: scraped
+    foreplay_label: Features and Benefits
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:56:59Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1777618800000
+headline: FREE Limited Edition Tote!
+description: A NEW GIFT JUST DROPPED! Get a FREE limited edition Icon Tote with all $55+ orders, while
+  supplies last 🌻
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://bloomnu.com/products/greens-dream-team?variant=46959771877476
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+- threads
+niches:
+- Health/Wellness
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: unknown
+emotional_drivers:
+  achievement: 1
+  anger: 1
+  authority: 1
+  belonging: 1
+  competence: 1
+  curiosity: 3
+  empowerment: 1
+  engagement: 4
+  esteem: 2
+  fear: 1
+  guilt: 1
+  nostalgia: 1
+  nurturance: 1
+  security: 1
+  urgency: 8
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.246
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1157849034068858.png
+  source_image_url: https://r2.foreplay.co/46219d6e529641a91dfb0e0043bf08cb7ab6d0f661bb66ee758bd376bdb9dcd4.png
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

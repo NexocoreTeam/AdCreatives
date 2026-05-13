@@ -1,0 +1,102 @@
+ad_id: '634651264423125'
+foreplay_id: afe45s7hL53BYZXB4KTz
+brand: Petlab Co.
+brand_id: 5ugrdEuRFIrDkEahk7Bn
+library: standard
+category: features-and-benefits
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: PetLab Co.
+  brand_id: 5ugrdEuRFIrDkEahk7Bn
+  niche: Pets
+  classifier: foreplay-ui-content-style
+  classification:
+    category: features-and-benefits
+    source: scraped
+    foreplay_label: Features and Benefits
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:57:18Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: false
+started_running: 1642770614834
+headline: ''
+description: Start investing in your pup’s immune response today!<br /> <br /> Owners across the world
+  are blown away by the results of our effective Probiotic Chews, learn more below and secure a discount
+  today 💛
+cta:
+  type: GET_OFFER
+  title: ''
+link_url: https://offer.thepetlabco.com/probiotic-chews
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Pets
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 1
+  anger: 1
+  authority: 1
+  belonging: 1
+  competence: 1
+  curiosity: 2
+  empowerment: 2
+  engagement: 2
+  esteem: 3
+  fear: 1
+  guilt: 1
+  nostalgia: 1
+  nurturance: 7
+  security: 6
+  urgency: 4
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.155
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 634651264423125.jpg
+  source_image_url: https://r2.foreplay.co/634651264423125/e696ab50648c4d19e48befafd89ab866.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

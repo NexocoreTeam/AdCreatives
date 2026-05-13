@@ -1,0 +1,103 @@
+ad_id: '1457683908827800'
+foreplay_id: yChs4on9qkIMNpndfAuQ
+brand: PlantYou
+brand_id: LCcVcWJ3kSpxdqMua0ZC
+library: standard
+category: promotion-and-discount
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Wild
+  brand_id: LCcVcWJ3kSpxdqMua0ZC
+  niche: Entertainment
+  classifier: foreplay-ui-content-style
+  classification:
+    category: promotion-and-discount
+    source: scraped
+    foreplay_label: Promotion and Discount
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:57:00Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1778223600000
+headline: Get 20% off all Wild products with code PLANTYOU
+description: "Shop Wild deodorant with code PLANTYOU\n♻️ Single-use plastic free \n\U0001F33B Made from\
+  \ 98% natural ingredients \n\U0001F6AB No aluminum salts or parabens \n\U0001F929 Rated 'Excellent'\
+  \ with over 70,000 five star reviews \n\U0001F4B7 100% Effective - 30 day money-back guarantee \n\U0001F4E6\
+  \ Delivered straight to your door when you need it"
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://wearewild.com/us/products/deodorant/?discount=PLANTYOU
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Entertainment
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 3
+  anger: 1
+  authority: 6
+  belonging: 2
+  competence: 2
+  curiosity: 3
+  empowerment: 4
+  engagement: 5
+  esteem: 3
+  fear: 2
+  guilt: 4
+  nostalgia: 1
+  nurturance: 7
+  security: 8
+  urgency: 5
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.271
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.042
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1457683908827800.jpg
+  source_image_url: https://r2.foreplay.co/910d9a45278abed5c4596ea1c9bea2efb2f9877669c8a8097209ee676d740544.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

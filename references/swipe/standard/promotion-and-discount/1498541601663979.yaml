@@ -1,0 +1,100 @@
+ad_id: '1498541601663979'
+foreplay_id: MxV1ATLbsd2uedZEjv7V
+brand: Modibodi
+brand_id: feZxkQKEjBrB4RwDimxm
+library: standard
+category: promotion-and-discount
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Modibodi
+  brand_id: feZxkQKEjBrB4RwDimxm
+  niche: Fashion
+  classifier: foreplay-ui-content-style
+  classification:
+    category: promotion-and-discount
+    source: scraped
+    foreplay_label: Promotion and Discount
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:57:35Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1778482800000
+headline: Limited Restock - Get Yours Now!
+description: Most-loved, comfy as. Your leak-proof period faves are back! Grab yours now before they're
+  gone (again).
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.modibodi.com/collections/back-in-stock?filter.p.m.custom.size_chart_popup_type=Womens
+publisher_platform:
+- facebook
+- instagram
+- messenger
+niches:
+- Fashion
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: woman
+emotional_drivers:
+  achievement: 2
+  anger: 1
+  authority: 2
+  belonging: 2
+  competence: 3
+  curiosity: 3
+  empowerment: 7
+  engagement: 5
+  esteem: 4
+  fear: 2
+  guilt: 1
+  nostalgia: 2
+  nurturance: 4
+  security: 8
+  urgency: 9
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.45
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1498541601663979.png
+  source_image_url: https://r2.foreplay.co/1fbd85a093d06d859f0b9b36da9d2a1f2f318df97d5c4f8da8ef440d7f6c0f44.png
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

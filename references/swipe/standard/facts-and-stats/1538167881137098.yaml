@@ -1,0 +1,100 @@
+ad_id: '1538167881137098'
+foreplay_id: 59S3gQ3FwelAOyIJmzEy
+brand: Modibodi
+brand_id: feZxkQKEjBrB4RwDimxm
+library: standard
+category: facts-and-stats
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Modibodi
+  brand_id: feZxkQKEjBrB4RwDimxm
+  niche: Fashion
+  classifier: foreplay-ui-content-style
+  classification:
+    category: facts-and-stats
+    source: scraped
+    foreplay_label: Facts and Stats
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:57:37Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1778396400000
+headline: Up to 40% Off* Period Wear!
+description: "Our Sitewide Sale is here! Shop up to 40% off* with new styles, bold colours and endless\
+  \ leak-proof protection on offer. \n\n*T&Cs apply."
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.modibodi.co.uk/collections/up-to-40-off-sitewide
+publisher_platform:
+- facebook
+- instagram
+- messenger
+niches:
+- Fashion
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: woman
+emotional_drivers:
+  achievement: 1
+  anger: 1
+  authority: 1
+  belonging: 1
+  competence: 1
+  curiosity: 3
+  empowerment: 4
+  engagement: 5
+  esteem: 2
+  fear: 2
+  guilt: 1
+  nostalgia: 1
+  nurturance: 1
+  security: 8
+  urgency: 7
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.323
+  UGC: 0.096
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1538167881137098.png
+  source_image_url: https://r2.foreplay.co/78edb8e5217e022e5a18bc41d4ac95e2b40cb0ea4ea203e60eea1c7b67cbf704.png
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

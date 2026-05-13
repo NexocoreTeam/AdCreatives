@@ -1,0 +1,83 @@
+ad_id: '1304277181807094'
+foreplay_id: Nsf8GdS8e6G5qzVf9uaI
+brand: True Classic
+brand_id: 95OR26iU4JwjRJL3KBql
+library: standard
+category: media-and-press
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: True Classic
+  brand_id: 95OR26iU4JwjRJL3KBql
+  niche: Fashion
+  classifier: foreplay-ui-content-style
+  classification:
+    category: media-and-press
+    source: scraped
+    foreplay_label: Media and Press
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:57:21Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1778482800000
+headline: Some Tees Set The Bar. This One Raises It.
+description: ''
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.trueclassictees.com/products/pima-cotton-blend-crew-4-pack
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Fashion
+languages:
+- English
+market_target: ''
+product_category: ''
+creative_targeting: ''
+persona: {}
+emotional_drivers: {}
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.447
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1304277181807094.jpg
+  source_image_url: https://r2.foreplay.co/0f766512b76f29106c448a212e9d3a09bc2c3fb375b89e2d11b8e334dce22811.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

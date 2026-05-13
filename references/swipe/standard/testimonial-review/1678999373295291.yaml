@@ -1,0 +1,102 @@
+ad_id: '1678999373295291'
+foreplay_id: 91KDqVLUTtpqDhl75fXC
+brand: Pleage
+brand_id: TP3MO9v9vLy4u9KvAhVg
+library: standard
+category: testimonial-review
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Pleage
+  brand_id: TP3MO9v9vLy4u9KvAhVg
+  niche: Beauty
+  classifier: foreplay-ui-content-style
+  classification:
+    category: testimonial-review
+    source: scraped
+    foreplay_label: Testimonial - Review
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:57:01Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1773126000000
+headline: Use This To End Vaginal Dryness Naturally 🌿
+description: "Say GOODBYE to intimate dryness and HELLO to intimate comfort! \U0001F44B\U0001F4A6  \n\n\
+  ⭐ 100% Natural Ingredients & Vegan Friendly\n⭐ 30 Day Satisfaction Guarantee"
+cta:
+  type: LEARN_MORE
+  title: ''
+link_url: https://getpleage.com/pages/women-over-50-swear-by-this-natural-solution-for-vaginal-dryness-relief-2
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+- threads
+niches:
+- Beauty
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: woman
+emotional_drivers:
+  achievement: 1
+  anger: 1
+  authority: 2
+  belonging: 1
+  competence: 2
+  curiosity: 3
+  empowerment: 8
+  engagement: 4
+  esteem: 3
+  fear: 2
+  guilt: 1
+  nostalgia: 1
+  nurturance: 9
+  security: 6
+  urgency: 5
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.024
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1678999373295291.jpg
+  source_image_url: https://r2.foreplay.co/1678999373295291/1394e6d1e7d3e5e974731ef00f38472d.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

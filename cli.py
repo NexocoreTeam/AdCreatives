@@ -1889,5 +1889,93 @@ def browse_library(category: str | None, product_type: str | None,
     console.print("  adc use-prompt --client <client> --product <product> --prompt <id>")
 
 
+@cli.command(name="scrape-classifications")
+@click.option("--library", required=True,
+              help="Library to scrape Content Style for (e.g. 'standard')")
+@click.option("--max-per-brand", default=30, type=int,
+              help="Cap on ads scraped per brand. Default 30.")
+@click.option("--no-resume", is_flag=True,
+              help="Re-scrape brands that are already in the cache.")
+@click.option("--start-at", default=None,
+              help="Brand_id to start at (skip earlier brands; useful for resuming).")
+@click.option("--connect-url", default=None,
+              help="Connect to a running Chrome via CDP (e.g. http://localhost:9222). "
+                   "Reuses your existing login. Skip this to launch a dedicated Chrome.")
+def scrape_classifications(library: str, max_per_brand: int, no_resume: bool,
+                           start_at: str | None, connect_url: str | None):
+    """Drive Chrome via Playwright to scrape Foreplay's Content Style classifications.
+
+    Opens a visible browser using a dedicated profile (~/.foreplay-scraper-profile).
+    First run requires manual Foreplay login. Subsequent runs auto-authenticate.
+    Cache lands at references/swipe/<library>/_classifications-cache.json and is
+    written after each brand so the run is resumable.
+    """
+    from strategy.foreplay_browser_scraper import scrape_all
+
+    cache = scrape_all(
+        library,
+        max_per_brand=max_per_brand,
+        resume=not no_resume,
+        start_at=start_at,
+        connect_url=connect_url,
+    )
+    n_brands = len(cache.get("brands") or {})
+    n_records = sum(len(b.get("records") or []) for b in (cache.get("brands") or {}).values())
+    n_useful = sum(
+        1 for b in (cache.get("brands") or {}).values()
+        for r in (b.get("records") or [])
+        if r.get("content_style")
+    )
+    console.print(
+        f"[green]Done. {n_brands} brands, {n_records} total ads scraped, "
+        f"{n_useful} with content_style.[/green]"
+    )
+    console.print(
+        f"[dim]Cache: references/swipe/{library}/_classifications-cache.json[/dim]"
+    )
+
+
+@cli.command(name="swipe-sync")
+@click.option("--library", required=True,
+              help="Swipe library to sync: psychology, standard, trending")
+@click.option("--category", default=None,
+              help="Expert libraries only: optional single category. Omit to sync all.")
+@click.option("--max-per-category", default=10, type=int,
+              help="Expert libraries: cap on ads pulled per board. Default 10.")
+@click.option("--max-per-niche", default=30, type=int,
+              help="Discovery libraries: ads fetched per niche before bucketing. Default 30.")
+@click.option("--force/--no-force", default=False,
+              help="Re-download ads that already exist on disk.")
+def swipe_sync(library: str, category: str | None, max_per_category: int,
+               max_per_niche: int, force: bool):
+    """Sync ads from Foreplay into references/swipe/<library>/<category>/."""
+    from strategy.foreplay_sync import sync_library
+
+    def progress(stats, ad, msg):
+        prefix = f"[{stats.library}/{stats.category}]"
+        console.print(f"[dim]{prefix}[/dim] {msg}")
+
+    cats = [category] if category else None
+    results = sync_library(
+        library,
+        categories=cats,
+        max_per_category=max_per_category,
+        max_per_niche=max_per_niche,
+        force=force,
+        on_progress=progress,
+    )
+
+    table = Table(title=f"swipe-sync: {library}")
+    table.add_column("Category", style="cyan")
+    table.add_column("Fetched", justify="right")
+    table.add_column("Downloaded", justify="right", style="green")
+    table.add_column("Skipped", justify="right", style="yellow")
+    table.add_column("Errors", justify="right", style="red")
+    for s in results:
+        table.add_row(s.category, str(s.fetched), str(s.downloaded),
+                      str(s.skipped), str(s.errors))
+    console.print(table)
+
+
 if __name__ == "__main__":
     cli()

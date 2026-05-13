@@ -29,6 +29,7 @@ dev = [
 scraping = [
     "praw>=7.7",           # Reddit API
     "beautifulsoup4>=4.12",
+    "playwright>=1.40",    # Foreplay UI scraping (content_style classifications)
 ]
 validation = [
     "opencv-python>=4.9",  # Brand compliance checking
@@ -38,6 +39,10 @@ validation = [
 
 [project.scripts]
 adc = "cli:cli"
+
+[tool.setuptools]
+packages = ["strategy", "models", "generators", "validators"]
+py-modules = ["cli"]
 
 [tool.ruff]
 line-length = 100

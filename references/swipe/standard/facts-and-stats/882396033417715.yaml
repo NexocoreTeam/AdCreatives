@@ -1,0 +1,101 @@
+ad_id: '882396033417715'
+foreplay_id: a3ilL3vEIfpFJts3jCua
+brand: Loyal Origins
+brand_id: DNxNNxFc6e1QbXZrY7s5
+library: standard
+category: facts-and-stats
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Expert2-Board5
+  brand_id: EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::auyBb4REsewMCyx9oFhk
+  niche: Fashion
+  classifier: foreplay-ui-content-style
+  classification:
+    category: facts-and-stats
+    source: scraped
+    foreplay_label: Facts and Stats
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-13T02:50:06Z'
+display_format: dco
+is_video: false
+is_carousel: false
+live: false
+started_running: 1702076998000
+headline: Restock Alert + New Drop
+description: Get ready to level up your hat game! 👀 New drop + huge restock is here, with fast shipping
+  options and mix & match styles. Buy one, get two free for a limited time only! *Trucker hats
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://loyalorigins.com/collections/team-la
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Fashion
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: 18-24
+  gender: both
+emotional_drivers:
+  achievement: 2
+  anger: 9
+  authority: 7
+  belonging: 1
+  competence: 3
+  curiosity: 7
+  empowerment: 4
+  engagement: 6
+  esteem: 5
+  fear: 10
+  guilt: 6
+  nostalgia: 5
+  nurturance: 8
+  security: 9
+  urgency: 4
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.162
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 882396033417715.jpg
+  source_image_url: https://r2.foreplay.co/882396033417715/6d55f2c3835faea80b6f393af6d056a3.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

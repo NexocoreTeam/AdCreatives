@@ -1,0 +1,76 @@
+ad_id: '851282776189275'
+foreplay_id: FDA1VyXTyDbdA8veIXmC
+brand: Madewell
+brand_id: ue9V1DysyUAWMEDeTYnx
+library: psychology
+category: esteem
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: DWK88IxBTjHnKfInnQVO
+  fetched_at: '2026-05-12T18:27:38Z'
+display_format: carousel
+is_video: false
+is_carousel: true
+live: false
+started_running: 1670876273000
+headline: ''
+description: ''
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.madewell.com/womens/new/new-arrivals
+publisher_platform:
+- instagram
+niches:
+- Fashion
+languages:
+- English
+market_target: unknown
+product_category: unknown
+creative_targeting: unknown
+persona:
+  gender: unknown
+  age: unknown
+  'gender:': unknown
+emotional_drivers:
+  nostalgia: 1
+  guilt: 1
+  engagement: 1
+  esteem: 1
+  curiosity: 1
+  achievement: 1
+  anger: 1
+  empowerment: 1
+  belonging: 1
+  competence: 1
+  security: 1
+  urgency: 1
+  authority: 1
+  nurturance: 1
+  fear: 1
+content_filter: {}
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 851282776189275.jpg
+  source_image_url: ''
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls:
+  - https://r2.foreplay.co/851282776189275/0e23728ea33a87f31dda7c7eb81b1d2e.jpg
+  - https://r2.foreplay.co/851282776189275/726f79692cb3431950e0a3366a5f24ea.jpg
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/851282776189275/deb88f822b26b5af71061c6d060ec38b.png

@@ -1,0 +1,105 @@
+ad_id: '1328948029105421'
+foreplay_id: lRQAyOxxedRR1WfokJco
+brand: RYZE Superfoods
+brand_id: qEAMFTPTmPCQbiPjAC6y
+library: standard
+category: promotion-and-discount
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: RYZE Superfoods
+  brand_id: qEAMFTPTmPCQbiPjAC6y
+  niche: Service Business
+  classifier: foreplay-ui-content-style
+  classification:
+    category: promotion-and-discount
+    source: scraped
+    foreplay_label: Promotion and Discount
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:57:14Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1778482800000
+headline: Pour Yourself a Better Cup of Coffee ☕️
+description: 'RYZE is powered by functional mushrooms and adaptogens. Our creamy and delicious blend features
+  six functional mushrooms, prebiotics, zero added sugar and 100% organic or non-GMO ingredients. These
+  clean, no BS ingredients come to you sustainably from right here in the USA to provide game-changing
+  daily immune support and long-lasting energy in every cup. Just add water for easy prep and on-the-go
+  wellness.
+
+
+  Try now ➡️ https://shop.ryzesuperfoods.com/fbo/mushroom-coffee-dark'
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://shop.ryzesuperfoods.com/fbo/mushroom-coffee-dark
+publisher_platform:
+- facebook
+- instagram
+niches:
+- Service Business
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: 25-45
+  gender: both
+emotional_drivers:
+  achievement: 3
+  anger: 1
+  authority: 3
+  belonging: 1
+  competence: 2
+  curiosity: 5
+  empowerment: 7
+  engagement: 5
+  esteem: 4
+  fear: 1
+  guilt: 1
+  nostalgia: 1
+  nurturance: 8
+  security: 6
+  urgency: 4
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.167
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1328948029105421.png
+  source_image_url: https://r2.foreplay.co/45c7b155e779c8985138c63fdf048f405d1bc68252f368187e006498f5280125.png
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

@@ -1,0 +1,117 @@
+library: standard
+description: |
+  Standard ad-type structural references — what each ad-type pattern looks like.
+  Sourced from a hand-picked list of brands (user-favorited in Foreplay).
+  Ads are classified into ad-type categories by our own Haiku-based classifier
+  since Foreplay's built-in contentFilter doesn't fire on raw brand-page ads.
+
+# WHAT THIS LIBRARY IS FOR: structural / compositional reference.
+# Use to inform composition, layout, ad-type pattern selection — NOT copy
+# psychology (use psychology/) or emotional angle.
+purpose:
+  signal: structural
+  use_for:
+    - composition
+    - ad_type_pattern
+    - layout
+    - element_placement
+    - structural_archetype
+  not_for:
+    - copy_psychology
+    - emotional_angle
+    - human_need_activation
+
+source:
+  type: foreplay-brand-aggregation
+  classifier: claude-haiku-4-5-20251001
+  filters:
+    display_format: [image]
+    live: true
+    market_target: b2c
+  min_classifier_confidence: 0.5
+
+# 26 user-favorited brands. Each contributes ads which we classify
+# individually into the category folders below.
+brands:
+  - { name: The Ridge,        brand_id: 62NT2Wi9EkNboDQFM0fT, niche: Service Business }
+  - { name: Hers,              brand_id: 3Sos8e7yLxgtLksk2Hqf, niche: Health/Wellness }
+  - { name: Caraway,           brand_id: 7skZVIYIEDbDJxSgoVTY, niche: Home/Garden }
+  - { name: Bloom Nutrition,   brand_id: 64hvNXqYTBVCGVaLK7Q4, niche: Health/Wellness }
+  - { name: Blume,             brand_id: xNr53IoD6IkFFRzJEvpk, niche: Food/Drink }
+  - { name: Wild,              brand_id: LCcVcWJ3kSpxdqMua0ZC, niche: Beauty }
+  - { name: Pleage,            brand_id: TP3MO9v9vLy4u9KvAhVg, niche: Beauty }
+  - { name: hims,              brand_id: FoYhPBHLBTXsD7luYHsD, niche: Beauty }
+  - { name: Free Soul,         brand_id: Oajn0Zhz90BRIImK1nyL, niche: Health/Wellness }
+  - { name: Rheal,             brand_id: UqxWo4mzuyNoIId7rBs6, niche: Beauty }
+  - { name: Seed,              brand_id: ka8cG10RRS5kPUzHs4dt, niche: Medical }
+  - { name: Goli,              brand_id: fPXbhfApPqpYMZPj5zDJ, niche: Beauty }
+  - { name: Reformation,       brand_id: gRqiSiQSEtKNGdpRrFOK, niche: Fashion }
+  - { name: RYZE Superfoods,   brand_id: qEAMFTPTmPCQbiPjAC6y, niche: Service Business }
+  - { name: Omnilux,           brand_id: 0paqCbLm8KSyGZlLrBQw, niche: Beauty }
+  - { name: PetLab Co.,        brand_id: 5ugrdEuRFIrDkEahk7Bn, niche: Pets }
+  - { name: Dr. Squatch,       brand_id: 4VFVvGZ9m1nsVb5hydQJ, niche: Beauty }
+  - { name: True Classic,      brand_id: 95OR26iU4JwjRJL3KBql, niche: Fashion }
+  - { name: HIKE Footwear,     brand_id: 7hpJo5MfCiWGcnvZdKCG, niche: Schuhgeschäft }
+  - { name: DRMTLGY,           brand_id: 6ylI4Omcx9wr5rUYUyys, niche: Beauty }
+  - { name: Ritual,            brand_id: TSsIzyluWFMkRgIcdqV0, niche: Beauty }
+  - { name: Arrae,             brand_id: fFfr3cK16ssmZeQax7Kp, niche: Health/Wellness }
+  - { name: Elevated Faith,    brand_id: SB165KAGVCcBfW4lldjR, niche: Fashion }
+  - { name: WISKII Active,     brand_id: ZKQADm0sJf5gQMdIRco5, niche: Apparel }
+  - { name: Modibodi,          brand_id: feZxkQKEjBrB4RwDimxm, niche: Fashion }
+  - { name: The Simple Folk,   brand_id: lVXWzLmZo6Te6GQ5JKZL, niche: Kids/Baby }
+
+# Per-category cap. Each category is filled by Haiku-classified ads
+# from across the brand pool, with a per-brand cap to force variety.
+defaults:
+  per_brand_cap: 30          # max ads pulled from each brand
+  per_brand_per_category_cap: 4   # at most 4 ads from any one brand land in any one category
+  total_cap_per_category: 50
+
+# Categories — see definitions in this library's README.
+# `key` is the canonical label the classifier returns.
+categories:
+  testimonial-review:
+    key: testimonial-review
+    description: |
+      Customer voice + ratings. Hallmarks: 5-star ratings, named reviewer
+      quotes, "real customer said…", screenshot-style reviews.
+  features-and-benefits:
+    key: features-and-benefits
+    description: |
+      Specs + outcomes. Iconned/bulleted feature list, "feature → benefit"
+      callouts pointing to product. Product hero with radial callouts.
+  us-vs-them:
+    key: us-vs-them
+    description: |
+      Comparison with the alternative. Split layout, "old way vs new way",
+      checkmarks vs Xs, direct competitor naming. Side-by-side layouts.
+  before-and-after:
+    key: before-and-after
+    description: |
+      Visual transformation. Two states — problem visible, then resolved.
+      Split-photo or side-by-side comparison shots showing the change.
+  promotion-and-discount:
+    key: promotion-and-discount
+    description: |
+      Price-led offer. Big % off, urgency, price comparison ("was $X, now $Y").
+      Numbers dominant, sale stickers, countdown framing.
+  ugc:
+    key: ugc
+    description: |
+      Authentic, creator/customer-shot feel. Phone-camera aesthetic, casual
+      lighting, selfie angle, vertical framing, person addressing camera.
+  facts-and-stats:
+    key: facts-and-stats
+    description: |
+      Data-led authority. Big stat hero, "X% improvement", clinical study
+      citations, scale numbers ("100,000+ women"). One number dominant.
+  reasons-why:
+    key: reasons-why
+    description: |
+      Numbered "X reasons" listicle. "5 reasons…", "Why we beat…", numbered
+      bullets in the hero frame. Listicle is the primary visual element.
+  media-and-press:
+    key: media-and-press
+    description: |
+      Press logos + authority. "As seen in Forbes / NYT / Vogue" style with
+      publication logos prominent. Validates via media coverage.

@@ -1,0 +1,104 @@
+ad_id: '1074804199932437'
+foreplay_id: XijNOHYDrsggiadfpZdk
+brand: The Essence Vault
+brand_id: ygi1VAfBAVGSGaJ2va3H
+library: standard
+category: us-vs-them
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Expert2-Board3
+  brand_id: EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::TyMaQWICllBaBXT2HF3e
+  niche: Service Business
+  classifier: foreplay-ui-content-style
+  classification:
+    category: us-vs-them
+    source: scraped
+    foreplay_label: Us vs Them
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-13T02:50:01Z'
+display_format: dco
+is_video: false
+is_carousel: false
+live: false
+started_running: 1678375601000
+headline: THE MOTHERS DAY GIFT THAT LASTS
+description: "Spoil your mum this Mother's Day with our ultimate bundle! Packed full of her favourite\
+  \ designer-inspired scents that will last all day and night. \n\n✅ Vegan and Cruelty friendly\n✅ Designer\
+  \ Inspired Scents \n✅ 4.7/5 Reviews \n✅ Lasts all day and night\n✅ 100% money back guarantee\n\nShop\
+  \ now and give your mum the gift she deserves: https://www.theessencevault.co.uk/products/mothers-day-bundle."
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.theessencevault.co.uk/products/mothers-day-bundle
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Service Business
+- Beauty
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: woman
+emotional_drivers:
+  achievement: 1
+  anger: 1
+  authority: 1
+  belonging: 4
+  competence: 2
+  curiosity: 2
+  empowerment: 3
+  engagement: 1
+  esteem: 5
+  fear: 1
+  guilt: 1
+  nostalgia: 1
+  nurturance: 8
+  security: 3
+  urgency: 2
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.256
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1074804199932437.jpg
+  source_image_url: https://r2.foreplay.co/1074804199932437/dee51e05bb470f178140a50ed2b275ca.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

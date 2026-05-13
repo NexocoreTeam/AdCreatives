@@ -1,0 +1,78 @@
+ad_id: '5776618905738223'
+foreplay_id: YZdFgA6ZeEy71TFpTDyR
+brand: Gainful
+brand_id: 2LHl9g2unAjTVR0Zesd0
+library: psychology
+category: esteem
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: DWK88IxBTjHnKfInnQVO
+  fetched_at: '2026-05-12T18:27:38Z'
+display_format: video
+is_video: true
+is_carousel: false
+live: false
+started_running: 1670624553354
+headline: ''
+description: '⏳ LIMITED TIME ONLY: Get 30% your first order of Gainful Personalized Nutrition<br /> <br
+  /> Our Personalized Protein supports your body, unique fitness goals, and evolving health needs. Every
+  subscription includes 1:1 complimentary access to a Gainful Registered Dietitian to work with you along
+  your journey to your personal best.'
+cta:
+  type: GET_OFFER
+  title: ''
+link_url: https://go.gainful.com/best-protein-powder-for-men-2
+publisher_platform:
+- instagram
+niches:
+- Service Business
+- Health/Wellness
+- Charity/NFP
+languages:
+- English
+market_target: b2c
+product_category: nutrition
+creative_targeting: health conscious
+persona:
+  gender: both
+  age: unknown
+emotional_drivers:
+  nostalgia: 1
+  guilt: 1
+  engagement: 1
+  esteem: 2
+  curiosity: 1
+  achievement: 3
+  anger: 1
+  empowerment: 4
+  belonging: 1
+  competence: 5
+  security: 1
+  urgency: 6
+  authority: 1
+  nurturance: 1
+  fear: 1
+content_filter: {}
+ai_keywords: []
+video_duration: '23.55'
+assets:
+  primary: 5776618905738223.jpg
+  source_image_url: ''
+  source_video_url: https://r2.foreplay.co/5776618905738223/7d2e5ddd25355c9451cb8c85de34b8b4.mp4
+  source_thumbnail_url: https://storage.googleapis.com/adison-foreplay.appspot.com/5776618905738223/ec133ec8b6e75429f42b2f3084b8e88c.jpg
+  card_image_urls: []
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/5776618905738223/7859b9b353c451c6b45a121a79d3c5d1.png

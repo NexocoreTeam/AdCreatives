@@ -1,0 +1,105 @@
+ad_id: '5615918875149363'
+foreplay_id: RXunk8KgGGluJCyOHwd9
+brand: Flavor God
+brand_id: 7H1WRVkSrQXpquRZBBch
+library: standard
+category: us-vs-them
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Chase-#comparison_ads
+  brand_id: EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::7l6x9z1YWK8rHs0EsNQ4
+  niche: Business/Professional
+  classifier: foreplay-ui-content-style
+  classification:
+    category: us-vs-them
+    source: scraped
+    foreplay_label: Us vs Them
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-13T02:50:16Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: false
+started_running: 1624469858000
+headline: More Flavor, Less Guilt!
+description: 'DOUBLE the Value, TRIPLE the Taste!<br /> <br /> Check out the size and value difference
+  between Store Brand vs Flavor God 😳<br /> <br /> Flavor God Seasonings are:<br /> ✅ZERO CALORIES PER
+  SERVING<br /> ✅MADE FRESH<br /> ✅MADE LOCALLY IN US<br /> ✅FREE GIFTS AT CHECKOUT<br /> ✅GLUTEN FREE<br
+  /> ✅#PALEO &amp; #KETO FRIENDLY<br /> <br /> Check out our #1 selling combo pack 👉 <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fcombo.flavorgod.com%2Fclassic%3Ffbclid%3DIwAR1WFFsQsWJwXYN6dYVplttyAaTz6a0QOCGI0_nrR-7hBncl0a1rCfIjVXs&amp;h=AT0df9yyGCVj6-Sb80GVvjjH6_xu2fuqzVuEkTnJ5YpDl1erqM7l4RhPJe6p9ovh2rJ-1JmwY_01y_aFvARXobRPR6YCNOLkFjpN-Uu6aa4WILq9sgE6uzbbs83-iQE1X934Sw"
+  rel="nofollow noopener" target="_blank" data-lynx-mode="asynclazy">https://combo.flavorgod.com/classic</a>'
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://combo.flavorgod.com/classic
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Business/Professional
+- Accessories
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: unknown
+emotional_drivers:
+  achievement: 2
+  anger: 1
+  authority: 1
+  belonging: 1
+  competence: 3
+  curiosity: 3
+  empowerment: 2
+  engagement: 6
+  esteem: 4
+  fear: 1
+  guilt: 1
+  nostalgia: 1
+  nurturance: 1
+  security: 1
+  urgency: 2
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.084
+  UGC: 0.007
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 5615918875149363.jpg
+  source_image_url: https://r2.foreplay.co/5615918875149363/9f177759587c81fefe48c89517dc0ed1.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

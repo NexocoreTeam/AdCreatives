@@ -1,0 +1,94 @@
+ad_id: '826493958658861'
+foreplay_id: 3daKa9t5CQthAKeiTR39
+brand: Vessi
+brand_id: cCsezRy8EEufRS7d95Yn
+library: psychology
+category: competence
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: SZLuhJKLV6NT4mnN49Yg
+  fetched_at: '2026-05-12T18:27:35Z'
+display_format: video
+is_video: true
+is_carousel: false
+live: false
+started_running: 1670242630949
+headline: Sneakers Designed With Water In Mind 💦
+description: Vessi is the 100% waterproof shoe that has you covered no matter what your travel plans are.
+  <br /> <br /> Designed with comfort &amp; style in mind, Vessi has every feature you need all in one
+  shoe.<br /> <br /> 100% waterproof 💦<br /> Ultralight &amp; breathable 🪶<br /> And SO EASY to slip on/off
+  😌<br /> <br /> 👉 Click or swipe to see why Vessis are the ultimate travel shoes!
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://vessi.com/
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Service Business
+languages:
+- English
+market_target: b2c
+product_category: footwear
+creative_targeting: travelers
+persona:
+  gender: both
+  age: unknown
+emotional_drivers:
+  nostalgia: 1
+  guilt: 1
+  engagement: 2
+  esteem: 2
+  curiosity: 4
+  achievement: 1
+  anger: 1
+  empowerment: 3
+  belonging: 1
+  competence: 2
+  security: 3
+  urgency: 1
+  authority: 1
+  nurturance: 1
+  fear: 1
+content_filter: {}
+ai_keywords:
+- travel
+- shoe
+- waterproof
+- 100%
+- ultralight
+- breathable
+- slip
+- on/off
+- click
+- swipe
+- ultimate
+- sneakers
+- designed
+- water
+- mind
+video_duration: '6.13'
+assets:
+  primary: 826493958658861.jpg
+  source_image_url: ''
+  source_video_url: https://r2.foreplay.co/826493958658861/cf690a6cb49e64ef0b4dcfa953f48030.mp4
+  source_thumbnail_url: https://storage.googleapis.com/adison-foreplay.appspot.com/826493958658861/thumb_826493958658861.jpeg
+  card_image_urls: []
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/826493958658861/9c46cf7662ff0cedd0d3ff1edba6e98f.png

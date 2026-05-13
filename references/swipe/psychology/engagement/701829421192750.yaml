@@ -1,0 +1,81 @@
+ad_id: '701829421192750'
+foreplay_id: D7NGblQpIcpF4vj5hCQc
+brand: The Ridge
+brand_id: 62NT2Wi9EkNboDQFM0fT
+library: psychology
+category: engagement
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: 8yOW9NlbbbchrGtDDED1
+  fetched_at: '2026-05-12T18:27:40Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: false
+started_running: 1670791868656
+headline: Upgrade Your Wallet
+description: Check out the Top 5 Reasons why men everywhere are switching to The Ridge Wallet.
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.try.ridge.com/5-reasons-why-millions-of-men/
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Service Business
+languages:
+- English
+market_target: b2c
+product_category: accessories
+creative_targeting: men
+persona:
+  gender: male
+  age: unknown
+emotional_drivers:
+  nostalgia: 5
+  guilt: 6
+  engagement: 6
+  esteem: 5
+  curiosity: 7
+  achievement: 2
+  anger: 9
+  empowerment: 4
+  belonging: 1
+  competence: 3
+  security: 9
+  urgency: 4
+  authority: 7
+  nurturance: 8
+  fear: 10
+content_filter:
+  Us vs Them: 0.951
+  Features and Benefits: 0.003
+  other: 0.029
+  Facts and Stats: 0.002
+  Promotion and Discount: 0.01
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 701829421192750.jpg
+  source_image_url: https://r2.foreplay.co/701829421192750/2820313cc9a8679b17f41d13d8f31751.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/701829421192750/1765287c8626db15eb2a57e0c3ca2f3e.png
