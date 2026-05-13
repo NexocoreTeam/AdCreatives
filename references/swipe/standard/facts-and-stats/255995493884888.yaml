@@ -1,0 +1,104 @@
+ad_id: '255995493884888'
+foreplay_id: UvabUKqSfAkCmxyJ9jaB
+brand: The Ridge
+brand_id: 62NT2Wi9EkNboDQFM0fT
+library: standard
+category: facts-and-stats
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Chase-#features
+  brand_id: EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::a5T8uovj0XZbji97AGld
+  niche: Service Business
+  classifier: foreplay-ui-content-style
+  classification:
+    category: facts-and-stats
+    source: scraped
+    foreplay_label: Facts and Stats
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-13T02:50:19Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: false
+started_running: 1690235778000
+headline: ALL-NEW RIDGE RING SETS
+description: Introducing the NEW Ridge Ring Sets, made of premium metal designs, super light and comfortable.<br
+  /> <br /> Looks great, plays tough, takes a beating, builds character, and lasts for life. Modern rings
+  that work just as hard as you.  <br /> <br /> ✔ Includes The Ridge Silicone Ring<br /> ✔ Never Lost
+  &amp; Forever Fit Protection Plan<br /> ✔ 99 Day Risk-Free Trial<br /> ✔ Guaranteed for Life<br /> <br
+  /> Available In 18 Styles and Materials, find the one for you.
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.try.ridge.com/beveled-ring?wknd_ring-40
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Service Business
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: 25-34
+  gender: male
+emotional_drivers:
+  achievement: 2
+  anger: 1
+  authority: 1
+  belonging: 1
+  competence: 7
+  curiosity: 2
+  empowerment: 6
+  engagement: 3
+  esteem: 5
+  fear: 1
+  guilt: 1
+  nostalgia: 1
+  nurturance: 1
+  security: 9
+  urgency: 1
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.022
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 255995493884888.jpg
+  source_image_url: https://r2.foreplay.co/255995493884888/ac56f03b8a793b06382577dcc619b8bf.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

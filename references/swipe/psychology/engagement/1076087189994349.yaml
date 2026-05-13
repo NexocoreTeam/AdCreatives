@@ -1,0 +1,90 @@
+ad_id: '1076087189994349'
+foreplay_id: FlPHaqvbh37CguaUEyrh
+brand: Cozy Earth
+brand_id: ey2QwP25dT3pxZQ6QVEY
+library: psychology
+category: engagement
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: 8yOW9NlbbbchrGtDDED1
+  fetched_at: '2026-05-12T18:27:39Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: false
+started_running: 1678741476000
+headline: World's Softest Sheets
+description: These sheets aren&#039;t just soft, they&#039;re temperature-regulating and come with a 100
+  night trial and lifetime warranty. Sleep at your ideal temperature 🛏
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://cozyearth.com/products/bamboo-sheet-set
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Fashion
+languages:
+- English
+market_target: b2c
+product_category: bedding
+creative_targeting: people who are looking for a comfortable sleep
+persona:
+  gender: both
+  age: unknown
+emotional_drivers:
+  nostalgia: 1
+  guilt: 1
+  engagement: 1
+  esteem: 1
+  curiosity: 1
+  achievement: 1
+  anger: 1
+  empowerment: 1
+  belonging: 1
+  competence: 1
+  security: 9
+  urgency: 1
+  authority: 1
+  nurturance: 1
+  fear: 1
+content_filter:
+  other: 0.29
+  Facts and Stats: 0.117
+  Promotion and Discount: 0.194
+  Testimonial - Review: 0.34
+  Reasons why: 0.015
+ai_keywords:
+- sheets
+- soft
+- temperature-regulating
+- 100 night trial
+- lifetime warranty
+- sleep
+- ideal temperature
+- world's softest
+video_duration: ''
+assets:
+  primary: 1076087189994349.jpg
+  source_image_url: https://r2.foreplay.co/1076087189994349/9a6e1cfd12a7d3e9862357ccedb86251.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/1076087189994349/a17052cc18be94f2f1735bdfb906e20c.png

@@ -1,0 +1,84 @@
+ad_id: '314268117847678'
+foreplay_id: OsjxuvDgKxCbZLR64FSO
+brand: 'Liven: Building Habits'
+brand_id: tNklimcJ38U1J2jiOA3U
+library: psychology
+category: empowerment
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: RHily32Kvcnw251dhOyu
+  fetched_at: '2026-05-12T18:27:37Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: false
+started_running: 1693150595000
+headline: Procrastination is NOT 'Laziness’
+description: Procrastinators are guilt-motivated people because they can’t find the consistent motivation
+  to execute tasks, so instead their work is fueled with anxiety and guilt.<br /> <br /> Liven anti-procrastination
+  plan helps to:<br /> <br /> ✅ Build Habits<br /> ✅ Achieve Goals<br /> ✅ Increase Motivation &amp; Discipline<br
+  /> ✅ Improve Life Quality
+cta:
+  type: LEARN_MORE
+  title: ''
+link_url: https://quiz.theliven.com/procrastination?utm_source=facebook&utm_campaign={{campaign.id}}&utm_adset={{adset.id}}&utm_ad={{ad.id}}&ad_name={{ad.name}}&campaign_name={{campaign.name}}&adset_name={{adset.name}}&placement={{placement}}&funnel=pr
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Education
+languages:
+- English
+market_target: b2c
+product_category: self help
+creative_targeting: procrastinators
+persona:
+  gender: both
+  age: unknown
+emotional_drivers:
+  nostalgia: 5
+  guilt: 6
+  engagement: 6
+  esteem: 5
+  curiosity: 7
+  achievement: 2
+  anger: 9
+  empowerment: 4
+  belonging: 1
+  competence: 3
+  security: 9
+  urgency: 4
+  authority: 7
+  nurturance: 8
+  fear: 10
+content_filter:
+  other: 0.214
+  Facts and Stats: 0.119
+  Promotion and Discount: 0.073
+  Testimonial - Review: 0.317
+  Before and After: 0.058
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 314268117847678.jpg
+  source_image_url: https://r2.foreplay.co/314268117847678/4be63a360cf6ef6d4e574a4bf2e20cab.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/314268117847678/f34739c6d18c8494f7976ad21d31522c.png

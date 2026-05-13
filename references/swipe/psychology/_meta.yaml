@@ -1,0 +1,50 @@
+library: psychology
+description: Psychology-driven ad references curated by Sarah Levinger on Foreplay
+
+# WHAT THIS LIBRARY IS FOR: messaging signal, not visual aesthetic.
+# Each ad here was selected by Levinger because of WHICH HUMAN NEED it
+# activates (the hashtag = the dominant need). Visual quality varies widely
+# and is intentionally NOT the point. Downstream prompt generation should
+# pull from these when shaping brief.angle, hook psychology, copy direction,
+# emotional driver — and should NOT pull from these for visual styling,
+# composition, or aesthetic reference (use standard/ or trending/ for that).
+purpose:
+  signal: messaging
+  use_for:
+    - emotional_driver
+    - copy_angle
+    - hook_psychology
+    - human_need_activation
+  not_for:
+    - visual_aesthetic
+    - composition
+    - photography_style
+
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+
+# 9 boards mapped from Levinger's Foreplay expert page. Order matches
+# Maslow-derived human-needs framework. Each category folder mirrors the
+# hashtag name (without '#').
+categories:
+  belonging:
+    board_id: LqHocYxDuJam5EFtQRfG
+  achievement:
+    board_id: JVOSza7dASCpIcCfZc5E
+  competence:
+    board_id: SZLuhJKLV6NT4mnN49Yg
+  empowerment:
+    board_id: RHily32Kvcnw251dhOyu
+  esteem:
+    board_id: DWK88IxBTjHnKfInnQVO
+  engagement:
+    board_id: 8yOW9NlbbbchrGtDDED1
+  autonomy:
+    board_id: SojuVZaOcrWW16mGS0GK
+  nurturance:
+    board_id: qOTrUjT9YV84ddxnOsls
+  security:
+    board_id: kgniZFc0W9KVAZmmI7IX

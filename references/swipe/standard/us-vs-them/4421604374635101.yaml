@@ -1,0 +1,101 @@
+ad_id: '4421604374635101'
+foreplay_id: S9zswygzkrEoIizzchg6
+brand: Storm Water Hawaii
+brand_id: f4PamiTkcL4GHgDOnxV7
+library: standard
+category: us-vs-them
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Expert1-UsVsThem
+  brand_id: EXPERT::9psEZraBy5fScjUpFN9BwxmSBVn1::SRwbc5GJbCPy37PTXPkX
+  niche: Service Business
+  classifier: foreplay-ui-content-style
+  classification:
+    category: us-vs-them
+    source: scraped
+    foreplay_label: Us vs Them
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-13T02:49:57Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: false
+started_running: 1643405421000
+headline: ''
+description: 'Which type of person would you want to be? The one who uses multiple plastic water bottles
+  throughout the day, or the one who uses one reusable water bottle and reduces storm water pollution?
+  Let us know in the comments!<br /> <br /> #StormWaterHawaii #TrashFreeHawaii #EcoFriendly #EnvironmentallyFriendly
+  #Resources #StormWaterResources #SavethePlanet #ProtectOurWater #ProtectOurOcean #ProtectHawaii #CleanBeaches
+  #BeachCleanup #Beaches #HawaiiBeaches #NoPollution #NoTrash #TrashCleanup #PlasticTrash #ReduceRunoff'
+cta:
+  type: ''
+  title: ''
+link_url: ''
+publisher_platform:
+- instagram
+niches:
+- Service Business
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 2
+  anger: 2
+  authority: 1
+  belonging: 3
+  competence: 3
+  curiosity: 2
+  empowerment: 4
+  engagement: 4
+  esteem: 6
+  fear: 3
+  guilt: 4
+  nostalgia: 1
+  nurturance: 7
+  security: 5
+  urgency: 2
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.212
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 4421604374635101.jpg
+  source_image_url: https://r2.foreplay.co/4421604374635101/9ea1800c1fcf764ed0e5081fd0d69014.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

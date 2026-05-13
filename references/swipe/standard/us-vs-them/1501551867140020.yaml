@@ -1,0 +1,104 @@
+ad_id: '1501551867140020'
+foreplay_id: VzuGQzuueYDh7itvbCbu
+brand: The Ridge
+brand_id: 62NT2Wi9EkNboDQFM0fT
+library: standard
+category: us-vs-them
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Expert1-UsVsThem
+  brand_id: EXPERT::9psEZraBy5fScjUpFN9BwxmSBVn1::SRwbc5GJbCPy37PTXPkX
+  niche: Service Business
+  classifier: foreplay-ui-content-style
+  classification:
+    category: us-vs-them
+    source: scraped
+    foreplay_label: Us vs Them
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-13T02:49:59Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: false
+started_running: 1711101897000
+headline: Upgrade Your Wallet
+description: Shop the best-selling wallet of all time and choose from over 30+ colors and styles.<br />
+  <br /> ✔️ AirTag Tracking<br /> ✔️ Lifetime Warranty<br /> ✔️ Cash Strap or Money Clip<br /> ✔️ Ultra-Slim,
+  Minimal Design<br /> ✔️ RFID Blocking Technology<br /> <br /> &quot;Slim yet expandable, low profile,
+  but fully featured.” - GQ<br /> <br /> Free Shipping &amp; Returns | 99 Day Risk-Free Trial<br /> <br
+  /> Need We Say More? Find Your Ridge Today.
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://ridgewallet.eu/pages/edc-evg-6rlp
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Service Business
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: 25-34
+  gender: male
+emotional_drivers:
+  achievement: 2
+  anger: 1
+  authority: 1
+  belonging: 1
+  competence: 3
+  curiosity: 2
+  empowerment: 4
+  engagement: 1
+  esteem: 6
+  fear: 1
+  guilt: 1
+  nostalgia: 1
+  nurturance: 1
+  security: 9
+  urgency: 3
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.22
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1501551867140020.jpg
+  source_image_url: https://r2.foreplay.co/1501551867140020/6fa2bc7ec192f42ef10dbf051a4ed42c.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

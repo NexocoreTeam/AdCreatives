@@ -1,0 +1,102 @@
+ad_id: '974966714895637'
+foreplay_id: 8WRLfnUUXGmL53hCQshN
+brand: The Ridge
+brand_id: 62NT2Wi9EkNboDQFM0fT
+library: standard
+category: facts-and-stats
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: The Ridge
+  brand_id: 62NT2Wi9EkNboDQFM0fT
+  niche: Service Business
+  classifier: foreplay-ui-content-style
+  classification:
+    category: facts-and-stats
+    source: scraped
+    foreplay_label: Facts and Stats
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:56:53Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1778482800000
+headline: 'Limited Edition: Atomic Purple'
+description: Introducing the Limited Edition Atomic Purple Magnetic Powerbank. Charge iPhones with magsafe,
+  Qi phones, USB-C wired, lightning wired AND an Apple Watch . Get 10,000mAh in the palm of your hand.
+  Visible components. Dependable design. Built for Life.
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://ridge.com/products/magnetic-power-bank-atomic-purple
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Service Business
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 2
+  anger: 1
+  authority: 2
+  belonging: 1
+  competence: 7
+  curiosity: 6
+  empowerment: 3
+  engagement: 5
+  esteem: 4
+  fear: 1
+  guilt: 1
+  nostalgia: 4
+  nurturance: 1
+  security: 8
+  urgency: 7
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.538
+  UGC: 0.019
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 974966714895637.jpg
+  source_image_url: https://r2.foreplay.co/d7f382aabce7f3f48d6968c37f77502754a017dab7f76e3e2c2cdf45d82c0bf3.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

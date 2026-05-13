@@ -1,0 +1,83 @@
+ad_id: '2436627969837184'
+foreplay_id: 2z38FAEP5xPK89d2jttb
+brand: Gymshark
+brand_id: bKDVZhrgOwcJicis3UqV
+library: psychology
+category: engagement
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: 8yOW9NlbbbchrGtDDED1
+  fetched_at: '2026-05-12T18:27:40Z'
+display_format: carousel
+is_video: false
+is_carousel: true
+live: false
+started_running: 1671228587000
+headline: ''
+description: Don’t let the cold keep you inside. With winter essentials like these, you can hit your goals
+  then hit the town in style.
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.gymshark.com/collections/essentials/womens
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Fashion
+languages:
+- English
+market_target: b2c
+product_category: fashion
+creative_targeting: people who care about looking good in winter
+persona:
+  gender: both
+  age: 18-35
+emotional_drivers:
+  nostalgia: 1
+  guilt: 1
+  engagement: 1
+  esteem: 6
+  curiosity: 1
+  achievement: 7
+  anger: 1
+  empowerment: 4
+  belonging: 2
+  competence: 5
+  security: 9
+  urgency: 2
+  authority: 3
+  nurturance: 1
+  fear: 1
+content_filter: {}
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 2436627969837184.jpg
+  source_image_url: ''
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls:
+  - https://r2.foreplay.co/2436627969837184/0083cec64b6bb591aa75c09a5c04670b.jpg
+  - https://r2.foreplay.co/2436627969837184/e6ecd4ddbaf9e8fac501e32a086c7c7c.jpg
+  - https://r2.foreplay.co/2436627969837184/850b6764c3ec5bf5d74d4b881a8081eb.jpg
+  - https://r2.foreplay.co/2436627969837184/5b3e9b857eec42bb93b0f58f2bce8d20.jpg
+  - https://r2.foreplay.co/2436627969837184/8c3c1714d37bc30004d36a6c95745435.jpg
+  - https://r2.foreplay.co/2436627969837184/d281b76ccb5bfe201f066cbdce89ba21.jpg
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/2436627969837184/b97e81ae9a51b8ef0b4472f6aad703d3.png

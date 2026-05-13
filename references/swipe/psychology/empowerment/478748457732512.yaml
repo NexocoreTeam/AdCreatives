@@ -1,0 +1,73 @@
+ad_id: '478748457732512'
+foreplay_id: e1lwxXj32OR3EelhejWc
+brand: Gymshark
+brand_id: bKDVZhrgOwcJicis3UqV
+library: psychology
+category: empowerment
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: RHily32Kvcnw251dhOyu
+  fetched_at: '2026-05-12T18:27:37Z'
+display_format: video
+is_video: true
+is_carousel: false
+live: false
+started_running: 1670628882000
+headline: ''
+description: Nouvelle saison = nouveau style Gymshark
+cta:
+  type: LEARN_MORE
+  title: ''
+link_url: https://fr.gymshark.com/?utm_source=Meta&utm_medium=paid_social&utm_campaign=FR_Engagement_META_stories/reels_video_BR_BAU_Homepage_dualgender_engagedprospects
+publisher_platform:
+- instagram
+niches:
+- Fashion
+languages:
+- English
+market_target: b2c
+product_category: apparel
+creative_targeting: fashion conscious
+persona:
+  gender: woman
+  age: 18-24
+emotional_drivers:
+  nostalgia: 5
+  guilt: 6
+  engagement: 6
+  esteem: 5
+  curiosity: 7
+  achievement: 2
+  anger: 9
+  empowerment: 4
+  belonging: 1
+  competence: 3
+  security: 9
+  urgency: 4
+  authority: 7
+  nurturance: 8
+  fear: 10
+content_filter: {}
+ai_keywords: []
+video_duration: '21.12'
+assets:
+  primary: 478748457732512.jpg
+  source_image_url: ''
+  source_video_url: https://r2.foreplay.co/478748457732512/21a119a6365727357653fb739ea39de6.mp4
+  source_thumbnail_url: https://storage.googleapis.com/adison-foreplay.appspot.com/478748457732512/thumb_478748457732512.jpeg
+  card_image_urls: []
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/478748457732512/99fa2450fe40600cc9e7726f4dc411d9.png

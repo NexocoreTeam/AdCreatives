@@ -1,0 +1,80 @@
+ad_id: '1332830710885484'
+foreplay_id: KXppbCQAZSMaOhlRmodI
+brand: IDYLL Collective
+brand_id: rMboWk60C0AQ9DAP5DFg
+library: psychology
+category: empowerment
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: RHily32Kvcnw251dhOyu
+  fetched_at: '2026-05-12T18:27:37Z'
+display_format: dco
+is_video: false
+is_carousel: false
+live: false
+started_running: 1675468524000
+headline: ''
+description: "So your walls need a makeover. Why choose Idyll Collective?\n\U0001F58C Choose prints from\
+  \ both established or emerging artists \n\U0001F5BC Multiple framing options available, free of charge\
+  \ \n♻️ One tree planted for every print sold \n\U0001F4EB Free shipping on all U.S. orders"
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.idyllcollective.com/
+publisher_platform:
+- instagram
+niches:
+- Home/Garden
+languages:
+- English
+market_target: b2c
+product_category: home decor
+creative_targeting: homeowners, interior design enthusiasts, art lovers, environmentally conscious consumers
+persona:
+  gender: both
+  age: unknown
+emotional_drivers:
+  nostalgia: 1
+  guilt: 1
+  engagement: 1
+  esteem: 3
+  curiosity: 2
+  achievement: 1
+  anger: 1
+  empowerment: 2
+  belonging: 1
+  competence: 2
+  security: 1
+  urgency: 1
+  authority: 1
+  nurturance: 4
+  fear: 1
+content_filter:
+  Us vs Them: 0.088
+  other: 0.285
+  Facts and Stats: 0.092
+  Promotion and Discount: 0.195
+  Before and After: 0.231
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1332830710885484.jpg
+  source_image_url: https://r2.foreplay.co/1332830710885484/000e08a2327be2559b9f1c739a500bb1.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/1332830710885484/648535b1bbee89689c3dfbb83140dbb1.png

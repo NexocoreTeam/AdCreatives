@@ -1,0 +1,106 @@
+ad_id: '934909149541755'
+foreplay_id: v8qM0rNcI2ptAcOJeZNZ
+brand: Dr. Squatch
+brand_id: 4VFVvGZ9m1nsVb5hydQJ
+library: standard
+category: facts-and-stats
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Dr. Squatch
+  brand_id: 4VFVvGZ9m1nsVb5hydQJ
+  niche: Beauty
+  classifier: foreplay-ui-content-style
+  classification:
+    category: facts-and-stats
+    source: scraped
+    foreplay_label: Facts and Stats
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:57:19Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1778396400000
+headline: Simply Quality Natural Soap
+description: 'EXPERIENCE THE SQUATCH DIFFERENCE
+
+  ✅ The Finest Natural Ingredients
+
+  ✅ Formulated for Men
+
+  ✅ No Harmful Ingredients'
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://fb.com/canvas_doc/958695903418152
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Beauty
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: man
+emotional_drivers:
+  achievement: 2
+  anger: 1
+  authority: 7
+  belonging: 1
+  competence: 5
+  curiosity: 5
+  empowerment: 4
+  engagement: 3
+  esteem: 6
+  fear: 1
+  guilt: 1
+  nostalgia: 1
+  nurturance: 4
+  security: 8
+  urgency: 3
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.175
+  UGC: 0.013
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 934909149541755.jpg
+  source_image_url: https://r2.foreplay.co/7029b50aba9a358b2ad4bbdb2a489c177973aa1b0a62f73f75f3cbdc910e9a0c.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

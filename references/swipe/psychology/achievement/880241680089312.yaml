@@ -1,0 +1,88 @@
+ad_id: '880241680089312'
+foreplay_id: nKChKu3aOEL2hGkZ5Ycw
+brand: Key Insights From Bestsellers
+brand_id: w6f7N9JulWSke4opDLwy
+library: psychology
+category: achievement
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: JVOSza7dASCpIcCfZc5E
+  fetched_at: '2026-05-12T18:27:34Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: false
+started_running: 1673859898000
+headline: Start now! 👉
+description: Install App and Boost Personal Growth 🚀😍👉
+cta:
+  type: LEARN_MORE
+  title: ''
+link_url: https://getheadway.me/store?utm_campaign_id={{campaign.id}}&utm_adset_id={{adset.id}}&utm_campaign={{campaign.name}}&utm_adset={{adset.name}}&utm_adname={{ad.name}}
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Education
+languages:
+- English
+market_target: b2c
+product_category: mobile app
+creative_targeting: people interested in personal growth
+persona:
+  gender: both
+  age: unknown
+emotional_drivers:
+  nostalgia: 1
+  guilt: 1
+  engagement: 2
+  esteem: 7
+  curiosity: 1
+  achievement: 8
+  anger: 1
+  empowerment: 6
+  belonging: 1
+  competence: 5
+  security: 1
+  urgency: 1
+  authority: 1
+  nurturance: 1
+  fear: 1
+content_filter:
+  Us vs Them: 0.009
+  Features and Benefits: 0.02
+  other: 0.043
+  Facts and Stats: 0.907
+  Promotion and Discount: 0.009
+ai_keywords:
+- install
+- app
+- boost
+- personal
+- growth
+- start
+- now
+video_duration: ''
+assets:
+  primary: 880241680089312.jpg
+  source_image_url: https://r2.foreplay.co/880241680089312/1c4b6782023dd88934370bae9a94302b.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/880241680089312/bb3e583b05e527a54fa4f6849c92f4cc.png

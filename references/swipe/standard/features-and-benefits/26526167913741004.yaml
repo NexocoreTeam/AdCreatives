@@ -1,0 +1,113 @@
+ad_id: '26526167913741004'
+foreplay_id: if3NddCWHXPFZD2TLnCR
+brand: Hers
+brand_id: 3Sos8e7yLxgtLksk2Hqf
+library: standard
+category: features-and-benefits
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Hers
+  brand_id: 3Sos8e7yLxgtLksk2Hqf
+  niche: Health/Wellness
+  classifier: claude-haiku-4-5-20251001
+  classification:
+    category: features-and-benefits
+    confidence: 0.72
+    reasoning: The ad leads with a 'Why Hers?' section using checkmarks and bulleted feature callouts
+      (FDA-approved, low cost, online access) that highlight product capabilities and outcomes, which
+      is the hallmark of features-and-benefits structure, though pricing prominence creates some ambiguity
+      with promotion-and-discount.
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T22:04:04Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1775631600000
+headline: Get Started Today
+description: "Get Wegovy® with Hers, along with personalized care that actually puts you first. \n\nWhy\
+  \ Hers?\n✅ FDA-approved GLP-1 pill and pens available\n✅ Medication as low as $149/mo—membership fee\
+  \ of $39 for first month, $149 thereafter\n✅ 100% online\n\nNo guesswork. Just real weight loss with\
+  \ provider-led treatment plans.\n\nSee if you qualify today.\n\n*$149/mo price includes medication only,\
+  \ if prescribed. An active Hers Weight Loss Membership is required ($39 for the first month, auto-renews\
+  \ at $149/month thereafter). Membership is billed separately and does not include or guarantee a prescription.\
+  \ Medication is not available without a membership. Membership fee is not included.\n\nNot available\
+  \ in all 50 states. Prescription required. Weight Loss by Hers is a holistic program that includes nutrition\
+  \ support, technological tools, and medications prescribed based on what your provider determines is\
+  \ medically appropriate and necessary for you. See website for full details, important safety information,\
+  \ and restrictions. Wegovy® is a registered trademark of Novo Nordisk A/S."
+cta:
+  type: LEARN_MORE
+  title: ''
+link_url: https://www.forhers.com/lp/wl-start-wegovy
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Health/Wellness
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: woman
+emotional_drivers:
+  achievement: 8
+  anger: 1
+  authority: 6
+  belonging: 2
+  competence: 5
+  curiosity: 5
+  empowerment: 9
+  engagement: 4
+  esteem: 9
+  fear: 2
+  guilt: 3
+  nostalgia: 1
+  nurturance: 7
+  security: 8
+  urgency: 6
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.453
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 26526167913741004.png
+  source_image_url: https://r2.foreplay.co/0ba3e22d65f244ee2103b4cc1c8bfcfee483f50c7a565a5a857fb7243e64d833.png
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

@@ -1,0 +1,103 @@
+ad_id: '1529089148894185'
+foreplay_id: SOGYW3MlpQWzwEuXMRlC
+brand: Hers
+brand_id: 3Sos8e7yLxgtLksk2Hqf
+library: standard
+category: features-and-benefits
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Hers
+  brand_id: 3Sos8e7yLxgtLksk2Hqf
+  niche: Health/Wellness
+  classifier: claude-haiku-4-5-20251001
+  classification:
+    category: features-and-benefits
+    confidence: 0.6
+    reasoning: The ad emphasizes service capabilities (online qualification, community support) and outcome
+      benefits (taking a first step, achieving goals) positioned around the Mounjaro product offering,
+      though the copy is aspirational rather than featuring explicit feature callouts or bulleted specs.
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T22:04:11Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1777532400000
+headline: Start Your Mounjaro Journey Today
+description: See if you qualify for Mounjaro online and take the first step forward. Join a community
+  that supports your goals - for yourself & those who love you most. Find out if you qualify today!
+cta:
+  type: LEARN_MORE
+  title: ''
+link_url: https://forhers.ca/lp/start/wl/mounjaro
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Health/Wellness
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 7
+  anger: 1
+  authority: 3
+  belonging: 8
+  competence: 5
+  curiosity: 6
+  empowerment: 6
+  engagement: 5
+  esteem: 6
+  fear: 2
+  guilt: 2
+  nostalgia: 1
+  nurturance: 9
+  security: 4
+  urgency: 7
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.721
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1529089148894185.png
+  source_image_url: https://r2.foreplay.co/4670ae895c68ee3d8108baa79ad6a4a1de99f8a82874b2adad5708d1fb9e2579.png
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

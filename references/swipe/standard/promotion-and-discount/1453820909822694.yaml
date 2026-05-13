@@ -1,0 +1,113 @@
+ad_id: '1453820909822694'
+foreplay_id: VitVAM4ibjAwvWwABUEP
+brand: Seed
+brand_id: ka8cG10RRS5kPUzHs4dt
+library: standard
+category: promotion-and-discount
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Seed
+  brand_id: ka8cG10RRS5kPUzHs4dt
+  niche: Medical
+  classifier: foreplay-ui-content-style
+  classification:
+    category: promotion-and-discount
+    source: scraped
+    foreplay_label: Promotion and Discount
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T23:57:10Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1778482800000
+headline: Bloat Less, Feel Better with DS-01®
+description: 'DS-01® is the 2-in-1 probiotic and prebiotic formulated with 24 scientifically studied strains
+  to deliver benefits in and beyond the gut.
+
+
+  🌬️Reduce gas + bloating
+
+  🚽Promote daily bowel movements
+
+  💪Sustain immune health°
+
+
+  °These statements have not been evaluated by the Food and Drug Administration. This product is not intended
+  to diagnose, treat, cure or prevent any disease.'
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://seed.com/is-ds01-right-for-you
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+- threads
+niches:
+- Medical
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 2
+  anger: 1
+  authority: 7
+  belonging: 1
+  competence: 4
+  curiosity: 5
+  empowerment: 6
+  engagement: 5
+  esteem: 3
+  fear: 2
+  guilt: 1
+  nostalgia: 1
+  nurturance: 8
+  security: 9
+  urgency: 3
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.354
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 1453820909822694.jpg
+  source_image_url: https://r2.foreplay.co/9f04051ad1a4aa0480a117d411ef2cf03285e68dd2d2589ce2e5d9c637c4552b.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

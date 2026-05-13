@@ -1,0 +1,103 @@
+ad_id: '25629311683417020'
+foreplay_id: Wl241EsuckiCvRwHk02N
+brand: The Ridge
+brand_id: 62NT2Wi9EkNboDQFM0fT
+library: standard
+category: features-and-benefits
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: The Ridge
+  brand_id: 62NT2Wi9EkNboDQFM0fT
+  niche: Service Business
+  classifier: claude-haiku-4-5-20251001
+  classification:
+    category: features-and-benefits
+    confidence: 0.7
+    reasoning: The ad highlights product capabilities ('High-Vis Performance') and outcomes ('impossible-to-miss
+      yellow') with a feature-forward approach, though the copy is minimal and product-centric rather
+      than a deep feature rundown.
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-12T22:03:54Z'
+display_format: image
+is_video: false
+is_carousel: false
+live: true
+started_running: 1768982400000
+headline: IMPOSSIBLE TO MISS
+description: High-Vis Performance Returns. Ridge Wallet 2.0, Power Banks & more in impossible-to-miss
+  yellow.
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://ridge.com/collections/hyper-lime-capsule
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Service Business
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 2
+  anger: 1
+  authority: 2
+  belonging: 1
+  competence: 2
+  curiosity: 6
+  empowerment: 3
+  engagement: 4
+  esteem: 3
+  fear: 2
+  guilt: 1
+  nostalgia: 1
+  nurturance: 1
+  security: 8
+  urgency: 5
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.288
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 25629311683417020.jpg
+  source_image_url: https://r2.foreplay.co/4e22ccf311f9eed19542135a1c765b0da20c02b0c569095ff4f7a2216763ba7a.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

@@ -1,0 +1,89 @@
+ad_id: '5710111572404774'
+foreplay_id: f97KJ093O5mcTBd8zucH
+brand: Drink AG1
+brand_id: pcOilWPKMILBqVy6kwM0
+library: psychology
+category: empowerment
+purpose:
+  signal: messaging
+  use_for:
+  - emotional_driver
+  - copy_angle
+  - hook_psychology
+  - human_need_activation
+  not_for:
+  - visual_aesthetic
+  - composition
+  - photography_style
+source:
+  type: foreplay-expert
+  expert_name: Sarah Levinger
+  expert_url: https://app.foreplay.co/discovery-experts/0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  expert_user_id: 0PZ5RCeHY1fDO3zOzGAbGHLMAth2
+  board_id: RHily32Kvcnw251dhOyu
+  fetched_at: '2026-05-12T18:27:37Z'
+display_format: dco
+is_video: false
+is_carousel: false
+live: false
+started_running: 1671731573000
+headline: Start Your Healthy Habit Now
+description: Who says healthy habits have to be complicated? Just 1 scoop replaces your multivitamin,
+  pre- and probiotics, immune support & more.
+cta:
+  type: LEARN_MORE
+  title: ''
+link_url: https://athleticgreens.com/campaign/d35ct-offer-immunity/en
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Health/Wellness
+languages:
+- English
+market_target: b2c
+product_category: health and wellness
+creative_targeting: health conscious individuals
+persona:
+  gender: both
+  age: unknown
+emotional_drivers:
+  nostalgia: 1
+  guilt: 1
+  engagement: 1
+  esteem: 2
+  curiosity: 1
+  achievement: 1
+  anger: 1
+  empowerment: 3
+  belonging: 1
+  competence: 2
+  security: 4
+  urgency: 1
+  authority: 1
+  nurturance: 2
+  fear: 1
+content_filter:
+  Features and Benefits: 0.138
+  other: 0.165
+  Facts and Stats: 0.063
+  Testimonial - Review: 0.385
+  Media and Press: 0.053
+ai_keywords:
+- healthy habits
+- complicated
+- 1 scoop
+- multivitamin
+- pre- and probiotics
+- immune support
+- start your healthy habit now
+video_duration: ''
+assets:
+  primary: 5710111572404774.jpg
+  source_image_url: https://r2.foreplay.co/5710111572404774/5ba1ca0ad2e18512dafce815c4c0e598.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: https://storage.googleapis.com/adison-foreplay.appspot.com/5710111572404774/4d038b7a39f26bdb56898613dd469f55.png

@@ -1,0 +1,100 @@
+ad_id: '788182019713799'
+foreplay_id: N0I58KHCfegJr4JQjxK9
+brand: Factor_
+brand_id: ijEhn8GMUciVTltyb7rs
+library: standard
+category: features-and-benefits
+purpose:
+  signal: structural
+  use_for:
+  - composition
+  - ad_type_pattern
+  - layout
+  - element_placement
+  - structural_archetype
+  not_for:
+  - copy_psychology
+  - emotional_angle
+  - human_need_activation
+source:
+  type: foreplay-brand-aggregation
+  brand: Chase-#features
+  brand_id: EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::a5T8uovj0XZbji97AGld
+  niche: Food/Drink
+  classifier: foreplay-ui-content-style
+  classification:
+    category: features-and-benefits
+    source: scraped
+    foreplay_label: Features and Benefits
+  filters:
+    display_format:
+    - image
+    live: true
+    market_target: b2c
+  fetched_at: '2026-05-13T02:50:18Z'
+display_format: dco
+is_video: false
+is_carousel: false
+live: false
+started_running: 1690223150000
+headline: LIMITED TIME - SAVE 50% OFF YOUR FIRST BOX!
+description: Fill your fridge weekly with prepared and delicious Keto meals. Save 50% off your first box!
+cta:
+  type: GET_OFFER
+  title: ''
+link_url: https://www.factor75.com/plans?c=FACTOR11819&c_comms=PERCENT&utm_source=facebook&utm_medium=cpm&utm_campaign=SVL_Facebook_50P&utm_content=act_paidsocial_paidsocial&vs_campaign_id=834148f0-62c0-46e4-a067-77429407c856
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Food/Drink
+languages:
+- English
+market_target: b2c
+product_category: ''
+creative_targeting: ''
+persona:
+  age: unknown
+  gender: unknown
+emotional_drivers:
+  achievement: 1
+  anger: 1
+  authority: 1
+  belonging: 1
+  competence: 1
+  curiosity: 1
+  empowerment: 1
+  engagement: 1
+  esteem: 1
+  fear: 1
+  guilt: 1
+  nostalgia: 1
+  nurturance: 1
+  security: 2
+  urgency: 3
+content_filter:
+  Facts_and_Stats: 0.0
+  Features_and_Benefits: 0.0
+  Promotion_and_Discount: 0.0
+  Testimonial_Review: 0.0
+  other: 0.06
+  UGC: 0.0
+  Us_vs_Them: 0.0
+  Before_and_After: 0.0
+  Podcast: 0.0
+  Reasons_why: 0.0
+  Media_and_Press: 0.0
+  Unboxing: 0.0
+  Green_Screen: 0.0
+  Holiday_Seasonal: 0.0
+ai_keywords: []
+video_duration: ''
+assets:
+  primary: 788182019713799.jpg
+  source_image_url: https://r2.foreplay.co/788182019713799/ba097e48dbb1580fe4caafb2105ebf3b.jpg
+  source_video_url: ''
+  source_thumbnail_url: ''
+  card_image_urls: []
+  mobile_screenshot_url: ''

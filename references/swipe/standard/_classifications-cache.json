@@ -1,0 +1,1690 @@
+{
+  "brands": {
+    "62NT2Wi9EkNboDQFM0fT": {
+      "name": "The Ridge",
+      "scraped_at": "2026-05-12T23:31:20Z",
+      "records": [
+        {
+          "ad_id": "963228472979565",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "974966714895637",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "776797802053974",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "982430807584270",
+          "format": "video",
+          "content_style": null,
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "1269044885384743",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Service Business"
+        }
+      ]
+    },
+    "3Sos8e7yLxgtLksk2Hqf": {
+      "name": "Hers",
+      "scraped_at": "2026-05-12T23:32:24Z",
+      "records": [
+        {
+          "ad_id": "955539350419330",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1662555715022972",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "4419445218304340",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "4340837812796559",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1484656763357453",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        }
+      ]
+    },
+    "7skZVIYIEDbDJxSgoVTY": {
+      "name": "Caraway",
+      "scraped_at": "2026-05-12T23:33:35Z",
+      "records": [
+        {
+          "ad_id": "2050657122184154",
+          "format": "video",
+          "content_style": null,
+          "niche": "Home/Garden"
+        },
+        {
+          "ad_id": "1608008446943670",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "998163402882737",
+          "format": "video",
+          "content_style": null,
+          "niche": "Home/Garden"
+        },
+        {
+          "ad_id": "1662016228336417",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Home/Garden"
+        },
+        {
+          "ad_id": "1525425718983278",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Home/Garden"
+        },
+        {
+          "ad_id": "1346851834173713",
+          "format": "video",
+          "content_style": null,
+          "niche": "Entertainment"
+        },
+        {
+          "ad_id": "1457024139510613",
+          "format": "dpa",
+          "content_style": null,
+          "niche": "Home/Garden"
+        },
+        {
+          "ad_id": "784638294580336",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Home/Garden"
+        },
+        {
+          "ad_id": "1703112504177240",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1435672328363189",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Home/Garden"
+        },
+        {
+          "ad_id": "1574992904231770",
+          "format": "video",
+          "content_style": null,
+          "niche": "Entertainment"
+        },
+        {
+          "ad_id": "799351933051221",
+          "format": "video",
+          "content_style": null,
+          "niche": "Home/Garden"
+        },
+        {
+          "ad_id": "1969311250613903",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Home/Garden"
+        },
+        {
+          "ad_id": "1884164952292493",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Entertainment"
+        },
+        {
+          "ad_id": "3984229251877760",
+          "format": "video",
+          "content_style": null,
+          "niche": "Business/Professional"
+        }
+      ]
+    },
+    "64hvNXqYTBVCGVaLK7Q4": {
+      "name": "Bloom Nutrition",
+      "scraped_at": "2026-05-12T23:34:52Z",
+      "records": [
+        {
+          "ad_id": "1368028232040023",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "961197780106449",
+          "format": "image",
+          "content_style": "Features and Benefits",
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1670526137406208",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1528436735464980",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1157849034068858",
+          "format": "image",
+          "content_style": "Features and Benefits",
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1711426183551098",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "27213014438305520",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "914513518267441",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "869065746200943",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "27621866154083070",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        }
+      ]
+    },
+    "xNr53IoD6IkFFRzJEvpk": {
+      "name": "Blume",
+      "scraped_at": "2026-05-12T23:35:38Z",
+      "records": [
+        {
+          "ad_id": "1290479696601529",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Food/Drink"
+        },
+        {
+          "ad_id": "35846126021667420",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Food/Drink"
+        },
+        {
+          "ad_id": "1510142637333012",
+          "format": "video",
+          "content_style": null,
+          "niche": "Food/Drink"
+        },
+        {
+          "ad_id": "2023778241538556",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Food/Drink"
+        },
+        {
+          "ad_id": "970448262572777",
+          "format": "video",
+          "content_style": null,
+          "niche": "Food/Drink"
+        }
+      ]
+    },
+    "LCcVcWJ3kSpxdqMua0ZC": {
+      "name": "Wild",
+      "scraped_at": "2026-05-12T23:37:07Z",
+      "records": [
+        {
+          "ad_id": "1457683908827800",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Entertainment"
+        }
+      ]
+    },
+    "TP3MO9v9vLy4u9KvAhVg": {
+      "name": "Pleage",
+      "scraped_at": "2026-05-12T23:38:19Z",
+      "records": [
+        {
+          "ad_id": "946335304530318",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "1601708674428817",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "26276514125318096",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1491037336027973",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1259147269616164",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1794518524578438",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "955391416829828",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1631567894715837",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1679676230073909",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1678999373295291",
+          "format": "image",
+          "content_style": "Testimonial - Review",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "2834861626721920",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1348615253657224",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1314955970309806",
+          "format": "image",
+          "content_style": "Features and Benefits",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "621590704162458",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "1150292230327196",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        }
+      ]
+    },
+    "FoYhPBHLBTXsD7luYHsD": {
+      "name": "hims",
+      "scraped_at": "2026-05-12T23:39:10Z",
+      "records": [
+        {
+          "ad_id": "2082514756035185",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1175008141362844",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "26804097269245696",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1946962499297067",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "2014306292531999",
+          "format": "video",
+          "content_style": null,
+          "niche": "Entertainment"
+        }
+      ]
+    },
+    "Oajn0Zhz90BRIImK1nyL": {
+      "name": "Free Soul",
+      "scraped_at": "2026-05-12T23:39:52Z",
+      "records": [
+        {
+          "ad_id": "26861276550220336",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1670472917329797",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "4310219512566087",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "4040945512708047",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1627887758264202",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        }
+      ]
+    },
+    "UqxWo4mzuyNoIId7rBs6": {
+      "name": "Rheal",
+      "scraped_at": "2026-05-12T23:40:34Z",
+      "records": [
+        {
+          "ad_id": "3089858354544856",
+          "format": "image",
+          "content_style": "Testimonial - Review",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1870106130342324",
+          "format": "image",
+          "content_style": "Testimonial - Review",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "2151628855597617",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "2005598806696582",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1447532846661311",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Beauty"
+        }
+      ]
+    },
+    "ka8cG10RRS5kPUzHs4dt": {
+      "name": "Seed",
+      "scraped_at": "2026-05-12T23:41:14Z",
+      "records": [
+        {
+          "ad_id": "1324617242913584",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Medical"
+        },
+        {
+          "ad_id": "2053932592170599",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1453820909822694",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Medical"
+        },
+        {
+          "ad_id": "26666736009686868",
+          "format": "image",
+          "content_style": "Testimonial - Review",
+          "niche": "Medical"
+        },
+        {
+          "ad_id": "957339500508176",
+          "format": "video",
+          "content_style": null,
+          "niche": "Entertainment"
+        }
+      ]
+    },
+    "fPXbhfApPqpYMZPj5zDJ": {
+      "name": "Goli",
+      "scraped_at": "2026-05-12T23:41:57Z",
+      "records": [
+        {
+          "ad_id": "960855150261088",
+          "format": "video",
+          "content_style": null,
+          "niche": "Business/Professional"
+        },
+        {
+          "ad_id": "1647191589885659",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "981942264733071",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "971259082177706",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1309004213888999",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        }
+      ]
+    },
+    "gRqiSiQSEtKNGdpRrFOK": {
+      "name": "Reformation",
+      "scraped_at": "2026-05-12T23:42:44Z",
+      "records": [
+        {
+          "ad_id": "2046594219263526",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1503298131530498",
+          "format": "dpa",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "986371753879427",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1594175904989309",
+          "format": "dpa",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1273953561118775",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        }
+      ]
+    },
+    "qEAMFTPTmPCQbiPjAC6y": {
+      "name": "RYZE Superfoods",
+      "scraped_at": "2026-05-12T23:43:27Z",
+      "records": [
+        {
+          "ad_id": "1316918087040339",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "1334193781898078",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "1914105269309190",
+          "format": "image",
+          "content_style": null,
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "1328948029105421",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "26438671005835970",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Service Business"
+        }
+      ]
+    },
+    "0paqCbLm8KSyGZlLrBQw": {
+      "name": "Omnilux",
+      "scraped_at": "2026-05-12T23:44:09Z",
+      "records": [
+        {
+          "ad_id": "4635180103288384",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1342511241068363",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1715446213139129",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1956338931908351",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "903876169338026",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        }
+      ]
+    },
+    "5ugrdEuRFIrDkEahk7Bn": {
+      "name": "PetLab Co.",
+      "scraped_at": "2026-05-12T23:45:09Z",
+      "records": [
+        {
+          "ad_id": "401791790868304",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "810973552949588",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "2077295195754400",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "281697713874684",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "1615244402170140",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "634651264423125",
+          "format": "image",
+          "content_style": "Features and Benefits",
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "629729034971242",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "421648939752494",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "221663096760248",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "489401995794303",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "117724754732101",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "948819032627161",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "233843481834877",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        },
+        {
+          "ad_id": "1038194970047782",
+          "format": "video",
+          "content_style": null,
+          "niche": "Pets"
+        }
+      ]
+    },
+    "4VFVvGZ9m1nsVb5hydQJ": {
+      "name": "Dr. Squatch",
+      "scraped_at": "2026-05-12T23:46:39Z",
+      "records": [
+        {
+          "ad_id": "934909149541755",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "993370166561146",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1661634538369776",
+          "format": "dpa",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1938923616753785",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "988430210194513",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "858119100666441",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "4690725307823315",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "855371444249172",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "2864488590567597",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1587850202290891",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1733490861337700",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1364749232371521",
+          "format": "image",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1457137048884990",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "26829754823354510",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1337829018241240",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "945712008252031",
+          "format": "dpa",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1597997567976200",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1549378653368360",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1349213450592405",
+          "format": "dpa",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "26992581630360844",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        }
+      ]
+    },
+    "95OR26iU4JwjRJL3KBql": {
+      "name": "True Classic",
+      "scraped_at": "2026-05-12T23:47:45Z",
+      "records": [
+        {
+          "ad_id": "3855711591402306",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "1323685376328669",
+          "format": "dpa",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1304277181807094",
+          "format": "image",
+          "content_style": "Media and Press",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1653708565937450",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "2047537559308543",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1360745162551345",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "2244344346099588",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1462898182243396",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1446119120152186",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "959504730229213",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1740833677091540",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "927215473649589",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "948668721350845",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "865947329855802",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        }
+      ]
+    },
+    "7hpJo5MfCiWGcnvZdKCG": {
+      "name": "HIKE Footwear",
+      "scraped_at": "2026-05-12T23:48:30Z",
+      "records": [
+        {
+          "ad_id": "1498525044971294",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "2765008640524496",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1466946055133866",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "2815388448803643",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1001967603002734",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Fashion"
+        }
+      ]
+    },
+    "6ylI4Omcx9wr5rUYUyys": {
+      "name": "DRMTLGY",
+      "scraped_at": "2026-05-12T23:49:14Z",
+      "records": [
+        {
+          "ad_id": "945793071567656",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "931674492966979",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "813302434872994",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "2008181286753014",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "947562278162047",
+          "format": "video",
+          "content_style": null,
+          "niche": "Beauty"
+        }
+      ]
+    },
+    "TSsIzyluWFMkRgIcdqV0": {
+      "name": "Ritual",
+      "scraped_at": "2026-05-12T23:49:58Z",
+      "records": [
+        {
+          "ad_id": "621672020914806",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "9567839029993348",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "599324999205914",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "603823509384617",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1405267207160027",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Beauty"
+        }
+      ]
+    },
+    "fFfr3cK16ssmZeQax7Kp": {
+      "name": "Arrae",
+      "scraped_at": "2026-05-12T23:50:42Z",
+      "records": [
+        {
+          "ad_id": "2369084030278251",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1705364743821532",
+          "format": "video",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1513377546839014",
+          "format": "image",
+          "content_style": "Testimonial - Review",
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "844987652000782",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Health/Wellness"
+        },
+        {
+          "ad_id": "1527722085812648",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Health/Wellness"
+        }
+      ]
+    },
+    "SB165KAGVCcBfW4lldjR": {
+      "name": "Elevated Faith",
+      "scraped_at": "2026-05-12T23:51:27Z",
+      "records": [
+        {
+          "ad_id": "1686606002676484",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Entertainment"
+        },
+        {
+          "ad_id": "1360427439473341",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1720212442668544",
+          "format": "video",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "26320259964323916",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1690327512101811",
+          "format": "carousel",
+          "content_style": null,
+          "niche": "Fashion"
+        }
+      ]
+    },
+    "ZKQADm0sJf5gQMdIRco5": {
+      "name": "WISKII Active",
+      "scraped_at": "2026-05-12T23:52:30Z",
+      "records": [
+        {
+          "ad_id": "1271462061722619",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "2630738334010599",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "2693192567733995",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "1287394143531573",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "1681835022857190",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "1644266089966596",
+          "format": "video",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "2042090216711878",
+          "format": "image",
+          "content_style": "Green Screen",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1533944174827226",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "3903165093318808",
+          "format": "image",
+          "content_style": "Features and Benefits",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1717138739642117",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "3861266507503226",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "905910175798218",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "27132293596367150",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1400747798740490",
+          "format": "video",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "942167638647749",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        }
+      ]
+    },
+    "feZxkQKEjBrB4RwDimxm": {
+      "name": "Modibodi",
+      "scraped_at": "2026-05-12T23:53:35Z",
+      "records": [
+        {
+          "ad_id": "1341150847933212",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1643041340260548",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1310290777692786",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "949299357903662",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "2081270196101466",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1506887930974648",
+          "format": "video",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1674440990470227",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "2216479465848886",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "3056956004488514",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1498541601663979",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "4345180545726009",
+          "format": "video",
+          "content_style": null,
+          "niche": "Entertainment"
+        },
+        {
+          "ad_id": "4318436468396479",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "1538167881137098",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "974832468471122",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "840290645792660",
+          "format": "video",
+          "content_style": null,
+          "niche": "Fashion"
+        }
+      ]
+    },
+    "lVXWzLmZo6Te6GQ5JKZL": {
+      "name": "The Simple Folk",
+      "scraped_at": "2026-05-12T23:54:46Z",
+      "records": [
+        {
+          "ad_id": "24396674253353300",
+          "format": "video",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "1680951019234891",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "2177133752700523",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "2507647132948180",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "1338881240992305",
+          "format": "Dynamic Content Optimization",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "1933150360829794",
+          "format": "video",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "1073175754768143",
+          "format": "video",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "4076693742544900",
+          "format": "video",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "1360651051690132",
+          "format": "video",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "744304501304493",
+          "format": "video",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "718691080756449",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "625309287274356",
+          "format": "video",
+          "content_style": null,
+          "niche": "Other"
+        },
+        {
+          "ad_id": "1716356809001068",
+          "format": "video",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "1237936371457309",
+          "format": "video",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        },
+        {
+          "ad_id": "1471040467256400",
+          "format": "video",
+          "content_style": null,
+          "niche": "Kids/Baby"
+        }
+      ]
+    },
+    "EXPERT::9psEZraBy5fScjUpFN9BwxmSBVn1::SRwbc5GJbCPy37PTXPkX": {
+      "name": "Expert1-UsVsThem",
+      "scraped_at": "2026-05-13T02:46:41Z",
+      "records": [
+        {
+          "ad_id": "628969295127484",
+          "format": "dco",
+          "content_style": "Us vs Them",
+          "niche": "Business/Professional"
+        },
+        {
+          "ad_id": "4421604374635101",
+          "format": "image",
+          "content_style": "Us vs Them",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "414812136934304",
+          "format": "image",
+          "content_style": "Us vs Them",
+          "niche": "Accessories"
+        },
+        {
+          "ad_id": "1501551867140020",
+          "format": "image",
+          "content_style": "Us vs Them",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "834551237240875",
+          "format": "image",
+          "content_style": "Us vs Them",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "3592436120466745000",
+          "format": "image",
+          "content_style": "Us vs Them",
+          "niche": "Expert"
+        },
+        {
+          "ad_id": "3580182069498855400",
+          "format": "image",
+          "content_style": "Us vs Them",
+          "niche": "Expert"
+        }
+      ]
+    },
+    "EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::XpJVQzmiKkSd5KBIZKm1": {
+      "name": "Expert2-Board1",
+      "scraped_at": "2026-05-13T02:46:41Z",
+      "records": [
+        {
+          "ad_id": "896671074870812",
+          "format": "dco",
+          "content_style": "Features and Benefits",
+          "niche": "Beauty"
+        }
+      ]
+    },
+    "EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::TyMaQWICllBaBXT2HF3e": {
+      "name": "Expert2-Board3",
+      "scraped_at": "2026-05-13T02:46:41Z",
+      "records": [
+        {
+          "ad_id": "1074804199932437",
+          "format": "dco",
+          "content_style": "Us vs Them",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "1455709145225540",
+          "format": "dco",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "817149919630232",
+          "format": "dco",
+          "content_style": "Promotion and Discount",
+          "niche": "Jewelry/Watches"
+        },
+        {
+          "ad_id": "1337527710075719",
+          "format": "dco",
+          "content_style": "Promotion and Discount",
+          "niche": "Pets"
+        }
+      ]
+    },
+    "EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::auyBb4REsewMCyx9oFhk": {
+      "name": "Expert2-Board5",
+      "scraped_at": "2026-05-13T02:46:41Z",
+      "records": [
+        {
+          "ad_id": "882396033417715",
+          "format": "dco",
+          "content_style": "Facts and Stats",
+          "niche": "Fashion"
+        }
+      ]
+    },
+    "EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::H2ziDX8OYgitopaUnvGX": {
+      "name": "Expert2-Board6",
+      "scraped_at": "2026-05-13T02:46:41Z",
+      "records": [
+        {
+          "ad_id": "2042276006156423",
+          "format": "dco",
+          "content_style": "Testimonial - Review",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "2155231981339558",
+          "format": "dco",
+          "content_style": "Testimonial - Review",
+          "niche": "Beauty"
+        }
+      ]
+    },
+    "EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::SX4HNsGBWVXZ4C6j5Zx2": {
+      "name": "Chase-#before_and_after",
+      "scraped_at": "2026-05-13T02:49:41Z",
+      "records": [
+        {
+          "ad_id": "794420285391805",
+          "format": "dco",
+          "content_style": "Before and After",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "831788111412052",
+          "format": "image",
+          "content_style": "Before and After",
+          "niche": "Beauty"
+        }
+      ]
+    },
+    "EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::7l6x9z1YWK8rHs0EsNQ4": {
+      "name": "Chase-#comparison_ads",
+      "scraped_at": "2026-05-13T02:49:41Z",
+      "records": [
+        {
+          "ad_id": "221932483743369",
+          "format": "image",
+          "content_style": "Us vs Them",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "937127520722296",
+          "format": "dco",
+          "content_style": "Us vs Them",
+          "niche": "Food/Drink"
+        },
+        {
+          "ad_id": "1626835774462910",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Food/Drink"
+        },
+        {
+          "ad_id": "185380114327014",
+          "format": "image",
+          "content_style": "Us vs Them",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "5615918875149363",
+          "format": "image",
+          "content_style": "Us vs Them",
+          "niche": "Business/Professional"
+        },
+        {
+          "ad_id": "703555214609438",
+          "format": "dco",
+          "content_style": "Us vs Them",
+          "niche": "Health/Wellness"
+        }
+      ]
+    },
+    "EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::a5T8uovj0XZbji97AGld": {
+      "name": "Chase-#features",
+      "scraped_at": "2026-05-13T02:49:41Z",
+      "records": [
+        {
+          "ad_id": "694346032589841",
+          "format": "dco",
+          "content_style": "Facts and Stats",
+          "niche": "Fashion"
+        },
+        {
+          "ad_id": "788182019713799",
+          "format": "dco",
+          "content_style": "Features and Benefits",
+          "niche": "Food/Drink"
+        },
+        {
+          "ad_id": "255995493884888",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Service Business"
+        },
+        {
+          "ad_id": "199085286400061",
+          "format": "dco",
+          "content_style": "Features and Benefits",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1945398012500525",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "231910882813767",
+          "format": "image",
+          "content_style": "Facts and Stats",
+          "niche": "Beauty"
+        },
+        {
+          "ad_id": "1353928965184560",
+          "format": "dco",
+          "content_style": "Facts and Stats",
+          "niche": "Entertainment"
+        },
+        {
+          "ad_id": "605107098116835",
+          "format": "image",
+          "content_style": "Features and Benefits",
+          "niche": "Service Business"
+        }
+      ]
+    },
+    "EXPERT::91ykpKX3ZaeNsWD41FDEE9Ye0eC3::8smhZTMjcEhF3j9Ox4un": {
+      "name": "Chase-#problem_solution",
+      "scraped_at": "2026-05-13T02:49:41Z",
+      "records": [
+        {
+          "ad_id": "5626901770699666",
+          "format": "image",
+          "content_style": "Promotion and Discount",
+          "niche": "Fashion"
+        }
+      ]
+    }
+  }
+}
