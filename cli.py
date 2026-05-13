@@ -206,7 +206,18 @@ def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, sk
     console.print("  - offers.yaml")
     console.print("  - strategy-matrix.md, strategy-matrix.yaml")
     console.print()
-    console.print("[bold]Next:[/bold] adc brief --client {} --product <id> --angles 6".format(client))
+    console.print("[bold]Next:[/bold]")
+    console.print(
+        f"  1. adc mine-voc --client {client} --category <category>  "
+        "[dim](optional but recommended)[/dim]"
+    )
+    console.print(
+        f"  2. adc profile-psychology --client {client}  "
+        "[dim](diagnose buyer heuristics + pairings)[/dim]"
+    )
+    console.print(
+        f"  3. adc brief --client {client} --product <id> --angles 6"
+    )
 
 
 # ─── Product Deep-Dive (Stage 4) ────────────────────────────────────────────
@@ -973,36 +984,110 @@ def research(client: str, url: str, max_products: int, auto: bool):
 @click.option("--product", required=True, help="Product slug")
 @click.option("--angles", default=5, help="Number of messaging angles to generate")
 @click.option("--platform", default="meta", help="Target platform: meta, tiktok")
-def brief(client: str, product: str, angles: int, platform: str):
+@click.option(
+    "--avatar",
+    default=None,
+    help="Specific avatar to use (e.g. 'primary'). Loads from clients/<slug>/avatars/<name>.yaml. "
+    "Omit to fall back to legacy clients/<slug>/avatar.yaml.",
+)
+@click.option(
+    "--ignore-psychology",
+    is_flag=True,
+    default=False,
+    help="Skip the avatar's psychology_profile guardrails (filter + prompt block). "
+    "Useful for before/after comparison.",
+)
+def brief(
+    client: str,
+    product: str,
+    angles: int,
+    platform: str,
+    avatar: str | None,
+    ignore_psychology: bool,
+):
     """Generate creative briefs with messaging angles for a product."""
-    from models.loader import load_brand, load_product, load_avatar, load_winning_patterns, save_brief
+    import yaml
+
+    from models.avatar import CustomerAvatar
+    from models.loader import (
+        load_brand,
+        load_product,
+        load_avatar as _load_legacy_avatar,
+        load_winning_patterns,
+        save_brief,
+    )
     from strategy.brief_generator import generate_briefs
 
     with console.status("Loading client data..."):
         brand = load_brand(client)
         prod = load_product(client, product)
-        avatar = load_avatar(client)
         patterns = load_winning_patterns(client)
 
-    if not avatar:
+        # Resolve avatar: explicit --avatar wins, then avatars/primary.yaml,
+        # then legacy avatar.yaml.
+        avatar_obj: CustomerAvatar | None = None
+        avatar_source = ""
+        if avatar:
+            path = Path("clients") / client / "avatars" / f"{avatar}.yaml"
+            if not path.exists():
+                console.print(f"[red]Avatar '{avatar}' not found at {path}[/red]")
+                raise SystemExit(1)
+            with open(path, encoding="utf-8") as fh:
+                avatar_obj = CustomerAvatar(**yaml.safe_load(fh))
+            avatar_source = str(path)
+        else:
+            primary = Path("clients") / client / "avatars" / "primary.yaml"
+            if primary.exists():
+                with open(primary, encoding="utf-8") as fh:
+                    avatar_obj = CustomerAvatar(**yaml.safe_load(fh))
+                avatar_source = str(primary)
+            else:
+                avatar_obj = _load_legacy_avatar(client)
+                avatar_source = f"clients/{client}/avatar.yaml (legacy)"
+
+    if not avatar_obj:
         console.print(
             f"[yellow]No avatar found for '{client}'. "
             f"Run 'adc mine-voc' or create clients/{client}/avatar.yaml[/yellow]"
         )
         raise SystemExit(1)
 
-    with console.status(f"Generating {angles} creative briefs..."):
-        briefs = generate_briefs(
-            client_slug=client,
-            product=prod,
-            brand=brand,
-            avatar=avatar,
-            count=angles,
-            platform=platform,
-            winning_patterns=patterns,
+    console.print(f"[dim]Avatar source: {avatar_source}[/dim]")
+    use_profile = not ignore_psychology
+    if avatar_obj.psychology_profile and use_profile:
+        n_dom = len(avatar_obj.psychology_profile.dominant_heuristics)
+        n_pairings = len(avatar_obj.psychology_profile.recommended_prompt_pairings)
+        console.print(
+            f"[dim]Psychology profile applied: {n_dom} dominant heuristics, "
+            f"{n_pairings} recommended pairings.[/dim]"
+        )
+    elif avatar_obj.psychology_profile and ignore_psychology:
+        console.print(
+            "[yellow]Profile present but --ignore-psychology was set; skipping guardrails.[/yellow]"
+        )
+    else:
+        console.print(
+            "[yellow]No psychology profile on this avatar. "
+            "Run `adc profile-psychology` first for heuristic-aware angle generation.[/yellow]"
         )
 
-    table = Table(title=f"Creative Briefs — {brand.name} / {prod.name}")
+    with console.status(f"Generating {angles} creative briefs..."):
+        try:
+            briefs = generate_briefs(
+                client_slug=client,
+                product=prod,
+                brand=brand,
+                avatar=avatar_obj,
+                count=angles,
+                platform=platform,
+                winning_patterns=patterns,
+                use_profile=use_profile,
+            )
+        except ValueError as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+
+    table = Table(title=f"Creative Briefs - {brand.name} / {prod.name}")
     table.add_column("#", style="dim")
     table.add_column("Hook", style="cyan", max_width=50)
     table.add_column("Angle", style="green", max_width=30)
@@ -1010,12 +1095,12 @@ def brief(client: str, product: str, angles: int, platform: str):
     table.add_column("Brief ID", style="dim")
 
     for i, b in enumerate(briefs, 1):
-        path = save_brief(client, b)
+        save_brief(client, b)
         table.add_row(str(i), b.hook, b.angle, b.framework.value, b.brief_id)
 
     console.print(table)
     console.print(f"\n[green]Saved {len(briefs)} briefs to clients/{client}/briefs/[/green]")
-    console.print("Generate images: adc generate --client {client} --brief <brief-id> --style <style>")
+    console.print(f"Generate images: adc generate --client {client} --brief <brief-id> --style <style>")
 
 
 # ─── Show Prompt Template ────────────────────────────────────────────────────
@@ -1076,6 +1161,305 @@ def show_context(client: str, product: str):
         console.print(f"  Local: clients/{client}/{prod.image_path}")
     for img in prod.additional_images:
         console.print(f"  Additional: clients/{client}/{img}")
+
+
+# ─── Drive Asset Ingestion (Phase A) ─────────────────────────────────────────
+
+
+@cli.command(name="enrich-brand")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--apply/--dry-run",
+    default=False,
+    help="--dry-run (default) prints the proposed diff only; --apply writes brand.yaml.",
+)
+@click.option(
+    "--force",
+    is_flag=True,
+    default=False,
+    help="Bypass the Drive-modifiedTime cache and re-run vision on every asset.",
+)
+@click.option(
+    "--no-backup",
+    is_flag=True,
+    default=False,
+    help="Skip writing a .yaml.bak before overwriting brand.yaml.",
+)
+def enrich_brand(client: str, apply: bool, force: bool, no_backup: bool):
+    """Pull `brand/` assets from the client's Drive folder, vision-analyze, merge into brand.yaml.
+
+    Reads `drive_folder_id` from brand.yaml, then ingests the `brand/` subfolder
+    of that Drive folder (images via Gemini multi-image vision, PDFs via
+    pdftotext + page-image vision). Defaults to dry-run with a diff preview;
+    pass `--apply` to commit changes.
+    """
+    from strategy.brand_enricher import enrich_brand_from_drive
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    backup = not no_backup
+    with console.status(f"Pulling brand assets from Drive for '{client}'..."):
+        try:
+            result = enrich_brand_from_drive(
+                client_slug=client,
+                apply=apply,
+                force=force,
+                backup=backup,
+            )
+        except (ValueError, EnvironmentError, FileNotFoundError) as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+
+    _render_enrichment_summary(client, result, apply=apply)
+
+
+def _render_enrichment_summary(client: str, result, *, apply: bool):
+    """Print the proposed diff and run statistics."""
+    console.print()
+    console.print(
+        f"[dim]images analyzed: {result.images_analyzed}  "
+        f"pdfs analyzed: {result.pdfs_analyzed}  "
+        f"cache hits: {result.cache_hits}  "
+        f"skipped: {len(result.skipped)}[/dim]"
+    )
+
+    for filename, reason in result.skipped:
+        console.print(f"[yellow]  skipped {filename}: {reason}[/yellow]")
+
+    if not result.changes:
+        console.print("[green]No proposed changes — brand.yaml already reflects Drive assets.[/green]")
+        return
+
+    console.print(f"\n[bold]Proposed {len(result.changes)} change(s) to brand.yaml:[/bold]")
+    table = Table(show_header=True, header_style="bold")
+    table.add_column("Field", style="cyan", max_width=32)
+    table.add_column("Before", style="dim", max_width=50)
+    table.add_column("After", style="green", max_width=50)
+    for change in result.changes:
+        before_str = _format_field_value(change.before)
+        after_str = _format_field_value(change.after)
+        table.add_row(change.path, before_str, after_str)
+    console.print(table)
+
+    if apply:
+        console.print(
+            f"\n[bold green]Applied. Wrote clients/{client}/brand.yaml "
+            f"(backup at brand.yaml.bak).[/bold green]"
+        )
+    else:
+        console.print(
+            f"\n[yellow]Dry run — no changes written.[/yellow]\n"
+            f"Re-run with --apply to commit: "
+            f"[bold]adc enrich-brand --client {client} --apply[/bold]"
+        )
+
+
+def _format_field_value(value) -> str:
+    """Format a brand-field value for table display."""
+    if isinstance(value, list):
+        if not value:
+            return "[]"
+        joined = ", ".join(str(v) for v in value[:3])
+        if len(value) > 3:
+            joined += f", +{len(value) - 3} more"
+        return joined
+    if value == "":
+        return "(empty)"
+    return str(value)[:200]
+
+
+@cli.command(name="analyze-references")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--force",
+    is_flag=True,
+    default=False,
+    help="Bypass cache and re-run vision on every reference ad.",
+)
+def analyze_references(client: str, force: bool):
+    """Pull `reference-ads/` from Drive, vision-analyze each, cache per-file YAMLs.
+
+    Static images go straight to vision. Videos have a representative frame
+    extracted via ffmpeg, then vision runs on that frame. Output lives at
+    clients/<slug>/reference_ads/analyses/, with a _summary.yaml index.
+    """
+    from strategy.reference_ads import analyze_references_from_drive
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    with console.status(f"Analyzing reference ads for '{client}' via Sonnet/Gemini..."):
+        try:
+            result = analyze_references_from_drive(client_slug=client, force=force)
+        except (ValueError, EnvironmentError, FileNotFoundError) as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+
+    _render_references_summary(client, result)
+
+
+def _render_references_summary(client: str, result):
+    """Print compact analyzed-ad table."""
+    console.print()
+    console.print(
+        f"[dim]analyzed: {len(result.analyses)}  "
+        f"new: {result.new_analyses}  "
+        f"cache hits: {result.cache_hits}  "
+        f"skipped: {len(result.skipped)}[/dim]"
+    )
+    for name, reason in result.skipped:
+        console.print(f"[yellow]  skipped {name}: {reason}[/yellow]")
+
+    if not result.analyses:
+        return
+
+    table = Table(title="Reference ad analyses", show_header=True, header_style="bold")
+    table.add_column("File", style="cyan", max_width=28)
+    table.add_column("Fmt", style="dim", max_width=6)
+    table.add_column("Hook type", style="green", max_width=18)
+    table.add_column("Visual format", style="yellow", max_width=16)
+    table.add_column("Mechanic", style="magenta", max_width=28)
+    table.add_column("Mood", style="dim", max_width=24)
+
+    for a in result.analyses:
+        p = a.payload
+        fmt = "video" if a.is_video_frame else "img"
+        mood = ", ".join((p.get("mood") or [])[:3])
+        table.add_row(
+            a.filename[:26],
+            fmt,
+            (p.get("hook_type") or "")[:18],
+            (p.get("visual_format") or "")[:16],
+            (p.get("creative_mechanic") or "")[:28],
+            mood[:24],
+        )
+    console.print(table)
+    console.print(
+        f"\n[bold green]Wrote analyses to clients/{client}/reference_ads/analyses/[/bold green]"
+    )
+
+
+# ─── Psychology Profiling (Stage 1.5) ────────────────────────────────────────
+
+
+@cli.command(name="profile-psychology")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--avatar",
+    default=None,
+    help="Specific avatar to profile (e.g. 'primary'). Omit to profile every avatar.",
+)
+@click.option(
+    "--no-backup",
+    is_flag=True,
+    default=False,
+    help="Skip writing the .yaml.bak sibling before overwriting.",
+)
+def profile_psychology(client: str, avatar: str | None, no_backup: bool):
+    """Diagnose buyer psychology for an avatar — heuristics, valence/intensity, pairings.
+
+    Reads the avatar + brand context + (optional) extracted VOC, runs the
+    psychology-profiling skill via Sonnet 4.6, and writes a `psychology_profile`
+    block into the avatar yaml in place. Downstream angle generation reads this
+    to choose which psychological levers to activate.
+
+    Run AFTER `adc mine-voc` for highest-confidence output. Without VOC the
+    profiler will still run but flag confidence accordingly.
+    """
+    from strategy.psychology_profiler import (
+        profile_all_avatars,
+        profile_avatar_file,
+    )
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    backup = not no_backup
+
+    if avatar:
+        avatar_path = client_dir / "avatars" / f"{avatar}.yaml"
+        if not avatar_path.exists():
+            legacy = client_dir / "avatar.yaml"
+            if avatar in ("avatar", "default") and legacy.exists():
+                avatar_path = legacy
+            else:
+                console.print(f"[red]Avatar '{avatar}' not found at {avatar_path}[/red]")
+                raise SystemExit(1)
+
+        with console.status(f"Profiling psychology for {avatar} with Sonnet 4.6..."):
+            try:
+                profile = profile_avatar_file(client, avatar_path, backup=backup)
+            except ValueError as e:
+                console.print(f"[red]{e}[/red]")
+                raise SystemExit(1)
+
+        _render_psychology_summary({avatar: profile})
+    else:
+        with console.status(f"Profiling all avatars for '{client}' with Sonnet 4.6..."):
+            try:
+                profiles = profile_all_avatars(client, backup=backup)
+            except (FileNotFoundError, ValueError) as e:
+                console.print(f"[red]{e}[/red]")
+                raise SystemExit(1)
+        _render_psychology_summary(profiles)
+
+    console.print()
+    console.print(
+        f"[bold green]Psychology profiles written to clients/{client}/avatars/[/bold green]"
+    )
+    if backup:
+        console.print(
+            "[dim]Backups at <avatar>.yaml.bak - delete if you're happy with results.[/dim]"
+        )
+    console.print(
+        "\n[bold]Next:[/bold] briefs and angle generation will read "
+        "`psychology_profile` from each avatar automatically (wiring coming next)."
+    )
+
+
+def _render_psychology_summary(profiles):
+    """Print a compact table of each avatar's profile.
+
+    Rich treats `[...]` as markup, so square brackets in literal output must be
+    escaped with a backslash. We use parens for quadrant/confidence labels to
+    avoid the visual noise of escape sequences.
+    """
+    for name, profile in profiles.items():
+        console.print(f"\n[bold cyan]{name}[/bold cyan]")
+
+        if profile.emotional_position:
+            ep = profile.emotional_position
+            console.print(
+                f"  [dim]Position:[/dim] primary ({ep.primary.valence}/{ep.primary.intensity}), "
+                f"secondary ({ep.secondary.valence}/{ep.secondary.intensity})"
+            )
+
+        if profile.dominant_heuristics:
+            console.print("  [dim]Dominant:[/dim]")
+            for h in profile.dominant_heuristics:
+                console.print(f"    ({h.confidence:>6}) {h.heuristic}")
+
+        if profile.weak_heuristics:
+            console.print("  [dim]Avoid (weak):[/dim]")
+            for h in profile.weak_heuristics:
+                console.print(f"    {h.heuristic}")
+
+        if profile.recommended_prompt_pairings:
+            console.print("  [dim]Recommended pairings:[/dim]")
+            for p in profile.recommended_prompt_pairings:
+                console.print(f"    + {p.pairing}")
+
+        if profile.avoid_pairings:
+            console.print("  [dim]Avoid pairings:[/dim]")
+            for p in profile.avoid_pairings:
+                console.print(f"    - {p.pairing}")
 
 
 # ─── VOC Mining ──────────────────────────────────────────────────────────────

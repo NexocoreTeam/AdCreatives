@@ -33,11 +33,17 @@ def generate_briefs(
     count: int = 5,
     platform: str = "meta",
     winning_patterns: WinningPatterns | None = None,
+    use_profile: bool = True,
 ) -> list[CreativeBrief]:
     """Generate a set of creative briefs for a product.
 
     If winning_patterns is provided, the generator will weight angles
     toward patterns that have historically performed well.
+
+    When `use_profile=True` (default) and the avatar has a `psychology_profile`,
+    the angle multiplier filters the diversity matrix by the avatar's dominant
+    heuristics and applies hard constraints from the profile. Set `False` to
+    bypass — useful for before/after comparison or for avatars without a profile.
     """
     awareness = classify_awareness(avatar)
     strategy = get_awareness_strategy(awareness)
@@ -60,6 +66,7 @@ def generate_briefs(
         awareness_strategy=strategy,
         count=count,
         frameworks=[f.value for f in frameworks],
+        use_profile=use_profile,
     )
 
     briefs = []

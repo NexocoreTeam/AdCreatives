@@ -1,0 +1,34 @@
+brief_id: olipop-classic-root-beer-a84f8b
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: quest
+angle: The moment she stopped doing mental math every time she opened the fridge
+hook: I used to stand in front of the fridge doing math. Is this too much sugar? Is
+  aspartame actually fine? Is sparkling water going to be enough? I was so tired.
+  Then I just... started grabbing this instead.
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: "Pain point: guilt spiral / 'doing math in my head' quote + desire: 'something\
+  \ she can grab without thinking \u2014 a new default'"
+hook_tactic: "Storytelling \u2014 mid-moment drop with emotional resolution"
+persona: "The deliberate slow-upgrader: college-educated woman 27\u201338 who has\
+  \ already quit diet soda and finds sparkling water unsatisfying \u2014 she's solution-aware\
+  \ but fatigued by the effort of 'making good choices'"
+creative_mechanic: micro_story_plus_suspense
+visual_format: "UGC-style talking head video \u2014 casual, low-production, kitchen\
+  \ or couch setting"
+pain_point: "Regular soda is a guilt spiral \u2014 and the exhausting mental negotiation\
+  \ around every drink choice"
+benefit_callouts:
+- Tastes like actual root beer
+- Prebiotic fiber your gut notices
+- No math required
+cta: Make it your default. Find it at Whole Foods or Target.
+body_copy: ''
+visual_direction: "Woman in a natural home setting, fridge or counter visible, holding\
+  \ a Classic Root Beer can with visible ease \u2014 not performative joy, just quiet\
+  \ relief. The can looks familiar on a real counter, not a styled shoot."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

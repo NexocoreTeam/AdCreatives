@@ -1,0 +1,35 @@
+brief_id: olipop-classic-root-beer-ed468b
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: four_cs
+angle: "There's a reason this tastes like the real thing when every other 'healthy\
+  \ soda' doesn't \u2014 it's the botanicals"
+hook: Every other healthy soda tastes like it's trying to be soda. This one just...
+  is. The reason is weirder than you'd expect.
+hook_type: Curiosity Gap (Intrigue)
+slot: 4
+hook_source: 'Unique mechanism: botanically inspired blend with sweet birch + objection:
+  ''healthy sodas never actually taste like the real thing'''
+hook_tactic: "Curiosity \u2014 open loop on mechanism ('why does this actually work\
+  \ when others don't')"
+persona: "The skeptical upgrader: she follows wellness accounts, drops 'microbiome'\
+  \ naturally, but has been burned by overpromising health products before \u2014\
+  \ needs a real reason to believe, not a label claim"
+creative_mechanic: reframing_perception_plus_emotional_trigger
+visual_format: "Text-on-product photo with ingredient close-up \u2014 botanical elements\
+  \ (birch bark, herbs) styled alongside the can"
+pain_point: "The credibility gap \u2014 she doesn't believe a 'healthy' soda can taste\
+  \ authentic, because none she's tried has"
+benefit_callouts:
+- Sweet birch. Real bite. Real creaminess.
+- Botanically built, not artificially flavored
+- The fizz hits the same
+cta: Read the label. Then taste it. You'll get it.
+body_copy: ''
+visual_direction: "Close-up of the can label alongside actual botanical ingredients\
+  \ \u2014 sweet birch, plant fiber \u2014 styled simply on a light surface. Nothing\
+  \ clinical. Feels like a farmer's market aesthetic, not a supplement ad."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

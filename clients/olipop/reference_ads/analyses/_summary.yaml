@@ -1,0 +1,90 @@
+total_analyzed: 7
+cache_hits: 3
+new_analyses: 4
+skipped: []
+entries:
+- filename: d771f7c16084d37be5303c6ee0e7f6a77e3d4f2ba3201f3b38dd4275a639aaae.png
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: Illustrated flavor world
+  mood:
+  - whimsical
+  - vibrant
+  - fantastical
+  hook_visible: 'Supports Digestive Health
+
+    OLIPOP
+
+    Prebiotics
+
+    Botanicals
+
+    Plant Fiber
+
+    Blackberry Vanilla
+
+    A New Kind of Soda™'
+- filename: cc75104587fce0b531034ca7dad8d36968d31563b606bb954eb8a958739b4154.mp4
+  format: video_frame
+  hook_type: contrast
+  visual_format: product_hero
+  creative_mechanic: surprising nutritional comparison
+  mood:
+  - playful
+  - surprising
+  - informative
+  hook_visible: more fiber than a cup of peas!
+- filename: 59d4aea147ec2b26ed39ab2e6f192b0fda8ef8969ef26ba825e15dfc92a6e9ee.png
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: Illustrative ingredient and flavor explosion
+  mood:
+  - fantastical
+  - lush
+  - vibrant
+  hook_visible: Supports Digestive Health OLIPOP Prebiotics Botanicals Plant Fiber
+    Blackberry Vanilla A New Kind [unreadable]
+- filename: e46729fb79165f4c04624c383f108f73f199dbcf790bbf4ba337049427a54bef.mp4
+  format: video_frame
+  hook_type: pattern_interrupt
+  visual_format: product_hero
+  creative_mechanic: Surreal flavor world animation
+  mood:
+  - vibrant
+  - surreal
+  - playful
+  - summery
+  hook_visible: OLIPOP raspberry sherbet A new kind of soda.
+- filename: 13995e9eaa7af7736abf5fb972023e8813cb9f4213d6916d437088e22bdb4e42.mp4
+  format: video_frame
+  hook_type: contrast
+  visual_format: product_hero
+  creative_mechanic: visual metaphor comparison
+  mood:
+  - playful
+  - clever
+  - minimalist
+  hook_visible: '9g fiber!
+
+    Based on a 12 oz can of refrigerated OLIPOP (9g fiber) and 4 cups of broccoli.
+    OLIPOP is not nutritionally equ'
+- filename: c16726f389803f80bbfc1d9366e1f859b5559c475de143c0557af49e64236f04.png
+  format: image
+  hook_type: problem_solution
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: OLIPOP raspberry sherbet A new kind of soda
+- filename: 4e6ef39b3744587ec5ff527685c8f1a232da9feec81a4bedeaa9033d60140fe7.mp4
+  format: video_frame
+  hook_type: contrast
+  visual_format: product_hero
+  creative_mechanic: competitor_comparison
+  mood:
+  - minimalist
+  - informative
+  - direct
+  hook_visible: The refrigerated version of OLIPOP contains 21% more of the Daily
+    Value for fiber per 12 oz than Poppi. The fiber conten

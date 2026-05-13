@@ -13,6 +13,11 @@ dependencies = [
     "Pillow>=10.0",
     "openai>=1.50",
     "anthropic>=0.40",
+    # Drive asset ingestion (Phase A)
+    "google-api-python-client>=2.0",
+    "google-auth>=2.0",
+    "pypdfium2>=4.0",      # PDF page rendering for vision
+    "json-repair>=0.30",   # Tolerant parsing of LLM JSON output
 ]
 
 [project.optional-dependencies]

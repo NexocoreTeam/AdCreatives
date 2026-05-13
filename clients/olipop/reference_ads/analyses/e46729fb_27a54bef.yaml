@@ -1,0 +1,37 @@
+filename: e46729fb79165f4c04624c383f108f73f199dbcf790bbf4ba337049427a54bef.mp4
+file_id: 1WD4BzW3z2wRpE2FcImvjIXb32ie01W5R
+mime_type: video/mp4
+is_video_frame: true
+analysis:
+  hook_visible: OLIPOP raspberry sherbet A new kind of soda.
+  hook_type: pattern_interrupt
+  copy_treatment: The copy is printed on the product can, which is the central element
+    of this animated scene.
+  visual_format: product_hero
+  creative_mechanic: Surreal flavor world animation
+  elements_present:
+  - product_shot
+  - lifestyle_imagery
+  - logo_visible
+  mood:
+  - vibrant
+  - surreal
+  - playful
+  - summery
+  color_palette_dominant:
+  - '#F955B5'
+  - '#FCF633'
+  - '#EB008B'
+  composition_notes: The can is the central focal point, surrounded by surreal, flavor-inspired
+    elements like melting sherbet landscapes and giant raspberries, creating a vibrant,
+    immersive world.
+  likely_strengths: The highly stylized and colorful animation is extremely thumb-stopping
+    and memorable, creating strong flavor and mood associations (summer, fun, raspberry)
+    without relying on traditional ad formats.
+  likely_weaknesses: The purely animated format lacks a human element, which can limit
+    trust and relatability for some audiences. The fantastical style might not appeal
+    to all demographics and could be easily scrolled past if not immediately engaging.
+  extraction_confidence: medium
+  confidence_notes: This analysis is based on a single frame of a video. I cannot
+    determine the motion, sound design, or any preceding/succeeding text overlays
+    that might contain a different primary hook or call-to-action.

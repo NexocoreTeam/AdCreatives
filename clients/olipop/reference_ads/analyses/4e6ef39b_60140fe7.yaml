@@ -1,0 +1,40 @@
+filename: 4e6ef39b3744587ec5ff527685c8f1a232da9feec81a4bedeaa9033d60140fe7.mp4
+file_id: 1SYxIA7JEljQ77_2jHKgW37utfKobC00T
+mime_type: video/mp4
+is_video_frame: true
+analysis:
+  hook_visible: The refrigerated version of OLIPOP contains 21% more of the Daily
+    Value for fiber per 12 oz than Poppi. The fiber content of Poppi is 3g per 12
+    oz. Refrigerated OLIPOP contains 9g per 12 oz. The shelf stable version of OLIPOP
+    contains 6g of fiber per 12 oz.
+  hook_type: contrast
+  copy_treatment: A dense block of small, white, sans-serif text is overlaid at the
+    bottom of the frame as a legal-style disclaimer or factual statement.
+  visual_format: product_hero
+  creative_mechanic: competitor_comparison
+  elements_present:
+  - product_shot
+  - text_overlay
+  - logo_visible
+  - studio_aesthetic
+  mood:
+  - minimalist
+  - informative
+  - direct
+  color_palette_dominant:
+  - '#E87722'
+  - '#D15A20'
+  composition_notes: A wide, centered composition places the hero product (Olipop)
+    and a competitor can side-by-side, with significant negative space drawing the
+    eye down to the explanatory text.
+  likely_strengths: The direct, data-driven comparison to a major competitor is highly
+    persuasive for consumers focused on nutritional benefits like fiber. It clearly
+    communicates a key product advantage.
+  likely_weaknesses: The text block is small, dense, and easy to scroll past on mobile
+    feeds, potentially causing the core message to be missed. The clean, studio aesthetic
+    may be less thumb-stopping than more dynamic or UGC-style content.
+  extraction_confidence: medium
+  confidence_notes: This analysis is based on a single frame from a video. I cannot
+    determine the full video's opening hook, motion, or audio. The copy shown may
+    be more of a substantiation claim than the primary hook, which might have been
+    presented visually or in a different text card at the start.

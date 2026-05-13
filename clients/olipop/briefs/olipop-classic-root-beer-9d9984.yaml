@@ -1,0 +1,37 @@
+brief_id: olipop-classic-root-beer-9d9984
+client: olipop
+product: Classic Root Beer
+awareness_level: solution_aware
+framework: fab
+angle: The brand that admits sparkling water is a disappointment and means it
+hook: Sparkling water is not a soda. We're not going to pretend it is. You deserve
+  something that actually tastes good.
+hook_type: Pattern Interrupt (Pattern break)
+slot: 8
+hook_source: 'Pain point: ''LaCroix is fine but it''s not a Coke. It just isn''t''
+  + ''I miss the sweetness. Sparkling water tastes like disappointment'' + brand tone:
+  warm, not preachy'
+hook_tactic: "Shocking statement \u2014 says the thing she thought but didn't expect\
+  \ a soda brand to say out loud"
+persona: "The honest craver: she switched to sparkling water because it felt like\
+  \ the responsible choice, but she resents it a little \u2014 she's been telling\
+  \ herself it's enough and it isn't, and a brand that names that out loud earns instant\
+  \ trust"
+creative_mechanic: anonymity_plus_social_proof
+visual_format: "Short-form video \u2014 creator or brand voice to camera, casual and\
+  \ direct, single setup, no B-roll needed"
+pain_point: "Sparkling water doesn't scratch the itch \u2014 she's been tolerating\
+  \ a replacement that doesn't replace anything"
+benefit_callouts:
+- "Botanically brewed root beer flavor \u2014 not 'root beer adjacent'"
+- Prebiotic blend that actually does something
+- "The fizz, the sweetness, the bite \u2014 all of it"
+cta: Upgrade your fridge. Classic Root Beer is at Whole Foods and Target.
+body_copy: ''
+visual_direction: "Person speaking directly to camera, warm natural light, holding\
+  \ or just having set down a Classic Root Beer can. No teleprompter energy \u2014\
+  \ sounds like they're talking to a friend who also switched. The can is visible\
+  \ but not featured. The honesty is the visual."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
