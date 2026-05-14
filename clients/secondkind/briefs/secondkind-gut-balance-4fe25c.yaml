@@ -1,0 +1,45 @@
+brief_id: secondkind-gut-balance-4fe25c
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+framework: pas
+angle: "The quiet suspicion that the probiotic is not doing anything \u2014 and the\
+  \ guilt about stopping it anyway"
+hook: 'Have you ever finished a whole bottle of a probiotic, felt basically the same,
+  and then quietly ordered another one just in case you did not give it long enough?
+
+  What if the problem was never about time?
+
+  '
+hook_type: Question
+slot: 7
+hook_source: avatar objection finished bottle felt exactly the same and competitive-gap
+  long-term plateau evidence
+hook_tactic: "Internal-monologue question \u2014 mirror the exact thought she has\
+  \ had but never said out loud"
+persona: Done-Everything Danielle
+creative_mechanic: pattern_disruption_plus_hidden_truth
+visual_format: "Text-on-neutral-background static \u2014 the question rendered in\
+  \ a calm, editorial typeface with no product visible; the product enters in a second\
+  \ frame or in the body copy"
+visual_format_alternatives:
+- "Voice-note style video \u2014 woman speaking conversationally to camera, as if\
+  \ narrating her own internal dialogue, no script-read energy"
+- "Pull-quote carousel \u2014 the question on slide 1, the mechanism answer on slide\
+  \ 2, a clinical backing callout on slide 3"
+persona_traits: "Persistent, self-doubting woman 30\u201344 who has rationalized continued\
+  \ probiotic spending despite zero results, assuming she is the variable"
+pain_point: "Probiotic fatigue \u2014 spent real money on multiple brands and felt\
+  \ nothing meaningful change"
+benefit_callouts:
+- "The problem was never patience \u2014 it was the delivery system"
+- Postbiotics do not need time to colonize. They arrive ready.
+- Stop waiting. Start with what works at the structural level.
+cta: Find out what time alone cannot fix
+body_copy: ''
+visual_direction: "Quiet and editorial \u2014 the visual should feel like a page from\
+  \ a thoughtful wellness journal, not an ad. The question should hang in space and\
+  \ make her stop."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

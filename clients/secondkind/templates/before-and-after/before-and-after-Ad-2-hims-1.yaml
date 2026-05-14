@@ -1,0 +1,43 @@
+id: before-after-diagonal-ugc
+name: Diagonal UGC Before & After
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- before-and-after
+- diagonal-layout
+- ugc-selfie
+- rounded-corners
+- product-in-layout
+- gradient-background
+- headline-contrast-font
+template_prompt: "Image 1 is a user-generated \"before\" photo, [BEFORE_PHOTO].\n\
+  Image 2 is a user-generated \"after\" photo, [AFTER_PHOTO].\nImage 3 is the actual\
+  \ product — replicate it exactly, [PRODUCT].\n\nCreate a 1:1 square social media\
+  \ ad with a warm-toned, subtle radial gradient [BACKGROUND].\n\nThe layout follows\
+  \ a diagonal composition:\n- Top-Left: Place [BEFORE_PHOTO] as a large image with\
+  \ rounded corners. It should look like a candid, authentic selfie.\n- Bottom-Right:\
+  \ Place [AFTER_PHOTO] as a large image with rounded corners, mirroring the placement\
+  \ of the before photo. It should also be a candid selfie style.\n\nThe text and\
+  \ product visuals occupy the other two corners:\n- Top-Right:\n  - Place the [BRAND]\
+  \ wordmark in a simple, lowercase sans-serif font.\n  - Below the brand, place the\
+  \ [HEADLINE]. The headline should be 3-4 lines long. The first line should be in\
+  \ a bold white sans-serif font. The subsequent lines should be in a larger, elegant\
+  \ [ACCENT] colored serif font.\n- Bottom-Left:\n  - Place the [PRODUCT] visual,\
+  \ making it appear to float.\n  - Below the product, add the [SUBHEAD] in a bold\
+  \ white sans-serif font.\n  - At the very bottom-left corner, add any required [DETAILS]\
+  \ or disclaimer text in a small, legible sans-serif font.\n"
+description: Use this template to showcase compelling before-and-after user results
+  in a clean, modern diagonal layout. Ideal for products where visual transformation
+  is a key selling point, using authentic UGC-style photos to build trust.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-2-hims-1.png

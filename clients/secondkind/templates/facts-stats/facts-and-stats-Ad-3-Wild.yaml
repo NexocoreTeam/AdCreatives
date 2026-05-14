@@ -1,0 +1,19 @@
+id: ugc-handheld-pill-callouts
+name: UGC Pill Feature Callouts
+source: client-secondkind reference library
+category: features-and-benefits
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags: []
+template_prompt: ''
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\facts-stats\facts-and-stats-Ad-3-Wild.jpg

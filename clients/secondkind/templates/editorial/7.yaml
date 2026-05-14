@@ -1,0 +1,67 @@
+id: editorial-concept-visualization
+name: Concept Visualization Callout
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- product-hero
+- text-overlay
+- editorial-serif
+- concept-visualization
+- dark-mode
+- minimalist
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  The ad is a 1:1 square image featuring a premium, scientific aesthetic.
+
+
+  LAYOUT:
+
+  - Background: Use a [BACKGROUND] that is dark charcoal or black with a subtle, gritty
+  texture and soft, non-directional lighting.
+
+  - Product: A single [PRODUCT] is placed centrally, just below the vertical midpoint.
+  It should be a clean studio shot with soft lighting.
+
+  - Branding: The [BRAND] name is at the top center in a large, elegant, white serif
+  font.
+
+  - Headline: Below the brand, also centered, is a multi-line [HEADLINE] in the same
+  white serif font but slightly smaller.
+
+  - Concept Graphic: To the left of the main composition, place a stylized, black-and-white,
+  illustrative graphic that represents the product''s area of effect (like the brain
+  in the example). This graphic should have a rough, "torn paper" or cutout border
+  effect.
+
+  - Benefit Callout: To the right of the product, place a short [BENEFIT] text in
+  a clean, bold, white sans-serif font. A thin, curved white arrow should point from
+  this text to the [PRODUCT].
+
+  - Graphic Details: Add subtle atmospheric [DETAILS], like the floating particles
+  and the transparent, textured circle in the bottom right, to enhance the scientific
+  feel.
+
+
+  TYPOGRAPHY:
+
+  - The [BRAND] and [HEADLINE] use a high-contrast serif typeface in white.
+
+  - The [BENEFIT] callout uses a modern sans-serif typeface in white.
+
+  '
+description: Use this template to create a sophisticated, scientific-feeling ad that
+  visually connects an abstract concept (like a body part or process) to the product's
+  primary benefit.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\7.png

@@ -1,0 +1,57 @@
+id: skin-closeup-stat-claim
+name: Skin Closeup Stat Claim
+source: client-secondkind reference library
+category: facts-and-stats
+product_types:
+- supplements
+- skincare
+- beauty
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- text-overlay
+- stat-hero
+- human-element
+- product-in-situ
+- accent-color-cta
+- lifestyle-photography
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad with a photographic background. The background is an extreme close-up
+  of a person''s face showing skin texture, for example around the eye or cheek area.
+  The [BACKGROUND] should feel soft, natural, and have warm, even lighting.
+
+
+  LAYOUT:
+
+  - Place the [BRAND] wordmark in white in the top right corner.
+
+  - In the top third of the image, overlay a large, two-line [HEADLINE] in a clean,
+  white, sans-serif font.
+
+  - In the visual center of the ad, place the main [PRODUCT] bottle slightly to the
+  left. To its right, include a photographic element of a hand holding a single dose
+  or unit of the product ([DETAILS]), creating a central focal point on the product
+  itself.
+
+  - Below the product visuals, add a multi-line [BODY] text block. This should be
+  in a smaller white sans-serif font and feature a compelling [STAT] or clinical proof
+  point.
+
+  - At the bottom, place the [CTA] inside a pill-shaped button filled with a bright
+  [ACCENT] color that contrasts strongly with the background. The text inside the
+  button should be a dark, contrasting color.
+
+  '
+description: Use this template to build credibility with a specific, data-backed claim,
+  using a human-centric background to make the result feel tangible. The pop of color
+  on the CTA drives conversion.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-6-Ritual-1.jpg

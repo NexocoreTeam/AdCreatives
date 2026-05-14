@@ -1,0 +1,48 @@
+id: founder-story-lifestyle-overlay
+name: Founder Story Overlay
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+- solution_aware
+funnel_stage: awareness
+aspect_ratios:
+- '1:1'
+tags:
+- headline-overlay
+- lifestyle-photo
+- founder-story
+- full-bleed-image
+- human-element
+- centered-composition
+- sans-serif
+template_prompt: 'Create a full-bleed ad image using a single, high-quality, authentic
+  lifestyle photograph as the [BACKGROUND].
+
+
+  The photograph should be a medium shot of people (e.g., the brand''s founders, a
+  family, a core team) looking happy and trustworthy, smiling at the camera. The subjects
+  should be centrally framed against a pleasant, softly-focused outdoor setting with
+  natural light. The overall mood should be warm, wholesome, and aspirational.
+
+
+  Overlay a single [HEADLINE] in the upper third of the image, positioned above the
+  heads of the people in the photo.
+
+
+  Use a clean, modern, white sans-serif font for the headline. The headline should
+  be sentence case, with one key word italicized for emphasis. The text should be
+  sized large enough to be easily readable but not so large that it overwhelms the
+  photograph.
+
+  '
+description: Use this template to build brand trust and connection by telling an origin
+  story. It pairs an authentic photo of the people behind the brand with a simple,
+  powerful headline overlay.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\43.png

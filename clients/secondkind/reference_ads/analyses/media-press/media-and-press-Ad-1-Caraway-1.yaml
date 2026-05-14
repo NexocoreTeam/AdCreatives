@@ -1,0 +1,39 @@
+filename: media-and-press-Ad-1-Caraway-1.jpg
+file_id: 10QGt_c31reJ0_9Tyid-DfIaTW1sNXZhK
+mime_type: image/jpeg
+is_video_frame: false
+analysis:
+  hook_visible: 'FAST COMPANY
+
+
+    Your trash can is ugly.
+
+    Caraway wants to fix that.'
+  hook_type: problem_solution
+  copy_treatment: Text is a large, centered overlay within a rounded rectangular frame,
+    presented like a media quote card.
+  visual_format: lifestyle
+  creative_mechanic: media quote card overlay
+  elements_present:
+  - product_shot
+  - text_overlay
+  - lifestyle_imagery
+  - logo_visible
+  - studio_aesthetic
+  mood:
+  - modern
+  - clean
+  - aspirational
+  color_palette_dominant:
+  - '#C49E74'
+  - '#ECE4D7'
+  composition_notes: A frame-within-a-frame composition uses a text overlay to direct
+    the eye to the hero product, which is centered in the bottom half of the frame.
+  likely_strengths: The provocative hook creates immediate relatability and intrigue,
+    while the use of a major publication's name (Fast Company) provides strong social
+    proof and authority.
+  likely_weaknesses: The blunt hook might alienate customers who are not focused on
+    home aesthetics, and the premium feel may not resonate with budget-conscious buyers.
+  extraction_confidence: high
+  confidence_notes: This is a static image, so the analysis is a direct interpretation
+    of the provided creative asset. All elements are clearly visible and legible.

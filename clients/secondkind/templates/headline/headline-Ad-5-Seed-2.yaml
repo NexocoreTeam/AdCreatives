@@ -1,0 +1,56 @@
+id: problem-solution-metaphor-split
+name: Metaphor Split Ad
+source: client-secondkind reference library
+category: headline
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- vertical-split
+- problem-solution
+- metaphorical-imagery
+- headline-overlay
+- product-corner-anchor
+- discount-callout
+- pill-cta
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 square social media ad with an asymmetrical, vertically split composition
+  on a solid [BACKGROUND] color.
+
+
+  LAYOUT:
+
+  The right half of the ad is dominated by a large, symbolic lifestyle photo of [DETAILS]
+  (e.g., stacked stones symbolizing balance).
+
+  The left half of the ad contains all the text, the product, and a promotional callout.
+
+
+  TEXT HIERARCHY:
+
+  All text is placed on the left side, using a clean sans-serif font in a primary
+  [ACCENT] color.
+
+  - In the upper-left, place the large, bold [HEADLINE].
+
+  - Below the headline, add the smaller [SUBHEAD] explaining the problem or context.
+
+  - Below the subhead, create a pill-shaped button filled with the primary [ACCENT]
+  color. This button contains the [CTA] text in a contrasting light color (e.g., white).
+
+
+  PRODUCT & PROMOTION:
+
+  - In the bottom-left corner, place a studio shot of the [PRODUCT]. The [BRAND]'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\headline\headline-Ad-5-Seed-2.jpg

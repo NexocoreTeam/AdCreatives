@@ -1,0 +1,35 @@
+id: notes-app-imessage-overlay
+name: Notes Checklist Overlay
+source: client-secondkind reference library
+category: reasons-why
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- simulated-ui
+- ios-notes
+- imessage-bubble
+- checklist
+- text-overlay
+- conversational
+- ugc-aesthetic
+template_prompt: 'Create a social media ad that looks like a screenshot of a smartphone''s
+  native Notes app (iOS style).
+
+
+  LAYOUT:
+
+  The entire image is a high-fidelity mockup of a phone screen with a white [BACKGROUND].
+  Include the standard iOS status bar elements at the very top (time, network, battery)
+  and'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\reasons-why\reasons-why-Ad-4-Seed.jpg

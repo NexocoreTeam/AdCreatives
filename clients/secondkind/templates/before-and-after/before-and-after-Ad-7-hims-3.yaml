@@ -1,0 +1,19 @@
+id: ugc-before-after-product-lineup
+name: UGC Before/After Lineup
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: null
+aspect_ratios:
+- '1:1'
+tags: []
+template_prompt: ''
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-7-hims-3.png

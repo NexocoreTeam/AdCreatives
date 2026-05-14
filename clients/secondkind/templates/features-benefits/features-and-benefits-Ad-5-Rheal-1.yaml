@@ -1,0 +1,56 @@
+id: problem-solution-text-message-split
+name: Text Message Problem Solution
+source: client-secondkind reference library
+category: features-and-benefits
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- split-screen
+- vertical-split
+- problem-solution
+- ugc-aesthetic
+- text-message-bubbles
+- product-hero
+- minimalist
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad with a 50/50 vertical split-screen layout.
+
+
+  The left half of the screen has a light [BACKGROUND] color (e.g., a warm off-white).
+
+  - At the top of the left side, place the [HEADLINE] text in a clean, modern sans-serif
+  font and a dark [ACCENT] color.
+
+  - Below the headline, create a vertical stack of 3-4 simulated text message bubbles
+  ([DETAILS]). These bubbles should have rounded corners and contain short text snippets
+  representing customer pain points, questions, or struggles. Each bubble should have
+  a small timestamp, like a real text message. Alternate the colors of the bubbles
+  for a conversational feel, using white and the [ACCENT] color from the right side.
+
+
+  The right half of the screen has a solid [ACCENT] color background (e.g., a muted
+  sage green).
+
+  - At the top of the right side, mirroring the left headline''s position, place the
+  [SUBHEAD] text in the same font and color.
+
+  - In the center of the right half, place a clean, brightly-lit studio photograph
+  of the [PRODUCT].
+
+  - Below the product, add a one-line [BENEFIT] statement in a smaller sans-serif
+  font.
+
+  - At the bottom, place a prominent'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\features-benefits\features-and-benefits-Ad-5-Rheal-1.jpg

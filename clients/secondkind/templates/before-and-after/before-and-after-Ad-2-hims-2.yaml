@@ -1,0 +1,37 @@
+id: ugc-before-after-z-grid
+name: UGC Z-Grid Before & After
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- before-and-after
+- ugc
+- z-pattern-layout
+- product-in-quadrant
+- dual-font-headline
+- gradient-background
+- rounded-corners
+template_prompt: 'Image 1 is a UGC "before" selfie ([BEFORE_PHOTO]). Image 2 is a
+  UGC "after" selfie ([AFTER_PHOTO]) of the same person. The product ([PRODUCT]) will
+  be provided as a separate PNG with a transparent background.
+
+
+  Create a 1:1 square ad with a layout that guides the eye in a Z-pattern.
+
+
+  LAYOUT:
+
+  - Background: A smooth radial gradient, starting with a light tan/cream color in
+  the center and fading out to a'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-2-hims-2.png

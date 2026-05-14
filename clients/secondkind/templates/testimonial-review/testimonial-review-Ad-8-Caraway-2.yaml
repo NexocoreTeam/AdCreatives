@@ -1,0 +1,41 @@
+id: product-hero-testimonial-cascade
+name: Product Hero Testimonial Cascade
+source: client-secondkind reference library
+category: testimonial-review
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- product-hero
+- text-overlay
+- testimonial-bubble
+- social-proof
+- studio-shot
+- minimalist
+template_prompt: "Image 1 is the actual product — replicate it exactly.\n\nCreate\
+  \ a 1:1 square ad with a soft, textured [BACKGROUND] featuring a subtle gradient.\n\
+  \nLAYOUT:\nPlace a single, high-quality, cleanly isolated studio photograph of the\
+  \ [PRODUCT] in the center of the frame, slightly above the vertical midpoint. The\
+  \ product should cast a soft, realistic shadow.\n\nTEXT:\n1. At the top of the ad,\
+  \ centered horizontally, place the [HEADLINE] in a large, bold, dark-colored sans-serif\
+  \ font. The headline should span two to three lines for readability.\n2. In the\
+  \ bottom third of the ad, below the product, overlay three simulated customer testimonials.\
+  \ Style each testimonial as a white, rounded-corner rectangular 'message bubble'\
+  \ with a slight drop shadow.\n   - Inside each bubble, to the left, include a generic\
+  \ circular user profile avatar.\n   - To the right of the avatar, place the review\
+  \ text in a simple, conversational sans-serif font. Provide the reviewer's name\
+  \ below their comment.\n   - Bubble 1: [REVIEW_1] from [REVIEWER_1]\n   - Bubble\
+  \ 2: [REVIEW_2] from [REVIEWER_2]\n   - Bubble 3: [REVIEW_3] from [REVIEWER_3]\n\
+  \   - Arrange the three bubbles in a staggered, slightly overlapping cascade.\n"
+description: Use this template to build trust by showcasing a hero product surrounded
+  by authentic-looking customer testimonials. It's ideal for making a product feel
+  popular and desirable, pushing solution-aware customers toward a purchase decision.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\testimonial-review\testimonial-review-Ad-8-Caraway-2.jpg

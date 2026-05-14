@@ -1,0 +1,30 @@
+id: testimonial-benefit-checklist-hero
+name: Testimonial Benefit Checklist
+source: client-secondkind reference library
+category: testimonial-review
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- testimonial-hero
+- product-hero-right
+- benefit-checklist
+- pill-callout
+- social-proof-overlay
+- serif-headline
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad with a 9:16 aspect ratio. The background is a solid [BACKGROUND] color,
+  with the top two-thirds being a lighter shade and the bottom third'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\testimonial-review\testimonial-review-Ad-5-PetLab
+  Co..png

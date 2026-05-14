@@ -1,0 +1,42 @@
+brief_id: secondkind-gut-balance-e5dd8b
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+framework: bab
+angle: "The moment the brain fog lifted \u2014 she did not know she had it until it\
+  \ was gone"
+hook: "She had stopped mentioning it. The afternoon slump, the slow thinking, the\
+  \ feeling of being slightly underwater \u2014 she had just decided that was who\
+  \ she was now.\nSix weeks later she described it as: \"I didn't even realize I had\
+  \ brain fog until it lifted.\"\n"
+hook_type: Story / Result
+slot: 2
+hook_source: customer-language brain fog lifted quote from avatar pain points
+hook_tactic: "Micro-story with suspense \u2014 open mid-experience, withhold the resolution,\
+  \ make the reader feel the before before offering the after"
+persona: Done-Everything Danielle
+creative_mechanic: micro_story_plus_suspense
+visual_format: "UGC-style vertical video \u2014 woman at a desk, mid-afternoon, looking\
+  \ dull, then a time-lapse cut to the same setting with a noticeably different energy;\
+  \ no dramatic music, no filter"
+visual_format_alternatives:
+- "Scrolling caption static \u2014 the quote rendered as a handwritten-style note\
+  \ on a linen background, product tucked in corner"
+- "Split-screen video \u2014 left side shows the foggy before with muted color grading,\
+  \ right side shows the same scene brighter, faster, clearer"
+persona_traits: "Busy woman 30\u201344 who has quietly normalized low-grade cognitive\
+  \ dullness and never connected it to her gut health"
+pain_point: Brain fog and energy crashes she has learned to live with but suspects
+  are connected to her gut
+benefit_callouts:
+- "Gut-brain axis support \u2014 because clarity starts in the gut"
+- Steady energy without the 3pm crash
+- Feel the difference in how you think, not just how you digest
+cta: Read how the gut-brain axis actually works
+body_copy: ''
+visual_direction: "Muted, real-life afternoon light in the before; same scene, same\
+  \ woman, same desk \u2014 but the energy is unmistakably different. No transformation\
+  \ music. Just honest."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

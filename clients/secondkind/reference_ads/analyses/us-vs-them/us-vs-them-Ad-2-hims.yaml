@@ -1,0 +1,20 @@
+filename: us-vs-them-Ad-2-hims.png
+file_id: 10-Q1iwB9ZNuyS08ZBPuXCdz5psdhlX3y
+mime_type: image/png
+is_video_frame: false
+analysis:
+  hook_visible: Test for signals of 1000+ conditions* for $1000s less.**
+  hook_type: contrast
+  copy_treatment: The hook is a large text overlay at the top, with supporting text
+    inside the visual comparison boxes below.
+  visual_format: split_screen
+  creative_mechanic: Us vs. Them value comparison
+  elements_present:
+  - product_shot
+  - text_overlay
+  - logo_visible
+  - studio_aesthetic
+  mood:
+  - clean
+  - informative
+  - minimalist

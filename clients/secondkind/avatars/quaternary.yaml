@@ -1,0 +1,241 @@
+name: Functional-Curious Practitioner Paul
+demographic: Male or female, 30–55, licensed health practitioner (naturopath, integrative
+  physician, registered dietitian, health coach) or well-connected lay expert, professional
+  income, urban or suburban, likely has a personal supplement practice and recommends
+  products to clients or a social following
+psychographic: Professionally invested in understanding mechanism, not just outcomes.
+  Reads primary literature or at minimum follows people who do. Skeptical of brands
+  that lead with hype and responsive to brands that lead with science. Has likely
+  recommended probiotic brands to patients or followers and encountered the same failure
+  feedback loop the primary persona experienced firsthand. Sees an opportunity to
+  upgrade their recommendations if the mechanism case is airtight.
+pain_points:
+- pain: Patients or followers come back reporting that probiotic recommendations did
+    nothing — eroding trust in the recommendation and the category
+  intensity: high
+  customer_language:
+  - My patients keep telling me their probiotic isn't doing anything
+  - The live-bacteria model has a real viability problem I can't keep ignoring
+  source: auto_from_brand_context
+- pain: Most supplement brands in the gut health space lack the clinical evidence
+    to justify professional endorsement
+  intensity: high
+  customer_language:
+  - I need to see the studies before I put my name on a product
+  - Too many brands cite in-vitro data as if it's an RCT
+  source: auto_from_brand_context
+- pain: The postbiotic category is emerging but crowded with brands that don't understand
+    the science — hard to identify which formulations are legitimate
+  intensity: medium
+  customer_language:
+  - Every brand now says postbiotic — most of them don't actually mean it
+  source: auto_from_brand_context
+desires:
+- desire: Have a postbiotic recommendation they are confident in — one with RCT-backed
+    ingredients and clean formulation
+  customer_language:
+  - I want to be the person who found the real thing in this category
+  - If the EpiCor data holds up, this is a genuinely different product
+- desire: Build authority by introducing their audience to a mechanism-forward solution
+    before it goes mainstream
+  customer_language:
+  - I talk about this before everyone else is talking about it
+objections:
+- Three patented ingredients sounds impressive but I want to see the actual trials,
+  not summaries
+- The brand is early-stage — am I recommending something that will still be around
+  in a year
+- What is the actual postbiotic concentration and is the delivery format optimized
+  for bioavailability
+current_solutions:
+- Currently recommending Seed DS-01 or a clinical-grade probiotic to patients as the
+  premium option
+- Recommending fermented food protocols as a food-first approach
+- Following postbiotic research but not yet found a consumer product they trust enough
+  to endorse
+trigger_events:
+- Reads or hears a credible primary source on postbiotic mechanisms — SCFA production,
+  gut lining integrity, immune modulation — and starts auditing their current supplement
+  recommendations
+- A patient proactively mentions Gut Balance and reports positive results — forces
+  them to look at the product with professional eyes
+- A peer practitioner they respect publicly endorses the postbiotic category or SecondKind
+  specifically
+awareness_level: solution_aware
+language_patterns:
+- 'Mechanism-first: ''short-chain fatty acids,'' ''gut lining integrity,'' ''immune
+  modulation,'' ''RCT,'' ''bioavailability'''
+- Precise and skeptical — will call out overclaiming immediately
+- 'Credentialed confidence: frames recommendations as professional judgment, not personal
+  preference'
+- Responds to ingredient transparency, study citation, and clinical naming conventions
+  (Totipro, EpiCor, Bereum) as signals of legitimacy
+- 'Social influence framing: talks about what ''my clients are finding'' or ''what
+  I''m seeing in practice'''
+psychology_profile:
+  dominant_heuristics:
+  - heuristic: authority_bias
+    confidence: high
+    why: Paul's entire decision architecture is built around credentialed evidence
+      — he will not recommend a product until the mechanistic case and clinical trial
+      data meet his professional standard.
+    evidence:
+    - 'objections: ''Three patented ingredients sounds impressive but I want to see
+      the actual trials, not summaries'''
+    - 'pain_points[1]: ''Too many brands cite in-vitro data as if it\''s an RCT'''
+    - 'language_patterns: ''Responds to ingredient transparency, study citation, and
+      clinical naming conventions (Totipro, EpiCor, Bereum) as signals of legitimacy'''
+    - 'language_patterns: ''short-chain fatty acids, gut lining integrity, immune
+      modulation, RCT, bioavailability'''
+    ad_implications: 'Lead with named clinical ingredients and their specific trial
+      data — not brand claims, not summaries. Use clinical naming conventions (EpiCor,
+      Totipro) as legitimacy signals. Structure copy the way a methods section reads:
+      mechanism, evidence, implication. Authority must be peer-mediated or institution-verified,
+      not brand-asserted.'
+  - heuristic: social_proof
+    confidence: high
+    why: Two of three trigger events are peer-mediated — a respected colleague's public
+      endorsement or a patient self-reporting results both function as socially-originated
+      credibility, not brand-push.
+    evidence:
+    - 'trigger_events[2]: ''A peer practitioner they respect publicly endorses the
+      postbiotic category or SecondKind specifically'''
+    - 'trigger_events[1]: ''A patient proactively mentions Gut Balance and reports
+      positive results — forces them to look at the product with professional eyes'''
+    - 'language_patterns: ''Social influence framing: talks about what my clients
+      are finding or what I\''m seeing in practice'''
+    ad_implications: Social proof must come from peers in professional standing —
+      other practitioners, researchers, or credentialed voices — not generic consumer
+      testimonials or star ratings. 'A naturopath colleague started recommending this'
+      outperforms 'thousands of happy customers.' Frame proof in clinical-observation
+      language, not enthusiasm language.
+  - heuristic: framing_effect
+    confidence: high
+    why: Paul's desires are explicitly framed around being first-to-know and upgrading
+      the category — his decision hinges on how the product is positioned relative
+      to the existing probiotic standard, not on absolute claims.
+    evidence:
+    - 'desires[0].customer_language: ''If the EpiCor data holds up, this is a genuinely
+      different product'''
+    - 'desires[1].customer_language: ''I talk about this before everyone else is talking
+      about it'''
+    - 'current_solutions: Currently recommending Seed DS-01 as the premium option
+      — positioning SecondKind as the mechanism upgrade to that anchor is the operative
+      frame'
+    - 'pain_points[2]: ''Every brand now says postbiotic — most of them don\''t actually
+      mean it'''
+    ad_implications: 'Frame as category differentiation, not product launch. ''Postbiotic
+      done with actual rigor'' rather than ''better probiotic.'' Use contrast structure:
+      what the category gets wrong vs. what the mechanism actually requires. Cost-per-recommendation
+      frame — what is the professional cost of endorsing the wrong product? Position
+      SecondKind as the answer to the recommendation credibility problem, not the
+      supplement purchase problem.'
+  weak_heuristics:
+  - heuristic: scarcity
+    why: Paul is a deliberate, evidence-gating professional whose trust is earned
+      through rigor, not manufactured urgency. Scarcity mechanics would pattern-match
+      to the hype-driven brands he has already rejected.
+    avoid: Countdown timers, limited-edition stock language, 'selling out fast' framing,
+      or any urgency device that is not mechanism-driven. Urgency for Paul must come
+      from professional relevance ('the category is moving and your recommendations
+      are behind'), never from inventory.
+  - heuristic: effect_heuristic
+    why: Paul explicitly separates personal aesthetic response from professional judgment.
+      His objections and language patterns are analytical, not vibes-driven. He describes
+      himself as evaluating mechanism, not feeling.
+    avoid: Brand mood, sensory language, 'feels right' framing, lifestyle imagery
+      as primary persuasion. Aesthetics serve legitimacy signaling for this avatar
+      (clean packaging reads as scientific), but emotional resonance is not the lever
+      that closes the decision.
+  - heuristic: temporal_discounting
+    why: Paul explicitly distrusts fast-result claims — 'quick fix' framing is the
+      exact pattern that defines the probiotic brands he considers beneath professional
+      endorsement. His desired transformation is measured in patient outcomes over
+      time, not immediate relief.
+    avoid: '''Feel results in days,'' speed-of-effect promises, or any before/after
+      framing anchored in short timeframes. Results language must be mechanistic and
+      longitudinal, not acute.'
+  emotional_position:
+    primary:
+      valence: negative
+      intensity: high
+      rationale: 'Two high-intensity pain points dominate the profile: patient feedback
+        eroding professional trust (''My patients keep telling me their probiotic
+        isn\''t doing anything'') and the inability to justify professional endorsement
+        without RCT-level evidence. Both are acutely felt failures with professional
+        identity stakes — this is not passive dissatisfaction but active reputational
+        exposure. Trigger events confirm active seeking behavior, consistent with
+        LV/HI placement. The fear is not abstract; it is the cost of a recommendation
+        that fails in front of a patient or following.'
+      use_for: ''
+    secondary:
+      valence: positive
+      intensity: high
+      rationale: ''
+      use_for: Variant testing the breakthrough frame — 'the practitioner who got
+        ahead of the category shift.' Desires[1] ('I talk about this before everyone
+        else is talking about it') and desires[0] ('I want to be the person who found
+        the real thing') anchor squarely in HV/HI. Use this quadrant for warmer audiences
+        who have already resolved the credibility question and are ready to move into
+        identity-upgrade framing.
+  recommended_prompt_pairings:
+  - pairing: authority_borrowing_plus_data_insight
+    fits_because: 'Directly activates the two highest-leverage levers: authority_bias
+      and framing_effect. Lets the brand present EpiCor or Totipro trial data through
+      a credentialed third-party voice — a researcher or independent clinician — which
+      matches exactly how Paul vets category claims. Fits the primary LV/HI quadrant
+      by surfacing the evidence gap his current recommendations can\''t fill.'
+  - pairing: first_principles_plus_loss_aversion
+    fits_because: 'Activates authority_bias + framing + temporal in an analytical
+      register. ''Here is why the live-bacteria model structurally cannot do what
+      you\''re promising patients'' frames the recommendation failure as a first-principles
+      problem with a logical resolution — the exact argument structure Paul uses internally.
+      Loss aversion here is professional: the cost of continuing to recommend a mechanistically
+      flawed product.'
+  - pairing: counterintuitive_insight_plus_specificity
+    fits_because: Activates salience + authority_bias. Paul is the ideal target for
+      a counterintuitive mechanism reveal — 'viability was never the variable that
+      mattered' is precisely the kind of paradigm-reframe that will arrest a practitioner
+      who reads primary literature. Specificity (named ingredients, study populations,
+      effect sizes) closes the credibility loop his objections require.
+  - pairing: pattern_disruption_plus_hidden_truth
+    fits_because: Activates salience + authority (insider framing). 'What the postbiotic
+      category is getting wrong — and what the mechanism actually requires' speaks
+      directly to pain_points[2] ('Every brand now says postbiotic — most of them
+      don\'t actually mean it'). Insider-truth framing aligns with Paul\'s professional
+      identity as someone who reads past the marketing. Fits LV/HI — the hidden truth
+      is the professional risk he\'s currently carrying.
+  - pairing: tribal_belonging_plus_vulnerability
+    fits_because: 'Activates social_proof + effect_heuristic in a peer-credibility
+      register. For the HV/HI secondary quadrant variant — the frame is practitioner
+      community (''the integrative medicine community is moving to postbiotics and
+      here\''s why the early movers are right''). Vulnerability works here as professional
+      humility: ''I\''ve been recommending the wrong mechanism for years'' is the
+      exact admission Paul\''s peers will recognize as credible.'
+  - pairing: micro_story_plus_suspense
+    fits_because: Activates salience + effect across both quadrants. A short practitioner-narrator
+      story — 'I sent my fourth patient home with a probiotic recommendation last
+      Tuesday and I already knew it probably wouldn\'t work' — opens in LV/HI and
+      resolves in HV/HI. Works in short-form video formats without requiring Paul
+      to read long-form copy to reach the mechanism payoff.
+  avoid_pairings:
+  - pairing: gamification_plus_time_sensitive_offer
+    avoid_because: 'Violates all three weak heuristics simultaneously: scarcity, temporal_discounting,
+      and effect_heuristic. Urgency mechanics and countdown incentives are the exact
+      creative language Paul associates with the undifferentiated supplement brands
+      he has already rejected. Would destroy credibility before the mechanism argument
+      can be made.'
+  - pairing: shock_factor_plus_transformation_shortcut
+    avoid_because: High-intensity disruption + speed-of-results framing activates
+      temporal_discounting, which is a confirmed weak heuristic for this avatar. 'Transformation
+      shortcut' language pattern-matches to the miracle-pill framing SecondKind\'s
+      own brand guidelines prohibit and that Paul\'s professional skepticism is specifically
+      trained to reject.
+  - pairing: status_signaling_plus_open_loop
+    avoid_because: Aspirational status framing without mechanistic payoff is the exact
+      pattern Paul identifies as hype. He does hold status desires ('I want to be
+      the person who found the real thing') but these are earned through intellectual
+      credibility, not signaled through lifestyle or social cachet. Open-loop teaser
+      format without rapid mechanism resolution will read as manipulative to a buyer
+      who calls out overclaiming immediately.
+  source: auto_from_psychology_profiling

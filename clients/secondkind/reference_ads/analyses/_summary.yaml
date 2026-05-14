@@ -1,0 +1,1010 @@
+total_analyzed: 86
+cache_hits: 0
+new_analyses: 86
+skipped: []
+entries:
+- filename: us-vs-them-Ad-1-PetLab Co..png
+  format: image
+  hook_type: contrast
+  visual_format: split_screen
+  creative_mechanic: Us vs. Them / Before vs. After split
+  mood:
+  - authoritative
+  - clinical
+  - informative
+  hook_visible: 'Without probiotic support
+
+    ❌ Grass eating
+
+    ❌ Yeast growth
+
+    ❌ Itching
+
+    With Probiotic Chews
+
+    Balanced yeast levels ✅
+
+    Digestive'
+- filename: us-vs-them-Ad-3-PetLab Co..png
+  format: image
+  hook_type: contrast
+  visual_format: product_hero
+  creative_mechanic: Side-by-side value proposition (Problem vs. Solution)
+  mood:
+  - informative
+  - clean
+  - reassuring
+  hook_visible: 'Without probiotic support
+
+    Grass eating
+
+    Yeast growth
+
+    Itching'
+- filename: us-vs-them-Ad-2-hims.png
+  format: image
+  hook_type: contrast
+  visual_format: split_screen
+  creative_mechanic: Us vs. Them value comparison
+  mood:
+  - clean
+  - informative
+  - minimalist
+  hook_visible: Test for signals of 1000+ conditions* for $1000s less.**
+- filename: testimonial-review-Ad-1-Rheal.jpg
+  format: image
+  hook_type: story
+  visual_format: ugc_static
+  creative_mechanic: testimonial hero with social proof
+  mood:
+  - relatable
+  - trustworthy
+  - healthy
+  hook_visible: “I was skeptical too. Then I stopped bloating after 5 days.”
+- filename: testimonial-review-Ad-8-Caraway-2.jpg
+  format: image
+  hook_type: stat
+  visual_format: product_hero
+  creative_mechanic: product hero with testimonial overlays
+  mood:
+  - clean
+  - modern
+  - aspirational
+  hook_visible: The trash can people won't stop talking about
+- filename: testimonial-review-Ad-5-PetLab Co..png
+  format: image
+  hook_type: problem_solution
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: “It's helped my dog a lot during allergy season.”
+- filename: testimonial-review-Ad-7-PetLab Co..png
+  format: image
+  hook_type: story
+  visual_format: product_hero
+  creative_mechanic: Testimonial with social proof stack
+  mood:
+  - trustworthy
+  - professional
+  - reassuring
+  hook_visible: '"It''s helped my dog a lot during allergy season."'
+- filename: testimonial-review-Ad-9-Rheal.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: Venn diagram benefits
+  mood:
+  - relatable
+  - educational
+  - trustworthy
+  hook_visible: 'I''m FINALLY regular again
+
+    I don''t bloat after EVERY meal'
+- filename: testimonial-review-Ad-2-Firadventures.png
+  format: image
+  hook_type: ''
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: The Viral "Allergy Chew" that's actually worked. PetLabCo. is loved
+    by 2mil worldwide. 100k 5 star reviews globally. Les
+- filename: testimonial-review-Ad-4-Dr. Squatch.png
+  format: image
+  hook_type: pattern_interrupt
+  visual_format: lifestyle
+  creative_mechanic: Intrigue-building story hook with negative framing
+  mood:
+  - intriguing
+  - mysterious
+  - intimate
+  hook_visible: 'HE SAID “TRY IT ONCE”
+
+    CATASTROPHIC ERROR'
+- filename: testimonial-review-Ad-8-Caraway-1.jpg
+  format: image
+  hook_type: fomo
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: The trash can people won't stop talking about
+- filename: testimonial-review-Ad-6-PetLab Co..png
+  format: image
+  hook_type: question
+  visual_format: product_hero
+  creative_mechanic: split-screen problem/solution with social proof
+  mood:
+  - clean
+  - authoritative
+  - trustworthy
+  hook_visible: 'Probiotic Chew
+
+    ★★★★★ 100,000+
+
+    5 STAR REVIEWS
+
+
+    Itchy dog?
+
+    Try PetLab Co.'
+- filename: testimonial-review-Ad-3-hims.png
+  format: image
+  hook_type: story
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: '"It was incredibly easy to do."'
+- filename: reasons-why-Ad-3-American Health Report.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: ugc_static
+  creative_mechanic: handwritten whiteboard message
+  mood:
+  - cautionary
+  - authentic
+  - urgent
+  hook_visible: Do NOT Let "GLP-1's" Ruin your Finances $$
+- filename: reasons-why-Ad-1-Dr. Brooke Whitfield, MD.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: text_card
+  creative_mechanic: simulated native content (phone screenshot) with a problem-agitation-solution
+    listicle
+  mood:
+  - relatable
+  - direct
+  - informative
+  hook_visible: '3 things I hate about iron pills:
+
+    1. Nauseous every single morning
+
+    2. Constipated for days
+
+    3. Ferritin barely moved afte'
+- filename: reasons-why-Ad-6-UXCam.jpg
+  format: image
+  hook_type: controversial
+  visual_format: text_card
+  creative_mechanic: simulated native UI (notes app listicle)
+  mood:
+  - direct
+  - provocative
+  - minimalist
+  hook_visible: 'Reasons to continue using traditional analytics:
+
+    1. You like to waste time
+
+    2. You love shallow analysis
+
+    3. You don''t kno'
+- filename: reasons-why-Ad-7-Second Breath .jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: text_card
+  creative_mechanic: Numbered pain point listicle
+  mood: []
+  hook_visible: 3 REASONS TO TRY SECOND BREATH DROPS GET RELIEF FROM... 1. CAN'T CLIMB
+    STAIRS WITHOUT GASPING 😮‍💨 2. WAKING UP AT 3AM ST
+- filename: reasons-why-Ad-4-Seed.jpg
+  format: image
+  hook_type: pattern_interrupt
+  visual_format: other
+  creative_mechanic: simulated native UI (iOS Notes app) with text message overlay
+  mood:
+  - relatable
+  - clever
+  - conversational
+  hook_visible: 'Spring break packing list:
+
+    ✅ DS-01® Daily Synbiotic
+
+    ✅ DS-01® Daily Synbiotic
+
+    ✅ DS-01® Daily Synbiotic
+
+    If your gut''s not '
+- filename: reasons-why-Ad-2-EssencePet.jpg
+  format: image
+  hook_type: ''
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: 'Why I''m ditching flimsy dog toys in 2024 for this 🐶🎾
+
+
+    ✅ Built for strong tuggers
+
+
+    ✅ Keeps dogs entertained for hours
+
+
+    ✅'
+- filename: reasons-why-Ad-5-umbrellatalent40.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: other
+  creative_mechanic: Native UI screenshot (iOS Notes app)
+  mood:
+  - informative
+  - minimalist
+  - trustworthy
+  hook_visible: A safer, smarter way to build offshore teams
+- filename: promotion-and-discount-Ad-2-Wild-1.jpg
+  format: image
+  hook_type: fomo
+  visual_format: ugc_static
+  creative_mechanic: UGC-style product and refill demonstration
+  mood: []
+  hook_visible: 30% OFF! NEW limited edition refillable deodorant
+- filename: promotion-and-discount-Ad-7-Hers.png
+  format: image
+  hook_type: stat
+  visual_format: lifestyle
+  creative_mechanic: Benefit-driven headline with proof points
+  mood:
+  - aspirational
+  - positive
+  - reassuring
+  hook_visible: This GLP-1 pill gets real results. Lose 32 lbs. on average in over
+    1 year* ✓ FDA approved Wegovy® pill ✓ Personalized tr
+- filename: promotion-and-discount-Ad-5-hims.png
+  format: image
+  hook_type: stat
+  visual_format: lifestyle
+  creative_mechanic: Price-led promotional hero shot
+  mood:
+  - joyful
+  - optimistic
+  - approachable
+  hook_visible: 'Ozempic®
+
+    Prescribed online by Canadian doctors
+
+    Get started for
+
+    $99
+
+    Visit hims.ca'
+- filename: promotion-and-discount-Ad-2-Wild-3.jpg
+  format: image
+  hook_type: fomo
+  visual_format: ugc_static
+  creative_mechanic: product hero with direct offer overlay
+  mood:
+  - natural
+  - vibrant
+  - fresh
+  hook_visible: 30% OFF! NEW limited edition refillable deodorant
+- filename: promotion-and-discount-Ad-4-Seed-1.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: problem_solution_offer
+  mood:
+  - natural
+  - calm
+  - direct
+  hook_visible: Pooping every day just got easier. $50 $38
+- filename: promotion-and-discount-Ad-4-Seed-2.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: Benefit-driven headline with strike-through pricing
+  mood:
+  - direct
+  - natural
+  - reassuring
+  hook_visible: Pooping every day just got easier. $50 $38
+- filename: promotion-and-discount-Ad-1-PetLab Co..png
+  format: image
+  hook_type: fomo
+  visual_format: product_hero
+  creative_mechanic: Discount offer with social proof banner
+  mood:
+  - clean
+  - direct
+  - trustworthy
+  hook_visible: Up to 50% OFF
+- filename: promotion-and-discount-Ad-2-Wild-2.jpg
+  format: image
+  hook_type: fomo
+  visual_format: ugc_static
+  creative_mechanic: Product and refill showcase with offer overlay.
+  mood:
+  - vibrant
+  - natural
+  - upbeat
+  hook_visible: 30% OFF! NEW limited edition refillable deodorant
+- filename: promotion-and-discount-Ad-6-Ritual-1.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: Time-boxed Claim with Statistical Proof
+  mood:
+  - clinical
+  - credible
+  - hopeful
+  hook_visible: 'Reduce Wrinkles in 90 Days
+
+
+    In a clinical study, HyaCera™ led to a 356% reduction in crow''s feet wrinkles
+    within 90 days'
+- filename: promotion-and-discount-Ad-6-Ritual-2.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: Benefit-driven hero shot with product and offer
+  mood:
+  - clinical
+  - aspirational
+  - clean
+  hook_visible: 'Reduce Wrinkles in 90 Days
+
+    Shop 20% Off'
+- filename: promotion-and-discount-Ad-3-Ritual.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: ugc_static
+  creative_mechanic: Benefit-driven product pairing
+  mood:
+  - healthy
+  - natural
+  - sunny
+  - aspirational
+  hook_visible: My gut health and glowy skin wellness essentials SAVE UP TO 40% OFF
+    3-in-1 gut and digestion support Reduce wrinkles wit
+- filename: media-and-press-Ad-1-Caraway-1.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: media quote card overlay
+  mood:
+  - modern
+  - clean
+  - aspirational
+  hook_visible: 'FAST COMPANY
+
+
+    Your trash can is ugly.
+
+    Caraway wants to fix that.'
+- filename: media-and-press-Ad-5-Free Soul-1.jpg
+  format: image
+  hook_type: story
+  visual_format: product_hero
+  creative_mechanic: advertorial / editorial format
+  mood:
+  - informative
+  - premium
+  - clean
+  - feminine
+  hook_visible: 'WELLNESS FEATURE
+
+
+    Why I Avoided Creatine Blends Until I Found One That Supports More Than Muscle'
+- filename: media-and-press-Ad-6-ediblebeautyau.jpg
+  format: image
+  hook_type: direct_call_out
+  visual_format: split_screen
+  creative_mechanic: Social proof via faux media mention/editorial endorsement
+  mood:
+  - authoritative
+  - credible
+  - clean
+  hook_visible: '''I''m an over-40s beauty expert and these are the skin products
+    I use on repeat.'''
+- filename: media-and-press-Ad-4-healthtime_official.jpg
+  format: image
+  hook_type: pattern_interrupt
+  visual_format: other
+  creative_mechanic: Native Advertorial
+  mood:
+  - intriguing
+  - informative
+  - clinical
+  hook_visible: That belly isn't fat. It's stuck fascia
+- filename: media-and-press-Ad-2-LifeRx.md.jpg
+  format: image
+  hook_type: controversial
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: The GLP-1 Program Your Provider Doesn't Want You to Find
+- filename: media-and-press-Ad-5-Free Soul-2.jpg
+  format: image
+  hook_type: story
+  visual_format: text_card
+  creative_mechanic: Advertorial style with personal story hook
+  mood:
+  - informative
+  - premium
+  - trustworthy
+  hook_visible: 'WELLNESS FEATURE
+
+
+    Why I Avoided Creatine Blends Until I Found One That Supports More Than Muscle
+
+
+    Most blends felt one-d'
+- filename: media-and-press-Ad-3-IM8 Health.png
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: advertorial format
+  mood:
+  - authoritative
+  - calm
+  - reassuring
+  hook_visible: Most Supplements Weren't Formulated with Women Over 40 in Mind. This
+    One Was.
+- filename: media-and-press-Ad-1-Caraway-2.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: media_authority_quote
+  mood:
+  - aspirational
+  - sophisticated
+  - clean
+  hook_visible: Your trash can is ugly. Caraway wants to fix that.
+- filename: headline-Ad-1-Caraway-2.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: product in use demonstration
+  mood:
+  - elevated
+  - minimalist
+  - organized
+  hook_visible: 'Sorting That Makes a Statement
+
+    NEW 2-Drawer Recycling Bin'
+- filename: headline-Ad-4-Ritual-1.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: Problem (clutter) vs. Solution (single product) in situ
+  mood:
+  - simplistic
+  - modern
+  - aspirational
+  hook_visible: Ditch the 10-step skincare routine. ONCE DAILY Embrace the Ritual.
+- filename: headline-Ad-8-hims-2.png
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: conceptual benefit visualization
+  mood:
+  - direct
+  - aspirational
+  - clean
+  hook_visible: STAY HARD, ALL NIGHT. Stay harder longer with Hims
+- filename: headline-Ad-6-Pleage-1.jpg
+  format: image
+  hook_type: question
+  visual_format: lifestyle
+  creative_mechanic: Visual metaphor for problem/solution
+  mood:
+  - direct
+  - sensual
+  - empowering
+  hook_visible: 'By the way, you dry?
+
+    Screw "normal aging."
+
+    Feel juicy again with HydraHer - no hormones, no prescriptions, no BS.
+
+    Try Hy'
+- filename: headline-Ad-1-Caraway-1.png
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: Product-in-use demonstration
+  mood:
+  - elegant
+  - minimalist
+  - modern
+  hook_visible: 'Sorting That Makes a Statement
+
+    NEW 2-Drawer Recycling Bin'
+- filename: headline-Ad-8-hims-1.png
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: Benefit-driven headline with stylized product shot
+  mood:
+  - direct
+  - clean
+  - aspirational
+  hook_visible: STAY HARD, ALL NIGHT Stay harder longer with Hims Product shown is
+    Viagra Connect® (sildenafil) 50mg, possible treatment
+- filename: headline-Ad-3-hims.png
+  format: image
+  hook_type: contrast
+  visual_format: product_hero
+  creative_mechanic: benefit_without_drawback
+  mood:
+  - clinical
+  - minimalist
+  - direct
+  hook_visible: NEW 3-IN-1 FOR Testosterone without the TRT
+- filename: headline-Ad-4-Ritual-2.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: Problem framing with solution reveal
+  mood:
+  - clean
+  - modern
+  - simplistic
+  hook_visible: Ditch the 10-step skincare routine. Embrace the Ritual.
+- filename: headline-Ad-6-Pleage-2.jpg
+  format: image
+  hook_type: question
+  visual_format: lifestyle
+  creative_mechanic: Symbolic visual metaphor for a sensitive health topic
+  mood:
+  - provocative
+  - direct
+  - cheeky
+  hook_visible: By the way, you dry?
+- filename: headline-Ad-2-Pleage-1.jpg
+  format: image
+  hook_type: contrast
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: Lubricants Vaginal Moisturizers Estrogen Therapy HydraHer
+- filename: headline-Ad-5-Seed-2.jpg
+  format: image
+  hook_type: pattern_interrupt
+  visual_format: product_hero
+  creative_mechanic: Problem/Solution with Offer
+  mood:
+  - calm
+  - clean
+  - authoritative
+  hook_visible: 'Know Your #2s
+
+
+    Frequency, color, and
+
+    consistency can signal
+
+    what your system needs.'
+- filename: headline-Ad-2-Pleage-2.jpg
+  format: image
+  hook_type: contrast
+  visual_format: product_hero
+  creative_mechanic: Alternative-Stack with Strike-Through Reveal
+  mood:
+  - reassuring
+  - clean
+  - direct
+  hook_visible: Lubricants Vaginal Moisturizers Estrogen Therapy HydraHer Try Risk
+    Free Today pleage HydraHer intimate hydration for her
+- filename: headline-Ad-5-Seed-1.jpg
+  format: image
+  hook_type: pattern_interrupt
+  visual_format: product_hero
+  creative_mechanic: problem-solution with offer accent
+  mood:
+  - calm
+  - clean
+  - balanced
+  hook_visible: 'Know Your #2s
+
+    Frequency, color, and consistency can signal what your system needs.
+
+    You Need DS-01®
+
+    25% OFF'
+- filename: headline-Ad-7-Seed.jpg
+  format: image
+  hook_type: pattern_interrupt
+  visual_format: product_hero
+  creative_mechanic: Benefit-led hero shot with high-contrast copy
+  mood:
+  - natural
+  - premium
+  - bold
+  hook_visible: BEST POOPS OF YOUR LIFE
+- filename: facts-and-stats-Ad-6-Rheal-1.jpg
+  format: image
+  hook_type: direct_call_out
+  visual_format: ugc_static
+  creative_mechanic: First-person product hold with 'next logical step' copy hook.
+  mood:
+  - healthy
+  - natural
+  - routine-focused
+  hook_visible: You hit your protein target. Now sort your greens.
+- filename: facts-and-stats-Ad-4-Seed-1.png
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: product deconstruction with benefit callouts
+  mood:
+  - informative
+  - direct
+  - approachable
+  hook_visible: 'daily poops ↑
+
+    Get 25% OFF DS-01® now!
+
+    less rumbling in the gut*
+
+    no post-meal bloat
+
+    **for individuals with mild to modera'
+- filename: facts-and-stats-Ad-6-Rheal-2.jpg
+  format: image
+  hook_type: direct_call_out
+  visual_format: ugc_static
+  creative_mechanic: Direct address with product hero
+  mood:
+  - healthy
+  - aspirational
+  - natural
+  hook_visible: You hit your protein target. Now sort your greens.
+- filename: facts-and-stats-Ad-7-Joy4site.png
+  format: image
+  hook_type: direct_call_out
+  visual_format: talking_head
+  creative_mechanic: Feature callout overlay
+  mood:
+  - informative
+  - friendly
+  - authentic
+  hook_visible: SAVE SITEWIDE WITH CODE 20JOY. Single-use plastic free. Aluminum-free.
+    Vegan & Leaping Bunny Certified.
+- filename: facts-and-stats-Ad-2-PetLab Co..png
+  format: image
+  hook_type: stat
+  visual_format: product_hero
+  creative_mechanic: Social proof stat with hero product shot
+  mood:
+  - clean
+  - credible
+  - premium
+  hook_visible: '85%
+
+    would recommend PetLabCo.®''s ProBright® Advanced to a friend*
+
+
+    *Based on a survey of PetLabCo. subscribers who repor'
+- filename: facts-and-stats-Ad-1-Hers.png
+  format: image
+  hook_type: stat
+  visual_format: other
+  creative_mechanic: Multi-panel informational layout combining lifestyle imagery,
+    product shots, and text blocks.
+  mood:
+  - hopeful
+  - aspir
+  hook_visible: 'More ways to Wegovy® this summer
+
+    Lose up to 25% of your body weight*'
+- filename: facts-and-stats-Ad-4-Seed-2.png
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: annotated product hero with benefit callouts
+  mood:
+  - informative
+  - clean
+  - direct
+  hook_visible: 'daily poops
+
+    - less disruption from bloating
+
+    - Eases occasional constipation
+
+    - Get 25% OFF DS-01® now!'
+- filename: facts-and-stats-Ad-3-Wild.jpg
+  format: image
+  hook_type: stat
+  visual_format: product_hero
+  creative_mechanic: Product feature callouts
+  mood:
+  - feminine
+  - clean
+  - stylish
+  hook_visible: Wild x Cath Kidston ROLL-ON DEODORANT fast-drying 95% natural refillable
+    case invisible finish 24-hour protection Wild C
+- filename: facts-and-stats-Ad-5-PetLab Co..png
+  format: image
+  hook_type: stat
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: 'America''s #1 selling Probiotic Chew for dogs¹
+
+    Gut Health
+
+    Allergy Support
+
+    Supports Immune System'
+- filename: features-and-benefits-Ad-5-Rheal-1.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: split_screen
+  creative_mechanic: Problem/Solution via split-screen with text message testimonials
+  mood:
+  - empathetic
+  - reassuring
+  - clean
+  hook_visible: 'Your gut Our answer I have IBS, will this actually work for me? Tried
+    3 different probiotics, nothing sticks My stomach '
+- filename: features-and-benefits-Ad-2-PetLab Co..png
+  format: image
+  hook_type: problem_solution
+  visual_format: split_screen
+  creative_mechanic: before/after split
+  mood:
+  - informative
+  - contrasting
+  - reassuring
+  hook_visible: 'Without probiotic support
+
+
+    Yeast growth
+
+    Itching
+
+
+    With Probiotic Chews
+
+    PetLabCo.®
+
+
+    Balanced yeast levels
+
+    Skin comfort
+
+
+    Tr'
+- filename: features-and-benefits-Ad-6-PetLab Co..png
+  format: image
+  hook_type: stat
+  visual_format: lifestyle
+  creative_mechanic: Benefit callouts surrounding a central product shot
+  mood:
+  - caring
+  - trustworthy
+  - professional
+  hook_visible: 'America''s #1 selling Probiotic Chew for dogs¹'
+- filename: features-and-benefits-Ad-1-Wild.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: ugc_static
+  creative_mechanic: annotated product breakdown
+  mood:
+  - informative
+  - clean
+  - eco-conscious
+  hook_visible: 'Refillable Deodorant
+
+    Shea Butter for smooth skin
+
+    Tapioca Starch for sweat absorbtion
+
+    Coconut Oil for moisture
+
+    Wild
+
+    Deodo'
+- filename: features-and-benefits-Ad-3-Rheal-1.jpg
+  format: image
+  hook_type: pattern_interrupt
+  visual_format: product_hero
+  creative_mechanic: '''Unsubscribe from problem'' UI toggle'
+  mood: []
+  hook_visible: Bloating Unsubscribed. Finally, a probiotic that does the work. 10
+    billion live cultures with Lactospore® - formulated t
+- filename: features-and-benefits-Ad-5-Rheal-2.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: 'Your gut
+
+    I have IBS, will this actually work for me?'
+- filename: features-and-benefits-Ad-3-Rheal-2.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: other
+  creative_mechanic: Unsubscribe from X (problem)
+  mood:
+  - clean
+  - modern
+  - reassuring
+  hook_visible: Bloating Unsubscribed Finally, a probiotic that does the work.
+- filename: features-and-benefits-Ad-4-PetLab Co..png
+  format: image
+  hook_type: stat
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: 'America''s #1 selling Probiotic Chew for dogs¹'
+- filename: before-and-after-Ad-6-Free Soul-3.jpg
+  format: image
+  hook_type: question
+  visual_format: before_after
+  creative_mechanic: problem/solution with before & after
+  mood:
+  - aspirational
+  - relatable
+  - problem-solving
+  hook_visible: Love changing your nails? Don't let each removal weaken them
+- filename: before-and-after-Ad-2-hims-2.png
+  format: image
+  hook_type: problem_solution
+  visual_format: before_after
+  creative_mechanic: UGC before-and-after testimonial
+  mood:
+  - hopeful
+  - relatable
+  - transformative
+  hook_visible: hims Fuller Hair with Consistent Care. Long-Term Results Start Here.
+    Requires a free online consultation with a licensed
+- filename: before-and-after-Ad-7-hims-1.png
+  format: image
+  hook_type: problem_solution
+  visual_format: before_after
+  creative_mechanic: UGC before/after comparison
+  mood:
+  - hopeful
+  - clinical
+  - direct
+  hook_visible: Fuller Hair, Maintained.
+- filename: before-and-after-Ad-6-Free Soul-2.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: before_after
+  creative_mechanic: Problem-solution grid with before & after imagery
+  mood:
+  - aspirational
+  - clean
+  - direct
+  hook_visible: Love changing your nails? Don't let each removal weaken them
+- filename: before-and-after-Ad-1-Hers.png
+  format: image
+  hook_type: stat
+  visual_format: ''
+  creative_mechanic: ''
+  mood: []
+  hook_visible: Meet the FDA approved Wegovy Pill that gets results
+- filename: before-and-after-Ad-7-hims-3.png
+  format: image
+  hook_type: problem_solution
+  visual_format: before_after
+  creative_mechanic: UGC before/after split with product lineup
+  mood:
+  - hopeful
+  - authentic
+  - results-oriented
+  hook_visible: Fuller Hair, Maintained.
+- filename: before-and-after-Ad-7-hims-2.png
+  format: image
+  hook_type: problem_solution
+  visual_format: before_after
+  creative_mechanic: UGC before/after with product lineup
+  mood:
+  - reassuring
+  - results-oriented
+  - hopeful
+  hook_visible: Fuller Hair, Maintained.
+- filename: before-and-after-Ad-7-hims-4.png
+  format: image
+  hook_type: story
+  visual_format: lifestyle
+  creative_mechanic: Testimonial overlay on lifestyle image
+  mood:
+  - thoughtful
+  - proactive
+  - relatable
+  hook_visible: '"I love my hair and always have, but I want to make sure I still
+    have ALL of it in 30 years." Daniel P. ... Get Started '
+- filename: before-and-after-Ad-3-Kathy Miller.jpg
+  format: image
+  hook_type: contrast
+  visual_format: before_after
+  creative_mechanic: '''competitor/baseline'' vs ''baseline + our product'' comparison'
+  mood:
+  - clinical
+  - anatomical
+  - informative
+  hook_visible: '8 months on Mounjaro
+
+    8 months on Mounjaro + Provitalean'
+- filename: before-and-after-Ad-2-hims-3.png
+  format: image
+  hook_type: problem_solution
+  visual_format: before_after
+  creative_mechanic: UGC-style before/after transformation
+  mood:
+  - transformative
+  - hopeful
+  - relatable
+  hook_visible: hims Fuller Hair with Consistent Care. Long-Term Results Start Here.
+    Requires a free online consultation with a licensed
+- filename: before-and-after-Ad-4-BB Company.jpg
+  format: image
+  hook_type: contrast
+  visual_format: before_after
+  creative_mechanic: before/after split-screen
+  mood:
+  - transformative
+  - aspirational
+  - relatable
+  hook_visible: '[no visible text]'
+- filename: before-and-after-Ad-2-hims-4.png
+  format: image
+  hook_type: problem_solution
+  visual_format: lifestyle
+  creative_mechanic: Testimonial overlay on lifestyle visual
+  mood:
+  - contemplative
+  - aspirational
+  - reassuring
+  hook_visible: '"I love my hair and always have, but I want to make sure I still
+    have ALL of it in 30 years." Daniel P. Get Started Toda'
+- filename: before-and-after-Ad-5-Doctors Studio.jpg
+  format: image
+  hook_type: contrast
+  visual_format: before_after
+  creative_mechanic: before/after split
+  mood:
+  - clinical
+  - educational
+  - simplified
+  hook_visible: BEFORE AFTER
+- filename: before-and-after-Ad-6-Free Soul-1.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: before_after
+  creative_mechanic: problem/solution juxtaposition using a before/after grid layout
+  mood:
+  - aspirational
+  - relatable
+  - problem-solving
+  hook_visible: Love changing your nails?
+- filename: before-and-after-Ad-2-hims-1.png
+  format: image
+  hook_type: problem_solution
+  visual_format: before_after
+  creative_mechanic: UGC testimonial with before/after photos
+  mood: []
+  hook_visible: hims Fuller Hair with Consistent Care. Long-Term Results Start Here.
+    Requires a free online consultation with a licensed
+- filename: 32e5ea537e5b80015b9e01f82a636ae572612ef5997398f195e51eb145f0d018.jpg
+  format: image
+  hook_type: problem_solution
+  visual_format: product_hero
+  creative_mechanic: Dynamic ingredient explosion
+  mood:
+  - fresh
+  - vibrant
+  - premium
+  hook_visible: FEEL FRESH, DAILY.* Support pH and microbiome balance from within*

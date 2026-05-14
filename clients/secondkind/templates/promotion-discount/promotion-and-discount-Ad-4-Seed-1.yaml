@@ -1,0 +1,35 @@
+id: handheld-product-price-strikeout
+name: Handheld Product Price Strikeout
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- handheld-product
+- price-strikeout
+- headline-overlay
+- lifestyle-shot
+- natural-background
+- product-in-hand
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad featuring a lifestyle product shot against a natural,
+  soft-focus [BACKGROUND] (e.g., green foliage), creating a calm and premium mood.
+
+
+  LAYOUT:
+
+  A manicured hand enters the frame from the bottom-left corner, holding the [PRODUCT].
+  The product is the central visual element, positioned below the'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-4-Seed-1.jpg

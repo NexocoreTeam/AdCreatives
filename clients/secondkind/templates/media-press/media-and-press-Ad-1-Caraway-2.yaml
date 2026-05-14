@@ -1,0 +1,60 @@
+id: media-quote-product-cutout
+name: Media Quote Cutout
+source: client-secondkind reference library
+category: media-and-press
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+tags:
+- media-quote
+- text-box-cutout
+- product-frame
+- editorial-style
+- lifestyle-background
+- central-composition
+- aspirational-photo
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad with a 4:5 aspect ratio. The background is a single, premium, slightly
+  out-of-focus lifestyle photograph of an aspirational interior space, like a modern
+  kitchen or living room ([BACKGROUND]). The lighting is soft and warm.
+
+
+  The [PRODUCT] is placed centrally on the horizontal axis and in the lower third
+  vertically. It should be perfectly in focus, well-lit, and appear as the hero element.
+
+
+  In the center of the image, overlay a large, vertically oriented rectangular text
+  box with highly rounded corners. This box has a solid [ACCENT] color fill (like
+  a warm cream or light beige), a thin, dark border, and a subtle drop shadow to create
+  depth.
+
+
+  Crucially, the bottom edge of this text box has a rectangular cutout that perfectly
+  frames the top portion of the [PRODUCT], creating an integrated look. The very bottom
+  of the [PRODUCT] should be visible below the text box.
+
+
+  Inside the text box, place the following elements:
+
+  1. At the top, a stylized logo of a media publication ([DETAILS]), rendered in a
+  high-contrast editorial serif font.
+
+  2. Below the logo, display the [HEADLINE]. The headline should be a short, direct
+  quote or statement from the publication, set in a clean, bold, black sans-serif
+  font across two lines.
+
+  '
+description: Use a media publication's quote to build authority. A central text box
+  with a clever product cutout frames the product as the hero, blending social proof
+  with a strong visual focus.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\media-press\media-and-press-Ad-1-Caraway-2.jpg

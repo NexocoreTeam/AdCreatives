@@ -1,0 +1,47 @@
+filename: 9fdcde2e5b81a4795553b77ee7c7fe68a155feabb2ce80a243172778a6339d24.jpg
+file_id: 1EtxoqkE_P_KSliVKvs3djYLmrUOJ_dBE
+mime_type: image/jpeg
+is_video_frame: false
+analysis:
+  hook_visible: 'Seed
+
+    DS-01® DAILY SYNBIOTIC
+
+    PROBIOTIC + PREBIOTIC SUPPLEMENT
+
+    60 CAPSULES • 30 DAY SUPPLY
+
+    You can use my code
+
+    here ⬇️
+
+    use code 25ASHLEYROSE'
+  hook_type: direct_call_out
+  copy_treatment: Copy is present on the product packaging, as a large centered text
+    overlay, and within an interactive-style sticker element.
+  visual_format: ugc_static
+  creative_mechanic: Creator endorsement with discount code
+  elements_present:
+  - product_shot
+  - text_overlay
+  - lifestyle_imagery
+  - logo_visible
+  - ugc_aesthetic
+  mood:
+  - authentic
+  - casual
+  - healthy
+  color_palette_dominant:
+  - '#272727'
+  - '#5F8B2C'
+  composition_notes: The product, held in hand, is the central focal point, with text
+    overlays strategically placed below to guide the eye directly to the discount
+    code sticker.
+  likely_strengths: The authentic UGC style combined with a personal discount code
+    from a creator builds strong social proof and a clear, low-friction path to purchase.
+  likely_weaknesses: Performance is heavily reliant on the audience's prior affinity
+    for the creator; without that connection, the ad's personal endorsement aspect
+    loses its impact.
+  extraction_confidence: high
+  confidence_notes: This is a static image, so all creative elements are fully visible
+    and analyzable without inference.

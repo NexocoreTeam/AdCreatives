@@ -1,0 +1,20 @@
+id: ugc-promo-overlay-arrow
+name: UGC Promo Overlay
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+- most_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags: []
+template_prompt: ''
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-2-Wild-1.jpg
