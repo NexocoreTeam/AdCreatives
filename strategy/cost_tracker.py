@@ -37,6 +37,8 @@ COST_RATES: dict[str, float] = {
     "adc brief": 0.50,                  # one batch of 6 briefs
     "adc prompts": 0.05,                # per brief picked
     "adc generate": 0.08,               # per image (prompt + fal.ai)
+    "adc remix": 0.10,                  # per variation (vision + angle + prompt)
+    "adc remix-images": 0.08,           # per image (fal.ai)
 
     # Competitive research
     "adc research-web": 0.50,

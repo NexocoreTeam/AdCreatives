@@ -311,7 +311,7 @@ def render_client_detail(selected: str):
     st.divider()
 
     tabs = st.tabs(
-        ["📊 Status", "📝 Briefs", "🖼️ Ads", "🎯 Gap Map", "🧠 Psychology", "💵 Costs", "⚡ Actions"]
+        ["📊 Status", "📝 Briefs", "🖼️ Ads", "🎨 Remix", "🎯 Gap Map", "🧠 Psychology", "💵 Costs", "⚡ Actions"]
     )
 
     with tabs[0]:
@@ -321,12 +321,14 @@ def render_client_detail(selected: str):
     with tabs[2]:
         _render_ads_tab(selected)
     with tabs[3]:
-        _render_gaps_tab(selected)
+        _render_remix_tab(selected)
     with tabs[4]:
-        _render_psychology_tab(selected)
+        _render_gaps_tab(selected)
     with tabs[5]:
-        _render_costs_tab(selected)
+        _render_psychology_tab(selected)
     with tabs[6]:
+        _render_costs_tab(selected)
+    with tabs[7]:
         _render_actions_tab(selected)
 
 
@@ -447,6 +449,293 @@ def _render_ads_tab(selected):
                 aspect = f.stem.rsplit("_", 1)[-1] if "_" in f.stem else ""
                 st.image(str(f), use_container_width=True)
                 st.caption(f"`{brief_id}` ({aspect})")
+
+
+def _list_remix_runs(selected: str) -> list[dict]:
+    """List all remix runs for a client, newest first.
+
+    Each entry has: timestamp, dir, analysis, briefs, reference (Path or None),
+    images (list[Path])."""
+    remixes_dir = CLIENTS_DIR / selected / "remixes"
+    if not remixes_dir.exists():
+        return []
+    runs: list[dict] = []
+    for d in sorted(remixes_dir.iterdir(), reverse=True):
+        if not d.is_dir():
+            continue
+        analysis_path = d / "analysis.yaml"
+        briefs_path = d / "briefs.yaml"
+        if not analysis_path.exists() or not briefs_path.exists():
+            continue
+        try:
+            analysis = yaml.safe_load(analysis_path.read_text(encoding="utf-8")) or {}
+            briefs = yaml.safe_load(briefs_path.read_text(encoding="utf-8")) or []
+        except Exception:
+            continue
+        reference = None
+        for ext in ("png", "jpg", "jpeg", "webp"):
+            cand = d / f"reference.{ext}"
+            if cand.exists():
+                reference = cand
+                break
+        images_dir = d / "images"
+        images = sorted(images_dir.glob("*.png")) if images_dir.exists() else []
+        runs.append({
+            "timestamp": d.name,
+            "dir": d,
+            "analysis": analysis,
+            "briefs": briefs,
+            "reference": reference,
+            "images": images,
+        })
+    return runs
+
+
+def _render_remix_tab(selected):
+    """Remix an example ad for your product — upload an image (or paste a
+    Foreplay link), tune variation count + fidelity, then generate briefs and
+    images. Past runs are listed below the form, newest first."""
+    st.markdown("### 🎨 Remix an example ad")
+    st.caption(
+        "Drop in an ad you like (local file or Foreplay link). The system "
+        "extracts its strategic + visual DNA and produces N variations for "
+        "your product, mixing high-fidelity near-clones with persona-tuned "
+        "variants."
+    )
+
+    # ─── New remix form ──────────────────────────────────────────────────────
+    products_dir = CLIENTS_DIR / selected / "products"
+    product_slugs: list[str] = []
+    if products_dir.exists():
+        for f in sorted(products_dir.glob("*.yaml")):
+            if f.name == "example-product.yaml":
+                continue
+            product_slugs.append(f.stem)
+
+    if not product_slugs:
+        st.warning(
+            f"No products configured for `{selected}`. Run `adc research --client {selected} --url <site>` first."
+        )
+        return
+
+    avatars_dir = CLIENTS_DIR / selected / "avatars"
+    avatar_count = (
+        len([p for p in avatars_dir.glob("*.yaml") if not p.name.startswith("_")])
+        if avatars_dir.exists()
+        else 0
+    )
+    if avatar_count == 0:
+        legacy = CLIENTS_DIR / selected / "avatar.yaml"
+        if legacy.exists():
+            avatar_count = 1
+    if avatar_count == 0:
+        st.warning(
+            f"No avatars yet for `{selected}`. Run `adc personas --client {selected}` first — "
+            "the remixer needs personas to vary across."
+        )
+        return
+
+    with st.expander("➕ New remix", expanded=True):
+        source_mode = st.radio(
+            "Reference source",
+            ["Upload image", "Foreplay URL / ID"],
+            horizontal=True,
+            key=f"remix_source_{selected}",
+        )
+
+        ref_path: Path | None = None
+        foreplay_ref: str = ""
+
+        if source_mode == "Upload image":
+            uploaded = st.file_uploader(
+                "Reference ad image",
+                type=["png", "jpg", "jpeg", "webp"],
+                key=f"remix_upload_{selected}",
+                help="PNG/JPG/WEBP of the ad you want to remix",
+            )
+            if uploaded is not None:
+                upload_dir = REPO_ROOT / "references" / "_dashboard_uploads"
+                upload_dir.mkdir(parents=True, exist_ok=True)
+                stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                ext = Path(uploaded.name).suffix.lower() or ".png"
+                ref_path = upload_dir / f"{selected}_{stamp}{ext}"
+                ref_path.write_bytes(uploaded.getbuffer())
+                col_img, _col_sp = st.columns([1, 2])
+                with col_img:
+                    st.image(str(ref_path), caption="Reference preview", use_container_width=True)
+        else:
+            foreplay_ref = st.text_input(
+                "Foreplay URL or numeric ad ID",
+                placeholder="https://app.foreplay.co/ad/12345  (or just 12345)",
+                key=f"remix_foreplay_{selected}",
+            ).strip()
+
+        col_p, col_v, col_h, col_m = st.columns([2, 1, 1, 1])
+        with col_p:
+            chosen_product = st.selectbox(
+                "Product", product_slugs, key=f"remix_product_{selected}"
+            )
+        with col_v:
+            variations = st.number_input(
+                "Variations",
+                min_value=1,
+                max_value=10,
+                value=5,
+                key=f"remix_variations_{selected}",
+            )
+        with col_h:
+            high_fidelity = st.number_input(
+                "High-fid",
+                min_value=0,
+                max_value=int(variations),
+                value=min(2, int(variations)),
+                key=f"remix_high_{selected}",
+                help="Near-clones of the reference (same setting/person/typography)",
+            )
+        with col_m:
+            medium_fidelity = st.number_input(
+                "Medium-fid",
+                min_value=0,
+                max_value=int(variations),
+                value=min(2, max(0, int(variations) - int(high_fidelity))),
+                key=f"remix_medium_{selected}",
+                help="Core identity matches, small persona-tuned variation",
+            )
+
+        low_fidelity = max(0, int(variations) - int(high_fidelity) - int(medium_fidelity))
+        st.caption(
+            f"Mix: {int(high_fidelity)} high · {int(medium_fidelity)} medium · {low_fidelity} low  ·  "
+            f"Est cost: ~${0.10 * int(variations):.2f}"
+        )
+
+        ready = (ref_path is not None) or bool(foreplay_ref)
+        if not ready:
+            st.info("Upload an image or paste a Foreplay URL/ID to continue.")
+        else:
+            if st.button(
+                f"🎨 Generate {int(variations)} remix variation(s)",
+                type="primary",
+                use_container_width=True,
+                key=f"remix_run_{selected}",
+            ):
+                args = [
+                    "remix",
+                    "--client", selected,
+                    "--product", chosen_product,
+                    "--variations", str(int(variations)),
+                    "--high-fidelity", str(int(high_fidelity)),
+                    "--medium-fidelity", str(int(medium_fidelity)),
+                ]
+                if ref_path is not None:
+                    args += ["--reference", str(ref_path)]
+                else:
+                    args += ["--foreplay-url", foreplay_ref]
+                run_adc_command(
+                    args,
+                    label=f"Remixing for {selected} (~${0.10 * int(variations):.2f})",
+                )
+                st.rerun()
+
+    st.divider()
+
+    # ─── Past remixes ────────────────────────────────────────────────────────
+    runs = _list_remix_runs(selected)
+    if not runs:
+        st.info("No remix runs yet. Use the form above to create your first one.")
+        return
+
+    st.markdown(f"### 📚 Past remixes  · _{len(runs)} run(s)_")
+
+    for run in runs:
+        analysis = run["analysis"]
+        briefs = run["briefs"]
+        images = run["images"]
+        run_dir: Path = run["dir"]
+
+        ad_type = analysis.get("ad_type") or "—"
+        levers = analysis.get("psych_levers") or []
+        n_briefs = len(briefs)
+        n_images = len(images)
+        title = (
+            f"🗓️ {run['timestamp']}  ·  "
+            f"{ad_type}  ·  {n_briefs} brief(s)  ·  "
+            f"{n_images} image(s)"
+        )
+
+        with st.expander(title, expanded=(run is runs[0])):
+            top_l, top_r = st.columns([1, 2])
+            with top_l:
+                if run["reference"] is not None:
+                    st.image(str(run["reference"]), caption="Reference", use_container_width=True)
+                else:
+                    st.caption("(no reference image on disk)")
+            with top_r:
+                st.markdown(f"**Ad type:** `{ad_type}` "
+                            f"_(conf {analysis.get('ad_type_confidence', 0):.2f})_")
+                st.markdown(f"**Psych levers:** {', '.join(levers) or '—'}")
+                st.markdown(f"**Framework:** `{analysis.get('framework', '—')}`")
+                st.markdown(f"**Creative mechanic:** {analysis.get('creative_mechanic', '—')}")
+                st.markdown(f"**Visual format:** {analysis.get('visual_format', '—')}")
+                if analysis.get("pain_attacked"):
+                    st.markdown(f"**Pain attacked:** {analysis['pain_attacked']}")
+                if analysis.get("enemy"):
+                    st.markdown(f"**Enemy:** {analysis['enemy']}")
+
+            st.markdown("---")
+            st.markdown("**Briefs**")
+            rows = []
+            for i, b in enumerate(briefs, 1):
+                rows.append({
+                    "#": i,
+                    "Persona": b.get("persona", "—"),
+                    "Hook": (b.get("hook", "") or "")[:90],
+                    "CTA": b.get("cta", "—"),
+                })
+            if rows:
+                st.dataframe(
+                    pd.DataFrame(rows),
+                    hide_index=True,
+                    use_container_width=True,
+                    key=f"remix_briefs_{run['timestamp']}",
+                )
+
+            st.markdown("---")
+            if images:
+                st.markdown(f"**Images** ({len(images)})")
+                cols_per_row = 3
+                for i in range(0, len(images), cols_per_row):
+                    row = st.columns(cols_per_row)
+                    for j, img in enumerate(images[i:i + cols_per_row]):
+                        with row[j]:
+                            st.image(str(img), use_container_width=True)
+                            st.caption(f"`{img.stem}`")
+            else:
+                st.info("No images generated yet for this run.")
+
+            action_l, action_r = st.columns(2)
+            label_button = (
+                f"♻️ Re-fire {n_briefs} image(s) (~${0.08 * n_briefs:.2f})"
+                if images
+                else f"🖼️ Generate {n_briefs} image(s) (~${0.08 * n_briefs:.2f})"
+            )
+            with action_l:
+                if st.button(
+                    label_button,
+                    use_container_width=True,
+                    key=f"remix_genimg_{run['timestamp']}",
+                ):
+                    run_adc_command(
+                        [
+                            "remix-images",
+                            "--remix-dir", str(run_dir),
+                            "--num-images", "1",
+                        ],
+                        label=f"Generating {n_briefs} image(s) for {run['timestamp']}",
+                    )
+                    st.rerun()
+            with action_r:
+                rel = run_dir.relative_to(REPO_ROOT)
+                st.caption(f"📂 `{rel}`")
 
 
 def _render_gaps_tab(selected):

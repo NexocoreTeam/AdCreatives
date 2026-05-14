@@ -28,3 +28,10 @@ clients/*/
 
 # Cost log per client — append-only, regenerable, not source-of-truth
 clients/*/.cost-log.jsonl
+
+# Ad-remixer output — per-run analysis / briefs / prompts / images.
+# Regenerable from `adc remix` and `adc remix-images`; not source-of-truth.
+clients/*/remixes/
+
+# Reference images uploaded via the dashboard's Remix tab — local-only.
+references/_dashboard_uploads/

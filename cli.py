@@ -2873,5 +2873,224 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
              note=f"{total_images} image(s)")
 
 
+# ─── Ad Remix ───────────────────────────────────────────────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--product", required=True, help="Product slug or display name")
+@click.option(
+    "--reference",
+    "ref_path",
+    default=None,
+    type=click.Path(exists=True, dir_okay=False),
+    help="Local path to a reference ad image (PNG/JPG/WEBP)",
+)
+@click.option(
+    "--foreplay-url",
+    default=None,
+    help="Foreplay ad URL, e.g. https://app.foreplay.co/ad/12345",
+)
+@click.option(
+    "--foreplay-id",
+    default=None,
+    help="Raw Foreplay numeric ad ID",
+)
+@click.option(
+    "--variations",
+    default=5,
+    type=int,
+    show_default=True,
+    help="How many remix variations to generate",
+)
+@click.option(
+    "--high-fidelity",
+    default=2,
+    type=int,
+    show_default=True,
+    help="How many variations should mimic the reference visual style closely "
+    "(same setting/person/typography). Rest go to medium then low.",
+)
+@click.option(
+    "--medium-fidelity",
+    default=2,
+    type=int,
+    show_default=True,
+    help="How many variations get small persona-tuned variation. "
+    "Remaining variations are 'low' fidelity (creative re-imagining).",
+)
+def remix(
+    client: str,
+    product: str,
+    ref_path: str | None,
+    foreplay_url: str | None,
+    foreplay_id: str | None,
+    variations: int,
+    high_fidelity: int,
+    medium_fidelity: int,
+):
+    """Reverse-engineer a reference ad and remix it for your product.
+
+    Provide exactly one of --reference (local file), --foreplay-url, or
+    --foreplay-id. The remixer extracts the ad's strategic DNA (ad-type,
+    psychological levers, framework, creative mechanic, visual format),
+    locks that structure, and generates N variations across your client's
+    personas × psychology heuristics. Each variation produces a CreativeBrief
+    plus a Nano Banana 2 prompt under clients/<slug>/remixes/<timestamp>/.
+    """
+    from strategy.ad_remixer import remix as run_remix
+    from strategy.cost_tracker import log_cost
+
+    sources = [s for s in (ref_path, foreplay_url, foreplay_id) if s]
+    if len(sources) != 1:
+        console.print(
+            "[red]Provide exactly one of --reference, --foreplay-url, or --foreplay-id.[/red]"
+        )
+        raise SystemExit(1)
+    if variations < 1:
+        console.print("[red]--variations must be at least 1.[/red]")
+        raise SystemExit(1)
+
+    foreplay_ref = foreplay_url or foreplay_id
+
+    with console.status(
+        f"Analyzing reference and generating {variations} remix variation(s)..."
+    ):
+        result = run_remix(
+            client_slug=client,
+            product_ref=product,
+            reference=ref_path,
+            foreplay_url_or_id=foreplay_ref,
+            variations=variations,
+            high_fidelity=high_fidelity,
+            medium_fidelity=medium_fidelity,
+        )
+
+    analysis = result["analysis"]
+    out_dir = result["out_dir"]
+    briefs = result["briefs"]
+    pairs = result["pairs"]
+    fidelity_tiers = result.get("fidelity_tiers") or ["medium"] * len(briefs)
+
+    console.print("\n[bold cyan]Reference analysis[/bold cyan]")
+    console.print(
+        f"  ad_type:           [green]{analysis.ad_type}[/green] "
+        f"([dim]conf {analysis.ad_type_confidence:.2f}[/dim])"
+    )
+    console.print(
+        f"  psych_levers:      {', '.join(analysis.psych_levers) or '[dim]—[/dim]'}"
+    )
+    console.print(f"  framework:         {analysis.framework}")
+    console.print(f"  creative_mechanic: {analysis.creative_mechanic or '[dim]—[/dim]'}")
+    console.print(f"  visual_format:     {analysis.visual_format or '[dim]—[/dim]'}")
+    console.print(f"  awareness:         {analysis.awareness_level}")
+    if analysis.enemy:
+        console.print(f"  enemy:             {analysis.enemy}")
+    if analysis.pain_attacked:
+        console.print(f"  pain_attacked:     {analysis.pain_attacked}")
+
+    table = Table(title=f"Remix variations ({len(briefs)})")
+    table.add_column("#", style="dim", justify="right")
+    table.add_column("Fidelity", style="yellow")
+    table.add_column("Persona", style="cyan")
+    table.add_column("Lever", style="magenta")
+    table.add_column("Hook", style="green")
+    for i, (brief, (_avatar, lever), tier) in enumerate(
+        zip(briefs, pairs, fidelity_tiers), 1
+    ):
+        table.add_row(
+            str(i),
+            tier,
+            brief.persona[:32],
+            lever,
+            (brief.hook or "—")[:55],
+        )
+    console.print(table)
+
+    console.print(f"\n[green]Wrote {len(briefs)} brief(s) + prompt(s) to:[/green]")
+    console.print(f"  {out_dir}/")
+    console.print("    analysis.yaml")
+    console.print("    briefs.yaml")
+    console.print("    reference.<ext>")
+    console.print(f"    prompts/  ({len(briefs)} .txt files)")
+
+    console.print(
+        "\n[dim]Next steps:[/dim]\n"
+        "  - Review prompts/*.txt and paste into fal.ai (Nano Banana 2), OR\n"
+        f"  - Drop briefs into your menu and run `adc generate --client {client} --pick ...`"
+    )
+
+    log_cost(
+        client,
+        "adc remix",
+        multiplier=variations,
+        note=f"{variations} remix variation(s) from {analysis.source_type}",
+    )
+
+
+@cli.command(name="remix-images")
+@click.option(
+    "--remix-dir",
+    required=True,
+    type=click.Path(exists=True, file_okay=False),
+    help="Path to a remix directory (e.g. clients/<slug>/remixes/<timestamp>)",
+)
+@click.option(
+    "--num-images",
+    default=1,
+    type=int,
+    show_default=True,
+    help="How many image variations per brief",
+)
+@click.option(
+    "--thinking",
+    default="disabled",
+    help="NB2 thinking level: disabled, low, medium, high",
+)
+@click.option(
+    "--aspect-ratio",
+    default="1:1",
+    show_default=True,
+    help="Aspect ratio for all generated images",
+)
+def remix_images(remix_dir: str, num_images: int, thinking: str, aspect_ratio: str):
+    """Generate Nano Banana 2 images for an existing remix directory.
+
+    Reads briefs.yaml + prompts/*.txt from the directory, fires fal.ai for
+    each, and saves images to <remix-dir>/images/.
+    """
+    from strategy.ad_remixer import generate_remix_images
+    from strategy.cost_tracker import log_cost
+
+    rd = Path(remix_dir)
+    client_slug = ""
+    if "clients" in rd.parts:
+        idx = rd.parts.index("clients")
+        if idx + 1 < len(rd.parts):
+            client_slug = rd.parts[idx + 1]
+
+    with console.status(
+        f"Generating {num_images} image(s) per brief — firing fal.ai..."
+    ):
+        paths = generate_remix_images(
+            remix_dir=remix_dir,
+            num_images=num_images,
+            thinking_level=thinking,
+            aspect_ratio=aspect_ratio,
+        )
+
+    console.print(f"\n[green]Generated {len(paths)} image(s):[/green]")
+    for p in paths:
+        console.print(f"  {p}")
+
+    if client_slug:
+        log_cost(
+            client_slug,
+            "adc remix-images",
+            multiplier=len(paths),
+            note=f"{len(paths)} image(s) from {rd.name}",
+        )
+
+
 if __name__ == "__main__":
     cli()
