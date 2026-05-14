@@ -29,6 +29,7 @@ from strategy.ad_remixer import (
     _coerce_awareness,
     _coerce_framework,
     _compact_psychology_snapshot,
+    _detect_image_mime,
     _extract_foreplay_id,
     _foreplay_top_content_filter,
     _foreplay_top_emotion,
@@ -195,6 +196,52 @@ class TestForeplayPriors:
 
     def test_top_emotion_empty(self):
         assert _foreplay_top_emotion({}) == ""
+
+
+# ─── Image MIME sniffing ────────────────────────────────────────────────────
+
+
+class TestImageMimeDetection:
+    def test_png_magic_bytes(self):
+        png_header = b"\x89PNG\r\n\x1a\n" + b"\x00" * 4
+        assert _detect_image_mime(png_header) == "image/png"
+
+    def test_jpeg_magic_bytes(self):
+        # FF D8 FF is the JPEG SOI marker
+        jpeg_header = b"\xff\xd8\xff\xe0" + b"\x00" * 8
+        assert _detect_image_mime(jpeg_header) == "image/jpeg"
+
+    def test_gif87a_magic_bytes(self):
+        assert _detect_image_mime(b"GIF87a" + b"\x00" * 6) == "image/gif"
+
+    def test_gif89a_magic_bytes(self):
+        assert _detect_image_mime(b"GIF89a" + b"\x00" * 6) == "image/gif"
+
+    def test_webp_magic_bytes(self):
+        # RIFF<4 bytes size>WEBP
+        webp_header = b"RIFF" + b"\x00" * 4 + b"WEBP" + b"\x00" * 4
+        assert _detect_image_mime(webp_header) == "image/webp"
+
+    def test_unknown_bytes_falls_back_to_extension(self):
+        weird = b"\x00\x01\x02\x03" * 4
+        assert _detect_image_mime(weird, ext_hint=".png") == "image/png"
+        assert _detect_image_mime(weird, ext_hint=".jpg") == "image/jpeg"
+        assert _detect_image_mime(weird, ext_hint=".webp") == "image/webp"
+
+    def test_unknown_bytes_unknown_extension_falls_back_to_jpeg(self):
+        weird = b"\x00\x01\x02\x03" * 4
+        assert _detect_image_mime(weird, ext_hint=".tiff") == "image/jpeg"
+        assert _detect_image_mime(weird) == "image/jpeg"
+
+    def test_magic_bytes_override_extension_mismatch(self):
+        """The bug we're fixing: a PNG file saved with a .jpg extension
+        must be reported as image/png, not image/jpeg, or Anthropic 400s."""
+        png_header = b"\x89PNG\r\n\x1a\n" + b"\x00" * 4
+        assert _detect_image_mime(png_header, ext_hint=".jpg") == "image/png"
+
+    def test_empty_bytes_falls_back_safely(self):
+        assert _detect_image_mime(b"") == "image/jpeg"
+        assert _detect_image_mime(b"", ext_hint=".png") == "image/png"
 
 
 # ─── Competitive gaps loader ────────────────────────────────────────────────

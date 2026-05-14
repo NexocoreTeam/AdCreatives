@@ -255,6 +255,45 @@ def _parse_strategic_yaml(text: str) -> dict:
 
 _CLAUDE_VISION_MODEL = "claude-sonnet-4-6"
 
+# File-signature → MIME map. We detect MIME from the actual bytes because
+# Anthropic strictly validates that the declared media_type matches the
+# image content. Trusting the file extension alone fails when someone
+# uploads e.g. a PNG saved with a .jpg extension.
+_EXT_MIME_FALLBACK: dict[str, str] = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+    ".gif": "image/gif",
+}
+
+
+def _detect_image_mime(raw_bytes: bytes, ext_hint: str = "") -> str:
+    """Detect image MIME type from magic bytes, falling back to the
+    file-extension hint if the signature is unrecognized.
+
+    Magic bytes:
+      PNG:  89 50 4E 47 0D 0A 1A 0A
+      JPEG: FF D8 FF
+      GIF:  47 49 46 38 (37|39) 61    ('GIF87a' / 'GIF89a')
+      WEBP: 52 49 46 46 ?? ?? ?? ?? 57 45 42 50  ('RIFF....WEBP')
+    """
+    header = raw_bytes[:12]
+    if len(header) >= 8 and header[:8] == b"\x89PNG\r\n\x1a\n":
+        return "image/png"
+    if len(header) >= 3 and header[:3] == b"\xff\xd8\xff":
+        return "image/jpeg"
+    if len(header) >= 6 and header[:6] in (b"GIF87a", b"GIF89a"):
+        return "image/gif"
+    if (
+        len(header) >= 12
+        and header[:4] == b"RIFF"
+        and header[8:12] == b"WEBP"
+    ):
+        return "image/webp"
+    # Unknown signature — fall back to the extension hint, then JPEG.
+    return _EXT_MIME_FALLBACK.get(ext_hint.lower(), "image/jpeg")
+
 
 def _claude_vision_local(
     *,
@@ -270,17 +309,10 @@ def _claude_vision_local(
     Anthropic SDK only (no OpenAI key needed)."""
     import base64
 
-    suffix = image_path.suffix.lower()
-    mime_types = {
-        ".png": "image/png",
-        ".jpg": "image/jpeg",
-        ".jpeg": "image/jpeg",
-        ".webp": "image/webp",
-        ".gif": "image/gif",
-    }
-    media_type = mime_types.get(suffix, "image/jpeg")
     with open(image_path, "rb") as f:
-        data = base64.standard_b64encode(f.read()).decode()
+        raw_bytes = f.read()
+    media_type = _detect_image_mime(raw_bytes, image_path.suffix.lower())
+    data = base64.standard_b64encode(raw_bytes).decode()
 
     client = get_anthropic_client()
     content = [
