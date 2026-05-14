@@ -12,10 +12,14 @@ import yaml
 import pytest
 
 from models.avatar import (
+    AvoidPairing,
     CustomerAvatar,
     DominantHeuristic,
+    EmotionalPosition,
+    EmotionalQuadrant,
     PainPoint,
     PsychologyProfile,
+    RecommendedPairing,
     WeakHeuristic,
 )
 from models.brief import AwarenessLevel, CopyFramework
@@ -24,11 +28,13 @@ from strategy.ad_remixer import (
     AdAnalysis,
     _coerce_awareness,
     _coerce_framework,
+    _compact_psychology_snapshot,
     _extract_foreplay_id,
     _foreplay_top_content_filter,
     _foreplay_top_emotion,
     _format_reference_style_block,
     _format_variation_block,
+    _load_competitive_gaps,
     _parse_strategic_yaml,
     _select_avatar_lever_pairs,
     _select_fidelity_tiers,
@@ -189,6 +195,166 @@ class TestForeplayPriors:
 
     def test_top_emotion_empty(self):
         assert _foreplay_top_emotion({}) == ""
+
+
+# ─── Competitive gaps loader ────────────────────────────────────────────────
+
+
+class TestCompetitiveGapsLoader:
+    def test_returns_none_when_file_missing(self, tmp_path):
+        # No clients dir at all
+        assert _load_competitive_gaps("foo", clients_dir=tmp_path) is None
+
+    def test_returns_none_when_yaml_has_no_synthesis(self, tmp_path):
+        client_dir = tmp_path / "myclient" / "research"
+        client_dir.mkdir(parents=True)
+        (client_dir / "competitive-gaps.yaml").write_text(
+            yaml.safe_dump({"other_key": "value"}), encoding="utf-8"
+        )
+        assert _load_competitive_gaps("myclient", clients_dir=tmp_path) is None
+
+    def test_returns_dict_when_synthesis_present(self, tmp_path):
+        client_dir = tmp_path / "myclient" / "research"
+        client_dir.mkdir(parents=True)
+        data = {
+            "synthesis": {
+                "summary": "We exploit X.",
+                "exploitable_gaps": [
+                    {"opportunity": "Y", "competitors_failing": ["Z"]},
+                ],
+            }
+        }
+        (client_dir / "competitive-gaps.yaml").write_text(
+            yaml.safe_dump(data), encoding="utf-8"
+        )
+        result = _load_competitive_gaps("myclient", clients_dir=tmp_path)
+        assert result is not None
+        assert result["synthesis"]["summary"] == "We exploit X."
+
+    def test_returns_none_on_malformed_yaml(self, tmp_path):
+        client_dir = tmp_path / "myclient" / "research"
+        client_dir.mkdir(parents=True)
+        (client_dir / "competitive-gaps.yaml").write_text(
+            "not: valid: yaml: ::: -", encoding="utf-8"
+        )
+        assert _load_competitive_gaps("myclient", clients_dir=tmp_path) is None
+
+
+# ─── Psychology snapshot ────────────────────────────────────────────────────
+
+
+class TestPsychologySnapshot:
+    def _full_profile(self) -> PsychologyProfile:
+        return PsychologyProfile(
+            dominant_heuristics=[
+                DominantHeuristic(
+                    heuristic="authority_bias",
+                    confidence="high",
+                    why="Persona seeks data-backed claims",
+                    evidence=["quote: 'show me the studies'"],
+                    ad_implications="Lead with peer-reviewed numbers and credentialed sources",
+                ),
+                DominantHeuristic(
+                    heuristic="social_proof",
+                    confidence="medium",
+                    why="Reads reviews thoroughly",
+                    evidence=["amazon: '47 reviews mention bloat'"],
+                    ad_implications="Show customer count + verified-buyer badges",
+                ),
+            ],
+            weak_heuristics=[
+                WeakHeuristic(
+                    heuristic="scarcity",
+                    why="Deliberate buyer — urgency reads as gimmicky",
+                    avoid="Countdowns and limited-stock claims will backfire",
+                ),
+            ],
+            emotional_position=EmotionalPosition(
+                primary=EmotionalQuadrant(
+                    valence="negative",
+                    intensity="high",
+                    rationale="Frustration with prior probiotics dominates",
+                ),
+                secondary=EmotionalQuadrant(
+                    valence="positive",
+                    intensity="low",
+                    use_for="Calm-confidence variants",
+                ),
+            ),
+            recommended_prompt_pairings=[
+                RecommendedPairing(
+                    pairing="authority_borrowing_plus_data_insight",
+                    fits_because="Activates authority + effect",
+                ),
+                RecommendedPairing(
+                    pairing="counterintuitive_insight_plus_specificity",
+                    fits_because="Cuts through skepticism",
+                ),
+            ],
+            avoid_pairings=[
+                AvoidPairing(
+                    pairing="gamification_plus_time_sensitive_offer",
+                    avoid_because="Violates deliberate decision style",
+                ),
+            ],
+        )
+
+    def test_returns_empty_when_no_profile(self):
+        assert _compact_psychology_snapshot(None) == ""
+
+    def test_returns_empty_when_profile_has_nothing(self):
+        empty = PsychologyProfile()
+        assert _compact_psychology_snapshot(empty) == ""
+
+    def test_includes_wired_for_with_implications(self):
+        block = _compact_psychology_snapshot(self._full_profile())
+        assert "wired_for:" in block
+        assert "authority_bias" in block
+        assert "Lead with peer-reviewed" in block
+
+    def test_includes_wired_against_with_avoid(self):
+        block = _compact_psychology_snapshot(self._full_profile())
+        assert "wired_against:" in block
+        assert "scarcity" in block
+        assert "Countdowns" in block
+
+    def test_includes_emotional_anchor(self):
+        block = _compact_psychology_snapshot(self._full_profile())
+        assert "emotional_anchor:" in block
+        assert "negative/high" in block
+        assert "positive/low" in block
+
+    def test_includes_recommended_and_banned_mechanics(self):
+        block = _compact_psychology_snapshot(self._full_profile())
+        assert "pre_approved_mechanics:" in block
+        assert "authority_borrowing_plus_data_insight" in block
+        assert "banned_mechanics:" in block
+        assert "gamification_plus_time_sensitive_offer" in block
+
+    def test_caps_dominant_at_three(self):
+        # Build profile with 4 dominant — snapshot should only show 3
+        profile = PsychologyProfile(
+            dominant_heuristics=[
+                DominantHeuristic(
+                    heuristic=h,
+                    confidence="medium",
+                    why="x",
+                    evidence=["e"],
+                    ad_implications=f"implication for {h}",
+                )
+                for h in [
+                    "authority_bias",
+                    "social_proof",
+                    "framing_effect",
+                    "effect_heuristic",
+                ]
+            ],
+        )
+        block = _compact_psychology_snapshot(profile)
+        assert "authority_bias" in block
+        assert "social_proof" in block
+        assert "framing_effect" in block
+        assert "effect_heuristic" not in block
 
 
 # ─── Avatar lever pairing ───────────────────────────────────────────────────
@@ -416,6 +582,41 @@ class TestVariationBlock:
         a = _make_avatar("test")
         block = _format_variation_block(1, a, "social_proof")
         assert "fidelity_tier: medium" in block
+
+    def test_includes_trigger_events_and_current_solutions(self):
+        a = CustomerAvatar(
+            name="Triggered",
+            demographic="adult",
+            trigger_events=["lost job", "moved cities"],
+            current_solutions=["competitor brand X", "homemade remedy"],
+        )
+        block = _format_variation_block(1, a, "social_proof")
+        assert "trigger_events:" in block
+        assert "lost job" in block
+        assert "current_solutions:" in block
+        assert "competitor brand X" in block
+
+    def test_marks_missing_triggers_and_solutions(self):
+        a = _make_avatar("Empty")
+        block = _format_variation_block(1, a, "social_proof")
+        assert "trigger_events: none specified" in block
+        assert "current_solutions: none specified" in block
+
+    def test_includes_psychology_snapshot_when_profile_present(self):
+        a = _make_avatar(
+            "Wired",
+            dominant=[("authority_bias", "high")],
+            weak=["scarcity"],
+        )
+        block = _format_variation_block(1, a, "authority_bias")
+        assert "persona_snapshot:" in block
+        assert "wired_for:" in block
+        assert "wired_against:" in block
+
+    def test_no_snapshot_when_profile_absent(self):
+        a = _make_avatar("NoProfile")
+        block = _format_variation_block(1, a, "social_proof")
+        assert "persona_snapshot:" not in block
 
 
 # ─── Fidelity tier selection ────────────────────────────────────────────────
