@@ -192,6 +192,11 @@ def run_adc_command(cmd_args: list[str], label: str = "Running...") -> tuple[int
                 stderr=subprocess.STDOUT,
                 text=True,
                 bufsize=1,
+                # Force UTF-8 decoding so non-ASCII output (em-dashes, curly
+                # quotes, etc. emitted by Rich or by the LLM) doesn't crash
+                # on Windows where the default subprocess encoding is cp1252.
+                encoding="utf-8",
+                errors="replace",
             )
         except Exception as e:
             status.update(label=f"Failed to launch: {e}", state="error")
