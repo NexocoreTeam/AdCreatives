@@ -35,3 +35,15 @@ clients/*/remixes/
 
 # Reference images uploaded via the dashboard's Remix tab — local-only.
 references/_dashboard_uploads/
+
+# Scratch / temp logs from CLI runs — regenerable, not source-of-truth
+.tmp_*
+*.bak
+*.yaml.bak
+
+# Generated ad outputs (binary PNGs, large) — regenerable via `adc generate`
+ai-ads/
+
+# Source reference ad images — pulled from Drive on demand; large binaries.
+# Their per-file analyses (analyses/) ARE committed since they're small YAML.
+clients/*/reference_ads/raw/

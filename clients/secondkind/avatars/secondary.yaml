@@ -1,103 +1,244 @@
-name: Gut-Brain Connector Gabby
-demographic: Female, 26–38, urban or college-town adjacent, single or early-relationship,
-  income $55K–$90K, likely works in a creative, tech, or education-adjacent field,
-  highly online, Instagram and TikTok user who follows wellness and mental health
-  content
-psychographic: Gabby has done a lot of personal growth work — therapy, journaling,
-  mindfulness apps — and she's genuinely curious about the connection between her
-  body and her mental state. She's been reading about the gut-brain axis, serotonin
-  production in the gut, and the microbiome's role in mood. She doesn't think of herself
-  as someone with a 'gut health' problem; she thinks of herself as someone managing
-  anxiety, low mood, or energy inconsistency who is now discovering the body systems
-  underneath it. The science clicks for her because it reframes her mental experience
-  as something physically addressable.
+name: Immune-Anxious Isaac
+demographic: Man, 32–48, urban professional or remote knowledge worker, household
+  income $100K–$180K, no chronic illness but high stress load, health-curious rather
+  than health-obsessed, moderate wellness spend
+psychographic: Does not identify as a 'wellness person' but has quietly moved in that
+  direction — tracks sleep, does zone 2 cardio, takes a handful of supplements. His
+  gut health concern is less about bloating and more about the nagging sense that
+  his immunity and mental sharpness are not where they should be. Found the product
+  through a recommendation — a colleague, partner, or functional medicine adjacent
+  content — rather than actively searching for gut relief.
 pain_points:
-- pain: Mood instability and low-grade anxiety she can't fully attribute to life circumstances
-    — it feels physiological but she hasn't been able to connect it to anything actionable
+- pain: Gets sick two or three times a year at exactly the wrong moment — end of quarter,
+    before a big trip — and suspects his gut and stress are connected
   intensity: high
   customer_language:
-  - I do everything right — I exercise, I sleep okay, I go to therapy — and I still
-    just feel kind of flat
-  - My anxiety doesn't make sense in context. There's nothing objectively wrong.
-  - I feel like I'm running on 70%. I can't figure out why.
+  - Every time I run myself down I end up sick for a week
+  - My immunity feels like it switches off under stress
   source: auto_from_brand_context
-- pain: Brain fog and focus problems that affect her work and make her feel like she's
-    underperforming relative to her actual capabilities
-  intensity: high
-  customer_language:
-  - brain fog I didn't even realize I had
-  - I keep rereading the same sentence
-  - I feel like I used to be sharper
-  source: auto_from_brand_context
-- pain: Sleep that isn't restorative — she gets enough hours but wakes up unrefreshed,
-    which she's starting to suspect is connected to something systemic
+- pain: Afternoon cognitive dips and energy inconsistency that blunt his productivity
   intensity: medium
   customer_language:
-  - I sleep for eight hours and wake up exhausted
-  - My sleep quality is just bad. I wake up multiple times.
-  - I never feel rested even when I get enough sleep
+  - I hit a wall around 2pm that I can't think through
+  - My energy just isn't reliable anymore
   source: auto_from_brand_context
-- pain: Skepticism about standalone mood supplements — she's tried magnesium gummies
-    and ashwagandha and found them underwhelming, and she suspects they're treating
-    symptoms rather than causes
+- pain: Persistent low-grade digestive discomfort he has normalized — not dramatic
+    bloating, but a general heaviness or irregularity he's learned to ignore
   intensity: medium
   customer_language:
-  - Ashwagandha did basically nothing for me
-  - I feel like these wellness gummies are just expensive sugar
-  - I want something that addresses why I feel this way, not just something that kind
-    of takes the edge off
+  - I notice when I miss a dose — my digestion is less regular and I'm prone to more
+    inflammation
   source: auto_from_brand_context
 desires:
-- desire: Mental clarity and emotional steadiness that feel earned by her body working
-    correctly, not just managed through supplements or coping strategies
+- desire: Go through a full season — winter, travel, crunch period — without getting
+    sick
   customer_language:
-  - I want to feel like my brain is actually working
-  - I want to feel stable. Not just less bad.
-- desire: A scientific framework that explains her symptoms — she wants to understand
-    the mechanism, not just be told something works
+  - I went an entire year without getting sick
+  - I just want my immune system to actually work
+- desire: Have a supplement stack that is genuinely effective, not performative
   customer_language:
-  - Once I understood that most of your serotonin is made in your gut, everything
-    clicked
-  - I like knowing the why. I'm not going to just take something because a brand says
-    so.
-- desire: Better sleep that actually translates into energy and presence the next
-    day
-  customer_language:
-  - I want to wake up and feel like I slept
-  - I just want one week where I'm not exhausted by 2pm
+  - I want things that actually do something, not just boxes I'm checking
 objections:
-- I already tried magnesium and ashwagandha and felt nothing — why would this be different?
-- Is the gut-brain connection actually proven or is this just the new wellness trend
-  with a science-y name?
-- I'm not sure I want melatonin in something I'm taking daily — doesn't that make
-  you dependent on it?
-- This feels like it's trying to do too many things — gut health AND mood? Which one
-  does it actually do?
+- I already take a probiotic — what's the difference, really
+- The gut-immunity connection sounds plausible but I haven't seen proof specific to
+  this product
+- I don't want to add another pill to my routine unless I'm confident it does something
+  different
 current_solutions:
-- Magnesium glycinate or magnesium gummies for sleep and anxiety
-- Ashwagandha or adaptogen supplements
-- Therapy or mindfulness apps (Headspace, Calm)
-- Trying to optimize sleep hygiene — no screens, consistent bedtime
-- Caffeine cycling to manage energy crashes
-- B-complex vitamins for energy and focus
+- Generic probiotic capsule, often inconsistently taken
+- Vitamin C and zinc at first sign of illness
+- Athletic Greens or similar greens powder that includes probiotics but isn't targeted
+- Good sleep and exercise as his primary immune strategy
 trigger_events:
-- Watches a video or reads an article about the gut-brain axis — specifically the
-  statistic that 91% of serotonin is produced in the gut — and has a 'wait, that explains
-  everything' moment
-- Therapist or doctor mentions that gut health may be contributing to her anxiety
-  or mood symptoms, and she goes down a research rabbit hole
-- Has a particularly bad week of brain fog and flat mood with no obvious external
-  cause, decides she has to try something different
-- Sees a peer on social media crediting a postbiotic for their improved mood and focus
-  in a way that sounds genuinely specific rather than like an ad
+- Gets sick during a high-stakes week for the third consecutive year and decides to
+  actually address root cause rather than just push through
+- Partner starts taking Gut Balance, reports feeling better in two weeks, hands him
+  the bottle
+- Listens to a podcast episode on the gut-brain axis or postbiotics — EpiCor's 17%
+  reduction in cold and flu symptom days is exactly the kind of RCT data that moves
+  him
 awareness_level: problem_aware
 language_patterns:
-- More introspective and emotionally articulate than the primary persona — she describes
-  her internal experience with nuance
-- 'Draws on therapy language: ''nervous system,'' ''dysregulated,'' ''I''ve been working
-  on,'' ''my body''s response to stress'''
-- Scientifically curious — will go read the cited study rather than just accept the
-  claim
-- Uses 'I feel like' constructions a lot — her symptoms are felt, not measured
-- 'Instagram wellness vocabulary: gut-brain axis, nervous system, serotonin, inflammation,
-  microbiome, nervous system regulation'
+- Outcome-oriented and data-receptive — responds to percentages, study references,
+  clinical framing
+- Does not use the word 'wellness' about himself; prefers 'performance,' 'optimization,'
+  'baseline'
+- 'Pragmatic register: ''does it actually work,'' ''what''s the mechanism,'' ''is
+  there a study'''
+- Understated about health concerns — will describe significant fatigue as 'not ideal'
+  or 'annoying'
+- Responds to the Remy/founder origin story because it's grounded in a real result,
+  not brand positioning
+psychology_profile:
+  dominant_heuristics:
+  - heuristic: authority_bias
+    confidence: high
+    why: Isaac is explicitly data-receptive, speaks in clinical framing, and his trigger
+      events include an RCT data point (EpiCor's 17% reduction in cold and flu symptom
+      days) as a specific purchase accelerant — institutional proof is load-bearing
+      for this buyer.
+    evidence:
+    - 'language_patterns: ''Outcome-oriented and data-receptive — responds to percentages,
+      study references, clinical framing'''
+    - 'language_patterns: ''Pragmatic register: does it actually work, what''s the
+      mechanism, is there a study'''
+    - 'trigger_events[2]: ''Listens to a podcast episode on the gut-brain axis or
+      postbiotics — EpiCor''s 17% reduction in cold and flu symptom days is exactly
+      the kind of RCT data that moves him'''
+    - 'objections: ''The gut-immunity connection sounds plausible but I haven''t seen
+      proof specific to this product'''
+    ad_implications: Lead with mechanism and cited data — percentages, named ingredients,
+      study references — before any emotional or lifestyle framing. The EpiCor RCT
+      stat is a hook, not a footnote. Frame authority through independent research
+      and the founder origin story (Remy), not through institutional white-coat imagery
+      or corporate expert positioning, which will trigger skepticism.
+  - heuristic: framing_effect
+    confidence: high
+    why: 'Isaac already takes probiotics and greens powders — his objection is not
+      ''should I care about gut health'' but ''what is the difference, really.'' The
+      entire purchase decision hinges on a reframe: moving him from ''another gut
+      supplement'' to ''the mechanism I was actually missing.'' His language patterns
+      confirm he thinks in comparisons and categories.'
+    evidence:
+    - 'objections: ''I already take a probiotic — what''s the difference, really'''
+    - 'objections: ''I don''t want to add another pill to my routine unless I''m confident
+      it does something different'''
+    - 'current_solutions: ''Athletic Greens or similar greens powder that includes
+      probiotics but isn''t targeted'''
+    - 'language_patterns: ''Does not use the word wellness about himself; prefers
+      performance, optimization, baseline'''
+    ad_implications: Never position as 'another probiotic' or 'gut health supplement.'
+      Reframe as the missing piece in an already-optimized stack — postbiotic vs.
+      probiotic distinction is the wedge. Anchor price and addition-to-routine against
+      what he's already spending on AG1 or generic probiotics that don't have targeted
+      immune data. Use replacement or addition framing, not category-entry framing.
+  - heuristic: social_proof
+    confidence: medium
+    why: Two of three trigger events are socially mediated — a partner recommendation
+      and a podcast — and his psychographic notes he found the product through recommendation
+      rather than active search. However, his proof standard is data, not volume of
+      users, so social proof functions as discovery and initial credibility, not as
+      the closing lever.
+    evidence:
+    - 'trigger_events[1]: ''Partner starts taking Gut Balance, reports feeling better
+      in two weeks, hands him the bottle'''
+    - 'psychographic: ''Found the product through a recommendation — a colleague,
+      partner, or functional medicine adjacent content — rather than actively searching
+      for gut relief'''
+    - 'trigger_events[2]: ''Listens to a podcast episode on the gut-brain axis or
+      postbiotics'''
+    ad_implications: Peer and expert voices open the door — a male colleague or partner
+      voice reporting a specific, understated result ('I stopped getting sick every
+      quarter') is a high-value trust signal. Avoid generic star-rating proof or volume
+      claims ('50,000 customers'). Social proof works best here when it is specific,
+      results-grounded, and delivered in his pragmatic register — not enthusiastic,
+      not testimonial-y.
+  weak_heuristics:
+  - heuristic: scarcity
+    why: Isaac is a deliberate, research-before-committing buyer whose trigger events
+      are driven by accumulated evidence and social nudges, not urgency or FOMO. Manufactured
+      scarcity reads as a trust signal violation for someone whose objection is already
+      skepticism about whether a supplement 'does something different.'
+    avoid: Countdown timers, limited-stock warnings, flash-sale framing. Any urgency
+      mechanic that isn't grounded in real supply signals will read as low-credibility
+      to this buyer and undermine the science-backed positioning.
+  - heuristic: effect_heuristic
+    why: Isaac explicitly does not make gut-feel aesthetic decisions — he wants mechanism,
+      study, and outcome. His language patterns show he distrusts vibes-first positioning
+      ('things that actually do something, not just boxes I'm checking'). The brand's
+      editorial minimalism may appeal to his sensibility, but aesthetics alone will
+      not move him past his objections.
+    avoid: Leading with brand mood, lifestyle photography, or 'feel better' emotional
+      hooks without anchoring to a mechanism. Aesthetic credibility supports the sale
+      but cannot replace data credibility for this avatar.
+  - heuristic: temporal_discounting
+    why: His desires are seasonal and long-horizon ('go through a full winter without
+      getting sick'), not acute symptom relief. His language is understated about
+      health concerns and he describes himself as someone who uses sleep and exercise
+      as his primary immune strategy — he accepts that real results take time. Quick-result
+      promises will pattern-match to the supplement hype he already distrusts.
+    avoid: '''Feel better in 24 hours,'' ''results in one week,'' or any fast-acting
+      language. The two-week partner result is credible because it''s peer-reported
+      and modest, not because it promises speed.'
+  emotional_position:
+    primary:
+      valence: negative
+      intensity: low
+      rationale: Isaac's dominant pain is high-intensity (getting sick at exactly
+        the wrong moments, suspecting gut-stress connection) but his emotional expression
+        is characteristically understated — he describes significant fatigue as 'not
+        ideal' or 'annoying' and has normalized low-grade digestive discomfort entirely.
+        His trigger events are gradual accumulation (third consecutive year of illness,
+        partner nudge, podcast episode) rather than acute crisis. He is managing,
+        not suffering. This places him in LV/LI — dull dissatisfaction and accepted
+        compromise — with the functional cost quietly accruing. The high pain intensity
+        on immunity is real but the emotional charge has been rationalized down through
+        years of 'just pushing through.'
+      use_for: ''
+    secondary:
+      valence: negative
+      intensity: high
+      rationale: ''
+      use_for: Variant testing that names the cost he has been underweighting — the
+        third sick week in three years at the worst possible time is objectively high-stakes
+        even if he won't call it a crisis. LV/HI framing ('your immune system has
+        been failing you on the days it matters most') surfaces the acute dimension
+        he has suppressed. Use for colder audiences or retargeting after initial awareness,
+        when the goal is to convert rationalization into motivation rather than introduce
+        the product.
+  recommended_prompt_pairings:
+  - pairing: authority_borrowing_plus_data_insight
+    fits_because: Directly activates his highest-confidence heuristic (authority_bias)
+      and his dominant framing lever. The EpiCor RCT stat and mechanism explanation
+      are the core proof objects — this pairing gives them structural prominence.
+      Fits primary LV/LI quadrant by surfacing credible data that makes the quiet
+      accumulated cost suddenly legible.
+  - pairing: reframing_perception_plus_emotional_trigger
+    fits_because: 'Activates framing_effect (second dominant heuristic) — flips ''another
+      probiotic'' to ''the mechanism your stack was missing.'' Fits LV/LI primary
+      quadrant: permission to stop settling for a generic probiotic that isn''t doing
+      the targeted work. Emotional trigger stays in his register — understated recognition,
+      not inspirational hype.'
+  - pairing: counterintuitive_insight_plus_specificity
+    fits_because: Activates authority_bias + salience for a buyer who self-identifies
+      as someone who 'did the research.' The insight (postbiotics operate differently
+      from probiotics; you don't need to colonize the gut, you need to train the immune
+      response) is genuinely counterintuitive to someone who has been defaulting to
+      probiotic capsules. Specificity matches his clinical language register.
+  - pairing: first_principles_plus_loss_aversion
+    fits_because: 'Activates authority_bias + framing + temporal_discounting (avoided
+      in isolation, but loss framing here is long-horizon, not quick-win). Works for
+      secondary LV/HI variant: ''You have the sleep. You have the cardio. The mechanism
+      your immune system actually uses is the one you haven''t addressed.'' Fits his
+      optimization identity without overpromising speed.'
+  - pairing: anonymity_plus_social_proof
+    fits_because: Activates social_proof + processing_fluency in a format that mirrors
+      how he actually discovers products — overheard peer result, not polished testimonial.
+      A male voice in his professional register ('I stopped getting sick every Q4')
+      bypasses his resistance to wellness-influencer proof. Keeps trust architecture
+      peer-originated.
+  - pairing: micro_story_plus_suspense
+    fits_because: Activates salience + effect_heuristic as a delivery mechanism for
+      authority and framing content. The Remy founder origin story — grounded in a
+      real result, not brand positioning — is called out explicitly in his language
+      patterns as a credibility signal. Short narrative that withholds the mechanism
+      until after the hook earns attention before the data drop.
+  avoid_pairings:
+  - pairing: gamification_plus_time_sensitive_offer
+    avoid_because: 'Violates all three weak heuristics simultaneously: scarcity is
+      weak, temporal_discounting is weak, and goal_gradient is not established for
+      this buyer. Urgency mechanics signal low credibility to a data-driven skeptic
+      whose primary objection is already ''why is this different from what I already
+      take.'''
+  - pairing: shock_factor_plus_transformation_shortcut
+    avoid_because: Wrong intensity for LV/LI primary quadrant and activates his existing
+      skepticism toward supplement overclaiming. 'Transformation shortcut' language
+      directly contradicts his self-described desire for things that 'actually do
+      something' versus performative wellness — he will read this as the category
+      noise he has already filtered out.
+  - pairing: status_signaling_plus_open_loop
+    avoid_because: Isaac explicitly does not identify as a wellness person and distrusts
+      aspirational-identity positioning in this category. Status signaling in the
+      supplement space reads as the 'box-checking' behavior he is actively trying
+      to avoid. Opens the loop on an identity frame he will reject.
+  source: auto_from_psychology_profiling

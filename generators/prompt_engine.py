@@ -33,18 +33,148 @@ PROMPT_WRITER_SYSTEM = """You are an expert ad creative prompt engineer for Nano
 ad-account-ready static images.
 
 CRITICAL RULES:
-1. The REAL product images will be passed alongside your prompt as reference.
-   Your prompt must describe the product precisely so the model reproduces it
-   faithfully — same colors, same text, same graphics, same shape.
-2. Include "Use the attached images as brand reference. Match the exact product
-   design, colors, and packaging precisely." at the start of every prompt.
-3. Be extremely specific about text content — quote exact words in the prompt.
+1. Multiple images may be passed alongside your prompt. The FIRST attached
+   image is the REAL PRODUCT — replicate its design, colors, text, graphics,
+   and shape EXACTLY. Any remaining attached images are STYLE REFERENCES —
+   replicate their layout pattern, pill styling, type treatment, element
+   placement, and emotional tone, but DO NOT copy the products shown in them.
+2. Start every prompt with: "Image 1 is the actual product — replicate it
+   exactly. Any additional images are style/composition references — match
+   their layout pattern but NOT their products."
+3. Be extremely specific about text content — quote exact words in the prompt
+   between double-quotes so NB2 renders them literally.
 4. Specify aspect ratio at the end (e.g., "1:1 aspect ratio").
 5. Include photography direction: lens, lighting, composition, mood.
 6. The output should be a single prompt string ready to paste into Nano Banana 2.
    No explanations, no markdown — just the prompt.
 7. If the brief specifies a creative_mechanic and visual_format, use them as
    the structural backbone of the prompt — see Motion's libraries below.
+
+PERSONA EMBODIMENT — REQUIRED:
+When the brief's HOOK references a symptom, pain, or felt experience, the
+model in the image MUST visually embody that symptom through body language,
+posture, expression, and environmental cues. The visual contradicts the copy
+if you ignore this rule.
+  - Hook about bloating → visibly distended midsection, soft fabric draping
+    over a relaxed stomach, hand resting on belly. NOT a flat athletic stomach.
+  - Hook about brain fog → tired eyes, hand at temple, slight squint, mid-
+    afternoon flat lighting. NOT a bright-eyed wellness influencer.
+  - Hook about probiotic fatigue → half-finished probiotic bottles on a
+    shelf in the background, frustrated body language, "done trying" energy.
+  - Hook about energy crash → slumped posture, slightly slack expression,
+    afternoon shadow. NOT mid-workout vitality.
+  - Hook about clean eating that still fails → kitchen context with whole
+    foods visible, but model's body language is questioning, not triumphant.
+The model's age, gender, and demographic must match the persona description
+in the brief. Hands and skin: real-looking, not stock-photo polished.
+
+STYLING — NEVER NAME FONTS IN INSTRUCTIONS:
+Do NOT write "in Neue Montreal medium weight" or "in F37 Caslon" as
+instructions — NB2 will sometimes render the font name as on-image text.
+Use DESCRIPTIVE styling instead:
+  ❌ "Headline in F37 Caslon Condensed, medium weight"
+  ✅ "Headline in high-contrast classic serif, italic for emphasis"
+  ❌ "Body copy in Neue Montreal Medium"
+  ✅ "Body copy in clean geometric sans-serif, medium weight, tight kerning"
+Refer to brand fonts by their visual character (serif/sans, weight, contrast,
+kerning), not by their commercial name. NB2 can match a feel; it can't reliably
+match a font name.
+
+NEVER NAME COMPETITORS in any on-image text. Use category language only
+("the probiotics you've tried", "live-bacteria approaches"). Never write
+"Seed", "Ritual", "Pendulum", or any other competitor name in copy.
+
+ENVIRONMENTAL CONTEXT — REQUIRED:
+The product should LIVE IN A SCENE, not float against a flat backdrop.
+Every brief gets a specific environmental context — vary it across ads so
+the brand's grid feels lived-in, not template-y.
+
+Pick from contexts that fit the hook/persona:
+  - Natural-light kitchen counter, morning coffee mug, soft window light
+  - Bathroom shelf next to skincare, marble or warm wood, gentle shadows
+  - Wood desk with laptop, plant, mid-afternoon light, real workspace
+  - Saturated green nature backdrop, droplets on leaves, organic texture
+  - Linen-draped surface, neutral fabric folds, editorial styling
+  - Hands holding the product at chest height, soft sweater sleeves
+  - Bedside table, low warm lamp, end-of-day quiet energy
+  - Outdoor patio / wooden bench, dappled light, casual lifestyle
+
+CHOOSE the context that matches the brief's emotional moment. Bloating ads
+belong in honest domestic scenes; mechanism-explainer ads belong in
+clinical or apothecary settings; probiotic-fatigue ads belong in real
+moments of "trying again."
+
+BRAND COMPONENT RESTRAINT:
+The dot-cluster microbiome signature is a powerful brand asset, but it
+becomes wallpaper when used in every ad. Treat it as an ACCENT:
+  - Use in MAYBE 1 out of every 2-3 ads, never all of them
+  - When used, it's a small detail (corner / over-photograph mask / single
+    cluster), not the dominant graphic
+  - Never let dot-clusters dominate the composition
+  - When NOT used, the ad still feels SecondKind because of typography,
+    palette, photographic mood, and product styling — the brand reads
+    through visual language, not through repeated icons
+
+Same restraint applies to wordmark/logo placement: small, anchored
+(usually bottom-center or bottom-right), never repeated, never huge.
+
+COMPOSITIONAL VARIETY:
+Avoid the "image-on-top, text-on-bottom" template. Use varied layouts:
+  - Text overlapping the photographic zone (more native, less template-y)
+  - Multiple compositional zones with overlap, not strict horizontal blocks
+  - Hero product off-center; let negative space carry meaning
+  - For us-vs-them: split frame VERTICALLY sometimes, not always horizontally
+  - For carousels: vary slide internal layout — slide 1 hero photo with overlay
+    text, slide 2 split layout, slide 3 product close-up with caption corner
+  - Real DTC ads break grids — break grids
+
+HERO-TEXT RULE — RUTHLESS RESTRAINT REQUIRED:
+The brief contains multiple text fields (hook, sub-hook, body, benefit
+callouts, CTA). DO NOT render all of them on one image. Real DTC ads have
+ONE primary text element commanding the frame, MAYBE one supporting line,
+and a tiny CTA. Stacking 4-5 text zones reads as a wall of text and tanks
+performance.
+
+Pick ONE hero text from the brief — the line that carries the most
+psychological weight (usually the hook, sometimes a stat). Render it large.
+Then choose at most ONE supporting line (short — under 12 words), kept
+visually subordinate. Optionally one tiny CTA at a corner. Everything else
+in the brief is STRATEGIC INPUT for you, not literal on-image copy.
+
+If the brief's hook is long (over 15 words), CONDENSE it to a hero phrase.
+Example: brief hook "Have you ever finished a whole bottle of a probiotic,
+felt basically the same, and then quietly ordered another one just in
+case..." → on-image hero: "What if it's not patience?" — sharper, native,
+more scroll-stopping.
+
+HUMAN REALISM RULE — WHEN PEOPLE APPEAR:
+The default NB2 human render reads as AI-stock-photo. To produce
+real-photograph quality, you MUST specify:
+  - Visible skin texture: pores, fine lines, natural skin tone variance
+    (NOT poreless airbrushed smoothness)
+  - Asymmetric natural lighting from a single source — soft window or lamp,
+    NOT even all-around studio flatness
+  - Candid posture and expression — mid-motion, slight off-camera glance,
+    relaxed face. NOT a held gaze straight at the lens with a posed smile.
+  - Real photographic grain or texture — describe as "Phase One" or "shot
+    on Hasselblad" or "soft film grain" to anchor NB2 in real-photo space
+  - Hands: natural relaxed positioning. NEVER perfectly arranged fingers.
+    Hide hands partially if you're not confident NB2 will get them right.
+
+EXPLICIT ANTI-PATTERNS to write into the prompt:
+  - "AVOID overly smooth skin, poreless airbrushed quality"
+  - "AVOID idealized proportions or model-styled posing"
+  - "AVOID glassy doll-like eyes, AVOID perfectly arranged fingers"
+  - "Photograph should feel candidly captured, not staged or styled"
+
+NEGATIVE SPACE RULE:
+At least 40% of the frame must be unbroken visual rest (background, fabric,
+sky, gradient — something that's NOT a focal element). Real DTC ads use
+generous breathing room; AI-generated ads cram every pixel. Cut elements
+aggressively.
+
+Test: would this ad hold up at 25% size on a feed? If it requires close
+reading to parse, it's too busy. The hero must work as a thumbnail.
 
 OUTPUT: Return ONLY the prompt text. Nothing else.
 
@@ -269,9 +399,12 @@ def _build_product_context(
     product: Product,
     avatar: CustomerAvatar | None = None,
 ) -> str:
-    """Build a comprehensive context string for Claude to use when
-    writing generation prompts."""
+    """Build a context string for Claude to use when writing generation prompts.
 
+    Trimmed to VISUAL-ACTIONABLE fields only. Non-visual fields (mission text,
+    income brackets, internal positioning prose) are excluded — they bloat the
+    prompt and dilute Claude's attention from the visual decisions that matter.
+    """
     # Product characteristics (from image analysis)
     product_details = ""
     if product.product_characteristics:
@@ -279,41 +412,36 @@ def _build_product_context(
 
     parts = [
         f"BRAND: {brand.name}",
-        f"BRAND TONE: {brand.tone}",
+        f"BRAND TONE (for type treatment + composition mood): {brand.tone}",
         f"BRAND COLORS: primary={brand.colors.primary}, secondary={brand.colors.secondary}, "
         f"background={brand.colors.background}, accent={brand.colors.accent or 'none'}",
         f"",
         f"PRODUCT: {product.name}",
-        f"DESCRIPTION: {product.description}",
-        f"BENEFITS: {', '.join(product.benefits[:5])}",
-        f"PRICE: {product.price or 'not specified'}",
-        f"SOCIAL PROOF: {', '.join(product.social_proof[:3])}",
+        f"PRODUCT DESCRIPTION (for product styling, not for copy verbatim): {product.description[:200]}",
+        f"KEY BENEFITS: {', '.join(product.benefits[:3])}",
     ]
 
     if product_details:
-        parts.append(f"\nPRODUCT VISUAL DETAILS (from real product image analysis):\n{product_details}")
-
-    if product.unique_mechanism:
-        parts.append(f"UNIQUE MECHANISM: {product.unique_mechanism.strip()}")
+        parts.append(
+            f"\nPRODUCT VISUAL DETAILS (from real product image analysis):\n{product_details}"
+        )
 
     if avatar:
-        parts.extend([
-            f"",
-            f"TARGET AUDIENCE: {avatar.demographic}",
-            f"AWARENESS LEVEL: {avatar.awareness_level}",
-            f"UGC PERSON DESCRIPTION: {brand.audience.demographics_for_ugc}",
-        ])
+        # Only the visually-actionable persona bits — demographic for model
+        # appearance, and pain points (used by the persona-embodiment rule).
+        parts.append("")
+        parts.append(f"TARGET PERSONA (for model appearance + body language): {avatar.demographic}")
         if avatar.pain_points:
-            top_pains = [p.pain for p in avatar.pain_points[:3]]
-            parts.append(f"TOP PAIN POINTS: {', '.join(top_pains)}")
-        if avatar.language_patterns:
-            parts.append(f"LANGUAGE STYLE: {', '.join(avatar.language_patterns[:3])}")
+            top_pains = [p.pain for p in avatar.pain_points[:2]]
+            parts.append(f"PERSONA TOP PAINS (use to drive visual symptom cues): {', '.join(top_pains)}")
+        if brand.audience.demographics_for_ugc:
+            parts.append(f"UGC PERSON DESCRIPTION: {brand.audience.demographics_for_ugc}")
 
     if brand.guidelines_notes:
-        parts.append(f"\nBRAND GUIDELINES:\n{brand.guidelines_notes.strip()}")
+        parts.append(f"\nBRAND GUIDELINES (visual + voice rules):\n{brand.guidelines_notes.strip()}")
 
     if brand.prohibited_terms:
-        parts.append(f"PROHIBITED TERMS: {', '.join(brand.prohibited_terms)}")
+        parts.append(f"PROHIBITED TERMS (never appear in on-image text): {', '.join(brand.prohibited_terms)}")
 
     return "\n".join(parts)
 
@@ -327,16 +455,47 @@ def prompt_from_brief(
     product: Product,
     avatar: CustomerAvatar | None = None,
     aspect_ratio: str | None = None,
+    swipe_block: str = "",
+    library_examples: str = "",
 ) -> str:
     """Take a CreativeBrief and write a Nano Banana 2 prompt for a STATIC ad
     image. Uses the brief's creative_mechanic and visual_format as the
-    structural backbone, with hook/angle/pain/benefits as the content."""
+    structural backbone, with hook/angle/pain/benefits as the content.
+
+    Optional context:
+      * `swipe_block` — labeled callout describing the STYLE REFERENCE images
+        that will be passed alongside the product image. Generated by
+        `generators.swipe_matcher.match_for_brief().to_prompt_block()`.
+      * `library_examples` — text block listing 1-2 matching Alex Cooper /
+        Nanobana library templates as compositional references.
+    """
 
     if not aspect_ratio:
         aspect_ratio = infer_aspect_ratio(brief)
 
     product_context = _build_product_context(brand, product, avatar)
     brief_context = _build_brief_context(brief)
+
+    # Condense brief into ad-ready copy — the only text NB2 should render literally
+    condensed = condense_brief_for_ad(brief, brand)
+    condensed_block = (
+        "AD-READY ON-IMAGE COPY (use these as the literal rendered text — "
+        "do NOT render the brief's long hook verbatim):\n"
+        f"  HERO (large, primary): \"{condensed['hero']}\"\n"
+        f"  SUPPORTING (small, optional): \"{condensed['supporting'] or '(omit)'}\"\n"
+        f"  CTA (tiny, corner): \"{condensed['cta']}\""
+    )
+
+    # Sections appended only when provided — keeps token usage tight when
+    # the caller hasn't matched any reference assets.
+    extra_sections = ""
+    if swipe_block:
+        extra_sections += f"\n\n{swipe_block}"
+    if library_examples:
+        extra_sections += (
+            f"\n\nCOMPOSITIONAL TEMPLATE REFERENCES (use as structural guidance, "
+            f"replacing the [PLACEHOLDERS] with brief content):\n{library_examples}"
+        )
 
     prompt = claude_complete(
         prompt=(
@@ -345,18 +504,379 @@ def prompt_from_brief(
             f"mentions video, generate a single still frame that captures the "
             f"creative concept.\n\n"
             f"The CREATIVE MECHANIC and VISUAL FORMAT are the structural backbone. "
-            f"Build the prompt around them. Quote the HOOK as on-image text if the "
-            f"format calls for it. Honor VISUAL DIRECTION for mood and composition.\n\n"
-            f"CREATIVE BRIEF:\n{brief_context}\n\n"
+            f"USE THE AD-READY ON-IMAGE COPY (hero/supporting/cta below) — do NOT "
+            f"render the brief's long hook verbatim. The brief is strategic context "
+            f"only.\n"
+            f"Apply the PERSONA EMBODIMENT rule so the model in the image visually "
+            f"reflects the hook's pain. Apply the STYLING rule so font names never "
+            f"appear in the prompt instructions. Apply the HERO-TEXT, HUMAN REALISM, "
+            f"and NEGATIVE SPACE rules.\n\n"
+            f"{condensed_block}\n\n"
+            f"CREATIVE BRIEF (strategic context — drives mechanic, persona, mood):\n"
+            f"{brief_context}\n\n"
             f"PRODUCT & BRAND CONTEXT:\n{product_context}\n\n"
             f"TARGET PLATFORM: {brief.target_platform}\n"
-            f"ASPECT RATIO: {aspect_ratio}\n\n"
-            f"Write the prompt now. Start with 'Use the attached images as brand reference.'"
+            f"ASPECT RATIO: {aspect_ratio}"
+            f"{extra_sections}\n\n"
+            f"Write the prompt now. Start with: 'Image 1 is the actual product — "
+            f"replicate it exactly. Any additional images are style/composition "
+            f"references — match their layout pattern but NOT their products.'"
         ),
         system=PROMPT_WRITER_SYSTEM,
     )
 
     return prompt.strip()
+
+
+CONDENSER_SYSTEM = """You are an ad copy editor distilling a creative brief
+into AD-READY on-image copy. The brief contains long-form strategic copy
+(hooks that span sentences, body paragraphs, multi-clause CTAs). Your job
+is to compress it into copy that actually fits a static ad — three short
+elements, each native and scroll-stopping.
+
+Rules:
+- HERO phrase: 3-8 words. The single line that commands the frame. Sharp,
+  native, written like a real person would think it — not strategist-speak.
+- SUPPORTING phrase: 5-10 words. Optional. Adds ONE clarifying beat.
+  Empty string if the hero is strong enough alone.
+- CTA: 2-4 words. Action-oriented. Real-people language ('See how it works',
+  'Read the science', 'Try Gut Balance').
+- Use the brand voice from BRAND CONTEXT. Honor PROHIBITED TERMS.
+- DO NOT name competitors.
+- Use the SAME PSYCHOLOGICAL LEVER as the original hook. If the original
+  hook is a question, the hero should also pose a question (just shorter).
+  If it's a stat-driven hook, the hero should lead with the stat.
+
+Output VALID JSON only — no prose, no markdown fences. Schema:
+
+{
+  "hero": "...",
+  "supporting": "...",
+  "cta": "..."
+}"""
+
+
+def condense_brief_for_ad(
+    brief: CreativeBrief,
+    brand: Brand,
+    *,
+    word_budget: int | None = None,
+) -> dict[str, str]:
+    """Distill a brief's long-form copy into ad-ready on-image text.
+
+    Returns {hero, supporting, cta}. Hero is mandatory, supporting may be
+    empty, cta is mandatory. Designed to be called once per generation and
+    passed into the NB2 prompt as the literal text NB2 should render.
+
+    When `word_budget` is provided (typically the word count of the reference
+    ad's on-image text), the condenser is told to keep total output close to
+    that budget — so the new ad matches the reference's text density rather
+    than blowing past it.
+
+    Costs ~$0.005 per call (tiny prompt, tiny output).
+    """
+    import json as _json
+
+    long_hook = (brief.hook or "").strip()
+    original_cta = (brief.cta or "Shop Now").strip()
+    pain = (brief.pain_point or "").strip()
+    angle = (brief.angle or "").strip()
+    callouts = ", ".join((brief.benefit_callouts or [])[:3])
+
+    brand_ctx = (
+        f"BRAND VOICE: {brand.tone or 'n/a'}\n"
+        f"PROHIBITED TERMS (NEVER use these): {', '.join(brand.prohibited_terms or [])}\n"
+    )
+
+    # Word-budget guidance — only included when we have a reference's word
+    # count to match. The condenser uses this to keep total output near the
+    # reference's text density.
+    budget_line = ""
+    if word_budget is not None and word_budget > 0:
+        budget_line = (
+            f"\nWORD BUDGET — IMPORTANT: target a total of approximately "
+            f"{word_budget} words across hero + supporting + cta combined "
+            f"(within +/-20%). The reference ad this brief is being styled "
+            f"against has roughly {word_budget} words on-image — match that "
+            f"text density. If the budget is small (<10 words), drop "
+            f"`supporting` entirely; if larger, expand `supporting` to use "
+            f"the budget."
+        )
+
+    prompt = (
+        f"Distill this brief into ad-ready on-image copy.\n\n"
+        f"ORIGINAL HOOK (compress this): {long_hook}\n"
+        f"ORIGINAL CTA (shorten this): {original_cta}\n"
+        f"PAIN ADDRESSED (context only — do not render): {pain}\n"
+        f"ANGLE (context only — do not render): {angle}\n"
+        f"BENEFIT CALLOUTS (context only): {callouts}\n\n"
+        f"{brand_ctx}"
+        f"{budget_line}\n\n"
+        f"Output JSON only: {{'hero': '...', 'supporting': '...', 'cta': '...'}}"
+    )
+
+    try:
+        response = claude_complete(prompt, system=CONDENSER_SYSTEM, max_tokens=300)
+        text = response.strip()
+        if text.startswith("```"):
+            nl = text.find("\n")
+            if nl != -1:
+                text = text[nl + 1:]
+        if text.endswith("```"):
+            text = text.rsplit("```", 1)[0].rstrip()
+        data = _json.loads(text)
+    except Exception:
+        # Graceful fallback — use truncated originals so the pipeline never
+        # blocks on a condensation failure.
+        return {
+            "hero": long_hook[:60] + ("..." if len(long_hook) > 60 else ""),
+            "supporting": "",
+            "cta": original_cta[:24],
+        }
+
+    return {
+        "hero": str(data.get("hero", "")).strip()[:80] or long_hook[:60],
+        "supporting": str(data.get("supporting", "")).strip()[:80],
+        "cta": str(data.get("cta", "")).strip()[:24] or original_cta[:24],
+    }
+
+
+def _reference_word_budget(client_slug: str, reference_image_path: Path) -> int | None:
+    """Look up the word count of the reference ad's on-image text.
+
+    Uses the `hook_visible` field from the corresponding analysis YAML (written
+    by `adc analyze-references`). Returns None when no analysis is available.
+    """
+    if not client_slug or not reference_image_path:
+        return None
+    category = reference_image_path.parent.name
+    stem = reference_image_path.stem[:60]
+    candidates = [
+        Path("clients") / client_slug / "reference_ads" / "analyses" / category / f"{stem}.yaml",
+        Path("clients") / client_slug / "reference_ads" / "analyses" / f"{stem}.yaml",
+    ]
+    for analysis_path in candidates:
+        if not analysis_path.exists():
+            continue
+        try:
+            data = yaml.safe_load(analysis_path.read_text(encoding="utf-8")) or {}
+            a = data.get("analysis") or {}
+            visible = (a.get("hook_visible") or "").strip()
+            if not visible or visible == "[no visible text]":
+                return None
+            # Count alphabetic-ish tokens; cheap and works for word density
+            words = [w for w in visible.split() if any(c.isalpha() for c in w)]
+            n = len(words)
+            return n if n > 0 else None
+        except Exception:
+            continue
+    return None
+
+
+def prompt_from_brief_and_template(
+    brief: CreativeBrief,
+    template: LibraryPrompt,
+    brand: Brand,
+    product: Product,
+    avatar: CustomerAvatar | None = None,
+    aspect_ratio: str | None = None,
+    reference_image_path: Path | None = None,
+    client_slug: str | None = None,
+) -> str:
+    """Single-reference, single-template prompt generation.
+
+    Unlike `prompt_from_brief` (which averages across multiple references
+    and templates), this mode is ART-DIRECTED: one specific extracted
+    template provides the compositional backbone, one specific reference
+    image will be passed to NB2, and the brief content fills the template's
+    [PLACEHOLDERS]. No swipe library, no Nanobana, no Cooper, no averaging.
+
+    The reference image is uploaded separately by the caller and passed to
+    NB2 as the second image input (position 1; position 0 is always the
+    product). This function only writes the text prompt.
+    """
+    if not aspect_ratio:
+        aspect_ratio = infer_aspect_ratio(brief)
+
+    product_context = _build_product_context(brand, product, avatar)
+    brief_context = _build_brief_context(brief)
+
+    # Condense the brief into ad-ready hero / supporting / cta copy. Free
+    # condensation (no per-reference word budget) — letting the condenser
+    # pick the sharpest phrasing produced stronger heroes in testing than
+    # constraining it to match the reference's density.
+    condensed = condense_brief_for_ad(brief, brand)
+
+    condensed_block = (
+        "AD-READY ON-IMAGE COPY (use these as the actual rendered text — "
+        "do NOT render the brief's long hook verbatim):\n"
+        f"  HERO (large, primary): \"{condensed['hero']}\"\n"
+        f"  SUPPORTING (small, optional): \"{condensed['supporting'] or '(omit)'}\"\n"
+        f"  CTA (tiny, corner): \"{condensed['cta']}\""
+    )
+
+    template_block = (
+        f"--- BASE TEMPLATE (compositional backbone, lift placeholders from brief) ---\n"
+        f"Template id: {template.id}\n"
+        f"Template name: {template.name}\n"
+        f"Template category: {template.category}\n"
+        f"Tags: {', '.join(template.tags)}\n\n"
+        f"{template.template_prompt}\n"
+        f"--- END TEMPLATE ---"
+    )
+
+    prompt = claude_complete(
+        prompt=(
+            f"Write a Nano Banana 2 prompt that produces ONE static ad based on "
+            f"a single hand-picked reference template. This is ART-DIRECTED — "
+            f"there is no aggregation across multiple refs.\n\n"
+            f"IMAGE INPUTS NB2 will receive:\n"
+            f"  - Image 1: the actual product (REPLICATE EXACTLY — colors, label, shape)\n"
+            f"  - Image 2: the reference ad whose compositional pattern was extracted "
+            f"into the template below. Match its LAYOUT, type treatment, photographic "
+            f"style, mood, color treatment — but DO NOT copy its product. Substitute "
+            f"our product (image 1) in its place.\n\n"
+            f"Your job: write a NB2 prompt that takes the template below and uses "
+            f"the AD-READY ON-IMAGE COPY for any text fields ([HEADLINE], [SUBHEAD], "
+            f"[CTA], etc.). The original brief is strategic context only — do not "
+            f"render the brief's long hook as on-image text.\n\n"
+            f"APPLY the HERO-TEXT RULE: render the HERO line large, render SUPPORTING "
+            f"small only if present, render CTA as a tiny corner element. That is "
+            f"the entire on-image copy budget.\n\n"
+            f"APPLY the HUMAN REALISM RULE if a person is in the composition.\n\n"
+            f"APPLY the NEGATIVE SPACE RULE — at least 40% unbroken visual rest.\n\n"
+            f"{condensed_block}\n\n"
+            f"{template_block}\n\n"
+            f"CREATIVE BRIEF (strategic input — drives mechanic, persona, mood; NOT "
+            f"to be rendered verbatim):\n"
+            f"{brief_context}\n\n"
+            f"PRODUCT & BRAND CONTEXT:\n{product_context}\n\n"
+            f"TARGET PLATFORM: {brief.target_platform}\n"
+            f"ASPECT RATIO: {aspect_ratio}\n\n"
+            f"Write the NB2 prompt now. Start with: 'Image 1 is the actual product — "
+            f"replicate it exactly. Image 2 is a reference ad — match its layout, "
+            f"type treatment, photographic style, and mood, but substitute our "
+            f"product for theirs.'"
+        ),
+        system=PROMPT_WRITER_SYSTEM,
+    )
+    return prompt.strip()
+
+
+def _load_client_templates(client_slug: str) -> list[LibraryPrompt]:
+    """Load per-client Cooper-style templates extracted from the client's
+    reference ads. Returns empty list if none exist."""
+    if not client_slug:
+        return []
+    templates_root = Path("clients") / client_slug / "templates"
+    if not templates_root.exists():
+        return []
+    out: list[LibraryPrompt] = []
+    for yaml_file in sorted(templates_root.rglob("*.yaml")):
+        try:
+            with open(yaml_file, encoding="utf-8") as f:
+                data = yaml.safe_load(f)
+            if not data or "template_prompt" not in data:
+                continue
+            # Skip extracted-but-empty templates (LLM response was malformed
+            # and we wrote stubs). 50-char floor catches the empty body cases.
+            template_body = (data.get("template_prompt") or "").strip()
+            if len(template_body) < 50:
+                continue
+            # Be tolerant of extra fields written by the extractor (e.g. source_ad)
+            allowed_fields = LibraryPrompt.model_fields.keys()
+            data = {k: v for k, v in data.items() if k in allowed_fields}
+            out.append(LibraryPrompt(**data))
+        except Exception:
+            continue
+    return out
+
+
+def find_library_examples_for_brief(
+    brief: CreativeBrief,
+    max_examples: int = 2,
+    platform: str | None = None,
+    client_slug: str | None = None,
+    include_cooper: bool = False,
+) -> str:
+    """Return a text block of matching template prompts.
+
+    Source priority (highest first):
+      1. Per-client templates at `clients/<slug>/templates/` (extracted from
+         the client's hand-picked reference ads via `adc extract-templates`)
+      2. Nanobana library templates (photo-realistic ad recipes)
+      3. Cooper library templates — ONLY when `include_cooper=True`. Default
+         is False because we've moved to per-client templates as the primary
+         compositional signal.
+
+    Filters by audience_fit overlap with brief.awareness_level and category
+    match with the brief's visual format (matched via swipe_matcher).
+    """
+    plat = platform or brief.target_platform
+    candidates: list[LibraryPrompt] = []
+
+    # 1. Per-client templates first (highest priority)
+    if client_slug:
+        candidates.extend(_load_client_templates(client_slug))
+
+    # 2. Nanobana templates
+    nanobana_candidates = list_prompts(platform=plat, source_dir="nanobana")
+    candidates.extend(nanobana_candidates)
+
+    # 3. Cooper templates only when explicitly requested
+    if include_cooper:
+        cooper_candidates = list_prompts(platform=plat, source_dir="cooper")
+        candidates.extend(cooper_candidates)
+
+    if not candidates:
+        return ""
+
+    awareness = brief.awareness_level.value if brief.awareness_level else ""
+
+    # Match by category (us-vs-them, features-and-benefits, etc.) — derived
+    # from the brief's visual_format via the swipe matcher.
+    from generators.swipe_matcher import pick_standard_folder
+    brief_category = pick_standard_folder(brief.visual_format or "")
+
+    # Aliases — accept user folder naming (no "and"s) alongside canonical
+    cat_aliases = {
+        "features-and-benefits": {"features-and-benefits", "features-benefits", "reasons-why"},
+        "facts-and-stats": {"facts-and-stats", "facts-stats"},
+        "media-and-press": {"media-and-press", "media-press"},
+        "promotion-and-discount": {"promotion-and-discount", "promotion-discount"},
+    }
+    acceptable_categories = cat_aliases.get(brief_category, {brief_category})
+
+    # Rank: (1) category match + audience match, (2) category match, (3) audience match, (4) anything
+    cat_aud_matches = [
+        p for p in candidates
+        if p.category in acceptable_categories and awareness in p.audience_fit
+    ]
+    cat_matches = [p for p in candidates if p.category in acceptable_categories]
+    aud_matches = [p for p in candidates if awareness in p.audience_fit]
+
+    if cat_aud_matches:
+        pool = cat_aud_matches
+    elif cat_matches:
+        pool = cat_matches
+    elif aud_matches:
+        pool = aud_matches
+    else:
+        pool = candidates
+
+    selected = pool[:max_examples]
+    if not selected:
+        return ""
+
+    blocks = []
+    for p in selected:
+        tpl = p.template_prompt
+        if len(tpl) > 600:
+            tpl = tpl[:600].rsplit(" ", 1)[0] + "..."
+        blocks.append(
+            f"--- Template: {p.id} ({p.category}) ---\n{tpl}"
+        )
+    return "\n\n".join(blocks)
 
 
 def infer_aspect_ratio(brief: CreativeBrief) -> str:

@@ -75,8 +75,21 @@ class CreativeBrief(BaseModel):
     )
     visual_format: str = Field(
         default="",
-        description="Visual format from Motion's visual-formats library "
+        description="Primary visual format from Motion's visual-formats library "
         "(e.g. 'UGC Static', 'Split-screen video', 'Text-on-product photo')",
+    )
+    visual_format_alternatives: list[str] = Field(
+        default_factory=list,
+        description="2-3 alternate visual formats that could also execute this "
+        "brief's mechanic. Used for variance testing — the brief's psychological "
+        "lever stays the same, only the shoot format changes.",
+    )
+    persona_traits: str = Field(
+        default="",
+        description="One-sentence elaboration of the persona this brief targets — "
+        "kept separately from the canonical `persona` name so handoffs read "
+        "cleanly ('Done-Everything Danielle' is the name; this field gives the "
+        "buyer thumbnail).",
     )
     pain_point: str = Field(
         default="",

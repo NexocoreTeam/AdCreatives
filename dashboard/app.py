@@ -425,6 +425,7 @@ def render_client_detail(selected: str):
         "📝 Briefs",
         "🖼️ Ads",
         "✨ Remix",
+        "📐 Templates",
         "💵 Costs",
         "⚡ Actions",
     ])
@@ -454,8 +455,10 @@ def render_client_detail(selected: str):
     with tabs[11]:
         _render_remix_tab(selected)
     with tabs[12]:
-        _render_costs_tab(selected)
+        _render_templates_tab(selected)
     with tabs[13]:
+        _render_costs_tab(selected)
+    with tabs[14]:
         _render_actions_tab(selected)
 
 
@@ -1660,6 +1663,108 @@ def _render_psychology_tab(selected):
                             st.caption(f"⚠️ _Why avoid:_ {p['avoid_because']}")
 
 
+def _render_templates_tab(selected):
+    """Browse Cooper-style templates extracted from the client's reference ads.
+
+    Each template's source image is shown alongside its metadata (id, name,
+    tags, category). Copy the template ID into the Actions → Image Generation
+    → Manual override picker to force generation against a specific template.
+    """
+    templates_root = CLIENTS_DIR / selected / "templates"
+    raw_root = CLIENTS_DIR / selected / "reference_ads" / "raw"
+
+    if not templates_root.exists():
+        st.info(
+            f"No templates extracted yet for `{selected}`. Run "
+            f"`adc extract-templates --client {selected}` first. "
+            "Requires reference ads in `clients/<slug>/reference_ads/raw/`."
+        )
+        return
+
+    # Load all usable templates (template_prompt > 50 chars)
+    all_templates: list[dict] = []
+    for tpl_yaml in sorted(templates_root.rglob("*.yaml")):
+        try:
+            d = yaml.safe_load(tpl_yaml.read_text(encoding="utf-8")) or {}
+            body = (d.get("template_prompt") or "").strip()
+            if not body or len(body) < 50:
+                continue
+            # Resolve source image
+            category = tpl_yaml.parent.name
+            stem = tpl_yaml.stem
+            source_image = None
+            for ext in (".png", ".jpg", ".jpeg", ".webp"):
+                candidate = raw_root / category / f"{stem}{ext}"
+                if candidate.exists():
+                    source_image = candidate
+                    break
+            all_templates.append({
+                "id": d.get("id", stem),
+                "name": d.get("name", "—"),
+                "category": d.get("category", category),
+                "tags": d.get("tags") or [],
+                "description": d.get("description", ""),
+                "source_image": source_image,
+                "yaml_path": tpl_yaml,
+                "template_prompt": body,
+            })
+        except Exception:
+            continue
+
+    if not all_templates:
+        st.info(
+            "Templates folder exists but no usable templates found. "
+            f"Re-run `adc extract-templates --client {selected} --force`."
+        )
+        return
+
+    # Header metrics + category filter
+    cats = sorted({t["category"] for t in all_templates})
+    by_cat: dict[str, int] = {}
+    for t in all_templates:
+        by_cat[t["category"]] = by_cat.get(t["category"], 0) + 1
+
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Total templates", len(all_templates))
+    c2.metric("Categories", len(cats))
+    c3.metric("Largest category",
+              f"{max(by_cat, key=by_cat.get)} ({max(by_cat.values())})")
+
+    chosen_cat = st.selectbox(
+        "Category", ["(all)"] + cats, index=0, key="templates_filter_category",
+    )
+
+    filtered = (
+        all_templates if chosen_cat == "(all)"
+        else [t for t in all_templates if t["category"] == chosen_cat]
+    )
+
+    st.caption(
+        f"Showing {len(filtered)} template(s). "
+        "Click any thumbnail to enlarge. Copy the Template ID into "
+        "Actions → Image Generation → Manual override to use it."
+    )
+
+    # Grid: 3 columns, each card = thumbnail + metadata + "Copy ID" affordance
+    cols_per_row = 3
+    for i in range(0, len(filtered), cols_per_row):
+        row = st.columns(cols_per_row)
+        for j, t in enumerate(filtered[i:i + cols_per_row]):
+            with row[j]:
+                if t["source_image"] and t["source_image"].exists():
+                    st.image(str(t["source_image"]), use_container_width=True)
+                else:
+                    st.markdown("_(source image not found on disk)_")
+                st.markdown(f"**{t['name']}**")
+                st.caption(f"`{t['category']}`")
+                st.code(t["id"], language=None)
+                if t["tags"]:
+                    st.caption("Tags: " + ", ".join(t["tags"][:5]))
+                with st.expander("Template body", expanded=False):
+                    st.markdown(f"_{t['description']}_" if t["description"] else "")
+                    st.text(t["template_prompt"])
+
+
 def _render_costs_tab(selected):
     entries = read_costs(selected)
     cur_month = total_for_month(selected)
@@ -1831,6 +1936,71 @@ def _render_actions_tab(selected):
             "useful for A/B/C variance testing. Triples the image count and cost.",
         )
 
+        # ── Reference mode toggle ────────────────────────────────────────
+        # Auto-pick is default. Manual picks a specific template for all picks.
+        # Build the template list from disk so the picker stays in sync with
+        # whatever templates have been extracted.
+        templates_dir = CLIENTS_DIR / selected / "templates"
+        all_templates: list[dict] = []
+        if templates_dir.exists():
+            for tpl_yaml in sorted(templates_dir.rglob("*.yaml")):
+                try:
+                    td = yaml.safe_load(tpl_yaml.read_text(encoding="utf-8")) or {}
+                    body = (td.get("template_prompt") or "").strip()
+                    if not body or len(body) < 50:
+                        continue
+                    all_templates.append({
+                        "id": td.get("id", tpl_yaml.stem),
+                        "name": td.get("name", "—"),
+                        "category": td.get("category", "—"),
+                        "tags": td.get("tags") or [],
+                    })
+                except Exception:
+                    continue
+
+        reference_mode = st.radio(
+            "Reference mode",
+            ["Auto-pick (system picks the best template per brief)",
+             "Manual override (use ONE specific template for ALL picks in this run)"],
+            index=0,
+            key="generate_reference_mode",
+            horizontal=False,
+        )
+
+        chosen_template_id = None
+        if reference_mode.startswith("Manual") and all_templates:
+            cats = sorted({t["category"] for t in all_templates})
+            mc1, mc2 = st.columns([1, 3])
+            with mc1:
+                chosen_cat = st.selectbox(
+                    "Category filter", ["(all)"] + cats, key="generate_ref_category",
+                )
+            filtered = (
+                all_templates if chosen_cat == "(all)"
+                else [t for t in all_templates if t["category"] == chosen_cat]
+            )
+            with mc2:
+                if filtered:
+                    label_for = lambda t: f"[{t['category']}] {t['id']} — {t['name']}"
+                    chosen_label = st.selectbox(
+                        "Template",
+                        [label_for(t) for t in filtered],
+                        key="generate_ref_template",
+                    )
+                    chosen_template_id = next(
+                        (t["id"] for t in filtered if label_for(t) == chosen_label),
+                        None,
+                    )
+                else:
+                    st.caption("No templates in this category.")
+            if chosen_template_id:
+                st.caption(f"Will pass `--reference {chosen_template_id}` to generate.")
+        elif reference_mode.startswith("Manual") and not all_templates:
+            st.warning(
+                "No client templates extracted yet. Run "
+                f"`adc extract-templates --client {selected}` first."
+            )
+
         if st.button("🖼️ Generate images for picks",
                      use_container_width=True, type="primary",
                      disabled=not picks.strip()):
@@ -1838,12 +2008,17 @@ def _render_actions_tab(selected):
                     "--num-images", str(int(num_images))]
             if include_alts:
                 args.append("--include-alternates")
+            if reference_mode.startswith("Manual") and chosen_template_id:
+                args.extend(["--reference", chosen_template_id])
             n_picks = len([p for p in picks.split(",") if p.strip()])
             variants_per_brief = 3 if include_alts else 1
             total_imgs = n_picks * int(num_images) * variants_per_brief
             run_adc_command(args, label=f"Generating {total_imgs} image(s) (~${total_imgs * 0.08:.2f})")
             st.rerun()
-        st.caption("Est: ~$0.08 per image (Sonnet prompt + fal.ai NB2)")
+        st.caption(
+            "Est: ~$0.08 per image (Sonnet prompt + fal.ai NB2). "
+            "Auto-pick picks 1 reference per brief; Manual override applies one template to all picks."
+        )
 
 
 # ───────────────────────────────────────────────────────────────────────────
