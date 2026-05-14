@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
 import sys
@@ -11,6 +12,35 @@ from pathlib import Path
 import click
 from rich.console import Console
 from rich.table import Table
+
+
+def _bootstrap_env_from_dotenv() -> None:
+    """Populate os.environ from .env in the project root if keys are missing.
+
+    Runs once at CLI startup so subprocess invocations (e.g. from the
+    Streamlit dashboard) inherit API keys even when the parent process was
+    launched without sourcing .env. Existing env vars are NOT overridden —
+    shell-set keys win. No-op if .env is absent."""
+    env_path = Path(__file__).resolve().parent / ".env"
+    if not env_path.exists():
+        return
+    try:
+        text = env_path.read_text(encoding="utf-8")
+    except OSError:
+        return
+    for raw_line in text.splitlines():
+        line = raw_line.strip().lstrip("﻿")
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+_bootstrap_env_from_dotenv()
+
 
 console = Console()
 
