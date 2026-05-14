@@ -1,0 +1,63 @@
+id: us-vs-them-price-comparison-panels
+name: Price Comparison Panels
+source: client-secondkind reference library
+category: us-vs-them
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- split-screen
+- us-vs-them
+- price-comparison
+- product-panels
+- headline-overlay
+- minimalist
+- studio-aesthetic
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a minimalist and clean aesthetic on a light [BACKGROUND]
+  color.
+
+
+  At the top of the ad, centered, place the [HEADLINE] in a large, bold, dark sans-serif
+  font, spanning two lines. Highlight a specific [STAT] and [BENEFIT] within the headline
+  using the [ACCENT] color.
+
+
+  Below the headline, feature two side-by-side vertical panels with large rounded
+  corners.
+
+
+  The left panel represents the brand:
+
+  - Background: Solid [ACCENT] color.
+
+  - Top: The [BRAND] name in a white, lowercase, stylish serif font.
+
+  - Middle: A clean, studio-lit or 3D rendered photo of the [PRODUCT], vertically
+  centered in the panel. The [PRODUCT] itself should have the [BRAND] name on it.
+
+  - Bottom: A single dollar sign "$" in a large, white, serif font to symbolize low
+  cost.
+
+
+  The right panel represents competitors:
+
+  - Background: Solid neutral gray color.
+
+  - Top: The word "Others" in a white, sans-serif font.
+
+  - Middle: A similar but generic-looking product, also studio-lit, vertically centered.
+
+  - Bottom'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\us-vs-them\us-vs-them-Ad-2-hims.png

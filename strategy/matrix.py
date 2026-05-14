@@ -24,6 +24,13 @@ from models.brand import Brand
 from models.avatar import CustomerAvatar
 from models.product import Product
 from models.skills import load_skill
+from strategy.competitive_context import (
+    format_competitive_block,
+    format_psychology_summary,
+    format_voc_block,
+    load_competitive_gaps,
+    load_voc_pains,
+)
 from strategy.llm import claude_complete
 
 # Schwartz awareness stages — fixed vocabulary used across the codebase.
@@ -107,11 +114,24 @@ def build_strategy_matrix(
     avatars: list[CustomerAvatar],
     products: list[Product],
     brand_context_md: str = "",
+    client_slug: str | None = None,
+    competitive_gaps: dict | None = None,
+    voc_pains: dict | None = None,
 ) -> StrategyMatrixResult:
     """Generate a strategy matrix for the given client.
 
     Returns both a human-readable markdown matrix and a structured YAML
     document with one cell per persona × awareness stage.
+
+    Upstream research is auto-loaded when `client_slug` is supplied (and the
+    relevant files exist on disk):
+      * `clients/<slug>/research/competitive-gaps.yaml` → gap map synthesis
+      * `clients/<slug>/voc/extracted_pains.yaml` → VoC corpus
+      * `psychology_profile` block on each avatar → per-persona psych summary
+
+    Each upstream slice is silently no-op'd when missing — the matrix still
+    builds, just with thinner grounding. Callers can also pass `competitive_gaps`
+    and `voc_pains` explicitly to override the auto-load (useful for tests).
     """
     if not avatars:
         raise ValueError(
@@ -121,6 +141,18 @@ def build_strategy_matrix(
 
     personas_text = _format_personas(avatars)
     products_text = _format_products(products)
+
+    # Auto-load upstream research artifacts when client_slug provided and the
+    # caller hasn't supplied them explicitly.
+    if client_slug:
+        if competitive_gaps is None:
+            competitive_gaps = load_competitive_gaps(client_slug)
+        if voc_pains is None:
+            voc_pains = load_voc_pains(client_slug)
+
+    competitive_block = format_competitive_block(competitive_gaps)
+    voc_block = format_voc_block(voc_pains)
+    psychology_block = format_psychology_summary(avatars)
 
     visual_id = ""
     if brand.visual_identity and brand.visual_identity.aesthetic:
@@ -147,6 +179,18 @@ PRODUCTS IN SCOPE:
 
 BRAND CONTEXT (excerpt for grounding):
 {brand_context_md[:8000]}
+
+# COMPETITIVE INTELLIGENCE
+
+{competitive_block}
+
+# VOICE-OF-CUSTOMER EVIDENCE
+
+{voc_block}
+
+# AVATAR PSYCHOLOGY
+
+{psychology_block}
 
 ---
 
@@ -185,17 +229,35 @@ Quality checks:
 2. Every proof_to_surface must come from the brand's real assets (Today Show, founder story, reviews, specific numbers).
 3. CTAs should match the buying-stage psychology (Learn More for unaware, Shop Now for most_aware).
 4. Funnel placement should be: unaware = cold, problem_aware = cold, solution_aware = cold/warm, product_aware = warm/retargeting, most_aware = retargeting.
+5. When COMPETITIVE INTELLIGENCE lists exploitable gaps, at least one cell per persona must attack a specific gap by name in its primary_angle.
+6. When VOICE-OF-CUSTOMER EVIDENCE includes verbatim quotes, prefer using customer phrasing (or near-paraphrase) in example_hook over strategist-speak.
+7. When AVATAR PSYCHOLOGY lists dominant heuristics for a persona, that persona's cells must lean on those heuristics in hook_style and creative_mechanic — and must avoid the avatar's weak heuristics.
 
 Output YAML only. No markdown fences."""
 
-    raw = claude_complete(prompt, system=MATRIX_SYSTEM, max_tokens=10000)
+    # 16000 tokens — generous headroom for 3 personas × 5 stages × ~10 fields each
+    # plus the cross-stage observations block. The pre-patch budget of 10000 was
+    # snug for 1 persona; 3 personas need ~3x the body.
+    raw = claude_complete(prompt, system=MATRIX_SYSTEM, max_tokens=16000)
     raw = raw.strip()
     if raw.startswith("```"):
         raw = raw.split("\n", 1)[1]
     if raw.endswith("```"):
         raw = raw.rsplit("```", 1)[0]
 
-    data = yaml.safe_load(raw) or {}
+    try:
+        data = yaml.safe_load(raw) or {}
+    except yaml.YAMLError as e:
+        # Surface the raw output to a debug file so the operator can inspect
+        # what the LLM emitted rather than chasing a stack trace into yaml internals.
+        dump_path = Path("clients") / (client_slug or "_unknown") / "strategy-matrix.raw.txt"
+        dump_path.parent.mkdir(parents=True, exist_ok=True)
+        dump_path.write_text(raw, encoding="utf-8")
+        raise ValueError(
+            f"Strategy matrix LLM output failed to parse as YAML: {e}. "
+            f"Raw output saved to {dump_path} for inspection."
+        ) from e
+
     matrix_md = _render_markdown(brand, avatars, data)
 
     return StrategyMatrixResult(matrix_md=matrix_md, data=data)

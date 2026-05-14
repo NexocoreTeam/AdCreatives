@@ -1,0 +1,19 @@
+id: ugc-annotated-exploded-view
+name: UGC Annotated Exploded View
+source: client-secondkind reference library
+category: features-and-benefits
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: null
+aspect_ratios:
+- '1:1'
+tags: []
+template_prompt: ''
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\features-benefits\features-and-benefits-Ad-1-Wild.jpg

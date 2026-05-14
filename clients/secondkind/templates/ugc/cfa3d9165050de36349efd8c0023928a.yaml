@@ -1,0 +1,43 @@
+id: ugc-social-comment-reply
+name: UGC Social Comment Reply
+source: client-secondkind reference library
+category: ugc
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- ugc
+- social-proof
+- q-and-a
+- handheld-product
+- benefit-callout
+- text-overlay
+template_prompt: 'A user-generated content (UGC) style photo taken from a first-person
+  perspective. The background is a slightly out-of-focus, authentic [BACKGROUND] like
+  a home interior.
+
+
+  In the center of the frame, a person''s hand holds two [PRODUCT] containers side-by-side.
+  The shot should feel casual, authentic, and handheld.
+
+
+  GRAPHIC OVERLAYS:
+
+  1. At the top of the image, place a simulated social media comment or question sticker.
+  It should be a white rounded rectangle with a small, circular user profile picture
+  on the left. The sticker contains the [HEADLINE] text acting as a question. Below
+  the headline, include a smaller line of text like "Replying to [DETAILS]".
+
+  2. Create two benefit callouts as rounded rectangular text boxes in a bright [ACCENT]
+  color. Each callout should point to one of the products and contain a short [BENEFIT]
+  in a clean sans-serif font.'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\ugc\cfa3d9165050de36349efd8c0023928a.jpg

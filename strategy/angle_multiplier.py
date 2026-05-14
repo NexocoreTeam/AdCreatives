@@ -198,6 +198,24 @@ Rules:
 - Every hook must stop the scroll in under 2 seconds of reading
 - Match the tone to the awareness level
 
+NEVER NAME COMPETITORS in hooks, body, headlines, callouts, or CTAs. This is
+a hard rule with no exceptions.
+- ❌ "Stop wasting money on Seed" / "Better than AG1" / "Unlike Bloom Nutrition"
+- ❌ "What Pendulum doesn't tell you" / "Move over, Ritual"
+- ✅ "The probiotics you've tried" / "Live-bacteria approaches" / "Other gut
+     supplements" / "The category that hasn't worked for you"
+Direct competitor naming invites comparison battles, unauthorized FUD, and
+legal exposure. Always abstract to the CATEGORY or the MECHANISM, not the
+brand name. If the competitive gap map references a competitor by name, that
+is BACKGROUND CONTEXT for you — translate it into category-level language
+before it lands in any customer-facing copy field.
+
+NEVER LEAD WITH OPERATIONAL POSITIONING (customer service quality, "we reply
+fast," "easy returns," "no subscription trap"). These are operational angles
+that don't move paid creative for product purchases. Drop them — even when
+the gap map mentions them as competitor weaknesses. Lead with what the
+PRODUCT does, not what the COMPANY does.
+
 You operate under SIX layered skills below. Use them together:
 
 --- HOOK METHODOLOGY (DV0x) ---
@@ -268,11 +286,18 @@ angles:
     hook: "the actual scroll-stopping hook text"
     source: "which research element this hook came from (pain X, benefit Y, quote Z)"
     pain_addressed: "which pain point this targets"
-    persona: "which persona segment this targets (from creative-strategy-engine pain × persona mapping)"
+    persona_traits: "one-sentence buyer thumbnail (e.g. 'health-conscious woman 30-44 who has tried multiple probiotics and felt nothing'). The canonical persona NAME is stamped automatically downstream — describe the buyer, do not invent a different name."
     awareness_stage: "unaware | problem_aware | solution_aware | product_aware | most_aware"
     framework: "one of the frameworks above — pick the best fit for this slot"
     creative_mechanic: "name a structural mechanic from Motion's creative-mechanics that fits this angle (e.g. 'Pattern Interrupt with Reveal', 'Before/After Split', 'Talking Head Confession')"
-    visual_format: "name a visual format from Motion's visual-formats library that fits this concept (e.g. 'UGC Static', 'Split-screen video', 'Text-on-product photo')"
+    visual_format: "PRIMARY visual format from Motion's visual-formats library that fits this concept (e.g. 'UGC Static', 'Split-screen video', 'Text-on-product photo')"
+    visual_format_alternatives:
+      - "alternate format #1 that could execute the same mechanic"
+      - "alternate format #2 that could execute the same mechanic"
+    # 2 alternates is the minimum — they MUST be genuinely different from each
+    # other and from the primary (e.g. don't list 'UGC Static' + 'UGC Photo'
+    # — those are the same thing). Pick formats that test different production
+    # styles, not minor variations.
     benefit_callouts:
       - "Short punchy callout 1"
       - "Short punchy callout 2"
@@ -289,8 +314,19 @@ Quality checks before returning:
 5. Hooks read like real human language, not ad copy.
 6. When COMPETITIVE GAPS are provided, AT LEAST half of the angles should
    exploit a specific gap. Use `source` to reference the gap (e.g.,
-   "competitive-gap: Poppi's gut-health claim legally discredited") and
-   incorporate the customer evidence quote into the hook construction."""
+   "competitive-gap: probiotic survivability") and incorporate the customer
+   evidence quote into the hook construction.
+
+YAML OUTPUT FORMAT RULES (strict — broken YAML breaks the run):
+- The `source` field MUST be a single-line plain descriptor under 80 chars.
+- NEVER put nested quotes inside the `source` value. No single quotes, no
+  double quotes, no fancy unicode quotes. Plain text only.
+- NEVER let the `source` value span multiple lines.
+- If you need to reference a competitor gap, write it as a label without
+  nested quotes: `source: competitive-gap probiotic survivability`
+- All other string fields with verbatim quotes must either escape inner
+  quotes with backslash or use the YAML block scalar `|` style on its own
+  indented lines. Prefer the latter for quotes that span multiple sentences."""
 
 
 def _format_competitive_gaps(gaps_data: dict | None) -> str:
@@ -424,12 +460,49 @@ def generate_angles(
         competitive_gaps_section=_format_competitive_gaps(competitive_gaps),
     )
 
-    result = claude_complete(prompt, system=ANGLE_SYSTEM)
+    # Each angle has ~15 fields; 9 angles + cross-stage observations easily blow
+    # past the default 4096 token budget and get truncated mid-string.
+    # 12000 covers up to ~12 angles comfortably.
+    result = claude_complete(prompt, system=ANGLE_SYSTEM, max_tokens=12000)
     result = result.strip()
     if result.startswith("```"):
         result = result.split("\n", 1)[1]
     if result.endswith("```"):
         result = result.rsplit("```", 1)[0]
 
-    parsed = yaml.safe_load(result)
-    return parsed.get("angles", [])
+    try:
+        parsed = yaml.safe_load(result)
+    except yaml.YAMLError:
+        # Common LLM YAML failure: source/quote fields with nested quotes spanning
+        # multiple lines. Strip those down to safe single-line plain strings,
+        # then retry.
+        import re as _re
+        cleaned = _re.sub(
+            # source: "..." that doesn't close on the same line
+            r'(\bsource:\s*)"([^"\n]*)$',
+            r'\1\2',
+            result,
+            flags=_re.MULTILINE,
+        )
+        cleaned = _re.sub(
+            # collapse any quoted source field with embedded quotes
+            r'(\bsource:\s*)"([^"\n]*?)(["\'][^"\n]*?["\'])([^"\n]*?)"',
+            lambda m: f"{m.group(1)}{m.group(2)} {m.group(4)}".rstrip(),
+            cleaned,
+        )
+        try:
+            parsed = yaml.safe_load(cleaned)
+        except yaml.YAMLError as e:
+            # Persist the raw response next to the codebase so the caller can
+            # inspect what the LLM emitted without chasing a yaml stack trace.
+            from pathlib import Path as _Path
+            dump = _Path(".tmp_angle_multiplier_raw.txt")
+            dump.write_text(result, encoding="utf-8")
+            raise ValueError(
+                f"Brief LLM output failed YAML parse after cleanup: {e}. "
+                f"Raw output saved to {dump}."
+            ) from e
+
+    if not isinstance(parsed, dict):
+        raise ValueError(f"Brief LLM output is not a YAML mapping: {type(parsed).__name__}")
+    return parsed.get("angles", []) or []

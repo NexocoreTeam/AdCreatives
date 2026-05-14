@@ -1,0 +1,42 @@
+id: benefit-without-drawback-pill-hero
+name: Benefit Without Drawback Pill
+source: client-secondkind reference library
+category: headline
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- product-hero
+- text-overlay
+- minimalist
+- benefit-without-drawback
+- pill-callout
+- centered-stack
+- clinical
+template_prompt: "Image 1 is the actual product — replicate it exactly.\n\nCreate\
+  \ a 1:1 aspect ratio ad with a solid, uniform [BACKGROUND] color (e.g., warm cream\
+  \ or off-white). The entire composition is a single vertical stack of elements centered\
+  \ in the frame.\n\nTHEME: The ad should feel clean, clinical, minimalist, and direct.\
+  \ Use a dark, near-black color for all text.\n\nLAYOUT:\n1.  **Top Callout:** At\
+  \ the very top, place a pill-shaped banner with rounded ends. This banner should\
+  \ have a light [ACCENT] color background. Inside it, in all-caps dark sans-serif\
+  \ text, write a short opener like \"[BENEFIT]\".\n2.  **Headline:** Directly below\
+  \ the banner, create a large multi-line [HEADLINE]. The headline follows a \"Benefit\
+  \ without the Drawback\" structure:\n    - The first and third lines are in a large,\
+  \ bold, dark sans-serif font.\n    - The middle line is a connector word (e.g.,\
+  \ 'without') written in a smaller, lighter weight, italic serif font, creating a\
+  \ visual break and stylistic contrast.\n3.  **Product Photo:** In the vertical center\
+  \ of the ad, place a single hero shot of the [PRODUCT]. It should be photographed\
+  \ with clean studio lighting, floating at a slight angle with a subtle drop shadow\
+  \ to give it depth. The [BRAND] name can be debossed or printed on the product itself.\n\
+  4.  **Subhead:** Below the"
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\headline\headline-Ad-3-hims.png

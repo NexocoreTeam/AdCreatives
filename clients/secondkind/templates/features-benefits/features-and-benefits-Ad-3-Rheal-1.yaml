@@ -1,0 +1,44 @@
+id: unsubscribe-toggle-stat-bar
+name: Unsubscribe Toggle Stat
+source: client-secondkind reference library
+category: features-and-benefits
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- ui-toggle
+- stat-bar
+- text-overlay
+- product-in-hand
+- social-proof-footer
+- solid-background
+- headline-hero
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a solid, muted [BACKGROUND] color.
+
+
+  **Top Section:**
+
+  In the top half, create a light-colored UI card with rounded corners. Inside the
+  card, place a realistic but stylized UI toggle switch in the "off" position.
+
+  - To the left of the toggle, write the [DETAILS: PAIN POINT] in a simple sans-serif
+  font.
+
+  - To the right, write a [DETAILS: DESIRED STATE] like "Unsubscribed".
+
+  - A close-up studio photograph of a hand enters from the top-right corner, holding
+  the [PRODUCT]. The [PRODUCT] should be displayed clearly'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\features-benefits\features-and-benefits-Ad-3-Rheal-1.jpg

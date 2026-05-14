@@ -1,0 +1,75 @@
+id: editorial-winding-path-stat
+name: Winding Path Stat
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '1:1'
+tags:
+- winding-line
+- text-overlay
+- data-visualization-minimal
+- editorial-serif
+- stat-hero
+- textured-background
+template_prompt: 'A 1:1 aspect ratio social media ad with a minimalist, premium, and
+  educational feel.
+
+
+  BACKGROUND:
+
+  The background is a full-bleed, subtly textured image or color, like fine-grain
+  paper, fabric, or a macro shot of grass. Use [BACKGROUND] as the base. The background
+  has a slight vignette effect, being darker at the edges and slightly lighter in
+  the center.
+
+
+  GRAPHIC ELEMENTS:
+
+  - A single, thin line in an [ACCENT] color (e.g., white) meanders down the vertical
+  center of the image in a gentle S-shape.
+
+  - The line starts from the top center edge, descends, has a small [ACCENT] color
+  circle at its first curve, continues down through the middle in an S-curve, and
+  then terminates by pointing directly at the [BRAND] wordmark at the bottom.
+
+  - Three segments of the line, corresponding to the curves, are flanked by partial,
+  thin, rounded-rectangle outlines that create "pill" shapes around the text. These
+  outlines are in the same [ACCENT] color and seamlessly connect to the main winding
+  line.
+
+
+  TEXT:
+
+  - The [HEADLINE] is broken into three distinct, short lines of text.
+
+  - Each line is placed inside one of the "pill" shapes created by the winding line.
+
+  - The text uses an elegant, classic serif font, all in the [ACCENT] color.
+
+  - The text follows the natural reading path created by the S-curve, from top to
+  bottom.
+
+
+  BRANDING:
+
+  - The [BRAND] wordmark is centered at the bottom third of the ad.
+
+  - It is rendered in the same serif font and [ACCENT] color as the headline.
+
+  - The main winding graphic line points directly down to the [BRAND] wordmark, visually
+  connecting the information to the brand.
+
+  '
+description: Use this template to present a surprising statistic or multi-part statement
+  in a visually engaging, high-end editorial style that guides the viewer's eye down
+  the page.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\53.png

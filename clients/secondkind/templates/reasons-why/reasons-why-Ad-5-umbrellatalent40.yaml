@@ -1,0 +1,46 @@
+id: native-notes-app-listicle
+name: Notes App Listicle
+source: client-secondkind reference library
+category: reasons-why
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- native-ui
+- ios-notes
+- screenshot-ad
+- ugc-aesthetic
+- listicle
+- emoji-bullets
+- headline-highlight
+template_prompt: 'Create an ad that looks exactly like a screenshot of the Apple iOS
+  Notes app. The background is the standard bright white of the app.
+
+
+  At the top of the image, include the native iOS status bar (time, cellular, wifi,
+  battery). Below that, include the Notes app navigation bar with a yellow ''< Notes''
+  button on the left, and yellow share/options icons on the right.
+
+
+  The main content is centered below the navigation bar and consists of a headline
+  and a list of benefits.
+
+
+  The headline, `[HEADLINE]`, is in a large, bold, black sans-serif font. A key phrase
+  within the headline is highlighted with a solid `[ACCENT]` color rectangle behind
+  the text, with the text over it reversed out in white.
+
+
+  Below the headline, display a list of three benefits. Each benefit starts with a
+  relevant iOS emoji acting as a bullet point. The text for each `[BENEFIT]` is in
+  a smaller, regular'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\reasons-why\reasons-why-Ad-5-umbrellatalent40.jpg

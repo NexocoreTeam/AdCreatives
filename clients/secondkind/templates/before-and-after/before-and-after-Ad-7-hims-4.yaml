@@ -1,0 +1,43 @@
+id: testimonial-lifestyle-banner-cta
+name: Testimonial Lifestyle Banner
+source: client-secondkind reference library
+category: testimonial-review
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- testimonial-card
+- lifestyle-photo
+- cta-banner
+- product-on-surface
+- 5-star-rating
+- serif-cta
+- human-in-scene
+template_prompt: "Image 1 is the actual product — replicate it exactly.\n\nCreate\
+  \ a 1:1 ad with three distinct layers: a background lifestyle photo, a midground\
+  \ testimonial card, and a foreground CTA banner at the bottom.\n\n**BACKGROUND:**\n\
+  - The background is a high-quality lifestyle photograph of a person in a brightly\
+  \ lit, clean bathroom setting.\n- The person is positioned on the left side of the\
+  \ frame, looking at their reflection in a mirror, as if introspectively examining\
+  \ an issue the product solves (e.g., hair, skin).\n\n**MIDGROUND ELEMENTS:**\n-\
+  \ Place the [PRODUCT] on the bathroom counter in the lower-left quadrant of the\
+  \ image.\n- In the center-right of the image, create a large testimonial card. This\
+  \ card should be a light-colored, semi-opaque rectangle with rounded corners and\
+  \ a very subtle drop shadow.\n- Inside the card, arrange the following from top\
+  \ to bottom:\n  1. A five-star rating, with the stars filled using the [ACCENT]\
+  \ color.\n  2. The testimonial [BODY] copy, set in a clean, dark sans-serif font.\
+  \ A few key words should be emphasized in a bolder weight.\n  3. The customer's\
+  \ name/initials ([DETAILS]), set in a lighter weight of the same font.\n  4. A small\
+  \ legal disclaimer text ([DETAILS]) sits just below the testimonial card.\n\n**FOREGROUND\
+  \ BANNER:**\n- The bottom third of the ad is a solid-colored banner using the [ACCENT]\
+  \ color. This banner must have rounded top corners.\n- Inside"
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-7-hims-4.png

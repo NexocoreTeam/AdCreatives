@@ -1,0 +1,51 @@
+id: testimonial-mirror-cta-bar
+name: Testimonial Overlay CTA Bar
+source: client-secondkind reference library
+category: testimonial-review
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- testimonial-overlay
+- cta-bar
+- lifestyle-photo
+- product-in-scene
+- 5-star-rating
+- rounded-corners
+- serif-cta
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a full-bleed [BACKGROUND] lifestyle photograph.
+  The photo should show a person in a ''before'' state, contemplating the problem
+  that the product solves (e.g., looking at their reflection in a mirror). The mood
+  is soft, natural, and slightly contemplative.
+
+
+  The [PRODUCT] is placed on a surface in the lower-left quadrant, looking like it''s
+  part of the scene.
+
+
+  Over the middle-right of the image, create a semi-transparent white text box with
+  rounded corners. Inside this box, from top to bottom:
+
+  1. A 5-star rating graphic using the [ACCENT] color.
+
+  2. A customer quote for the [BODY] text, in a dark sans-serif font.
+
+  3. The customer''s attribution ([DETAILS]) in a smaller, lighter-weight version
+  of the same font.
+
+
+  Beneath this testimonial box, place any necessary'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-2-hims-4.png

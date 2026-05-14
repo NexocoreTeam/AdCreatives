@@ -1,0 +1,38 @@
+id: hero-diagram-callouts
+name: Hero Diagram Callouts
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- product-hero
+- feature-callout
+- diagram-style
+- editorial-serif
+- minimalist
+- studio-shot
+- text-overlay
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a solid [BACKGROUND] color, designed as a card
+  with soft rounded corners.
+
+
+  Layout:
+
+  - A single, high-quality studio photo of the [PRODUCT] is the hero, placed in the
+  visual center and angled slightly.
+
+  - A two-sentence [HEADLINE] is positioned at the top, center-aligned'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\54.png

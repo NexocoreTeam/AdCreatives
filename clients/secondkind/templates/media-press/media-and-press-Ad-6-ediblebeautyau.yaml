@@ -1,0 +1,40 @@
+id: editorial-quote-split
+name: Editorial Quote Split
+source: client-secondkind reference library
+category: media-and-press
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- editorial-style
+- quote-headline
+- horizontal-split
+- top-down-layout
+- expert-byline
+- product-plus-texture
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 square ad that mimics a page from a high-end online magazine or blog,
+  framed by a thin [BACKGROUND] colored border.
+
+
+  The layout is split vertically into a top text section and a bottom image section.
+
+
+  TOP SECTION (Top 50%):
+
+  - Background is clean white.
+
+  - At the very top, centered, display a large, bold, black sans-serif masthead logo
+  of a mock publication. Use the [BRAND] name or'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\media-press\media-and-press-Ad-6-ediblebeautyau.jpg

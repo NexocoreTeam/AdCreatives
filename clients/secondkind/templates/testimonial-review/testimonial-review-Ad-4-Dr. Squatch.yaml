@@ -1,0 +1,53 @@
+id: story-hook-behind-glass
+name: Intrigue Story Hook
+source: client-secondkind reference library
+category: testimonial-review
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+- solution_aware
+funnel_stage: awareness
+aspect_ratios:
+- '4:5'
+- '9:16'
+tags:
+- headline-overlay
+- ugc-aesthetic
+- story-hook
+- product-in-hand
+- mystery
+- text-shadow
+- lifestyle-imagery
+template_prompt: 'Image 1 is the actual [PRODUCT] — replicate it exactly.
+
+
+  Create a lifestyle photograph with a moody, intimate, and authentic UGC aesthetic.
+  The [BACKGROUND] scene features a person partially obscured behind a wet or steamy
+  glass barrier (like a shower door or a rainy window). The person''s face and body
+  are indistinct, creating a sense of mystery.
+
+
+  In the lower third of the frame, a hand reaches into view, holding or placing the
+  [PRODUCT] on a flat surface or ledge. The [PRODUCT] is the clearest object in this
+  part of the image.
+
+
+  Overlay a large, centered text block across the middle of the image.
+
+  - The text consists of a [SUBHEAD] on the first line and a punchier [HEADLINE] on
+  the second line below it.
+
+  - Both lines are in all caps, using a bold, heavy, condensed sans-serif font.
+
+  - The text color is white with a subtle dark drop shadow to make it pop from the
+  background image.
+
+  - The [HEADLINE] should be slightly larger than the ['
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\testimonial-review\testimonial-review-Ad-4-Dr.
+  Squatch.png

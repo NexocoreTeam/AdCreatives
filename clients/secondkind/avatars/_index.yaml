@@ -1,16 +1,21 @@
 personas:
 - id: primary
-  name: Probiotic-Burned Paige
+  name: Done-Everything Danielle
   role: primary
-  awareness_level: solution_aware
+  awareness_level: problem_aware
   confidence: high
 - id: secondary
-  name: Gut-Brain Connector Gabby
+  name: Immune-Anxious Isaac
   role: secondary
   awareness_level: problem_aware
-  confidence: high
+  confidence: medium
 - id: tertiary
-  name: Newly Diagnosed Nicole
+  name: New-Normal New Mom Natalie
   role: tertiary
   awareness_level: problem_aware
+  confidence: medium
+- id: quaternary
+  name: Functional-Curious Practitioner Paul
+  role: secondary
+  awareness_level: solution_aware
   confidence: medium

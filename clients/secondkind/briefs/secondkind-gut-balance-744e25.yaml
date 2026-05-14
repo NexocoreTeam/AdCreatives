@@ -1,0 +1,44 @@
+brief_id: secondkind-gut-balance-744e25
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+framework: bab
+angle: "Probiotics were always the wrong tool for the job \u2014 postbiotics are what\
+  \ your gut actually needed from them"
+hook: "Probiotics were never really about the bacteria.\nThey were about what healthy\
+  \ bacteria produce \u2014 the metabolites, the short-chain fatty acids, the compounds\
+  \ that actually signal your gut lining and immune system.\nYou have been paying\
+  \ for the middleman. Postbiotics cut him out.\n"
+hook_type: Controversial
+slot: 9
+hook_source: unique-mechanism postbiotic delivery architecture and competitive-gap
+  probiotic survivability structural failure
+hook_tactic: "Myth-busting with a sharp categorical claim \u2014 take a position the\
+  \ category cannot argue with but has never said plainly"
+persona: Done-Everything Danielle
+creative_mechanic: counterintuitive_insight_plus_specificity
+visual_format: "Animated explainer reel \u2014 45 seconds, clean motion graphics showing\
+  \ the probiotic-to-postbiotic conversion pathway, ending with the middleman metaphor\
+  \ rendered visually"
+visual_format_alternatives:
+- "Long-form static infographic \u2014 the full argument laid out vertically, designed\
+  \ to be read and shared, not just glanced at"
+- "Debate-style talking head video \u2014 two frames side by side, one labeled 'what\
+  \ the category claims' and one labeled 'what the science shows,' same person in\
+  \ both"
+persona_traits: "Intellectually curious woman 30\u201344 who reads ingredient labels\
+  \ and feels patronized by supplement marketing that does not explain the mechanism"
+pain_point: "Probiotic fatigue \u2014 spent real money on multiple brands and felt\
+  \ nothing meaningful change"
+benefit_callouts:
+- Skip the bacteria. Deliver the result.
+- "Totipro\xAE, EpiCor\xAE, Bereum\xAE \u2014 look them up. They are real."
+- "1 trillion bioactives \u2014 already what your gut was waiting for"
+cta: Understand what your gut was actually asking for
+body_copy: ''
+visual_direction: "Diagram-first, language-second \u2014 the visual argument should\
+  \ be understandable before a single word is read. Intellectual credibility lives\
+  \ in structural clarity."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

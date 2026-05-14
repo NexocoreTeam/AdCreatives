@@ -108,6 +108,23 @@ def generate_briefs(
         except ValueError:
             framework = primary_framework
 
+        # Persona always uses the canonical avatar name (e.g. "Done-Everything
+        # Danielle") so handoffs read cleanly. The LLM's free-text persona
+        # description goes into persona_traits as supporting thumbnail.
+        persona_name = (avatar.name or "").strip() or angle_data.get("persona", "")
+        persona_traits = (
+            angle_data.get("persona_traits")
+            or angle_data.get("persona", "")  # backwards compat for older outputs
+            or ""
+        )
+
+        # Visual format alternatives — gracefully handle the LLM emitting
+        # either a list, a single string, or nothing.
+        alt_raw = angle_data.get("visual_format_alternatives", []) or []
+        if isinstance(alt_raw, str):
+            alt_raw = [alt_raw]
+        alternatives = [a for a in alt_raw if isinstance(a, str) and a.strip()]
+
         brief = CreativeBrief(
             brief_id=_make_brief_id(client_slug, product.name.lower().replace(" ", "-"), i),
             client=client_slug,
@@ -120,9 +137,11 @@ def generate_briefs(
             slot=angle_data.get("slot"),
             hook_source=angle_data.get("source", ""),
             hook_tactic=angle_data.get("hook_tactic", ""),
-            persona=angle_data.get("persona", ""),
+            persona=persona_name,
+            persona_traits=persona_traits,
             creative_mechanic=angle_data.get("creative_mechanic", ""),
             visual_format=angle_data.get("visual_format", ""),
+            visual_format_alternatives=alternatives,
             pain_point=angle_data.get("pain_addressed", ""),
             benefit_callouts=angle_data.get("benefit_callouts", product.benefits[:3]),
             cta=angle_data.get("cta", strategy.get("cta", "Shop Now")),

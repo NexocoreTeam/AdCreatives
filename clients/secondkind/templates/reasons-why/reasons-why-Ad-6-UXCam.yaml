@@ -1,0 +1,45 @@
+id: notes-app-listicle-reveal
+name: Notes App Listicle
+source: client-secondkind reference library
+category: reasons-why
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- notes-app-ui
+- listicle
+- us-vs-them
+- text-only
+- brand-reveal
+- ugc-aesthetic
+- provocative-copy
+template_prompt: "Create a 1:1 static ad that is a photorealistic replica of a screenshot\
+  \ from a mobile notes application (e.g., Apple Notes).\n\nLAYOUT:\n- The entire\
+  \ image is framed by a solid [BACKGROUND] color.\n- Centered within this background\
+  \ is the notes app UI, appearing as a white card with rounded corners.\n\nNOTES\
+  \ APP UI ELEMENTS:\n- At the top of the white card, mock-up a standard mobile UI\
+  \ navigation bar.\n  - On the top left, include a back arrow icon followed by the\
+  \ word \"Notes\". This text should be in an [ACCENT] color.\n  - On the top right,\
+  \ include an ellipsis icon (...) and the word \"Done\". This text should also be\
+  \ in the [ACCENT] color.\n\nTEXT CONTENT:\n- The body of the note should be rendered\
+  \ in a standard, default mobile sans-serif font (like SF Pro).\n- The content begins\
+  \ with a bold, multi-line [HEADLINE] that sets up a provocative list.\n- Below the\
+  \ headline, create a numbered list with three items. All list items are left-aligned.\n\
+  \  - 1. [NEGATIVE_REASON_1] (a sarcastic reason for using a competitor/old method)\n\
+  \  - 2. [NEGATIVE_REASON_2] (another sarcastic reason)\n  - 3. [SETUP_LINE] (a phrase\
+  \ that perfectly leads into the brand name, like \"You don't know about:\")\n- Directly\
+  \ underneath the third list item, place the [BRAND] wordmark, styled and aligned\
+  \ as if it's the punchline of the note. It should be slightly smaller than the list\
+  \ text.\n"
+description: Use this template to present a 'Reasons Why' listicle in a native mobile
+  UI format. This creates a provocative 'Us vs. Them' comparison that positions your
+  brand as the new, obvious solution.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\reasons-why\reasons-why-Ad-6-UXCam.jpg

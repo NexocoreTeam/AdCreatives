@@ -1,0 +1,29 @@
+filename: before-and-after-Ad-7-hims-4.png
+file_id: 1XyTv_ToTVz5ktTT-pTGCGTtieshZ0tHf
+mime_type: image/png
+is_video_frame: false
+analysis:
+  hook_visible: '"I love my hair and always have, but I want to make sure I still
+    have ALL of it in 30 years." Daniel P. ... Get Started Today.'
+  hook_type: story
+  copy_treatment: A customer testimonial is placed in a rounded text bubble overlay,
+    while the main CTA is in a large, solid-colored banner at the bottom.
+  visual_format: lifestyle
+  creative_mechanic: Testimonial overlay on lifestyle image
+  elements_present:
+  - product_shot
+  - human_face
+  - text_overlay
+  - lifestyle_imagery
+  - logo_visible
+  - studio_aesthetic
+  mood:
+  - thoughtful
+  - proactive
+  - relatable
+  color_palette_dominant:
+  - '#8C4742'
+  - '#E4CDB4'
+  - '#222A3C'
+  composition_notes: The subject is framed on the left, looking into a mirror, drawing
+    focus to his face and

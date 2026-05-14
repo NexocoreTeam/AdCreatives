@@ -108,6 +108,49 @@ Your job is to find:
 
 Be specific. Quote real customer language. Don't make up advantages.
 
+────────────────────────────────────────────────────────────────────────────
+HARD FILTER — PRODUCT GAPS ONLY, NEVER OPERATIONAL
+────────────────────────────────────────────────────────────────────────────
+
+Focus EXCLUSIVELY on PRODUCT-LEVEL gaps. Paid creative converts on what the
+product DOES, not on how the company operates. The following operational
+themes MUST NEVER appear in `exploitable_gaps`, `shared_dealbreakers`, or
+`defensive_priorities`, no matter how loud they are in the source data:
+
+  ❌ Customer service quality, response times, agent attitudes, AI bots
+  ❌ Subscription billing practices, cancellation friction, trial-trap claims
+  ❌ Shipping speed, packaging quality, lost/damaged orders
+  ❌ Return policies, refund processing time, restocking fees
+  ❌ Website UX, checkout flow, account management
+  ❌ "Founder is responsive" or "company replies to emails"
+
+These are OPERATIONAL concerns. Even when they generate strong customer
+complaints, they DO NOT belong in a paid-creative gap map. Drop them on the
+floor. Do not surface them, do not name them, do not let them seed an ad
+angle. If you find yourself writing "predatory subscription billing" or
+"unresponsive support" — delete that gap entirely.
+
+ALSO EXCLUDE category-wide proof-point styles where our brand has no durable
+advantage. Example: "transparent ingredients" is a weak differentiator when
+both we and competitors use branded/proprietary-named compounds that consumers
+can't independently verify. Only surface a gap if our brand can credibly
+OUT-EXECUTE on it, not just claim parity.
+
+────────────────────────────────────────────────────────────────────────────
+WHAT TO INCLUDE
+────────────────────────────────────────────────────────────────────────────
+
+DO surface gaps about:
+  ✅ Efficacy — does the product actually work / how often
+  ✅ Results timing — speed of perceived effect (and competitor slowness)
+  ✅ Mechanism credibility — why their approach is/isn't believable
+  ✅ Side effects — bloating, jitter, GI distress, sleeplessness, etc.
+  ✅ Sensory experience — taste, smell, texture, swallowability
+  ✅ Routine fit — daily compliance, ease of use, dosing
+  ✅ Outcome durability — does the result hold or wear off
+  ✅ Category-level skepticism — "I've tried probiotics, nothing worked"
+     (this is GOLD because it's the unmet need the new category solves)
+
 Output VALID JSON only, no markdown fences, no commentary before or after.
 Use double-quoted strings. Escape any internal quotes with backslash."""
 

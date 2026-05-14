@@ -10,8 +10,18 @@ from datetime import date
 from pathlib import Path
 
 import click
+from dotenv import load_dotenv
 from rich.console import Console
 from rich.table import Table
+
+# Force UTF-8 on stdout/stderr before Rich initializes, so glyphs like ✓ render
+# safely on Windows consoles that default to cp1252. No-op on POSIX.
+if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, OSError):
+        pass
 
 
 def _bootstrap_env_from_dotenv() -> None:
@@ -19,8 +29,13 @@ def _bootstrap_env_from_dotenv() -> None:
 
     Runs once at CLI startup so subprocess invocations (e.g. from the
     Streamlit dashboard) inherit API keys even when the parent process was
-    launched without sourcing .env. Existing env vars are NOT overridden —
-    shell-set keys win. No-op if .env is absent."""
+    launched without sourcing .env. Existing env vars are NOT overridden by
+    default — shell-set keys win. No-op if .env is absent.
+
+    Important on Windows: when a shell-set var is EMPTY (`KEY=`), the empty
+    value would otherwise win over .env. We treat empty-string env vars as
+    absent so .env values fill them in.
+    """
     env_path = Path(__file__).resolve().parent / ".env"
     if not env_path.exists():
         return
@@ -35,12 +50,17 @@ def _bootstrap_env_from_dotenv() -> None:
         key, _, value = line.partition("=")
         key = key.strip()
         value = value.strip().strip('"').strip("'")
-        if key and key not in os.environ:
+        # Override empty-string env vars too (common on Windows where the
+        # shell sets the name but leaves the value empty).
+        existing = os.environ.get(key, "")
+        if key and not existing:
             os.environ[key] = value
 
 
 _bootstrap_env_from_dotenv()
-
+# Belt-and-suspenders: also let python-dotenv look for .env in any parent
+# directory (handles worktrees where the .env is at the repo root).
+load_dotenv(override=False)
 
 console = Console()
 
@@ -98,8 +118,9 @@ def list_clients():
 
 @cli.command()
 @click.option("--client", required=True, help="Client slug")
-@click.option("--max-personas", default=4, type=int,
-              help="Maximum number of personas to generate (1-4)")
+@click.option("--max-personas", default=5, type=int,
+              help="Maximum number of personas to generate (1-6). Default 5 — "
+              "use --max-personas 3 if you want a tighter set.")
 def personas(client: str, max_personas: int):
     """Expand single avatar to multiple structured personas.
 
@@ -138,6 +159,7 @@ def personas(client: str, max_personas: int):
             brand=brand,
             brand_context_md=brand_context_md,
             max_personas=max_personas,
+            client_slug=client,
         )
 
     if not result.personas:
@@ -535,7 +557,25 @@ def strategy_matrix(client: str, max_products: int):
     if context_path.exists():
         brand_context_md = context_path.read_text(encoding="utf-8")
 
+    # Load the full persona roster from avatars/ when Stage 2 has run.
+    # Falls back to the single legacy avatar.yaml if the roster doesn't exist.
     avatars = [avatar]
+    avatars_dir = client_dir / "avatars"
+    if avatars_dir.exists():
+        import yaml as _yaml
+        from models.avatar import CustomerAvatar
+        roster: list = []
+        for f in sorted(avatars_dir.glob("*.yaml")):
+            if f.name.startswith("_") or f.name.endswith(".bak"):
+                continue
+            try:
+                with open(f, encoding="utf-8") as fh:
+                    data = _yaml.safe_load(fh)
+                roster.append(CustomerAvatar(**data))
+            except Exception:
+                continue
+        if roster:
+            avatars = roster
 
     console.print(
         f"\n[bold cyan]Building strategy matrix[/bold cyan] — "
@@ -551,6 +591,7 @@ def strategy_matrix(client: str, max_products: int):
             avatars=avatars,
             products=products,
             brand_context_md=brand_context_md,
+            client_slug=client,
         )
 
     md_path, yaml_path = save_matrix(client, result)
@@ -1353,30 +1394,198 @@ def _format_field_value(value) -> str:
     return str(value)[:200]
 
 
-@cli.command(name="analyze-references")
+@cli.command(name="list-templates")
+@click.option("--client", required=True, help="Client slug")
+@click.option("--category", default=None,
+              help="Filter to one category (us-vs-them, testimonial-review, etc.)")
+def list_templates(client: str, category: str | None):
+    """List extracted templates for a client. Use the template id with
+    `adc generate --reference <id>` for single-reference art-directed mode."""
+    import yaml as _yaml
+
+    templates_root = Path("clients") / client / "templates"
+    if not templates_root.exists():
+        console.print(
+            f"[yellow]No templates yet for '{client}'. Run "
+            f"`adc extract-templates --client {client}` first.[/yellow]"
+        )
+        raise SystemExit(0)
+
+    rows: list[tuple[str, str, str, str, str]] = []
+    for yaml_file in sorted(templates_root.rglob("*.yaml")):
+        try:
+            with open(yaml_file, encoding="utf-8") as f:
+                d = _yaml.safe_load(f) or {}
+            tpl = (d.get("template_prompt") or "").strip()
+            if len(tpl) < 50:
+                continue  # skip empty / broken templates
+            cat = d.get("category", "—")
+            if category and cat != category:
+                continue
+            rows.append((
+                d.get("id", yaml_file.stem),
+                d.get("name", "—")[:30],
+                cat,
+                ", ".join((d.get("tags") or [])[:4])[:50],
+                d.get("source_ad", "—").split("\\")[-1].split("/")[-1][:40],
+            ))
+        except Exception:
+            continue
+
+    if not rows:
+        console.print(f"[yellow]No usable templates found for '{client}'"
+                      + (f" in category '{category}'" if category else "") + ".[/yellow]")
+        raise SystemExit(0)
+
+    table = Table(title=f"Templates — {client}"
+                  + (f" / {category}" if category else "")
+                  + f" ({len(rows)} usable)")
+    table.add_column("Template ID", style="cyan", max_width=50)
+    table.add_column("Name", style="green", max_width=30)
+    table.add_column("Category", style="yellow", max_width=20)
+    table.add_column("Tags", style="dim", max_width=50)
+    table.add_column("Source ad", style="dim", max_width=40)
+    for r in rows:
+        table.add_row(*r)
+    console.print(table)
+    console.print(
+        f"\n[dim]Use any template id with: "
+        f"adc generate --client {client} --pick <n> --reference <template-id>[/dim]"
+    )
+
+
+@cli.command(name="extract-templates")
 @click.option("--client", required=True, help="Client slug")
 @click.option(
     "--force",
     is_flag=True,
     default=False,
-    help="Bypass cache and re-run vision on every reference ad.",
+    help="Re-extract templates for every ad even if a template YAML already exists.",
 )
-def analyze_references(client: str, force: bool):
-    """Pull `reference-ads/` from Drive, vision-analyze each, cache per-file YAMLs.
+def extract_templates(client: str, force: bool):
+    """Extract Cooper-style prompt templates from the client's reference ads.
 
-    Static images go straight to vision. Videos have a representative frame
-    extracted via ffmpeg, then vision runs on that frame. Output lives at
-    clients/<slug>/reference_ads/analyses/, with a _summary.yaml index.
+    For each ad in clients/<slug>/reference_ads/raw/<category>/, runs vision +
+    LLM to produce a structured LibraryPrompt YAML at
+    clients/<slug>/templates/<category>/<ad_stem>.yaml. These templates outrank
+    Cooper/Nanobana when the prompt engine picks compositional examples for a
+    brief.
+
+    Cost: ~$0.02 per ad. Idempotent — re-runs skip ads whose template already
+    exists, unless --force.
     """
-    from strategy.reference_ads import analyze_references_from_drive
+    from strategy.template_extractor import extract_all_client_templates
 
     client_dir = Path("clients") / client
     if not client_dir.exists():
         console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
         raise SystemExit(1)
 
-    with console.status(f"Analyzing reference ads for '{client}' via Sonnet/Gemini..."):
+    with console.status(f"Extracting prompt templates for '{client}' via Gemini vision..."):
         try:
+            result = extract_all_client_templates(client_slug=client, force=force)
+        except FileNotFoundError as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+
+    console.print(
+        f"[green]Templates extracted: {result.new_extractions} new, "
+        f"{result.cache_hits} cached, {len(result.skipped)} skipped[/green]"
+    )
+    if result.skipped:
+        for name, reason in result.skipped[:5]:
+            console.print(f"  [yellow]skip[/yellow] {name}: {reason}")
+
+    from strategy.cost_tracker import log_cost
+    log_cost(client, "adc extract-templates", multiplier=result.new_extractions,
+             note=f"{result.new_extractions} templates extracted")
+
+
+@cli.command(name="analyze-references")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--local-dir",
+    "local_dir",
+    default=None,
+    help="Path to a LOCAL folder of reference ads (PNG/JPG/WebP/MP4/MOV/WebM). "
+    "Bypasses Google Drive entirely — no auth needed. Files are copied to "
+    "clients/<slug>/reference_ads/raw/ and analyzed in place.",
+)
+@click.option(
+    "--drive-folder-id",
+    "drive_folder_id",
+    default=None,
+    help="Arbitrary Drive folder ID to ingest. Walks its IMMEDIATE SUBFOLDERS "
+    "as style buckets (e.g., editorial/ + ugc/) and preserves that grouping "
+    "in clients/<slug>/reference_ads/raw/<style>/. Requires "
+    "GOOGLE_APPLICATION_CREDENTIALS + the folder shared with the service "
+    "account. Overrides the legacy brand.drive_folder_id / reference-ads "
+    "default.",
+)
+@click.option(
+    "--force",
+    is_flag=True,
+    default=False,
+    help="Bypass cache and re-run vision on every reference ad.",
+)
+def analyze_references(client: str, local_dir: str | None,
+                       drive_folder_id: str | None, force: bool):
+    """Vision-analyze reference ads.
+
+    Three source modes (in priority order):
+      --local-dir <path>         Local folder (no Drive auth needed).
+      --drive-folder-id <id>     Arbitrary Drive folder; walks subfolders as styles.
+      (default)                  Legacy: brand.drive_folder_id / reference-ads/ subfolder.
+
+    Static images go straight to vision. Videos have a representative frame
+    extracted via ffmpeg, then vision runs on that frame. Output lives at
+    clients/<slug>/reference_ads/analyses/, with a _summary.yaml index.
+    """
+    from strategy.reference_ads import (
+        analyze_references_from_drive,
+        analyze_references_from_drive_folder,
+        analyze_references_from_local_dir,
+    )
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    if local_dir:
+        src_label = f"local folder {local_dir}"
+    elif drive_folder_id:
+        src_label = f"Drive folder {drive_folder_id} (style-subfolder mode)"
+    else:
+        src_label = "Drive reference-ads/ (legacy mode)"
+
+    with console.status(f"Analyzing reference ads for '{client}' from {src_label} via Gemini vision..."):
+        try:
+            if local_dir:
+                result = analyze_references_from_local_dir(
+                    client_slug=client,
+                    local_dir=Path(local_dir),
+                    force=force,
+                )
+                _render_references_summary(client, result)
+                from strategy.cost_tracker import log_cost
+                log_cost(client, "adc analyze-references", multiplier=result.new_analyses,
+                         note=f"{result.new_analyses} new, {result.cache_hits} cached (local-dir)")
+                return
+
+            if drive_folder_id:
+                result = analyze_references_from_drive_folder(
+                    client_slug=client,
+                    drive_folder_id=drive_folder_id,
+                    force=force,
+                )
+                _render_references_summary(client, result)
+                from strategy.cost_tracker import log_cost
+                log_cost(client, "adc analyze-references", multiplier=result.new_analyses,
+                         note=f"{result.new_analyses} new, {result.cache_hits} cached (drive-folder)")
+                return
+
+            # Fallthrough → Drive legacy path below
             result = analyze_references_from_drive(client_slug=client, force=force)
         except (ValueError, EnvironmentError, FileNotFoundError) as e:
             console.print(f"[red]{e}[/red]")
@@ -2808,8 +3017,28 @@ def prompts(client: str, pick: str, product: str | None):
 @click.option("--num-images", default=1, type=int, help="How many image variations per pick (default 1)")
 @click.option("--aspect-ratio", default=None, help="Override aspect ratio (default: inferred from brief)")
 @click.option("--thinking", default="disabled", help="NB2 thinking level: disabled, low, medium, high")
+@click.option(
+    "--include-alternates",
+    is_flag=True,
+    default=False,
+    help="Generate the primary visual_format PLUS each visual_format_alternatives "
+    "entry (3 images per brief instead of 1). Same psychological mechanic, "
+    "different production styles — useful for A/B/C variance testing.",
+)
+@click.option(
+    "--reference",
+    "reference_template_id",
+    default=None,
+    help="ART-DIRECTED single-reference mode. Pass a template id from "
+    "`adc list-templates` (e.g. 'us-vs-them-price-comparison-panels'). "
+    "Generation uses ONLY that one template + its source reference image — "
+    "no swipe library, no Nanobana, no averaging. Output is grounded in one "
+    "specific hand-picked ad. Cleanest path when you want to mimic a "
+    "specific aesthetic.",
+)
 def generate(client: str, pick: str, product: str | None, num_images: int,
-             aspect_ratio: str | None, thinking: str):
+             aspect_ratio: str | None, thinking: str,
+             include_alternates: bool, reference_template_id: str | None):
     """Generate finished ad images for picked briefs — writes prompts AND calls fal.ai."""
     from models.loader import (
         load_all_briefs,
@@ -2817,7 +3046,7 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
         load_product_by_name,
         load_avatar,
     )
-    from generators.image_generator import generate_from_brief
+    from generators.image_generator import generate_from_brief, generate_from_brief_and_template
     from generators.prompt_engine import infer_aspect_ratio
 
     try:
@@ -2849,33 +3078,121 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
     avatar = load_avatar(client)
     product_cache: dict[str, object] = {}
 
+    # Build the list of (brief, format_label, format_value, variant_suffix) tuples to
+    # generate. Without --include-alternates, each brief produces ONE generation
+    # using its primary visual_format. With --include-alternates, each brief
+    # produces (1 + len(alternates)) generations, one per visual format option.
+    generation_jobs: list[tuple[object, str, str, str]] = []
     for brief in selected:
+        primary_fmt = brief.visual_format or ""
+        generation_jobs.append((brief, "primary", primary_fmt, ""))
+        if include_alternates:
+            alts = list(brief.visual_format_alternatives or [])
+            for i, alt_fmt in enumerate(alts, 1):
+                generation_jobs.append((brief, f"alt{i}", alt_fmt, f"_alt{i}"))
+
+    total_jobs = len(generation_jobs)
+    total_images_estimate = total_jobs * num_images
+    if include_alternates:
+        console.print(
+            f"[dim]--include-alternates: generating {total_jobs} variant(s) "
+            f"across {len(selected)} brief(s) × {num_images} image(s) each "
+            f"= {total_images_estimate} total image(s)[/dim]"
+        )
+
+    for brief, variant_label, variant_format, variant_suffix in generation_jobs:
         if brief.product not in product_cache:
             product_cache[brief.product] = load_product_by_name(client, brief.product)
         prod = product_cache[brief.product]
 
-        ar = aspect_ratio or infer_aspect_ratio(brief)
+        # For alternate generations, clone the brief with the alternate format
+        # substituted into visual_format. The mechanic stays the same — that's
+        # the whole point of variance testing.
+        active_brief = brief
+        if variant_label != "primary" and variant_format:
+            active_brief = brief.model_copy(update={"visual_format": variant_format})
+
+        ar = aspect_ratio or infer_aspect_ratio(active_brief)
         image_refs = _collect_product_image_refs(prod, client)
 
-        with console.status(
-            f"Slot {brief.slot} ({brief.brief_id[-6:]}) — writing prompt + generating {num_images} image(s)..."
-        ):
-            prompt_text, results = generate_from_brief(
-                brief=brief,
-                brand=brand,
-                product=prod,
-                avatar=avatar,
-                client_slug=client,
-                output_dir=images_dir,
-                num_images=num_images,
-                aspect_ratio=ar,
-                thinking_level=thinking,
+        # Filename gets the variant suffix so each generation is distinct
+        # on disk even though they share a brief_id.
+        original_id = brief.brief_id
+        if variant_suffix:
+            active_brief = active_brief.model_copy(
+                update={"brief_id": f"{original_id}{variant_suffix}"}
             )
+
+        # Resolve the reference image path for art-directed mode by walking
+        # the templates dir to find the matching id, then mapping to its
+        # raw/ source image.
+        reference_image_path = None
+        if reference_template_id:
+            import yaml as _yaml
+            templates_root = Path("clients") / client / "templates"
+            for yaml_file in templates_root.rglob("*.yaml"):
+                try:
+                    with open(yaml_file, encoding="utf-8") as f:
+                        td = _yaml.safe_load(f) or {}
+                    if td.get("id") == reference_template_id:
+                        # Stem maps to raw/<category>/<stem>.<ext>
+                        category = yaml_file.parent.name
+                        stem = yaml_file.stem
+                        raw_dir = Path("clients") / client / "reference_ads" / "raw" / category
+                        for ext in (".png", ".jpg", ".jpeg", ".webp"):
+                            candidate = raw_dir / f"{stem}{ext}"
+                            if candidate.exists():
+                                reference_image_path = candidate
+                                break
+                        if reference_image_path:
+                            break
+                except Exception:
+                    continue
+            if not reference_image_path:
+                console.print(
+                    f"[red]Reference template '{reference_template_id}' not found. "
+                    f"Run `adc list-templates --client {client}` to see available ids.[/red]"
+                )
+                raise SystemExit(1)
+
+        with console.status(
+            f"Slot {brief.slot} ({original_id[-6:]}) {variant_label} "
+            f"— writing prompt + generating {num_images} image(s)..."
+        ):
+            if reference_template_id:
+                from generators.image_generator import generate_from_brief_and_template
+                prompt_text, results = generate_from_brief_and_template(
+                    brief=active_brief,
+                    template_id=reference_template_id,
+                    reference_image_path=reference_image_path,
+                    brand=brand,
+                    product=prod,
+                    avatar=avatar,
+                    client_slug=client,
+                    output_dir=images_dir,
+                    num_images=num_images,
+                    aspect_ratio=ar,
+                    thinking_level=thinking,
+                )
+            else:
+                prompt_text, results = generate_from_brief(
+                    brief=active_brief,
+                    brand=brand,
+                    product=prod,
+                    avatar=avatar,
+                    client_slug=client,
+                    output_dir=images_dir,
+                    num_images=num_images,
+                    aspect_ratio=ar,
+                    thinking_level=thinking,
+                )
 
         local_paths = [str(r.local_path) for r in results if r.local_path]
         seed = results[0].seed if results else None
 
-        notes = _format_notes_header(brief, prod, ar, image_refs)
+        notes = _format_notes_header(active_brief, prod, ar, image_refs)
+        # Annotate the variant in the notes header so disk artifacts are self-documenting
+        notes = f"# VARIANT: {variant_label} ({variant_format[:80]})\n" + notes
         if local_paths:
             extra = ["", "***** GENERATED *****"]
             extra.append(f"Seed:            {seed}")
@@ -2885,7 +3202,7 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
             extra.append("***** END GENERATED *****")
             notes = notes + "\n" + "\n".join(extra)
 
-        prompt_path = prompts_dir / f"{brief.brief_id}.txt"
+        prompt_path = prompts_dir / f"{active_brief.brief_id}.txt"
         prompt_path.write_text(notes + "\n\n" + prompt_text + "\n", encoding="utf-8")
 
         console.print(f"[green]\\[OK][/green] {prompt_path}")
@@ -2893,14 +3210,14 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
             console.print(f"       {p}")
 
     console.print(
-        f"\n[green]Generated {len(selected)} ad(s) × {num_images} image(s) "
-        f"to {images_dir}/[/green]"
+        f"\n[green]Generated {total_jobs} variant(s) × {num_images} image(s) "
+        f"= {total_images_estimate} image(s) to {images_dir}/[/green]"
     )
 
     from strategy.cost_tracker import log_cost
-    total_images = len(selected) * num_images
-    log_cost(client, "adc generate", multiplier=total_images,
-             note=f"{total_images} image(s)")
+    log_cost(client, "adc generate", multiplier=total_images_estimate,
+             note=f"{total_images_estimate} image(s)"
+             + (f" ({total_jobs} variants, alternates included)" if include_alternates else ""))
 
 
 # ─── Ad Remix ───────────────────────────────────────────────────────────────

@@ -1,0 +1,66 @@
+# SecondKind competitors for Gut Balance run.
+# Focused on the three most directly relevant brands — narrower than the
+# previous 6-competitor list since broader pulls produced too much
+# operational/customer-service noise.
+#
+# Gap analyzer is filtered to PRODUCT-level gaps only per docs/pipeline-rules.md.
+
+competitors:
+  - name: Seed
+    slug: seed
+    url: https://seed.com
+    type: direct
+    priority: tier1
+    notes: |
+      DS-01 Daily Synbiotic. The clinical-credibility benchmark in DTC
+      gut-health supplements. Two-capsule daily, 24 strains, prebiotic +
+      probiotic combo. Editorial brand voice, glass-bottle aesthetic
+      (refillable packaging). DTC-only by design — no Amazon presence.
+
+      Product-level differentiators to attack:
+      - Live probiotic viability: bacteria die en route to the gut.
+        Postbiotic mechanism sidesteps this entirely.
+      - Slow onset: multi-week wait for users to feel anything.
+      - Mechanism opacity for the audience: "24 strains" is a number, not
+        a felt outcome.
+    amazon_urls: []
+
+  - name: Arrae
+    slug: arrae
+    url: https://www.arrae.com/
+    type: direct
+    priority: tier1
+    notes: |
+      Women's wellness supplements with the "Bloat" capsule as their hero
+      acquisition product. Strong DTC presence, female-skewing audience that
+      overlaps heavily with SecondKind's primary. Botanical-extract approach
+      (dandelion, fennel, ginger) vs SecondKind's postbiotic-mechanism approach.
+
+      Product-level differentiators to attack:
+      - Symptom relief vs root-cause: Arrae's Bloat is a fast-acting digestive
+        aid that addresses the bloating moment, not the microbiome imbalance.
+        SecondKind addresses the underlying gut function — Arrae users still
+        need to take Bloat repeatedly.
+      - Mechanism: botanical-extract relief vs clinically-studied postbiotic
+        bioactive compounds.
+      - Daily vs as-needed positioning.
+    amazon_urls: []
+
+  - name: Ritual
+    slug: ritual
+    url: https://ritual.com
+    type: direct
+    priority: tier1
+    notes: |
+      Synbiotic+. Design-led DTC wellness — clean type, transparent ingredient
+      sourcing, "obvious ingredients" positioning. Sits between mass-market
+      and clinical (Seed). Brand voice is warmer and more accessible than Seed.
+
+      Product-level differentiators to attack:
+      - Same live-probiotic viability problem as Seed.
+      - "Synbiotic+" naming positions live-bacteria as the hero, while
+        SecondKind's postbiotic framing argues the live-bacteria approach is
+        the OLD paradigm.
+      - Ritual's design accessibility may attract less science-literate buyers
+        than SecondKind's clinical-apothecary positioning — different segments.
+    amazon_urls: []

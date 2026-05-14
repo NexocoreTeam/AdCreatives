@@ -1,95 +1,242 @@
-name: Probiotic-Burned Paige
-demographic: Female, 30–42, suburban or mid-size city, likely a parent or planning
-  to be, household income $75K–$120K, college-educated, works full-time or has recently
-  returned to work after having children
-psychographic: Paige takes her health seriously — she tracks what she eats, has a
-  gym routine, and has spent real money on her wellness. She's not a hypochondriac;
-  she's a diligent self-optimizer who is quietly exhausted by doing everything right
-  and still feeling off. She reads ingredient labels, follows wellness accounts on
-  Instagram, and has probably tried three or four gut health products in the last
-  two years. She's moved past hoping and into a more skeptical, prove-it-to-me mindset.
+name: Done-Everything Danielle
+demographic: Woman, 30–44, suburban or urban, household income $90K–$160K, college-educated,
+  likely married with one or two young children or a demanding career, disposable
+  income allocated toward wellness
+psychographic: Treats her body like a long-term project — reads ingredient labels,
+  follows Huberman Lab and functional medicine accounts, has a supplement stack. Distrusts
+  miracle claims but still hopes the next thing she tries will finally work. Feels
+  quietly frustrated that she does everything right and still feels off. Her identity
+  is tied to being informed and intentional, which makes persistent bloating feel
+  like a personal failure rather than just a symptom.
 pain_points:
-- pain: Has been on at least one probiotic — often Seed or Culturelle — and noticed
-    nothing meaningful after a full bottle
+- pain: Persistent bloating that shows up even on clean-eating days — by dinner she
+    looks and feels three months pregnant
+  intensity: high
+  customer_language:
+  - Eating clean, working out, and still bloated by dinner
+  - I've struggled with bloating and digestive issues for as long as I can remember
+  - Still feel off
+  source: auto_from_brand_context
+- pain: Brain fog and energy crashes she has learned to live with but suspects are
+    connected to her gut
+  intensity: high
+  customer_language:
+  - I didn't even realize I had brain fog until it lifted
+  - Low energy and brain fog I couldn't explain
+  source: auto_from_brand_context
+- pain: Probiotic fatigue — she has spent real money on multiple brands and felt nothing
+    meaningful change
   intensity: high
   customer_language:
   - I've tried probiotics before and honestly didn't notice much
-  - I did a whole month on Seed and I still felt exactly the same
-  - It felt like I was just paying $50 for expensive pee
-  source: auto_from_brand_context
-- pain: Persistent bloating that appears even when she's eating clean — no apparent
-    food trigger, just a baseline level of distension that builds throughout the day
-  intensity: high
-  customer_language:
-  - Bloating was always my main concern
-  - Eating clean, working out, and still bloated by dinner
-  - I don't eat gluten, I don't eat dairy, and I'm still waking up with a flat stomach
-    and going to bed looking six months pregnant
-  source: auto_from_brand_context
-- pain: A low-level brain fog and energy dip she has normalized as baseline but suspects
-    isn't inevitable
-  intensity: medium
-  customer_language:
-  - brain fog I didn't even realize I had until it was gone
-  - I just thought I was tired. I didn't realize how off I felt until I started feeling
-    better
-  - I assumed the afternoon crash was just life
-  source: auto_from_brand_context
-- pain: Supplement fatigue — she has a cabinet of things that kind of work, and she's
-    skeptical of adding another
-  intensity: medium
-  customer_language:
-  - I'm not adding another supplement that doesn't do anything
-  - I have so many half-finished bottles I should probably throw away
-  - Every brand claims to be different. They're not.
+  - I've tried everything and nothing has worked
   source: auto_from_brand_context
 desires:
-- desire: Digestive consistency — to feel genuinely comfortable in her body throughout
-    the day, not just in the morning before she's eaten anything
+- desire: Feel consistently lighter, clearer, and more regulated — not just on good
+    days
   customer_language:
-  - I just want to feel normal after a meal
-  - I want to stop thinking about my stomach
-- desire: Confidence that the product is actually doing something — she wants to feel
-    results within the first week, not be told to wait three months
+  - I just want to feel normal in my body again
+  - Feel lighter, clearer, and more like yourself
+- desire: Understand the actual mechanism behind what she's taking — not just hope
+    it works
   customer_language:
-  - I need to feel it working or I'm not going to keep buying it
-  - Just tell me what to expect and when
-- desire: To feel like herself again — the version of her that isn't managing symptoms
-  customer_language:
-  - feeling like yourself again
-  - I forgot what it felt like to not be bloated
+  - I want to know why it works, not just that it worked for someone
 objections:
-- This sounds like another probiotic in different packaging — how is a postbiotic
-  actually different?
-- I've been burned before. What's the guarantee if it doesn't work?
-- $50 a bottle is a lot when I've already wasted money on supplements that did nothing
-- The science sounds impressive but supplement brands always have impressive-sounding
-  science
+- This sounds like another probiotic with better marketing — I've been down this road
+- If it worked, my doctor would have mentioned it
+- $49.99 is a lot when the last three supplements I bought did nothing
+- I don't have the bandwidth to try something else that disappoints me
 current_solutions:
-- Daily probiotic (Seed, Culturelle, Garden of Life, or similar)
-- Elimination diet or low-FODMAP eating to manage bloating
-- Digestive enzymes taken reactively before meals
-- Fiber supplements or prebiotics (Metamucil, AG1)
-- Living with it and calling it normal
+- Seed DS-01 or equivalent premium probiotic brand
+- Refrigerated probiotic from Whole Foods or similar
+- Fermented foods — kimchi, kefir, sauerkraut — added to her diet deliberately
+- FODMAP or gluten elimination phases that helped briefly but were not sustainable
+- Digestive enzymes with meals
 trigger_events:
-- Finishes a second bottle of her current probiotic brand with zero change and decides
-  she's done with the category — then reads something about postbiotics that stops
-  her mid-scroll
-- Sees a TikTok or Instagram reel explaining that probiotics have to survive stomach
-  acid to work, and most don't — for the first time the mechanism makes sense and
-  she realizes why nothing worked
-- A close friend mentions she switched from probiotics to something called a postbiotic
-  and her bloating basically disappeared — she asks what it is
-- Postpartum gut issues that haven't resolved even a year later prompt her to research
-  more aggressively than she used to
-awareness_level: solution_aware
+- Leaves a dinner event early or avoids a form-fitting outfit because of bloating
+  she cannot predict or control
+- Reads a piece of content — podcast clip, Instagram reel, newsletter — explaining
+  that most probiotics die before reaching the gut and feels the ground shift under
+  her supplement logic
+- Gets to the end of another probiotic bottle and realizes she feels exactly the same
+  as when she started
+awareness_level: problem_aware
 language_patterns:
-- Conversational but health-literate — she knows what CFUs and gut microbiome mean
-  but doesn't lead with jargon
-- Frustrated but measured — not catastrophizing, just tired of inconsistency
-- Uses phrases like 'doing everything right,' 'I've tried everything,' 'I just want
-  it to actually work'
-- Skeptical qualifier before she endorses anything — 'I was really skeptical at first
-  but...'
-- 'Instagram/TikTok-native health vocabulary: gut health, microbiome, bloat, inflammation,
-  brain fog'
+- Educated but not clinical — says 'gut health' and 'bloating' not 'dysbiosis' or
+  'GI motility'
+- Uses phrases like 'eating clean,' 'inflammation,' 'brain fog,' 'my gut,' 'still
+  feel off'
+- Emotionally measured — frustrated but not dramatic; describes symptoms matter-of-factly
+- 'Asks mechanism questions: ''how does it actually work'' and ''why would this be
+  different'''
+- 'Tends to be self-deprecating about supplement spending: ''I know, I know, another
+  supplement'''
+psychology_profile:
+  dominant_heuristics:
+  - heuristic: authority_bias
+    confidence: high
+    why: Her identity is built around being informed and intentional — she reads ingredient
+      labels, follows Huberman Lab and functional medicine accounts, and explicitly
+      asks mechanism questions before trusting a product.
+    evidence:
+    - 'language_patterns: ''Asks mechanism questions: how does it actually work and
+      why would this be different'''
+    - 'desires: ''I want to know why it works, not just that it worked for someone'''
+    - 'psychographic: ''reads ingredient labels, follows Huberman Lab and functional
+      medicine accounts, has a supplement stack'''
+    - 'objections: ''If it worked, my doctor would have mentioned it'''
+    ad_implications: Lead with mechanism, not outcome. Explain the biological logic
+      — why most probiotics fail to survive transit, what makes this formulation structurally
+      different — before making any benefit claim. Use the voice of a scientifically
+      literate peer or independent researcher, not a brand spokesperson. The brand's
+      editorial-restrained tone is already well-matched here; copy should feel like
+      a Huberman clip excerpt, not a supplement ad.
+  - heuristic: framing_effect
+    confidence: high
+    why: Her primary objection is a cost-vs-past-failure calculation, and her probiotic
+      fatigue means she is already doing an ROI comparison against three prior disappointments
+      — the frame of 'another probiotic' is the single biggest conversion barrier.
+    evidence:
+    - 'objections: ''$49.99 is a lot when the last three supplements I bought did
+      nothing'''
+    - 'objections: ''This sounds like another probiotic with better marketing — I''ve
+      been down this road'''
+    - 'language_patterns: ''Tends to be self-deprecating about supplement spending:
+      I know, I know, another supplement'''
+    - 'trigger_events[2]: ''Reads content explaining that most probiotics die before
+      reaching the gut and feels the ground shift under her supplement logic'''
+    ad_implications: Never enter the category frame — reframe at the mechanism level
+      before the category label lands. The contrast frame (old probiotic logic vs.
+      new delivery architecture) is the correct opening move. Price should be anchored
+      against the accumulated cost of failed solutions or the daily cost-per-dose
+      of her current stack, not presented as a standalone sticker. 'Not another probiotic'
+      is the strategic frame, not a tagline — it must be structural.
+  - heuristic: effect_heuristic
+    confidence: medium
+    why: Despite her analytical posture, her deepest desires are expressed emotionally
+      — she wants to feel normal, lighter, and like herself — and her highest-intensity
+      pain has an identity and social dimension (leaving dinner early, hiding her
+      body) that is fundamentally affective, not rational.
+    evidence:
+    - 'desires: ''I just want to feel normal in my body again'''
+    - 'desires: ''Feel lighter, clearer, and more like yourself'''
+    - 'trigger_events[0]: ''Leaves a dinner event early or avoids a form-fitting outfit
+      because of bloating she cannot predict or control'''
+    - 'psychographic: ''persistent bloating feels like a personal failure rather than
+      just a symptom'''
+    ad_implications: 'Authority and framing open the door; emotional resonance closes
+      it. After the mechanism is established and the category frame is broken, the
+      closing register should shift to felt experience — what her body feels like
+      when it actually works, not what the product does. Mirror her measured emotional
+      language: not dramatic transformation, but the quiet recognition of feeling
+      like yourself again.'
+  weak_heuristics:
+  - heuristic: scarcity
+    why: She is a deliberate, research-heavy buyer who has been burned multiple times.
+      Artificial urgency mechanics signal exactly the kind of hype she has trained
+      herself to filter out, and they directly contradict SecondKind's editorially
+      restrained brand voice.
+    avoid: Countdown timers, limited-stock warnings, flash-sale framing, or any copy
+      that implies she must decide now. These patterns code as the supplement-marketing
+      playbook she is already skeptical of.
+  - heuristic: social_proof
+    why: Her trigger events and current solutions show no socially mediated discovery
+      — she is a self-directed researcher who arrived at premium probiotics through
+      her own reading, not friend referrals or creator recommendations. Her objection
+      'I've tried probiotics before and honestly didn't notice much' means peer testimonials
+      alone read as anecdote, not evidence.
+    avoid: Generic star ratings, influencer-style 'this changed my life' testimonials,
+      or UGC that lacks a mechanism anchor. Social proof can support but cannot lead
+      — it only works here when the reviewer speaks her technical language and explains
+      the why, not just the what.
+  - heuristic: temporal_discounting
+    why: Her psychographic explicitly codes her as a long-term-project thinker, and
+      her prior failures with quick-fix framing (FODMAP phases, elimination diets
+      that 'helped briefly but were not sustainable') have made her allergic to 'feel
+      better fast' promises.
+    avoid: Overnight results, '7-day reset' framing, before-and-after timelines that
+      imply rapid transformation. These activate her skepticism filter and pattern-match
+      to the miracle-claim language SecondKind explicitly prohibits.
+  emotional_position:
+    primary:
+      valence: negative
+      intensity: high
+      rationale: 'Three of her pain points are rated high intensity, and her trigger
+        events describe acute social and identity moments — leaving a dinner early,
+        finishing a bottle and feeling exactly the same. The dominant emotional charge
+        is not passive dissatisfaction but active frustration compounded by identity
+        threat: she does everything right and it still doesn''t work, which feels
+        like a personal failure. Her awareness level is problem_aware with no current
+        solution delivering relief, placing her in LV/HI territory — the cost of inaction
+        is immediate and felt, not hypothetical.'
+      use_for: ''
+    secondary:
+      valence: positive
+      intensity: low
+      rationale: 'Her desires — feeling normal, lighter, clearer, more like herself
+        — are phrased as quiet relief, not dramatic transformation. The secondary
+        quadrant is HV/LI: the breakthrough on the other side of her frustration is
+        not euphoric, it is the absence of the problem. This matters for variant testing
+        — once the mechanism objection is resolved, the emotional landing should be
+        permission and decompression, not triumph.'
+      use_for: Variant testing warm audiences who have already engaged with the mechanism
+        content. After the LV/HI hook resolves the 'why is this different' objection,
+        shift to HV/LI to close on the felt experience of relief — 'the version of
+        you who stopped dreading dinner' rather than 'the transformation you've been
+        working toward.'
+  recommended_prompt_pairings:
+  - pairing: first_principles_plus_loss_aversion
+    fits_because: Directly activates her dominant authority_bias and framing_effect
+      heuristics. The 'first principles' move dismantles the old probiotic logic at
+      the mechanism level — exactly the ground-shift she experienced in trigger_events[1]
+      — while loss aversion quantifies the cost of continuing to spend on supplements
+      that don't survive transit. Fits LV/HI primary quadrant.
+  - pairing: pattern_disruption_plus_hidden_truth
+    fits_because: Activates authority_bias (insider mechanism knowledge) and salience.
+      The 'hidden truth' frame mirrors the specific trigger she is already responsive
+      to — the revelation that most probiotics die before reaching the gut. Recreating
+      that ground-shift moment in ad format is the highest-leverage entry point. Fits
+      LV/HI primary quadrant.
+  - pairing: counterintuitive_insight_plus_specificity
+    fits_because: Activates authority_bias and salience for an analytical buyer who
+      asks 'how does it actually work.' Specificity (delivery mechanism, survival
+      rate, strain-level differentiation) is the proof format she trusts. Counterintuitive
+      framing — 'clean eating isn't the variable; delivery architecture is' — reframes
+      the failure as systemic, not personal, which resolves the identity-threat dimension
+      of her pain.
+  - pairing: reframing_perception_plus_emotional_trigger
+    fits_because: Activates framing_effect and effect_heuristic in sequence. Opens
+      by reframing supplement failure as a category-architecture problem (not a personal
+      failure), then lands on the emotional recognition of feeling like yourself again.
+      Well-suited to the HV/LI secondary quadrant for warm-audience closing creative.
+  - pairing: micro_story_plus_suspense
+    fits_because: Activates salience and effect_heuristic. Short narrative format
+      — a woman who did everything right, tried everything, then learned the actual
+      mechanism — mirrors her exact journey without preaching. Works in both LV/HI
+      (opening on the dinner-event pain) and HV/LI (closing on the quiet relief).
+      Adapts to her emotionally measured, matter-of-fact language register.
+  - pairing: authority_borrowing_plus_data_insight
+    fits_because: Activates authority_bias and framing_effect. Lets the brand borrow
+      credibility from functional medicine or microbiome research voices — the same
+      ecosystem she already trusts (Huberman Lab, functional medicine accounts) —
+      to deliver the mechanism explanation without sounding like a supplement brand.
+      Bridges her 'if it worked, my doctor would have mentioned it' objection by making
+      the expert voice visible.
+  avoid_pairings:
+  - pairing: gamification_plus_time_sensitive_offer
+    avoid_because: Violates all three weak heuristics simultaneously — scarcity, temporal_discounting,
+      and goal_gradient are all low-leverage or backfire-risk for this buyer. Urgency
+      mechanics directly contradict SecondKind's editorial brand voice and activate
+      her hype-detection filter.
+  - pairing: shock_factor_plus_transformation_shortcut
+    avoid_because: Wrong intensity register (HI transformation framing) and activates
+      her prior pattern-matching to miracle-pill marketing. She has explicitly disqualified
+      dramatic before-and-after framing — it reads as the same supplement-industry
+      playbook she has already rejected three times.
+  - pairing: status_signaling_plus_open_loop
+    avoid_because: Her identity is informed and intentional, not status-display oriented.
+      Aspirational social signaling ('the kind of person who has her health dialed
+      in') risks feeling like flattery rather than mechanism, which she will read
+      as a manipulation tell. Her self-deprecating supplement humor signals she would
+      find this register slightly embarrassing rather than motivating.
+  source: auto_from_psychology_profiling

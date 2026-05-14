@@ -1,0 +1,45 @@
+id: hero-offer-social-proof-banner
+name: Hero Offer Banner
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- product-hero
+- text-overlay
+- discount-offer
+- social-proof
+- pill-banner
+- serif-headline
+- minimalist
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad with a clean, minimalist studio aesthetic.
+
+
+  LAYOUT:
+
+  - Background: Use a solid, light [BACKGROUND] color, like off-white or cream. Add
+  a very subtle gradient or vignette to create a soft spotlight effect behind the
+  product.
+
+  - Product Photography: Place a single, high-quality studio shot of the [PRODUCT]
+  in the dead center of the frame. It should have a soft, natural shadow beneath it.
+  One element of the product (e.g., a single pill, chew, or drop) can be placed leaning
+  against the main container for scale and texture.
+
+  - Headline: In the top third'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-1-PetLab
+  Co..png

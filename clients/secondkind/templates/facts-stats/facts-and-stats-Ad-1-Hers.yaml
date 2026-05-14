@@ -1,0 +1,61 @@
+id: quadrant-grid-headline-cta
+name: Quadrant Image Grid
+source: client-secondkind reference library
+category: facts-and-stats
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- quadrant-layout
+- rounded-corners
+- headline-overlay
+- stat-callout
+- lifestyle-photo
+- product-shot
+- pill-cta
+template_prompt: 'Image 1 is the actual [PRODUCT] — replicate it exactly.
+
+
+  Create a 1:1 square ad with a two-by-two quadrant layout on a solid, dark [BACKGROUND]
+  color. The elements in the grid have large, soft rounded corners.
+
+
+  LAYOUT:
+
+  - Top-left is a text block for the headline.
+
+  - Top-right is an aspirational lifestyle image.
+
+  - Bottom-left is a studio product image.
+
+  - Bottom-right is a text block for the benefit, CTA, and offer details.
+
+
+  ELEMENTS:
+
+  - HEADLINE: In the top-left, create a multi-line [HEADLINE]. The key word (often
+  the [PRODUCT] name) should be in a large, elegant white serif font. The surrounding
+  words should be in a smaller, modern sans-serif font using a bright [ACCENT] color.
+
+  - LIFESTYLE IMAGE: In the top-right, place an aspirational photo of a person in
+  an outdoor, sunny setting. The image should be contained within a rounded rectangle.
+
+  - PRODUCT SHOT: In the bottom-left, place a clean studio shot of the [PRODUCT],
+  fanned out, inside a rounded rectangle. This rectangle has its own solid, contrasting
+  background color, different from the main ad background.
+
+  - BRAND: Below the product shot, place the [BRAND] wordmark in a simple, lowercase
+  white sans-serif font.
+
+  - BENEFIT/STAT: In the top of the bottom-right quadrant, create a callout with a
+  key'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\facts-stats\facts-and-stats-Ad-1-Hers.png

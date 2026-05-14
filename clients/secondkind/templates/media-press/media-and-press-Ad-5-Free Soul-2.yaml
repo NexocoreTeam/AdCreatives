@@ -1,0 +1,59 @@
+id: editorial-story-product-background
+name: Editorial Story Background
+source: client-secondkind reference library
+category: media-and-press
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- editorial-style
+- headline-story
+- product-background
+- text-overlay
+- stacked-copy
+- ingredient-callout
+template_prompt: 'Image 1 is the actual product packaging — replicate it exactly.
+
+
+  Create a 1:1 square ad with an advertorial aesthetic.
+
+
+  The background is a solid [BACKGROUND] color, with multiple instances of the [PRODUCT]
+  packaging arranged in a repeating diagonal pattern to create a textured, photographic
+  background. The packages should be slightly out of focus. The [BRAND] name is visible
+  only on this packaging.
+
+
+  In the center, create a large rectangular text block with a solid [ACCENT] background
+  color. This block should dominate the composition.
+
+
+  Inside this central block, structure the text as follows:
+
+  1.  At the top, a small, all-caps, sans-serif label stating "[DETAILS]" (e.g., "WELLNESS
+  FEATURE").
+
+  2.  Below, a large, multi-line [HEADLINE] in a sophisticated serif font. It should
+  be center-aligned and written in a first-person, story-driven format.
+
+  3.  Below the headline, a [SUBHEAD] in a clean, smaller, sans-serif font that elaborates
+  on the headline''s story.
+
+  4.  At the bottom, nested inside a slightly darker [ACCENT] colored rectangle, place
+  the [BENEFIT] text in a simple sans-serif font, often formatted as an ingredient
+  or formula breakdown.
+
+  '
+description: Use this template to tell a personal story about the product framed as
+  an editorial feature. It's effective for building trust and educating solution-aware
+  audiences, using the product itself as a background texture.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\media-press\media-and-press-Ad-5-Free
+  Soul-2.jpg

@@ -1,0 +1,51 @@
+{
+  "query": {
+    "label": "reddit-arrae-honest",
+    "query": "Arrae honest review experience worth it",
+    "include_domains": [
+      "reddit.com"
+    ],
+    "exclude_domains": [],
+    "num_results": 10,
+    "category": "reddit"
+  },
+  "fetched_at": "2026-05-13T19:48:37.109292Z",
+  "results": [
+    {
+      "url": "https://old.reddit.com/u/karearearea",
+      "title": "overview for karearearea",
+      "published_date": null,
+      "author": "olddoglearnsnewtrick",
+      "score": null,
+      "text": "overview for karearearea\n\n# karearearea\n\n548 post karma1,046 comment karma\n\nredditor for 5 years\n\n# TROPHY CASE\n\nFive-Year Club\n\nVerified Email\n\nPlace '22\n\n\u00d7\n\nsorted by:\n\nnew\n\nLlama 3.3 70B super slow on together.ai by\n\nHave you tried groq? They are pretty fast\n\nI want to learn from others by\n\nYou might like this: https://youtu.be/nMORNaE_qe4\n\nBest introductory series to the genre? by\n\nThe first one I read all the way through was The Perfect Run, and it was great. Azarinth Healer was also one of the first ones I got into too, it\u2019s a classic.\n\nSimon Cowell's Got Talent by\n\nI watched the whole thing. A masterpiece.\n\nLearning prompts for GPT by\n\nAnthropic has some good prompt engineering resources:\n\nHow do I prompt for Learning not Generation? by\n\nI\u2019ve tried to do this before and unfortunately it\u2019s pretty difficult with just prompt engineering. The current instruction tuned models are almost over-trained to answer questions, so they have a lot of difficulty with leading a student to an answer rather than just doing their work for them.\n\nI think it\u2019s possible, but might require retrained models or at the least a more agentic approach, where the model can do things behind the scenes, e.g. get the LLM to create a lesson plan, after each message get the LLM to evaluate where in the lesson plan it thinks it is, reply based on this, get a classifier detecting whether the LLM is inappropriately giving the answer and retry, etc\n\nI think doable but goes beyond prompt engineering!\n\nI did have limited success with prompts, but it required writing out a page or two about the basic principles of tutoring and teaching (including what a good tutor should NOT do), what the typical structure of a one-on-one tutoring session is, and then telling it to do that for the entire conversation. It worked some of the time.\n\nAI believes I have found a revolutionary idea by [deleted] in ChatGPT\n\nChatGPT is trained to be \u2018helpful\u2019, which unfortunately means it\u2019s also predisposed to agree with pretty much whatever we say to it, unless you specifically ask it to be disagreeable. So take everything it says with a grain of salt!\n\nChatGPT was very much couching its opinion here, i.e.\n\n\u201cIf carbon\u2019s flexibility at the molecular level is somehow tied to adaptability and creativity of carbon based life forms, then\u2026\u201d\n\nEverything ChatGPT said was based on assuming this is true, which is a big assumption. You\u2019ll need to prove that certain algorithms or something have different behaviour when run on carbon based substrate than when run on something else.\n\nBut we have whole abstract disciplines like maths that are purely theoretical and are the same whether computed with carbon from a piece of charcoal scratched on a stone slate or from silicon calculations on a supercomputer.\n\nSo I personally don\u2019t think substrate matters, but some people have argued that there is something fundamentally different about biological brains vs silicon ones. Ultimately, we won\u2019t know until the science progresse",
+      "domain": "old.reddit.com"
+    },
+    {
+      "url": "https://www.reddit.com/r/politics/comments/1st66jd/rfk_jr_defends_trumps_mathematically_impossible/",
+      "title": "Reddit - Prove your humanity",
+      "published_date": "2026-04-23T02:39:44.000Z",
+      "author": null,
+      "score": null,
+      "text": "# Reddit - Prove your humanity\n\nPublished: 2026-04-23T02:39:44+00:00\nType: Low Content\n\n## Summary\n\nsubmitted by /u/jpressss [link] [comments]\n\n## Story\n\nWe\u2019re committed to safety and security. But not for bots. Complete the challenge below and let us know you\u2019re a real person.",
+      "domain": "reddit.com"
+    },
+    {
+      "url": "https://www.reddit.com/r/politics/comments/1syum3l/hegseth_will_be_grilled_by_congress_for_the_first/",
+      "title": "Reddit - Prove your humanity",
+      "published_date": "2026-04-29T10:15:05.000Z",
+      "author": null,
+      "score": null,
+      "text": "# Hegseth will be grilled by congress for the first\n\nPublished: 2026-04-29T10:15:05+00:00\nType: Low Content\n\n## Summary\n\nsubmitted by /u/darealunrealspader [link] [comments]\n\n## Story\n\nYou've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. You've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. [File a ticket](https://support.reddithelp.com/hc/en-us/requests/new?ticket_form_id=21879292693140)",
+      "domain": "reddit.com"
+    },
+    {
+      "url": "https://www.reddit.com/r/politics/comments/1t4dfum/newly_released_documents_reveal_more_than_300000/",
+      "title": "Reddit - Prove your humanity",
+      "published_date": "2026-05-05T12:03:54.000Z",
+      "author": null,
+      "score": null,
+      "text": "# Newly released documents reveal more than 300000\n\nPublished: 2026-05-05T12:03:54+00:00\nType: Low Content\n\n## Summary\n\nsubmitted by /u/AndyJack86 [link] [comments]\n\n## Story\n\nYou've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. You've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. [File a ticket](https://support.reddithelp.com/hc/en-us/requests/new?ticket_form_id=21879292693140)",
+      "domain": "reddit.com"
+    }
+  ]
+}

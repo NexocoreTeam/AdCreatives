@@ -1,0 +1,42 @@
+id: reflective-surface-benefit-callouts
+name: Reflective Surface Callouts
+source: client-secondkind reference library
+category: features-and-benefits
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- product-centric
+- benefit-callout
+- headline-overlay
+- reflective-surface
+- studio-lighting
+- dark-background
+- pill-container
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a premium studio product shot for a [PRODUCT] in a 1:1 aspect ratio.
+
+
+  LAYOUT:
+
+  - The background should be a dark, moody [BACKGROUND], like a dark navy blue or
+  near-black with a subtle spotlight effect behind the product.
+
+  - The [PRODUCT] is placed centrally on a glossy, reflective black surface, creating
+  a mirror image directly below it.
+
+  - A human hand should be shown interacting with the product (e.g., holding a piece
+  of it, opening the'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\features-benefits\features-and-benefits-Ad-4-PetLab
+  Co..png
