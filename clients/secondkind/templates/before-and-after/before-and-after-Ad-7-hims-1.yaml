@@ -1,0 +1,63 @@
+id: ugc-before-after-product-showcase
+name: UGC Before After Showcase
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- before-and-after
+- ugc
+- headline-overlay
+- product-showcase
+- semi-transparent-element
+- brand-footer-left
+- split-headline-style
+template_prompt: 'Image 1 is the [BEFORE_PHOTO].
+
+  Image 2 is the [AFTER_PHOTO].
+
+  Image 3, 4, and 5 are the [PRODUCT] images to be displayed.
+
+
+  Create a 1:1 aspect ratio ad with a solid, lightly textured [BACKGROUND] color.
+
+
+  LAYOUT:
+
+  - At the top, center a two-line [HEADLINE]. The first line should be in a large,
+  bold, white sans-serif font. The second line should be in a slightly smaller, elegant
+  serif font, using an [ACCENT] color.
+
+  - In the middle, place the [BEFORE_PHOTO] and [AFTER_PHOTO] side-by-side with rounded
+  corners. The ''before'' photo is on the left, ''after'' is on the right. The photos
+  should have a user-generated, authentic feel (e.g., bathroom selfie).
+
+  - Overlapping the bottom of the before/after photos, create a wide, semi-transparent,
+  rounded "blob" or container shape.
+
+  - Inside this transparent container, display three [PRODUCT] images in a row. Under
+  each product image, add a clean, simple label ([LABEL_1], [LABEL_2], [LABEL_3])
+  in a white sans-serif font.
+
+  - Below the product container, center a [SUBHEAD] using the same elegant serif font
+  and [ACCENT] color as the second line of the headline.
+
+  - At the very bottom left, place the [BRAND] logo.
+
+  - At the very bottom right, opposite the logo, add any necessary small-print [DETAILS]
+  or a disclaimer.
+
+  '
+description: Use this template to pair powerful UGC before-and-after photos with a
+  clear showcase of the exact products used to achieve the result. It's effective
+  for building trust and guiding solution-aware customers toward your specific products.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-7-hims-1.png

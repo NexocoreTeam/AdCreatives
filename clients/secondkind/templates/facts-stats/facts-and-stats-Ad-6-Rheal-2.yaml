@@ -1,0 +1,64 @@
+id: pov-product-hold-headline-overlay
+name: UGC Product Hold
+source: client-secondkind reference library
+category: ugc
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- ugc
+- pov
+- product-in-hand
+- headline-overlay
+- cta-button
+- direct-address
+- lifestyle
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Generate a 1:1 aspect ratio ad based on a user-generated content (UGC) style photograph.
+  The entire image should have a natural and authentic feel.
+
+
+  PHOTOGRAPHY:
+
+  - Style: A first-person point-of-view (POV) shot. A hand enters from the bottom-left,
+  holding the [PRODUCT].
+
+  - Composition: The [PRODUCT] is held in the foreground, slightly left of center,
+  with the brand name and product details clearly legible. The product should be in
+  sharp focus.
+
+  - Background: The [BACKGROUND] is a natural home interior scene (e.g., a wooden
+  table, countertop, or rug) with soft, natural lighting, creating a shallow depth
+  of field where the background is slightly blurred. Include subtle, related lifestyle
+  props ([DETAILS]) in the background, like a water bottle, shaker, or fruit, to hint
+  at a daily routine.
+
+
+  TEXT & GRAPHICS:
+
+  - Headline: At the top of the image, place a two-line [HEADLINE] in a bold, all-caps
+  or sentence-case white sans-serif font. Set this text against a semi-transparent
+  or soft-edged banner in a dark [ACCENT] color to ensure legibility. The headline
+  should be a direct address to the user.
+
+  - CTA: At the bottom-center of the image, place a pill-shaped CTA button. The button
+  should have a solid white/off-white fill, a thin border in the [ACCENT] color, and
+  contain the [CTA] text in a dark font. The CTA text should include an arrow (e.g.,
+  "[CTA] ->").
+
+  '
+description: A UGC-style template showing the product from a first-person POV. Ideal
+  for making the product feel personal and easy to integrate into a customer's daily
+  routine.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\facts-stats\facts-and-stats-Ad-6-Rheal-2.jpg

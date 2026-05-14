@@ -19,6 +19,10 @@ import yaml
 from models.avatar import CustomerAvatar, PsychologyProfile
 from models.loader import load_brand
 from models.skills import load_skill
+from strategy.competitive_context import (
+    format_competitive_block,
+    load_competitive_gaps,
+)
 from strategy.llm import claude_complete
 
 CLIENTS_DIR = Path("clients")
@@ -80,9 +84,9 @@ trailing commas. Example shape:
 
 PROFILER_PROMPT_TEMPLATE = """Diagnose the psychology profile for this avatar.
 
-Use the avatar fields, brand context, and (if provided) VOC corpus as the
-ONLY sources of evidence. Do not invent context. If a field is empty or
-contradictory, prefer the most evidence-backed reading.
+Use the avatar fields, brand context, VOC corpus, and competitive intelligence
+(when provided) as the ONLY sources of evidence. Do not invent context. If a
+field is empty or contradictory, prefer the most evidence-backed reading.
 
 # AVATAR ({avatar_name})
 
@@ -100,12 +104,23 @@ contradictory, prefer the most evidence-backed reading.
 
 {voc_block}
 
+# COMPETITIVE INTELLIGENCE
+
+{competitive_block}
+
 ---
 
 Produce the psychology_profile yaml per the skill spec. Cite evidence for every
 dominant_heuristic and weak_heuristic. Pick exactly 3–6 recommended pairings and
 1–3 avoid pairings. Place the avatar on the primary + secondary valence/intensity
 quadrants with evidence-grounded rationale.
+
+When the COMPETITIVE INTELLIGENCE section lists exploitable gaps or recurring
+complaints, weight your heuristic ranking toward levers that exploit those gaps.
+Example: if competitors are flamed for delayed results, `temporal_discounting`
++ `goal_gradient` become higher-leverage; if competitors lean heavily on
+celebrity endorsements that fall flat, `authority_bias` becomes a `weak_heuristic`
+for this market.
 
 Output JSON only — no prose, no markdown fences:"""
 
@@ -229,6 +244,7 @@ def profile_avatar_file(
     )
 
     voc_block = _load_voc_block(client_slug)
+    competitive_block = format_competitive_block(load_competitive_gaps(client_slug))
 
     prompt = PROFILER_PROMPT_TEMPLATE.format(
         avatar_name=avatar.name or avatar_path.stem,
@@ -236,6 +252,7 @@ def profile_avatar_file(
         brand_name=brand.name,
         brand_yaml=brand_yaml,
         voc_block=voc_block,
+        competitive_block=competitive_block,
     )
 
     response = claude_complete(prompt, system=PROFILER_SYSTEM, max_tokens=4096)

@@ -1,0 +1,44 @@
+brief_id: secondkind-gut-balance-f7b580
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+framework: pas
+angle: "1 trillion bioactive compounds vs. the survival lottery of live bacteria \u2014\
+  \ a number that reframes what she thought she was buying"
+hook: 'Most probiotic capsules arrive at your gut with less than 1% of the bacteria
+  still alive.
+
+  Gut Balance delivers 1 trillion bioactive compounds that are already active before
+  they even reach you.
+
+  '
+hook_type: Surprising Stat
+slot: 1
+hook_source: unique-mechanism BiomeBalance postbiotic delivery vs probiotic viability
+  failure
+hook_tactic: "Specific stat with a reframe \u2014 lead with a number that recontextualizes\
+  \ a familiar experience"
+persona: Done-Everything Danielle
+creative_mechanic: first_principles_plus_loss_aversion
+visual_format: "Text-on-product photo \u2014 stark split between a probiotic label\
+  \ and a Gut Balance bottle, with the stat as the dominant typographic element"
+visual_format_alternatives:
+- "Animated data visualization \u2014 live bacteria attrition chart showing the survival\
+  \ drop-off, with bioactives flatlined at 1 trillion"
+- "Talking head educational video \u2014 founder or scientist delivering the stat\
+  \ to camera, then holding up the bottle"
+persona_traits: "Research-driven woman 30\u201344 who has cycled through multiple\
+  \ probiotic brands, noticed nothing, and is now skeptical of the entire category"
+pain_point: "Probiotic fatigue \u2014 spent real money on multiple brands and felt\
+  \ nothing meaningful change"
+benefit_callouts:
+- 1 trillion bioactives. Already active. Already working.
+- No survival gauntlet. No colonization lottery.
+- "Patented BiomeBalance\u2122 \u2014 clinically studied ingredients, not colony counts"
+cta: See how the mechanism works
+body_copy: ''
+visual_direction: "Cold, precise, laboratory aesthetic \u2014 communicate rigor and\
+  \ contrast the warmth of wellness marketing with hard numbers and clean type"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

@@ -1,86 +1,77 @@
 name: Auto-drafted — please review and rename
-demographic: Health-conscious adults 28–45, skewing female, likely urban or suburban,
-  college-educated, mid-to-high income ($60K+). Has an established wellness routine
-  (gym, clean eating, supplements) but experiences persistent symptoms — bloating,
-  brain fog, low energy, mood swings — that their current regimen hasn't resolved.
-  Has previously purchased and been disappointed by probiotics. Treats their body
-  like a system they want to optimize, not just symptoms to suppress.
+demographic: Women 28–50, higher income, urban or suburban, college-educated professional.
+  Health-literate and wellness-invested — they read ingredient labels, follow science
+  communicators (Huberman Lab), and have already spent money on probiotics, fermented
+  foods, and elimination diets. They are functional-medicine-curious but not fringe.
+  They shop brands like Seed, Ritual, or Arrae. They value design and credibility
+  over hype.
 psychographic: ''
 pain_points:
-- pain: Persistent bloating that doesn't go away even when eating clean
+- pain: Persistent unpredictable bloating that doesn't respond to diet changes or
+    probiotics
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Brain fog — difficulty concentrating, feeling mentally slow
+- pain: Brain fog that ebbs and flows, often correlated with meals or stress
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Low or inconsistent energy throughout the day
+- pain: Energy crashes throughout the day that feel vaguely gut-related
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Mood instability — irritability, feeling emotionally off without a clear reason
+- pain: Mood dysregulation or a general sense of being 'off' without an identifiable
+    cause
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Tried probiotics (often multiple brands) and felt nothing meaningful
+- pain: Frustration and embarrassment from trying everything and still feeling the
+    same
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Irregular digestion — constipation, unpredictable gut
+- pain: The experience of eating 'clean' and working out but still feeling bloated
+    by dinner
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
-- pain: Difficulty unwinding or sleeping well
-  intensity: medium
-  customer_language: []
-  source: auto_from_site_signals
-- pain: Feeling 'off' despite doing everything right — diet, exercise, sleep
-  intensity: medium
-  customer_language: []
-  source: auto_from_site_signals
-- pain: Frustration with supplement industry overpromising and underdelivering
+- pain: Wasting money on supplements that don't work
   intensity: medium
   customer_language: []
   source: auto_from_site_signals
 desires:
-- desire: Feel lighter and less physically uncomfortable after meals
+- desire: To feel lighter in their body — specifically less bloated and more comfortable
   customer_language: []
-- desire: Mental clarity and sharper focus
+- desire: To feel mentally clear, focused, and sharp — not foggy
   customer_language: []
-- desire: Emotional steadiness and stress resilience
+- desire: To have consistent, predictable digestion
   customer_language: []
-- desire: A supplement that actually works — not another 'maybe'
+- desire: To understand the root cause of why they feel off, not just mask symptoms
   customer_language: []
-- desire: Understand why they feel the way they feel (science credibility matters)
+- desire: To find a supplement that actually works — not another disappointment
   customer_language: []
-- desire: Feel like themselves again
+- desire: To feel like themselves again
   customer_language: []
-- desire: Consistent energy without crashes
-  customer_language: []
-- desire: Better sleep and morning recovery
-  customer_language: []
-- desire: A daily ritual that visibly supports whole-body health
+- desire: A product that respects their intelligence and doesn't oversell
   customer_language: []
 objections:
-- I've tried probiotics before and they didn't work — why would this be different?
-- Is this just another overhyped supplement?
-- $50/month is a lot to spend on something that might not work
-- What even is a postbiotic? I've never heard of this
-- Will it cause bloating or adjustment symptoms like some probiotics do?
-- Is there real clinical evidence behind this or just marketing claims?
-- I'm not sure if my gut is actually the problem
+- I've already tried probiotics — why would this be different?
+- I don't know what a postbiotic is — is this just a marketing term?
+- This sounds like another supplement that won't work for me specifically
+- $49.99 is a lot to spend if I'm going to be disappointed again
+- 'How fast will I actually feel something? (Fear: another 3-month commitment with
+  no result)'
+- Is the science real or just clever marketing?
 trigger_events:
-- Started a new health kick / New Year's resolution
-- Post-pregnancy body recovery and gut dysbiosis
-- Increased stress levels from work or life changes causing gut/mood symptoms to worsen
-- Recently diagnosed or self-identified with IBS or gut sensitivity
-- Tried and abandoned a popular probiotic brand
-- Saw content about the gut-brain axis (serotonin being made in the gut) and made
-  the connection to their mood symptoms
-- Doctor or nutritionist recommended gut support
-- Friend or family member recommended SecondKind specifically
-- Persistent bloating before a social event / vacation
-awareness_level: solution_aware
+- Noticing persistent bloating after a meal despite eating healthy
+- Running out of their current probiotic and deciding not to reorder because it didn't
+  work
+- Seeing gut-brain axis content on social media (Huberman Lab clip, IG reel about
+  serotonin in the gut)
+- A particularly bad bloating or brain fog day that makes them actively seek a solution
+- A friend or family member mentioning a gut product that actually worked for them
+- Reading about postbiotics for the first time and feeling like they finally have
+  a name for what might be missing
+awareness_level: problem_aware
 language_patterns: []
 current_solutions: []

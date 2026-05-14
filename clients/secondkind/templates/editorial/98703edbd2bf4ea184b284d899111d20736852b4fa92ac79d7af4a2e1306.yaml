@@ -1,0 +1,52 @@
+id: editorial-pill-hero-centered
+name: Editorial Pill Hero
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+tags:
+- pill-hero
+- centered-layout
+- editorial-serif
+- benefit-callout
+- pill-banner
+- minimalist
+- product-solo
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad with a 4:5 aspect ratio and a solid, warm off-white [BACKGROUND]. The
+  composition is a single vertical column with all elements centered.
+
+
+  At the top, include a pill-shaped banner in a soft [ACCENT] color (like pale yellow).
+  Inside this banner, place the [BENEFIT] text in a dark, clean, all-caps sans-serif
+  font.
+
+
+  Below the banner, create a multi-line [HEADLINE]. The first and last lines should
+  be a large, bold, dark sans-serif font. The middle line(s) should be a smaller,
+  contrasting, elegant italic serif font.
+
+
+  In the middle of the canvas, place a single, high-fidelity hero shot of the [PRODUCT].
+  It should be shown at a slight diagonal angle with a subtle drop shadow to make
+  it pop. The [BRAND] name should be embossed onto the product''s surface.
+
+
+  Below the product, add the [SUBHEAD] text in a clean, dark sans-serif font, smaller
+  than the headline.
+
+
+  At the very bottom of the ad, include any necessary disclaimer text'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\98703edbd2bf4ea184b284d899111d20736852b4fa92ac79d7af4a2e13062989.png

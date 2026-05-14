@@ -1,61 +1,61 @@
 name: SecondKind
 colors:
-  primary: ''
-  secondary: ''
-  background: '#FFFFFF'
+  primary: '#1c1917'      # Black - signature serif headlines, body text
+  secondary: '#d2d2cd'    # Light Grey - supporting neutral
+  background: '#fefcf6'   # Snow White - warm off-white background
+  text: '#1c1917'         # Black
+  accent: '#fcb348'       # Mood Balance Yellow - sole warm marigold accent
 typography:
-  heading: High-contrast serif (Bodoni or Didot style)
-  body: Clean geometric sans-serif
+  heading: F37 Caslon Condensed (Regular / Semibold / Bold; italic for emphasis)
+  body: Neue Montreal Medium / Bold
 visual_identity:
-  aesthetic: A clean, modern apothecary for the scientifically-minded. It feels less
-    like a wellness trend and more like a prescription from a very stylish, minimalist
-    doctor.
-  photography_style: Minimalist studio photography. Clean, brightly lit product shots
-    on a seamless off-white or light grey background with soft, grounding shadows.
-  design_language: Editorial Minimalism. It uses a strict grid and typographic hierarchy
-    like a science journal, but softened with organic shapes and premium materials.
-  typography_feel: Classic high-contrast serif (think Bodoni or Didot) for headings,
-    paired with a clean, geometric sans-serif for body copy and functional text.
-  mascot_or_character: None. Abstract molecular/cellular circle clusters act as the
-    primary graphic device.
+  aesthetic: Science-backed wellness that feels like a Kinfolk magazine spread. It's
+    clinical and sophisticated, but with an organic, human touch.
+  photography_style: Clean, brightly-lit studio product photography on seamless, neutral
+    backgrounds. Every shot is the hero shot.
+  design_language: Editorial Minimalism. It has the structured grid and whitespace
+    of minimalism but the typographic refinement of a luxury magazine.
+  typography_feel: Classic editorial serif. A sophisticated, high-contrast serif (like
+    a Didone or Bodoni) is used for headlines, paired with a simple, supporting geometric
+    sans-serif for body copy.
+  mascot_or_character: none
   visual_references:
-  - The clinical-chic packaging of Aesop or The Ordinary.
-  - Abstracted scientific diagrams, like cell cultures in a petri dish or molecular
-    models.
+  - The clean, quasi-scientific aesthetic of Aesop or SEED
+  - Mid-century abstract graphic design (e.g., Alvin Lustig book covers)
+  - The typography and layout of high-end lifestyle magazines like CEREAL or Kinfolk
   mood:
-  - Calm
-  - Scientific
-  - Trustworthy
-  - Understated
-  - Premium
+  - calm
+  - scientific
+  - considered
+  - sophisticated
+  - premium
   notable_visual_signatures:
-  - An abstract graphic of overlapping, variously-sized circles representing a biome
-    or cellular cluster. The opacity varies, creating depth.
-  - Dark amber glass jars with glossy black lids, giving an apothecary feel.
-  - A single, desaturated accent color (e.g., marigold orange) used within the circle
-    cluster to differentiate SKUs.
-  - The typographic pairing of an elegant, high-contrast serif headline with a functional,
-    lowercase sans-serif for descriptions.
-  color_mood: Muted clinical neutrals (taupe, off-white, black) with a single, targeted
-    warm accent color per product.
-tone: Confident and science-forward with accessible warmth — SecondKind writes like
-  a credible insider who wants to educate, not impress. Short declarative sentences,
-  contrast structures, and a recurring emphasis on bioavailability and real-world
-  results. All health claims carry FDA asterisks.
+  - 'The central graphic: an abstract ''cloud'' of overlapping circles representing
+    the biological ''action'' of the product (e.g., the gut biome).'
+  - Using a single, muted accent color within the circle cloud to differentiate product
+    lines.
+  - Pairing a classic, elegant serif for the brand name and product title with a no-frills
+    sans-serif for functional text.
+  - Premium, dark amber glass jars, signaling an apothecary or scientific sensibility.
+  color_mood: Muted stone and charcoal neutrals, accented by a single desaturated
+    pop of color per product.
+tone: Science-credible, editorially restrained, and quietly confident — the brand
+  educates rather than hypes, uses short declarative constructions, contrast framing
+  (old way vs. new way), and trusts the intelligence of a wellness-curious, probiotic-fatigued
+  audience.
 audience:
-  age_range: 28–45
-  gender: Skews female, but gender-neutral product positioning
+  age_range: 28–50
+  gender: 'Skews female but not exclusively — male reviewers present; Instagram hashtags
+    include #WomensWellness but product and brand copy is gender-neutral'
   interests:
   - gut health
-  - wellness routines
+  - functional medicine
+  - Huberman Lab / gut-brain content
   - clean supplements
-  - functional nutrition
-  - mental clarity
-  - stress management
-  - immunity
-  - holistic health
-  - postbiotics
-  - gut-brain axis
+  - debloating
+  - premium wellness
+  - apothecary aesthetics
+  - science-backed health
 platforms:
 - meta
 - tiktok
@@ -63,23 +63,76 @@ press_mentions:
 - CBS
 - NBC
 - Silicon Valley Business Journal
-- Buffalo News
 - USA Today
 - Daily Mail
+- Buffalo News
 social_proof:
-- 92% felt calmer in 2 weeks (Mood Balance claim)
-- 89% reported less bloating (Gut Balance claim)
-- 88% noticed clearer thinking within 3 weeks (Mood Balance claim)
-- 92% felt clearer in 2 weeks (Gut Balance claim)
+- 92% felt calmer in 2 weeks (brand-reported)
+- 89% reported less bloating (brand-reported)
+- 'Dr. Zachary Schwartz, MD (Family Medicine): ''Gut health isn''t a niche topic anymore
+  — it''s whole-body health, rooted in neuroscience and immunology.'''
+- 'Dr. Nancy Lin, PhD (Holistic Nutritionist): ''SecondKind stands apart because it''s
+  postbiotic-first — finally, a solution that aligns with what the science tells us
+  the body truly needs.'''
+- 'Dr. Stuart Weinberger, MD (Gastroenterologist): ''SecondKind is translating the
+  latest gut-brain research into something accessible for consumers.'''
+- 'Dr. Hyun Dong Shin, PhD (Microbiologist): ''Bereum promotes the production of SCFAs
+  to optimize microbiome balance. It''s why I recommend SecondKind.'''
 - 60-day money-back guarantee
-- Third-party tested with Certificates of Analysis
-- Endorsed by Dr. Zachary Schwartz MD (Family Medicine), Dr. Nancy Lin PhD (Holistic
-  Nutrition), Dr. Stuart Weinberger MD (Gastroenterologist, 30+ years), Dr. Hyun Dong
-  Shin PhD (Independent Microbiologist & Postbiotic Expert)
-- Trusted by thousands (claimed in Instagram copy)
+- Verified customer reviews on product pages (quantity not displayed in scraped content)
 founded: unknown
 founder: Remy Reinstein
 mission: To help people feel like themselves again by delivering clinically studied
-  postbiotics that support the gut-brain axis — going beyond the probiotic paradigm
-  to offer whole-body balance that is fast-acting, science-backed, and reliably felt.
+  postbiotics that support the gut-brain axis — the root cause of bloating, brain
+  fog, energy crashes, and mood dysregulation that probiotics have failed to solve.
 tagline: The Postbiotic Era Is Here.
+prohibited_terms:
+  # FDA structure-function compliance — supplements cannot claim to treat/cure/prevent disease
+  - cure
+  - treats
+  - heals
+  - prevents
+  - reverses
+  - eliminates
+  # Brand voice rules — anti-influencer, anti-hype
+  - miracle
+  - magical
+  - revolutionary
+  - life-changing
+  - game-changer
+  - guaranteed
+  # Tone violations
+  - amazing
+  - incredible
+  - mind-blowing
+guidelines_notes: |
+  VISUAL TREATMENT RULES (from style guide v1.1):
+  - Sentence case only, never ALL CAPS for headlines or body
+  - No drop shadows, no outlined text, no effects on text or logo
+  - No expanded type, no loose tracking with sentence case
+  - Tight kerning (-2) on F37 Caslon Condensed headlines
+  - Only brand typefaces: F37 Caslon Condensed (heading) + Neue Montreal (body)
+  - Logo: never outline, stretch, distort, contain in box, or use multi-color
+  - Always give logo breathing room (safe area)
+
+  SIGNATURE VISUAL DEVICE — abstract white dot/circle clusters representing the
+  microbiome. Used 4 ways:
+  1. The signature pattern (specific number + placement of overlapping dots)
+  2. Individual dots or connections as a mask over photography
+  3. Dots in graphics for brand association reinforcement
+  4. Technical point-based spherical graphics
+  A single saturated accent color (e.g., marigold #fcb348) lives WITHIN the
+  cluster on one or two dots to differentiate SKUs.
+
+  PRODUCT PACKAGING REFERENCE — dark amber glass jars with glossy black lids.
+  Stone-grey/papery labels. Logo and product name in F37 Caslon, details in
+  Neue Montreal. Strictly centered text alignment on labels.
+
+  VOICE — editorial, restrained, scientifically literate friend. Confident
+  directness, no hype. Structure-function claim language only. Never
+  influencer-y, never miracle-pill, never wellness-trend.
+
+  HARD RULES FOR ADS:
+  - NEVER name competitors in copy (Seed, Arrae, Ritual). Use category language.
+  - NEVER lead with operational claims (refund guarantee, customer service).
+  - Lead with what THE PRODUCT does, not what THE COMPANY does.

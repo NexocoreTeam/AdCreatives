@@ -23,6 +23,12 @@ import yaml
 from models.avatar import CustomerAvatar, Desire, PainPoint
 from models.brand import Brand
 from models.skills import load_skill
+from strategy.competitive_context import (
+    format_competitive_block,
+    format_voc_block,
+    load_competitive_gaps,
+    load_voc_pains,
+)
 from strategy.llm import claude_complete
 
 
@@ -66,7 +72,33 @@ Output rules:
   not generic strategist phrasing.
 - Awareness level may differ by persona (e.g., primary may be solution_aware
   while a secondary persona is problem_aware).
-- Output YAML only, no markdown fences."""
+- Output YAML only, no markdown fences.
+
+CATEGORY AWARENESS CALIBRATION (read before assigning awareness_level):
+
+Calibrate awareness levels to the brand's ACTUAL market position, not the brand
+team's internal vocabulary. If the brand introduces a genuinely new or
+emerging category — novel mechanism, no established consumer search demand,
+the audience has never seen the category named on social media or in
+podcasts — personas must skew **problem_aware**, NOT solution_aware.
+
+`problem_aware` is the correct default when:
+- The audience has the pain and has tried the legacy category (e.g., probiotics,
+  greens powders, retinol) but those approaches failed or underwhelmed.
+- The brand's NEW category (e.g., postbiotics) has no consumer recognition yet.
+- Personas would not type the brand's category name into a search bar.
+- The honest persona thought is "I'm tired of bloating and nothing has worked,"
+  NOT "I'm comparing postbiotic brands."
+
+`solution_aware` is reserved for established categories where consumers
+actively compare brands within that category (probiotics, kombucha, electrolyte
+powders, greens powders, multivitamins). If you assign solution_aware to a
+persona for a brand-new category, you are FORCING a fiction that erases the
+brand's positioning challenge and produces personas that don't exist in the
+real market.
+
+When in doubt, default to problem_aware. Honest pain framing > sophisticated
+evaluation framing for a category nobody has heard of yet."""
 
 
 def _slugify(text: str) -> str:
@@ -77,17 +109,42 @@ def build_personas(
     brand: Brand,
     brand_context_md: str,
     max_personas: int = 4,
+    client_slug: str | None = None,
+    competitive_gaps: dict | None = None,
+    voc_pains: dict | None = None,
 ) -> PersonasResult:
     """Generate structured personas from a brand context document.
 
     Returns a list of persona dicts (each ready to be saved as a YAML
     avatar file) and an index dict that registers each persona with its
     role and slug.
+
+    Upstream research is auto-loaded when `client_slug` is supplied (and the
+    relevant files exist on disk):
+      * `clients/<slug>/research/competitive-gaps.yaml` → gap map synthesis
+      * `clients/<slug>/voc/extracted_pains.yaml` → VoC corpus
+
+    When either is present, personas are differentiated by which competitor
+    weakness they care about most and grounded in verbatim customer language
+    from the VoC corpus rather than inferred from brand copy alone. Both
+    sections silently no-op when missing — the prompt still works on brand
+    context alone (the original behavior).
     """
     if not brand_context_md:
         raise ValueError(
             "No brand-context.md provided. Run `adc research` first."
         )
+
+    # Auto-load upstream research when client_slug is supplied and the caller
+    # hasn't passed values explicitly.
+    if client_slug:
+        if competitive_gaps is None:
+            competitive_gaps = load_competitive_gaps(client_slug)
+        if voc_pains is None:
+            voc_pains = load_voc_pains(client_slug)
+
+    competitive_block = format_competitive_block(competitive_gaps)
+    voc_block = format_voc_block(voc_pains)
 
     prompt = f"""Read the brand context below and produce a structured persona set
 for {brand.name}. Identify every distinct audience tier the brand context
@@ -98,6 +155,14 @@ unless the brand context explicitly emphasizes them.
 
 BRAND CONTEXT:
 {brand_context_md[:12000]}
+
+# COMPETITIVE INTELLIGENCE
+
+{competitive_block}
+
+# VOICE-OF-CUSTOMER EVIDENCE
+
+{voc_block}
 
 ---
 
@@ -140,6 +205,12 @@ Quality checks before returning:
 3. Trigger events must be specific moments, not vague life stages.
 4. customer_language entries must read like things real people would say.
 5. If two personas would respond to the same hook, merge them — they are one persona.
+6. When VOICE-OF-CUSTOMER EVIDENCE includes verbatim quotes, every customer_language
+   entry must come from (or closely paraphrase) that corpus — not invented phrasing.
+   Set `source: "voc_corpus"` for those entries.
+7. When COMPETITIVE INTELLIGENCE lists exploitable gaps, differentiate the personas
+   by which gap most resonates with each. Reference the specific gap in
+   `why_this_persona` so downstream stages know the strategic edge per persona.
 
 Output YAML only. No markdown fences."""
 

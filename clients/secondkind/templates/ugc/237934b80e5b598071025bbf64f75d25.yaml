@@ -1,0 +1,66 @@
+id: ugc-essentials-flatlay-vertical
+name: UGC Essentials Flatlay
+source: client-secondkind reference library
+category: ugc
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- ugc
+- flatlay
+- benefit-callout
+- text-overlay
+- outdoor-setting
+- product-pair
+template_prompt: 'A 9:16 vertical ad with a bright, sunny, UGC-style photo as the
+  [BACKGROUND].
+
+
+  The background is a high-angle shot, like a flatlay, of a natural texture (e.g.,
+  green grass, a wooden deck, a picnic blanket).
+
+
+  Two [PRODUCT] containers are arranged in the bottom half of the image, appearing
+  as if they were casually placed there. Alongside the products are two glasses filled
+  with beverages, creating an "essentials" or "daily routine" scene.
+
+
+  The ad has several text overlays in rounded rectangular boxes:
+
+
+  1.  **Top Headline:** At the top of the image is a white box containing the [HEADLINE]
+  in a clean, bold, black sans-serif font. The headline should feel personal and descriptive,
+  like "My [BENEFIT] essentials."
+
+
+  2.  **Offer Subhead:** Immediately below the headline is a smaller, solid [ACCENT]
+  colored box containing a [SUBHEAD] or offer (e.g., a discount or promotion). The
+  text is also bold, black, and sans-serif.
+
+
+  3.  **Benefit Callouts:** In the middle of the frame are two more white boxes, each
+  containing a specific [BENEFIT] in bold, black sans-serif font. Thin, curved white
+  arrow lines connect each of these boxes to its corresponding [PRODUCT] or the associated
+  glass.
+
+
+  4.  **Disclaimer:** At the very bottom of the image, include any necessary legal
+  or disclaimer [DETAILS] in a small, low-contrast font.
+
+
+  The overall aesthetic is authentic, bright, and feels like a genuine post from an
+  influencer or user.
+
+  '
+description: Use this template to showcase a product routine in an authentic, UGC-style
+  'essentials' flatlay. Ideal for highlighting multiple benefits or a pair of products
+  with clear, direct callouts and a promotional offer.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\ugc\237934b80e5b598071025bbf64f75d25.jpg

@@ -1,0 +1,47 @@
+brief_id: secondkind-gut-balance-054155
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+framework: pastor
+angle: "She is not reacting to food \u2014 she is reacting to a compromised gut lining,\
+  \ and no probiotic addresses that directly"
+hook: "If you feel off after meals you know are fine \u2014 not food intolerance,\
+  \ not a bad day, just that persistent low-grade discomfort that shows up anyway\
+  \ \u2014 the issue is probably not what you are eating.\nIt is what is happening\
+  \ to your gut lining between meals.\nGut Balance contains Bereum\xAE, clinically\
+  \ studied for gut lining integrity. Not a probiotic. Not a prebiotic. Something\
+  \ that works directly where the breakdown is actually happening.\n"
+hook_type: Problem-Solution
+slot: 10
+hook_source: key-benefit gut lining integrity and avatar pain point eating clean and
+  still feeling off
+hook_tactic: "Pain naming with mechanism-level relief \u2014 state the exact problem\
+  \ in her language, then solve it at the structural level not the surface level"
+persona: Done-Everything Danielle
+creative_mechanic: reframing_perception_plus_emotional_trigger
+visual_format: "Educational carousel \u2014 slide 1 names the symptom in her language,\
+  \ slide 2 reframes the root cause at the gut lining level, slide 3 introduces Bereum\xAE\
+  \ with the clinical study callout, slide 4 is the CTA"
+visual_format_alternatives:
+- "Narrated video with anatomy overlay \u2014 calm voice-over explaining gut lining\
+  \ function while a simple illustrated gut cross-section animates in the background"
+- "Testimonial-hybrid static \u2014 left side carries the mechanism explanation, right\
+  \ side carries a first-person quote that lands the felt experience after the logic\
+  \ is established"
+persona_traits: "Health-invested woman 30\u201344 who has already eliminated inflammatory\
+  \ foods and cannot explain why she still feels off \u2014 looking for the mechanism\
+  \ she has not yet tried"
+pain_point: Persistent bloating and digestive discomfort that shows up even on clean-eating
+  days
+benefit_callouts:
+- "Bereum\xAE \u2014 clinically studied for gut lining integrity"
+- Not a food reaction. A gut infrastructure issue.
+- Address the root cause, not the symptom
+cta: "See the clinical study behind Bereum\xAE"
+body_copy: ''
+visual_direction: "Calm, body-first imagery \u2014 close-up of a woman's midsection\
+  \ at rest, not in distress, conveying quiet attentiveness rather than dramatic pain.\
+  \ The information carries the urgency; the image carries the calm."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier

@@ -1,0 +1,53 @@
+id: editorial-moody-kitchen-vignette
+name: Editorial Kitchen Vignette
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '9:16'
+tags:
+- editorial-serif
+- product-in-situ
+- headline-overlay
+- aspirational
+- warm-lighting
+- kitchen-scene
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a professional studio photograph of the [PRODUCT] in an aspirational, styled
+  kitchen scene. The overall mood is sophisticated, warm, and high-end.
+
+
+  PHOTOGRAPHY STYLE:
+
+  - Use warm, dramatic lighting that creates soft shadows and a gentle vignette effect,
+  drawing the eye to the product.
+
+  - The shot should have a shallow depth of field, with the product in sharp focus
+  and the background slightly blurred.
+
+
+  COMPOSITION:
+
+  - The [PRODUCT] is the hero, arranged artfully on a marble or stone countertop that
+  cuts across the middle of the frame.
+
+  - The bottom third of the image is dominated by the front of a kitchen cabinet in
+  a bold [ACCENT] color.
+
+  - The background is a dark, moody, textured wall, like dark marble or plaster.
+
+  - Include subtle, natural props like a wooden cutting board or a linen kitchen towel
+  to'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\107b1d9071be148f7e638f05345e75789e518293f721b5338b6e2916b66be14f.jpg

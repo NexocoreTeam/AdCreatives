@@ -1,0 +1,22 @@
+{
+  "competitor": {
+    "name": "Ritual",
+    "slug": "ritual",
+    "url": "https://ritual.com",
+    "type": "direct",
+    "priority": "tier1",
+    "notes": "Synbiotic+. Design-led DTC wellness \u2014 clean type, transparent ingredient\nsourcing, \"obvious ingredients\" positioning. Sits between mass-market\nand clinical (Seed). Brand voice is warmer and more accessible than Seed.\n\nProduct-level differentiators to attack:\n- Same live-probiotic viability problem as Seed.\n- \"Synbiotic+\" naming positions live-bacteria as the hero, while\n  SecondKind's postbiotic framing argues the live-bacteria approach is\n  the OLD paradigm.\n- Ritual's design accessibility may attract less science-literate buyers\n  than SecondKind's clinical-apothecary positioning \u2014 different segments.\n",
+    "amazon_urls": []
+  },
+  "vendor": "okendo",
+  "reviews": [],
+  "scraped_pages": [
+    "https://ritual.com/products/sleep-bioseries-melatonin",
+    "https://ritual.com/products/essential-multivitamin-for-men-over-50",
+    "https://ritual.com/products/essential-for-women-multivitamin",
+    "https://ritual.com/products/natal-choline",
+    "https://ritual.com/products/stress-relief-bioseries"
+  ],
+  "fetched_at": "2026-05-13T19:48:08.385108Z",
+  "notes": "No reviews extracted from 5 page(s). Detected vendors: okendo. Either no supported review widget is present or vendor identifiers could not be parsed."
+}

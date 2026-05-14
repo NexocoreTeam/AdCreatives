@@ -1,0 +1,63 @@
+id: before-after-diagram-split
+name: Diagram Split Before/After
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- before-and-after
+- vertical-split
+- diagram
+- educational
+- label-overlay
+- comparison
+template_prompt: 'Create a 1:1 square ad with a vertical split-screen, creating two
+  equal panels for a direct before-and-after comparison. The entire ad has a solid
+  [BACKGROUND] color.
+
+
+  Left Panel ("Before"):
+
+  - At the top of the panel, place a solid [ACCENT] color rectangle. Inside this rectangle,
+  display the word "BEFORE" in a bold, black, all-caps sans-serif font.
+
+  - Centered below the label, show the [BEFORE_ILLUSTRATION]. This should be a simple,
+  clear diagram or illustration representing the ''problem'' state (e.g., an inflamed
+  organ, a dirty surface, a clogged pore).
+
+  - Optionally, include a small [BEFORE_DETAIL] icon (like a sad emoji) at the bottom
+  of the illustration to visually reinforce the negative state.
+
+
+  Right Panel ("After"):
+
+  - At the top of the panel, place an identical [ACCENT] color rectangle with the
+  word "AFTER" in the same black, all-caps font.
+
+  - Centered below the label, show the [AFTER_ILLUSTRATION]. This should be a diagram
+  in the same style as the ''before'' image, but representing the ''solution'' or
+  improved state provided by the [PRODUCT] (e.g., a healthy organ, a clean surface,
+  a clear pore).
+
+  - Optionally, include a small [AFTER_DETAIL] icon (like a happy emoji) at the bottom
+  of the illustration to visually reinforce the positive outcome.
+
+
+  The overall aesthetic should be clean, educational, and almost like a clinical diagram,
+  making the transformation immediately understandable.
+
+  '
+description: Use this template for a simple, powerful visual comparison that uses
+  diagrams to educate the audience on a product's effect. Excellent for health, wellness,
+  or cleaning products where a scientific or clinical result can be illustrated.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-5-Doctors
+  Studio.jpg

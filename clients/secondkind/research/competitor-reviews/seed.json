@@ -1,0 +1,18 @@
+{
+  "competitor": {
+    "name": "Seed",
+    "slug": "seed",
+    "url": "https://seed.com",
+    "type": "direct",
+    "priority": "tier1",
+    "notes": "DS-01 Daily Synbiotic. The clinical-credibility benchmark in DTC\ngut-health supplements. Two-capsule daily, 24 strains, prebiotic +\nprobiotic combo. Editorial brand voice, glass-bottle aesthetic\n(refillable packaging). DTC-only by design \u2014 no Amazon presence.\n\nProduct-level differentiators to attack:\n- Live probiotic viability: bacteria die en route to the gut.\n  Postbiotic mechanism sidesteps this entirely.\n- Slow onset: multi-week wait for users to feel anything.\n- Mechanism opacity for the audience: \"24 strains\" is a number, not\n  a felt outcome.\n",
+    "amazon_urls": []
+  },
+  "vendor": "none",
+  "reviews": [],
+  "scraped_pages": [
+    "https://seed.com"
+  ],
+  "fetched_at": "2026-05-13T19:47:17.061538Z",
+  "notes": "No product pages found for https://seed.com. Site may not be Shopify or sitemap is unavailable."
+}

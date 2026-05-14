@@ -161,6 +161,256 @@ def analyze_references_from_drive(
     return result
 
 
+# ─── Drive folder-ID entry point (style subfolders) ─────────────────────────
+
+
+def analyze_references_from_drive_folder(
+    client_slug: str,
+    drive_folder_id: str,
+    *,
+    force: bool = False,
+) -> ReferenceAdsResult:
+    """Drive variant that takes an arbitrary folder ID and walks its
+    immediate subfolders as STYLE buckets (e.g., editorial/, ugc/).
+
+    Output preserves style grouping:
+        clients/<slug>/reference_ads/raw/<style>/<filename>
+        clients/<slug>/reference_ads/analyses/<style>/<stem>.yaml
+
+    Files at the top level of the parent (not in a subfolder) are still
+    analyzed but treated as a synthetic style bucket called `_root`.
+    """
+    drive = DriveClient()
+    cache = DriveCache(client_slug)
+
+    top_items = drive.list_folder(drive_folder_id)
+    if not top_items:
+        raise ValueError(
+            f"Drive folder {drive_folder_id} is empty or the service account "
+            "doesn't have access. Share the folder with "
+            "adcreatives-drive-reader@heroic-climber-496115-a8.iam.gserviceaccount.com "
+            "(Viewer)."
+        )
+
+    # Group files by style subfolder
+    style_buckets: dict[str, list[DriveFile]] = {}
+    root_files = [f for f in top_items if not f.is_folder]
+    if root_files:
+        style_buckets["_root"] = root_files
+
+    for f in top_items:
+        if not f.is_folder:
+            continue
+        style = f.name.lower().strip().replace(" ", "-")
+        substyle_files = drive.list_folder(f.id)
+        if substyle_files:
+            style_buckets[style] = [sf for sf in substyle_files if not sf.is_folder]
+
+    client_root = CLIENTS_DIR / client_slug / "reference_ads"
+    raw_root = client_root / "raw"
+    analyses_root = client_root / ANALYSES_DIRNAME
+    raw_root.mkdir(parents=True, exist_ok=True)
+    analyses_root.mkdir(parents=True, exist_ok=True)
+
+    result = ReferenceAdsResult()
+
+    for style, files in style_buckets.items():
+        raw_style_dir = raw_root / style
+        analysis_style_dir = analyses_root / style
+        raw_style_dir.mkdir(parents=True, exist_ok=True)
+        analysis_style_dir.mkdir(parents=True, exist_ok=True)
+
+        for f in files:
+            if f.is_image:
+                analyzer_tag = "reference_image"
+            elif f.is_video:
+                analyzer_tag = "reference_video_frame"
+            else:
+                result.skipped.append((f.name, f"unsupported mime: {f.mime_type}"))
+                continue
+
+            # Save the raw file to disk so the prompt engine can re-upload it later
+            local_raw_path = raw_style_dir / f.name
+            if not local_raw_path.exists() or force:
+                drive.download_to(f.id, local_raw_path)
+
+            cached = None if force else cache.get(f)
+            if cached and cached.analyzer == analyzer_tag:
+                payload = cached.payload
+                result.cache_hits += 1
+            else:
+                if f.is_image:
+                    payload = _analyze_image(drive, f)
+                else:
+                    payload = _analyze_video(drive, f)
+                    if payload is None:
+                        result.skipped.append((f.name, "ffmpeg frame extraction failed"))
+                        continue
+                cache.put(f, analyzer_tag, payload)
+                result.new_analyses += 1
+
+            analysis = ReferenceAdAnalysis(
+                filename=f.name,
+                file_id=f.id,
+                mime_type=f.mime_type,
+                is_video_frame=f.is_video,
+                payload=payload,
+            )
+            result.analyses.append(analysis)
+            _write_per_file_yaml(analysis_style_dir, analysis)
+
+    _write_summary(analyses_root, result)
+    return result
+
+
+# ─── Local-dir entry point (no Drive auth needed) ───────────────────────────
+
+
+# Image / video MIME inference for local files.
+_LOCAL_IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".webp"}
+_LOCAL_VIDEO_EXTS = {".mp4", ".mov", ".webm"}
+
+
+def analyze_references_from_local_dir(
+    client_slug: str,
+    local_dir: Path,
+    *,
+    force: bool = False,
+) -> ReferenceAdsResult:
+    """Drive-free variant: analyze reference ads from a local folder.
+
+    Walks `local_dir` non-recursively, runs the same vision pipeline as the
+    Drive flow, writes the same per-file analyses + summary. Source images
+    are COPIED into `clients/<slug>/reference_ads/raw/` so they're preserved
+    and reachable by the downstream prompt engine (which needs URLs to feed
+    them back to NB2 as style references).
+
+    Idempotent on re-runs: skips files already present in `raw/` and whose
+    analyses already exist, unless `force=True`.
+    """
+    if not local_dir.exists() or not local_dir.is_dir():
+        raise FileNotFoundError(f"local_dir not found or not a folder: {local_dir}")
+
+    files: list[Path] = sorted(
+        p for p in local_dir.iterdir()
+        if p.is_file() and p.suffix.lower() in (_LOCAL_IMAGE_EXTS | _LOCAL_VIDEO_EXTS)
+    )
+    if not files:
+        raise ValueError(
+            f"No reference ads found in {local_dir}. Drop PNG/JPG/MP4/MOV/WebM files in and re-run."
+        )
+
+    client_root = CLIENTS_DIR / client_slug / "reference_ads"
+    raw_dir = client_root / "raw"
+    analyses_dir = client_root / ANALYSES_DIRNAME
+    raw_dir.mkdir(parents=True, exist_ok=True)
+    analyses_dir.mkdir(parents=True, exist_ok=True)
+
+    result = ReferenceAdsResult()
+
+    for src in files:
+        ext = src.suffix.lower()
+        is_video = ext in _LOCAL_VIDEO_EXTS
+        mime = (
+            "image/png" if ext == ".png"
+            else "image/jpeg" if ext in (".jpg", ".jpeg")
+            else "image/webp" if ext == ".webp"
+            else "video/mp4" if ext == ".mp4"
+            else "video/quicktime" if ext == ".mov"
+            else "video/webm"
+        )
+
+        # Copy source into raw/ so it lives with the analyses
+        dest = raw_dir / src.name
+        if not dest.exists() or force:
+            shutil.copy2(src, dest)
+
+        analysis_path = analyses_dir / f"{Path(src.name).stem[:60]}.yaml"
+        if analysis_path.exists() and not force:
+            # Load existing analysis; treat as cache hit
+            try:
+                cached = yaml.safe_load(analysis_path.read_text(encoding="utf-8")) or {}
+                if cached.get("analysis"):
+                    result.cache_hits += 1
+                    result.analyses.append(ReferenceAdAnalysis(
+                        filename=src.name,
+                        file_id=str(dest),
+                        mime_type=mime,
+                        is_video_frame=is_video,
+                        payload=cached["analysis"],
+                    ))
+                    continue
+            except Exception:
+                pass  # re-analyze on parse failure
+
+        # Analyze (image or video frame)
+        if is_video:
+            payload = _analyze_local_video(dest)
+            if payload is None:
+                result.skipped.append((src.name, "ffmpeg frame extraction failed"))
+                continue
+        else:
+            payload = _analyze_local_image(dest, mime)
+
+        analysis = ReferenceAdAnalysis(
+            filename=src.name,
+            file_id=str(dest),  # local path stands in for Drive file_id
+            mime_type=mime,
+            is_video_frame=is_video,
+            payload=payload,
+        )
+        result.analyses.append(analysis)
+        result.new_analyses += 1
+        _write_per_file_yaml(analyses_dir, analysis)
+
+    _write_summary(analyses_dir, result)
+    return result
+
+
+def _analyze_local_image(path: Path, mime: str) -> dict[str, Any]:
+    """Vision-analyze a local image file (no Drive)."""
+    raw = path.read_bytes()
+    data_uri = _downscale_to_data_uri(raw, mime)
+    user_prompt = (
+        f"Reference ad filename: {path.name}\n"
+        f"Format: static image\n\n"
+        f"Apply the analysis schema. Output JSON only."
+    )
+    response = gemini_vision(
+        prompt=user_prompt,
+        image_urls=[data_uri],
+        system=REFERENCE_AD_SYSTEM,
+        max_tokens=1500,
+    )
+    return _parse_json_response(response, "reference_image")
+
+
+def _analyze_local_video(path: Path) -> dict[str, Any] | None:
+    """Vision-analyze a representative frame of a local video file (no Drive)."""
+    if not shutil.which("ffmpeg"):
+        return None
+    with tempfile.TemporaryDirectory() as tmp:
+        frame_path = Path(tmp) / "frame.png"
+        if not _extract_frame(path, frame_path):
+            return None
+        raw = frame_path.read_bytes()
+        data_uri = _downscale_to_data_uri(raw, "image/png")
+    user_prompt = (
+        f"Reference ad filename: {path.name}\n"
+        f"Format: VIDEO — analyzing a single representative frame extracted at "
+        f"{VIDEO_FRAME_TIMESTAMP} (just past the intro). The hook may be on a "
+        f"different frame; note this in confidence_notes if the hook isn't visible.\n\n"
+        f"Apply the analysis schema. Output JSON only."
+    )
+    response = gemini_vision(
+        prompt=user_prompt,
+        image_urls=[data_uri],
+        system=REFERENCE_AD_SYSTEM,
+        max_tokens=1500,
+    )
+    return _parse_json_response(response, "reference_video_frame")
+
+
 # ─── Image analysis ─────────────────────────────────────────────────────────
 
 

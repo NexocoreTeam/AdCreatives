@@ -1,0 +1,36 @@
+id: testimonial-proof-stack-curve
+name: Testimonial Proof Stack
+source: client-secondkind reference library
+category: testimonial-review
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- testimonial-quote
+- social-proof
+- pill-callout
+- benefit-checklist
+- product-hero
+- split-background
+- curved-divider
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad with a two-tone background, divided by a gentle S-curve. The top ~70%
+  of the background is a light, warm cream [BACKGROUND] color. The bottom ~30% is
+  a darker, contrasting warm [BACKGROUND] color. A subtle, transparent grey geometric
+  shape rests on the surface in the bottom right corner.
+
+
+  LAYOUT:'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\testimonial-review\testimonial-review-Ad-7-PetLab
+  Co..png

@@ -1,0 +1,61 @@
+id: editorial-article-product-overlay
+name: Editorial Article Overlay
+source: client-secondkind reference library
+category: media-and-press
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- editorial-style
+- headline-dominant
+- product-overlay
+- social-proof-icons
+- native-ad
+- sans-serif
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a square ad that looks like a native news article on a plain white background.
+
+
+  LAYOUT:
+
+  At the very top, create a social sharing bar with icons for Facebook, X (Twitter),
+  WhatsApp, Email, and a Link icon.
+
+
+  Below the icons, place the text content.
+
+  - The [HEADLINE] is large, bold, black, and wraps to 3-4 lines. It should be a provocative,
+  clickbait-style headline formatted in a sans-serif font.
+
+  - Below the headline, add a smaller byline and dateline. This text should read "By
+  [DETAILS]" and on a new line, "April 01, 2026 | 8:00am | Updated". This text should
+  be much smaller than the headline.
+
+
+  Below all the text, place the main visual. This is a lifestyle photo ([BACKGROUND])
+  that fills the bottom ~55% of the ad. The photo should be relevant to the product''s
+  benefits (e.g., a person exercising).
+
+
+  PRODUCT PLACEMENT:
+
+  On top of the lifestyle photo, in the upper-left quadrant, superimpose a circular
+  element containing the [PRODUCT] image. The [BRAND] name should be visible on the
+  product. This circular element should have a soft, white, glowing outer edge to
+  make it pop from the background photo.
+
+  '
+description: Use this template to create an ad that looks like a native news article
+  or blog post. The 'advertorial' style and provocative headline are designed to generate
+  curiosity and drive clicks to a landing page.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\media-press\media-and-press-Ad-2-LifeRx.md.jpg

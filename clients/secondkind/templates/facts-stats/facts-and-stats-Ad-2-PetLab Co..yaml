@@ -1,0 +1,36 @@
+id: stat-hero-pill-overlay
+name: Stat Pill Overlay
+source: client-secondkind reference library
+category: facts-and-stats
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- stat-hero
+- pill-callout
+- product-right
+- text-overlay
+- serif-font
+- monochromatic-palette
+- studio-lighting
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 square image featuring a premium studio product shot.
+
+
+  LAYOUT:
+
+  The composition is clean and minimalist on a monochromatic [BACKGROUND]. The [PRODUCT]
+  is placed'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\facts-stats\facts-and-stats-Ad-2-PetLab
+  Co..png

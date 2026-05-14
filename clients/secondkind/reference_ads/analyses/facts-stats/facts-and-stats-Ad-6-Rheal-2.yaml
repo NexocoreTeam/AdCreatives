@@ -1,0 +1,35 @@
+filename: facts-and-stats-Ad-6-Rheal-2.jpg
+file_id: 1pgGn3h5IQYULTFPEWUXWCpmG5FbzX2Hg
+mime_type: image/jpeg
+is_video_frame: false
+analysis:
+  hook_visible: You hit your protein target. Now sort your greens.
+  hook_type: direct_call_out
+  copy_treatment: The main hook is a two-line text overlay in a dark green banner
+    at the top, with a CTA in a button overlay at the bottom.
+  visual_format: ugc_static
+  creative_mechanic: Direct address with product hero
+  elements_present:
+  - product_shot
+  - text_overlay
+  - lifestyle_imagery
+  - logo_visible
+  - ugc_aesthetic
+  mood:
+  - healthy
+  - aspirational
+  - natural
+  color_palette_dominant:
+  - '#A88665'
+  - '#1A5144'
+  composition_notes: The product is held by a hand in the foreground, creating a first-person
+    POV that draws the eye directly to the packaging and brand name.
+  likely_strengths: The hook effectively targets a specific audience (fitness enthusiasts
+    tracking protein) and positions the product as the logical next step in their
+    health routine. The UGC aesthetic builds trust and relatability.
+  likely_weaknesses: The phrase 'sort your greens' is colloquial British English and
+    may not resonate or be understood by an international audience. The ad assumes
+    the viewer already understands the importance of 'greens'.
+  extraction_confidence: high
+  confidence_notes: The analysis is based on a complete static image, so confidence
+    is high.

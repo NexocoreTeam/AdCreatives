@@ -1,0 +1,58 @@
+id: advertorial-card-split
+name: Advertorial Card Split
+source: client-secondkind reference library
+category: media-and-press
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- advertorial-style
+- split-layout
+- rounded-card
+- headline-focus
+- lifestyle-photo
+- minimalist
+template_prompt: 'Image 1 is a lifestyle photograph of the [PRODUCT] in use — replicate
+  it exactly in a warm, inviting, naturally lit style.
+
+
+  Create a 1:1 social media ad. The background is a solid, muted [BACKGROUND] color.
+
+
+  Centered in the frame is a large, white, vertically-oriented rectangle with prominent
+  rounded corners, creating a card effect. This card is split into two equal horizontal
+  halves.
+
+
+  The top half contains the text and has a white background. It''s formatted to look
+  like a snippet from a modern editorial website:
+
+  - At the very top, there is a header section with a hamburger menu icon on the far
+  left and the [BRAND] name centered in a simple, dark sans-serif font. A thin, light-grey
+  horizontal line sits below this header.
+
+  - Below the line, display a large, bold, multi-line [HEADLINE] in a sans-serif font.
+  It should be left-aligned and use an [ACCENT] color.
+
+  - Directly beneath the headline, place a 2-3 sentence [BODY] paragraph in a smaller,
+  regular-weight, dark grey sans-serif font. It should also be left-aligned.
+
+
+  The bottom half of the card is completely filled, edge-to-edge, with the high-quality
+  lifestyle photograph of the [PRODUCT] (Image 1). The photo should feel calm, authentic,
+  and aspirational, showing the product in a natural context.
+
+  '
+description: Use this template to create an authoritative, editorial-style ad that
+  positions a product as a thoughtful solution. It's effective for educating a problem-aware
+  audience by blending a strong headline with aspirational lifestyle imagery.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\media-press\media-and-press-Ad-3-IM8
+  Health.png

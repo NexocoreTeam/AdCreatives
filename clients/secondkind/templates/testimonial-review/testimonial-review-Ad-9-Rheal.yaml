@@ -1,0 +1,40 @@
+id: venn-diagram-benefits-whiteboard
+name: Venn Diagram Benefits
+source: client-secondkind reference library
+category: testimonial-review
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- venn-diagram
+- hand-drawn
+- whiteboard
+- ugc-handheld
+- product-hero-center
+- benefit-callout
+- social-proof-footer
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a realistic [BACKGROUND] that looks like a slightly
+  smudged whiteboard.
+
+
+  LAYOUT:
+
+  - In the center of the whiteboard, draw a large Venn diagram with two overlapping
+  circles. The lines should look hand-drawn with a dark [ACCENT] color marker.
+
+  - A person''s hand enters from the bottom-left, holding the [PRODUCT] vertically
+  in the very center of the ad. The product should be positioned directly over the
+  intersection of the two circles'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\testimonial-review\testimonial-review-Ad-9-Rheal.jpg

@@ -20,6 +20,11 @@ The strategy layer loads markdown skills from [prompts/skills/](prompts/skills/)
 LLM system context. Each skill carries an attribution header — see
 [Skill provenance](#skill-provenance) below.
 
+> **Read first:** [docs/pipeline-rules.md](docs/pipeline-rules.md) — operating rules
+> for how to run the pipeline (one product per run for multi-SKU brands, persona
+> awareness calibration, gap-map filters, no-competitor-naming, etc.). These
+> encode hard-won lessons and should not be relaxed without explicit discussion.
+
 ## Quick Start
 
 ```bash

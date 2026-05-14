@@ -1,91 +1,101 @@
 name: Gut Balance
-description: A daily postbiotic supplement featuring BiomeBalance™ (Totipro®, EpiCor®,
-  Bereum®) delivering 1 trillion clinically studied bioactives to reduce bloating,
-  improve regularity, support digestion and gut lining, strengthen immunity, and support
-  gut-brain clarity. 60 capsules (2/day, 30-day supply). Shelf-stable, vegan, non-GMO,
-  gluten-free, kosher, made in USA. Contains soy.
+description: A daily postbiotic supplement featuring the patented BiomeBalance™ complex
+  (Totipro®, EpiCor®, Bereum®) delivering 1 trillion clinically studied bioactive
+  compounds directly to the gut. Supports debloating, digestive comfort, regularity,
+  gut lining integrity, immune function, steady energy, and mental clarity via the
+  gut-brain axis. No live bacteria — shelf-stable, vegan, non-GMO, gluten-free, kosher,
+  third-party tested, made in USA. 60 capsules (30 servings), 2 capsules daily.
 benefits:
-- '[functional] Delivers 1 trillion clinically studied bioactives per serving via
-  BiomeBalance™ blend'
-- '[functional] Reduces bloating and gas'
-- '[functional] Improves digestive regularity'
+- '[functional] Delivers 1 trillion clinically studied bioactive compounds directly
+  to the gut per serving'
+- '[functional] Features patented BiomeBalance™ complex (Totipro®, EpiCor®, Bereum®)'
+- '[functional] Reduces bloating and supports digestive comfort'
+- '[functional] Supports regularity'
 - '[functional] Supports gut lining integrity'
-- '[functional] Strengthens immune defenses'
-- '[functional] Supports gut-brain clarity and mental focus'
-- '[functional] 60 capsules per bottle — 30-day supply at 2 capsules per day'
-- '[functional] Shelf-stable — no refrigeration required'
-- '[functional] Vegan, non-GMO, gluten-free, kosher, made in USA'
-- '[emotional] Feel comfortable and light in your body — no more bloat disrupting
-  your day'
-- '[emotional] Feel mentally clear and grounded through the gut-brain connection'
-- '[emotional] Feel confident knowing your supplement is backed by clinical science,
-  not marketing'
-- '[emotional] Feel relief after trying things that didn''t work'
-- '[social] Be the kind of person who takes science-backed care of their health'
-- '[social] Support a clean, transparent supplement brand over commodity wellness
-  products'
-price: $49.99 one-time / $44.99 subscribe (10% off); $35 first-order promotional price
-  active at time of research
+- '[functional] Supports immune function'
+- '[functional] No live bacteria — shelf-stable formula requires no refrigeration'
+- '[functional] 60 capsules per bottle (30-day supply), 2 capsules daily'
+- '[functional] Vegan, non-GMO, gluten-free, kosher'
+- '[functional] Third-party tested'
+- '[functional] Made in USA'
+- '[emotional] Feel lighter and more comfortable in your own body'
+- '[emotional] Experience steady, consistent energy without digestive drag'
+- '[emotional] Mental clarity supported through the gut-brain axis'
+- '[emotional] Confidence that comes from a formula that is clinically studied, not
+  experimental'
+- '[emotional] Relief from the frustration of probiotics that haven''t worked'
+- '[social] Be someone who understands the difference between probiotics and postbiotics
+  — ahead of the wellness curve'
+- '[social] Support a science-credible brand that educates rather than hypes'
+price: $49.99 one-time; $44.99/month subscription (10% off); $35 first one-time purchase
+  promotional price (30% off)
 category: general
 image_path: ''
 image_url: https://secondkind.com/cdn/shop/files/gut-balanace-product-img-5926.png?v=1778310620
 additional_images: []
 product_characteristics:
   materials_or_ingredients:
-  - BiomeBalance™ (proprietary blend)
-  - Totipro®
-  - EpiCor®
-  - Bereum®
-  - 1 trillion clinically studied bioactives per serving
-  - Contains soy
-  - Vegan capsule
+  - Totipro® (postbiotic)
+  - EpiCor® (postbiotic)
+  - Bereum® (postbiotic)
+  - BiomeBalance™ complex (proprietary patented blend of the above three)
   shipping_and_fulfillment:
   - Free shipping on all subscriptions
   - Free shipping on orders $60 and above
-  - Save 30% off first order (implied subscription offer)
+  - Save 30% off first order (implied subscription/first-order offer via announcement
+    bar)
   ratings_and_reviews_meta:
     star_rating: ''
     review_count: ''
-    review_widget: unknown — review content not rendered in provided HTML; likely
-      loaded dynamically via third-party widget
-  guarantees:
-  - No explicit satisfaction guarantee or refund policy language visible in the provided
-    HTML
+    review_widget: unknown — reviews not rendered in provided HTML; likely loaded
+      dynamically via a third-party widget
+  guarantees: []
   cross_sells_or_bundles:
-  - Mood Balance — postbiotic supplement for mood, stress relief, and emotional clarity
-    (/products/mood-balance)
-  - Gut & Mood Balance Bundle — combination of Gut Balance and Mood Balance at a bundle
-    price (/products/gut-and-mood-balance-bundle)
+  - Mood Balance — described as 'Targeted Postbiotics that support mood, relieve stress,
+    and restore emotional clarity'
+  - Gut & Mood Balance Bundle — described as 'Two breakthrough formulas. Where gut
+    comfort meets mood support.'
   customer_language_quotes: []
   extraction_confidence: medium
-  extraction_notes: Price confirmed at $49.99 via og:price meta tag. No customer reviews,
-    star ratings, or review counts were present in the rendered HTML — these are almost
-    certainly loaded dynamically via JavaScript after page load and would require
-    a live browser render or API call to extract. Customer language quotes and social
-    proof sections are intentionally left empty per instructions — nothing was fabricated.
-    Ingredients are confirmed from known product description and page references to
-    BiomeBalance™ components but the full supplement facts panel was not present in
-    the HTML fragment provided. A subscription pricing tier (implied 30% off first
-    order) is referenced in the announcement bar but exact subscribe-and-save price
-    was not explicitly rendered. FAQ content was referenced via navigation link (/pages/faqs)
-    but not present in this HTML. The Science page contains additional mechanism and
-    ingredient detail not captured here.
+  extraction_notes: '1. Price confirmed via OG meta tag ($49.99 USD) — not from a
+    visible price element in the truncated HTML, but the meta tag is a reliable signal.
+
+    2. No customer reviews or ratings were rendered in the provided HTML. Review content
+    almost certainly loads dynamically (Yotpo, Judge.me, or similar widget). A live
+    page scrape or JavaScript-rendered capture would be required to extract review
+    quotes and star ratings.
+
+    3. Subscription pricing and the exact "Save 30% off 1st order" mechanics are referenced
+    in the announcement bar but full subscription pricing tiers are not visible in
+    the extracted HTML.
+
+    4. Ingredient detail (full supplement facts panel) was not present in the extracted
+    HTML — only the three named postbiotic ingredients (Totipro®, EpiCor®, Bereum®)
+    are surfaced from product description and menu copy.
+
+    5. No explicit money-back guarantee or refund policy language appeared in the
+    provided HTML — may exist elsewhere on the page (below the fold) or in footer/policy
+    pages not captured here.
+
+    6. The HTML was truncated mid-page; below-the-fold sections including full product
+    description, ingredient panel, FAQ, and reviews are missing from this extraction.
+
+    7. Customer language quotes list is intentionally empty — per instructions, no
+    fabrication; all verbatim quotes must come from visible page reviews only.'
 url: https://secondkind.com/products/gut-balance
-unique_mechanism: Gut Balance works through BiomeBalance™ — a proprietary postbiotic
-  complex combining Totipro®, EpiCor®, and Bereum® — which delivers finished, stable
-  bioactive compounds that bypass the survival uncertainty of live probiotics and
-  act directly on the gut environment. Unlike probiotics that depend on live bacteria
-  reaching the colon intact, postbiotics are already 'done' — providing immediate
-  signaling molecules, immune modulators, and gut-lining support without refrigeration
-  or viability concerns.
+unique_mechanism: Gut Balance works via the patented BiomeBalance™ complex — a trio
+  of postbiotic ingredients (Totipro®, EpiCor®, Bereum®) that bypasses the survival
+  problem of live bacteria entirely, delivering 1 trillion stable bioactive compounds
+  directly to the gut where they act immediately on the gut lining, immune response,
+  and gut-brain axis. Unlike probiotics, which must survive digestion to work, these
+  are already-active compounds — shelf-stable, consistent, and clinically studied.
 objections:
-- Why postbiotics instead of probiotics — the page positions postbiotics as more stable
-  and bioavailable than live-culture alternatives
-- Does it need refrigeration — shelf-stable format directly addresses this concern
-- Is this backed by real science — clinical ingredient references (EpiCor®, Totipro®,
-  Bereum®) and a dedicated Science page address credibility doubts
-- Is it clean/safe — vegan, non-GMO, gluten-free, kosher, made in USA certifications
-  address ingredient trust concerns
-- Will it work fast enough — Science page section 'How Fast It Works' proactively
-  addresses timeline expectations
+- Concern that probiotics haven't worked — addressed by positioning postbiotics as
+  fundamentally different (no live bacteria needed to survive digestion)
+- Skepticism about supplement efficacy — addressed via 'clinically studied' bioactive
+  compounds and third-party testing claims
+- Need for refrigeration / inconvenience — addressed by shelf-stable formulation
+- Dietary restrictions — addressed by vegan, non-GMO, gluten-free, kosher certifications
+- Quality and safety concerns — addressed by 'Made in USA' and third-party tested
+  claims
 social_proof: []
