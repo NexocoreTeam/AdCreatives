@@ -524,6 +524,27 @@ def _build_analysis(
 # ─── Avatar loading + lever pairing ─────────────────────────────────────────
 
 
+def _load_competitive_gaps(
+    client_slug: str,
+    clients_dir: Path | None = None,
+) -> dict | None:
+    """Load competitive-gaps.yaml for a client if it exists and has a
+    'synthesis' section. Returns None otherwise.
+
+    clients_dir defaults to CLIENTS_DIR — overridable for testing."""
+    base = clients_dir if clients_dir is not None else CLIENTS_DIR
+    path = base / client_slug / "research" / "competitive-gaps.yaml"
+    if not path.exists():
+        return None
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    if isinstance(data, dict) and data.get("synthesis"):
+        return data
+    return None
+
+
 def _load_client_avatars(client_slug: str) -> list[CustomerAvatar]:
     """Load all avatars for a client. Prefers clients/<slug>/avatars/*.yaml
     (multi-persona), falls back to legacy clients/<slug>/avatar.yaml."""
@@ -701,13 +722,86 @@ def _format_reference_style_block(analysis: AdAnalysis) -> str:
     return "\n".join(parts)
 
 
+def _compact_psychology_snapshot(profile) -> str:
+    """Distill a PsychologyProfile into a 5-8 line scannable snapshot.
+
+    No LLM call — pure formatting. Includes:
+      - dominant heuristics with confidence + first sentence of ad_implications
+      - weak heuristics with first sentence of `avoid`
+      - emotional position (primary + secondary quadrants)
+      - recommended Tether Lab pairings
+      - banned pairings
+
+    Returns "" if profile is None or empty, so callers can drop it cleanly."""
+    if profile is None:
+        return ""
+
+    parts: list[str] = ["    persona_snapshot:"]
+    rendered_any = False
+
+    def _first_sentence(text: str, max_chars: int = 100) -> str:
+        s = (text or "").strip()
+        if not s:
+            return ""
+        head = s.split(".")[0].strip()
+        if len(head) > max_chars:
+            head = head[:max_chars].rstrip() + "..."
+        return head
+
+    if profile.dominant_heuristics:
+        items = []
+        for h in profile.dominant_heuristics[:3]:
+            impl = _first_sentence(h.ad_implications)
+            tail = f": {impl}" if impl else ""
+            items.append(f"{h.heuristic} ({h.confidence}{tail})")
+        parts.append(f"      wired_for: {' | '.join(items)}")
+        rendered_any = True
+
+    if profile.weak_heuristics:
+        items = []
+        for h in profile.weak_heuristics[:3]:
+            avoid = _first_sentence(h.avoid)
+            tail = f": {avoid}" if avoid else ""
+            items.append(f"{h.heuristic}{tail}")
+        parts.append(f"      wired_against: {' | '.join(items)}")
+        rendered_any = True
+
+    if profile.emotional_position:
+        p = profile.emotional_position.primary
+        s = profile.emotional_position.secondary
+        p_rat = _first_sentence(p.rationale, max_chars=80)
+        p_tail = f" ({p_rat})" if p_rat else ""
+        parts.append(
+            f"      emotional_anchor: primary {p.valence}/{p.intensity}{p_tail}"
+            f"; secondary {s.valence}/{s.intensity}"
+        )
+        rendered_any = True
+
+    if profile.recommended_prompt_pairings:
+        items = [p.pairing for p in profile.recommended_prompt_pairings[:4]]
+        parts.append(f"      pre_approved_mechanics: {', '.join(items)}")
+        rendered_any = True
+
+    if profile.avoid_pairings:
+        items = [p.pairing for p in profile.avoid_pairings[:3]]
+        parts.append(f"      banned_mechanics: {', '.join(items)}")
+        rendered_any = True
+
+    return "\n".join(parts) if rendered_any else ""
+
+
 def _format_variation_block(
     index: int,
     avatar: CustomerAvatar,
     lever: str,
     fidelity_tier: str = "medium",
 ) -> str:
-    """Format one variation's input block for the remix prompt."""
+    """Format one variation's input block for the remix prompt.
+
+    Includes top-level persona attributes, the locked lever and fidelity
+    tier, and a distilled psychology snapshot (if the avatar has a
+    psychology_profile). Trigger events and current solutions are also
+    included as hook fodder."""
     pains = "; ".join(
         f"[{p.intensity}] {p.pain} — "
         f"\"{(p.customer_language[0] if p.customer_language else '')[:80]}\""
@@ -715,21 +809,29 @@ def _format_variation_block(
     ) or "none provided"
     desires = "; ".join(d.desire for d in avatar.desires[:2]) or "none provided"
     objections = ", ".join(avatar.objections[:3]) or "none provided"
+    triggers = "; ".join(avatar.trigger_events[:3]) or "none specified"
+    solutions = ", ".join(avatar.current_solutions[:3]) or "none specified"
     lang = ", ".join(avatar.language_patterns[:2]) or "casual and direct"
 
-    return (
-        f"  Variation {index}:\n"
-        f"    persona_name: {avatar.name or avatar.demographic[:60]}\n"
-        f"    demographic: {avatar.demographic}\n"
-        f"    psychographic: {avatar.psychographic}\n"
-        f"    top_pains: {pains}\n"
-        f"    desires: {desires}\n"
-        f"    awareness_level: {avatar.awareness_level}\n"
-        f"    objections: {objections}\n"
-        f"    language_patterns: {lang}\n"
-        f"    locked_heuristic: {lever}\n"
-        f"    fidelity_tier: {fidelity_tier}\n"
-    )
+    lines = [
+        f"  Variation {index}:",
+        f"    persona_name: {avatar.name or avatar.demographic[:60]}",
+        f"    demographic: {avatar.demographic}",
+        f"    psychographic: {avatar.psychographic}",
+        f"    awareness_level: {avatar.awareness_level}",
+        f"    top_pains: {pains}",
+        f"    desires: {desires}",
+        f"    objections: {objections}",
+        f"    trigger_events: {triggers}",
+        f"    current_solutions: {solutions}",
+        f"    language_patterns: {lang}",
+        f"    locked_heuristic: {lever}",
+        f"    fidelity_tier: {fidelity_tier}",
+    ]
+    snapshot = _compact_psychology_snapshot(avatar.psychology_profile)
+    if snapshot:
+        lines.append(snapshot)
+    return "\n".join(lines) + "\n"
 
 
 def generate_remix_angles(
@@ -738,6 +840,7 @@ def generate_remix_angles(
     product: Product,
     avatar_lever_pairs: list[tuple[CustomerAvatar, str]],
     fidelity_tiers: list[str] | None = None,
+    competitive_gaps: dict | None = None,
 ) -> list[dict]:
     """Generate one angle per (avatar, lever) pair. All angles share the
     analysis's locked structural fields. Single Sonnet call.
@@ -746,6 +849,12 @@ def generate_remix_angles(
     `avatar_lever_pairs`. Each tier ('high' | 'medium' | 'low') controls
     how closely that variation should mimic the reference's visual style.
     Defaults to all 'medium' if not provided.
+
+    `competitive_gaps`, if provided, is the parsed synthesis dict from
+    `clients/<slug>/research/competitive-gaps.yaml`. When present, the
+    prompt instructs the LLM that at least half of variations should
+    exploit a specific competitor weakness. Caller is expected to load
+    this via `_load_competitive_gaps()` and pass it in.
 
     Returns angle dicts compatible with CreativeBrief construction."""
     if not avatar_lever_pairs:
@@ -812,8 +921,14 @@ def generate_remix_angles(
     structure_block = "\n".join(structure_lines)
     reference_style_block = _format_reference_style_block(analysis)
 
+    # Lazy import to avoid a circular dep at module load
+    from strategy.angle_multiplier import _format_competitive_gaps
+    competitive_gaps_block = _format_competitive_gaps(competitive_gaps).strip()
+    has_gaps = bool(competitive_gaps_block)
+
     n = len(avatar_lever_pairs)
     high_count = fidelity_tiers.count("high")
+    min_gap_variations = (n // 2) + (n % 2)  # ceil(n/2) — at least half
     user_prompt = f"""Generate {n} distinct ad variations that REMIX a reference ad for our product.
 Every variation MUST share the locked structural fields below — same ad_type,
 same creative_mechanic, same visual_format, same framework. What varies across
@@ -850,16 +965,44 @@ BRAND:
   name: {brand.name}
   tone: {brand.tone}
 
+{competitive_gaps_block}
+
 VARIATIONS TO GENERATE (one angle per variation, IN ORDER):
 {variations_text}
 Each variation must:
   1. Use the locked ad_type / creative_mechanic / visual_format / framework — do NOT vary these fields.
+     (For "low" fidelity_tier variations only, you MAY substitute creative_mechanic with a
+      pairing from the variation's `pre_approved_mechanics` if it fits the persona better
+      than the reference's mechanic. NEVER substitute for high or medium fidelity.)
   2. PRIMARILY activate the variation's `locked_heuristic` from the 9-name taxonomy
      (scarcity, social_proof, authority_bias, effect_heuristic, processing_fluency,
      temporal_discounting, salience_bias, goal_gradient, framing_effect).
-  3. Speak to that variation's persona — use their demographic, pains, and language patterns.
-  4. Stop the scroll in under 2 seconds. Use the customer's actual phrasing from `top_pains`.
-  5. Be genuinely different from the other variations — different angle, different hook, different callouts.
+  3. RESPECT the variation's `persona_snapshot`:
+       - The `wired_for` line tells you how to ACTIVATE the locked_heuristic for this
+         specific persona (e.g. authority_bias activates differently for a clinician
+         vs a wellness influencer follower).
+       - The `wired_against` line lists heuristics that will BACKFIRE — do not let
+         them creep into the hook or callouts (e.g. if scarcity is wired_against,
+         do not add countdowns, "limited stock", urgency language).
+       - The `emotional_anchor` tells you which valence/intensity quadrant to anchor
+         in (e.g. negative/high = frustration → relief; positive/low = quiet satisfaction).
+       - The `banned_mechanics` list MUST NOT appear in your visual_direction.
+  4. Speak to that variation's persona — pull verbatim phrases from `top_pains` and
+     `language_patterns`. If `trigger_events` or `current_solutions` give you a
+     concrete hook (e.g. "left my last brand after they recalled" → "Why I left X
+     after the recall"), use them.
+  5. Stop the scroll in under 2 seconds. Use the customer's actual phrasing from `top_pains`.
+  6. Be genuinely different from the other variations — different angle, different
+     hook, different callouts. Even variations sharing a persona must hit a
+     different cognitive lever.{"  " if not has_gaps else f"""
+  7. COMPETITIVE GAPS — at least {min_gap_variations} of the {n} variations MUST
+     exploit one of the EXPLOITABLE GAPS above. When you use a gap:
+       - Cite it in `source` (e.g. "competitive-gap: <competitor>'s claim X is
+         legally discredited").
+       - Use the customer evidence quote as scaffolding for the hook.
+       - Make sure the persona's `wired_for` heuristic aligns with the gap's lever
+         (e.g. authority_bias persona → gaps about lab data; social_proof persona →
+         gaps where competitors lack customer trust)."""}
 
 TEXT DENSITY — HARD RULES (critical: ads with too much text underperform):
 
@@ -1224,8 +1367,14 @@ def remix(
     fidelity_tiers = _select_fidelity_tiers(
         variations, max_high=high_fidelity, max_medium=medium_fidelity
     )
+    competitive_gaps = _load_competitive_gaps(client_slug)
     angles = generate_remix_angles(
-        analysis, brand, product, pairs, fidelity_tiers=fidelity_tiers
+        analysis,
+        brand,
+        product,
+        pairs,
+        fidelity_tiers=fidelity_tiers,
+        competitive_gaps=competitive_gaps,
     )
     if len(angles) < len(pairs):
         raise RuntimeError(
