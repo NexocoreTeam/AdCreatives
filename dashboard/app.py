@@ -1084,22 +1084,37 @@ def _render_strategy_tab(selected):
 
 def _render_briefs_tab(selected):
     briefs_dir = CLIENTS_DIR / selected / "briefs"
-    brief_files = sorted(briefs_dir.glob("*.yaml")) if briefs_dir.exists() else []
+    brief_files = list(briefs_dir.glob("*.yaml")) if briefs_dir.exists() else []
     if not brief_files:
         st.info(f"No briefs yet. Run: `adc brief --client {selected} --product <id>`")
         return
-    st.write(f"**{len(brief_files)} brief(s)** — click any to expand")
+
+    # Load each brief and sort with the same key as models.loader.load_all_briefs
+    # — (product, slot, brief_id) — so the picker's `--pick N` index matches
+    # the order shown here. Without this, dashboard list order disagrees with
+    # `adc generate --pick N` and the user picks the wrong brief.
+    loaded: list[tuple[Path, dict]] = []
     for f in brief_files:
         try:
             d = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
         except Exception:
             continue
+        loaded.append((f, d))
+    loaded.sort(key=lambda t: (
+        t[1].get("product", ""),
+        t[1].get("slot") or 0,
+        t[1].get("brief_id", ""),
+    ))
+
+    st.write(f"**{len(loaded)} brief(s)** — click any to expand. `#N` matches the `--pick N` index used in the Ads tab.")
+    for i, (f, d) in enumerate(loaded, 1):
         slot = d.get("slot", "—")
         hook = (d.get("hook", "") or "")[:80]
         persona_label = d.get("persona") or "—"
-        # Show persona name in the collapsed header so the reader knows who
-        # the brief targets without expanding it.
-        with st.expander(f"Slot {slot}  ·  👤 {persona_label}  —  {hook}..."):
+        # Header order: brief # (matches Ads tab picker), slot (from
+        # diversity matrix), persona, then truncated hook. The leading # is
+        # what callers use; everything after is context for the human reader.
+        with st.expander(f"#{i}  ·  Slot {slot}  ·  👤 {persona_label}  —  {hook}..."):
             col_l, col_r = st.columns([2, 1])
             with col_l:
                 st.markdown(f"**Hook:** {d.get('hook', '—')}")
@@ -2150,6 +2165,7 @@ def _render_actions_tab(selected):
                 f"Brief picks (1-{n_briefs}, comma-separated)",
                 placeholder="e.g. 1,3,5",
                 key="generate_picks",
+                help="The `#N` in each brief's header (Briefs tab) corresponds to the pick number used here.",
             )
         with ic2:
             num_images = st.number_input("Variations", min_value=1, max_value=4, value=1, key="generate_num_images")
