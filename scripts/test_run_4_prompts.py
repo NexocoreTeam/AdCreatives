@@ -1,14 +1,51 @@
 """Test run: Generate 4 spring outdoor photoshoot variants for the
-'LOVES JESUS + AMERICA, TOO.' tee via Nano Banana 2."""
+'LOVES JESUS + AMERICA, TOO.' tee via Nano Banana 2.
+
+Reads FAL_KEY from the environment (load via .env in the project root
+or `set -a; source .env; set +a` in your shell before running).
+"""
 
 import os
 import sys
-
-os.environ["FAL_KEY"] = "c6c17b6b-4bee-4e56-a79f-994e3342d8e6:76bcb6bcc7a522d649c3b0a7cdbe68e1"
-
 from pathlib import Path
-import fal_client
-import httpx
+
+
+def _load_dotenv() -> None:
+    """Populate os.environ from .env in the project root if keys are missing.
+
+    Mirrors the lazy loader in strategy/foreplay_client.py so this script
+    works whether you run it from the CLI (which auto-loads .env) or
+    directly via `python scripts/test_run_4_prompts.py`."""
+    env_path = Path(__file__).resolve().parent.parent / ".env"
+    if not env_path.exists():
+        return
+    try:
+        text = env_path.read_text(encoding="utf-8")
+    except OSError:
+        return
+    for raw_line in text.splitlines():
+        line = raw_line.strip().lstrip("﻿")
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+_load_dotenv()
+
+if not os.environ.get("FAL_KEY"):
+    print(
+        "FAL_KEY not set. Add it to .env in the project root, or export it "
+        "in your shell before running this script.",
+        file=sys.stderr,
+    )
+    sys.exit(1)
+
+import fal_client  # noqa: E402  (intentional after env bootstrap)
+import httpx  # noqa: E402
 
 PRODUCT_IMAGES = [
     "https://cdn.shopify.com/s/files/1/2833/1370/files/Screenshot2025-05-13at4.15.55PM.png?v=1762463560",
