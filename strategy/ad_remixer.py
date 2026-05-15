@@ -1541,3 +1541,276 @@ def generate_remix_images(
                 saved_paths.append(r.local_path)
 
     return saved_paths
+
+
+# ─── Iterative refinement of an existing image ──────────────────────────────
+
+
+_REFINEMENT_SYSTEM = """You are refining a Nano Banana 2 ad prompt based on user feedback.
+
+You will receive:
+  1. The ORIGINAL prompt that was used to generate an image.
+  2. USER FEEDBACK describing what they want changed about that image.
+
+Your job: rewrite the prompt to address the feedback. Two strict rules:
+
+  A. PRESERVE everything the user did NOT mention — composition, brand wordmark,
+     product packaging, typography, structural mechanic, on-image text content,
+     CTA, badges. If they didn't say to change it, don't change it.
+
+  B. The previous output image will be passed to NB2 as a SECOND reference image
+     alongside the product image. Add this line near the top of your prompt,
+     directly after "Use the attached images as brand reference.":
+
+       "Use the second reference image as the LAYOUT REFERENCE — preserve
+       its composition, lighting, framing, color palette, and on-image
+       text exactly, modifying ONLY the elements described below."
+
+Output ONLY the new prompt text. No explanations, no markdown fences."""
+
+
+def _rewrite_prompt_with_feedback(original_prompt: str, feedback: str) -> str:
+    """Single Claude call to rewrite a NB2 prompt incorporating user feedback.
+
+    The previous output image is added as a layout reference at generation time
+    (handled by `refine_image`), so the rewritten prompt only needs to describe
+    the delta the user asked for."""
+    user_prompt = f"""ORIGINAL PROMPT (sent to NB2 when the image was generated):
+---
+{original_prompt}
+---
+
+USER FEEDBACK ON THE GENERATED IMAGE:
+{feedback}
+
+Rewrite the prompt now. Output ONLY the new full prompt text."""
+
+    return claude_complete(user_prompt, system=_REFINEMENT_SYSTEM, max_tokens=4096).strip()
+
+
+def _find_latest_image_for_brief(
+    images_dir: Path, brief_id: str
+) -> Path | None:
+    """Find the highest-version output image for a brief.
+
+    Naming conventions:
+      - Original: <brief_id>_1x1.png  (or any other aspect-ratio suffix)
+      - Refinement: <brief_id>_v<N>.png  or  <brief_id>_v<N>_<letter>.png
+
+    Returns the highest-version refinement if any exist, else the base output."""
+    if not images_dir.exists():
+        return None
+
+    candidates = sorted(images_dir.glob(f"{brief_id}_*.png"))
+    if not candidates:
+        return None
+
+    versioned = [p for p in candidates if re.search(r"_v\d+", p.stem)]
+    if versioned:
+        def _version_key(p: Path) -> tuple[int, str]:
+            m = re.search(r"_v(\d+)", p.stem)
+            n = int(m.group(1)) if m else 0
+            return (n, p.name)
+        return sorted(versioned, key=_version_key)[-1]
+
+    return candidates[0]
+
+
+def _next_refinement_version(images_dir: Path, brief_id: str) -> int:
+    """Determine the next refinement version number for a brief.
+
+    Looks for files matching `<brief_id>_v<N>*.png` and returns max(N) + 1,
+    starting from 2 if no refinements exist (v1 is implicitly the original)."""
+    versions: list[int] = []
+    if images_dir.exists():
+        for p in images_dir.glob(f"{brief_id}_v*.png"):
+            m = re.search(r"_v(\d+)", p.stem)
+            if m:
+                versions.append(int(m.group(1)))
+    return max(versions, default=1) + 1
+
+
+def _format_refinement_notes(
+    brief_data: dict,
+    feedback: str,
+    version: int,
+    base_image: Path,
+) -> str:
+    """Notes header written above the refined NB2 prompt on disk."""
+    lines = [
+        "***** REFINEMENT NOTES *****",
+        f"Brief:           {brief_data.get('brief_id', '?')}",
+        f"Version:         v{version}",
+        f"Base image:      {base_image.name}",
+        f"Feedback:        {feedback}",
+        f"Persona:         {brief_data.get('persona', '?')}",
+        f"Model:           fal-ai/nano-banana-2/edit",
+        f"Generated:       {datetime.now().date().isoformat()}",
+        "***** END NOTES *****",
+    ]
+    return "\n".join(lines)
+
+
+def _append_refinement_log(
+    remix_dir: Path,
+    *,
+    brief_id: str,
+    feedback: str,
+    version: int,
+    base_image_name: str,
+    output_image_names: list[str],
+) -> Path:
+    """Append a refinement record to refinement_log.yaml in the remix folder."""
+    log_path = remix_dir / "refinement_log.yaml"
+    existing: list[dict] = []
+    if log_path.exists():
+        try:
+            loaded = yaml.safe_load(log_path.read_text(encoding="utf-8"))
+            if isinstance(loaded, list):
+                existing = loaded
+        except Exception:
+            existing = []
+
+    existing.append({
+        "timestamp": datetime.now().isoformat(timespec="seconds"),
+        "brief_id": brief_id,
+        "version": version,
+        "feedback": feedback,
+        "base_image": base_image_name,
+        "output_images": output_image_names,
+    })
+
+    with open(log_path, "w", encoding="utf-8") as f:
+        yaml.dump(
+            existing,
+            f,
+            default_flow_style=False,
+            sort_keys=False,
+            allow_unicode=True,
+        )
+    return log_path
+
+
+def refine_image(
+    *,
+    remix_dir: str | Path,
+    brief_id: str,
+    feedback: str,
+    num_images: int = 1,
+    thinking_level: str = "disabled",
+    aspect_ratio: str = "1:1",
+) -> list[Path]:
+    """Refine an existing remix image with user feedback.
+
+    Pipeline:
+      1. Load the original brief + NB2 prompt + previous output image.
+      2. Single Claude call rewrites the prompt to incorporate the feedback.
+      3. Upload the previous output to fal.ai so NB2 can use it as a layout
+         reference alongside the product image.
+      4. Fire fal.ai with [product_image, previous_output] + new prompt, asking
+         for `num_images` variations.
+      5. Save each output as <brief_id>_v<N>.png (single) or
+         <brief_id>_v<N>_<letter>.png (multiple), increment N from the highest
+         existing refinement version.
+      6. Append a record to refinement_log.yaml.
+
+    Returns the list of saved image paths."""
+    from generators.fal_client import generate, upload_image
+    from generators.image_generator import _get_product_image_urls
+
+    if num_images < 1:
+        raise ValueError(f"num_images must be ≥ 1, got {num_images}")
+    if not feedback.strip():
+        raise ValueError("feedback must be non-empty")
+
+    remix_path = Path(remix_dir)
+    if not remix_path.exists():
+        raise FileNotFoundError(f"Remix directory not found: {remix_path}")
+
+    briefs_path = remix_path / "briefs.yaml"
+    if not briefs_path.exists():
+        raise FileNotFoundError(f"No briefs.yaml in {remix_path}")
+    briefs_data = yaml.safe_load(briefs_path.read_text(encoding="utf-8")) or []
+    brief = next(
+        (b for b in briefs_data if b.get("brief_id") == brief_id),
+        None,
+    )
+    if brief is None:
+        raise ValueError(
+            f"Brief '{brief_id}' not found in {briefs_path}. "
+            f"Available: {[b.get('brief_id') for b in briefs_data]}"
+        )
+
+    prompt_path = remix_path / "prompts" / f"{brief_id}.txt"
+    if not prompt_path.exists():
+        raise FileNotFoundError(
+            f"Original prompt file not found: {prompt_path}. "
+            "Run `adc remix` first to generate the base brief + prompt."
+        )
+    original_prompt = _strip_notes_header(prompt_path.read_text(encoding="utf-8"))
+    if not original_prompt:
+        raise ValueError(f"Original prompt is empty after stripping notes: {prompt_path}")
+
+    images_dir = remix_path / "images"
+    previous_image = _find_latest_image_for_brief(images_dir, brief_id)
+    if previous_image is None:
+        raise FileNotFoundError(
+            f"No previous output image found for brief '{brief_id}' in {images_dir}. "
+            "Generate the base image first via `adc remix-images`."
+        )
+
+    client_slug = brief.get("client", "")
+    product_name = brief.get("product", "")
+    product_slug_guess = product_name.lower().replace(" ", "-")
+    product = _load_product_flexible(client_slug, product_slug_guess)
+    product_urls = _get_product_image_urls(product, client_slug)
+
+    previous_image_url = upload_image(previous_image)
+
+    refined_prompt = _rewrite_prompt_with_feedback(original_prompt, feedback)
+
+    version = _next_refinement_version(images_dir, brief_id)
+    images_dir.mkdir(parents=True, exist_ok=True)
+
+    image_refs = list(product_urls) + [previous_image_url]
+
+    results = generate(
+        prompt=refined_prompt,
+        product_image_urls=image_refs,
+        aspect_ratio=aspect_ratio,
+        num_images=num_images,
+        thinking_level=thinking_level,
+    )
+
+    saved_paths: list[Path] = []
+    from generators.fal_client import download_image
+
+    for i, result in enumerate(results):
+        if num_images == 1:
+            filename = f"{brief_id}_v{version}.png"
+        else:
+            letter = chr(ord("a") + i)  # a, b, c, ...
+            filename = f"{brief_id}_v{version}_{letter}.png"
+        local_path = download_image(result.image_url, images_dir / filename)
+        result.local_path = local_path
+        saved_paths.append(local_path)
+
+    refined_prompt_path = remix_path / "prompts" / f"{brief_id}_v{version}.txt"
+    refined_prompt_path.write_text(
+        _format_refinement_notes(brief, feedback, version, previous_image)
+        + "\n\n"
+        + refined_prompt
+        + "\n",
+        encoding="utf-8",
+    )
+
+    _append_refinement_log(
+        remix_path,
+        brief_id=brief_id,
+        feedback=feedback,
+        version=version,
+        base_image_name=previous_image.name,
+        output_image_names=[p.name for p in saved_paths],
+    )
+
+    return saved_paths

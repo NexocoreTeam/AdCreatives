@@ -3439,5 +3439,102 @@ def remix_images(remix_dir: str, num_images: int, thinking: str, aspect_ratio: s
         )
 
 
+@cli.command(name="remix-refine")
+@click.option(
+    "--remix-dir",
+    required=True,
+    type=click.Path(exists=True, file_okay=False),
+    help="Path to a remix directory (e.g. clients/<slug>/remixes/<timestamp>)",
+)
+@click.option(
+    "--brief",
+    "brief_id",
+    required=True,
+    help="Brief ID to refine, e.g. secondkind-remix-74c0e5",
+)
+@click.option(
+    "--feedback",
+    required=True,
+    help="What you want changed about the image (natural language)",
+)
+@click.option(
+    "--num-images",
+    default=1,
+    type=int,
+    show_default=True,
+    help="How many refined variations to generate (each costs ~$0.08)",
+)
+@click.option(
+    "--aspect-ratio",
+    default="1:1",
+    show_default=True,
+    help="Aspect ratio for the refined image",
+)
+@click.option(
+    "--thinking",
+    default="disabled",
+    help="NB2 thinking level: disabled, low, medium, high",
+)
+def remix_refine(
+    remix_dir: str,
+    brief_id: str,
+    feedback: str,
+    num_images: int,
+    aspect_ratio: str,
+    thinking: str,
+):
+    """Refine an existing remix image with natural-language feedback.
+
+    Uses Claude to rewrite the NB2 prompt incorporating your feedback, then
+    fires fal.ai with BOTH the product image AND the previous output as
+    references — preserving composition while modifying only what you asked
+    for. Saves new images as <brief-id>_v<N>.png (single) or
+    <brief-id>_v<N>_<letter>.png (multiple) alongside the original.
+
+    Each refinement is logged to refinement_log.yaml in the remix folder.
+    """
+    from strategy.ad_remixer import refine_image
+    from strategy.cost_tracker import log_cost
+
+    if num_images < 1:
+        console.print("[red]--num-images must be at least 1[/red]")
+        raise SystemExit(1)
+    if not feedback.strip():
+        console.print("[red]--feedback must be non-empty[/red]")
+        raise SystemExit(1)
+
+    rd = Path(remix_dir)
+    client_slug = ""
+    if "clients" in rd.parts:
+        idx = rd.parts.index("clients")
+        if idx + 1 < len(rd.parts):
+            client_slug = rd.parts[idx + 1]
+
+    with console.status(
+        f"Refining `{brief_id}` ({num_images} variation(s)) — "
+        f"feedback: {feedback[:60]}..."
+    ):
+        paths = refine_image(
+            remix_dir=remix_dir,
+            brief_id=brief_id,
+            feedback=feedback,
+            num_images=num_images,
+            aspect_ratio=aspect_ratio,
+            thinking_level=thinking,
+        )
+
+    console.print(f"\n[green]Generated {len(paths)} refined image(s):[/green]")
+    for p in paths:
+        console.print(f"  {p}")
+
+    if client_slug:
+        log_cost(
+            client_slug,
+            "adc remix-refine",
+            multiplier=len(paths),
+            note=f"{len(paths)} refinement(s) for {brief_id}",
+        )
+
+
 if __name__ == "__main__":
     cli()

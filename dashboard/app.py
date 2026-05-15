@@ -1490,13 +1490,109 @@ def _render_remix_tab(selected):
             st.markdown("---")
             if images:
                 st.markdown(f"**Images** ({len(images)})")
-                cols_per_row = 3
-                for i in range(0, len(images), cols_per_row):
-                    row = st.columns(cols_per_row)
-                    for j, img in enumerate(images[i:i + cols_per_row]):
-                        with row[j]:
-                            st.image(str(img), use_container_width=True)
-                            st.caption(f"`{img.stem}`")
+                # Group images by brief_id so each idea's versions appear together.
+                briefs_by_id = {b["brief_id"]: b for b in briefs}
+                groups: dict[str, list[Path]] = {}
+                for img in images:
+                    matched_id = next(
+                        (bid for bid in briefs_by_id if img.stem.startswith(bid)),
+                        None,
+                    )
+                    if matched_id:
+                        groups.setdefault(matched_id, []).append(img)
+                    else:
+                        groups.setdefault("__unmatched__", []).append(img)
+
+                for bid, brief_imgs in groups.items():
+                    if bid == "__unmatched__":
+                        st.caption("Images without a matching brief:")
+                    else:
+                        brief = briefs_by_id[bid]
+                        persona = brief.get("persona", "—")
+                        hook_preview = (brief.get("hook", "") or "")[:80]
+                        st.markdown(
+                            f"#### {persona}  ·  _{hook_preview}_"
+                            if hook_preview
+                            else f"#### {persona}"
+                        )
+
+                    # Sort: original first (no _v suffix), then v2, v3, ...
+                    def _version_key(p: Path) -> tuple[int, str]:
+                        import re as _re
+                        m = _re.search(r"_v(\d+)", p.stem)
+                        return (int(m.group(1)) if m else 1, p.name)
+                    brief_imgs_sorted = sorted(brief_imgs, key=_version_key)
+
+                    cols_per_row = 3
+                    for i in range(0, len(brief_imgs_sorted), cols_per_row):
+                        row = st.columns(cols_per_row)
+                        for j, img in enumerate(brief_imgs_sorted[i:i + cols_per_row]):
+                            with row[j]:
+                                st.image(str(img), use_container_width=True)
+                                # Show "Original" / "v2" / "v2 (a)" etc.
+                                import re as _re
+                                m = _re.search(r"_v(\d+)(?:_([a-z]))?", img.stem)
+                                if m:
+                                    suffix = f"v{m.group(1)}"
+                                    if m.group(2):
+                                        suffix += f" ({m.group(2)})"
+                                    st.caption(suffix)
+                                else:
+                                    st.caption("Original")
+
+                    # Per-brief refinement form (applies to latest version of this brief)
+                    if bid != "__unmatched__":
+                        with st.expander(f"🔄 Refine `{bid[-6:]}`", expanded=False):
+                            fb_key = f"refine_fb_{run['timestamp']}_{bid}"
+                            vn_key = f"refine_vn_{run['timestamp']}_{bid}"
+                            feedback = st.text_area(
+                                "What would you like to change?",
+                                key=fb_key,
+                                placeholder=(
+                                    "e.g. 'make the lighting warmer and lower the hand position', "
+                                    "or 'change the right-circle text to focus on bloat'"
+                                ),
+                                height=80,
+                                help=(
+                                    "Visual tweaks (color, position, mood) preserve the layout. "
+                                    "Copy changes (hook, callouts) rewrite the text. "
+                                    "The latest version of this brief is used as the base."
+                                ),
+                            )
+                            cols_form = st.columns([1, 4])
+                            with cols_form[0]:
+                                n_vars = st.number_input(
+                                    "Variations",
+                                    min_value=1,
+                                    max_value=4,
+                                    value=1,
+                                    key=vn_key,
+                                )
+                            with cols_form[1]:
+                                refine_label = (
+                                    f"🔄 Refine ({int(n_vars)} variation(s), "
+                                    f"~${0.10 * int(n_vars):.2f})"
+                                )
+                                if st.button(
+                                    refine_label,
+                                    disabled=not feedback.strip(),
+                                    key=f"refine_btn_{run['timestamp']}_{bid}",
+                                    use_container_width=True,
+                                ):
+                                    run_adc_command(
+                                        [
+                                            "remix-refine",
+                                            "--remix-dir", str(run_dir),
+                                            "--brief", bid,
+                                            "--feedback", feedback.strip(),
+                                            "--num-images", str(int(n_vars)),
+                                        ],
+                                        label=(
+                                            f"Refining {bid[-6:]} — "
+                                            f"{int(n_vars)} variation(s)"
+                                        ),
+                                    )
+                                    st.rerun()
             else:
                 st.info("No images generated yet for this run.")
 

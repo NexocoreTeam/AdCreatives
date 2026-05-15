@@ -26,16 +26,20 @@ from models.brief import AwarenessLevel, CopyFramework
 from strategy.ad_remixer import (
     DEFAULT_LEVER_ROTATION,
     AdAnalysis,
+    _append_refinement_log,
     _coerce_awareness,
     _coerce_framework,
     _compact_psychology_snapshot,
     _detect_image_mime,
     _extract_foreplay_id,
+    _find_latest_image_for_brief,
     _foreplay_top_content_filter,
     _foreplay_top_emotion,
     _format_reference_style_block,
+    _format_refinement_notes,
     _format_variation_block,
     _load_competitive_gaps,
+    _next_refinement_version,
     _parse_strategic_yaml,
     _select_avatar_lever_pairs,
     _select_fidelity_tiers,
@@ -778,3 +782,159 @@ class TestReferenceStyleBlock:
         block = _format_reference_style_block(analysis)
         # Should not raise; just contains the header
         assert "REFERENCE VISUAL STYLE" in block
+
+
+# ─── Refinement helpers ─────────────────────────────────────────────────────
+
+
+class TestFindLatestImageForBrief:
+    def test_returns_none_when_dir_missing(self, tmp_path):
+        result = _find_latest_image_for_brief(tmp_path / "nonexistent", "brief-x")
+        assert result is None
+
+    def test_returns_none_when_no_matching_images(self, tmp_path):
+        # Create some unrelated files
+        (tmp_path / "other-brief_1x1.png").write_bytes(b"x")
+        result = _find_latest_image_for_brief(tmp_path, "target-brief")
+        assert result is None
+
+    def test_returns_original_when_no_refinements(self, tmp_path):
+        path = tmp_path / "brief-x_1x1.png"
+        path.write_bytes(b"x")
+        result = _find_latest_image_for_brief(tmp_path, "brief-x")
+        assert result == path
+
+    def test_returns_highest_versioned_refinement(self, tmp_path):
+        (tmp_path / "brief-x_1x1.png").write_bytes(b"x")
+        (tmp_path / "brief-x_v2.png").write_bytes(b"x")
+        v3 = tmp_path / "brief-x_v3.png"
+        v3.write_bytes(b"x")
+        (tmp_path / "brief-x_v2_a.png").write_bytes(b"x")
+        result = _find_latest_image_for_brief(tmp_path, "brief-x")
+        assert result == v3
+
+    def test_handles_versioned_with_letter_suffix(self, tmp_path):
+        (tmp_path / "brief-x_1x1.png").write_bytes(b"x")
+        v2a = tmp_path / "brief-x_v2_a.png"
+        v2a.write_bytes(b"x")
+        result = _find_latest_image_for_brief(tmp_path, "brief-x")
+        # v2_a is a versioned refinement (v=2), should win over original
+        assert result.stem.startswith("brief-x_v")
+
+
+class TestNextRefinementVersion:
+    def test_first_refinement_is_v2(self, tmp_path):
+        (tmp_path / "brief-x_1x1.png").write_bytes(b"x")
+        assert _next_refinement_version(tmp_path, "brief-x") == 2
+
+    def test_no_files_returns_v2(self, tmp_path):
+        # Edge case: no base image either. Still returns 2.
+        assert _next_refinement_version(tmp_path, "brief-x") == 2
+
+    def test_increments_past_existing_versions(self, tmp_path):
+        (tmp_path / "brief-x_v2.png").write_bytes(b"x")
+        (tmp_path / "brief-x_v3.png").write_bytes(b"x")
+        (tmp_path / "brief-x_v5.png").write_bytes(b"x")
+        assert _next_refinement_version(tmp_path, "brief-x") == 6
+
+    def test_ignores_other_briefs(self, tmp_path):
+        (tmp_path / "other-brief_v9.png").write_bytes(b"x")
+        (tmp_path / "brief-x_1x1.png").write_bytes(b"x")
+        assert _next_refinement_version(tmp_path, "brief-x") == 2
+
+    def test_handles_letter_suffix_versions(self, tmp_path):
+        (tmp_path / "brief-x_v2_a.png").write_bytes(b"x")
+        (tmp_path / "brief-x_v2_b.png").write_bytes(b"x")
+        # Both are v2 — next should be 3
+        assert _next_refinement_version(tmp_path, "brief-x") == 3
+
+
+class TestRefinementNotesFormat:
+    def test_includes_all_fields(self, tmp_path):
+        brief = {
+            "brief_id": "secondkind-remix-abc123",
+            "persona": "Probiotic-Burned Paige",
+        }
+        base = tmp_path / "secondkind-remix-abc123_1x1.png"
+        base.write_bytes(b"x")
+        notes = _format_refinement_notes(brief, "make it warmer", 2, base)
+        assert "Brief:" in notes
+        assert "secondkind-remix-abc123" in notes
+        assert "Version:" in notes
+        assert "v2" in notes
+        assert "Base image:" in notes
+        assert "secondkind-remix-abc123_1x1.png" in notes
+        assert "Feedback:" in notes
+        assert "make it warmer" in notes
+        assert "Probiotic-Burned Paige" in notes
+
+    def test_handles_missing_brief_fields(self, tmp_path):
+        base = tmp_path / "x_1x1.png"
+        base.write_bytes(b"x")
+        notes = _format_refinement_notes({}, "feedback", 2, base)
+        # Should not raise; uses '?' placeholders
+        assert "Feedback:" in notes
+        assert "feedback" in notes
+
+
+class TestRefinementLogAppend:
+    def test_creates_log_when_absent(self, tmp_path):
+        log_path = _append_refinement_log(
+            tmp_path,
+            brief_id="brief-x",
+            feedback="warmer",
+            version=2,
+            base_image_name="brief-x_1x1.png",
+            output_image_names=["brief-x_v2.png"],
+        )
+        assert log_path == tmp_path / "refinement_log.yaml"
+        data = yaml.safe_load(log_path.read_text(encoding="utf-8"))
+        assert isinstance(data, list)
+        assert len(data) == 1
+        assert data[0]["brief_id"] == "brief-x"
+        assert data[0]["feedback"] == "warmer"
+        assert data[0]["version"] == 2
+        assert data[0]["output_images"] == ["brief-x_v2.png"]
+        assert "timestamp" in data[0]
+
+    def test_appends_to_existing_log(self, tmp_path):
+        log_path = tmp_path / "refinement_log.yaml"
+        log_path.write_text(
+            yaml.safe_dump([{
+                "timestamp": "2026-01-01T00:00:00",
+                "brief_id": "brief-x",
+                "version": 2,
+                "feedback": "first",
+                "base_image": "brief-x_1x1.png",
+                "output_images": ["brief-x_v2.png"],
+            }]),
+            encoding="utf-8",
+        )
+        _append_refinement_log(
+            tmp_path,
+            brief_id="brief-x",
+            feedback="second",
+            version=3,
+            base_image_name="brief-x_v2.png",
+            output_image_names=["brief-x_v3.png"],
+        )
+        data = yaml.safe_load(log_path.read_text(encoding="utf-8"))
+        assert len(data) == 2
+        assert data[1]["feedback"] == "second"
+        assert data[1]["version"] == 3
+
+    def test_handles_malformed_existing_log(self, tmp_path):
+        log_path = tmp_path / "refinement_log.yaml"
+        log_path.write_text("not: valid: yaml: ::", encoding="utf-8")
+        # Should overwrite rather than crash
+        _append_refinement_log(
+            tmp_path,
+            brief_id="brief-x",
+            feedback="recovery",
+            version=2,
+            base_image_name="brief-x_1x1.png",
+            output_image_names=["brief-x_v2.png"],
+        )
+        data = yaml.safe_load(log_path.read_text(encoding="utf-8"))
+        assert len(data) == 1
+        assert data[0]["feedback"] == "recovery"

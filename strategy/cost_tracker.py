@@ -39,6 +39,7 @@ COST_RATES: dict[str, float] = {
     "adc generate": 0.08,               # per image (prompt + fal.ai)
     "adc remix": 0.10,                  # per variation (vision + angle + prompt)
     "adc remix-images": 0.08,           # per image (fal.ai)
+    "adc remix-refine": 0.10,           # per refined image (Claude rewrite + fal.ai)
 
     # Competitive research
     "adc research-web": 0.50,
