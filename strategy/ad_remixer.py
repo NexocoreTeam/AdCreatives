@@ -1569,13 +1569,49 @@ Your job: rewrite the prompt to address the feedback. Two strict rules:
 Output ONLY the new prompt text. No explanations, no markdown fences."""
 
 
-def _rewrite_prompt_with_feedback(original_prompt: str, feedback: str) -> str:
+def _rewrite_prompt_with_feedback(
+    original_prompt: str,
+    feedback: str,
+    brand: Brand | None = None,
+) -> str:
     """Single Claude call to rewrite a NB2 prompt incorporating user feedback.
 
-    The previous output image is added as a layout reference at generation time
-    (handled by `refine_image`), so the rewritten prompt only needs to describe
-    the delta the user asked for."""
-    user_prompt = f"""ORIGINAL PROMPT (sent to NB2 when the image was generated):
+    When `brand` is provided, brand identity (name, colors as hex, tone) is
+    injected as context so natural-language feedback like "our brand yellow"
+    or "make it on-brand" maps to specific values. The Claude rewrite knows
+    to translate these references to the actual hex codes / brand
+    descriptors in the rewritten prompt."""
+    brand_block = ""
+    if brand is not None:
+        colors = brand.colors
+        brand_lines = [
+            "BRAND CONTEXT (use these EXACT values when the user references brand identity):",
+            f"  Name: {brand.name}",
+            f"  Tone: {brand.tone}",
+            f"  Primary color: {colors.primary or '(not set)'}",
+            f"  Secondary color: {colors.secondary or '(not set)'}",
+            f"  Background color: {colors.background or '(not set)'}",
+            f"  Text color: {colors.text or '(not set)'}",
+            f"  Accent color: {colors.accent or '(not set)'}",
+        ]
+        if getattr(brand, "visual_identity", None):
+            vi = brand.visual_identity
+            if vi.color_mood:
+                brand_lines.append(f"  Palette mood: {vi.color_mood}")
+            if vi.typography_feel:
+                brand_lines.append(f"  Typography feel: {vi.typography_feel}")
+            if vi.aesthetic:
+                brand_lines.append(f"  Aesthetic: {vi.aesthetic[:160]}")
+        brand_lines.append("")
+        brand_lines.append(
+            "When the user says 'brand yellow', 'our accent color', 'on-brand',"
+            " 'in our colors', or any reference to brand identity, RESOLVE it to"
+            " the specific hex codes / descriptors above. Quote the hex value"
+            " explicitly in the rewritten prompt so NB2 renders it correctly."
+        )
+        brand_block = "\n".join(brand_lines) + "\n\n"
+
+    user_prompt = f"""{brand_block}ORIGINAL PROMPT (sent to NB2 when the image was generated):
 ---
 {original_prompt}
 ---
@@ -1765,9 +1801,18 @@ def refine_image(
     product = _load_product_flexible(client_slug, product_slug_guess)
     product_urls = _get_product_image_urls(product, client_slug)
 
+    # Load the brand so the refinement Claude can resolve natural-language
+    # references like "our brand yellow" → actual hex values.
+    try:
+        brand = load_brand(client_slug)
+    except FileNotFoundError:
+        brand = None
+
     previous_image_url = upload_image(previous_image)
 
-    refined_prompt = _rewrite_prompt_with_feedback(original_prompt, feedback)
+    refined_prompt = _rewrite_prompt_with_feedback(
+        original_prompt, feedback, brand=brand
+    )
 
     version = _next_refinement_version(images_dir, brief_id)
     images_dir.mkdir(parents=True, exist_ok=True)
