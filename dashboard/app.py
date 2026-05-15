@@ -2095,16 +2095,14 @@ def _render_actions_tab(selected):
 
     st.divider()
 
-    # ─── Psychology actions ───────────────────────────────────────────────
-    st.markdown("#### Psychology")
-    pc1, pc2 = st.columns(2)
+    # ─── Avatar discovery (shared by Personas + Psychology sections) ──────
+    # Built once because both sections below need the same set: persona
+    # management (add/delete) and psychology profiling. The (label, slug)
+    # tuple lets dropdowns show the buyer's name while still passing the
+    # filename stem to the CLI.
     avatars_dir = CLIENTS_DIR / selected / "avatars"
     avatar_files = sorted(avatars_dir.glob("*.yaml")) if avatars_dir.exists() else []
     avatar_files = [f for f in avatar_files if f.name != "_index.yaml"]
-    # Build (display_label, role_slug) pairs. The dropdown shows the
-    # persona name (so the user can see who they're picking), but the CLI
-    # still receives the role slug (`primary`, `secondary`, …) because
-    # `adc profile-psychology --avatar` expects the filename stem.
     avatar_options: list[tuple[str, str]] = []
     for f in avatar_files:
         try:
@@ -2113,6 +2111,76 @@ def _render_actions_tab(selected):
             d = {}
         display = (d.get("name") or "").strip() or f.stem
         avatar_options.append((f"{display}  ·  {f.stem}", f.stem))
+
+    # Hard cap on personas. Matches strategy.personas.MAX_PERSONAS; copied
+    # here so the dashboard doesn't import a strategy module just for a
+    # constant. If you bump that, update this too.
+    MAX_PERSONAS = 6
+
+    # ─── Personas (add / delete) ──────────────────────────────────────────
+    st.markdown("#### Personas")
+    n_personas = len(avatar_options)
+    at_cap = n_personas >= MAX_PERSONAS
+    st.caption(
+        f"{n_personas} / {MAX_PERSONAS} personas. "
+        + ("**At cap** — delete one below before adding another." if at_cap else
+           "You can add more, up to the cap.")
+    )
+
+    ac1, ac2 = st.columns(2)
+    with ac1:
+        add_disabled = at_cap or n_personas == 0  # need brand context first
+        if st.button(
+            "➕ Add a new persona",
+            help=("Generates ONE new persona that's distinct from the existing set "
+                  "(different pains, triggers, awareness). ~$0.10 in API cost."),
+            use_container_width=True,
+            disabled=at_cap,
+        ):
+            run_adc_command(
+                ["add-persona", "--client", selected],
+                label="Generating one new persona (~$0.10)",
+            )
+            st.rerun()
+        st.caption("Est: ~$0.10 (Sonnet 4.6, single persona)")
+
+    with ac2:
+        if avatar_options:
+            labels = [label for label, _slug in avatar_options]
+            del_label = st.selectbox(
+                "Delete a persona:",
+                labels,
+                key="delete_persona_pick",
+                help="The avatar file and its entry in _index.yaml are removed. "
+                     "Existing briefs that reference the persona by name are NOT touched.",
+            )
+            del_slug = dict(avatar_options)[del_label]
+            # The actual delete is gated by a confirm checkbox so the user
+            # can't fat-finger a destructive click. We pass --yes to the CLI
+            # because the confirm has already happened in the UI.
+            confirm = st.checkbox(
+                f"I understand — permanently delete `{del_slug}.yaml`",
+                key=f"delete_persona_confirm_{del_slug}",
+            )
+            if st.button(
+                f"🗑️ Delete `{del_label}`",
+                use_container_width=True,
+                disabled=not confirm,
+                type="secondary",
+            ):
+                run_adc_command(
+                    ["delete-persona", "--client", selected, "--avatar", del_slug, "--yes"],
+                    label=f"Deleting persona {del_slug}",
+                )
+                st.rerun()
+        else:
+            st.caption("No personas to delete yet.")
+
+    st.divider()
+
+    # ─── Psychology actions ───────────────────────────────────────────────
+    st.markdown("#### Psychology")
+    pc1, pc2 = st.columns(2)
 
     with pc1:
         if st.button("🧠 Profile ALL avatars",

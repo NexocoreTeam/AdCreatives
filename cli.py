@@ -190,6 +190,116 @@ def personas(client: str, max_personas: int):
     console.print(table)
 
 
+# ─── Persona add / delete (single-persona management) ───────────────────────
+
+
+@cli.command(name="add-persona")
+@click.option("--client", required=True, help="Client slug")
+def add_persona_cmd(client: str):
+    """Generate ONE new persona that fills a gap in the existing set.
+
+    Loads existing avatars from clients/<slug>/avatars/, summarizes them for
+    the LLM, then asks for a single new persona that differs on pains,
+    triggers, language, or awareness level. Saves as a new avatar file and
+    appends to _index.yaml. Enforces a hard cap of 6 personas per client.
+    """
+    from models.loader import load_brand, load_all_avatars
+    from strategy.personas import (
+        MAX_PERSONAS,
+        add_persona,
+        build_one_persona,
+    )
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    existing = load_all_avatars(client)
+    if len(existing) >= MAX_PERSONAS:
+        names = ", ".join(a.name or "?" for a in existing)
+        console.print(
+            f"[red]At persona cap ({len(existing)}/{MAX_PERSONAS}). "
+            f"Delete one first with `adc delete-persona --client {client} --avatar <slug>`.[/red]"
+        )
+        console.print(f"[dim]Current personas: {names}[/dim]")
+        raise SystemExit(1)
+
+    context_path = client_dir / "brand-context.md"
+    if not context_path.exists():
+        console.print(
+            f"[red]No brand-context.md at {context_path}. Run `adc research` first.[/red]"
+        )
+        raise SystemExit(1)
+
+    brand = load_brand(client)
+    brand_context_md = context_path.read_text(encoding="utf-8")
+
+    console.print(
+        f"\n[bold cyan]Adding one persona for {brand.name}[/bold cyan] "
+        f"({len(existing)} → {len(existing) + 1} of {MAX_PERSONAS})"
+    )
+    with console.status("Generating a distinct new persona with Claude Sonnet 4.6..."):
+        try:
+            persona = build_one_persona(
+                brand=brand,
+                brand_context_md=brand_context_md,
+                existing_avatars=existing,
+                client_slug=client,
+            )
+        except ValueError as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+
+    avatar_path, index_path = add_persona(client, persona)
+    console.print(f"\n[green]Created persona:[/green] {persona.get('name', '?')}")
+    console.print(f"  - File:  {avatar_path}")
+    console.print(f"  - Slug:  {persona['id']}")
+    console.print(f"  - Index: {index_path}")
+    console.print(
+        f"\n[green]Next:[/green] adc profile-psychology --client {client} --avatar {persona['id']}"
+    )
+
+    from strategy.cost_tracker import log_cost
+    log_cost(client, "adc add-persona", note=f"added {persona['id']}")
+
+
+@cli.command(name="delete-persona")
+@click.option("--client", required=True, help="Client slug")
+@click.option("--avatar", "avatar_slug", required=True,
+              help="Avatar slug to delete (e.g. 'tertiary' or 'switcher-stacey'). "
+              "Matches the filename stem in clients/<slug>/avatars/.")
+@click.option("--yes", is_flag=True, default=False,
+              help="Skip the confirmation prompt.")
+def delete_persona_cmd(client: str, avatar_slug: str, yes: bool):
+    """Remove a persona and prune it from the _index.yaml roster.
+
+    Existing briefs that reference this persona by name are NOT touched —
+    they keep their persona text baked in. Only the avatar file and the
+    index entry are removed.
+    """
+    from strategy.personas import delete_persona
+
+    avatar_path = Path("clients") / client / "avatars" / f"{avatar_slug}.yaml"
+    if not avatar_path.exists():
+        console.print(f"[red]Avatar not found: {avatar_path}[/red]")
+        raise SystemExit(1)
+
+    if not yes:
+        if not click.confirm(
+            f"Delete persona '{avatar_slug}' from client '{client}'? "
+            f"This removes {avatar_path} permanently."
+        ):
+            console.print("[yellow]Aborted.[/yellow]")
+            return
+
+    ok, removed = delete_persona(client, avatar_slug)
+    if not ok:
+        console.print(f"[red]Failed to delete: {avatar_path}[/red]")
+        raise SystemExit(1)
+    console.print(f"[green]Deleted:[/green] {removed}")
+
+
 # ─── Onboard wrapper (runs stages 1-5 in sequence) ──────────────────────────
 
 

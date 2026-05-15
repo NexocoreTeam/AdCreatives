@@ -239,6 +239,132 @@ Output YAML only. No markdown fences."""
     return PersonasResult(personas=personas, index=index)
 
 
+MAX_PERSONAS = 6
+
+
+def build_one_persona(
+    brand: Brand,
+    brand_context_md: str,
+    existing_avatars: list[CustomerAvatar],
+    client_slug: str | None = None,
+    competitive_gaps: dict | None = None,
+    voc_pains: dict | None = None,
+) -> dict:
+    """Generate exactly ONE new persona that's distinct from the existing set.
+
+    Same upstream-research auto-loading as `build_personas` (competitive gaps +
+    VoC). Returns a single persona dict in the same shape that `build_personas`
+    produces, ready to hand to `persona_to_avatar` and save under
+    `clients/<slug>/avatars/`.
+
+    The prompt includes a short summary of every existing avatar so the LLM
+    cannot duplicate one of them. Raises ValueError if the LLM returns
+    nothing usable.
+    """
+    if not brand_context_md:
+        raise ValueError(
+            "No brand-context.md provided. Run `adc research` first."
+        )
+
+    if client_slug:
+        if competitive_gaps is None:
+            competitive_gaps = load_competitive_gaps(client_slug)
+        if voc_pains is None:
+            voc_pains = load_voc_pains(client_slug)
+
+    competitive_block = format_competitive_block(competitive_gaps)
+    voc_block = format_voc_block(voc_pains)
+
+    # Compact "who already exists" block — name + demographic one-liner +
+    # top 2 pain points. Keeps the prompt cheap while still letting the
+    # LLM see what's covered so it can stake out fresh ground.
+    if existing_avatars:
+        lines = ["EXISTING PERSONAS — your new one must NOT overlap with any of these:"]
+        for av in existing_avatars:
+            top_pains = ", ".join(
+                (p.pain or "").strip() for p in (av.pain_points or [])[:2]
+            )
+            lines.append(f"- {av.name}: {av.demographic[:160]}")
+            if top_pains:
+                lines.append(f"    Top pains: {top_pains}")
+        existing_block = "\n".join(lines)
+    else:
+        existing_block = "(no existing personas — generate the first one)"
+
+    prompt = f"""Read the brand context below and produce ONE additional persona
+for {brand.name} that fills a gap in the existing persona set. The new persona
+must be genuinely distinct from each of the existing ones — different pains,
+triggers, language, or awareness level. If the only way you can differentiate
+the new persona is by changing demographics while keeping the same pain set,
+do not return that persona; it's not distinct enough.
+
+{existing_block}
+
+BRAND CONTEXT:
+{brand_context_md[:12000]}
+
+# COMPETITIVE INTELLIGENCE
+
+{competitive_block}
+
+# VOICE-OF-CUSTOMER EVIDENCE
+
+{voc_block}
+
+---
+
+Return YAML with exactly ONE persona under a `personas:` list, in this shape:
+
+personas:
+  - id: "slug-style-id"   # short slug derived from the persona name
+    role: "primary | secondary | tertiary"
+    name: "A specific persona name with a memorable hook"
+    demographic: "Multi-clause demographic description"
+    psychographic: "1-3 sentence psychographic"
+    awareness_level: "unaware | problem_aware | solution_aware | product_aware | most_aware"
+    why_this_persona: "1-2 sentences explaining the gap this persona fills relative to the existing set"
+    distinct_jobs_to_be_done:
+      - job: "Functional/emotional/social outcome"
+        type: "functional | emotional | social"
+    pain_points:
+      - pain: "Specific pain — use customer language where possible"
+        intensity: "high | medium | low"
+        customer_language:
+          - "Verbatim or close-to-verbatim quote"
+        source: "auto_from_brand_context"
+    desires:
+      - desire: "Specific desire"
+        customer_language:
+          - "How they would phrase the desire"
+    objections:
+      - "Specific objection"
+    trigger_events:
+      - "Specific event that pushes them to look for a solution"
+    current_solutions:
+      - "What they're using now instead of the brand"
+    language_patterns:
+      - "How they talk — register, jargon, common phrasings"
+    confidence: "high | medium | low"
+
+Output YAML only. No markdown fences."""
+
+    raw = claude_complete(prompt, system=PERSONAS_SYSTEM, max_tokens=4000)
+    raw = raw.strip()
+    if raw.startswith("```"):
+        raw = raw.split("\n", 1)[1]
+    if raw.endswith("```"):
+        raw = raw.rsplit("```", 1)[0]
+
+    parsed = yaml.safe_load(raw) or {}
+    personas = parsed.get("personas", []) or []
+    if not personas:
+        raise ValueError("LLM returned no personas — check brand-context.md content.")
+    persona = personas[0]
+    if "id" not in persona or not persona["id"]:
+        persona["id"] = _slugify(persona.get("name", "persona"))
+    return persona
+
+
 def persona_to_avatar(persona: dict) -> CustomerAvatar:
     """Convert a persona dict from the LLM output into a CustomerAvatar."""
     pain_points = []
@@ -275,6 +401,94 @@ def persona_to_avatar(persona: dict) -> CustomerAvatar:
         awareness_level=persona.get("awareness_level", "problem_aware"),
         language_patterns=persona.get("language_patterns", []) or [],
     )
+
+
+def _load_index(client_slug: str) -> dict:
+    """Load `clients/<slug>/avatars/_index.yaml`, or return an empty stub."""
+    path = Path("clients") / client_slug / "avatars" / "_index.yaml"
+    if not path.exists():
+        return {"personas": []}
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except Exception:
+        return {"personas": []}
+    if "personas" not in data or not isinstance(data["personas"], list):
+        data["personas"] = []
+    return data
+
+
+def _write_index(client_slug: str, index: dict) -> Path:
+    path = Path("clients") / client_slug / "avatars" / "_index.yaml"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        yaml.dump(index, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
+    return path
+
+
+def add_persona(client_slug: str, persona: dict) -> tuple[Path, Path]:
+    """Save ONE new persona avatar YAML and append it to `_index.yaml`.
+
+    If the persona's id slug collides with an existing avatar file, a
+    numeric suffix is appended (`-2`, `-3`, …) so we never silently
+    overwrite. Returns (avatar_path, index_path).
+    """
+    avatars_dir = Path("clients") / client_slug / "avatars"
+    avatars_dir.mkdir(parents=True, exist_ok=True)
+
+    base_slug = persona.get("id") or _slugify(persona.get("name", "persona"))
+    slug = base_slug
+    n = 2
+    while (avatars_dir / f"{slug}.yaml").exists():
+        slug = f"{base_slug}-{n}"
+        n += 1
+    persona["id"] = slug
+
+    avatar = persona_to_avatar(persona)
+    avatar_path = avatars_dir / f"{slug}.yaml"
+    with open(avatar_path, "w", encoding="utf-8") as f:
+        yaml.dump(
+            avatar.model_dump(mode="json"),
+            f,
+            default_flow_style=False,
+            sort_keys=False,
+            allow_unicode=True,
+        )
+
+    index = _load_index(client_slug)
+    index["personas"].append({
+        "id": slug,
+        "name": persona.get("name", ""),
+        "role": persona.get("role", "secondary"),
+        "awareness_level": persona.get("awareness_level", "problem_aware"),
+        "confidence": persona.get("confidence", "medium"),
+    })
+    index_path = _write_index(client_slug, index)
+    return avatar_path, index_path
+
+
+def delete_persona(client_slug: str, slug: str) -> tuple[bool, Path | None]:
+    """Remove the avatar YAML for `slug` and drop it from `_index.yaml`.
+
+    Returns (deleted, path_removed). If the avatar file doesn't exist,
+    returns (False, None). The index file is rewritten regardless of
+    whether the slug was present in it.
+    """
+    avatars_dir = Path("clients") / client_slug / "avatars"
+    avatar_path = avatars_dir / f"{slug}.yaml"
+    if not avatar_path.exists():
+        return False, None
+
+    avatar_path.unlink()
+    # Also drop the legacy `.bak` if a previous save left one behind.
+    bak = avatar_path.with_suffix(".yaml.bak")
+    if bak.exists():
+        bak.unlink()
+
+    index = _load_index(client_slug)
+    index["personas"] = [p for p in index["personas"] if p.get("id") != slug]
+    _write_index(client_slug, index)
+
+    return True, avatar_path
 
 
 def save_personas(client_slug: str, result: PersonasResult) -> tuple[Path, list[Path]]:
