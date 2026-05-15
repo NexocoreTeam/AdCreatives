@@ -1397,6 +1397,23 @@ def _render_remix_tab(selected):
             f"Est cost: ~${0.10 * int(variations):.2f}"
         )
 
+        cd_key = f"remix_cd_{selected}"
+        creative_direction = st.text_area(
+            "Creative direction (optional)",
+            key=cd_key,
+            placeholder=(
+                "e.g. 'two callouts in primary brand color + accent color, "
+                "text bubble at top, hand from bottom holding product, no FDA disclaimer'"
+            ),
+            height=80,
+            help=(
+                "Pre-generation directive applied to ALL variations. Use it to lock in "
+                "structural elements (text bubble, two callouts) or styling cues (brand "
+                "colors for pills, generous whitespace). Highest-priority constraint — "
+                "overrides any conflicting pattern from the reference DNA."
+            ),
+        )
+
         ready = (ref_path is not None) or bool(foreplay_ref)
         if not ready:
             st.info("Upload an image or paste a Foreplay URL/ID to continue.")
@@ -1415,6 +1432,8 @@ def _render_remix_tab(selected):
                     "--high-fidelity", str(int(high_fidelity)),
                     "--medium-fidelity", str(int(medium_fidelity)),
                 ]
+                if creative_direction.strip():
+                    args += ["--creative-direction", creative_direction.strip()]
                 if ref_path is not None:
                     args += ["--reference", str(ref_path)]
                 else:
@@ -2133,6 +2152,22 @@ def _render_actions_tab(selected):
                 f"`adc extract-templates --client {selected}` first."
             )
 
+        gen_cd = st.text_area(
+            "Creative direction (optional)",
+            key="generate_creative_direction",
+            placeholder=(
+                "e.g. 'two callouts in primary brand color + accent, text bubble at top, "
+                "hand from bottom holding product, no FDA disclaimer'"
+            ),
+            height=70,
+            help=(
+                "Pre-generation directive applied to EVERY picked brief. Locks in "
+                "structural elements (text bubble, callouts) and styling cues (brand colors "
+                "for pills). Highest-priority constraint — overrides defaults from "
+                "the brief / template / library skills when in conflict."
+            ),
+        )
+
         if st.button("🖼️ Generate images for picks",
                      use_container_width=True, type="primary",
                      disabled=not picks.strip()):
@@ -2142,6 +2177,8 @@ def _render_actions_tab(selected):
                 args.append("--include-alternates")
             if reference_mode.startswith("Manual") and chosen_template_id:
                 args.extend(["--reference", chosen_template_id])
+            if gen_cd.strip():
+                args.extend(["--creative-direction", gen_cd.strip()])
             n_picks = len([p for p in picks.split(",") if p.strip()])
             variants_per_brief = 3 if include_alts else 1
             total_imgs = n_picks * int(num_images) * variants_per_brief

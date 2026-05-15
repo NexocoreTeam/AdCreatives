@@ -185,6 +185,10 @@ OUTPUT: Return ONLY the prompt text. Nothing else.
 --- VISUAL FORMATS (Motion, 45+ formats) ---
 
 """ + load_skill("motion/visual-formats") + """
+
+--- REALISTIC PEOPLE — PHOTOGRAPHY PATTERNS ---
+
+""" + load_skill("realistic-people") + """
 """
 
 REFERENCE_ANALYZER_SYSTEM = """You are an ad creative analyst. Analyze advertisement images
@@ -457,6 +461,7 @@ def prompt_from_brief(
     aspect_ratio: str | None = None,
     swipe_block: str = "",
     library_examples: str = "",
+    creative_direction: str = "",
 ) -> str:
     """Take a CreativeBrief and write a Nano Banana 2 prompt for a STATIC ad
     image. Uses the brief's creative_mechanic and visual_format as the
@@ -468,6 +473,11 @@ def prompt_from_brief(
         `generators.swipe_matcher.match_for_brief().to_prompt_block()`.
       * `library_examples` — text block listing 1-2 matching Alex Cooper /
         Nanobana library templates as compositional references.
+      * `creative_direction` — a user-supplied directive describing the
+        specific creative style for this image (e.g. "two callouts in brand
+        primary + accent color, text bubble at top"). Injected as a HARD
+        CONSTRAINT near the top of the prompt-writer's user prompt —
+        overrides generic library patterns when in conflict.
     """
 
     if not aspect_ratio:
@@ -497,8 +507,22 @@ def prompt_from_brief(
             f"replacing the [PLACEHOLDERS] with brief content):\n{library_examples}"
         )
 
+    # User-supplied creative direction is the highest-priority constraint.
+    # Goes at the very top of the user prompt so the Claude rewriter sees
+    # it before any of the brief / product / library context.
+    directive_block = ""
+    if creative_direction and creative_direction.strip():
+        directive_block = (
+            "USER CREATIVE DIRECTION — HIGHEST PRIORITY (overrides any conflicting "
+            "pattern from skills, brief, or library):\n"
+            "Honor this directive exactly. If the brief or skill suggests something "
+            "that contradicts it, follow the directive.\n\n"
+            f"  {creative_direction.strip()}\n\n"
+        )
+
     prompt = claude_complete(
         prompt=(
+            f"{directive_block}"
             f"Write a Nano Banana 2 prompt for the following creative brief. "
             f"This is for a STATIC ad image — even if the brief's visual_format "
             f"mentions video, generate a single still frame that captures the "
@@ -682,6 +706,7 @@ def prompt_from_brief_and_template(
     aspect_ratio: str | None = None,
     reference_image_path: Path | None = None,
     client_slug: str | None = None,
+    creative_direction: str = "",
 ) -> str:
     """Single-reference, single-template prompt generation.
 
@@ -725,8 +750,19 @@ def prompt_from_brief_and_template(
         f"--- END TEMPLATE ---"
     )
 
+    directive_block = ""
+    if creative_direction and creative_direction.strip():
+        directive_block = (
+            "USER CREATIVE DIRECTION — HIGHEST PRIORITY (overrides any conflicting "
+            "pattern from template, brief, or skills):\n"
+            "Honor this directive exactly. If the template or brief suggests "
+            "something that contradicts it, follow the directive.\n\n"
+            f"  {creative_direction.strip()}\n\n"
+        )
+
     prompt = claude_complete(
         prompt=(
+            f"{directive_block}"
             f"Write a Nano Banana 2 prompt that produces ONE static ad based on "
             f"a single hand-picked reference template. This is ART-DIRECTED — "
             f"there is no aggregation across multiple refs.\n\n"

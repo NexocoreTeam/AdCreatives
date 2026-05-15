@@ -2941,7 +2941,14 @@ def _collect_product_image_refs(product, client_slug: str) -> list[str]:
 @click.option("--client", required=True, help="Client slug")
 @click.option("--pick", required=True, help="Comma-separated menu numbers from `adc menu`, e.g. 1,3,5")
 @click.option("--product", default=None, help="Optional: scope to a single product (must match `adc menu --product`)")
-def prompts(client: str, pick: str, product: str | None):
+@click.option(
+    "--creative-direction",
+    default="",
+    help="Optional pre-generation creative directive applied to every brief. "
+    "Example: 'two callouts in primary brand color + accent, text bubble at top'. "
+    "Becomes the highest-priority constraint in the NB2 prompt-writer.",
+)
+def prompts(client: str, pick: str, product: str | None, creative_direction: str):
     """Generate fal.ai prompts for the briefs you picked off `adc menu`."""
     from models.loader import (
         load_all_briefs,
@@ -2993,6 +3000,7 @@ def prompts(client: str, pick: str, product: str | None):
                 product=prod,
                 avatar=avatar,
                 aspect_ratio=aspect_ratio,
+                creative_direction=creative_direction,
             )
 
         notes = _format_notes_header(brief, prod, aspect_ratio, image_refs)
@@ -3036,9 +3044,17 @@ def prompts(client: str, pick: str, product: str | None):
     "specific hand-picked ad. Cleanest path when you want to mimic a "
     "specific aesthetic.",
 )
+@click.option(
+    "--creative-direction",
+    default="",
+    help="Optional pre-generation creative directive applied to every brief. "
+    "Example: 'two callouts in primary brand color + accent, text bubble at top'. "
+    "Becomes the highest-priority constraint in the NB2 prompt-writer.",
+)
 def generate(client: str, pick: str, product: str | None, num_images: int,
              aspect_ratio: str | None, thinking: str,
-             include_alternates: bool, reference_template_id: str | None):
+             include_alternates: bool, reference_template_id: str | None,
+             creative_direction: str):
     """Generate finished ad images for picked briefs — writes prompts AND calls fal.ai."""
     from models.loader import (
         load_all_briefs,
@@ -3173,6 +3189,7 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
                     num_images=num_images,
                     aspect_ratio=ar,
                     thinking_level=thinking,
+                    creative_direction=creative_direction,
                 )
             else:
                 prompt_text, results = generate_from_brief(
@@ -3185,6 +3202,7 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
                     num_images=num_images,
                     aspect_ratio=ar,
                     thinking_level=thinking,
+                    creative_direction=creative_direction,
                 )
 
         local_paths = [str(r.local_path) for r in results if r.local_path]
@@ -3266,6 +3284,13 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
     help="How many variations get small persona-tuned variation. "
     "Remaining variations are 'low' fidelity (creative re-imagining).",
 )
+@click.option(
+    "--creative-direction",
+    default="",
+    help="Optional pre-generation creative directive applied to every variation. "
+    "Example: 'two callouts in primary brand color + accent, text bubble at top'. "
+    "Becomes the highest-priority constraint in the NB2 prompt-writer.",
+)
 def remix(
     client: str,
     product: str,
@@ -3275,6 +3300,7 @@ def remix(
     variations: int,
     high_fidelity: int,
     medium_fidelity: int,
+    creative_direction: str,
 ):
     """Reverse-engineer a reference ad and remix it for your product.
 
@@ -3311,6 +3337,7 @@ def remix(
             variations=variations,
             high_fidelity=high_fidelity,
             medium_fidelity=medium_fidelity,
+            creative_direction=creative_direction,
         )
 
     analysis = result["analysis"]

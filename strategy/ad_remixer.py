@@ -1357,6 +1357,7 @@ def remix(
     high_fidelity: int = 2,
     medium_fidelity: int = 2,
     output_root: Path | None = None,
+    creative_direction: str = "",
 ) -> dict:
     """Run the full remix pipeline.
 
@@ -1431,6 +1432,13 @@ def remix(
     _save_analysis(out_dir, analysis)
     _save_briefs(out_dir, briefs)
 
+    # Persist the creative direction so subsequent operations (refinement,
+    # image regeneration) can auto-load it.
+    if creative_direction and creative_direction.strip():
+        (out_dir / "creative_directive.txt").write_text(
+            creative_direction.strip() + "\n", encoding="utf-8"
+        )
+
     prompt_paths: list[Path] = []
     for brief, (avatar, _lever) in zip(briefs, pairs):
         aspect = infer_aspect_ratio(brief)
@@ -1440,6 +1448,7 @@ def remix(
             product=product,
             avatar=avatar,
             aspect_ratio=aspect,
+            creative_direction=creative_direction,
         )
         prompt_text = _enforce_text_density_suffix(prompt_text, brief, analysis)
         notes = _format_remix_notes(brief, product, aspect, analysis)
@@ -1454,7 +1463,19 @@ def remix(
         "prompts": prompt_paths,
         "pairs": pairs,
         "fidelity_tiers": fidelity_tiers,
+        "creative_direction": creative_direction,
     }
+
+
+def _load_persisted_creative_direction(remix_dir: Path) -> str:
+    """Load the saved `creative_directive.txt` from a remix folder if present."""
+    p = remix_dir / "creative_directive.txt"
+    if not p.exists():
+        return ""
+    try:
+        return p.read_text(encoding="utf-8").strip()
+    except OSError:
+        return ""
 
 
 # ─── Image generation from a saved remix ────────────────────────────────────

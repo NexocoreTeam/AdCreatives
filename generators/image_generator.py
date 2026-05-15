@@ -516,6 +516,7 @@ def generate_from_brief(
     thinking_level: str = "disabled",
     use_references: bool = True,
     force_multi_ref: bool = False,
+    creative_direction: str = "",
 ) -> tuple[str, list[GenerationResult]]:
     """Take a CreativeBrief, write the prompt with prompt_from_brief(), then
     generate the image(s) with Nano Banana 2 using the product's real images.
@@ -554,6 +555,7 @@ def generate_from_brief(
                 num_images=num_images,
                 aspect_ratio=aspect_ratio,
                 thinking_level=thinking_level,
+                creative_direction=creative_direction,
             )
 
     # ─── Multi-reference fallback (legacy behavior) ───
@@ -636,6 +638,7 @@ def generate_from_brief(
         aspect_ratio=aspect_ratio,
         swipe_block=combined_swipe_block,
         library_examples=library_examples,
+        creative_direction=creative_direction,
     )
 
     # ─── Generate ───
@@ -676,6 +679,7 @@ def generate_from_brief_and_template(
     num_images: int = 1,
     aspect_ratio: str | None = None,
     thinking_level: str = "disabled",
+    creative_direction: str = "",
 ) -> tuple[str, list[GenerationResult]]:
     """ART-DIRECTED generation: one brief + one extracted template + one
     reference image. No swipe library, no template averaging, no Nanobana
@@ -739,6 +743,7 @@ def generate_from_brief_and_template(
         aspect_ratio=aspect_ratio,
         reference_image_path=reference_image_path,
         client_slug=client_slug,
+        creative_direction=creative_direction,
     )
 
     if output_dir is None:
