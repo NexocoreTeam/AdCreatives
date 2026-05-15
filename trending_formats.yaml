@@ -60,7 +60,12 @@ trending_formats:
       Pixar-style animated characters being intentionally cringe (e.g.
       "Hi I'm Vitamin D3", "I'm your stinky coochie"). Works precisely
       BECAUSE it's obviously fake — bypasses the "is this person real?"
-      skepticism that's killing traditional UGC.
+      skepticism that's killing traditional UGC. The cartoonish framing
+      travels well across demographics because it sidesteps the trust
+      question entirely — even buttoned-up, research-driven buyers engage
+      with it as entertainment first, then absorb the product claim
+      almost as a side effect. Strong evergreen pattern for any brand
+      that needs to break through scroll-fatigue.
     core_components:
       - Animated character / personification of body part or problem
       - Direct address to viewer
@@ -68,9 +73,9 @@ trending_formats:
       - Product as the implicit solution
     hook_pattern: "Hi, I'm your [body part / object]. Let's talk about [problem]."
     best_when:
-      awareness_levels: [problem_aware, solution_aware]
-      persona_types: [gen-z, casual, irreverent, meme-aware]
-      product_categories: [supplement, personal-care, hygiene, beverage]
+      awareness_levels: [unaware, problem_aware, solution_aware, product_aware]
+      persona_types: [gen-z, millennial, casual, irreverent, meme-aware, scroll-fatigued, wellness, health, supplement, skeptical, researcher, any]
+      product_categories: [any]
     format_type: video
     production_complexity: medium
     example_brand: Vitamin/wellness brands using personified ingredients
