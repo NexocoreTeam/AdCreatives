@@ -1831,18 +1831,24 @@ def _render_psychology_tab(selected):
             d = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
         except Exception:
             continue
-        name = f.stem
+        # The file stem (e.g. "primary", "secondary") is the role slug used by
+        # `adc profile-psychology --avatar <slug>`, while d["name"] is the
+        # human-readable persona ("Done-Everything Danielle"). Show both —
+        # otherwise the user just sees "Primary / Secondary / ..." with no
+        # way to tell which buyer that maps to.
+        role_slug = f.stem
+        display_name = (d.get("name") or "").strip() or role_slug
         profile = d.get("psychology_profile") or {}
         has_profile = bool(profile)
         with st.expander(
-            f"{'✅' if has_profile else '⬜'} {name}"
-            + (f" — {len(profile.get('dominant_heuristics', []))} dominant heuristics"
-               if has_profile else " (no profile yet)")
+            f"{'✅' if has_profile else '⬜'} {display_name}  ·  _{role_slug}_"
+            + (f"  —  {len(profile.get('dominant_heuristics', []))} dominant heuristics"
+               if has_profile else "  (no profile yet)")
         ):
             if not has_profile:
                 st.warning(
                     f"This avatar has no psychology profile. "
-                    f"Run `adc profile-psychology --client {selected} --avatar {name}`."
+                    f"Run `adc profile-psychology --client {selected} --avatar {role_slug}`."
                 )
                 st.caption(f"Demographic: {d.get('demographic', '—')}")
                 continue
@@ -2095,7 +2101,18 @@ def _render_actions_tab(selected):
     avatars_dir = CLIENTS_DIR / selected / "avatars"
     avatar_files = sorted(avatars_dir.glob("*.yaml")) if avatars_dir.exists() else []
     avatar_files = [f for f in avatar_files if f.name != "_index.yaml"]
-    avatar_names = [f.stem for f in avatar_files]
+    # Build (display_label, role_slug) pairs. The dropdown shows the
+    # persona name (so the user can see who they're picking), but the CLI
+    # still receives the role slug (`primary`, `secondary`, …) because
+    # `adc profile-psychology --avatar` expects the filename stem.
+    avatar_options: list[tuple[str, str]] = []
+    for f in avatar_files:
+        try:
+            d = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
+        except Exception:
+            d = {}
+        display = (d.get("name") or "").strip() or f.stem
+        avatar_options.append((f"{display}  ·  {f.stem}", f.stem))
 
     with pc1:
         if st.button("🧠 Profile ALL avatars",
@@ -2103,15 +2120,17 @@ def _render_actions_tab(selected):
             run_adc_command(["profile-psychology", "--client", selected],
                             label="Diagnosing buyer psychology (~$0.30/avatar)")
             st.rerun()
-        st.caption(f"Est: ~$0.30 × {len(avatar_names)} avatar(s)")
+        st.caption(f"Est: ~$0.30 × {len(avatar_options)} avatar(s)")
 
     with pc2:
-        if avatar_names:
-            chosen = st.selectbox("Or one avatar:", avatar_names, key="psych_avatar")
-            if st.button(f"🧠 Profile `{chosen}` only", use_container_width=True):
+        if avatar_options:
+            labels = [label for label, _slug in avatar_options]
+            chosen_label = st.selectbox("Or one avatar:", labels, key="psych_avatar")
+            chosen_slug = dict(avatar_options)[chosen_label]
+            if st.button(f"🧠 Profile `{chosen_label}` only", use_container_width=True):
                 run_adc_command(
-                    ["profile-psychology", "--client", selected, "--avatar", chosen],
-                    label=f"Diagnosing psychology for {chosen} (~$0.30)",
+                    ["profile-psychology", "--client", selected, "--avatar", chosen_slug],
+                    label=f"Diagnosing psychology for {chosen_label} (~$0.30)",
                 )
                 st.rerun()
         else:
