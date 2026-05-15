@@ -1,0 +1,99 @@
+brief_id: secondkind-gut-balance-192220
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+framework: fab
+angle: "EpiCor RCT data as professional credibility signal \u2014 12-week trial showing\
+  \ 17% reduction in cold/flu symptom days reframes postbiotics from category hype\
+  \ to clinical fact"
+hook: "A 12-week RCT. 17% fewer cold and flu symptom days. That's not a claim \u2014\
+  \ that's what EpiCor\xAE showed in a published trial. It's one of three patented\
+  \ ingredients in Gut Balance, and it's the kind of data that actually justifies\
+  \ a professional recommendation.\n"
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap gap5 overclaiming vs RCT-backed specificity EpiCor 12-week
+  study
+hook_tactic: Specific stat with a story
+persona: Functional-Curious Practitioner Paul
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: Text-on-clean-background static with clinical data callout
+visual_format_alternatives:
+- Annotated research abstract screenshot overlaid on product flat lay
+- Talking-head video with practitioner citing the trial data directly to camera
+persona_traits: Licensed health practitioner or credentialed lay expert who has recommended
+  probiotics that failed patients and now requires named ingredient studies before
+  endorsing anything
+pain_point: "Most supplement brands in the gut health space lack the clinical evidence\
+  \ to justify professional endorsement \u2014 'Too many brands cite in-vitro data\
+  \ as if it's an RCT'"
+benefit_callouts:
+- "EpiCor\xAE \u2014 12-week RCT published"
+- "Totipro\xAE and Bereum\xAE \u2014 independently verifiable trials"
+- 1 trillion bioactive compounds, no live bacteria required
+cta: Read the studies. Then recommend with confidence.
+body_copy: ''
+visual_direction: "Clean, editorial aesthetic \u2014 white or off-white background,\
+  \ product bottle placed at left, right side shows a structured data callout block\
+  \ with the stat '17% reduction in cold/flu symptom days' in a restrained serif or\
+  \ mono typeface. No lifestyle imagery. The visual should read like a journal abstract\
+  \ pull-quote, not a supplement ad.\n"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Paul is a solution-aware practitioner frustrated by brands that lack\
+    \ clinical credibility \u2014 the David & Goliath format lets Gut Balance call\
+    \ out the broken status quo of evidence-free postbiotic marketing before positioning\
+    \ EpiCor's published RCT as the differentiator. The 'enemy first' structure mirrors\
+    \ exactly how a researcher-type like Paul thinks: identify the problem in the\
+    \ category, then evaluate what stands apart."
+  production_notes: "Ensure the 'Goliath' is the category norm (vague in-vitro claims,\
+    \ marketing hype) rather than a named competitor to avoid legal risk, and let\
+    \ the RCT data do the heavy lifting in the contrast segment \u2014 resist over-explaining\
+    \ the mechanism."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "The FAB framework maps cleanly onto a numbered listicle structure \u2014\
+    \ Feature (EpiCor RCT), Advantage (12-week, 17% reduction), Benefit (professional\
+    \ endorsement confidence) \u2014 and Paul as a methodical, evidence-seeking practitioner\
+    \ responds well to organized, scannable information hierarchies. Framing as '3\
+    \ reasons this postbiotic is different from every other gut health brand' directly\
+    \ addresses his pain point around lack of clinical justification."
+  production_notes: Avoid generic talking-head delivery; anchor each list item to
+    a specific data point or sourced claim so the format earns its credibility signal
+    rather than undermining it with vague language.
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 3
+  rationale: "A solution-aware practitioner like Paul implicitly understands that\
+    \ clinical-grade ingredients cost more \u2014 leading with 'We're not cheap' pre-empts\
+    \ the price objection while reframing it as a quality and evidence signal, which\
+    \ aligns with the RCT-as-credibility angle. The objection-handling structure gives\
+    \ Paul the professional justification language he needs to endorse the product\
+    \ with confidence."
+  production_notes: "The hook must immediately bridge from price to proof \u2014 the\
+    \ EpiCor RCT and ingredient sourcing should appear within the first 5 seconds,\
+    \ or the format risks reading as defensive rather than authoritative."

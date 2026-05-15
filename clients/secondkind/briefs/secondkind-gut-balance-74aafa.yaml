@@ -1,0 +1,102 @@
+brief_id: secondkind-gut-balance-74aafa
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+framework: bab
+angle: "Her body changed after having her baby and never came back \u2014 Gut Balance\
+  \ as the quiet return, not a transformation"
+hook: "My stomach hasn't felt right since I had my son.\nNot dramatically wrong \u2014\
+  \ just off. Bloated most afternoons.\nFoggy by 2pm even when I'd slept okay.\nI\
+  \ kept assuming it would just go back to normal.\nIt didn't. Not on its own.\n"
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar pain quote body-hasnt-gone-back-to-normal and desire-feel-like-me-again
+hook_tactic: "Micro-story with a before/after anchored to a personal identity dividing\
+  \ line \u2014 pregnancy as the before, feeling like herself again as the result"
+persona: New-Normal New Mom Natalie
+creative_mechanic: micro_story_plus_suspense
+visual_format: "UGC-style video \u2014 handheld, low-production, shot in a kitchen\
+  \ or living room. Creator speaks directly to camera in a lowered, candid register.\
+  \ No product visible until the turn."
+visual_format_alternatives:
+- "Static image with caption-length copy \u2014 a real, unpolished photo of a woman\
+  \ at her kitchen counter with long-form first-person text in the caption that carries\
+  \ the story weight"
+- "Split-screen video \u2014 left side shows the foggy, bloated afternoon (relatable\
+  \ domestic scene); right side shows the same woman, same setting, noticeably lighter.\
+  \ No voiceover. Text overlays carry the before/after framing."
+persona_traits: "New mom 6\u201324 months postpartum who knows something is still\
+  \ off but has stopped expecting supplements to fix it after previous disappointments"
+pain_point: Persistent post-pregnancy bloating, digestive irregularity, and brain
+  fog that the avatar has quietly accepted as her new normal
+benefit_callouts:
+- Calmer stomach. More regular. Less fog.
+- "Postbiotics \u2014 no live bacteria, no disruption phase"
+- Clean ingredients. Nothing you'd have to look up twice.
+cta: Read how it works
+body_copy: ''
+visual_direction: "Warm, domestic, unpolished. This is not a before/after transformation\
+  \ ad \u2014 it is a quiet recognition moment. The visual should feel like something\
+  \ a friend sent you, not something a brand produced. If a product shot appears,\
+  \ it is incidental \u2014 on a counter, not held up to camera."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Natalie is problem-aware but has quietly normalized her symptoms \u2014\
+    \ the long text overlay format mirrors the internal monologue she's never said\
+    \ out loud, making her feel seen without overselling a transformation. The direct\
+    \ community callout ('POV: you, 6 months postpartum') paired with the empathy-first\
+    \ BAB hook creates the exact moment of recognition that converts a resigned new\
+    \ mom into a curious buyer."
+  production_notes: "Keep the B-roll mundane and relatable \u2014 kitchen counter,\
+    \ afternoon light, baby items in the background \u2014 avoid anything aspirational\
+    \ or fitness-coded that signals 'transformation' rather than 'quiet return.'"
+- format_id: tiktok-short-pov
+  name: TikTok Short / POV
+  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
+    of B-roll. Fastest format to test. Borrows directly from what's trending in the
+    operator's own reels feed at time of creation.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: 'A single POV line like ''POV: your stomach hasn''t felt right since
+    you gave birth and you''ve just... accepted it'' mirrors exactly how Natalie has
+    internalized her bloating and brain fog as her new normal, creating instant scroll-stopping
+    recognition. The low-lift format lets the hook do all the heavy lifting, which
+    is appropriate for a problem-aware persona who needs empathy before solution.'
+  production_notes: "The one or two lines of text must land the pain precisely \u2014\
+    \ avoid words like 'fix' or 'transform' which signal effort; lean into 'feel like\
+    \ yourself again' or 'quiet' language that matches the angle."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 3
+  rationale: "Natalie is a millennial new mom who is scroll-fatigued and mildly skeptical\
+    \ of wellness brands, and the intentionally fake aesthetic of this format disarms\
+    \ that skepticism while a Pixar-style gut character ('Hi, I'm your gut \u2014\
+    \ and I've been trying to tell you something') can dramatize her invisible symptoms\
+    \ with levity rather than alarm. The irreverence keeps the tone light, which fits\
+    \ an angle about quiet recovery rather than dramatic transformation."
+  production_notes: "The character and script must stay empathetic and soft \u2014\
+    \ postpartum audiences are emotionally sensitive, so cringe-comedy must punch\
+    \ toward the symptom, never toward the mom, to avoid alienating the exact persona\
+    \ you're speaking to."
