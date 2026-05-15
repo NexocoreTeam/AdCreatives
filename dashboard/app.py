@@ -1540,11 +1540,12 @@ def _render_remix_tab(selected):
                                 else:
                                     st.caption("Original")
 
-                    # Per-brief refinement form (applies to latest version of this brief)
+                    # Per-brief refinement form
                     if bid != "__unmatched__":
                         with st.expander(f"🔄 Refine `{bid[-6:]}`", expanded=False):
                             fb_key = f"refine_fb_{run['timestamp']}_{bid}"
                             vn_key = f"refine_vn_{run['timestamp']}_{bid}"
+                            base_key = f"refine_base_{run['timestamp']}_{bid}"
                             feedback = st.text_area(
                                 "What would you like to change?",
                                 key=fb_key,
@@ -1555,10 +1556,39 @@ def _render_remix_tab(selected):
                                 height=80,
                                 help=(
                                     "Visual tweaks (color, position, mood) preserve the layout. "
-                                    "Copy changes (hook, callouts) rewrite the text. "
-                                    "The latest version of this brief is used as the base."
+                                    "Copy changes (hook, callouts) rewrite the text."
                                 ),
                             )
+
+                            # Build base-version selector. Default: Original
+                            # (so feedback doesn't compound on top of unwanted
+                            # changes from a previous refinement).
+                            import re as _re_b
+                            def _base_label(p: Path) -> str:
+                                m = _re_b.search(r"_v(\d+)(?:_([a-z]))?", p.stem)
+                                if m:
+                                    s = f"v{m.group(1)}"
+                                    if m.group(2):
+                                        s += f" ({m.group(2)})"
+                                    return s
+                                return "Original"
+                            base_options: list[tuple[str, str]] = []  # (label, filename)
+                            for p in brief_imgs_sorted:
+                                base_options.append((_base_label(p), p.name))
+                            default_idx = 0  # Original first in sorted order
+                            base_choice = st.selectbox(
+                                "Refine FROM which version?",
+                                options=range(len(base_options)),
+                                format_func=lambda i: base_options[i][0],
+                                index=default_idx,
+                                key=base_key,
+                                help=(
+                                    "Default 'Original' restarts from the clean v1 — recommended "
+                                    "if you want the change in isolation. Pick a later version to "
+                                    "stack feedback on top of previous refinements."
+                                ),
+                            )
+                            base_filename = base_options[base_choice][1]
                             cols_form = st.columns([1, 4])
                             with cols_form[0]:
                                 n_vars = st.number_input(
@@ -1570,8 +1600,8 @@ def _render_remix_tab(selected):
                                 )
                             with cols_form[1]:
                                 refine_label = (
-                                    f"🔄 Refine ({int(n_vars)} variation(s), "
-                                    f"~${0.10 * int(n_vars):.2f})"
+                                    f"🔄 Refine from {base_options[base_choice][0]} "
+                                    f"({int(n_vars)} variation(s), ~${0.10 * int(n_vars):.2f})"
                                 )
                                 if st.button(
                                     refine_label,
@@ -1586,10 +1616,11 @@ def _render_remix_tab(selected):
                                             "--brief", bid,
                                             "--feedback", feedback.strip(),
                                             "--num-images", str(int(n_vars)),
+                                            "--from-image", base_filename,
                                         ],
                                         label=(
-                                            f"Refining {bid[-6:]} — "
-                                            f"{int(n_vars)} variation(s)"
+                                            f"Refining {bid[-6:]} from {base_options[base_choice][0]} "
+                                            f"— {int(n_vars)} variation(s)"
                                         ),
                                     )
                                     st.rerun()

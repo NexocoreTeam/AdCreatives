@@ -1818,6 +1818,7 @@ def refine_image(
     num_images: int = 1,
     thinking_level: str = "disabled",
     aspect_ratio: str = "1:1",
+    base_image: str | Path | None = None,
 ) -> list[Path]:
     """Refine an existing remix image with user feedback.
 
@@ -1871,12 +1872,26 @@ def refine_image(
         raise ValueError(f"Original prompt is empty after stripping notes: {prompt_path}")
 
     images_dir = remix_path / "images"
-    previous_image = _find_latest_image_for_brief(images_dir, brief_id)
-    if previous_image is None:
-        raise FileNotFoundError(
-            f"No previous output image found for brief '{brief_id}' in {images_dir}. "
-            "Generate the base image first via `adc remix-images`."
-        )
+    if base_image is not None:
+        candidate = Path(base_image)
+        # Allow either a full path or just a filename; resolve relative names
+        # against the run's images/ directory.
+        if not candidate.is_absolute() and not candidate.exists():
+            candidate = images_dir / candidate.name
+        if not candidate.exists():
+            available = [p.name for p in images_dir.glob(f"{brief_id}*.png")]
+            raise FileNotFoundError(
+                f"Specified base_image '{base_image}' not found. "
+                f"Available for {brief_id}: {available}"
+            )
+        previous_image = candidate
+    else:
+        previous_image = _find_latest_image_for_brief(images_dir, brief_id)
+        if previous_image is None:
+            raise FileNotFoundError(
+                f"No previous output image found for brief '{brief_id}' in {images_dir}. "
+                "Generate the base image first via `adc remix-images`."
+            )
 
     client_slug = brief.get("client", "")
     product_name = brief.get("product", "")

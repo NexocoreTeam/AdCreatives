@@ -3475,6 +3475,13 @@ def remix_images(remix_dir: str, num_images: int, thinking: str, aspect_ratio: s
     default="disabled",
     help="NB2 thinking level: disabled, low, medium, high",
 )
+@click.option(
+    "--from-image",
+    "from_image",
+    default=None,
+    help="Specific image filename to refine FROM (e.g. brief-id_1x1.png to start "
+    "from the original instead of the latest version). Default: latest version.",
+)
 def remix_refine(
     remix_dir: str,
     brief_id: str,
@@ -3482,6 +3489,7 @@ def remix_refine(
     num_images: int,
     aspect_ratio: str,
     thinking: str,
+    from_image: str | None,
 ):
     """Refine an existing remix image with natural-language feedback.
 
@@ -3521,6 +3529,7 @@ def remix_refine(
             num_images=num_images,
             aspect_ratio=aspect_ratio,
             thinking_level=thinking,
+            base_image=from_image,
         )
 
     console.print(f"\n[green]Generated {len(paths)} refined image(s):[/green]")
