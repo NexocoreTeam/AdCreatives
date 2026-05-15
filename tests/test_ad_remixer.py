@@ -41,6 +41,7 @@ from strategy.ad_remixer import (
     _load_competitive_gaps,
     _next_refinement_version,
     _parse_strategic_yaml,
+    _rewrite_prompt_with_feedback,
     _select_avatar_lever_pairs,
     _select_fidelity_tiers,
 )
@@ -938,3 +939,69 @@ class TestRefinementLogAppend:
         data = yaml.safe_load(log_path.read_text(encoding="utf-8"))
         assert len(data) == 1
         assert data[0]["feedback"] == "recovery"
+
+
+class TestRefinementPromptRewrite:
+    """Stubs out the Claude call to verify the user prompt is built correctly."""
+
+    def _stub_claude(self, monkeypatch, capture: dict) -> None:
+        import strategy.ad_remixer as ar
+
+        def _fake(prompt, system="", max_tokens=4096):
+            capture["user"] = prompt
+            capture["system"] = system
+            return "REWRITTEN PROMPT BODY"
+
+        monkeypatch.setattr(ar, "claude_complete", _fake)
+
+    def test_no_inventory_no_brand_keeps_prompt_simple(self, monkeypatch):
+        cap: dict = {}
+        self._stub_claude(monkeypatch, cap)
+        out = _rewrite_prompt_with_feedback("orig", "make warmer")
+        assert "BRAND CONTEXT" not in cap["user"]
+        assert "LOCKED TEXT INVENTORY" not in cap["user"]
+        # Without inventory, no NB2 suffix is appended
+        assert "CRITICAL TEXT INVENTORY OVERRIDE" not in out
+
+    def test_inventory_injects_locked_block_and_nb2_suffix(self, monkeypatch):
+        cap: dict = {}
+        self._stub_claude(monkeypatch, cap)
+        inventory = ["I'm finally regular", "See the mechanism", "SecondKind"]
+        out = _rewrite_prompt_with_feedback(
+            "orig", "change pill to brand yellow", locked_text_inventory=inventory
+        )
+        # User prompt to Claude contains the inventory + the "remove" instruction
+        assert "LOCKED TEXT INVENTORY" in cap["user"]
+        assert "See the mechanism" in cap["user"]
+        assert "REMOVE those descriptions" in cap["user"]
+        # NB2-facing suffix is appended after Claude's output
+        assert "CRITICAL TEXT INVENTORY OVERRIDE" in out
+        for item in inventory:
+            assert item in out
+
+    def test_brand_block_injected_when_brand_provided(self, monkeypatch):
+        cap: dict = {}
+        self._stub_claude(monkeypatch, cap)
+        from models.brand import (
+            AudienceProfile, Brand, ColorPalette,
+        )
+        b = Brand(
+            name="SecondKind",
+            tone="credible, science-forward",
+            colors=ColorPalette(primary="#2B2B2B", accent="#FFD700"),
+            audience=AudienceProfile(age_range="28-45"),
+        )
+        _rewrite_prompt_with_feedback("orig", "brand yellow pill", brand=b)
+        assert "BRAND CONTEXT" in cap["user"]
+        assert "#FFD700" in cap["user"]
+        assert "SecondKind" in cap["user"]
+
+    def test_empty_inventory_treated_as_none(self, monkeypatch):
+        """An empty list should behave like no inventory (vision call returned nothing)."""
+        cap: dict = {}
+        self._stub_claude(monkeypatch, cap)
+        out = _rewrite_prompt_with_feedback(
+            "orig", "make warmer", locked_text_inventory=[]
+        )
+        assert "LOCKED TEXT INVENTORY" not in cap["user"]
+        assert "CRITICAL TEXT INVENTORY OVERRIDE" not in out

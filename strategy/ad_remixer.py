@@ -1569,10 +1569,52 @@ Your job: rewrite the prompt to address the feedback. Two strict rules:
 Output ONLY the new prompt text. No explanations, no markdown fences."""
 
 
+_TEXT_INVENTORY_SYSTEM = """You are an OCR + transcription specialist analyzing an
+advertisement image. Be exhaustive and exact — preserve case, punctuation, and
+any special characters."""
+
+
+def _extract_visible_text_inventory(image_path: Path) -> list[str]:
+    """Vision call that lists every text element visible in an ad image.
+
+    Used during refinement to anchor "what text should stay" to the actual
+    previous output, not to whatever the original prompt described. The
+    original prompt may have described callouts the model dropped — we don't
+    want to add them back during refinement."""
+    raw = _claude_vision_local(
+        prompt=(
+            "List EVERY visible text element in this advertisement image, "
+            "EXACTLY as it appears (case preserved, punctuation included). "
+            "Each text element on its own line.\n\n"
+            "Include: headlines, body text, callouts, button labels, "
+            "brand wordmarks, badges with text, fine print, product label text.\n"
+            "EXCLUDE: pure icons or emojis without text, decorative elements.\n\n"
+            "Output VALID YAML only (no markdown fences) with this structure:\n\n"
+            "text_elements:\n"
+            '  - "exact text 1"\n'
+            '  - "exact text 2"\n'
+            '  - "exact text 3"\n'
+        ),
+        image_path=image_path,
+        system=_TEXT_INVENTORY_SYSTEM,
+        max_tokens=1024,
+    )
+    body = _strip_code_fences(raw)
+    try:
+        data = yaml.safe_load(body) or {}
+    except Exception:
+        return []
+    if not isinstance(data, dict):
+        return []
+    items = data.get("text_elements") or []
+    return [str(item).strip() for item in items if str(item).strip()]
+
+
 def _rewrite_prompt_with_feedback(
     original_prompt: str,
     feedback: str,
     brand: Brand | None = None,
+    locked_text_inventory: list[str] | None = None,
 ) -> str:
     """Single Claude call to rewrite a NB2 prompt incorporating user feedback.
 
@@ -1611,7 +1653,24 @@ def _rewrite_prompt_with_feedback(
         )
         brand_block = "\n".join(brand_lines) + "\n\n"
 
-    user_prompt = f"""{brand_block}ORIGINAL PROMPT (sent to NB2 when the image was generated):
+    inventory_block = ""
+    if locked_text_inventory:
+        items = "\n".join(f'  - "{t}"' for t in locked_text_inventory)
+        inventory_block = (
+            "LOCKED TEXT INVENTORY — these are the EXACT text elements VISIBLE in the\n"
+            "previous output (extracted via vision). They are GROUND TRUTH for what the\n"
+            "refined image should contain. Use these rules:\n"
+            "  - These elements MUST remain in the refined image, modified only as the\n"
+            "    user explicitly requests below.\n"
+            "  - The ORIGINAL PROMPT may describe additional text elements (callouts,\n"
+            "    body copy, fine print) that the previous output DID NOT actually render.\n"
+            "    REMOVE those descriptions from your rewritten prompt — they would add\n"
+            "    text the user clearly didn't want.\n"
+            "  - Do NOT introduce NEW text elements unless the user explicitly asks.\n\n"
+            f"{items}\n\n"
+        )
+
+    user_prompt = f"""{brand_block}{inventory_block}ORIGINAL PROMPT (sent to NB2 when the image was generated):
 ---
 {original_prompt}
 ---
@@ -1621,7 +1680,31 @@ USER FEEDBACK ON THE GENERATED IMAGE:
 
 Rewrite the prompt now. Output ONLY the new full prompt text."""
 
-    return claude_complete(user_prompt, system=_REFINEMENT_SYSTEM, max_tokens=4096).strip()
+    rewritten = claude_complete(
+        user_prompt, system=_REFINEMENT_SYSTEM, max_tokens=4096
+    ).strip()
+
+    # Append a hard text-density suffix mirroring the locked inventory so
+    # NB2 itself receives an unambiguous "render ONLY these" instruction.
+    if locked_text_inventory:
+        suffix_items = "\n".join(f"  - {t}" for t in locked_text_inventory)
+        rewritten = rewritten.rstrip() + "\n\n" + (
+            "---\n"
+            "CRITICAL TEXT INVENTORY OVERRIDE — applies to the entire image:\n\n"
+            "Render ONLY the following text elements (these are the EXACT elements "
+            "present in the second reference image, which is the previous output). "
+            "Do not add any text element not in this list, except to the extent the "
+            "feedback above explicitly asks for it:\n\n"
+            f"{suffix_items}\n\n"
+            "Strictly forbidden — do NOT introduce text NOT in the inventory above:\n"
+            "  - Extra benefit callouts, pills, or strips\n"
+            "  - FDA disclaimers, supplement legalese, fine print\n"
+            "  - Body copy or feature lists\n"
+            "  - Any text element not visible in the second reference image\n\n"
+            "When in doubt, render LESS text. Match the second reference image's "
+            "text density exactly."
+        )
+    return rewritten
 
 
 def _find_latest_image_for_brief(
@@ -1810,8 +1893,22 @@ def refine_image(
 
     previous_image_url = upload_image(previous_image)
 
+    # Vision-extract the actual text inventory from the previous output. This
+    # is the GROUND TRUTH for what text should remain — overrides whatever
+    # the original NB2 prompt described, so callouts that were in the brief
+    # but the model dropped in the first render don't get added back.
+    try:
+        locked_inventory = _extract_visible_text_inventory(previous_image)
+    except Exception:
+        # Vision call failed — proceed without inventory locking (degrades
+        # to the previous behavior, with brand context still active).
+        locked_inventory = None
+
     refined_prompt = _rewrite_prompt_with_feedback(
-        original_prompt, feedback, brand=brand
+        original_prompt,
+        feedback,
+        brand=brand,
+        locked_text_inventory=locked_inventory,
     )
 
     version = _next_refinement_version(images_dir, brief_id)
