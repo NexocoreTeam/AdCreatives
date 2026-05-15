@@ -19,3 +19,8 @@ personas:
   role: secondary
   awareness_level: solution_aware
   confidence: medium
+- id: burnout-biohacker-brandon
+  name: Burnout Biohacker Brandon
+  role: secondary
+  awareness_level: problem_aware
+  confidence: medium

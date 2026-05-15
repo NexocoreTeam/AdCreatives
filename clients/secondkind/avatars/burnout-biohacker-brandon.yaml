@@ -1,0 +1,107 @@
+name: Burnout Biohacker Brandon
+demographic: Man or woman, 38–55, suburban or exurban homeowner, household income
+  $140K–$250K+, self-employed, senior individual contributor, or early retiree — someone
+  whose identity for two decades was optimization and performance, now experiencing
+  a body that stopped responding to optimization logic
+psychographic: Brandon spent his thirties building a meticulous health stack — tracked
+  macros, ran the supplements, did the elimination protocols, owns a continuous glucose
+  monitor or HRV tracker. He was the person who told everyone else about probiotics
+  in 2018. Now his gut is worse than it was before he started optimizing, his energy
+  is inconsistent despite every intervention, and the dissonance between effort invested
+  and results received has curdled into low-grade cynicism about the entire wellness-industrial
+  complex. He does not want another product. He wants a coherent explanation for why
+  everything he tried didn't work — and a mechanism that finally makes biological
+  sense to him.
+pain_points:
+- pain: Has taken high-quality, refrigerated, multi-strain probiotics for years and
+    cannot point to a single measurable improvement — bloating is still unpredictable,
+    digestion is still inconsistent, and he has quietly stopped believing the category
+    works
+  intensity: high
+  customer_language:
+  - I've tried probiotics before and honestly didn't notice much
+  - Eating clean, working out, and still bloated by dinner
+  - At some point I just assumed this is how my gut works
+  source: auto_from_brand_context
+- pain: Afternoon cognitive and energy inconsistency that no amount of optimization
+    — sleep hygiene, creatine, nootropics, carb timing — has fully resolved, and which
+    he now suspects has a gut origin he's been addressing with the wrong tools
+  intensity: high
+  customer_language:
+  - I didn't even realize I had brain fog until it lifted
+  - Still feel off
+  - I notice when I miss a dose — my digestion is less regular and I'm prone to more
+    inflammation
+  source: auto_from_brand_context
+- pain: Supplement fatigue and protocol overwhelm — his morning stack is eight to
+    twelve capsules and he resents every one that hasn't earned its place; he is actively
+    culling and has low patience for anything that duplicates what he already takes
+  intensity: medium
+  customer_language:
+  - I don't have room for another thing that doesn't do anything
+  - I've spent years on this and I'm tired of experimenting
+  source: auto_from_brand_context
+desires:
+- desire: A mechanistic explanation — not just 'supports gut health' but a biological
+    reason why the previous approach failed and this one won't
+  customer_language:
+  - Show me the actual study
+  - I want to understand the mechanism, not just the claim
+  - Why would this work when the last five things didn't
+- desire: Noticeably consistent energy and digestion without having to think about
+    it — the goal is a stable baseline, not another variable to track
+  customer_language:
+  - More regular and my stomach feels calmer overall
+  - Bloat completely gone
+  - I want to feel like my system just works
+- desire: Permission to simplify — one well-designed product that replaces multiple
+    line items in his stack, backed by evidence he can actually cite
+  customer_language:
+  - Clean and effective ingredients
+  - I'd rather have fewer things that actually work
+objections:
+- I already take a high-quality probiotic — why is this different from what I have
+  in my fridge right now
+- The trillion-bioactives claim sounds like the same CFU arms race repackaged — I've
+  heard the 'more potent' pitch before
+- If postbiotics are real, why has no one in my network talked about this yet — is
+  it actually emerging science or just new marketing language
+- I'm skeptical of any supplement brand that discovered a 'better way' — that's what
+  every probiotic brand said in 2015
+current_solutions:
+- Premium refrigerated probiotic (high CFU, multi-strain) taken consistently but without
+  measurable effect
+- Fermented foods — kefir, kimchi, sauerkraut — consumed deliberately as part of a
+  dietary protocol
+- Digestive enzymes as a separate stack item for meal-specific bloating
+- Elimination protocols (FODMAP, gluten-free, dairy-free) tried and partially sustained
+  with mixed results
+- Continuous glucose monitor or HRV tracking that flags gut-correlated symptoms without
+  offering a solution
+trigger_events:
+- Listens to a gut-brain axis episode on Huberman Lab or a functional medicine podcast
+  and hears postbiotics named as the mechanism underlying probiotic benefit — realizes
+  he has been supplementing the delivery vehicle, not the active compound
+- Does a self-audit of his supplement stack during a cost or complexity review and
+  confronts the fact that his probiotic has produced zero measurable change in HRV,
+  digestion logs, or subjective energy across twelve or more months of consistent
+  use
+- A peer in his health-curious network — a physician, dietitian, or fellow optimizer
+  — mentions postbiotics and he realizes this is a category he missed despite considering
+  himself early-informed on gut science
+- Reads a mechanism explanation on SecondKind's site or ad that articulates the viability
+  and colonization failure modes of probiotics in language precise enough that he
+  cannot dismiss it
+awareness_level: problem_aware
+language_patterns:
+- 'Mechanism-first — he leads with how things work, not how they feel: ''the viability
+  problem,'' ''downstream compounds,'' ''colonization resistance'''
+- 'Stack and protocol language: ''I added it to my morning stack,'' ''I''m cycling
+  off X,'' ''my baseline is already pretty dialed'''
+- 'Evidence register: ''Is there an RCT on this,'' ''what''s the study population,''
+  ''who funded the research'''
+- 'Quiet cynicism about category hype: ''I''ve heard this before,'' ''every brand
+  says that,'' ''sounds like marketing'''
+- Precision over hyperbole — distrusts words like 'game-changer,' 'transformative,'
+  'revolutionary'; responds to 'clinically studied,' 'patented complex,' 'bioavailable'
+psychology_profile: null
