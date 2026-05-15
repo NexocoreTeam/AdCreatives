@@ -51,6 +51,7 @@ def generate_briefs(
     winning_patterns: WinningPatterns | None = None,
     competitive_gaps: dict | None = None,
     use_profile: bool = True,
+    include_trending: bool = True,
 ) -> list[CreativeBrief]:
     """Generate a set of creative briefs for a product.
 
@@ -150,5 +151,20 @@ def generate_briefs(
             source_insight="angle_multiplier",
         )
         briefs.append(brief)
+
+    # Trending format recommendations (top 3) per brief — purely
+    # informational, attached to each brief. Safe-fails to empty list if the
+    # library is missing or LLM call errors. The image generation pipeline
+    # ignores this field; it only shows up in the brief notes header and
+    # the dashboard.
+    if include_trending:
+        try:
+            from strategy.trending import recommend_trending_formats_for_briefs
+            recs_by_id = recommend_trending_formats_for_briefs(briefs)
+            for b in briefs:
+                b.trending_format_recommendations = recs_by_id.get(b.brief_id, [])
+        except Exception:
+            for b in briefs:
+                b.trending_format_recommendations = []
 
     return briefs

@@ -132,3 +132,13 @@ class CreativeBrief(BaseModel):
         "Empty for briefs generated before naming integration; populated for "
         "every new brief via remix / generate flows.",
     )
+    trending_format_recommendations: list[dict] = Field(
+        default_factory=list,
+        description="Top 3 trending ad format recommendations from "
+        "trending_formats.yaml, scored against this brief's persona, "
+        "awareness, and angle by strategy/trending.py. Each entry: "
+        "{format_id, name, summary, format_type, production_complexity, "
+        "rank, rationale, production_notes}. Informational only — "
+        "suggests alternative video/static executions to try alongside the "
+        "primary ad. Empty if recommendation was skipped or unavailable.",
+    )

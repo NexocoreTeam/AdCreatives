@@ -1361,6 +1361,7 @@ def remix(
     output_root: Path | None = None,
     creative_direction: str = "",
     offer: str = "NONE",
+    include_trending: bool = True,
 ) -> dict:
     """Run the full remix pipeline.
 
@@ -1457,6 +1458,22 @@ def remix(
             # Brand.code missing — log once, leave campaign_name empty.
             naming_skipped_reason = str(exc)
             brief.campaign_name = ""
+
+    # Trending format recommendations (top 3) — purely informational, attached
+    # to each brief so operators can spin off video/static alternatives.
+    # Safe-fails to empty list if the library is missing or LLM call errors.
+    if include_trending:
+        try:
+            from strategy.trending import recommend_trending_formats_for_briefs
+            recs_by_id = recommend_trending_formats_for_briefs(briefs)
+            for brief in briefs:
+                brief.trending_format_recommendations = recs_by_id.get(
+                    brief.brief_id, []
+                )
+        except Exception:
+            # Don't let a trending failure block the remix — just skip.
+            for brief in briefs:
+                brief.trending_format_recommendations = []
 
     _save_analysis(out_dir, analysis)
     _save_briefs(out_dir, briefs)

@@ -1113,6 +1113,14 @@ def research(client: str, url: str, max_products: int, auto: bool):
     help="Skip the avatar's psychology_profile guardrails (filter + prompt block). "
     "Useful for before/after comparison.",
 )
+@click.option(
+    "--no-trending",
+    "no_trending",
+    is_flag=True,
+    default=False,
+    help="Skip the trending-format recommender. By default, every brief gets "
+    "top-3 trending alternatives attached (from trending_formats.yaml).",
+)
 def brief(
     client: str,
     product: str,
@@ -1120,6 +1128,7 @@ def brief(
     platform: str,
     avatar_name: str | None,
     ignore_psychology: bool,
+    no_trending: bool,
 ):
     """Generate creative briefs with messaging angles for a product.
 
@@ -1202,6 +1211,7 @@ def brief(
                 platform=platform,
                 winning_patterns=patterns,
                 use_profile=use_profile,
+                include_trending=not no_trending,
             )
         except ValueError as e:
             console.print(f"[red]{e}[/red]")
@@ -3335,6 +3345,14 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
     help="Offer code for the Meta ad naming taxonomy (slot 9). E.g. FREESHIP, "
     "BFCM25, 20OFF. Alphanumeric only, capped at 12 chars. Default NONE.",
 )
+@click.option(
+    "--no-trending",
+    "no_trending",
+    is_flag=True,
+    default=False,
+    help="Skip the trending-format recommender. By default each variation "
+    "brief gets top-3 trending alternatives attached.",
+)
 def remix(
     client: str,
     product: str,
@@ -3346,6 +3364,7 @@ def remix(
     medium_fidelity: int,
     creative_direction: str,
     offer: str,
+    no_trending: bool,
 ):
     """Reverse-engineer a reference ad and remix it for your product.
 
@@ -3384,6 +3403,7 @@ def remix(
             medium_fidelity=medium_fidelity,
             creative_direction=creative_direction,
             offer=offer,
+            include_trending=not no_trending,
         )
 
     analysis = result["analysis"]

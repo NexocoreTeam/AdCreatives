@@ -1136,6 +1136,27 @@ def _render_briefs_tab(selected):
                 st.markdown(f"**Awareness:** `{d.get('awareness_level', '—')}`")
                 st.caption(f"ID: `{d.get('brief_id', f.stem)}`")
 
+            # Trending format alternatives — separate row, full width.
+            trending = d.get("trending_format_recommendations") or []
+            if trending:
+                st.markdown("---")
+                st.markdown("**🔥 Trending format alternatives** (top 3)")
+                for rec in trending[:3]:
+                    rank = rec.get("rank", "?")
+                    name = rec.get("name", "—")
+                    fmt_type = rec.get("format_type", "—")
+                    complexity = rec.get("production_complexity", "—")
+                    rationale = rec.get("rationale", "")
+                    notes = rec.get("production_notes", "")
+                    st.markdown(
+                        f"**#{rank} — {name}**  "
+                        f"`{fmt_type}` · `{complexity}-complexity`"
+                    )
+                    if rationale:
+                        st.caption(f"_{rationale}_")
+                    if notes:
+                        st.caption(f"⚠️ {notes}")
+
 
 def _render_ads_tab(selected):
     """Show generated ad images, grouped by variant folder.
@@ -1518,6 +1539,30 @@ def _render_remix_tab(selected):
                     use_container_width=True,
                     key=f"remix_briefs_{run['timestamp']}",
                 )
+
+            # Trending alternatives — one row per brief, collapsed by default.
+            any_trending = any(
+                (b.get("trending_format_recommendations") or [])
+                for b in briefs
+            )
+            if any_trending:
+                with st.expander("🔥 Trending format alternatives (top 3 per brief)", expanded=False):
+                    for b in briefs:
+                        recs = b.get("trending_format_recommendations") or []
+                        if not recs:
+                            continue
+                        st.markdown(f"**{b.get('persona', '—')}** — `{b.get('brief_id', '?')[-6:]}`")
+                        for rec in recs[:3]:
+                            rank = rec.get("rank", "?")
+                            name = rec.get("name", "—")
+                            fmt_type = rec.get("format_type", "—")
+                            complexity = rec.get("production_complexity", "—")
+                            rationale = rec.get("rationale", "")
+                            st.markdown(
+                                f"  • **#{rank} {name}**  "
+                                f"`{fmt_type}` · `{complexity}-complexity` — {rationale}"
+                            )
+                        st.markdown("")
 
             st.markdown("---")
             if images:
