@@ -32,6 +32,36 @@ PROMPT_WRITER_SYSTEM = """You are an expert ad creative prompt engineer for Nano
 (Google's Gemini image generation model). You write prompts that produce
 ad-account-ready static images.
 
+NEAR-CLONE / TEXT INVENTORY RULE — ABSOLUTE PRIORITY:
+When the brief's VISUAL DIRECTION block is marked NEAR-CLONE or contains a
+"TEXT INVENTORY" clause, that block is the authoritative spec for the
+image. It overrides every other rule below — HERO-TEXT restraint,
+COMPOSITIONAL VARIETY, ENVIRONMENTAL CONTEXT choice, BRAND COMPONENT
+RESTRAINT, all of them.
+
+When NEAR-CLONE / TEXT INVENTORY applies:
+  1. Render EXACTLY the text elements listed in the TEXT INVENTORY.
+     Do not invent customer reviews, supporting headlines, subheaders,
+     "verified buyer" quotes, ratings text, badge text, brand taglines,
+     or wordmark labels that aren't on the list. If the inventory has
+     4 items, the final image has 4 text zones — not 5, not 3.
+  2. Replicate the reference's body language, pose, hand positions, and
+     prop placement VERBATIM. If the reference shows "person leaning on
+     counter with bottle in one hand and drink glass in the other," the
+     generated image MUST have both hands holding both objects in that
+     pose. Do not remove props, change pose to standing, or substitute
+     hand positions.
+  3. Strategic fields the brief also includes — BENEFIT CALLOUTS,
+     BODY COPY, supporting hooks, hook_source — are CONTEXT FOR YOU.
+     They are NEVER literal on-image text when NEAR-CLONE applies.
+  4. The reference's text count is a hard ceiling. If the reference has
+     ~3 visible text elements, you may not write a prompt that produces
+     5 — even if it would "look better." Restraint wins.
+
+You only relax this rule when the VISUAL DIRECTION says nothing about
+fidelity to a reference (i.e., the brief is generated from scratch, not
+remixed from an example). In that case, apply the standard rules below.
+
 CRITICAL RULES:
 1. Multiple images may be passed alongside your prompt. The FIRST attached
    image is the REAL PRODUCT — replicate its design, colors, text, graphics,
@@ -928,13 +958,42 @@ def infer_aspect_ratio(brief: CreativeBrief) -> str:
 
 
 def _build_brief_context(brief: CreativeBrief) -> str:
-    """Render the brief's strategic fields as a context block for the prompt writer."""
-    parts = [
+    """Render the brief's strategic fields as a context block for the prompt writer.
+
+    When the brief carries a NEAR-CLONE / TEXT INVENTORY directive in
+    `visual_direction`, that block is hoisted to the top of the context and
+    flagged as highest-priority, AND fields whose contents would otherwise
+    tempt the prompt-writer into adding extra on-image text (benefit_callouts,
+    body_copy) are suppressed. They remain in the brief for downstream uses;
+    they're just hidden from the prompt-writer LLM, which has a measurable
+    bias toward "render every string I see as image text."
+    """
+    vd = (brief.visual_direction or "").strip()
+    vd_upper = vd.upper()
+    is_near_clone = (
+        "NEAR-CLONE" in vd_upper
+        or "TEXT INVENTORY" in vd_upper
+    )
+
+    parts: list[str] = []
+
+    # NEAR-CLONE: hoist visual_direction to the top with a strong header so
+    # the prompt-writer can't miss it. The remaining strategic fields follow
+    # but with the noisy-for-rendering ones (benefit_callouts, body_copy)
+    # suppressed.
+    if is_near_clone and vd:
+        parts.append(
+            "VISUAL DIRECTION (NEAR-CLONE — VERBATIM ADHERENCE REQUIRED, "
+            "see NEAR-CLONE / TEXT INVENTORY RULE in system prompt):\n"
+            f"{vd}"
+        )
+
+    parts.extend([
         f"AWARENESS LEVEL: {brief.awareness_level.value}",
         f"FRAMEWORK: {brief.framework.value}",
         f"ANGLE: {brief.angle}",
         f"HOOK: {brief.hook}",
-    ]
+    ])
     if brief.hook_type:
         parts.append(f"HOOK TYPE: {brief.hook_type}")
     if brief.hook_tactic:
@@ -947,14 +1006,21 @@ def _build_brief_context(brief: CreativeBrief) -> str:
         parts.append(f"VISUAL FORMAT: {brief.visual_format}")
     if brief.pain_point:
         parts.append(f"PAIN POINT: {brief.pain_point}")
-    if brief.benefit_callouts:
+
+    # Benefit callouts and body copy: included normally for free-form ads, but
+    # SUPPRESSED for NEAR-CLONE so the prompt-writer doesn't render them as
+    # additional text overlays. The brief itself still carries them.
+    if brief.benefit_callouts and not is_near_clone:
         parts.append(f"BENEFIT CALLOUTS: {', '.join(brief.benefit_callouts)}")
     if brief.cta:
         parts.append(f"CTA: {brief.cta}")
-    if brief.body_copy:
+    if brief.body_copy and not is_near_clone:
         parts.append(f"BODY COPY: {brief.body_copy}")
-    if brief.visual_direction:
-        parts.append(f"VISUAL DIRECTION: {brief.visual_direction}")
+
+    # Non-clone case: append visual_direction inline as before.
+    if vd and not is_near_clone:
+        parts.append(f"VISUAL DIRECTION: {vd}")
+
     if brief.tone_override:
         parts.append(f"TONE OVERRIDE: {brief.tone_override}")
     return "\n".join(parts)
