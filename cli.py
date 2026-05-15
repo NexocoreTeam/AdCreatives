@@ -1136,12 +1136,14 @@ def brief(
       - Psychology profile (if avatar has one) -> filters slots + injects guardrails
       - Competitive gap map (if competitive-gaps.yaml exists) -> biases angles to exploit gaps
     """
+    import math
     import yaml as _yaml
     from models.avatar import CustomerAvatar
     from models.loader import (
         load_brand,
         load_product,
         load_avatar as _load_legacy_avatar,
+        load_all_avatars,
         load_winning_patterns,
         save_brief,
     )
@@ -1152,9 +1154,13 @@ def brief(
         prod = load_product(client, product)
         patterns = load_winning_patterns(client)
 
-        # Resolve avatar: explicit --avatar wins, then avatars/primary.yaml,
-        # then legacy avatar.yaml.
-        avatar_obj: CustomerAvatar | None = None
+        # Resolve avatars:
+        #   --avatar X        -> use exactly that one
+        #   (no flag)         -> use ALL avatars in clients/<slug>/avatars/,
+        #                         distributing the requested brief count across
+        #                         them. Falls back to legacy avatar.yaml if no
+        #                         avatars/ folder exists.
+        avatars: list[CustomerAvatar] = []
         avatar_source = ""
         if avatar_name:
             apath = Path("clients") / client / "avatars" / f"{avatar_name}.yaml"
@@ -1162,19 +1168,20 @@ def brief(
                 console.print(f"[red]Avatar '{avatar_name}' not found at {apath}[/red]")
                 raise SystemExit(1)
             with open(apath, encoding="utf-8") as fh:
-                avatar_obj = CustomerAvatar(**_yaml.safe_load(fh))
+                avatars = [CustomerAvatar(**_yaml.safe_load(fh))]
             avatar_source = str(apath)
         else:
-            primary = Path("clients") / client / "avatars" / "primary.yaml"
-            if primary.exists():
-                with open(primary, encoding="utf-8") as fh:
-                    avatar_obj = CustomerAvatar(**_yaml.safe_load(fh))
-                avatar_source = str(primary)
+            avatars = load_all_avatars(client)
+            if avatars:
+                names = ", ".join(a.name or "?" for a in avatars)
+                avatar_source = f"clients/{client}/avatars/ ({len(avatars)}: {names})"
             else:
-                avatar_obj = _load_legacy_avatar(client)
-                avatar_source = f"clients/{client}/avatar.yaml (legacy)"
+                legacy = _load_legacy_avatar(client)
+                if legacy:
+                    avatars = [legacy]
+                    avatar_source = f"clients/{client}/avatar.yaml (legacy)"
 
-    if not avatar_obj:
+    if not avatars:
         console.print(
             f"[yellow]No avatar found for '{client}'. "
             f"Run 'adc mine-voc' or create clients/{client}/avatar.yaml[/yellow]"
@@ -1183,42 +1190,57 @@ def brief(
 
     console.print(f"[dim]Avatar source: {avatar_source}[/dim]")
     use_profile = not ignore_psychology
-    if avatar_obj.psychology_profile and use_profile:
-        n_dom = len(avatar_obj.psychology_profile.dominant_heuristics)
-        n_pairings = len(avatar_obj.psychology_profile.recommended_prompt_pairings)
-        console.print(
-            f"[dim]Psychology profile applied: {n_dom} dominant heuristics, "
-            f"{n_pairings} recommended pairings.[/dim]"
-        )
-    elif avatar_obj.psychology_profile and ignore_psychology:
-        console.print(
-            "[yellow]Profile present but --ignore-psychology was set; skipping guardrails.[/yellow]"
-        )
-    else:
-        console.print(
-            "[yellow]No psychology profile on this avatar. "
-            "Run `adc profile-psychology` first for heuristic-aware angle generation.[/yellow]"
-        )
 
-    with console.status(f"Generating {angles} creative briefs..."):
-        try:
-            briefs = generate_briefs(
-                client_slug=client,
-                product=prod,
-                brand=brand,
-                avatar=avatar_obj,
-                count=angles,
-                platform=platform,
-                winning_patterns=patterns,
-                use_profile=use_profile,
-                include_trending=not no_trending,
+    # Distribute `angles` briefs across avatars as evenly as possible. With
+    # 9 angles across 4 avatars: ceil(9/4)=3 per avatar generated, then the
+    # combined list is truncated to 9. Extras land on the higher-priority
+    # avatars (primary first), which is the order load_all_avatars returns.
+    per_avatar = math.ceil(angles / len(avatars))
+
+    briefs: list = []
+    for av in avatars:
+        if av.psychology_profile and use_profile:
+            n_dom = len(av.psychology_profile.dominant_heuristics)
+            n_pairings = len(av.psychology_profile.recommended_prompt_pairings)
+            console.print(
+                f"[dim]  {av.name}: psychology profile applied "
+                f"({n_dom} heuristics, {n_pairings} pairings).[/dim]"
             )
-        except ValueError as e:
-            console.print(f"[red]{e}[/red]")
-            raise SystemExit(1)
+        elif av.psychology_profile and ignore_psychology:
+            console.print(
+                f"[yellow]  {av.name}: profile present but --ignore-psychology was set.[/yellow]"
+            )
+        else:
+            console.print(
+                f"[yellow]  {av.name}: no psychology profile. "
+                f"Run `adc profile-psychology --client {client} --avatar {av.name}` for heuristic-aware angles.[/yellow]"
+            )
+
+        with console.status(f"Generating {per_avatar} brief(s) for {av.name}..."):
+            try:
+                avatar_briefs = generate_briefs(
+                    client_slug=client,
+                    product=prod,
+                    brand=brand,
+                    avatar=av,
+                    count=per_avatar,
+                    platform=platform,
+                    winning_patterns=patterns,
+                    use_profile=use_profile,
+                    include_trending=not no_trending,
+                )
+            except ValueError as e:
+                console.print(f"[red]{e}[/red]")
+                raise SystemExit(1)
+        briefs.extend(avatar_briefs)
+
+    # Truncate to the requested count so 9 angles across 4 avatars yields
+    # exactly 9 briefs, not 12 (4 × ceil(9/4)).
+    briefs = briefs[:angles]
 
     table = Table(title=f"Creative Briefs - {brand.name} / {prod.name}")
     table.add_column("#", style="dim")
+    table.add_column("Persona", style="bold magenta", max_width=24)
     table.add_column("Hook", style="cyan", max_width=50)
     table.add_column("Angle", style="green", max_width=30)
     table.add_column("Framework", style="yellow")
@@ -1226,14 +1248,14 @@ def brief(
 
     for i, b in enumerate(briefs, 1):
         save_brief(client, b)
-        table.add_row(str(i), b.hook, b.angle, b.framework.value, b.brief_id)
+        table.add_row(str(i), b.persona or "—", b.hook, b.angle, b.framework.value, b.brief_id)
 
     console.print(table)
     console.print(f"\n[green]Saved {len(briefs)} briefs to clients/{client}/briefs/[/green]")
     console.print(f"\n[green]Next:[/green] adc menu --client {client}")
 
     from strategy.cost_tracker import log_cost
-    log_cost(client, "adc brief", note=f"{len(briefs)} briefs for {product}")
+    log_cost(client, "adc brief", note=f"{len(briefs)} briefs across {len(avatars)} avatar(s) for {product}")
 
 
 # ─── Show Prompt Template ────────────────────────────────────────────────────

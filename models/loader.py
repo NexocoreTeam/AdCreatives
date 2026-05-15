@@ -76,6 +76,41 @@ def load_avatar(client_slug: str) -> CustomerAvatar | None:
     return CustomerAvatar(**_load_yaml(path))
 
 
+# Canonical role ordering for the per-client `avatars/` folder. Anything not
+# in this list (e.g. a custom slug like "switcher.yaml") sorts after the
+# known roles, alphabetically by filename.
+_AVATAR_ROLE_ORDER = ("primary", "secondary", "tertiary", "quaternary", "quinary")
+
+
+def load_all_avatars(client_slug: str) -> list[CustomerAvatar]:
+    """Load every avatar in `clients/{slug}/avatars/`, ordered by role.
+
+    Skips index/private files (anything beginning with `_`). If the
+    directory doesn't exist or is empty, returns []. Callers can then
+    fall back to the legacy `load_avatar()` (single `avatar.yaml`) if
+    they need to support older client folders.
+    """
+    avatars_dir = CLIENTS_DIR / client_slug / "avatars"
+    if not avatars_dir.exists():
+        return []
+
+    paths = [
+        p for p in avatars_dir.glob("*.yaml")
+        if not p.name.startswith("_")
+    ]
+    if not paths:
+        return []
+
+    def _sort_key(p: Path) -> tuple[int, str]:
+        stem = p.stem.lower()
+        if stem in _AVATAR_ROLE_ORDER:
+            return (_AVATAR_ROLE_ORDER.index(stem), stem)
+        return (len(_AVATAR_ROLE_ORDER), stem)
+
+    paths.sort(key=_sort_key)
+    return [CustomerAvatar(**_load_yaml(p)) for p in paths]
+
+
 def save_avatar(client_slug: str, avatar: CustomerAvatar, backup: bool = True) -> Path:
     """Save an avatar to disk. Backs up the existing file to avatar.yaml.bak by default."""
     import shutil
