@@ -2,9 +2,27 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import yaml
+
+
+# Characters forbidden in Windows filenames + ones that produce unfriendly paths.
+# Forward slash and backslash are particularly important — they create accidental
+# subdirectories that don't exist and crash file writes.
+_BRIEF_ID_BAD_CHARS = re.compile(r'[\\/:*?"<>|+,]')
+
+
+def _sanitize_brief_id(brief_id: str) -> str:
+    """Make a brief_id safe to use as a filename across Windows + Unix.
+
+    Replaces filesystem-invalid characters with hyphens, collapses runs of
+    hyphens, and strips leading/trailing punctuation. Idempotent.
+    """
+    safe = _BRIEF_ID_BAD_CHARS.sub("-", brief_id)
+    safe = re.sub(r"-+", "-", safe)
+    return safe.strip("-.")
 
 from models.avatar import CustomerAvatar
 from models.brand import Brand
@@ -150,10 +168,16 @@ def save_winning_patterns(client_slug: str, patterns: WinningPatterns) -> None:
 def save_brief(client_slug: str, brief: CreativeBrief) -> Path:
     dir_path = CLIENTS_DIR / client_slug / "briefs"
     dir_path.mkdir(parents=True, exist_ok=True)
-    path = dir_path / f"{brief.brief_id}.yaml"
+    # Sanitize the brief_id for the filename AND the persisted YAML field, so
+    # the on-disk name and the in-file identifier stay in sync. The input brief
+    # object is not mutated — we operate on the dumped dict.
+    safe_id = _sanitize_brief_id(brief.brief_id)
+    data = brief.model_dump(mode="json")
+    data["brief_id"] = safe_id
+    path = dir_path / f"{safe_id}.yaml"
     with open(path, "w", encoding="utf-8") as f:
         yaml.dump(
-            brief.model_dump(mode="json"),
+            data,
             f,
             default_flow_style=False,
             sort_keys=False,
@@ -162,7 +186,10 @@ def save_brief(client_slug: str, brief: CreativeBrief) -> Path:
 
 
 def load_brief(client_slug: str, brief_id: str) -> CreativeBrief:
-    path = CLIENTS_DIR / client_slug / "briefs" / f"{brief_id}.yaml"
+    # Defensive: sanitize incoming id the same way save_brief does, so callers
+    # passing the raw LLM-generated id still resolve to the on-disk file.
+    safe_id = _sanitize_brief_id(brief_id)
+    path = CLIENTS_DIR / client_slug / "briefs" / f"{safe_id}.yaml"
     if not path.exists():
         raise FileNotFoundError(f"Brief not found: {path}")
     return CreativeBrief(**_load_yaml(path))
