@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import hashlib
-from datetime import date
+import secrets
+from datetime import datetime
 
 from models.avatar import CustomerAvatar
 from models.brand import Brand
@@ -18,9 +19,26 @@ from strategy.awareness_mapper import (
 )
 
 
-def _make_brief_id(client: str, product: str, index: int) -> str:
-    """Generate a short unique brief ID."""
-    seed = f"{client}-{product}-{date.today().isoformat()}-{index}"
+def _make_brief_id(client: str, product: str, index: int, *, avatar: str = "") -> str:
+    """Generate a short, run-unique brief ID.
+
+    The hash incorporates:
+      - The avatar name, so auto-spread across multiple avatars in one
+        run produces distinct IDs (was previously colliding because each
+        per-avatar call to `generate_briefs` restarted indexing at 0).
+      - A microsecond-precision timestamp, so re-runs on the same day
+        accumulate briefs instead of overwriting each other (was
+        previously keyed on `date.today()` only, which meant indices
+        0..N collided across every same-day run).
+      - 4 bytes of secrets-grade randomness as a final tie-breaker for
+        rapid-fire calls that share a microsecond.
+
+    The visible ID shape (`<client>-<product>-<hash>`) is unchanged, so
+    downstream code that pattern-matches on it keeps working.
+    """
+    ts = datetime.now().isoformat()  # includes microseconds
+    nonce = secrets.token_hex(4)
+    seed = f"{client}-{product}-{avatar}-{ts}-{index}-{nonce}"
     short_hash = hashlib.sha256(seed.encode()).hexdigest()[:6]
     return f"{client}-{product}-{short_hash}"
 
@@ -127,7 +145,12 @@ def generate_briefs(
         alternatives = [a for a in alt_raw if isinstance(a, str) and a.strip()]
 
         brief = CreativeBrief(
-            brief_id=_make_brief_id(client_slug, product.name.lower().replace(" ", "-"), i),
+            brief_id=_make_brief_id(
+                client_slug,
+                product.name.lower().replace(" ", "-"),
+                i,
+                avatar=(avatar.name or "").lower().replace(" ", "-"),
+            ),
             client=client_slug,
             product=product.name,
             awareness_level=awareness,
