@@ -123,3 +123,12 @@ class CreativeBrief(BaseModel):
         description="What inspired this brief: 'voc_mining', 'competitor_analysis', "
         "'winning_pattern', 'manual'",
     )
+    campaign_name: str = Field(
+        default="",
+        description="Meta ad campaign name built via strategy/naming.py. "
+        "Format: [Brand]_[Persona]_[Angle]_[Format]_[Style]_[Source]_[Hook]_"
+        "[Copy]_[Offer]_[Iteration]_[Date] — e.g. "
+        "'SK_ProbioticBurnedPaige_Testimonial_UGC_Venn_Remix_H22_C00_NONE_V1_260515'. "
+        "Empty for briefs generated before naming integration; populated for "
+        "every new brief via remix / generate flows.",
+    )

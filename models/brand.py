@@ -52,6 +52,13 @@ class AudienceProfile(BaseModel):
 
 class Brand(BaseModel):
     name: str = Field(description="Brand/company name")
+    code: str = Field(
+        default="",
+        description="Short alphanumeric brand code used as Slot 1 of the Meta "
+        "ad naming taxonomy (e.g. 'SK' for SecondKind, 'OP' for Olipop). "
+        "2-6 chars, no spaces or punctuation. Required when generating campaign "
+        "names — `strategy/naming.py:build_campaign_name` raises if empty.",
+    )
     colors: ColorPalette = Field(default_factory=ColorPalette)
     typography: Typography = Field(default_factory=Typography)
     visual_identity: VisualIdentity = Field(default_factory=VisualIdentity)

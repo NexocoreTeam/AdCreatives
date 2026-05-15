@@ -1414,6 +1414,18 @@ def _render_remix_tab(selected):
             ),
         )
 
+        offer_key = f"remix_offer_{selected}"
+        offer_input = st.text_input(
+            "Offer code (optional, slot 9 of the naming taxonomy)",
+            value="NONE",
+            key=offer_key,
+            placeholder="e.g. FREESHIP, BFCM25, 20OFF",
+            help=(
+                "Promo code that appears in the campaign name (slot 9). "
+                "Alphanumeric only, capped at 12 chars. Use 'NONE' for ads without an offer."
+            ),
+        )
+
         ready = (ref_path is not None) or bool(foreplay_ref)
         if not ready:
             st.info("Upload an image or paste a Foreplay URL/ID to continue.")
@@ -1431,6 +1443,7 @@ def _render_remix_tab(selected):
                     "--variations", str(int(variations)),
                     "--high-fidelity", str(int(high_fidelity)),
                     "--medium-fidelity", str(int(medium_fidelity)),
+                    "--offer", offer_input.strip() or "NONE",
                 ]
                 if creative_direction.strip():
                     args += ["--creative-direction", creative_direction.strip()]
@@ -1558,6 +1571,23 @@ def _render_remix_tab(selected):
                                     st.caption(suffix)
                                 else:
                                     st.caption("Original")
+                                # Show Meta campaign name from the per-image
+                                # sidecar (preferred — has correct iteration)
+                                # or fall back to the brief's V1 name.
+                                sidecar = img.with_name(img.stem + "_campaign.txt")
+                                campaign_text = ""
+                                if sidecar.exists():
+                                    try:
+                                        campaign_text = sidecar.read_text(
+                                            encoding="utf-8"
+                                        ).strip()
+                                    except OSError:
+                                        campaign_text = ""
+                                if not campaign_text:
+                                    brief_obj = briefs_by_id.get(bid, {})
+                                    campaign_text = brief_obj.get("campaign_name", "") or ""
+                                if campaign_text:
+                                    st.code(campaign_text, language=None)
 
                     # Per-brief refinement form
                     if bid != "__unmatched__":
@@ -2168,11 +2198,23 @@ def _render_actions_tab(selected):
             ),
         )
 
+        gen_offer = st.text_input(
+            "Offer code (slot 9 of the naming taxonomy)",
+            value="NONE",
+            key="generate_offer",
+            placeholder="e.g. FREESHIP, BFCM25, 20OFF",
+            help=(
+                "Promo code that appears in the campaign name (slot 9). "
+                "Alphanumeric only, capped at 12 chars. Use 'NONE' for ads without an offer."
+            ),
+        )
+
         if st.button("🖼️ Generate images for picks",
                      use_container_width=True, type="primary",
                      disabled=not picks.strip()):
             args = ["generate", "--client", selected, "--pick", picks.strip(),
-                    "--num-images", str(int(num_images))]
+                    "--num-images", str(int(num_images)),
+                    "--offer", gen_offer.strip() or "NONE"]
             if include_alts:
                 args.append("--include-alternates")
             if reference_mode.startswith("Manual") and chosen_template_id:

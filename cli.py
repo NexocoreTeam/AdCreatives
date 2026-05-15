@@ -2922,6 +2922,8 @@ def _format_notes_header(
     else:
         lines.append("Product images:  (none — add image_url or image_path to the product YAML)")
     lines.append(f"Generated:       {date.today().isoformat()}")
+    if getattr(brief, "campaign_name", ""):
+        lines.append(f"Campaign name:   {brief.campaign_name}")
     lines.append("***** END NOTES *****")
     return "\n".join(lines)
 
@@ -2948,7 +2950,14 @@ def _collect_product_image_refs(product, client_slug: str) -> list[str]:
     "Example: 'two callouts in primary brand color + accent, text bubble at top'. "
     "Becomes the highest-priority constraint in the NB2 prompt-writer.",
 )
-def prompts(client: str, pick: str, product: str | None, creative_direction: str):
+@click.option(
+    "--offer",
+    default="NONE",
+    show_default=True,
+    help="Offer code for the Meta ad naming taxonomy (slot 9). E.g. FREESHIP, "
+    "BFCM25, 20OFF. Alphanumeric only, capped at 12 chars. Default NONE.",
+)
+def prompts(client: str, pick: str, product: str | None, creative_direction: str, offer: str):
     """Generate fal.ai prompts for the briefs you picked off `adc menu`."""
     from models.loader import (
         load_all_briefs,
@@ -2993,6 +3002,20 @@ def prompts(client: str, pick: str, product: str | None, creative_direction: str
         aspect_ratio = infer_aspect_ratio(brief)
         image_refs = _collect_product_image_refs(prod, client)
 
+        # Build campaign_name eagerly so it lands in the notes header and a sidecar.
+        if not brief.campaign_name:
+            try:
+                from strategy.naming import build_campaign_name
+                brief.campaign_name = build_campaign_name(
+                    brief,
+                    brand,
+                    offer=offer,
+                    iteration=1,
+                    source="AI",
+                )
+            except (ValueError, Exception):
+                pass  # brand.code missing → continue without name
+
         with console.status(f"Writing prompt for slot {brief.slot} — {brief.brief_id[-6:]}..."):
             prompt_text = prompt_from_brief(
                 brief=brief,
@@ -3006,6 +3029,11 @@ def prompts(client: str, pick: str, product: str | None, creative_direction: str
         notes = _format_notes_header(brief, prod, aspect_ratio, image_refs)
         out_path = out_dir / f"{brief.brief_id}.txt"
         out_path.write_text(notes + "\n\n" + prompt_text + "\n", encoding="utf-8")
+        # Sidecar for easy copy/paste into Meta Ads Manager.
+        if brief.campaign_name:
+            (out_dir / f"{brief.brief_id}_campaign.txt").write_text(
+                brief.campaign_name + "\n", encoding="utf-8"
+            )
         console.print(f"[green]\\[OK][/green] {out_path}")
 
     console.print(
@@ -3051,10 +3079,17 @@ def prompts(client: str, pick: str, product: str | None, creative_direction: str
     "Example: 'two callouts in primary brand color + accent, text bubble at top'. "
     "Becomes the highest-priority constraint in the NB2 prompt-writer.",
 )
+@click.option(
+    "--offer",
+    default="NONE",
+    show_default=True,
+    help="Offer code for the Meta ad naming taxonomy (slot 9). E.g. FREESHIP, "
+    "BFCM25, 20OFF. Alphanumeric only, capped at 12 chars. Default NONE.",
+)
 def generate(client: str, pick: str, product: str | None, num_images: int,
              aspect_ratio: str | None, thinking: str,
              include_alternates: bool, reference_template_id: str | None,
-             creative_direction: str):
+             creative_direction: str, offer: str):
     """Generate finished ad images for picked briefs — writes prompts AND calls fal.ai."""
     from models.loader import (
         load_all_briefs,
@@ -3190,6 +3225,7 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
                     aspect_ratio=ar,
                     thinking_level=thinking,
                     creative_direction=creative_direction,
+                    offer=offer,
                 )
             else:
                 prompt_text, results = generate_from_brief(
@@ -3203,6 +3239,7 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
                     aspect_ratio=ar,
                     thinking_level=thinking,
                     creative_direction=creative_direction,
+                    offer=offer,
                 )
 
         local_paths = [str(r.local_path) for r in results if r.local_path]
@@ -3291,6 +3328,13 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
     "Example: 'two callouts in primary brand color + accent, text bubble at top'. "
     "Becomes the highest-priority constraint in the NB2 prompt-writer.",
 )
+@click.option(
+    "--offer",
+    default="NONE",
+    show_default=True,
+    help="Offer code for the Meta ad naming taxonomy (slot 9). E.g. FREESHIP, "
+    "BFCM25, 20OFF. Alphanumeric only, capped at 12 chars. Default NONE.",
+)
 def remix(
     client: str,
     product: str,
@@ -3301,6 +3345,7 @@ def remix(
     high_fidelity: int,
     medium_fidelity: int,
     creative_direction: str,
+    offer: str,
 ):
     """Reverse-engineer a reference ad and remix it for your product.
 
@@ -3338,6 +3383,7 @@ def remix(
             high_fidelity=high_fidelity,
             medium_fidelity=medium_fidelity,
             creative_direction=creative_direction,
+            offer=offer,
         )
 
     analysis = result["analysis"]

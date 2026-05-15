@@ -1,4 +1,5 @@
 name: SecondKind
+code: SK
 colors:
   primary: '#1c1917'      # Black - signature serif headlines, body text
   secondary: '#d2d2cd'    # Light Grey - supporting neutral

@@ -1342,8 +1342,10 @@ def _format_remix_notes(
         f"Model:           fal-ai/nano-banana-2/edit",
         f"Source:          {analysis.source_type} ({analysis.source_ref})",
         f"Generated:       {datetime.now().date().isoformat()}",
-        "***** END NOTES *****",
     ]
+    if brief.campaign_name:
+        lines.append(f"Campaign name:   {brief.campaign_name}")
+    lines.append("***** END NOTES *****")
     return "\n".join(lines)
 
 
@@ -1358,6 +1360,7 @@ def remix(
     medium_fidelity: int = 2,
     output_root: Path | None = None,
     creative_direction: str = "",
+    offer: str = "NONE",
 ) -> dict:
     """Run the full remix pipeline.
 
@@ -1428,6 +1431,32 @@ def remix(
                 index=i,
             )
         )
+
+    # Build campaign_name per brief BEFORE saving briefs.yaml so it
+    # round-trips through disk. Iteration is always V1 at this step
+    # (V2+ come from refinements). Date uses the run timestamp so all
+    # variations in a remix run share a consistent date.
+    from strategy.naming import build_campaign_name
+    try:
+        run_date_dt = datetime.strptime(timestamp, "%Y-%m-%d_%H%M%S")
+    except ValueError:
+        run_date_dt = datetime.now()
+    naming_skipped_reason = ""
+    for brief in briefs:
+        try:
+            brief.campaign_name = build_campaign_name(
+                brief,
+                brand,
+                analysis=analysis,
+                offer=offer,
+                iteration=1,
+                date=run_date_dt,
+                source="Remix",
+            )
+        except ValueError as exc:
+            # Brand.code missing — log once, leave campaign_name empty.
+            naming_skipped_reason = str(exc)
+            brief.campaign_name = ""
 
     _save_analysis(out_dir, analysis)
     _save_briefs(out_dir, briefs)
@@ -1557,9 +1586,17 @@ def generate_remix_images(
             num_images=num_images,
             thinking_level=thinking_level,
         )
+        # Write a sidecar <stem>_campaign.txt next to each image with the
+        # brief's campaign_name. Operators copy this into Meta Ads Manager.
+        campaign_name = brief_data.get("campaign_name") or ""
         for r in results:
             if r.local_path:
                 saved_paths.append(r.local_path)
+                if campaign_name:
+                    sidecar = r.local_path.with_name(
+                        r.local_path.stem + "_campaign.txt"
+                    )
+                    sidecar.write_text(campaign_name + "\n", encoding="utf-8")
 
     return saved_paths
 
@@ -1960,6 +1997,35 @@ def refine_image(
         thinking_level=thinking_level,
     )
 
+    # Build a new campaign_name for this refinement — iteration bumps to
+    # the new version, date refreshes, everything else stays the same.
+    new_campaign_name = ""
+    if brand is not None:
+        try:
+            from models.brief import CreativeBrief
+            from strategy.naming import build_campaign_name
+            # Reconstruct a CreativeBrief from the dict so naming helpers work.
+            brief_obj = CreativeBrief(**brief)
+            # Carry forward the offer slot from the original campaign name
+            # if present (slot 9, 0-indexed slot 8).
+            existing_name = brief.get("campaign_name", "") or ""
+            existing_parts = existing_name.split("_") if existing_name else []
+            carried_offer = (
+                existing_parts[8]
+                if len(existing_parts) >= 11
+                else "NONE"
+            )
+            new_campaign_name = build_campaign_name(
+                brief_obj,
+                brand,
+                offer=carried_offer,
+                iteration=version,
+                date=datetime.now(),
+                source="Remix",
+            )
+        except (ValueError, Exception):
+            new_campaign_name = ""
+
     saved_paths: list[Path] = []
     from generators.fal_client import download_image
 
@@ -1972,6 +2038,9 @@ def refine_image(
         local_path = download_image(result.image_url, images_dir / filename)
         result.local_path = local_path
         saved_paths.append(local_path)
+        if new_campaign_name:
+            sidecar = local_path.with_name(local_path.stem + "_campaign.txt")
+            sidecar.write_text(new_campaign_name + "\n", encoding="utf-8")
 
     refined_prompt_path = remix_path / "prompts" / f"{brief_id}_v{version}.txt"
     refined_prompt_path.write_text(

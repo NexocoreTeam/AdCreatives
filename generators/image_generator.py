@@ -517,6 +517,7 @@ def generate_from_brief(
     use_references: bool = True,
     force_multi_ref: bool = False,
     creative_direction: str = "",
+    offer: str = "NONE",
 ) -> tuple[str, list[GenerationResult]]:
     """Take a CreativeBrief, write the prompt with prompt_from_brief(), then
     generate the image(s) with Nano Banana 2 using the product's real images.
@@ -539,6 +540,22 @@ def generate_from_brief(
     # template and run art-directed single-ref mode (no averaging). Set
     # `force_multi_ref=True` to override and use the legacy multi-reference
     # averaging behavior.
+    # Build campaign_name eagerly so the prompt notes header includes it
+    # and we can write a sidecar next to each generated image.
+    if not getattr(brief, "campaign_name", ""):
+        try:
+            from strategy.naming import build_campaign_name
+            brief.campaign_name = build_campaign_name(
+                brief,
+                brand,
+                offer=offer,
+                iteration=1,
+                source="AI",
+            )
+        except (ValueError, Exception):
+            # Brand.code missing or naming module error — leave empty.
+            pass
+
     if use_references and not force_multi_ref and client_slug:
         auto_pick = _auto_pick_best_template(brief, client_slug)
         if auto_pick is not None:
@@ -556,6 +573,7 @@ def generate_from_brief(
                 aspect_ratio=aspect_ratio,
                 thinking_level=thinking_level,
                 creative_direction=creative_direction,
+                offer=offer,
             )
 
     # ─── Multi-reference fallback (legacy behavior) ───
@@ -661,7 +679,26 @@ def generate_from_brief(
         thinking_level=thinking_level,
     )
 
+    # Write a sidecar <stem>_campaign.txt next to each generated image so
+    # operators can copy/paste the full taxonomy name into Meta Ads Manager.
+    _write_campaign_sidecars(results, getattr(brief, "campaign_name", ""))
+
     return prompt, results
+
+
+def _write_campaign_sidecars(results: list[GenerationResult], campaign_name: str) -> None:
+    """Write `<image_stem>_campaign.txt` next to each saved image.
+    No-op if campaign_name is empty (e.g. brand.code missing)."""
+    if not campaign_name:
+        return
+    for r in results:
+        if r.local_path is None:
+            continue
+        sidecar = r.local_path.with_name(r.local_path.stem + "_campaign.txt")
+        try:
+            sidecar.write_text(campaign_name + "\n", encoding="utf-8")
+        except OSError:
+            pass
 
 
 # ─── Single-reference, single-template mode (art-directed) ───────────────────
@@ -680,6 +717,7 @@ def generate_from_brief_and_template(
     aspect_ratio: str | None = None,
     thinking_level: str = "disabled",
     creative_direction: str = "",
+    offer: str = "NONE",
 ) -> tuple[str, list[GenerationResult]]:
     """ART-DIRECTED generation: one brief + one extracted template + one
     reference image. No swipe library, no template averaging, no Nanobana
@@ -752,6 +790,20 @@ def generate_from_brief_and_template(
     # Exactly 2 images to NB2: [product, reference] — no aggregation
     image_urls = product_urls + [reference_url]
 
+    # Build campaign_name if not already set
+    if not getattr(brief, "campaign_name", ""):
+        try:
+            from strategy.naming import build_campaign_name
+            brief.campaign_name = build_campaign_name(
+                brief,
+                brand,
+                offer=offer,
+                iteration=1,
+                source="AI",
+            )
+        except (ValueError, Exception):
+            pass
+
     results = generate_and_save(
         prompt=prompt,
         product_image_urls=image_urls,
@@ -761,5 +813,7 @@ def generate_from_brief_and_template(
         num_images=num_images,
         thinking_level=thinking_level,
     )
+
+    _write_campaign_sidecars(results, getattr(brief, "campaign_name", ""))
 
     return prompt, results
