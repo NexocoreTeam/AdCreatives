@@ -182,7 +182,7 @@ trending_formats:
       - Enumerated bullet points
       - Multiple creator perspectives (same script, different faces)
       - Optional negative marketing wrapper
-    hook_pattern: "[N] reasons why [insight]" / "[N] things I wish I knew before [X]"
+    hook_pattern: '[N] reasons why [insight]  OR  [N] things I wish I knew before [X]'
     best_when:
       awareness_levels: [problem_aware, solution_aware, product_aware]
       persona_types: [educational-seekers, methodical-buyers, deal-hunters]
@@ -206,7 +206,7 @@ trending_formats:
       - Rant / monologue / "real talk" register
       - Optional captions only (no graphic text overlays)
       - Creator personality is the hero, not the script
-    hook_pattern: "[Audience callout]. Real talk:..." / "Yo, [audience], let's talk."
+    hook_pattern: '[Audience callout]. Real talk:...  OR  Yo, [audience], let''s talk.'
     best_when:
       awareness_levels: [problem_aware, solution_aware]
       persona_types: [community-driven, parasocial, creator-trusting]
