@@ -3873,8 +3873,10 @@ def remix_images(
         if engine == "higgsfield-soul"
         else "fal.ai Nano Banana 2"
     )
+    fallback_label = f" (fallback: {fallback_engine})" if fallback_engine else ""
     with console.status(
-        f"Generating {num_images} image(s) per brief — firing {engine_label}..."
+        f"Generating {num_images} image(s) per brief — firing "
+        f"{engine_label}{fallback_label}..."
     ):
         paths = generate_remix_images(
             remix_dir=remix_dir,
@@ -3882,18 +3884,28 @@ def remix_images(
             thinking_level=thinking,
             aspect_ratio=aspect_ratio,
             engine=engine,
+            fallback_engine=fallback_engine,
         )
 
-    console.print(f"\n[green]Generated {len(paths)} image(s) via {engine_label}:[/green]")
-    for p in paths:
-        console.print(f"  {p}")
+    if paths:
+        console.print(f"\n[green]Generated {len(paths)} image(s) via {engine_label}:[/green]")
+        for p in paths:
+            console.print(f"  {p}")
+    else:
+        console.print(
+            f"\n[red]Generated 0 image(s).[/red] "
+            f"{engine_label} produced no output and the fallback "
+            f"({fallback_engine or 'none configured'}) did not recover. "
+            f"Check the per-brief errors above for the root cause."
+        )
 
     if client_slug:
         log_cost(
             client_slug,
             "adc remix-images",
             multiplier=len(paths),
-            note=f"{len(paths)} image(s) from {rd.name} via {engine}",
+            note=f"{len(paths)} image(s) from {rd.name} via {engine}"
+            + (f" (fallback: {fallback_engine})" if fallback_engine else ""),
         )
 
 

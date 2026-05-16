@@ -89,13 +89,40 @@ def _subscribe(endpoint: str, body: dict, with_polling: bool = True) -> dict:
       queued, in_progress  → continue polling
       completed            → return (success)
       failed, nsfw         → return (caller checks status)
+
+    Handles HF's 4-concurrent-request cap by sleeping and retrying up to
+    3 times with backoff. Server-side job slots free up as previous jobs
+    complete, so a short wait + retry usually unsticks a queued run.
     """
     url = f"{HF_BASE_URL}{endpoint if endpoint.startswith('/') else '/' + endpoint}"
     with httpx.Client(timeout=HF_REQUEST_TIMEOUT) as client:
-        try:
-            r = client.post(url, json=body, headers=_headers())
-        except httpx.HTTPError as e:
-            raise HiggsfieldError(f"POST {url} failed: {e}") from e
+        # Submit POST with retries for the concurrent-limit case. Each
+        # backoff doubles roughly. HF's slots free up as previous jobs in
+        # the same account finish polling.
+        max_concurrent_retries = 3
+        for attempt in range(max_concurrent_retries + 1):
+            try:
+                r = client.post(url, json=body, headers=_headers())
+            except httpx.HTTPError as e:
+                raise HiggsfieldError(f"POST {url} failed: {e}") from e
+
+            # Concurrent-limit 400 → sleep + retry, don't raise yet.
+            if (
+                r.status_code == 400
+                and "concurrent" in r.text.lower()
+                and attempt < max_concurrent_retries
+            ):
+                wait_s = 10 * (attempt + 1)  # 10, 20, 30 seconds
+                print(
+                    f"  [hf] concurrent-request cap hit ({r.text[:120]}). "
+                    f"Sleeping {wait_s}s then retrying (attempt "
+                    f"{attempt + 2}/{max_concurrent_retries + 1})...",
+                    flush=True,
+                )
+                time.sleep(wait_s)
+                continue
+
+            break  # any non-concurrent response, or final retry exhausted
 
         if r.status_code == 401:
             raise HiggsfieldError(
@@ -113,13 +140,37 @@ def _subscribe(endpoint: str, body: dict, with_polling: bool = True) -> dict:
             )
 
         response = r.json()
-        if not with_polling or "request_id" not in response:
+        if not with_polling:
             return response
-        return _poll(client, response["request_id"])
+        # HF's POST response uses `id` for the request identifier in the
+        # current API; older shapes used `request_id`. Accept both — if
+        # neither is present we can't poll, so we return as-is and the
+        # caller will fail at the URL-extraction step.
+        request_id = response.get("id") or response.get("request_id")
+        if not request_id:
+            return response
+        return _poll(client, request_id)
+
+
+_TERMINAL_JOB_STATUSES = {"completed", "failed", "nsfw"}
 
 
 def _poll(client: httpx.Client, request_id: str) -> dict:
-    """Poll /requests/{request_id}/status until status is terminal."""
+    """Poll /requests/{request_id}/status until every job inside reaches a
+    terminal status.
+
+    HF's current response shape places `status` on each entry in `jobs[]`
+    rather than at the request root. Earlier shapes used a top-level
+    `status` field; we honor both to stay forward/back-compatible:
+
+      - If `jobs[]` exists: terminal when EVERY job's status is in
+        {completed, failed, nsfw}.
+      - Otherwise: terminal when the top-level `status` is in that set.
+
+    Polling without inspecting jobs[] was the previous bug: the request
+    has no top-level status, so the loop would have polled forever — but
+    even worse, `_subscribe` was skipping polling entirely because it
+    checked `"request_id" not in response` and the current API uses `id`."""
     start = time.time()
     poll_url = f"{HF_BASE_URL}/requests/{request_id}/status"
     while True:
@@ -144,9 +195,20 @@ def _poll(client: httpx.Client, request_id: str) -> dict:
             )
 
         data = r.json()
-        status = data.get("status")
-        if status in ("completed", "failed", "nsfw"):
-            return data
+
+        # New shape: check jobs[].status. Request is done when every job
+        # reaches a terminal state.
+        jobs = data.get("jobs", []) or []
+        if jobs and all(isinstance(j, dict) for j in jobs):
+            job_statuses = [(j.get("status") or "").lower() for j in jobs]
+            if all(s in _TERMINAL_JOB_STATUSES for s in job_statuses):
+                return data
+        else:
+            # Legacy shape: top-level status.
+            status = (data.get("status") or "").lower()
+            if status in _TERMINAL_JOB_STATUSES:
+                return data
+
         # queued / in_progress / anything else — keep polling
         time.sleep(HF_POLL_INTERVAL)
 
@@ -237,32 +299,60 @@ def _v1_quality_enum(quality: str) -> str:
 
 
 def extract_result_urls(response: dict) -> list[str]:
-    """Pull image URLs from a completed soul_2 response.
+    """Pull image URLs from a completed soul_2 / nano_banana_2 response.
 
-    Higgs Field response shapes seen in the wild (handled defensively):
-      response["jobs"][i]["results"]["raw"]["url"]
-      response["results"][i]["url"]
-      response["result_url"]
+    The current HF REST shape (confirmed by dumping a real polled response
+    on 2026-05-16) returns:
+
+        {
+          "status": "completed",
+          "request_id": "...",
+          "status_url": "...",
+          "cancel_url": "...",
+          "images": [ { "url": "https://..." }, ... ]
+        }
+
+    Earlier shapes are kept as defensive fallbacks in case HF rolls back
+    or returns a different envelope for some job types.
     """
     urls: list[str] = []
-    # Shape 1: jobs[].results.raw.url
+
+    # Shape 1 (CURRENT API): images[].url — this is what we actually get
+    for img in response.get("images", []) or []:
+        if isinstance(img, dict) and img.get("url"):
+            urls.append(img["url"])
+        elif isinstance(img, str):  # defensive: bare URL strings
+            urls.append(img)
+    if urls:
+        return urls
+
+    # Shape 2 (job-list view from `higgsfield generate list`): jobs[].result_url
     for job in response.get("jobs", []) or []:
+        if not isinstance(job, dict):
+            continue
         url = (
-            ((job.get("results") or {}).get("raw") or {}).get("url")
+            job.get("result_url")
+            or ((job.get("results") or {}).get("raw") or {}).get("url")
             or (job.get("results") or {}).get("rawUrl")
             or job.get("url")
         )
         if url:
             urls.append(url)
-    # Shape 2: results[].url
-    if not urls:
-        for res in response.get("results", []) or []:
-            if isinstance(res, dict) and res.get("url"):
-                urls.append(res["url"])
-    # Shape 3: flat result_url
-    if not urls and response.get("result_url"):
+    if urls:
+        return urls
+
+    # Shape 3 (legacy): results[].url
+    for res in response.get("results", []) or []:
+        if isinstance(res, dict) and res.get("url"):
+            urls.append(res["url"])
+    if urls:
+        return urls
+
+    # Shape 4 (legacy): flat result_url at the request root
+    if response.get("result_url"):
         urls.append(response["result_url"])
-    # Shape 4: the MCP returned `results.rawUrl` for soul_2 jobs we generated
+
+    # Shape 5 (legacy MCP): results.rawUrl
     if not urls and isinstance(response.get("results"), dict):
         raw = response["results"].get("rawUrl")
         if raw:
@@ -314,7 +404,29 @@ def soul_generate_and_save(
 
     urls = extract_result_urls(response)
     if not urls:
+        # Dump the response to disk for triage when extraction fails. Without
+        # this, all we'd see is "no result URL found" without knowing what
+        # shape HF actually returned — making it impossible to fix the
+        # extractor when the API drifts.
+        import json as _json
+        from datetime import datetime as _dt
+        debug_path = Path(f".tmp_hf_response_{_dt.now().strftime('%Y%m%d_%H%M%S')}.json")
+        try:
+            debug_path.write_text(_json.dumps(response, indent=2, default=str), encoding="utf-8")
+            hint = f" Full response dumped to {debug_path}."
+        except Exception:
+            hint = ""
+        # Also include the jobs[] structure inline so common cases are
+        # diagnosable from the error message alone.
+        jobs = response.get("jobs", []) or []
+        jobs_summary = ""
+        if jobs:
+            jobs_summary = (
+                f" jobs[0] keys: {list(jobs[0].keys()) if isinstance(jobs[0], dict) else type(jobs[0]).__name__}"
+                f"  jobs[0].status: {jobs[0].get('status') if isinstance(jobs[0], dict) else 'n/a'}"
+            )
         raise HiggsfieldError(
-            f"Soul generation completed but no result URL found. Response keys: {list(response.keys())}"
+            f"Soul generation completed but no result URL found. "
+            f"Response keys: {list(response.keys())}.{jobs_summary}{hint}"
         )
     return download_image(urls[0], out_path)
