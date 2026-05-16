@@ -504,6 +504,159 @@ def _auto_pick_best_template(
     return template_id, source_image
 
 
+def _get_soul_id_for_persona(client_slug: str, persona_name: str) -> str | None:
+    """Look up higgsfield.soul_id by persona display-name across avatar YAMLs.
+
+    Returns None if no avatar matches or the avatar has no trained Soul
+    Character ready yet. Mirrors `strategy.ad_remixer._get_soul_id_for_brief`
+    but works with a `CreativeBrief.persona` string rather than a brief dict.
+    """
+    if not client_slug or not persona_name:
+        return None
+    import yaml as _yaml
+    avatars_dir = Path("clients") / client_slug / "avatars"
+    if not avatars_dir.exists():
+        return None
+    persona_lower = persona_name.strip().lower()
+    for path in sorted(avatars_dir.glob("*.yaml")):
+        if path.name.startswith("_") or path.name.endswith(".bak"):
+            continue
+        try:
+            data = _yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        except Exception:
+            continue
+        if (data.get("name") or "").strip().lower() == persona_lower:
+            hf = data.get("higgsfield") or {}
+            soul_id = hf.get("soul_id")
+            soul_status = (hf.get("soul_status") or "").lower()
+            if soul_id and soul_status == "ready":
+                return soul_id
+            return None
+    return None
+
+
+def generate_from_brief_higgsfield(
+    brief: CreativeBrief,
+    brand: Brand,
+    product: Product,
+    avatar: CustomerAvatar | None = None,
+    client_slug: str = "",
+    output_dir: Path | None = None,
+    num_images: int = 1,
+    aspect_ratio: str | None = None,
+    creative_direction: str = "",
+    offer: str = "NONE",
+) -> tuple[str, list[GenerationResult]]:
+    """Higgs Field soul_2 + PIL text overlay path for `adc generate`.
+
+    Two-pass per output:
+      1. soul_2(soul_id=<persona>, prompt=<text-stripped>) → photoreal scene
+         with identity-locked face; no inline text (soul_2 renders gibberish
+         text).
+      2. PIL overlay → quote + CTA pill composited onto the scene.
+
+    The product image, swipe library, and per-client templates are NOT used —
+    soul_2 doesn't accept multi-image edits the way NB2 does, and the trained
+    Soul Character already supplies the persona identity. If the persona has
+    no ready Soul, raises ValueError so the caller can fall back to NB2.
+
+    Credit-related HiggsfieldError exceptions bubble up unmodified so the
+    outer `generate_from_brief()` dispatcher can swap engines for the run.
+    """
+    from generators.higgsfield_client import HiggsfieldError, soul_generate_and_save
+    from generators.text_overlay import render_ad_overlay, SECONDKIND_PRESET
+    from strategy.ad_remixer import _strip_text_from_prompt
+
+    soul_id = _get_soul_id_for_persona(client_slug, brief.persona or "")
+    if not soul_id:
+        raise ValueError(
+            f"No 'ready' Soul Character for persona '{brief.persona}'. "
+            f"Train one via the Higgs Field MCP, then retry with "
+            f"`--engine higgsfield-soul`."
+        )
+
+    if aspect_ratio is None:
+        aspect_ratio = infer_aspect_ratio(brief)
+
+    # Build campaign_name eagerly (same convention as NB2 path)
+    if not getattr(brief, "campaign_name", ""):
+        try:
+            from strategy.naming import build_campaign_name
+            brief.campaign_name = build_campaign_name(
+                brief, brand, offer=offer, iteration=1, source="AI",
+            )
+        except (ValueError, Exception):
+            pass
+
+    # Write the same prompt we'd write for NB2, then strip the text sections
+    # because soul_2 produces gibberish letterforms.
+    prompt = prompt_from_brief(
+        brief=brief,
+        brand=brand,
+        product=product,
+        avatar=avatar,
+        aspect_ratio=aspect_ratio,
+        creative_direction=creative_direction,
+    )
+    scene_prompt = _strip_text_from_prompt(prompt)
+
+    if output_dir is None:
+        output_dir = Path("ai-ads") / client_slug / "images"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    results: list[GenerationResult] = []
+    for i in range(num_images):
+        suffix = f"_{i+1}" if num_images > 1 else ""
+        scene_path = output_dir / f"{brief.brief_id}{suffix}_scene.png"
+        final_path = output_dir / f"{brief.brief_id}{suffix}.png"
+
+        try:
+            soul_generate_and_save(
+                soul_id=soul_id,
+                prompt=scene_prompt,
+                out_path=scene_path,
+                aspect_ratio=aspect_ratio or "1:1",
+                quality="2k",
+            )
+        except HiggsfieldError as e:
+            # Credit errors bubble up so the outer dispatcher can fall back
+            # to NB2 for the WHOLE run rather than continuing brief-by-brief
+            # with no hope of success.
+            if "credit" in str(e).lower():
+                raise
+            print(f"  [fail soul] {brief.brief_id}: {e}")
+            continue
+
+        # Pass 2: PIL text overlay
+        hero_quote = (getattr(brief, "hook", "") or "").strip()
+        cta_text = (getattr(brief, "cta", "") or "Learn more").strip().rstrip("→").strip()
+        try:
+            render_ad_overlay(
+                base_image=scene_path,
+                hero_quote=hero_quote,
+                cta_text=cta_text,
+                out_path=final_path,
+                preset=SECONDKIND_PRESET,
+            )
+        except Exception as e:
+            print(f"  [fail overlay] {brief.brief_id}: {e}")
+            continue
+
+        results.append(GenerationResult(
+            image_url="",
+            seed=None,
+            model="higgsfield-soul_2",
+            prompt_used=scene_prompt,
+            local_path=final_path,
+            product_images_used=[],
+            aspect_ratio=aspect_ratio or "1:1",
+            resolution="2k",
+        ))
+
+    _write_campaign_sidecars(results, getattr(brief, "campaign_name", ""))
+    return prompt, results
+
+
 def generate_from_brief(
     brief: CreativeBrief,
     brand: Brand,
@@ -518,6 +671,8 @@ def generate_from_brief(
     force_multi_ref: bool = False,
     creative_direction: str = "",
     offer: str = "NONE",
+    engine: str = "nb2",
+    fallback_engine: str | None = None,
 ) -> tuple[str, list[GenerationResult]]:
     """Take a CreativeBrief, write the prompt with prompt_from_brief(), then
     generate the image(s) with Nano Banana 2 using the product's real images.
@@ -532,9 +687,60 @@ def generate_from_brief(
     instructed in the system prompt to replicate image 1 exactly, and to
     treat any additional images as composition-only references.
 
+    `engine`:
+      - "nb2"              fal.ai Nano Banana 2 (default, product-aware).
+      - "higgsfield-soul"  Higgs Field soul_2 + PIL text overlay, using each
+                            persona's trained Soul Character (identity lock).
+                            Skips templates / swipe library / product image —
+                            soul_2 doesn't accept multi-image edits.
+
+    `fallback_engine`: if HF fails because of missing credits, retry the
+    run with this engine instead of aborting. Set to "nb2" from the
+    dashboard for graceful degradation.
+
     Returns (prompt_used, generation_results). Each GenerationResult has
     its local_path populated.
     """
+    # ─── Higgs Field Soul path (identity-locked) ───
+    if engine == "higgsfield-soul":
+        try:
+            return generate_from_brief_higgsfield(
+                brief=brief,
+                brand=brand,
+                product=product,
+                avatar=avatar,
+                client_slug=client_slug,
+                output_dir=output_dir,
+                num_images=num_images,
+                aspect_ratio=aspect_ratio,
+                creative_direction=creative_direction,
+                offer=offer,
+            )
+        except Exception as e:
+            if fallback_engine and "credit" in str(e).lower():
+                print(
+                    f"  [fallback] Higgs Field unavailable ({e}). "
+                    f"Falling back to engine={fallback_engine}."
+                )
+                return generate_from_brief(
+                    brief=brief,
+                    brand=brand,
+                    product=product,
+                    avatar=avatar,
+                    client_slug=client_slug,
+                    output_dir=output_dir,
+                    num_images=num_images,
+                    aspect_ratio=aspect_ratio,
+                    thinking_level=thinking_level,
+                    use_references=use_references,
+                    force_multi_ref=force_multi_ref,
+                    creative_direction=creative_direction,
+                    offer=offer,
+                    engine=fallback_engine,
+                    fallback_engine=None,
+                )
+            raise
+
     # ─── Auto single-pick mode ───
     # When client templates exist, default behavior is to pick the single best
     # template and run art-directed single-ref mode (no averaging). Set

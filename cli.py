@@ -3343,10 +3343,36 @@ def prompts(client: str, pick: str, product: str | None, creative_direction: str
     help="Offer code for the Meta ad naming taxonomy (slot 9). E.g. FREESHIP, "
     "BFCM25, 20OFF. Alphanumeric only, capped at 12 chars. Default NONE.",
 )
+@click.option(
+    "--engine",
+    type=click.Choice(["nb2", "higgsfield-soul"]),
+    default="nb2",
+    show_default=True,
+    help=(
+        "Image-generation engine. "
+        "'nb2' = fal.ai Nano Banana 2 (existing, product-aware, multi-image). "
+        "'higgsfield-soul' = Higgs Field soul_2 with each persona's trained "
+        "Soul Character + PIL text overlay (identity-locked face, phone-camera "
+        "aesthetic). Requires HF_CREDENTIALS in .env and a 'ready' Soul on each "
+        "persona's avatar YAML. Ignores --reference and the product image — "
+        "soul_2 doesn't accept multi-image edits."
+    ),
+)
+@click.option(
+    "--fallback-engine",
+    type=click.Choice(["nb2"]),
+    default=None,
+    help=(
+        "If --engine higgsfield-soul fails because of missing API credits, "
+        "automatically retry the run with this engine instead of aborting. "
+        "Useful when the dashboard wants graceful degradation."
+    ),
+)
 def generate(client: str, pick: str, product: str | None, num_images: int,
              aspect_ratio: str | None, thinking: str,
              include_alternates: bool, reference_template_id: str | None,
-             creative_direction: str, offer: str):
+             creative_direction: str, offer: str,
+             engine: str, fallback_engine: str | None):
     """Generate finished ad images for picked briefs — writes prompts AND calls fal.ai."""
     from models.loader import (
         load_all_briefs,
@@ -3465,9 +3491,36 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
 
         with console.status(
             f"Slot {brief.slot} ({original_id[-6:]}) {variant_label} "
-            f"— writing prompt + generating {num_images} image(s)..."
+            f"— writing prompt + generating {num_images} image(s)"
+            f" via [bold]{engine}[/bold]..."
         ):
-            if reference_template_id:
+            # Higgs Field Soul mode ignores --reference (soul_2 doesn't take
+            # template images the way NB2 does). Route everything through
+            # generate_from_brief() — its dispatcher handles the HF path +
+            # credit-error fallback.
+            if engine == "higgsfield-soul":
+                if reference_template_id:
+                    console.print(
+                        f"[yellow]Note: --reference is ignored when --engine "
+                        f"higgsfield-soul. The trained Soul Character supplies "
+                        f"the persona identity; templates aren't applicable.[/yellow]"
+                    )
+                prompt_text, results = generate_from_brief(
+                    brief=active_brief,
+                    brand=brand,
+                    product=prod,
+                    avatar=avatar,
+                    client_slug=client,
+                    output_dir=images_dir,
+                    num_images=num_images,
+                    aspect_ratio=ar,
+                    thinking_level=thinking,
+                    creative_direction=creative_direction,
+                    offer=offer,
+                    engine=engine,
+                    fallback_engine=fallback_engine,
+                )
+            elif reference_template_id:
                 from generators.image_generator import generate_from_brief_and_template
                 prompt_text, results = generate_from_brief_and_template(
                     brief=active_brief,
@@ -3497,6 +3550,8 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
                     thinking_level=thinking,
                     creative_direction=creative_direction,
                     offer=offer,
+                    engine=engine,
+                    fallback_engine=fallback_engine,
                 )
 
         local_paths = [str(r.local_path) for r in results if r.local_path]
@@ -3754,12 +3809,23 @@ def remix(
         "HF_CREDENTIALS in .env and a 'ready' Soul Character on each avatar."
     ),
 )
+@click.option(
+    "--fallback-engine",
+    type=click.Choice(["nb2"]),
+    default=None,
+    help=(
+        "If --engine higgsfield-soul fails because of missing API credits, "
+        "automatically retry the run with this engine instead of aborting. "
+        "Useful when the dashboard wants graceful degradation."
+    ),
+)
 def remix_images(
     remix_dir: str,
     num_images: int,
     thinking: str,
     aspect_ratio: str,
     engine: str,
+    fallback_engine: str | None,
 ):
     """Generate ad images for an existing remix directory.
 

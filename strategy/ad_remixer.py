@@ -1711,6 +1711,7 @@ def generate_remix_images(
     thinking_level: str = "disabled",
     aspect_ratio: str = "1:1",
     engine: str = "nb2",
+    fallback_engine: str | None = None,
 ) -> list[Path]:
     """Fire the image-generation engine for each brief in a saved remix directory.
 
@@ -1722,9 +1723,11 @@ def generate_remix_images(
                             aesthetic. Requires HF_CREDENTIALS in env and a
                             'ready' Soul Character on each avatar.
 
-    Reads briefs.yaml + the corresponding prompts/*.txt files (notes header
-    stripped), uploads/uses the product's reference image (NB2 only), and
-    writes the generated images to `<remix-dir>/images/`.
+    `fallback_engine`: if HF fails because of missing credits (the common
+    case when running standalone CLI against an HF account whose REST
+    API pool is empty), automatically retry the whole run with the
+    fallback engine instead of aborting. Set to "nb2" from the dashboard
+    when the operator wants graceful degradation.
 
     Returns the list of saved image paths.
     """
@@ -1744,13 +1747,40 @@ def generate_remix_images(
     images_dir.mkdir(exist_ok=True)
 
     if engine == "higgsfield-soul":
-        return _generate_remix_images_higgsfield(
-            briefs_data,
-            remix_path=remix_path,
-            images_dir=images_dir,
-            num_images=num_images,
-            aspect_ratio=aspect_ratio,
+        try:
+            paths = _generate_remix_images_higgsfield(
+                briefs_data,
+                remix_path=remix_path,
+                images_dir=images_dir,
+                num_images=num_images,
+                aspect_ratio=aspect_ratio,
+            )
+        except Exception as e:
+            # HF blew up before we could even submit a single brief. If
+            # the operator opted into fallback, log + recurse with NB2.
+            if fallback_engine and "credit" in str(e).lower():
+                print(
+                    f"  [fallback] Higgs Field unavailable ({e}). "
+                    f"Falling back to engine={fallback_engine}."
+                )
+                return generate_remix_images(
+                    remix_dir,
+                    num_images=num_images,
+                    thinking_level=thinking_level,
+                    aspect_ratio=aspect_ratio,
+                    engine=fallback_engine,
+                    fallback_engine=None,
+                )
+            raise
+        if paths or fallback_engine is None:
+            return paths
+        # HF ran but produced no images (e.g. every persona missing a
+        # ready soul_id). Fall through to NB2 if configured.
+        print(
+            f"  [fallback] Higgs Field produced 0 images. "
+            f"Falling back to engine={fallback_engine}."
         )
+        engine = fallback_engine
 
     # Default path: NB2 via fal.ai (existing behavior, unchanged below).
     from generators.fal_client import generate_and_save
@@ -1926,6 +1956,11 @@ def _generate_remix_images_higgsfield(
                     quality="2k",
                 )
             except HiggsfieldError as e:
+                # Credits errors at the API level — bubble up so the
+                # outer fallback handler can swap engines for the whole
+                # run rather than continuing brief-by-brief with no hope.
+                if "credit" in str(e).lower():
+                    raise
                 print(f"  [fail soul] {brief_id}: {e}")
                 continue
 

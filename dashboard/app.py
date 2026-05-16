@@ -1752,11 +1752,29 @@ def _render_remix_tab(selected):
             else:
                 st.info("No images generated yet for this run.")
 
+            # ── Engine toggle ────────────────────────────────────────────
+            # When ON: route through Higgs Field soul_2 with each persona's
+            # trained Soul Character (identity-locked face) + PIL text overlay.
+            # Falls back to NB2 automatically if HF API credits are empty.
+            use_hf = st.checkbox(
+                "Use Higgs Field (identity-locked) — falls back to NB2 if HF credits are empty",
+                key=f"remix_use_hf_{run['timestamp']}",
+                help=(
+                    "Off: fast NB2 with your product image (default, no identity lock). "
+                    "On: routes through each persona's trained Soul Character via Higgs "
+                    "Field soul_2 + PIL text overlay — same face every generation. "
+                    "Requires HF_CREDENTIALS in .env and a 'ready' Soul Character on each "
+                    "persona's avatar YAML. If the Higgs Field REST API has no credits, "
+                    "the run automatically falls back to NB2 instead of aborting."
+                ),
+            )
+
             action_l, action_r = st.columns(2)
+            engine_suffix = " (HF Soul)" if use_hf else ""
             label_button = (
-                f"♻️ Re-fire {n_briefs} image(s) (~${0.08 * n_briefs:.2f})"
+                f"♻️ Re-fire {n_briefs} image(s){engine_suffix} (~${0.08 * n_briefs:.2f})"
                 if images
-                else f"🖼️ Generate {n_briefs} image(s) (~${0.08 * n_briefs:.2f})"
+                else f"🖼️ Generate {n_briefs} image(s){engine_suffix} (~${0.08 * n_briefs:.2f})"
             )
             with action_l:
                 if st.button(
@@ -1764,13 +1782,22 @@ def _render_remix_tab(selected):
                     use_container_width=True,
                     key=f"remix_genimg_{run['timestamp']}",
                 ):
+                    args = [
+                        "remix-images",
+                        "--remix-dir", str(run_dir),
+                        "--num-images", "1",
+                    ]
+                    if use_hf:
+                        args += [
+                            "--engine", "higgsfield-soul",
+                            "--fallback-engine", "nb2",
+                        ]
                     run_adc_command(
-                        [
-                            "remix-images",
-                            "--remix-dir", str(run_dir),
-                            "--num-images", "1",
-                        ],
-                        label=f"Generating {n_briefs} image(s) for {run['timestamp']}",
+                        args,
+                        label=(
+                            f"Generating {n_briefs} image(s) for {run['timestamp']}"
+                            + (" via Higgs Field Soul" if use_hf else "")
+                        ),
                     )
                     st.rerun()
             with action_r:
@@ -2373,7 +2400,28 @@ def _render_actions_tab(selected):
             ),
         )
 
-        if st.button("🖼️ Generate images for picks",
+        # ── Engine toggle ───────────────────────────────────────────────
+        # When ON: route through Higgs Field soul_2 with each persona's
+        # trained Soul Character + PIL text overlay. Ignores --reference and
+        # the product image because soul_2 doesn't accept multi-image edits.
+        # Falls back to NB2 automatically if HF API credits are empty.
+        use_hf_gen = st.checkbox(
+            "Use Higgs Field (identity-locked) — falls back to NB2 if HF credits are empty",
+            key="generate_use_hf",
+            help=(
+                "Off: fast NB2 with your product image + auto-pick / manual template "
+                "(default, no identity lock). "
+                "On: routes through each persona's trained Soul Character via Higgs "
+                "Field soul_2 + PIL text overlay — same face every generation. "
+                "Reference templates are ignored in HF mode because soul_2 doesn't "
+                "accept multi-image edits. Requires HF_CREDENTIALS in .env and a "
+                "'ready' Soul Character on each persona's avatar YAML. If the Higgs "
+                "Field REST API has no credits, the run automatically falls back to NB2."
+            ),
+        )
+
+        engine_suffix = " (HF Soul)" if use_hf_gen else ""
+        if st.button(f"🖼️ Generate images for picks{engine_suffix}",
                      use_container_width=True, type="primary",
                      disabled=not picks.strip()):
             args = ["generate", "--client", selected, "--pick", picks.strip(),
@@ -2381,18 +2429,31 @@ def _render_actions_tab(selected):
                     "--offer", gen_offer.strip() or "NONE"]
             if include_alts:
                 args.append("--include-alternates")
-            if reference_mode.startswith("Manual") and chosen_template_id:
+            if reference_mode.startswith("Manual") and chosen_template_id and not use_hf_gen:
                 args.extend(["--reference", chosen_template_id])
             if gen_cd.strip():
                 args.extend(["--creative-direction", gen_cd.strip()])
+            if use_hf_gen:
+                args.extend([
+                    "--engine", "higgsfield-soul",
+                    "--fallback-engine", "nb2",
+                ])
             n_picks = len([p for p in picks.split(",") if p.strip()])
             variants_per_brief = 3 if include_alts else 1
             total_imgs = n_picks * int(num_images) * variants_per_brief
-            run_adc_command(args, label=f"Generating {total_imgs} image(s) (~${total_imgs * 0.08:.2f})")
+            run_adc_command(
+                args,
+                label=(
+                    f"Generating {total_imgs} image(s) (~${total_imgs * 0.08:.2f})"
+                    + (" via Higgs Field Soul" if use_hf_gen else "")
+                ),
+            )
             st.rerun()
         st.caption(
             "Est: ~$0.08 per image (Sonnet prompt + fal.ai NB2). "
-            "Auto-pick picks 1 reference per brief; Manual override applies one template to all picks."
+            "HF Soul mode uses Higgs Field Ultra credits instead. "
+            "Auto-pick picks 1 reference per brief (ignored in HF mode); "
+            "Manual override applies one template to all picks (ignored in HF mode)."
         )
 
 
