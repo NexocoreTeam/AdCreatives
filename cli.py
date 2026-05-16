@@ -300,6 +300,121 @@ def delete_persona_cmd(client: str, avatar_slug: str, yes: bool):
     console.print(f"[green]Deleted:[/green] {removed}")
 
 
+# ─── Persona portraits (model library for identity-preserving ad gen) ────────
+
+
+@cli.command(name="generate-model")
+@click.option("--client", required=True, help="Client slug")
+@click.option("--avatar", "avatar_slug", default=None,
+              help="Avatar slug (e.g. 'primary' or 'burnout-biohacker-brandon'). "
+              "Omit to generate portraits for ALL avatars under the client.")
+@click.option("--candidates", default=3, type=click.IntRange(1, 6),
+              help="How many candidate portraits to generate per persona (default 3).")
+@click.option("--force", is_flag=True, default=False,
+              help="Regenerate even if candidate portraits already exist.")
+def generate_model_cmd(client: str, avatar_slug: str | None, candidates: int, force: bool):
+    """Generate canonical headshot portraits for one or all persona(s).
+
+    Each persona gets N candidate headshots saved under
+    clients/<slug>/avatars/<persona-slug>/candidate_N.png. After
+    generation you'd pick the canonical one (via dashboard, or by
+    copying it to <persona-slug>.png manually) and that face is then
+    used as an identity reference for every ad targeting the persona.
+
+    Cost: ~$0.25 per persona for 3 candidates (1 Sonnet visual-cues
+    call + 3 Nano Banana 2 generate calls).
+    """
+    from models.avatar import CustomerAvatar
+    from models.loader import load_brand
+    from strategy.persona_portrait import generate_portraits
+    import yaml as _yaml
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    brand = load_brand(client)
+    avatars_dir = client_dir / "avatars"
+
+    # Resolve which avatars to process: one or all.
+    if avatar_slug:
+        targets = [avatars_dir / f"{avatar_slug}.yaml"]
+        if not targets[0].exists():
+            console.print(f"[red]Avatar not found: {targets[0]}[/red]")
+            raise SystemExit(1)
+    else:
+        targets = sorted(
+            p for p in avatars_dir.glob("*.yaml")
+            if not p.name.startswith("_") and not p.name.endswith(".bak")
+        )
+        if not targets:
+            console.print(
+                f"[red]No avatars under {avatars_dir}. "
+                f"Run `adc personas --client {client}` first.[/red]"
+            )
+            raise SystemExit(1)
+
+    console.print(
+        f"\n[bold cyan]Generating portraits[/bold cyan] for "
+        f"[green]{len(targets)}[/green] persona(s) "
+        f"({candidates} candidate(s) each)\n"
+    )
+
+    table = Table(title="Persona portrait generation")
+    table.add_column("Persona", style="cyan", max_width=30)
+    table.add_column("Slug", style="dim")
+    table.add_column("Status", style="green")
+    table.add_column("Candidates dir", style="dim")
+
+    for path in targets:
+        slug = path.stem
+        with open(path, encoding="utf-8") as fh:
+            avatar = CustomerAvatar(**_yaml.safe_load(fh))
+
+        try:
+            with console.status(f"Generating {candidates} portrait(s) for {avatar.name}..."):
+                result = generate_portraits(
+                    avatar=avatar,
+                    brand=brand,
+                    client_slug=client,
+                    avatar_slug=slug,
+                    num_candidates=candidates,
+                    force=force,
+                )
+        except FileExistsError as e:
+            table.add_row(avatar.name or slug, slug, "[yellow]skipped (already exists)[/yellow]", "")
+            continue
+        except Exception as e:
+            table.add_row(avatar.name or slug, slug, f"[red]error: {str(e)[:60]}[/red]", "")
+            continue
+
+        candidates_dir = result["candidate_paths"][0].parent
+        table.add_row(
+            avatar.name or slug,
+            slug,
+            f"[green]ok — {len(result['candidate_paths'])} files[/green]",
+            str(candidates_dir.relative_to(client_dir.parent.parent)),
+        )
+
+    console.print(table)
+    console.print(
+        f"\n[green]Next:[/green] inspect candidates and promote one to canonical:\n"
+        f"  - View: open the `candidate_N.png` files under "
+        f"`clients/{client}/avatars/<persona-slug>/`\n"
+        f"  - Promote (manual): copy your chosen candidate to "
+        f"`clients/{client}/avatars/<persona-slug>.png`"
+    )
+
+    from strategy.cost_tracker import log_cost
+    log_cost(
+        client,
+        "adc generate-model",
+        multiplier=len(targets) * candidates,
+        note=f"{len(targets)} persona(s) × {candidates} candidate(s)",
+    )
+
+
 # ─── Onboard wrapper (runs stages 1-5 in sequence) ──────────────────────────
 
 
