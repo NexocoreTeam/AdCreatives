@@ -3918,6 +3918,32 @@ def remix_images(
     help="Specific image filename to refine FROM (e.g. brief-id_1x1.png to start "
     "from the original instead of the latest version). Default: latest version.",
 )
+@click.option(
+    "--engine",
+    type=click.Choice(["nb2", "higgsfield-soul"]),
+    default="nb2",
+    show_default=True,
+    help=(
+        "Refinement engine. "
+        "'nb2' = fal.ai NB2 edit endpoint (Claude rewrites the prompt + uses "
+        "product image and previous output as refs). "
+        "'higgsfield-soul' = Higgs Field soul_2 iterative refinement using "
+        "the persona's trained Soul Character + the previous SCENE image as "
+        "a composition reference. Mirrors the manual HF workflow (generate → "
+        "use as reference → generate next). Requires HF_CREDENTIALS and a "
+        "'ready' Soul on the brief's persona."
+    ),
+)
+@click.option(
+    "--fallback-engine",
+    type=click.Choice(["nb2"]),
+    default=None,
+    help=(
+        "If --engine higgsfield-soul fails because of missing API credits, "
+        "automatically retry the refinement with this engine instead of "
+        "aborting. Used by the dashboard for graceful degradation."
+    ),
+)
 def remix_refine(
     remix_dir: str,
     brief_id: str,
@@ -3926,14 +3952,19 @@ def remix_refine(
     aspect_ratio: str,
     thinking: str,
     from_image: str | None,
+    engine: str,
+    fallback_engine: str | None,
 ):
     """Refine an existing remix image with natural-language feedback.
 
-    Uses Claude to rewrite the NB2 prompt incorporating your feedback, then
-    fires fal.ai with BOTH the product image AND the previous output as
-    references — preserving composition while modifying only what you asked
-    for. Saves new images as <brief-id>_v<N>.png (single) or
-    <brief-id>_v<N>_<letter>.png (multiple) alongside the original.
+    Default engine is NB2 (fal.ai edit endpoint with Claude prompt rewrite).
+    Pass `--engine higgsfield-soul` for iterative HF refinement using each
+    persona's trained Soul Character + the previous scene as a composition
+    reference — mirrors the user's manual stage-by-stage HF workflow.
+
+    Saves new images as <brief-id>_v<N>.png (single) or
+    <brief-id>_v<N>_<letter>.png (multiple) alongside the original. HF mode
+    also writes a <brief-id>_v<N>_scene.png alongside (text-free version).
 
     Each refinement is logged to refinement_log.yaml in the remix folder.
     """
@@ -3955,8 +3986,8 @@ def remix_refine(
             client_slug = rd.parts[idx + 1]
 
     with console.status(
-        f"Refining `{brief_id}` ({num_images} variation(s)) — "
-        f"feedback: {feedback[:60]}..."
+        f"Refining `{brief_id}` ({num_images} variation(s)) via "
+        f"[bold]{engine}[/bold] — feedback: {feedback[:60]}..."
     ):
         paths = refine_image(
             remix_dir=remix_dir,
@@ -3966,6 +3997,8 @@ def remix_refine(
             aspect_ratio=aspect_ratio,
             thinking_level=thinking,
             base_image=from_image,
+            engine=engine,
+            fallback_engine=fallback_engine,
         )
 
     console.print(f"\n[green]Generated {len(paths)} refined image(s):[/green]")

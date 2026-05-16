@@ -2259,6 +2259,270 @@ def _append_refinement_log(
     return log_path
 
 
+def _find_latest_scene_for_brief(images_dir: Path, brief_id: str) -> Path | None:
+    """Find the latest TEXT-FREE scene image for a brief.
+
+    Higgs Field iterative refinement should use the no-text scene as its
+    reference, not the PIL-overlaid final image — otherwise the rendered
+    text becomes a stylistic influence on the next pass and leaks into the
+    soul_2 output. Scene files are named `<brief_id>[_v<N>]_scene.png`
+    (produced by the Phase 2 HF path).
+
+    Fallback: if no `_scene.png` exists (e.g. the brief was originally
+    generated with NB2), return the latest regular image. The caller can
+    still iterate, but soul_2 will see the rendered text in the reference
+    and may try to imitate it.
+    """
+    if not images_dir.exists():
+        return None
+    scene_candidates = sorted(images_dir.glob(f"{brief_id}*_scene.png"))
+    if scene_candidates:
+        # Prefer highest version. Stems look like:
+        #   <brief_id>_scene.png            (v1, original)
+        #   <brief_id>_v2_scene.png
+        #   <brief_id>_v3_scene.png
+        def _version_key(p: Path) -> tuple[int, str]:
+            m = re.search(r"_v(\d+)_scene", p.stem)
+            return (int(m.group(1)) if m else 1, p.name)
+        return sorted(scene_candidates, key=_version_key)[-1]
+    # No scene file — fall back to the regular latest-image picker.
+    return _find_latest_image_for_brief(images_dir, brief_id)
+
+
+def _build_hf_refine_prompt(
+    brief_data: dict,
+    feedback: str,
+) -> str:
+    """Build a soul_2 refinement prompt that combines scene context + feedback.
+
+    soul_2 with `reference_image_url` performs guided image-to-image
+    generation. The reference supplies composition, lighting, framing,
+    and identity; the prompt steers what should change.
+
+    We keep the prompt short and instruction-oriented (Claude rewriting
+    isn't necessary — soul_2 with a reference is much more directive than
+    NB2 text-to-image). Format:
+
+      REFINEMENT: <user feedback>
+
+      SCENE CONTEXT: <visual_format line from the brief, for grounding>
+
+      <text-free trailer same as Phase 2 generate path>
+
+    The text-free trailer is critical — without it soul_2 will try to
+    render the brief's hook text inline (and produce gibberish letterforms).
+    PIL re-composites the text in the next pass.
+    """
+    feedback = feedback.strip()
+    visual_format = (brief_data.get("visual_format") or "").strip()
+    persona = (brief_data.get("persona") or "").strip()
+
+    lines: list[str] = []
+    lines.append(f"REFINEMENT: {feedback}")
+    lines.append("")
+    if visual_format:
+        lines.append(f"SCENE CONTEXT: {visual_format}")
+    if persona:
+        lines.append(f"SUBJECT: {persona} (identity locked via Soul Character).")
+    lines.append("")
+    lines.append(
+        "Preserve everything from the reference image except what the "
+        "REFINEMENT directive changes — same person, same overall composition, "
+        "same lighting register, same wardrobe/setting unless the refinement "
+        "explicitly modifies them. Photoreal, phone-camera aesthetic, no "
+        "studio lighting, no AI-look."
+    )
+    lines.append("")
+    lines.append(
+        "TEXT-FREE OUTPUT: Render ONLY the scene — subject, environment, "
+        "lighting, product. The lower third of the frame should be empty, "
+        "uncluttered warm cream space ready for a separate text overlay. "
+        "DO NOT render any letters, words, quotation marks, captions, "
+        "headlines, logos, brand wordmarks, CTAs, badges, ratings, or "
+        "review text anywhere in the image. The output is a photograph "
+        "only; text is composited in a downstream pass."
+    )
+    lines.append("")
+    lines.append(
+        "Negative prompt: any text, any letters, any words, any captions, "
+        "any quotation marks, any logos, any badges, any wordmarks, any "
+        "Trustpilot, any star rating, any number ratings, any overlay text."
+    )
+    return "\n".join(lines)
+
+
+def refine_image_higgsfield(
+    *,
+    remix_dir: str | Path,
+    brief_id: str,
+    feedback: str,
+    num_images: int = 1,
+    aspect_ratio: str = "1:1",
+    base_image: str | Path | None = None,
+) -> list[Path]:
+    """Higgs Field iterative refinement: soul_2 + previous scene as reference.
+
+    Mirrors the user's manual Higgs Field workflow (generate → use that
+    image as reference → generate next → iterate). The persona's soul_id
+    locks identity across passes; the previous image steers composition,
+    framing, lighting; the feedback prompt drives what changes.
+
+    Pipeline:
+      1. Load brief, look up the persona's soul_id (must be 'ready').
+      2. Pick the latest scene image for the brief (prefers `_scene.png`).
+      3. Upload that scene via fal.ai → public URL HF can fetch.
+      4. Build a refinement prompt (scene context + feedback + text-free trailer).
+      5. Call soul_2 with soul_id + reference_image_url + new prompt.
+      6. Save the new scene as `<brief_id>_v<N>_scene.png`.
+      7. Run PIL overlay (same hook + CTA from the brief) → `<brief_id>_v<N>.png`.
+      8. Append to refinement_log.yaml.
+
+    Credit-related HiggsfieldError exceptions bubble up so the outer
+    `refine_image()` dispatcher can swap engines for the run.
+
+    Returns the list of saved final-image paths (with text overlay)."""
+    from generators.fal_client import upload_image
+    from generators.higgsfield_client import (
+        HiggsfieldError,
+        soul_generate_and_save,
+    )
+    from generators.text_overlay import SECONDKIND_PRESET, render_ad_overlay
+
+    if num_images < 1:
+        raise ValueError(f"num_images must be ≥ 1, got {num_images}")
+    if not feedback.strip():
+        raise ValueError("feedback must be non-empty")
+
+    remix_path = Path(remix_dir)
+    if not remix_path.exists():
+        raise FileNotFoundError(f"Remix directory not found: {remix_path}")
+
+    briefs_path = remix_path / "briefs.yaml"
+    if not briefs_path.exists():
+        raise FileNotFoundError(f"No briefs.yaml in {remix_path}")
+    briefs_data = yaml.safe_load(briefs_path.read_text(encoding="utf-8")) or []
+    brief = next(
+        (b for b in briefs_data if b.get("brief_id") == brief_id),
+        None,
+    )
+    if brief is None:
+        raise ValueError(
+            f"Brief '{brief_id}' not found in {briefs_path}. "
+            f"Available: {[b.get('brief_id') for b in briefs_data]}"
+        )
+
+    soul_id = _get_soul_id_for_brief(brief)
+    if not soul_id:
+        raise ValueError(
+            f"No 'ready' Soul Character for persona "
+            f"'{brief.get('persona', '?')}'. Train one first or use "
+            f"--engine nb2 for refinement."
+        )
+
+    images_dir = remix_path / "images"
+    if base_image is not None:
+        candidate = Path(base_image)
+        if not candidate.is_absolute() and not candidate.exists():
+            candidate = images_dir / candidate.name
+        if not candidate.exists():
+            available = [p.name for p in images_dir.glob(f"{brief_id}*.png")]
+            raise FileNotFoundError(
+                f"Specified base_image '{base_image}' not found. "
+                f"Available for {brief_id}: {available}"
+            )
+        previous_image = candidate
+    else:
+        previous_image = _find_latest_scene_for_brief(images_dir, brief_id)
+        if previous_image is None:
+            raise FileNotFoundError(
+                f"No previous output image found for brief '{brief_id}' in "
+                f"{images_dir}. Generate the base image first via "
+                f"`adc remix-images --engine higgsfield-soul`."
+            )
+
+    # Upload the previous scene to fal.ai so HF can fetch it. fal.ai's CDN
+    # returns a public HTTPS URL; HF accepts any HTTPS image URL via its
+    # `medias[{value, role: image}]` parameter.
+    previous_image_url = upload_image(previous_image)
+
+    refine_prompt = _build_hf_refine_prompt(brief, feedback.strip())
+    version = _next_refinement_version(images_dir, brief_id)
+    images_dir.mkdir(parents=True, exist_ok=True)
+
+    # Pull the brief's hook + CTA for the PIL overlay step (same convention
+    # as the Phase 2 generate path).
+    hero_quote = (brief.get("hook") or "").strip()
+    cta_text = (brief.get("cta") or "Learn more").strip().rstrip("→").strip()
+
+    saved_paths: list[Path] = []
+    for i in range(num_images):
+        if num_images == 1:
+            scene_filename = f"{brief_id}_v{version}_scene.png"
+            final_filename = f"{brief_id}_v{version}.png"
+        else:
+            letter = chr(ord("a") + i)  # a, b, c, ...
+            scene_filename = f"{brief_id}_v{version}_{letter}_scene.png"
+            final_filename = f"{brief_id}_v{version}_{letter}.png"
+        scene_path = images_dir / scene_filename
+        final_path = images_dir / final_filename
+
+        try:
+            soul_generate_and_save(
+                soul_id=soul_id,
+                prompt=refine_prompt,
+                out_path=scene_path,
+                reference_image_url=previous_image_url,
+                aspect_ratio=aspect_ratio,
+                quality="2k",
+            )
+        except HiggsfieldError as e:
+            # Bubble credit errors so the outer dispatcher can fall back.
+            if "credit" in str(e).lower():
+                raise
+            print(f"  [fail soul-refine] {brief_id} v{version}: {e}")
+            continue
+
+        try:
+            render_ad_overlay(
+                base_image=scene_path,
+                hero_quote=hero_quote,
+                cta_text=cta_text,
+                out_path=final_path,
+                preset=SECONDKIND_PRESET,
+            )
+        except Exception as e:
+            print(f"  [fail overlay] {brief_id} v{version}: {e}")
+            continue
+        saved_paths.append(final_path)
+
+        # Campaign-name sidecar (same convention as NB2 refine path).
+        campaign_name = brief.get("campaign_name") or ""
+        if campaign_name:
+            sidecar = final_path.with_name(final_path.stem + "_campaign.txt")
+            sidecar.write_text(campaign_name + "\n", encoding="utf-8")
+
+    # Refinement notes file alongside the prompts.
+    refined_prompt_path = remix_path / "prompts" / f"{brief_id}_v{version}.txt"
+    refined_prompt_path.write_text(
+        _format_refinement_notes(brief, feedback, version, previous_image)
+        + "\n\n"
+        + refine_prompt
+        + "\n",
+        encoding="utf-8",
+    )
+
+    _append_refinement_log(
+        remix_path,
+        brief_id=brief_id,
+        feedback=feedback,
+        version=version,
+        base_image_name=previous_image.name,
+        output_image_names=[p.name for p in saved_paths],
+    )
+
+    return saved_paths
+
+
 def refine_image(
     *,
     remix_dir: str | Path,
@@ -2268,10 +2532,26 @@ def refine_image(
     thinking_level: str = "disabled",
     aspect_ratio: str = "1:1",
     base_image: str | Path | None = None,
+    engine: str = "nb2",
+    fallback_engine: str | None = None,
 ) -> list[Path]:
     """Refine an existing remix image with user feedback.
 
-    Pipeline:
+    Engines:
+      - "nb2"              fal.ai NB2 edit endpoint, Claude rewrites the
+                            prompt incorporating feedback; uses
+                            [product_image, previous_output] as references.
+      - "higgsfield-soul"  Higgs Field soul_2 + PIL overlay. Uses the
+                            persona's trained Soul Character (identity lock)
+                            + the previous scene image as composition
+                            reference. Mirrors the user's manual HF
+                            iterative workflow.
+
+    `fallback_engine`: if HF fails because of missing credits, retry the
+    run with this engine. Set to "nb2" from the dashboard for graceful
+    degradation.
+
+    Pipeline (NB2):
       1. Load the original brief + NB2 prompt + previous output image.
       2. Single Claude call rewrites the prompt to incorporate the feedback.
       3. Upload the previous output to fal.ai so NB2 can use it as a layout
@@ -2284,6 +2564,36 @@ def refine_image(
       6. Append a record to refinement_log.yaml.
 
     Returns the list of saved image paths."""
+    # ─── Higgs Field iterative refine path ───
+    if engine == "higgsfield-soul":
+        try:
+            return refine_image_higgsfield(
+                remix_dir=remix_dir,
+                brief_id=brief_id,
+                feedback=feedback,
+                num_images=num_images,
+                aspect_ratio=aspect_ratio,
+                base_image=base_image,
+            )
+        except Exception as e:
+            if fallback_engine and "credit" in str(e).lower():
+                print(
+                    f"  [fallback] Higgs Field unavailable ({e}). "
+                    f"Falling back to engine={fallback_engine}."
+                )
+                return refine_image(
+                    remix_dir=remix_dir,
+                    brief_id=brief_id,
+                    feedback=feedback,
+                    num_images=num_images,
+                    thinking_level=thinking_level,
+                    aspect_ratio=aspect_ratio,
+                    base_image=base_image,
+                    engine=fallback_engine,
+                    fallback_engine=None,
+                )
+            raise
+
     from generators.fal_client import generate, upload_image
     from generators.image_generator import _get_product_image_urls
 

@@ -1714,6 +1714,29 @@ def _render_remix_tab(selected):
                                 ),
                             )
                             base_filename = base_options[base_choice][1]
+
+                            # ── Engine toggle for refinement ──────────────
+                            # When ON: route through Higgs Field soul_2 +
+                            # PIL overlay (iterative refinement using the
+                            # previous SCENE image as a composition ref).
+                            # Falls back to NB2 if HF credits are empty.
+                            refine_use_hf = st.checkbox(
+                                "Use Higgs Field for refinement (iterative, identity-locked)",
+                                key=f"refine_use_hf_{run['timestamp']}_{bid}",
+                                help=(
+                                    "Off: NB2 with Claude prompt-rewrite (default, "
+                                    "edits the layout precisely; product image is a ref). "
+                                    "On: routes through the persona's trained Soul "
+                                    "Character via Higgs Field soul_2 + PIL text overlay, "
+                                    "using the previous SCENE image as a composition "
+                                    "reference — mirrors the manual HF workflow "
+                                    "(generate → use as reference → iterate). "
+                                    "Requires HF_CREDENTIALS in .env and a 'ready' Soul "
+                                    "Character on this brief's persona. Falls back to NB2 "
+                                    "if HF credits are empty."
+                                ),
+                            )
+
                             cols_form = st.columns([1, 4])
                             with cols_form[0]:
                                 n_vars = st.number_input(
@@ -1724,8 +1747,10 @@ def _render_remix_tab(selected):
                                     key=vn_key,
                                 )
                             with cols_form[1]:
+                                engine_suffix = " (HF Soul)" if refine_use_hf else ""
                                 refine_label = (
-                                    f"🔄 Refine from {base_options[base_choice][0]} "
+                                    f"🔄 Refine from {base_options[base_choice][0]}"
+                                    f"{engine_suffix} "
                                     f"({int(n_vars)} variation(s), ~${0.10 * int(n_vars):.2f})"
                                 )
                                 if st.button(
@@ -1734,18 +1759,25 @@ def _render_remix_tab(selected):
                                     key=f"refine_btn_{run['timestamp']}_{bid}",
                                     use_container_width=True,
                                 ):
+                                    args = [
+                                        "remix-refine",
+                                        "--remix-dir", str(run_dir),
+                                        "--brief", bid,
+                                        "--feedback", feedback.strip(),
+                                        "--num-images", str(int(n_vars)),
+                                        "--from-image", base_filename,
+                                    ]
+                                    if refine_use_hf:
+                                        args += [
+                                            "--engine", "higgsfield-soul",
+                                            "--fallback-engine", "nb2",
+                                        ]
                                     run_adc_command(
-                                        [
-                                            "remix-refine",
-                                            "--remix-dir", str(run_dir),
-                                            "--brief", bid,
-                                            "--feedback", feedback.strip(),
-                                            "--num-images", str(int(n_vars)),
-                                            "--from-image", base_filename,
-                                        ],
+                                        args,
                                         label=(
                                             f"Refining {bid[-6:]} from {base_options[base_choice][0]} "
                                             f"— {int(n_vars)} variation(s)"
+                                            + (" via Higgs Field Soul" if refine_use_hf else "")
                                         ),
                                     )
                                     st.rerun()
