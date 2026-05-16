@@ -239,3 +239,6 @@ psychology_profile:
       format without rapid mechanism resolution will read as manipulative to a buyer
       who calls out overclaiming immediately.
   source: auto_from_psychology_profiling
+higgsfield:
+  soul_id: a94e8321-c10e-434e-8eca-d745698836fd
+  soul_status: ready

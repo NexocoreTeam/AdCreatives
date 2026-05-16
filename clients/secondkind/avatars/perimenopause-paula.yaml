@@ -1,0 +1,119 @@
+name: Perimenopause Paula
+demographic: Woman, 42–54, suburban or urban, household income $110K–$200K, college-educated,
+  partnered or divorced, children largely independent or leaving home, established
+  in her career (mid-to-senior level) or running her own business, has a primary care
+  physician she sees annually but has grown quietly skeptical of being told her labs
+  are 'fine'
+psychographic: Paula has been a disciplined health consumer for years — she eats well,
+  moves her body, tracks her sleep — and is now watching her body change in ways she
+  cannot explain or control. She has come to understand that her symptoms (unpredictable
+  bloating, weight redistribution she cannot reverse, mood instability, interrupted
+  sleep, brain fog that feels qualitatively different from ordinary tiredness) are
+  connected to hormonal shifts, but she has also noticed that nothing anyone has recommended
+  for that transition has touched her gut symptoms. She does not identify as a biohacker
+  or a supplement maximalist — she is a competent adult who is tired of being told
+  her experience is just 'hormones' and who is quietly, methodically trying to find
+  what actually works.
+pain_points:
+- pain: Persistent, unpredictable bloating that she has been told is hormonal — but
+    that her hormone support (whether HRT, herbal, or dietary) has not touched
+  intensity: high
+  customer_language:
+  - My doctor said it's just hormones but fixing my hormones didn't fix my stomach
+  - I've done everything right for my age and I still feel puffy and uncomfortable
+    every single day
+  - I look pregnant by 7pm and I ate a salad
+  source: auto_from_brand_context
+- pain: Brain fog and cognitive dullness that she cannot fully attribute to sleep
+    deprivation — it feels systemic, not situational
+  intensity: high
+  customer_language:
+  - I didn't even realize I had brain fog until it lifted
+  - I keep waiting for my head to clear and it just doesn't
+  - It's not that I'm tired — it's that I feel like I'm thinking through gauze
+  source: auto_from_brand_context
+- pain: Digestive irregularity (constipation, sluggishness, erratic transit) that
+    worsened around perimenopause and has become a daily management problem
+  intensity: high
+  customer_language:
+  - My digestion has just never been the same since my late thirties
+  - I used to be regular. Now I have no idea what my body is going to do on any given
+    day
+  - Still feel off no matter what I eat
+  source: auto_from_brand_context
+- pain: Has tried probiotics — often the premium, refrigerated variety — alongside
+    other midlife gut interventions and cannot point to meaningful improvement
+  intensity: medium
+  customer_language:
+  - I've tried probiotics before and honestly didn't notice much
+  - I've been taking a really good probiotic for two years and my gut is exactly the
+    same
+  - At this point I've spent a lot of money on supplements that have done nothing
+  source: auto_from_brand_context
+desires:
+- desire: To feel physically like herself again — a stomach that is calm and predictable,
+    energy that does not crash, mental clarity she can rely on
+  customer_language:
+  - I just want to feel like myself again
+  - More regular and my stomach feels calmer overall
+  - I want to get through a dinner without dreading how I'll feel after
+- desire: A mechanism-based explanation for why her gut is suffering at this stage
+    of life — and a solution that addresses that mechanism, not just the symptoms
+  customer_language:
+  - I want to actually understand what's happening, not just try another thing
+  - Tell me why it works. I'll figure out if it's right for me.
+- desire: A gut health product she can trust because the science behind it is real
+    and she is no longer willing to bet on marketing claims
+  customer_language:
+  - I need to see the research before I spend money on something
+  - I'm not interested in another supplement with a pretty label and no evidence
+objections:
+- I've already tried high-quality probiotics and they didn't do anything — what makes
+  postbiotics different and why should I believe that framing isn't just another marketing
+  pivot?
+- My gut problems are hormonal. If hormones are the root cause, fixing the gut can't
+  fix the root cause — so why bother?
+- I'm already on several supplements for perimenopause. I don't want to add another
+  product unless there's a compelling reason it's different from what I have.
+- Forty-nine dollars a month is real money to commit to something that might not work,
+  just like the last three things didn't work.
+current_solutions:
+- Premium refrigerated probiotic supplements taken consistently but without clear
+  benefit
+- Hormone replacement therapy or herbal hormone support (black cohosh, maca, ashwagandha)
+  that helped other symptoms but not digestion
+- Low-FODMAP or anti-inflammatory dietary modifications that are effortful and provide
+  only partial relief
+- Magnesium glycinate for regularity and sleep — helps somewhat but does not resolve
+  bloating
+- Digestive enzymes taken with meals — mild improvement, not transformative
+trigger_events:
+- Reaches a threshold moment — a social event, a vacation, a professional photo —
+  where her bloating and physical discomfort feel acutely visible and she decides
+  she is done accepting it
+- A functional medicine physician, dietitian, or trusted peer mentions the gut-hormone
+  connection and she realizes no one has ever told her that her gut microbiome changes
+  significantly during perimenopause
+- Comes across content (Huberman Lab, gut-brain axis podcast, Instagram educator)
+  explaining that probiotics address the wrong layer of the problem — the bacteria,
+  not the bioactive compounds — and it reframes her years of failed supplementation
+- Her primary care physician tells her again that everything looks normal on paper,
+  and she leaves the appointment knowing she has to find a different answer on her
+  own
+awareness_level: problem_aware
+language_patterns:
+- Precise and research-adjacent without being clinical — she reads the studies but
+  she is not a scientist
+- Uses 'gut' not 'microbiome' in conversation; uses 'brain fog' not 'cognitive impairment';
+  says 'bloated' not 'distended'
+- 'Refers to her experience in terms of before and after her body changed: ''I used
+  to be regular,'' ''this never happened in my thirties'''
+- 'Skeptical register: phrases like ''supposedly,'' ''claims to,'' ''I''ve heard that
+  but,'' ''I want to see the actual data'''
+- Frustrated but controlled — she is not angry, she is quietly exhausted by a category
+  that has not delivered
+- Says 'I've tried everything' and means it literally — she has a list
+psychology_profile: null
+higgsfield:
+  soul_id: 34252be3-2522-4d29-bdd7-3bb5b34262e4
+  soul_status: ready

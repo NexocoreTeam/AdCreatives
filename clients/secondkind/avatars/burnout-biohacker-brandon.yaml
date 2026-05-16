@@ -104,4 +104,186 @@ language_patterns:
   says that,'' ''sounds like marketing'''
 - Precision over hyperbole — distrusts words like 'game-changer,' 'transformative,'
   'revolutionary'; responds to 'clinically studied,' 'patented complex,' 'bioavailable'
-psychology_profile: null
+psychology_profile:
+  dominant_heuristics:
+  - heuristic: authority_bias
+    confidence: high
+    why: Brandon is a mechanism-first, evidence-register buyer who explicitly demands
+      RCTs, study populations, and funding transparency before updating his priors
+      — authority is the primary gate through which any new claim must pass.
+    evidence:
+    - 'language_patterns: ''Is there an RCT on this,'' ''what''s the study population,''
+      ''who funded the research'''
+    - 'desires[0]: ''Show me the actual study'' and ''I want to understand the mechanism,
+      not just the claim'''
+    - 'objections[2]: ''If postbiotics are real, why has no one in my network talked
+      about this yet — is it actually emerging science or just new marketing language'''
+    - 'trigger_events[3]: ''Reads a mechanism explanation on SecondKind''s site or
+      ad that articulates the viability and colonization failure modes of probiotics
+      in language precise enough that he cannot dismiss it'''
+    ad_implications: Lead with mechanistic precision — colonization resistance, viability
+      failure, downstream bioactive compounds. Cite named research constructs or patented
+      complexes. Never assert authority through brand voice alone; authority must
+      be delegated to the mechanism itself or to a named, peer-respectable source
+      (functional medicine clinician, published researcher). Avoid vague 'clinically
+      studied' without a referent — he will probe it.
+  - heuristic: framing_effect
+    confidence: high
+    why: 'Brandon''s entire decision calculus is structured around a before/after
+      reframe: he has been supplementing the wrong thing (delivery vehicle vs. active
+      compound), and the only frame that moves him is one that makes his prior behavior
+      coherent while repositioning the new mechanism as the logical next step — not
+      a correction, but an upgrade.'
+    evidence:
+    - 'trigger_events[0]: ''realizes he has been supplementing the delivery vehicle,
+      not the active compound'' — the frame shift is the trigger'
+    - 'psychographic: ''He does not want another product. He wants a coherent explanation
+      for why everything he tried didn''t work'''
+    - 'desires[2]: ''Permission to simplify — one well-designed product that replaces
+      multiple line items in his stack'''
+    - 'objections[0]: ''I already take a high-quality probiotic — why is this different''
+      — price and sticker shock are irrelevant; the objection is categorical framing'
+    ad_implications: 'Frame postbiotics not as a better probiotic but as the compound
+      probiotics were always trying to produce — recast his past spend as incomplete,
+      not wrong. Use contrast structure: ''You were optimizing the vehicle. This is
+      the destination.'' Never frame as replacement (signals he bought the wrong thing);
+      frame as completion (signals he was right to pursue gut health, just missing
+      the final step). Cost-per-use framing is secondary — the primary reframe is
+      conceptual, not financial.'
+  - heuristic: social_proof
+    confidence: medium
+    why: Brandon's trigger events include peer-network validation as a distinct pathway
+      — specifically a physician, dietitian, or fellow optimizer mentioning postbiotics
+      — and his objection about network silence ('why has no one in my network talked
+      about this yet') reveals that social proof from credentialed peers is an active
+      filter, not a passive nice-to-have.
+    evidence:
+    - 'trigger_events[2]: ''A peer in his health-curious network — a physician, dietitian,
+      or fellow optimizer — mentions postbiotics and he realizes this is a category
+      he missed'''
+    - 'objections[2]: ''If postbiotics are real, why has no one in my network talked
+      about this yet'''
+    - 'language_patterns: ''Precision over hyperbole — responds to clinically studied,
+      patented complex, bioavailable'' — peer-adjacent technical vocabulary signals
+      credentialed-community belonging'
+    ad_implications: Social proof must be credentialed, not volumetric — a named functional
+      medicine physician or registered dietitian voice outperforms '50,000 five-star
+      reviews.' UGC that uses protocol and mechanism language ('I swapped it into
+      my morning stack,' 'my HRV variance dropped') signals in-group membership and
+      earns trust that generic testimonials cannot. Do not lead with social proof;
+      use it to corroborate authority claims, not substitute for them.
+  weak_heuristics:
+  - heuristic: scarcity
+    why: Brandon is an explicit deliberate, research-heavy buyer who runs twelve-month
+      consistency trials and audits his stack on cost-and-complexity reviews — manufactured
+      urgency is pattern-matched immediately to the low-credibility wellness marketing
+      he has already written off.
+    avoid: Countdowns, limited-batch framing, 'selling out fast' copy, or any urgency
+      mechanic not grounded in a genuine production constraint. These signals collapse
+      his trust in the brand's scientific credibility before the mechanism case is
+      made.
+  - heuristic: temporal_discounting
+    why: His dominant objection pattern and psychographic explicitly flag 'quick fix'
+      heuristics as red flags — he has been burned by products that implied fast results
+      and he now codes any 'feel it fast' language as the same CFU arms-race marketing
+      he has already rejected.
+    avoid: '''Feel the difference in 3 days,'' ''instant results,'' ''fast-acting''
+      copy. Brandon expects and respects a baseline-establishment period; promising
+      speed undermines the mechanistic credibility that is his primary purchase gate.'
+  - heuristic: effect_heuristic
+    why: Brandon explicitly distrusts vibe-driven purchase decisions and leads with
+      mechanism, not feeling — his language patterns prioritize 'how things work'
+      over 'how they feel,' and his aesthetic response to SecondKind's design is downstream
+      of his intellectual acceptance of the mechanism, not a driver of it.
+    avoid: Leading with sensory language, emotional aspiration, or aesthetic-first
+      creative before the mechanism case is established. Feeling-first copy will be
+      dismissed as wellness-brand theater and increase cynicism rather than reduce
+      it.
+  emotional_position:
+    primary:
+      valence: negative
+      intensity: low
+      rationale: 'Brandon''s dominant emotional register is low-grade cynicism and
+        accumulated disillusionment — not acute fear or crisis. Pain intensity on
+        probiotics and cognitive inconsistency is rated high, but his emotional response
+        has curdled into resigned acceptance (''I just assumed this is how my gut
+        works'') rather than urgent desperation. His trigger events are intellectually
+        mediated (podcast episode, self-audit, peer mention) rather than acute crisis
+        moments, confirming that the emotional charge is LV/LI: dull dissatisfaction
+        with a category he''s quietly stopped believing in, not a burning problem
+        demanding immediate resolution. The dissonance between effort invested and
+        results received is the central ache — present, habituated, and mostly un-named.'
+      use_for: ''
+    secondary:
+      valence: negative
+      intensity: high
+      rationale: ''
+      use_for: Variant testing that surfaces the intellectual cost of being an early
+        adopter who missed the mechanism — specifically the identity threat embedded
+        in his objection 'why has no one in my network talked about this yet.' For
+        a buyer whose identity is being early-informed, discovering he optimized the
+        wrong variable for years is genuinely activating. LV/HI variants should anchor
+        in the gap between self-concept (advanced optimizer) and current reality (twelve
+        months of probiotic use with zero measurable outcome). Use in colder audiences
+        where the quiet ache has not yet been named.
+  recommended_prompt_pairings:
+  - pairing: first_principles_plus_loss_aversion
+    fits_because: Activates authority_bias and framing_effect — the two highest-confidence
+      dominant heuristics. First-principles deconstruction of why probiotics structurally
+      fail at colonization gives Brandon the mechanistic explanation he explicitly
+      demands, while loss aversion surfaces the twelve-plus months of spend and effort
+      invested in the wrong variable. Fits primary LV/LI quadrant by naming the quiet
+      cost of the accepted compromise.
+  - pairing: counterintuitive_insight_plus_specificity
+    fits_because: Activates authority_bias and salience_bias. 'The probiotic you take
+      is already dead before it reaches your colon' is the category of insight Brandon
+      responds to — precise, non-hyperbolic, and falsifiable. Specificity (named failure
+      modes, named compounds) is the credibility signal that separates this from the
+      CFU arms-race marketing he has already rejected. Fits primary LV/LI quadrant.
+  - pairing: authority_borrowing_plus_data_insight
+    fits_because: Directly activates authority_bias with credentialed-peer social
+      proof as the delivery mechanism. A named functional medicine researcher or gastroenterologist
+      presenting the colonization-resistance or viability data in Brandon's own technical
+      register satisfies both the evidence requirement and the peer-network-validation
+      trigger. Fits LV/LI primary and LV/HI secondary.
+  - pairing: pattern_disruption_plus_hidden_truth
+    fits_because: Activates salience_bias and authority_bias (insider framing). 'The
+      gut health industry has been measuring the wrong output variable for a decade'
+      is the class of claim that stops a habituated optimizer mid-scroll — it confirms
+      his cynicism is warranted while offering an exit from it. Fits LV/LI primary
+      by validating the quiet disillusionment before presenting the mechanism alternative.
+  - pairing: contrast_plus_aspirational_identity
+    fits_because: Activates framing_effect and effect_heuristic as a secondary layer.
+      The before/after frame here is not aesthetic transformation but intellectual
+      identity upgrade — 'the version of you supplementing the delivery vehicle' vs.
+      'the version of you supplementing the active compound.' Fits secondary LV/HI
+      quadrant for audiences where the identity threat of having missed the mechanism
+      is more activating than quiet disillusionment.
+  - pairing: micro_story_plus_suspense
+    fits_because: Activates salience_bias and framing_effect. A short narrative structured
+      as 'I did everything right for two years and couldn't explain why nothing moved
+      — then I understood the mechanism' mirrors Brandon's exact psychographic arc
+      and uses his own language register. Works in both primary LV/LI (the ache of
+      the plateau) and secondary LV/HI (the cost of the missed variable) depending
+      on where the story anchors.
+  avoid_pairings:
+  - pairing: shock_factor_plus_transformation_shortcut
+    avoid_because: Activates temporal_discounting (weak heuristic) and signals the
+      exact category of 'quick fix' hype Brandon has already pattern-matched as low-credibility.
+      'Transformation shortcut' language is structurally identical to the probiotic
+      marketing he has rejected — it will accelerate cynicism rather than reduce it.
+  - pairing: gamification_plus_time_sensitive_offer
+    avoid_because: Activates scarcity (weak heuristic) and temporal_discounting (weak
+      heuristic). Brandon is a deliberate, audit-driven buyer who runs twelve-month
+      consistency trials — urgency mechanics and gamified progress structures are
+      incongruent with his decision style and will pattern-match to wellness gimmickry.
+  - pairing: status_signaling_plus_open_loop
+    avoid_because: Aspirational status framing without mechanistic grounding violates
+      Brandon's dominant authority_bias requirement. He is anti-hype and specifically
+      distrusts words like 'game-changer' and 'revolutionary' — open-loop curiosity
+      gaps without immediate mechanistic payoff will read as the same category theater
+      he has already written off.
+  source: auto_from_psychology_profiling
+higgsfield:
+  soul_id: f2e0adf3-d531-4336-a4c3-bc9841eba056
+  soul_status: ready

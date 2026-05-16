@@ -24,3 +24,8 @@ personas:
   role: secondary
   awareness_level: problem_aware
   confidence: medium
+- id: perimenopause-paula
+  name: Perimenopause Paula
+  role: secondary
+  awareness_level: problem_aware
+  confidence: medium
