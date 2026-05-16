@@ -170,18 +170,70 @@ def generate_soul_image(
 
     Returns the full response dict — call `extract_result_urls(response)` to
     pull the rendered image URLs.
+
+    Wire-shape note: the REST endpoint expects all generation parameters
+    nested under a top-level `params` key, with v1 vocabulary:
+      - `width_and_height` as an enum (e.g. SQUARE_2048x2048) rather than
+        aspect_ratio + quality
+      - `batch_size` enum for count
+    The MCP server translates "aspect_ratio + quality" to this v1 shape;
+    we do that translation here for direct REST.
     """
-    body: dict = {
+    params: dict = {
+        "model": "soul_2",
         "prompt": prompt,
-        "aspect_ratio": aspect_ratio,
-        "quality": quality,
+        "width_and_height": _v1_size_enum(aspect_ratio, quality),
+        "batch_size": 1,
+        "quality": _v1_quality_enum(quality),
     }
     if soul_id:
-        body["soul_id"] = soul_id
+        params["soul_id"] = soul_id
     if reference_image_url:
-        body["image_reference_url"] = reference_image_url
-        body["image_reference_type"] = "composition"
-    return _subscribe(SOUL_TEXT_TO_IMAGE, body)
+        params["medias"] = [
+            {"value": reference_image_url, "role": "image"}
+        ]
+    return _subscribe(SOUL_TEXT_TO_IMAGE, {"params": params})
+
+
+def _v1_size_enum(aspect_ratio: str, quality: str) -> str:
+    """Map (aspect_ratio, quality) → Higgs Field v1 `width_and_height` enum.
+
+    Valid v1 values per the API's 422 reply (literal_error):
+      1152x2048, 2048x1152, 2048x1536, 1536x2048, 1344x2016, 2016x1344,
+      960x1696, 1536x1536, 1536x1152, 1696x960, 1152x1536, 1088x1632,
+      1632x1088, 1120x1680, 1680x1120, 2048x2048
+    """
+    q = (quality or "").lower()
+    hi = not q.startswith("1")  # treat 1k/lower as small, 2k/higher as large
+    ar = (aspect_ratio or "1:1").strip()
+    if ar == "1:1":
+        return "2048x2048" if hi else "1536x1536"
+    if ar == "9:16":
+        return "1152x2048"
+    if ar == "16:9":
+        return "2048x1152"
+    if ar == "3:4":
+        return "1536x2048"
+    if ar == "4:3":
+        return "2048x1536"
+    if ar == "2:3":
+        return "1344x2016"
+    if ar == "3:2":
+        return "2016x1344"
+    # fallback to square
+    return "2048x2048" if hi else "1536x1536"
+
+
+def _v1_quality_enum(quality: str) -> str:
+    """Map our quality strings to HF v1 quality enum.
+
+    Per the API's 422 reply, v1 quality is video-style: '720p' or '1080p'.
+    Our 1k/1.5k/lower maps to 720p; 2k and above maps to 1080p.
+    """
+    q = (quality or "").lower()
+    if q in ("720p", "basic", "1k"):
+        return "720p"
+    return "1080p"
 
 
 def extract_result_urls(response: dict) -> list[str]:
