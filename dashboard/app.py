@@ -219,6 +219,16 @@ def run_adc_command(cmd_args: list[str], label: str = "Running...") -> tuple[int
             status.update(label=f"Done: {label}", state="complete")
         else:
             status.update(label=f"Failed (exit {rc}): {label}", state="error")
+
+    if rc != 0:
+        # Halt the script run so the caller's st.rerun() never fires.
+        # Without this, the error status box (with the traceback) is
+        # erased before the user can read it.
+        st.error(
+            f"Command failed with exit code {rc}. "
+            "Expand the status box above to see the full traceback."
+        )
+        st.stop()
     return rc, "\n".join(log_lines)
 
 
