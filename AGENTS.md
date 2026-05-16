@@ -23,10 +23,37 @@ explicit user discussion.
 
 - Python **3.11+**.
 - `pip install -e .` from the repo root (or `pip install -e ".[dev]"` for tests).
-- `.env` at repo root supplies API keys (fal, OpenAI, Anthropic, Exa, Apify, Google).
-  Not committed. The CLI auto-loads it via `_bootstrap_env_from_dotenv`.
+- `.env` at repo root supplies API keys (fal, OpenAI, Anthropic, Exa, Apify, Google,
+  `HF_CREDENTIALS`). Not committed. The CLI auto-loads it via `_bootstrap_env_from_dotenv`.
 - CLI entry: `adc --help` (defined in `cli.py`).
 - Dashboard: `adc dashboard` (Streamlit, reads local files only, no API calls).
+
+## Higgsfield integration
+
+Higgsfield AI is wired into both the brief→image pipeline (`--engine
+higgsfield-soul`) and the agent's own toolset. Three layers:
+
+1. **Runtime REST client** at `generators/higgsfield_client.py` — used by
+   `adc remix-images`, `adc remix-refine`, and `adc generate` when
+   `--engine higgsfield-soul` is set. Auth via `HF_CREDENTIALS` in `.env`.
+   This is the path the dashboard buttons call. Do NOT refactor it to shell
+   out to the CLI — direct HTTP is faster and has retry control.
+2. **Higgsfield CLI** at `higgsfield` (and `hf`) on PATH — for agent
+   management tasks: list trained Souls, check credits, train new Souls,
+   one-off generations. Install: `npm install -g @higgsfield/cli` (or the
+   release binary if npm postinstall fails on Windows). Auth:
+   `higgsfield auth login` (browser device flow).
+3. **Skill pack** under `.agents/skills/` (gitignored, per-machine) — four
+   slash commands installed via `npx skills add higgsfield-ai/skills`:
+   `/higgsfield-generate`, `/higgsfield-soul-id`,
+   `/higgsfield-product-photoshoot`, `/higgsfield-marketplace-cards`. They
+   wrap the CLI with structured prompts. Prefer these over the deprecated
+   Higgsfield MCP connector.
+
+The previous Higgsfield Claude.ai MCP connector (`mcp.higgsfield.ai/mcp`)
+is being phased out in favor of the CLI + skills. Per-persona Soul
+Characters are tracked under each avatar YAML's `higgsfield:` block
+(`soul_id`, `soul_status`).
 
 ## Repo layout
 
