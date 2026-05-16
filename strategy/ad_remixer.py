@@ -1669,23 +1669,65 @@ def _strip_notes_header(text: str) -> str:
     return text[idx + len(_NOTES_END_MARKER):].strip()
 
 
+def _get_soul_id_for_brief(brief_data: dict) -> str | None:
+    """Look up the higgsfield.soul_id from the avatar YAML for this brief's persona.
+
+    Returns None if no avatar matches or the avatar has no Soul Character trained
+    yet. Returning None is non-fatal — the caller can fall back to text-only
+    generation, or raise if a Soul is strictly required.
+    """
+    client_slug = brief_data.get("client", "")
+    persona_name = (brief_data.get("persona") or "").strip()
+    if not client_slug or not persona_name:
+        return None
+
+    avatars_dir = CLIENTS_DIR / client_slug / "avatars"
+    if not avatars_dir.exists():
+        return None
+
+    # Match by `name:` field across all avatar YAMLs (the slug is filename stem,
+    # not always derivable from the persona display name).
+    for path in sorted(avatars_dir.glob("*.yaml")):
+        if path.name.startswith("_"):
+            continue
+        try:
+            data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        except Exception:
+            continue
+        if (data.get("name") or "").strip().lower() == persona_name.lower():
+            hf = data.get("higgsfield") or {}
+            soul_id = hf.get("soul_id")
+            soul_status = hf.get("soul_status", "")
+            if soul_id and soul_status == "ready":
+                return soul_id
+            return None
+    return None
+
+
 def generate_remix_images(
     remix_dir: str | Path,
     *,
     num_images: int = 1,
     thinking_level: str = "disabled",
     aspect_ratio: str = "1:1",
+    engine: str = "nb2",
 ) -> list[Path]:
-    """Fire fal.ai (Nano Banana 2) for each brief in a saved remix directory.
+    """Fire the image-generation engine for each brief in a saved remix directory.
+
+    Engines:
+      - "nb2"              fal.ai Nano Banana 2 (existing) — product-aware,
+                            multi-image edit endpoint, no identity lock.
+      - "higgsfield-soul"  Higgs Field soul_2 with the persona's trained
+                            soul_id — identity-locked face, phone-camera
+                            aesthetic. Requires HF_CREDENTIALS in env and a
+                            'ready' Soul Character on each avatar.
 
     Reads briefs.yaml + the corresponding prompts/*.txt files (notes header
-    stripped), uploads/uses the product's reference image, and writes the
-    generated images to `<remix-dir>/images/`.
+    stripped), uploads/uses the product's reference image (NB2 only), and
+    writes the generated images to `<remix-dir>/images/`.
 
-    Returns the list of saved image paths."""
-    from generators.fal_client import generate_and_save
-    from generators.image_generator import _get_product_image_urls
-
+    Returns the list of saved image paths.
+    """
     remix_path = Path(remix_dir)
     if not remix_path.exists():
         raise FileNotFoundError(f"Remix directory not found: {remix_path}")
@@ -1698,15 +1740,28 @@ def generate_remix_images(
     if not briefs_data or not isinstance(briefs_data, list):
         raise ValueError(f"briefs.yaml is empty or malformed in {remix_path}")
 
+    images_dir = remix_path / "images"
+    images_dir.mkdir(exist_ok=True)
+
+    if engine == "higgsfield-soul":
+        return _generate_remix_images_higgsfield(
+            briefs_data,
+            remix_path=remix_path,
+            images_dir=images_dir,
+            num_images=num_images,
+            aspect_ratio=aspect_ratio,
+        )
+
+    # Default path: NB2 via fal.ai (existing behavior, unchanged below).
+    from generators.fal_client import generate_and_save
+    from generators.image_generator import _get_product_image_urls
+
     client_slug = briefs_data[0]["client"]
     product_name = briefs_data[0]["product"]
     product = _load_product_flexible(
         client_slug, product_name.lower().replace(" ", "-")
     )
     product_urls = _get_product_image_urls(product, client_slug)
-
-    images_dir = remix_path / "images"
-    images_dir.mkdir(exist_ok=True)
 
     saved_paths: list[Path] = []
     for brief_data in briefs_data:
@@ -1743,6 +1798,72 @@ def generate_remix_images(
                         r.local_path.stem + "_campaign.txt"
                     )
                     sidecar.write_text(campaign_name + "\n", encoding="utf-8")
+
+    return saved_paths
+
+
+def _generate_remix_images_higgsfield(
+    briefs_data: list[dict],
+    *,
+    remix_path: Path,
+    images_dir: Path,
+    num_images: int,
+    aspect_ratio: str,
+) -> list[Path]:
+    """Higgs Field soul_2 image generation, one image per brief, identity-locked.
+
+    For each brief, look up the persona's trained `soul_id` from the avatar
+    YAML. If the persona has no Soul Character, skip the brief and log a
+    warning — operator can train via `adc generate-model --engine higgsfield`
+    (future) or via the Higgs Field MCP.
+    """
+    from generators.higgsfield_client import HiggsfieldError, soul_generate_and_save
+
+    saved_paths: list[Path] = []
+    for brief_data in briefs_data:
+        brief_id = brief_data["brief_id"]
+        prompt_file = remix_path / "prompts" / f"{brief_id}.txt"
+        if not prompt_file.exists():
+            raise FileNotFoundError(
+                f"Missing prompt file for brief '{brief_id}': {prompt_file}"
+            )
+
+        prompt_text = _strip_notes_header(prompt_file.read_text(encoding="utf-8"))
+        if not prompt_text:
+            raise ValueError(
+                f"Empty prompt after stripping notes header: {prompt_file}"
+            )
+
+        soul_id = _get_soul_id_for_brief(brief_data)
+        if not soul_id:
+            print(
+                f"  [skip] {brief_id} — persona "
+                f"'{brief_data.get('persona', '?')}' has no Soul Character "
+                f"(higgsfield.soul_status != 'ready'). Train one first."
+            )
+            continue
+
+        for i in range(num_images):
+            suffix = f"_{i+1}" if num_images > 1 else ""
+            out_path = images_dir / f"{brief_id}{suffix}_1x1.png"
+            try:
+                soul_generate_and_save(
+                    soul_id=soul_id,
+                    prompt=prompt_text,
+                    out_path=out_path,
+                    aspect_ratio=aspect_ratio,
+                    quality="2k",
+                )
+            except HiggsfieldError as e:
+                print(f"  [fail] {brief_id}: {e}")
+                continue
+            saved_paths.append(out_path)
+
+            # Campaign-name sidecar (same convention as NB2 path)
+            campaign_name = brief_data.get("campaign_name") or ""
+            if campaign_name:
+                sidecar = out_path.with_name(out_path.stem + "_campaign.txt")
+                sidecar.write_text(campaign_name + "\n", encoding="utf-8")
 
     return saved_paths
 

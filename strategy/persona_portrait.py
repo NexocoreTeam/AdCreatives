@@ -166,53 +166,78 @@ Output a JSON object with exactly these keys (all strings, no markdown):
 
 
 def build_portrait_prompt(cues: VisualCues) -> str:
-    """Assemble the Nano Banana 2 text-to-image headshot prompt.
+    """Assemble the Nano Banana 2 / Higgs Field Soul-2 headshot prompt.
 
-    Uses the realistic-people skill's verbatim camera, film stock, and
-    skin-anatomy phrases that the prompt-engine rules require. Output
-    is a single ready-to-send prompt string. No text overlay, no
-    product, no scene context — just the headshot on a neutral
-    studio background.
+    Tuned to the **smartphone-candid aesthetic** — iPhone rear camera,
+    domestic interior, warm ambient light, raw "shot by a friend"
+    register. The earlier studio-Hasselblad version produced portraits
+    that were too sharp and too editorial; this version reads as a
+    real iPhone capture in someone's home. Tested against three of the
+    operator's favorite nano-banana prompts (glamour mirror selfie,
+    gym fitness selfie, Hawaiian Tropic loungewear influencer).
+
+    Output is a single ready-to-send prompt string. No text overlay,
+    no product, no logo overlay — just the headshot.
     """
     return (
-        "Headshot portrait, 1:1 aspect ratio, chest-up framing on a "
-        "light-grey seamless studio background. No clutter, no props, "
-        "no text overlay, no logos.\n\n"
+        "Casual candid smartphone portrait, 1:1 aspect ratio, chest-up "
+        "framing. Shot on iPhone 15 Pro rear camera, 26mm equivalent. "
+        "Influencer lifestyle photography aesthetic with a 2000s "
+        "digital-camera vibe — raw, unstaged, NOT editorial, NOT studio.\n\n"
         "SUBJECT:\n"
         f"{cues.build} {cues.gender}, {cues.age}. Ethnicity register: "
         f"{cues.ethnicity_register}. {cues.hair}. "
         f"{cues.skin_register} — visible pores, natural skin texture "
-        "variation across the face, subtle under-eye detail. "
-        "Hyper-detailed skin — no airbrushing, no plastic smoothness, "
-        "slight natural asymmetry. Natural eye catchlights, soft "
-        "realistic gaze slightly off-axis, no doll-like glassy eyes.\n\n"
+        "variation across the face, subtle under-eye detail, slight "
+        "natural skin sheen, occasional faint freckles or small skin "
+        "imperfections. Hyper-detailed skin — no airbrushing, no plastic "
+        "smoothness, slight natural asymmetry. Natural eye catchlights, "
+        "soft realistic gaze slightly off-axis, no doll-like glassy "
+        "eyes.\n\n"
         f"WARDROBE: {cues.wardrobe}. {cues.accessories}. Realistic "
         "fabric folds and shadows on the garment, natural drape, soft "
-        "texture detail.\n\n"
+        "texture detail — looks worn, not styled.\n\n"
         f"EXPRESSION & BODY LANGUAGE: {cues.expression}. "
         f"{cues.body_language}. Framed chest-up, shoulders relaxed. "
-        f"Overall register: {cues.register}.\n\n"
+        f"Overall register: {cues.register}. Mid-thought micro-"
+        "expression, candid moment captured between thoughts — NOT "
+        "posed, NOT a held smile.\n\n"
+        "ENVIRONMENT:\n"
+        "Slightly blurred warm domestic interior background — hint of "
+        "a kitchen counter, living room edge, or bedroom doorway. Soft "
+        "natural bokeh from a real depth-of-field, NOT a seamless "
+        "studio backdrop. The background reads as a real home where "
+        "the subject actually lives.\n\n"
         "CAMERA:\n"
-        "Shot on Hasselblad X2D with 85mm f/2.0, shallow DOF, tack-sharp "
-        "eyes, creamy bokeh, Kodak Portra 400 emulation, natural warm "
-        "skin tones, soft pastel palette.\n\n"
+        "iPhone 15 Pro rear camera, 26mm equivalent, shallow depth of "
+        "field with natural soft bokeh, subject sharp from chest up, "
+        "slight handheld feel. NOT a professional medium-format "
+        "camera, NOT a portrait studio rig.\n\n"
         "LIGHTING:\n"
-        "Single soft window light from upper-left at approximately 45°, "
-        "warm 4500K color temperature, gentle shadow falloff across "
-        "face, no studio fill, no ring-light catchlights, no even "
-        "all-around illumination.\n\n"
-        "REGISTER:\n"
-        "Documentary editorial portrait — candid moment, real-life "
-        "imperfections preserved, no Instagram filter look, natural "
-        "color grading. Reads as a real photograph of a real person, "
-        "not an AI render.\n\n"
-        "Negative prompt: plastic skin, smoothed airbrushed skin, waxy "
-        "face, stock-photo energy, uncanny valley, doll-like glassy "
-        "eyes, AI-generated face artifacts, oversaturated colors, "
-        "Instagram filter look, posed/staged feel, celebrity look-"
-        "alike, gym-model proportions, suit or formal wear (unless "
-        "specified), text or watermark, hands visible (chest-up "
-        "framing).\n\n"
+        "Soft warm ambient light from a window or domestic lamp, "
+        "gentle directional fall across the face. NO studio key, NO "
+        "ring-light catchlights, NO even all-around illumination, NO "
+        "three-point setup. The lighting is intimate and unstaged, as "
+        "if grabbed in passing.\n\n"
+        "COLOR & GRADING:\n"
+        "Clean neutral tones with warm skin balance. Kodak Portra 400 "
+        "emulation. Natural color grading with raw photo aesthetic. "
+        "Slight organic digital noise. NOT oversaturated, NOT an "
+        "Instagram filter, NOT teal-and-orange cinematic grade.\n\n"
+        "MOOD:\n"
+        "Chill, considered, real. Reads as a friend's iPhone capture "
+        "from a quiet domestic moment, NOT a studio portrait or a "
+        "magazine editorial.\n\n"
+        "Negative prompt: studio seamless background, ring-light "
+        "catchlights, even studio illumination, Hasselblad-sharp "
+        "tack-sharp glossy look, magazine editorial polish, plastic "
+        "skin, smoothed airbrushed skin, waxy face, stock-photo "
+        "energy, uncanny valley, doll-like glassy eyes, posed/staged "
+        "feel, oversaturated colors, Instagram filter look, teal-and-"
+        "orange cinematic grade, AI-generated face artifacts, "
+        "celebrity look-alike, gym-model proportions, formal wear "
+        "(unless specified), text or watermark, hands visible "
+        "(chest-up framing).\n\n"
         "1:1 aspect ratio."
     )
 

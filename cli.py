@@ -3741,11 +3741,34 @@ def remix(
     show_default=True,
     help="Aspect ratio for all generated images",
 )
-def remix_images(remix_dir: str, num_images: int, thinking: str, aspect_ratio: str):
-    """Generate Nano Banana 2 images for an existing remix directory.
+@click.option(
+    "--engine",
+    type=click.Choice(["nb2", "higgsfield-soul"]),
+    default="nb2",
+    show_default=True,
+    help=(
+        "Image-generation engine. "
+        "'nb2' = fal.ai Nano Banana 2 (existing, product-aware). "
+        "'higgsfield-soul' = Higgs Field soul_2 using each persona's trained "
+        "soul_id (identity-locked face, phone-camera aesthetic). Requires "
+        "HF_CREDENTIALS in .env and a 'ready' Soul Character on each avatar."
+    ),
+)
+def remix_images(
+    remix_dir: str,
+    num_images: int,
+    thinking: str,
+    aspect_ratio: str,
+    engine: str,
+):
+    """Generate ad images for an existing remix directory.
 
-    Reads briefs.yaml + prompts/*.txt from the directory, fires fal.ai for
-    each, and saves images to <remix-dir>/images/.
+    Reads briefs.yaml + prompts/*.txt from the directory, fires the selected
+    engine for each, and saves images to <remix-dir>/images/.
+
+    Use --engine higgsfield-soul to route through Higgs Field with each
+    persona's trained Soul Character — gives identity-locked output. Use the
+    default --engine nb2 for the existing fal.ai Nano Banana 2 pipeline.
     """
     from strategy.ad_remixer import generate_remix_images
     from strategy.cost_tracker import log_cost
@@ -3757,17 +3780,23 @@ def remix_images(remix_dir: str, num_images: int, thinking: str, aspect_ratio: s
         if idx + 1 < len(rd.parts):
             client_slug = rd.parts[idx + 1]
 
+    engine_label = (
+        "Higgs Field soul_2 (identity-locked)"
+        if engine == "higgsfield-soul"
+        else "fal.ai Nano Banana 2"
+    )
     with console.status(
-        f"Generating {num_images} image(s) per brief — firing fal.ai..."
+        f"Generating {num_images} image(s) per brief — firing {engine_label}..."
     ):
         paths = generate_remix_images(
             remix_dir=remix_dir,
             num_images=num_images,
             thinking_level=thinking,
             aspect_ratio=aspect_ratio,
+            engine=engine,
         )
 
-    console.print(f"\n[green]Generated {len(paths)} image(s):[/green]")
+    console.print(f"\n[green]Generated {len(paths)} image(s) via {engine_label}:[/green]")
     for p in paths:
         console.print(f"  {p}")
 
@@ -3776,7 +3805,7 @@ def remix_images(remix_dir: str, num_images: int, thinking: str, aspect_ratio: s
             client_slug,
             "adc remix-images",
             multiplier=len(paths),
-            note=f"{len(paths)} image(s) from {rd.name}",
+            note=f"{len(paths)} image(s) from {rd.name} via {engine}",
         )
 
 
