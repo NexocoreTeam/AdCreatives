@@ -549,8 +549,11 @@ def prompt_from_brief(
     product_context = _build_product_context(brand, product, avatar)
     brief_context = _build_brief_context(brief)
 
-    # Condense brief into ad-ready copy — the only text NB2 should render literally
-    condensed = condense_brief_for_ad(brief, brand)
+    # Condense brief into ad-ready copy — the only text NB2 should render
+    # literally. Passes `avatar` so the condenser writes in the customer's
+    # voice rather than the brief's brand voice (when an avatar is
+    # available; otherwise falls back to brief-only condensation).
+    condensed = condense_brief_for_ad(brief, brand, avatar=avatar)
     condensed_block = (
         "AD-READY ON-IMAGE COPY (use these as the literal rendered text — "
         "do NOT render the brief's long hook verbatim):\n"
@@ -617,22 +620,42 @@ def prompt_from_brief(
 
 CONDENSER_SYSTEM = """You are an ad copy editor distilling a creative brief
 into AD-READY on-image copy. The brief contains long-form strategic copy
-(hooks that span sentences, body paragraphs, multi-clause CTAs). Your job
-is to compress it into copy that actually fits a static ad — three short
-elements, each native and scroll-stopping.
+written in BRAND voice — marketing jargon, clinical phrasing, claim
+language. Your job is to compress it into copy that actually fits a
+static ad AND reads in the ICP's authentic CUSTOMER voice, not the
+brand's marketing voice.
+
+CUSTOMER VOICE — what this means:
+Brand voice is the marketer talking ("Viability failure",
+"Colonization lottery", "1 trillion stable bioactives delivered
+directly"). Customer voice is what the customer would actually say,
+think, or notice ("Same bloat", "Still feels off", "Actually works",
+"Bloat completely gone"). Customer voice is SHORT, PLAIN, OBSERVATIONAL,
+and PERSONAL. Brand voice is LONG, TECHNICAL, CLAIM-RICH, and IMPERSONAL.
+
+When an ICP VOICE PACK appears in the user message (language patterns
++ verbatim customer_language quotes), THAT is the register your output
+must match. Do not paraphrase those quotes — lean on their actual
+wording, sentence shape, and vocabulary. The customer should recognize
+your output as their own way of talking.
 
 Rules:
-- HERO phrase: 3-8 words. The single line that commands the frame. Sharp,
-  native, written like a real person would think it — not strategist-speak.
-- SUPPORTING phrase: 5-10 words. Optional. Adds ONE clarifying beat.
-  Empty string if the hero is strong enough alone.
-- CTA: 2-4 words. Action-oriented. Real-people language ('See how it works',
-  'Read the science', 'Try Gut Balance').
-- Use the brand voice from BRAND CONTEXT. Honor PROHIBITED TERMS.
+- HERO phrase: 3-8 words. The single line that commands the frame.
+  Sharp, native, written like the CUSTOMER would think it — not
+  strategist-speak. If the brief says "Postbiotics: the active
+  compound probiotics were always trying to deliver", the hero should
+  feel more like "Probiotics didn't work for me" — pulled from the
+  customer's own voice, not the brand's framing.
+- SUPPORTING phrase: 5-10 words. Optional. Adds ONE clarifying beat,
+  also in customer voice.
+- CTA: 2-4 words. Action-oriented. Real-people language ('See how it
+  works', 'Read the science', 'Try Gut Balance'). Brand wording is
+  acceptable here because CTAs are explicitly the brand asking.
+- Honor PROHIBITED TERMS from the brand context.
 - DO NOT name competitors.
-- Use the SAME PSYCHOLOGICAL LEVER as the original hook. If the original
-  hook is a question, the hero should also pose a question (just shorter).
-  If it's a stat-driven hook, the hero should lead with the stat.
+- Use the SAME PSYCHOLOGICAL LEVER as the original hook. If the
+  original hook is a question, the hero is also a question. If it's
+  stat-driven, lead with the stat.
 
 Output VALID JSON only — no prose, no markdown fences. Schema:
 
@@ -648,6 +671,7 @@ def condense_brief_for_ad(
     brand: Brand,
     *,
     word_budget: int | None = None,
+    avatar: CustomerAvatar | None = None,
 ) -> dict[str, str]:
     """Distill a brief's long-form copy into ad-ready on-image text.
 
@@ -660,7 +684,16 @@ def condense_brief_for_ad(
     that budget — so the new ad matches the reference's text density rather
     than blowing past it.
 
-    Costs ~$0.005 per call (tiny prompt, tiny output).
+    When `avatar` is provided, the avatar's language_patterns +
+    customer_language verbatim quotes are injected as the "ICP VOICE PACK"
+    reference register. The condenser is then instructed to write the
+    HERO and SUPPORTING in CUSTOMER voice rather than BRAND voice — which
+    means leaning on the avatar's actual quotes ("Still feels off",
+    "Bloat completely gone") rather than the brief's clinical jargon
+    ("Viability failure", "Improved gut regularity"). Without an avatar,
+    the condenser falls back to inferring voice from brief context only.
+
+    Costs ~$0.005-0.01 per call (small prompt, small output).
     """
     import json as _json
 
@@ -674,6 +707,33 @@ def condense_brief_for_ad(
         f"BRAND VOICE: {brand.tone or 'n/a'}\n"
         f"PROHIBITED TERMS (NEVER use these): {', '.join(brand.prohibited_terms or [])}\n"
     )
+
+    # ICP voice pack — when an avatar is provided, this becomes the
+    # register reference for the condenser. The voice pack contains the
+    # persona's language_patterns + verbatim customer quotes pulled from
+    # pain_points and desires. Without it, the condenser falls back to
+    # inferring voice from the brief alone (lower quality).
+    voice_block = ""
+    if avatar is not None:
+        try:
+            from strategy.voice import format_voice_pack
+            voice_pack = format_voice_pack(avatar)
+            if voice_pack:
+                voice_block = (
+                    f"{voice_pack}\n"
+                    "CRITICAL: the HERO and SUPPORTING below must be written in "
+                    "the customer's voice (above), NOT the brand's voice. The "
+                    "brief's hook + benefit_callouts are written in BRAND voice "
+                    "(marketing jargon, clinical phrasing). Translate that intent "
+                    "into how the CUSTOMER would actually say it — short, plain, "
+                    "observational. Lean on the customer's verbatim quotes above "
+                    "as your wording reference.\n\n"
+                )
+        except Exception:
+            # Soft-fail — if the voice pack helper errors, fall back to
+            # brief-only context. We never want the condenser to hard-fail
+            # because of a voice-pack issue.
+            voice_block = ""
 
     # Word-budget guidance — only included when we have a reference's word
     # count to match. The condenser uses this to keep total output near the
@@ -691,12 +751,15 @@ def condense_brief_for_ad(
         )
 
     prompt = (
+        f"{voice_block}"
         f"Distill this brief into ad-ready on-image copy.\n\n"
-        f"ORIGINAL HOOK (compress this): {long_hook}\n"
+        f"ORIGINAL HOOK (compress this — translate from BRAND voice to "
+        f"CUSTOMER voice): {long_hook}\n"
         f"ORIGINAL CTA (shorten this): {original_cta}\n"
         f"PAIN ADDRESSED (context only — do not render): {pain}\n"
         f"ANGLE (context only — do not render): {angle}\n"
-        f"BENEFIT CALLOUTS (context only): {callouts}\n\n"
+        f"BENEFIT CALLOUTS (brand-voice context — translate to customer voice "
+        f"if used): {callouts}\n\n"
         f"{brand_ctx}"
         f"{budget_line}\n\n"
         f"Output JSON only: {{'hero': '...', 'supporting': '...', 'cta': '...'}}"
@@ -792,8 +855,10 @@ def prompt_from_brief_and_template(
     # Condense the brief into ad-ready hero / supporting / cta copy. Free
     # condensation (no per-reference word budget) — letting the condenser
     # pick the sharpest phrasing produced stronger heroes in testing than
-    # constraining it to match the reference's density.
-    condensed = condense_brief_for_ad(brief, brand)
+    # constraining it to match the reference's density. Passes `avatar`
+    # so the condenser writes in the customer's voice rather than the
+    # brief's brand voice.
+    condensed = condense_brief_for_ad(brief, brand, avatar=avatar)
 
     condensed_block = (
         "AD-READY ON-IMAGE COPY (use these as the actual rendered text — "

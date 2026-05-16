@@ -2305,55 +2305,15 @@ def _compute_source_structure(source_texts: list[str]) -> list[dict]:
 
 
 def _format_voice_pack(avatar: "CustomerAvatar | None") -> str:
-    """Render the ICP voice pack from an avatar — language patterns +
-    verbatim customer_language quotes from pain_points and desires.
+    """Render the ICP voice pack — thin wrapper around `strategy.voice.format_voice_pack`.
 
-    Returns a markdown-like block ready to drop into a Claude prompt. If
-    no avatar is available, returns an empty string and the mapper will
-    fall back to brief-only context (lower quality but still works)."""
-    if avatar is None:
-        return ""
-
-    lines: list[str] = []
-    lines.append("ICP VOICE PACK (this is how the customer talks — match this register):")
-    lines.append("")
-
-    patterns = (avatar.language_patterns or [])[:5]
-    if patterns:
-        lines.append("Language patterns:")
-        for p in patterns:
-            lines.append(f"  - {p[:200]}")
-        lines.append("")
-
-    # Pain customer-language samples — feed verbatim quotes that map
-    # onto the "without your product" / pain-callout side.
-    pain_quotes: list[str] = []
-    for pp in (avatar.pain_points or [])[:5]:
-        for q in (pp.customer_language or [])[:2]:
-            qs = (q or "").strip()
-            if qs:
-                pain_quotes.append(qs)
-    if pain_quotes:
-        lines.append("Customer pain quotes (verbatim) — voice register for pain callouts:")
-        for q in pain_quotes[:8]:
-            lines.append(f'  - "{q}"')
-        lines.append("")
-
-    # Desire customer-language samples — feed quotes that map onto the
-    # "with your product" / benefit-callout side.
-    desire_quotes: list[str] = []
-    for d in (avatar.desires or [])[:5]:
-        for q in (d.customer_language or [])[:2]:
-            qs = (q or "").strip()
-            if qs:
-                desire_quotes.append(qs)
-    if desire_quotes:
-        lines.append("Customer outcome quotes (verbatim) — voice register for benefit callouts:")
-        for q in desire_quotes[:8]:
-            lines.append(f'  - "{q}"')
-        lines.append("")
-
-    return "\n".join(lines)
+    Kept as a module-local alias because earlier code in this file refers to
+    the underscore-prefixed name. The shared implementation lives in
+    `strategy.voice` so prompt_engine.py can import the same helper without
+    creating a circular dependency with this module.
+    """
+    from strategy.voice import format_voice_pack
+    return format_voice_pack(avatar)
 
 
 def _validate_and_retry_mapping(
