@@ -4036,5 +4036,171 @@ def remix_refine(
         )
 
 
+@cli.command(name="remix-rebuild-prompts")
+@click.option(
+    "--remix-dir",
+    required=True,
+    type=click.Path(exists=True, file_okay=False),
+    help="Path to a differential-mode remix directory (e.g. clients/<slug>/remixes/<timestamp>)",
+)
+@click.option(
+    "--brief",
+    "brief_id",
+    default=None,
+    help="Optional: rebuild only this brief's prompt. Default: rebuild all.",
+)
+@click.option(
+    "--creative-direction",
+    default=None,
+    help=(
+        "Override the run's saved creative_directive.txt. Leave empty to use "
+        "whatever was saved at remix time (or none if the operator skipped it). "
+        "Useful when iterating on the setting / style delta without re-running "
+        "the whole remix."
+    ),
+)
+def remix_rebuild_prompts(
+    remix_dir: str,
+    brief_id: str | None,
+    creative_direction: str | None,
+):
+    """Re-read mappings/*.yaml and rebuild differential prompts.
+
+    Use case: Claude's source→target mapping was 90% right but one or two
+    lines need a manual nudge. Edit `mappings/<brief_id>.yaml` by hand,
+    then run this to regenerate just the prompts. No new LLM calls; no
+    image generation. After rebuilding, re-fire image generation via
+    `adc remix-images --remix-dir <dir>`.
+
+    Requires the remix run to have been generated in differential mode
+    (the `mappings/` directory only exists for that mode)."""
+    from generators.prompt_engine import infer_aspect_ratio
+    from strategy.ad_remixer import _build_differential_prompt, _format_remix_notes
+    from models.brief import CreativeBrief
+
+    rd = Path(remix_dir)
+    mappings_dir = rd / "mappings"
+    if not mappings_dir.exists():
+        console.print(
+            f"[red]No mappings/ directory in {rd}.[/red] "
+            f"This command only works on differential-mode runs. "
+            f"Re-run the original remix with `--mode differential` first."
+        )
+        raise SystemExit(1)
+
+    briefs_path = rd / "briefs.yaml"
+    if not briefs_path.exists():
+        console.print(f"[red]No briefs.yaml in {rd}[/red]")
+        raise SystemExit(1)
+
+    import yaml as _yaml
+    briefs_data = _yaml.safe_load(briefs_path.read_text(encoding="utf-8")) or []
+
+    # Resolve the client slug from the run path so we can load brand + analysis.
+    client_slug = ""
+    if "clients" in rd.parts:
+        idx = rd.parts.index("clients")
+        if idx + 1 < len(rd.parts):
+            client_slug = rd.parts[idx + 1]
+
+    # Determine the creative direction to use:
+    #   1. --creative-direction flag (explicit override) → use as-is
+    #   2. Saved creative_directive.txt in the run → use that
+    #   3. Empty (no operator delta) → omit SETTING/STYLE block in the prompt
+    if creative_direction is None:
+        cd_file = rd / "creative_directive.txt"
+        cd = cd_file.read_text(encoding="utf-8").strip() if cd_file.exists() else ""
+    else:
+        cd = creative_direction.strip()
+
+    # Load product for the swap line.
+    product = None
+    if briefs_data and client_slug:
+        try:
+            from strategy.ad_remixer import _load_product_flexible
+            first_product_name = briefs_data[0].get("product", "")
+            if first_product_name:
+                product = _load_product_flexible(
+                    client_slug, first_product_name.lower().replace(" ", "-")
+                )
+        except Exception:
+            product = None
+    if product is None:
+        console.print(
+            f"[yellow]Could not load product for {client_slug}; using placeholder name in prompt.[/yellow]"
+        )
+
+    prompts_dir = rd / "prompts"
+    prompts_dir.mkdir(exist_ok=True)
+
+    rebuilt = 0
+    skipped = 0
+    for brief_dict in briefs_data:
+        bid = brief_dict.get("brief_id", "")
+        if brief_id and bid != brief_id:
+            continue
+
+        mapping_path = mappings_dir / f"{bid}.yaml"
+        if not mapping_path.exists():
+            console.print(f"[yellow]Skip {bid}: no mapping file at {mapping_path}[/yellow]")
+            skipped += 1
+            continue
+
+        try:
+            mapping_data = _yaml.safe_load(mapping_path.read_text(encoding="utf-8")) or {}
+            mapping = mapping_data.get("mapping") or []
+            if not isinstance(mapping, list):
+                raise ValueError("mapping field is not a list")
+        except Exception as e:
+            console.print(f"[red]Skip {bid}: bad mapping YAML ({e})[/red]")
+            skipped += 1
+            continue
+
+        try:
+            brief_obj = CreativeBrief(**brief_dict)
+        except Exception as e:
+            console.print(f"[red]Skip {bid}: bad brief schema ({e})[/red]")
+            skipped += 1
+            continue
+
+        aspect = infer_aspect_ratio(brief_obj)
+        # Use a placeholder product name if we couldn't load one — keeps the
+        # rebuild non-blocking even if product YAML drifted since the remix.
+        from types import SimpleNamespace
+        prod_for_prompt = product or SimpleNamespace(name=brief_dict.get("product", "this product"))
+
+        prompt_text = _build_differential_prompt(
+            brief=brief_obj,
+            product=prod_for_prompt,
+            mapping=mapping,
+            creative_direction=cd,
+            aspect_ratio=aspect,
+        )
+
+        notes = (
+            f"***** REMIX NOTES (rebuilt from mapping YAML) *****\n"
+            f"Brief:           {bid}\n"
+            f"Product:         {brief_dict.get('product', '?')}\n"
+            f"Persona:         {brief_dict.get('persona', '?')}\n"
+            f"Aspect ratio:    {aspect}\n"
+            f"***** END NOTES *****"
+        )
+        notes = f"# MODE: differential (rebuilt from mapping YAML)\n" + notes
+
+        out_path = prompts_dir / f"{bid}.txt"
+        out_path.write_text(notes + "\n\n" + prompt_text + "\n", encoding="utf-8")
+        console.print(f"[green]\\[OK][/green] {out_path}")
+        rebuilt += 1
+
+    console.print(
+        f"\n[green]Rebuilt {rebuilt} prompt(s).[/green] "
+        + (f"[yellow]Skipped {skipped}.[/yellow]" if skipped else "")
+    )
+    console.print(
+        f"[dim]Re-fire image generation: "
+        f"adc remix-images --remix-dir {remix_dir}[/dim]"
+    )
+
+
 if __name__ == "__main__":
     cli()

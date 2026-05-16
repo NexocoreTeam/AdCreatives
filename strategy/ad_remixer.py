@@ -1677,14 +1677,18 @@ def remix(
 
         if mode == "differential" and source_texts:
             # Per-brief: Claude maps each source text → target text based on
-            # the brief's hook + benefit_callouts + persona. The differential
-            # prompt is short (~250 words) and structured as edit instructions.
+            # the brief's hook + benefit_callouts + persona, REWRITTEN in the
+            # avatar's ICP voice (language_patterns + customer_language
+            # quotes) and FITTED to the source's word-count envelope. The
+            # differential prompt is short (~250 words) and structured as
+            # edit instructions.
             try:
                 mapping = _generate_source_to_target_mapping(
                     source_texts=source_texts,
                     brief=brief,
                     brand=brand,
                     product=product,
+                    avatar=avatar,
                 )
             except Exception as e:
                 print(
@@ -2181,37 +2185,246 @@ def _extract_visible_text_inventory(image_path: Path) -> list[str]:
 
 
 _DIFFERENTIAL_MAPPING_SYSTEM = """You are mapping advertisement copy from a
-reference ad to a new brand. The reference is an existing ad; the target is
-a creative brief for a different product. Your job: produce a one-to-one
-mapping of every source text element to its target equivalent.
+reference ad to a new brand, preserving the source ad's STRUCTURAL SHAPE
+(word counts, grammatical patterns, line lengths) while rewriting the
+content in the target customer's AUTHENTIC VOICE — not in brand-side
+marketing language.
 
-Rules:
-  1. Map by ROLE, not by literal text. A source "headline" maps to the
-     target hook. A source "callout" maps to a target benefit_callout.
-     A source CTA maps to the target CTA. Brand wordmarks map to the
-     target brand name. Generic category labels ("Without probiotic
-     support") map to the target's category framing.
-  2. Preserve markers. If a source line starts with ❌ or X, the target
-     line should also start with ❌ (and likewise for ✅ / checkmark).
-     If the source has trademarks (™, ®), keep them when present in the
-     target's own naming.
-  3. Preserve LENGTH and SHAPE. A 2-3 word callout maps to a 2-3 word
-     callout. A long headline maps to a long headline. Do NOT replace
-     short callouts with long sentences — typography fidelity matters.
-  4. If a source line has no plausible target (e.g. brand legalese the
-     target doesn't have), set its target to "[REMOVE]". The model
-     will be told to delete those elements from the image.
-  5. Output VALID YAML only (no markdown fences). Format:
+INPUTS YOU WILL RECEIVE:
+  1. SOURCE TEXT INVENTORY — every text element from the reference, each
+     annotated with its exact word count. This is the structural envelope
+     your targets must fit. Typography fidelity depends on word-count match.
+  2. TARGET BRIEF — the ad concept being remixed (hook, callouts, CTA).
+     The brief is written in BRAND voice (marketing jargon, clinical
+     terms). You will translate that intent into ICP voice for the ad.
+  3. ICP VOICE PACK — the persona's language_patterns + verbatim
+     customer_language quotes pulled from their avatar. THIS IS THE
+     REGISTER your target text must match. The customer talks this way.
+     The brand does not.
+
+RULES (priority order — break ties in favor of the higher rule):
+
+  R1. WORD COUNT FIT (hard constraint).
+      Target word count MUST be within ±1 of source word count.
+        - source 1 word  → target 1-2 words
+        - source 2 words → target 1-3 words
+        - source 3 words → target 2-4 words
+        - source 5+ words → target source_words-1 to source_words+1
+      If you cannot fit the brief's idea into the source's envelope,
+      COMPRESS the idea, do NOT exceed the envelope. A 2-word source
+      slot cannot hold a 6-word brief callout — the layout breaks.
+
+  R2. ICP VOICE (strong rewrite).
+      The brief's wording is brand-side marketing voice ("Viability
+      failure", "Colonization lottery", "1 trillion stable bioactives
+      delivered directly"). Customers don't talk this way. They talk
+      like the avatar's customer_language quotes.
+
+      Rewrite the brief's content as if the customer is observing or
+      complaining or describing the result. Lean on the avatar quotes.
+
+      Example translations for a Burnout Biohacker avatar whose customer_
+      language includes "I've tried probiotics before and honestly didn't
+      notice much" and "Eating clean, working out, and still bloated":
+
+        brief: "Viability failure"           → "Same bloat"
+        brief: "Colonization lottery"        → "Still off"
+        brief: "Delivery gauntlet"           → "No change"
+        brief: "Improved gut regularity"     → "Regular again"
+        brief: "1 trillion stable bioactives" → "Actually works"
+
+      The customer's voice is short, plain, observational. The brand's
+      voice is long, technical, claim-rich. ALWAYS lean toward the
+      customer's voice for pain callouts, benefit callouts, and headlines
+      that describe state. Lean toward the brand's wording ONLY for
+      explicit brand wordmarks (brand name, product name).
+
+  R3. ROLE PRESERVATION.
+      A source headline maps to a headline. A source callout maps to a
+      callout. A source CTA maps to a CTA. Brand wordmarks map to the
+      target brand name (e.g. "PetLab Co." → "SecondKind"). Decorative
+      product-label text ("Net Contents: 4.23 oz", "SALMON FLAVOR")
+      maps to "[PRESERVE AS-IS]" — these belong on the bottle, not the
+      ad copy, and we don't try to translate them.
+
+  R4. MARKER PRESERVATION.
+      If the source line starts with ❌, X, •, ★, ✅, →, ™, or ®, KEEP
+      those exact markers at the start of the target. They are part of
+      the typographic role.
+
+  R5. [REMOVE] for orphans.
+      If a source line has no plausible target (competitor legalese,
+      "All dogs 12+ weeks", a category-specific badge the new brand
+      doesn't have), set target to "[REMOVE]". The renderer deletes
+      these from the image.
+
+  R6. Two side panels (us-vs-them).
+      When the source is a us-vs-them comparison (one side has ❌, other
+      has ✅), the ❌ side describes the FAILURE STATE the persona is in
+      WITHOUT your product. Use customer-language pain phrasing. The ✅
+      side describes the RESULT STATE after your product. Use customer-
+      language outcome phrasing. Both sides should sound like the same
+      customer talking, not like a brand pitching.
+
+THINK BEFORE WRITING. For EACH source line, work through:
+  (a) What's the role? (headline / pain callout / benefit callout / brand /
+      CTA / decoration)
+  (b) What's the word count budget? (source_words ± 1)
+  (c) What does the brief intend for this role?
+  (d) How would the avatar's customer talk about that, in <= word_count + 1
+      words?
+  (e) Write the target. Then count words. If over budget, compress.
+
+OUTPUT FORMAT — VALID YAML only, no markdown fences:
 
 mapping:
   - source: "exact source text 1"
     target: "target text 1"
   - source: "exact source text 2"
     target: "target text 2"
-  - source: "exact source text 3"
-    target: "[REMOVE]"
 
-Be exhaustive — include EVERY source text element, in the order given."""
+Be exhaustive — include EVERY source text element, in the input order."""
+
+
+def _compute_source_structure(source_texts: list[str]) -> list[dict]:
+    """Annotate each source line with word_count + char_count.
+
+    Pure-Python; no LLM call. Used to give the mapper hard structural
+    constraints rather than the previous soft "preserve length" hint.
+    """
+    out: list[dict] = []
+    for t in source_texts:
+        stripped = (t or "").strip()
+        words = stripped.split()
+        out.append({
+            "text": stripped,
+            "word_count": len(words),
+            "char_count": len(stripped),
+        })
+    return out
+
+
+def _format_voice_pack(avatar: "CustomerAvatar | None") -> str:
+    """Render the ICP voice pack from an avatar — language patterns +
+    verbatim customer_language quotes from pain_points and desires.
+
+    Returns a markdown-like block ready to drop into a Claude prompt. If
+    no avatar is available, returns an empty string and the mapper will
+    fall back to brief-only context (lower quality but still works)."""
+    if avatar is None:
+        return ""
+
+    lines: list[str] = []
+    lines.append("ICP VOICE PACK (this is how the customer talks — match this register):")
+    lines.append("")
+
+    patterns = (avatar.language_patterns or [])[:5]
+    if patterns:
+        lines.append("Language patterns:")
+        for p in patterns:
+            lines.append(f"  - {p[:200]}")
+        lines.append("")
+
+    # Pain customer-language samples — feed verbatim quotes that map
+    # onto the "without your product" / pain-callout side.
+    pain_quotes: list[str] = []
+    for pp in (avatar.pain_points or [])[:5]:
+        for q in (pp.customer_language or [])[:2]:
+            qs = (q or "").strip()
+            if qs:
+                pain_quotes.append(qs)
+    if pain_quotes:
+        lines.append("Customer pain quotes (verbatim) — voice register for pain callouts:")
+        for q in pain_quotes[:8]:
+            lines.append(f'  - "{q}"')
+        lines.append("")
+
+    # Desire customer-language samples — feed quotes that map onto the
+    # "with your product" / benefit-callout side.
+    desire_quotes: list[str] = []
+    for d in (avatar.desires or [])[:5]:
+        for q in (d.customer_language or [])[:2]:
+            qs = (q or "").strip()
+            if qs:
+                desire_quotes.append(qs)
+    if desire_quotes:
+        lines.append("Customer outcome quotes (verbatim) — voice register for benefit callouts:")
+        for q in desire_quotes[:8]:
+            lines.append(f'  - "{q}"')
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+def _validate_and_retry_mapping(
+    *,
+    mapping: list[dict[str, str]],
+    avatar: "CustomerAvatar | None" = None,
+    max_retries_per_line: int = 1,
+) -> list[dict[str, str]]:
+    """Second-pass quality gate: any target whose word count is off by >1
+    from its source gets re-rewritten with a tight "compress to N words"
+    instruction.
+
+    Skips [REMOVE] and [PRESERVE AS-IS] targets — those are intentional.
+    Skips brand wordmarks where lengths legitimately differ.
+
+    Cheap: only fires Claude for the offending lines, not the whole map.
+    """
+    if not mapping:
+        return mapping
+
+    fixed: list[dict[str, str]] = []
+    for item in mapping:
+        src = (item.get("source") or "").strip()
+        tgt = (item.get("target") or "").strip()
+        if not src:
+            fixed.append(item)
+            continue
+        if tgt.upper() in ("[REMOVE]", "[PRESERVE AS-IS]"):
+            fixed.append(item)
+            continue
+
+        src_words = len(src.split())
+        tgt_words = len(tgt.split())
+        if abs(src_words - tgt_words) <= 1:
+            fixed.append(item)
+            continue
+
+        # Out of envelope — retry with explicit compression instruction.
+        voice_block = _format_voice_pack(avatar) if avatar else ""
+        retry_prompt = (
+            f"{voice_block}\n"
+            f"You produced this mapping but the target word count is wrong.\n\n"
+            f'  source: "{src}"  ({src_words} words)\n'
+            f'  current target: "{tgt}"  ({tgt_words} words)\n'
+            f"  required: {max(1, src_words - 1)} to {src_words + 1} words\n\n"
+            f"Rewrite the target IN THE CUSTOMER\\'S VOICE (using the language "
+            f"patterns + customer quotes above as register reference) to fit "
+            f"the required word count. Preserve any leading marker (❌, ✅, "
+            f"•, ★) from the source. Output ONLY the new target text, "
+            f"nothing else — no quotes, no YAML, no explanation."
+        )
+        retry_system = (
+            "You are rewriting one advertisement copy line to fit a strict "
+            "word-count envelope. Preserve meaning, match the customer voice "
+            "register, hit the word count exactly. Output is one line of text."
+        )
+        try:
+            new_tgt = claude_complete(
+                retry_prompt, system=retry_system, max_tokens=128,
+            ).strip().strip('"').strip("'")
+            # Sanity check: the retry might still be off if Claude ignores
+            # us. Keep the best of (original, retry) measured by closeness.
+            new_words = len(new_tgt.split())
+            if abs(src_words - new_words) < abs(src_words - tgt_words):
+                tgt = new_tgt
+        except Exception:
+            pass
+
+        fixed.append({"source": src, "target": tgt})
+
+    return fixed
 
 
 def _generate_source_to_target_mapping(
@@ -2220,29 +2433,49 @@ def _generate_source_to_target_mapping(
     brief: CreativeBrief,
     brand: Brand,
     product: Product,
+    avatar: "CustomerAvatar | None" = None,
 ) -> list[dict[str, str]]:
-    """Claude call: map each source text element to its target equivalent.
+    """Claude call: map each source text element to its target equivalent,
+    in the ICP's voice, fitting the source's word-count envelope.
 
     Returns a list of `{"source": str, "target": str}` dicts in the same
-    order as `source_texts`. Target may be "[REMOVE]" for elements the
-    target brand doesn't have (e.g. competitor legalese).
+    order as `source_texts`. Target may be "[REMOVE]" (delete from image)
+    or "[PRESERVE AS-IS]" (decorative product-label text we don't touch).
+
+    `avatar` is optional but strongly recommended — without it the mapper
+    falls back to brief-only context and the output will sound more like
+    brand-pitch than customer-voice. With the avatar, language_patterns
+    and customer_language quotes get injected as voice reference.
 
     Used by the differential remix mode to build a surgical-edit prompt.
     """
     if not source_texts:
         return []
 
-    inventory_block = "\n".join(f'  - "{t}"' for t in source_texts)
+    # Annotate each source line with its structural budget. Claude gets
+    # exact word counts rather than the previous soft "preserve length" hint.
+    structure = _compute_source_structure(source_texts)
+    inventory_block = "\n".join(
+        f'  - "{s["text"]}"  ({s["word_count"]} word{"s" if s["word_count"] != 1 else ""})'
+        for s in structure
+    )
 
     benefit_callouts_block = "\n".join(
         f"    - {c}" for c in (brief.benefit_callouts or [])
     ) or "    (none)"
 
-    user_prompt = f"""SOURCE AD TEXT ELEMENTS (extracted via vision, in order top→bottom):
+    voice_pack = _format_voice_pack(avatar)
+    voice_block = voice_pack + "\n" if voice_pack else (
+        "(no ICP voice pack available — infer voice from the brief's persona "
+        "name and lean toward short, plain, observational customer-style "
+        "phrasing rather than brand-marketing language)\n\n"
+    )
+
+    user_prompt = f"""SOURCE AD TEXT INVENTORY (extracted via vision, top→bottom, with word counts):
 
 {inventory_block}
 
-TARGET BRIEF — the new ad's content to map onto the source layout:
+{voice_block}TARGET BRIEF — the new ad's content to map onto the source layout:
 
   brand: {brand.name}
   product: {product.name}
@@ -2256,7 +2489,8 @@ TARGET BRIEF — the new ad's content to map onto the source layout:
   awareness_level: {getattr(brief.awareness_level, 'value', '') if brief.awareness_level else ''}
   pain_point: {brief.pain_point or '(none)'}
 
-Map each source text element to its target equivalent now. Output YAML only."""
+Map each source text element to its target equivalent now. Honor R1 (word
+count within ±1) and R2 (ICP voice, not brand voice). Output YAML only."""
 
     raw = claude_complete(
         user_prompt,
@@ -2282,6 +2516,9 @@ Map each source text element to its target equivalent now. Output YAML only."""
         if not src:
             continue
         result.append({"source": src, "target": tgt or "[REMOVE]"})
+
+    # Second-pass quality gate — fix any out-of-envelope target.
+    result = _validate_and_retry_mapping(mapping=result, avatar=avatar)
     return result
 
 
