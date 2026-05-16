@@ -53,3 +53,8 @@ clients/*/reference_ads/raw/
 # `npx skills add higgsfield-ai/skills`; not source-of-truth.
 .agents/
 .claude/skills/
+skills-lock.json
+
+# One-off backup tarballs of `ai-ads/` outputs. `ai-ads/` itself is
+# already gitignored — these are operator snapshots, not source-of-truth.
+migration_assets*.tar.gz
