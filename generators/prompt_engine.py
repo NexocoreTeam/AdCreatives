@@ -789,29 +789,77 @@ def prompt_from_brief_and_template(
     product_context = _build_product_context(brand, product, avatar)
     brief_context = _build_brief_context(brief)
 
-    # Condense the brief into ad-ready hero / supporting / cta copy. Free
-    # condensation (no per-reference word budget) — letting the condenser
-    # pick the sharpest phrasing produced stronger heroes in testing than
-    # constraining it to match the reference's density.
-    condensed = condense_brief_for_ad(brief, brand)
+    # Schema-aware fill when the template carries a text_schema. Each slot
+    # gets its own ICP-language fill written from the brief + product +
+    # avatar context — never lifted from the reference's verbatim text.
+    # When text_schema is empty (older extracted templates), fall back to
+    # the legacy 3-slot condense_brief_for_ad path.
+    use_schema_fill = bool(template.text_schema)
 
-    condensed_block = (
-        "AD-READY ON-IMAGE COPY (use these as the actual rendered text — "
-        "do NOT render the brief's long hook verbatim):\n"
-        f"  HERO (large, primary): \"{condensed['hero']}\"\n"
-        f"  SUPPORTING (small, optional): \"{condensed['supporting'] or '(omit)'}\"\n"
-        f"  CTA (tiny, corner): \"{condensed['cta']}\""
-    )
+    if use_schema_fill:
+        from strategy.text_remapper import (
+            fill_text_schema_for_brief,
+            render_slot_fills_block,
+            substitute_slot_fills,
+        )
 
-    template_block = (
-        f"--- BASE TEMPLATE (compositional backbone, lift placeholders from brief) ---\n"
-        f"Template id: {template.id}\n"
-        f"Template name: {template.name}\n"
-        f"Template category: {template.category}\n"
-        f"Tags: {', '.join(template.tags)}\n\n"
-        f"{template.template_prompt}\n"
-        f"--- END TEMPLATE ---"
-    )
+        fills = fill_text_schema_for_brief(
+            brief=brief,
+            schema=template.text_schema,
+            brand=brand,
+            product=product,
+            avatar=avatar,
+        )
+        rendered_template_prompt = substitute_slot_fills(
+            template.template_prompt, fills
+        )
+        copy_block = render_slot_fills_block(fills, template.text_schema)
+        template_block = (
+            f"--- BASE TEMPLATE (compositional backbone with slot fills already "
+            f"substituted) ---\n"
+            f"Template id: {template.id}\n"
+            f"Template name: {template.name}\n"
+            f"Template category: {template.category}\n"
+            f"Tags: {', '.join(template.tags)}\n\n"
+            f"{rendered_template_prompt}\n"
+            f"--- END TEMPLATE ---"
+        )
+        text_fidelity_instruction = (
+            "Your job: write a NB2 prompt that follows the template below. The "
+            "[SLOT_ID] placeholders have already been replaced with the SLOT "
+            "FILLS — those exact strings are the ONLY on-image text. Do not "
+            "read text off Image 2; the reference image is for layout, "
+            "typography, color, and mood ONLY.\n\n"
+        )
+    else:
+        # Legacy 3-slot path — preserved for older extracted templates that
+        # have no text_schema. Same prompt shape as before this change.
+        condensed = condense_brief_for_ad(brief, brand)
+        copy_block = (
+            "AD-READY ON-IMAGE COPY (use these as the actual rendered text — "
+            "do NOT render the brief's long hook verbatim):\n"
+            f"  HERO (large, primary): \"{condensed['hero']}\"\n"
+            f"  SUPPORTING (small, optional): \"{condensed['supporting'] or '(omit)'}\"\n"
+            f"  CTA (tiny, corner): \"{condensed['cta']}\""
+        )
+        template_block = (
+            f"--- BASE TEMPLATE (compositional backbone, lift placeholders from brief) ---\n"
+            f"Template id: {template.id}\n"
+            f"Template name: {template.name}\n"
+            f"Template category: {template.category}\n"
+            f"Tags: {', '.join(template.tags)}\n\n"
+            f"{template.template_prompt}\n"
+            f"--- END TEMPLATE ---"
+        )
+        text_fidelity_instruction = (
+            "Your job: write a NB2 prompt that takes the template below and uses "
+            "the AD-READY ON-IMAGE COPY for any text fields ([HEADLINE], "
+            "[SUBHEAD], [CTA], etc.). The original brief is strategic context "
+            "only — do not render the brief's long hook as on-image text.\n\n"
+            "APPLY the HERO-TEXT RULE: render the HERO line large, render "
+            "SUPPORTING small only if present, render CTA as a tiny corner "
+            "element. That is the entire on-image copy budget.\n\n"
+        )
 
     directive_block = ""
     if creative_direction and creative_direction.strip():
@@ -833,18 +881,13 @@ def prompt_from_brief_and_template(
             f"  - Image 1: the actual product (REPLICATE EXACTLY — colors, label, shape)\n"
             f"  - Image 2: the reference ad whose compositional pattern was extracted "
             f"into the template below. Match its LAYOUT, type treatment, photographic "
-            f"style, mood, color treatment — but DO NOT copy its product. Substitute "
-            f"our product (image 1) in its place.\n\n"
-            f"Your job: write a NB2 prompt that takes the template below and uses "
-            f"the AD-READY ON-IMAGE COPY for any text fields ([HEADLINE], [SUBHEAD], "
-            f"[CTA], etc.). The original brief is strategic context only — do not "
-            f"render the brief's long hook as on-image text.\n\n"
-            f"APPLY the HERO-TEXT RULE: render the HERO line large, render SUPPORTING "
-            f"small only if present, render CTA as a tiny corner element. That is "
-            f"the entire on-image copy budget.\n\n"
+            f"style, mood, color treatment — but DO NOT copy its product or its text. "
+            f"Substitute our product (image 1) in its place and use the SLOT FILLS "
+            f"below for every on-image string.\n\n"
+            f"{text_fidelity_instruction}"
             f"APPLY the HUMAN REALISM RULE if a person is in the composition.\n\n"
             f"APPLY the NEGATIVE SPACE RULE — at least 40% unbroken visual rest.\n\n"
-            f"{condensed_block}\n\n"
+            f"{copy_block}\n\n"
             f"{template_block}\n\n"
             f"CREATIVE BRIEF (strategic input — drives mechanic, persona, mood; NOT "
             f"to be rendered verbatim):\n"
@@ -855,7 +898,7 @@ def prompt_from_brief_and_template(
             f"Write the NB2 prompt now. Start with: 'Image 1 is the actual product — "
             f"replicate it exactly. Image 2 is a reference ad — match its layout, "
             f"type treatment, photographic style, and mood, but substitute our "
-            f"product for theirs.'"
+            f"product for theirs and use only the text strings provided.'"
         ),
         system=PROMPT_WRITER_SYSTEM,
     )

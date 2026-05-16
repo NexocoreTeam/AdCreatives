@@ -10,6 +10,59 @@ from pydantic import BaseModel, Field
 LIBRARY_DIR = Path("prompts/library")
 
 
+class TextSlot(BaseModel):
+    """One labeled text region in an ad template.
+
+    Each visible text region in a reference ad gets a TextSlot. The slot
+    describes the RHETORICAL JOB the region performs — not the literal words
+    used in the reference. Downstream the fill step writes new copy for the
+    role from the brief's product/persona context, never copying the
+    reference's verbatim text.
+
+    `slot_id` matches the placeholder used in the template_prompt body. If
+    a slot's slot_id is `them_label`, the template_prompt contains
+    `[THEM_LABEL]` (uppercased) wherever the fill should be substituted.
+    """
+
+    slot_id: str = Field(
+        description="Snake_case identifier, role-suggestive. e.g. 'headline', "
+        "'them_label', 'us_bullet_1'. Matches [SLOT_ID] placeholder in the "
+        "template_prompt (uppercased).",
+    )
+    role: str = Field(
+        description="Coarse role: headline | subhead | body | label | bullet | "
+        "anchor | cta | tagline | wordmark | footnote | callout",
+    )
+    intent: str = Field(
+        description="1-2 sentences explaining what this slot does rhetorically. "
+        "e.g. 'Frames the competitor column as the generic, outdated option.' "
+        "Drives the fill — DO NOT quote the reference's original words.",
+    )
+    pattern: str = Field(
+        default="",
+        description="Sentence/phrase structure. e.g. 'Generic plural noun', "
+        "'Two-line headline with one stat embedded', 'Negative bullet starting "
+        "with a verb'.",
+    )
+    max_words: int = Field(
+        default=8,
+        description="Hard word ceiling for this slot. Long slots: 12-20. "
+        "Headers/labels: 1-3. Bullets: 4-8.",
+    )
+    parallel_to: str | None = Field(
+        default=None,
+        description="slot_id of a paired slot in a symmetric layout (us/them, "
+        "before/after). Tells the fill step to keep this slot structurally "
+        "parallel to its partner — same sentence shape, opposite valence.",
+    )
+    tone: str = Field(
+        default="",
+        description="Optional tonal hint specific to this slot. e.g. 'snarky', "
+        "'clinical', 'casual', 'urgent'. Overrides the brand's default tone "
+        "for this slot only.",
+    )
+
+
 class LibraryPrompt(BaseModel):
     """A single prompt template from the library."""
 
@@ -46,6 +99,16 @@ class LibraryPrompt(BaseModel):
     template_prompt: str = Field(
         description="The full prompt template with [PLACEHOLDERS] in caps. "
         "Claude fills these in with client-specific details.",
+    )
+    text_schema: list[TextSlot] = Field(
+        default_factory=list,
+        description="Per-text-region semantic schema. When non-empty, the prompt "
+        "engine uses the schema-aware fill path (strategy.text_remapper) — each "
+        "slot gets its own ICP-language fill written from the brief's product / "
+        "persona context, never lifted from the reference's verbatim text. When "
+        "empty, the prompt engine falls back to the legacy 3-slot condenser "
+        "(hero/supporting/cta) — older extracted templates have no schema and "
+        "continue to work unchanged.",
     )
     description: str = Field(
         default="",

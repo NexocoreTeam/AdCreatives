@@ -39,20 +39,41 @@ TEMPLATE_EXTRACTOR_SYSTEM = """You are an expert ad creative analyst extracting
 a reusable PROMPT TEMPLATE from a single ad image. The template will be used
 to generate similar ads for a DIFFERENT brand's product, so your job is to
 describe the COMPOSITIONAL PATTERN — not the specific copy or product — and
-include [PLACEHOLDERS] in caps for the brand-specific parts that would vary.
+emit BOTH a `template_prompt` with [SLOT_ID] placeholders AND a `text_schema`
+that describes the rhetorical job of every text region.
 
-Standard placeholders to use:
-  [HEADLINE]    — the main hook text (1 line)
-  [SUBHEAD]     — supporting copy below the headline
-  [BODY]        — longer body copy if the layout has one
-  [PRODUCT]     — the product name (or visual)
-  [BRAND]       — the brand wordmark
-  [CTA]         — call to action button or arrow text
-  [STAT]        — specific statistic (e.g. "92%", "1 trillion")
-  [BENEFIT]     — single benefit callout
-  [BACKGROUND]  — background color or scene
-  [ACCENT]      — accent color (where the ad uses one)
-  [DETAILS]     — small details specific to the brand
+CORE PRINCIPLE — NO LITERAL TEXT EVER:
+Every visible text region in the ad MUST become a [SLOT_ID] placeholder in
+the template_prompt, paired with a text_schema entry that describes the
+SLOT'S JOB — never the original words. Forbidden examples in `template_prompt`:
+  ❌ The word "Others" hardcoded as the competitor column label.
+  ❌ The dollar sign "$" hardcoded as the brand's price anchor.
+  ❌ Any quoted phrase lifted from the reference ad.
+  ❌ Any competitor brand name (Seed, Hims, PetLab, etc.).
+Right examples:
+  ✅ "[THEM_LABEL] in a white sans-serif at the top of the right panel."
+  ✅ "[US_ANCHOR] rendered large and centered as the brand's value symbol."
+A symmetric ad (us-vs-them, before-after) MUST have parallel slot_ids on
+both sides: e.g. `us_label` ↔ `them_label`, `us_anchor` ↔ `them_anchor`.
+NEVER placeholder one side and leave the other hardcoded.
+
+SLOT NAMING CONVENTION:
+slot_ids are snake_case, role-suggestive, and unique within the template.
+Use intuitive names — what the slot DOES, not where it is:
+  headline, subhead, body, cta
+  us_label, them_label, us_bullet_1, them_bullet_1
+  before_caption, after_caption, before_anchor, after_anchor
+  stat_value, stat_caption
+  brand_wordmark, footnote, badge_text
+In the template_prompt, each placeholder is the slot_id UPPERCASED inside
+square brackets: slot_id `them_label` → placeholder `[THEM_LABEL]`.
+
+NON-TEXT PLACEHOLDERS — separate convention:
+For non-text design tokens, keep the legacy placeholders:
+  [PRODUCT]    — product visual placement
+  [BACKGROUND] — background color or scene treatment
+  [ACCENT]     — accent color
+These do NOT appear in text_schema (they're not text fills).
 
 Output schema is YAML matching LibraryPrompt:
 
@@ -70,9 +91,33 @@ Output schema is YAML matching LibraryPrompt:
          'headline-overlay', 'split-screen', 'stat-hero', 'editorial-serif',
          'ugc-handheld', 'product-corner-anchor', 'comparison-vertical-split'>
   template_prompt: |
-    <The full prompt with [PLACEHOLDERS]. Start with "Image 1 is the actual
-    product — replicate it exactly." Describe layout, text treatment,
-    product placement, graphic elements, photography style.>
+    <The full prompt with [SLOT_ID] placeholders for every text region and
+    [PRODUCT]/[BACKGROUND]/[ACCENT] for design tokens. Start with "Image 1
+    is the actual product — replicate it exactly." Describe layout, text
+    treatment, product placement, graphic elements, photography style.>
+  text_schema:
+    - slot_id: <snake_case_id>
+      role: <headline | subhead | body | label | bullet | anchor | cta |
+             tagline | wordmark | footnote | callout>
+      intent: <1-2 sentences on what this slot DOES rhetorically. Quote
+               NO original copy. e.g. "Frames the competitor side as the
+               outdated, generic alternative — short label, one word
+               ideally.">
+      pattern: <sentence/phrase structure. e.g. "Generic plural noun",
+                "Two-line headline with one stat embedded", "Negative
+                bullet starting with a verb">
+      max_words: <int word ceiling. Use the HIGH end of these ranges —
+                  under-filling the visual space is fine, truncating
+                  mid-word is not. Labels: 2-4. Bullets: 4-7.
+                  Headlines: 8-14. Body: 14-25. Callouts/stats: 3-6.
+                  When the reference uses a 2-word bullet, set max_words
+                  to 4-5 — your fill needs breathing room.>
+      parallel_to: <slot_id of the paired slot in symmetric layouts, or
+                    omit. e.g. for `them_label`, set parallel_to: us_label.
+                    Tells the fill step to keep both slots structurally
+                    parallel — same shape, opposite valence.>
+      tone: <optional tonal hint: 'snarky', 'clinical', 'casual', 'urgent'.
+              Omit if the brand's default tone fits.>
   description: "<1-2 sentences: when to use this template>"
 
 Be SPECIFIC and COMPOSITIONAL. Bad: "A clean ad with text." Good: "Vertical
@@ -80,6 +125,15 @@ split with dark left half carrying a large white serif headline and small
 generic-product photo, light right half carrying the brand product hero with
 3 pill-style benefit callouts stacked vertically; SecondKind-style apothecary
 warm-cream palette; product anchored bottom-right; small wordmark below."
+
+text_schema COVERAGE CHECKLIST — before you output, verify:
+  1. Every [SLOT_ID] in template_prompt has a matching text_schema entry.
+  2. No literal user-facing phrases (other than the opening "Image 1 is
+     the actual product..." line) appear in template_prompt. Every word
+     a viewer would read is a [SLOT_ID].
+  3. Symmetric layouts have symmetric slot_id pairs with parallel_to set
+     on both sides.
+  4. Every text_schema.intent describes a JOB, never quotes the original.
 
 Output VALID YAML only — no markdown fences, no commentary."""
 
@@ -159,11 +213,14 @@ def extract_template_from_ad(
 
     user_prompt = _build_user_prompt(image_path.name, category, analysis)
 
+    # Bumped from 2048 → 6144 to accommodate the text_schema block. A typical
+    # us-vs-them template now emits ~3-4kB of YAML once every text region has
+    # a full schema entry; the old ceiling was clipping responses mid-string.
     response = gemini_vision(
         prompt=user_prompt,
         image_urls=[data_uri],
         system=TEMPLATE_EXTRACTOR_SYSTEM,
-        max_tokens=2048,
+        max_tokens=6144,
     )
 
     return _parse_yaml_response(response)
@@ -248,6 +305,7 @@ def extract_all_client_templates(
             template.setdefault("aspect_ratios", ["1:1"])
             template.setdefault("tags", [])
             template.setdefault("template_prompt", "")
+            template.setdefault("text_schema", [])
             template.setdefault("description", "")
             template.setdefault("platforms", ["meta", "tiktok"])
             template["source_ad"] = str(ad_path.relative_to(Path("clients").parent))
