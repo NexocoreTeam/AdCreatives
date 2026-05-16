@@ -55,6 +55,15 @@ is being phased out in favor of the CLI + skills. Per-persona Soul
 Characters are tracked under each avatar YAML's `higgsfield:` block
 (`soul_id`, `soul_status`).
 
+**TODO (deferred 2026-05-16):** Remove the Higgsfield MCP connector from
+Claude.ai. It must be removed via the web UI at
+https://claude.ai/settings/connectors — `claude mcp remove` does not work
+on Claude.ai-managed connectors (it can list them but not delete them).
+Until removed, the MCP tools coexist with the CLI/skills; nothing breaks,
+but the toolset is noisier than it needs to be. After removal, restart
+Claude Code to drop the `mcp__dc37e644-...__*` tools from the available
+set.
+
 ## Repo layout
 
 | Path | Purpose |
