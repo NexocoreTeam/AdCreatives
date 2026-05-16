@@ -47,3 +47,9 @@ ai-ads/
 # Source reference ad images — pulled from Drive on demand; large binaries.
 # Their per-file analyses (analyses/) ARE committed since they're small YAML.
 clients/*/reference_ads/raw/
+
+# Agent skill packs installed via `npx skills add` — machine-local skill
+# sources + Claude Code symlinks. Each developer installs their own via
+# `npx skills add higgsfield-ai/skills`; not source-of-truth.
+.agents/
+.claude/skills/
