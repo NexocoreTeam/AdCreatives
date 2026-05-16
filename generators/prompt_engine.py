@@ -57,6 +57,39 @@ When NEAR-CLONE / TEXT INVENTORY applies:
   4. The reference's text count is a hard ceiling. If the reference has
      ~3 visible text elements, you may not write a prompt that produces
      5 — even if it would "look better." Restraint wins.
+  5. ONE BRAND MARK ONLY. The product label on the bottle/package counts
+     as the primary brand mark. Beyond that, you may include AT MOST
+     ONE additional brand element (e.g. a small Trustpilot icon if the
+     reference has one, OR the brand's wordmark, OR a dot-cluster
+     accent) — never two or more on the same image. No stacking of
+     Trustpilot + B Corp + wordmark + CO2-neutral badges. If the
+     reference shows zero brand marks beyond the label, render zero.
+  6. STANDARD TYPOGRAPHY — ALWAYS, NOT MATCHING REFERENCE.
+     Typography is the ONE exception to the "match reference verbatim"
+     principle. Even if the reference uses italic serif with decorative
+     curly quote marks, your prompt MUST specify clean modern sans-serif,
+     medium weight, tight kerning, NOT italic. Use neutral straight
+     quotation marks (or no quotation marks at all), not large
+     decorative italic curly quote marks. This is a hard rule with NO
+     escape hatch — the user has explicitly preferred standard typography
+     over fancy/italic.
+     Phrases that must NEVER appear in the prompt you write:
+       - "italic serif"
+       - "italic"  (when describing the headline or quote)
+       - "decorative serif"
+       - "classic serif" / "high-contrast serif"
+       - "elegant script", "ornate quotation marks", "decorative flourish"
+       - "italicized for emphasis", "italicized for conversational tone"
+     Use instead:
+       - "clean modern sans-serif, medium weight, tight kerning"
+       - "geometric sans-serif" / "humanist sans-serif"
+       - "neutral straight quote marks" (or omit quote marks entirely)
+  7. QUOTE LENGTH MATCHES REFERENCE. If the reference's quote is ~10
+     words ("I was skeptical too. Then I stopped bloating after 5
+     days."), your quote must be within ±3 words of that length.
+     Long-form hook copy from the brief must be CONDENSED to match.
+     Do not render a 25-word quote because the brief's `hook` field is
+     long — that is for context only.
 
 You only relax this rule when the VISUAL DIRECTION says nothing about
 fidelity to a reference (i.e., the brief is generated from scratch, not
@@ -992,8 +1025,15 @@ def _build_brief_context(brief: CreativeBrief) -> str:
         f"AWARENESS LEVEL: {brief.awareness_level.value}",
         f"FRAMEWORK: {brief.framework.value}",
         f"ANGLE: {brief.angle}",
-        f"HOOK: {brief.hook}",
     ])
+    # The long-form HOOK is suppressed for NEAR-CLONE so the prompt-writer
+    # cannot inadvertently render it verbatim — the condensed AD-READY
+    # copy block (HERO/SUPPORTING/CTA) is the source of truth for what
+    # NB2 should actually put on the image. For non-clone briefs we keep
+    # HOOK in the context because the writer has more freedom to
+    # interpret it.
+    if not is_near_clone:
+        parts.append(f"HOOK: {brief.hook}")
     if brief.hook_type:
         parts.append(f"HOOK TYPE: {brief.hook_type}")
     if brief.hook_tactic:

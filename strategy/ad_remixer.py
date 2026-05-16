@@ -1106,7 +1106,10 @@ escape inner quotes with backslash, no trailing commas. Example shape:
 }}
 """
 
-    raw = claude_complete(user_prompt, system=ANGLE_SYSTEM, max_tokens=4096)
+    # 8192 because visual_direction strings carry NEAR-CLONE detail per
+    # variation and 5+ variations at 4096 truncates mid-string, producing
+    # an unparseable response.
+    raw = claude_complete(user_prompt, system=ANGLE_SYSTEM, max_tokens=8192)
     parsed = _parse_angles_json_or_yaml(raw)
     return parsed.get("angles") or []
 
@@ -1287,37 +1290,87 @@ def _enforce_text_density_suffix(
     directly to ignore those additions and match the reference's restraint."""
     visible = analysis.visible_copy or {}
     inventory_items: list[str] = []
+
+    # The hook from the brief is often 15-40 words — way longer than the
+    # reference's ~10-word quote. NB2 ignores "CONDENSE to N words"
+    # instructions when the literal long version is also in the prompt
+    # — it just renders the longer text. So we have to actually shorten
+    # the hook here, before NB2 sees it.
+    #
+    # Strategy: pull the first sentence of the hook, then cap to roughly
+    # the reference's word count (or 15 words, whichever is greater).
+    # If the first sentence is itself longer than the cap, hard-truncate
+    # at the cap. This matches the reference's quote length without
+    # needing another LLM round trip.
+    ref_quote = (visible.get("headline") or "").strip()
+    ref_word_count = len(ref_quote.split()) if ref_quote else 0
+    target_words = max(ref_word_count, 12) if ref_word_count else 15
+
+    def _condense_for_render(text: str) -> str:
+        s = (text or "").strip().strip('"').strip("'")
+        # First-sentence split on . ! ? — keep the punctuation.
+        import re as _re
+        m = _re.match(r"^(.*?[.!?])\s+", s)
+        first = m.group(1) if m else s
+        words = first.split()
+        if len(words) > target_words:
+            first = " ".join(words[:target_words]).rstrip(",;:") + "."
+        return first
+
     if brief.hook:
-        inventory_items.append(f"Hook text (this variation's): {brief.hook}")
-    if brief.cta:
-        inventory_items.append(f"CTA button: {brief.cta}")
-    inventory_items.append("Product label (on the bottle/package itself)")
-    callouts = visible.get("callouts") or []
-    badges_present = any(
-        kw in str(c).lower()
-        for c in callouts
-        for kw in ("certified", "trustpilot", "stars", "b corp", "verified", "rated")
-    )
-    if badges_present:
+        rendered_hook = _condense_for_render(brief.hook)
         inventory_items.append(
-            "Trust badges as ICONS (e.g. B Corp logo, Trustpilot stars) — render as icons, NOT text"
+            f'Hook text — render EXACTLY this short customer-quote-style line, '
+            f'do not extend or add to it (target ≈{target_words} words): '
+            f'"{rendered_hook}"'
+        )
+    if brief.cta:
+        inventory_items.append(f"CTA button (rounded pill, standard sans-serif): {brief.cta}")
+    inventory_items.append("Product label (on the bottle/package itself — leave verbatim)")
+
+    # ONE optional brand mark, only if the reference shows one. The
+    # checking logic looks at the analysis's callouts list. Even when
+    # present, we cap to ONE element — no stacking of Trustpilot + B Corp
+    # + wordmark.
+    callouts = visible.get("callouts") or []
+    badge_keywords = ("trustpilot", "stars", "rated")
+    has_trustpilot = any(
+        any(kw in str(c).lower() for kw in badge_keywords) for c in callouts
+    )
+    if has_trustpilot:
+        inventory_items.append(
+            "ONE small Trustpilot icon (stars only, no wordmark text) — the SINGLE optional brand element"
         )
 
     inventory_block = "\n".join(f"  - {item}" for item in inventory_items)
 
     suffix = (
         "\n\n---\n"
-        "CRITICAL TEXT DENSITY OVERRIDE — applies to the entire image:\n\n"
+        "CRITICAL TEXT DENSITY + STYLE OVERRIDE — applies to the entire image:\n\n"
         "Render ONLY the following text elements. Do NOT add anything else:\n"
         f"{inventory_block}\n\n"
+        "TYPOGRAPHY: Use clean modern sans-serif, medium weight, tight kerning.\n"
+        "Quote marks (if rendered) are small and neutral. DO NOT use italic\n"
+        "serif, decorative serif, ornate scripts, or large curly quotation\n"
+        "marks unless the reference explicitly uses that style.\n\n"
+        "BRAND MARK RULE: At most ONE brand element beyond the product label\n"
+        "itself. If a Trustpilot icon is in the inventory above, that is the\n"
+        "ONE allowed element — do NOT also add a SecondKind wordmark, B Corp\n"
+        "icon, dot-cluster, CO2-neutral badge, or 'as seen in' strip. If no\n"
+        "Trustpilot icon is in the inventory, render zero brand elements\n"
+        "beyond the product label.\n\n"
         "Strictly forbidden — do NOT include in the image:\n"
         "  - FDA disclaimers or 'These statements have not been evaluated by the Food and Drug Administration' text\n"
         "  - 'This product is not intended to diagnose, treat, cure, or prevent any disease' text\n"
         "  - Supplement legalese, fine print, or asterisk footnotes at the bottom\n"
         "  - Benefit-pill rows, callout strips, or feature lists below the main composition\n"
         "  - Body copy paragraphs or explanatory text\n"
+        "  - Supporting subheaders or sub-hooks below the main quote\n"
+        "  - Invented 'verified buyer' quotes, customer reviews, or testimonials beyond the inventory\n"
+        "  - Multiple stacked brand badges (Trustpilot + B Corp + wordmark + CO2)\n"
         "  - Any text element not listed in the TEXT INVENTORY above\n\n"
-        "Match the reference ad's text restraint exactly. When in doubt, render LESS text, not more."
+        "Match the reference ad's text restraint AND its typographic register.\n"
+        "When in doubt, render LESS text and FEWER brand elements, not more."
     )
     return prompt_text.rstrip() + suffix
 
