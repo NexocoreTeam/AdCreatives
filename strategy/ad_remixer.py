@@ -1802,6 +1802,67 @@ def generate_remix_images(
     return saved_paths
 
 
+def _strip_text_from_prompt(prompt: str) -> str:
+    """Remove text-rendering instructions from a prompt before sending to soul_2.
+
+    soul_2 produces gibberish letterforms when asked to render legible
+    text inline (e.g. "I wan resmenoineg broobitics" instead of the actual
+    quote). We strip the TEXT INVENTORY / TYPOGRAPHY / CTA blocks and tell
+    soul_2 to generate a clean scene with empty negative-space for text.
+    PIL renders the actual text overlay in a separate pass after.
+
+    Conservative approach: keep the scene/subject/lighting/camera blocks
+    intact; truncate at the first section header that introduces text
+    elements; append explicit "no text" guidance + reserve the lower
+    third for PIL overlay.
+    """
+    import re
+
+    # Drop everything from the first text-related section header onward.
+    text_section_markers = [
+        "TYPOGRAPHY AND TEXT ELEMENTS",
+        "TYPOGRAPHY:",
+        "TEXT INVENTORY",
+        "TEXT ELEMENTS",
+        "CRITICAL TEXT DENSITY",
+        "CTA BUTTON",
+        "HOOK TEXT",
+        "HERO TEXT",
+        "QUOTE OVERLAY",
+        "OVERLAY TEXT",
+    ]
+    cutoff = len(prompt)
+    for marker in text_section_markers:
+        idx = prompt.upper().find(marker.upper())
+        if idx != -1 and idx < cutoff:
+            cutoff = idx
+    stripped = prompt[:cutoff].rstrip()
+
+    # Also strip any "Image 1 is the actual product…" preamble that's specific
+    # to NB2 multi-image edits — soul_2 doesn't get a product image here.
+    stripped = re.sub(
+        r"^Image 1 is the actual product[^\n]*\n*(Any additional images[^\n]*\n*)?",
+        "",
+        stripped,
+        flags=re.IGNORECASE,
+    )
+
+    suffix = (
+        "\n\n"
+        "TEXT-FREE OUTPUT: Render ONLY the scene — subject, environment, "
+        "lighting, product. The lower third of the frame should be empty, "
+        "uncluttered warm cream space ready for a separate text overlay. "
+        "DO NOT render any letters, words, quotation marks, captions, "
+        "headlines, logos, brand wordmarks, CTAs, badges, ratings, or "
+        "review text anywhere in the image. The output is a photograph "
+        "only; text is composited in a downstream pass.\n\n"
+        "Negative prompt: any text, any letters, any words, any captions, "
+        "any quotation marks, any logos, any badges, any wordmarks, any "
+        "Trustpilot, any star rating, any number ratings, any overlay text."
+    )
+    return stripped + suffix
+
+
 def _generate_remix_images_higgsfield(
     briefs_data: list[dict],
     *,
@@ -1810,14 +1871,20 @@ def _generate_remix_images_higgsfield(
     num_images: int,
     aspect_ratio: str,
 ) -> list[Path]:
-    """Higgs Field soul_2 image generation, one image per brief, identity-locked.
+    """Higgs Field soul_2 image generation + PIL text overlay, identity-locked.
+
+    Two-pass per brief:
+      1. soul_2(soul_id=<persona>, prompt=<text-stripped>)
+         → photoreal scene with identity-locked face, no inline text
+      2. PIL overlay
+         → quote + CTA + optional badge composited onto the scene
 
     For each brief, look up the persona's trained `soul_id` from the avatar
     YAML. If the persona has no Soul Character, skip the brief and log a
-    warning — operator can train via `adc generate-model --engine higgsfield`
-    (future) or via the Higgs Field MCP.
+    warning — operator can train via the Higgs Field MCP.
     """
     from generators.higgsfield_client import HiggsfieldError, soul_generate_and_save
+    from generators.text_overlay import render_ad_overlay, SECONDKIND_PRESET
 
     saved_paths: list[Path] = []
     for brief_data in briefs_data:
@@ -1843,26 +1910,48 @@ def _generate_remix_images_higgsfield(
             )
             continue
 
+        # Pass 1: scene-only prompt for soul_2 (no text)
+        scene_prompt = _strip_text_from_prompt(prompt_text)
+
         for i in range(num_images):
             suffix = f"_{i+1}" if num_images > 1 else ""
-            out_path = images_dir / f"{brief_id}{suffix}_1x1.png"
+            scene_path = images_dir / f"{brief_id}{suffix}_scene.png"
+            final_path = images_dir / f"{brief_id}{suffix}_1x1.png"
             try:
                 soul_generate_and_save(
                     soul_id=soul_id,
-                    prompt=prompt_text,
-                    out_path=out_path,
+                    prompt=scene_prompt,
+                    out_path=scene_path,
                     aspect_ratio=aspect_ratio,
                     quality="2k",
                 )
             except HiggsfieldError as e:
-                print(f"  [fail] {brief_id}: {e}")
+                print(f"  [fail soul] {brief_id}: {e}")
                 continue
-            saved_paths.append(out_path)
+
+            # Pass 2: PIL text overlay (hero quote + CTA pill)
+            hero_quote = (brief_data.get("hook") or "").strip()
+            cta_text = (brief_data.get("cta") or "Learn more").strip()
+            # CTA in our briefs sometimes ends with " →" — strip; PIL will not add an arrow yet
+            cta_text = cta_text.rstrip("→").strip()
+
+            try:
+                render_ad_overlay(
+                    base_image=scene_path,
+                    hero_quote=hero_quote,
+                    cta_text=cta_text,
+                    out_path=final_path,
+                    preset=SECONDKIND_PRESET,
+                )
+            except Exception as e:
+                print(f"  [fail overlay] {brief_id}: {e}")
+                continue
+            saved_paths.append(final_path)
 
             # Campaign-name sidecar (same convention as NB2 path)
             campaign_name = brief_data.get("campaign_name") or ""
             if campaign_name:
-                sidecar = out_path.with_name(out_path.stem + "_campaign.txt")
+                sidecar = final_path.with_name(final_path.stem + "_campaign.txt")
                 sidecar.write_text(campaign_name + "\n", encoding="utf-8")
 
     return saved_paths
