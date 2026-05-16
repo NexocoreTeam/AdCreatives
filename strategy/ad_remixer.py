@@ -295,6 +295,67 @@ def _detect_image_mime(raw_bytes: bytes, ext_hint: str = "") -> str:
     return _EXT_MIME_FALLBACK.get(ext_hint.lower(), "image/jpeg")
 
 
+# Anthropic's vision API caps individual image payloads at 5 MiB raw bytes.
+# Photos straight from a phone routinely blow past this (8-12 MB), so we
+# downscale + recompress before sending. Target a comfortable headroom.
+_ANTHROPIC_VISION_MAX_BYTES = 5 * 1024 * 1024
+_VISION_SHRINK_TARGET_BYTES = 4_500_000
+
+
+def _shrink_for_vision(raw_bytes: bytes, ext_hint: str) -> tuple[bytes, str]:
+    """Return (raw_bytes, mime) safely under Anthropic's 5 MiB image cap.
+
+    If already under target, passes through unchanged. Otherwise re-encodes
+    as JPEG, iteratively dropping quality and max dimension until it fits.
+    Always returns a JPEG when shrinking — fine for ad screenshots and
+    photo references; transparency is flattened onto white if present.
+    """
+    if len(raw_bytes) <= _VISION_SHRINK_TARGET_BYTES:
+        return raw_bytes, _detect_image_mime(raw_bytes, ext_hint)
+
+    from io import BytesIO
+    from PIL import Image
+
+    img = Image.open(BytesIO(raw_bytes))
+    # Flatten alpha onto white so JPEG encoding doesn't error.
+    if img.mode in ("RGBA", "LA") or (img.mode == "P" and "transparency" in img.info):
+        bg = Image.new("RGB", img.size, (255, 255, 255))
+        bg.paste(img.convert("RGBA"), mask=img.convert("RGBA").split()[-1])
+        img = bg
+    elif img.mode != "RGB":
+        img = img.convert("RGB")
+
+    original_size = len(raw_bytes)
+    # Walk from gentle to aggressive. Stops at the first attempt that fits.
+    attempts = [
+        (2048, 85),
+        (2048, 75),
+        (1600, 80),
+        (1280, 75),
+        (1024, 70),
+        (1024, 60),
+    ]
+    for max_dim, quality in attempts:
+        work = img.copy()
+        if max(work.size) > max_dim:
+            work.thumbnail((max_dim, max_dim), Image.LANCZOS)
+        buf = BytesIO()
+        work.save(buf, format="JPEG", quality=quality, optimize=True)
+        out = buf.getvalue()
+        if len(out) <= _VISION_SHRINK_TARGET_BYTES:
+            print(
+                f"[remix] Shrunk image for vision API: "
+                f"{original_size / 1_048_576:.1f}MB -> {len(out) / 1_048_576:.1f}MB "
+                f"({max_dim}px, q{quality})",
+                flush=True,
+            )
+            return out, "image/jpeg"
+    raise RuntimeError(
+        f"Could not shrink image under {_VISION_SHRINK_TARGET_BYTES} bytes "
+        f"even at 1024px / q60 (started at {original_size} bytes)."
+    )
+
+
 def _claude_vision_local(
     *,
     prompt: str,
@@ -311,7 +372,7 @@ def _claude_vision_local(
 
     with open(image_path, "rb") as f:
         raw_bytes = f.read()
-    media_type = _detect_image_mime(raw_bytes, image_path.suffix.lower())
+    raw_bytes, media_type = _shrink_for_vision(raw_bytes, image_path.suffix.lower())
     data = base64.standard_b64encode(raw_bytes).decode()
 
     client = get_anthropic_client()
