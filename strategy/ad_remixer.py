@@ -1446,18 +1446,30 @@ def remix(
 
     if reference:
         ref_path = Path(reference)
+        print(f"[remix] Analyzing reference image {ref_path.name} (2 vision calls)...", flush=True)
         analysis = analyze_local_image(ref_path)
         archive_dest = out_dir / f"reference{ref_path.suffix or '.png'}"
         shutil.copy2(ref_path, archive_dest)
     else:
+        print(f"[remix] Fetching + analyzing Foreplay ad {foreplay_url_or_id}...", flush=True)
         archive_dest = out_dir / "reference.jpg"
         analysis = analyze_foreplay(foreplay_url_or_id, image_dest=archive_dest)
+    print(
+        f"[remix] Reference analyzed: ad_type={analysis.ad_type} "
+        f"levers={','.join(analysis.psych_levers) or '-'}",
+        flush=True,
+    )
 
     pairs = _select_avatar_lever_pairs(avatars, variations, analysis.psych_levers)
     fidelity_tiers = _select_fidelity_tiers(
         variations, max_high=high_fidelity, max_medium=medium_fidelity
     )
     competitive_gaps = _load_competitive_gaps(client_slug)
+    print(
+        f"[remix] Generating {len(pairs)} angle(s) "
+        f"(fidelity tiers: {','.join(fidelity_tiers)})...",
+        flush=True,
+    )
     angles = generate_remix_angles(
         analysis,
         brand,
@@ -1472,6 +1484,7 @@ def remix(
             f"{len(pairs)}. Inspect the LLM output or retry with fewer variations."
         )
 
+    print(f"[remix] Building {len(angles)} brief(s)...", flush=True)
     briefs: list[CreativeBrief] = []
     for i, (angle, (avatar, _lever)) in enumerate(zip(angles, pairs)):
         briefs.append(
@@ -1538,6 +1551,7 @@ def remix(
             creative_direction.strip() + "\n", encoding="utf-8"
         )
 
+    print(f"[remix] Writing {len(briefs)} NB2 prompt(s) to {prompts_dir}...", flush=True)
     prompt_paths: list[Path] = []
     for brief, (avatar, _lever) in zip(briefs, pairs):
         aspect = infer_aspect_ratio(brief)
@@ -1554,6 +1568,7 @@ def remix(
         out_path = prompts_dir / f"{brief.brief_id}.txt"
         out_path.write_text(notes + "\n\n" + prompt_text + "\n", encoding="utf-8")
         prompt_paths.append(out_path)
+    print(f"[remix] Done. Output: {out_dir}", flush=True)
 
     return {
         "out_dir": out_dir,

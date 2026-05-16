@@ -3637,21 +3637,22 @@ def remix(
 
     foreplay_ref = foreplay_url or foreplay_id
 
-    with console.status(
-        f"Analyzing reference and generating {variations} remix variation(s)..."
-    ):
-        result = run_remix(
-            client_slug=client,
-            product_ref=product,
-            reference=ref_path,
-            foreplay_url_or_id=foreplay_ref,
-            variations=variations,
-            high_fidelity=high_fidelity,
-            medium_fidelity=medium_fidelity,
-            creative_direction=creative_direction,
-            offer=offer,
-            include_trending=not no_trending,
-        )
+    console.print(
+        f"[cyan]Remixing[/cyan] {variations} variation(s) for "
+        f"[bold]{client}[/bold] / [bold]{product}[/bold]..."
+    )
+    result = run_remix(
+        client_slug=client,
+        product_ref=product,
+        reference=ref_path,
+        foreplay_url_or_id=foreplay_ref,
+        variations=variations,
+        high_fidelity=high_fidelity,
+        medium_fidelity=medium_fidelity,
+        creative_direction=creative_direction,
+        offer=offer,
+        include_trending=not no_trending,
+    )
 
     analysis = result["analysis"]
     out_dir = result["out_dir"]

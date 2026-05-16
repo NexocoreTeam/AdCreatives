@@ -15,6 +15,7 @@ Reads the same files the CLI status command reads. No data is sent anywhere.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime
@@ -180,7 +181,11 @@ def run_adc_command(cmd_args: list[str], label: str = "Running...") -> tuple[int
 
     Streams stdout/stderr live so long-running commands don't appear frozen.
     """
-    full_cmd = [sys.executable, str(REPO_ROOT / "cli.py")] + cmd_args
+    full_cmd = [sys.executable, "-u", str(REPO_ROOT / "cli.py")] + cmd_args
+    # Force the child Python to flush stdout line-by-line. Without this,
+    # piped stdout is block-buffered (~8KB) and the dashboard log appears
+    # frozen for the entire LLM call.
+    child_env = {**os.environ, "PYTHONUNBUFFERED": "1"}
     log_lines: list[str] = []
 
     with st.status(label, expanded=True) as status:
@@ -197,6 +202,7 @@ def run_adc_command(cmd_args: list[str], label: str = "Running...") -> tuple[int
                 # on Windows where the default subprocess encoding is cp1252.
                 encoding="utf-8",
                 errors="replace",
+                env=child_env,
             )
         except Exception as e:
             status.update(label=f"Failed to launch: {e}", state="error")
