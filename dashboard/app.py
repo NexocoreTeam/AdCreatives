@@ -1478,12 +1478,40 @@ def _render_remix_tab(selected):
             ),
         )
 
+        # ── Prompt mode ──────────────────────────────────────────────────
+        # Strategic: verbose ~1500-word prompts that describe a fresh ad
+        # inspired by the reference. Best for new-brief generation.
+        # Differential: vision-extract source text, Claude maps source→target
+        # via the brief, produce a short surgical-edit prompt. Best for
+        # layout-faithful remixes like us-vs-them comparison ads.
+        mode = st.radio(
+            "Prompt mode",
+            ["Strategic (default — fresh ad inspired by the reference)",
+             "Differential (surgical edit — swap product + text, preserve layout)"],
+            index=0,
+            key=f"remix_mode_{selected}",
+            horizontal=False,
+            help=(
+                "Strategic produces verbose prompts that describe a brand-new ad. "
+                "Best when you want psychology + persona to drive a different visual. "
+                "Differential produces short edit-style prompts that swap product and "
+                "text while preserving layout, fonts, decorative marks, and lighting. "
+                "Best for us-vs-them comparison ads or any time you want the result to "
+                "look nearly identical to the reference with surgical content changes. "
+                "Differential mode pairs naturally with 'Creative direction' above — "
+                "any text you put there becomes the ONLY allowed deviation (e.g. "
+                "'change background to spring grassy field')."
+            ),
+        )
+        mode_flag = "differential" if mode.lower().startswith("differential") else "strategic"
+
         ready = (ref_path is not None) or bool(foreplay_ref)
         if not ready:
             st.info("Upload an image or paste a Foreplay URL/ID to continue.")
         else:
+            button_suffix = " (differential)" if mode_flag == "differential" else ""
             if st.button(
-                f"✨ Generate {int(variations)} remix variation(s)",
+                f"✨ Generate {int(variations)} remix variation(s){button_suffix}",
                 type="primary",
                 use_container_width=True,
                 key=f"remix_run_{selected}",
@@ -1496,6 +1524,7 @@ def _render_remix_tab(selected):
                     "--high-fidelity", str(int(high_fidelity)),
                     "--medium-fidelity", str(int(medium_fidelity)),
                     "--offer", offer_input.strip() or "NONE",
+                    "--mode", mode_flag,
                 ]
                 if creative_direction.strip():
                     args += ["--creative-direction", creative_direction.strip()]
@@ -1505,7 +1534,10 @@ def _render_remix_tab(selected):
                     args += ["--foreplay-url", foreplay_ref]
                 run_adc_command(
                     args,
-                    label=f"Remixing for {selected} (~${0.10 * int(variations):.2f})",
+                    label=(
+                        f"Remixing for {selected} "
+                        f"(~${0.10 * int(variations):.2f}, mode={mode_flag})"
+                    ),
                 )
                 st.rerun()
 

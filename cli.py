@@ -3655,6 +3655,25 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
     help="Skip the trending-format recommender. By default each variation "
     "brief gets top-3 trending alternatives attached.",
 )
+@click.option(
+    "--mode",
+    type=click.Choice(["strategic", "differential"]),
+    default="strategic",
+    show_default=True,
+    help=(
+        "Prompt-writing mode. "
+        "'strategic' (default) generates verbose ~1500-word prompts that "
+        "DESCRIBE a new ad inspired by the reference — best for fresh-brief "
+        "generation where psychology drives a different visual. "
+        "'differential' vision-extracts the reference's text inventory, "
+        "asks Claude to map each source phrase to a target phrase based on "
+        "the brief, and produces a SHORT surgical-edit prompt (\"swap "
+        "product, swap text, preserve everything else\"). Best for layout-"
+        "faithful remixes like us-vs-them comparison ads. The "
+        "--creative-direction flag becomes the ONLY allowed deviation "
+        "(e.g. \"change background to spring grassy field\")."
+    ),
+)
 def remix(
     client: str,
     product: str,
@@ -3667,6 +3686,7 @@ def remix(
     creative_direction: str,
     offer: str,
     no_trending: bool,
+    mode: str,
 ):
     """Reverse-engineer a reference ad and remix it for your product.
 
@@ -3694,7 +3714,8 @@ def remix(
 
     console.print(
         f"[cyan]Remixing[/cyan] {variations} variation(s) for "
-        f"[bold]{client}[/bold] / [bold]{product}[/bold]..."
+        f"[bold]{client}[/bold] / [bold]{product}[/bold] "
+        f"([dim]mode={mode}[/dim])..."
     )
     result = run_remix(
         client_slug=client,
@@ -3707,6 +3728,7 @@ def remix(
         creative_direction=creative_direction,
         offer=offer,
         include_trending=not no_trending,
+        mode=mode,
     )
 
     analysis = result["analysis"]

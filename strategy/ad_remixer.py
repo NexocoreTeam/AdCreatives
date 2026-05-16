@@ -1476,11 +1476,23 @@ def remix(
     creative_direction: str = "",
     offer: str = "NONE",
     include_trending: bool = True,
+    mode: str = "strategic",
 ) -> dict:
     """Run the full remix pipeline.
 
     Exactly one of `reference` (local image path) or `foreplay_url_or_id`
     must be provided.
+
+    `mode`:
+      - "strategic" (default): generates verbose prompts that DESCRIBE a new
+        ad inspired by the reference. Best for fresh-brief generation where
+        psychology + persona drive a different visual.
+      - "differential": vision-extracts the reference's text, asks Claude to
+        map each source phrase to a target phrase based on the brief, and
+        produces a SHORT surgical-edit prompt ("swap product, swap text,
+        preserve everything else"). Best for layout-faithful remixes like
+        us-vs-them comparison ads. Operator-supplied `creative_direction`
+        becomes the ONLY allowed deviation (e.g. background swap).
 
     Returns a dict with keys: out_dir, analysis, briefs, prompts (list of
     Paths), so the CLI can render a summary."""
@@ -1492,6 +1504,10 @@ def remix(
         )
     if variations < 1:
         raise ValueError(f"variations must be ≥ 1, got {variations}")
+    if mode not in ("strategic", "differential"):
+        raise ValueError(
+            f"mode must be 'strategic' or 'differential', got '{mode}'"
+        )
 
     brand = load_brand(client_slug)
     product = _load_product_flexible(client_slug, product_ref)
@@ -1612,20 +1628,110 @@ def remix(
             creative_direction.strip() + "\n", encoding="utf-8"
         )
 
-    print(f"[remix] Writing {len(briefs)} NB2 prompt(s) to {prompts_dir}...", flush=True)
+    # Differential mode: pre-extract the reference's text inventory ONCE.
+    # The same inventory feeds every brief's source→target mapping, so we
+    # only pay for one vision call regardless of how many variations.
+    source_texts: list[str] = []
+    if mode == "differential":
+        print(
+            f"[remix] Differential mode — extracting source text inventory "
+            f"from reference (1 vision call)...",
+            flush=True,
+        )
+        try:
+            source_texts = _extract_visible_text_inventory(archive_dest)
+            print(
+                f"[remix] Extracted {len(source_texts)} source text element(s).",
+                flush=True,
+            )
+        except Exception as e:
+            print(
+                f"[remix] WARNING: text extraction failed ({e}). "
+                f"Falling back to strategic mode for prompt writing.",
+                flush=True,
+            )
+            mode = "strategic"
+
+    # Save the inventory to disk for transparency / debugging.
+    if mode == "differential" and source_texts:
+        (out_dir / "source_text_inventory.yaml").write_text(
+            yaml.dump(
+                {"source_texts": source_texts},
+                default_flow_style=False,
+                sort_keys=False,
+                allow_unicode=True,
+            ),
+            encoding="utf-8",
+        )
+        mappings_dir = out_dir / "mappings"
+        mappings_dir.mkdir(exist_ok=True)
+
+    print(
+        f"[remix] Writing {len(briefs)} NB2 prompt(s) "
+        f"({mode} mode) to {prompts_dir}...",
+        flush=True,
+    )
     prompt_paths: list[Path] = []
     for brief, (avatar, _lever) in zip(briefs, pairs):
         aspect = infer_aspect_ratio(brief)
-        prompt_text = prompt_from_brief(
-            brief=brief,
-            brand=brand,
-            product=product,
-            avatar=avatar,
-            aspect_ratio=aspect,
-            creative_direction=creative_direction,
-        )
-        prompt_text = _enforce_text_density_suffix(prompt_text, brief, analysis)
+
+        if mode == "differential" and source_texts:
+            # Per-brief: Claude maps each source text → target text based on
+            # the brief's hook + benefit_callouts + persona. The differential
+            # prompt is short (~250 words) and structured as edit instructions.
+            try:
+                mapping = _generate_source_to_target_mapping(
+                    source_texts=source_texts,
+                    brief=brief,
+                    brand=brand,
+                    product=product,
+                )
+            except Exception as e:
+                print(
+                    f"  [brief {brief.brief_id[-6:]}] mapping failed ({e}); "
+                    f"falling back to identity mapping (source=target).",
+                    flush=True,
+                )
+                mapping = [{"source": t, "target": t} for t in source_texts]
+
+            # Save the mapping for operator inspection.
+            (mappings_dir / f"{brief.brief_id}.yaml").write_text(
+                yaml.dump(
+                    {"mapping": mapping},
+                    default_flow_style=False,
+                    sort_keys=False,
+                    allow_unicode=True,
+                ),
+                encoding="utf-8",
+            )
+
+            prompt_text = _build_differential_prompt(
+                brief=brief,
+                product=product,
+                mapping=mapping,
+                creative_direction=creative_direction,
+                aspect_ratio=aspect,
+            )
+            # No _enforce_text_density_suffix here — the differential prompt
+            # is already strict about text inventory (only the swap-table
+            # targets are rendered) and the suffix's "render only these"
+            # language would conflict with the swap framing.
+        else:
+            # Strategic mode (default): existing verbose prompt path.
+            prompt_text = prompt_from_brief(
+                brief=brief,
+                brand=brand,
+                product=product,
+                avatar=avatar,
+                aspect_ratio=aspect,
+                creative_direction=creative_direction,
+            )
+            prompt_text = _enforce_text_density_suffix(prompt_text, brief, analysis)
+
         notes = _format_remix_notes(brief, product, aspect, analysis)
+        # Annotate the mode in the notes header so operators can see which
+        # prompt style was used after the fact.
+        notes = f"# MODE: {mode}\n" + notes
         out_path = prompts_dir / f"{brief.brief_id}.txt"
         out_path.write_text(notes + "\n\n" + prompt_text + "\n", encoding="utf-8")
         prompt_paths.append(out_path)
@@ -2057,6 +2163,219 @@ def _extract_visible_text_inventory(image_path: Path) -> list[str]:
         return []
     items = data.get("text_elements") or []
     return [str(item).strip() for item in items if str(item).strip()]
+
+
+# ─── Differential-edit mode (surgical clone with source→target text swaps) ──
+#
+# Background: the default ("strategic") remix mode generates a verbose
+# 1500-word prompt that *describes* a fresh image inspired by the reference.
+# That works for fresh-brief generation but loses fidelity when the operator
+# wants a near-identical layout with surgical text swaps (e.g. us-vs-them
+# comparison ads). The differential mode produces a much shorter prompt
+# that says "edit Image 1 with these specific swaps, preserve everything
+# else." Mirrors how the operator manually prompts Higgsfield by hand.
+#
+# Cost: +$0.01 per remix run (one vision call) and +$0.02 per brief
+# (one Claude mapping call). Significantly cheaper than the verbose
+# strategic prompt because we skip the angle-rich brief→prompt step.
+
+
+_DIFFERENTIAL_MAPPING_SYSTEM = """You are mapping advertisement copy from a
+reference ad to a new brand. The reference is an existing ad; the target is
+a creative brief for a different product. Your job: produce a one-to-one
+mapping of every source text element to its target equivalent.
+
+Rules:
+  1. Map by ROLE, not by literal text. A source "headline" maps to the
+     target hook. A source "callout" maps to a target benefit_callout.
+     A source CTA maps to the target CTA. Brand wordmarks map to the
+     target brand name. Generic category labels ("Without probiotic
+     support") map to the target's category framing.
+  2. Preserve markers. If a source line starts with ❌ or X, the target
+     line should also start with ❌ (and likewise for ✅ / checkmark).
+     If the source has trademarks (™, ®), keep them when present in the
+     target's own naming.
+  3. Preserve LENGTH and SHAPE. A 2-3 word callout maps to a 2-3 word
+     callout. A long headline maps to a long headline. Do NOT replace
+     short callouts with long sentences — typography fidelity matters.
+  4. If a source line has no plausible target (e.g. brand legalese the
+     target doesn't have), set its target to "[REMOVE]". The model
+     will be told to delete those elements from the image.
+  5. Output VALID YAML only (no markdown fences). Format:
+
+mapping:
+  - source: "exact source text 1"
+    target: "target text 1"
+  - source: "exact source text 2"
+    target: "target text 2"
+  - source: "exact source text 3"
+    target: "[REMOVE]"
+
+Be exhaustive — include EVERY source text element, in the order given."""
+
+
+def _generate_source_to_target_mapping(
+    *,
+    source_texts: list[str],
+    brief: CreativeBrief,
+    brand: Brand,
+    product: Product,
+) -> list[dict[str, str]]:
+    """Claude call: map each source text element to its target equivalent.
+
+    Returns a list of `{"source": str, "target": str}` dicts in the same
+    order as `source_texts`. Target may be "[REMOVE]" for elements the
+    target brand doesn't have (e.g. competitor legalese).
+
+    Used by the differential remix mode to build a surgical-edit prompt.
+    """
+    if not source_texts:
+        return []
+
+    inventory_block = "\n".join(f'  - "{t}"' for t in source_texts)
+
+    benefit_callouts_block = "\n".join(
+        f"    - {c}" for c in (brief.benefit_callouts or [])
+    ) or "    (none)"
+
+    user_prompt = f"""SOURCE AD TEXT ELEMENTS (extracted via vision, in order top→bottom):
+
+{inventory_block}
+
+TARGET BRIEF — the new ad's content to map onto the source layout:
+
+  brand: {brand.name}
+  product: {product.name}
+  persona: {brief.persona}
+  hook: {brief.hook}
+  hook_type: {brief.hook_type}
+  cta: {brief.cta}
+  benefit_callouts:
+{benefit_callouts_block}
+  framework: {brief.framework}
+  awareness_level: {getattr(brief.awareness_level, 'value', '') if brief.awareness_level else ''}
+  pain_point: {brief.pain_point or '(none)'}
+
+Map each source text element to its target equivalent now. Output YAML only."""
+
+    raw = claude_complete(
+        user_prompt,
+        system=_DIFFERENTIAL_MAPPING_SYSTEM,
+        max_tokens=2048,
+    )
+    body = _strip_code_fences(raw)
+    try:
+        data = yaml.safe_load(body) or {}
+    except Exception:
+        return [{"source": t, "target": t} for t in source_texts]
+
+    items = data.get("mapping") if isinstance(data, dict) else None
+    if not isinstance(items, list):
+        return [{"source": t, "target": t} for t in source_texts]
+
+    result: list[dict[str, str]] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        src = str(item.get("source") or "").strip()
+        tgt = str(item.get("target") or "").strip()
+        if not src:
+            continue
+        result.append({"source": src, "target": tgt or "[REMOVE]"})
+    return result
+
+
+def _build_differential_prompt(
+    *,
+    brief: CreativeBrief,
+    product: Product,
+    mapping: list[dict[str, str]],
+    creative_direction: str,
+    aspect_ratio: str,
+) -> str:
+    """Assemble a surgical-edit NB2 prompt from a source→target mapping.
+
+    Output ~250 words. Tells NB2: edit Image 1, swap product with Image 2,
+    apply text swaps from the mapping table, optionally apply a setting
+    delta from creative_direction, preserve everything else.
+
+    This is intentionally short. The verbose composition / lighting /
+    photography spec from prompt_from_brief() is NOT generated for
+    differential mode — the reference image carries that information."""
+    lines: list[str] = []
+    lines.append(
+        "This is a SURGICAL EDIT of Image 1 (the reference ad). Image 2 "
+        "is the replacement product. Apply ONLY the changes listed below; "
+        "preserve every other visual element of Image 1 exactly — "
+        "composition, layout, font family and weight, color palette, "
+        "lighting register, decorative marks (❌, ✅, frosted cards, "
+        "panels, badges), hand positions, and product orientation."
+    )
+    lines.append("")
+
+    # Product swap (always present)
+    lines.append("PRODUCT SWAP:")
+    lines.append(
+        f"  - Replace the product container/package shown in Image 1 with "
+        f"the {product.name} from Image 2. Keep the same hand position, "
+        f"same orientation, same scale relative to the frame, and same "
+        f"lighting on the product."
+    )
+    lines.append("")
+
+    # Text swaps
+    text_swaps = [m for m in mapping if m.get("source")]
+    if text_swaps:
+        lines.append(
+            "TEXT SWAPS — for each source phrase below, render the target "
+            "phrase instead. Preserve the source's font family, weight, "
+            "color, position, alignment, and any leading marker characters "
+            "(❌, ✅, •, ★). DO NOT change typography style. Where the "
+            "target is [REMOVE], delete that element from the image."
+        )
+        for m in text_swaps:
+            src = m["source"].replace('"', '\\"')
+            tgt = m["target"].replace('"', '\\"')
+            if tgt.upper() == "[REMOVE]":
+                lines.append(f'  - "{src}"  →  [REMOVE this element entirely]')
+            else:
+                lines.append(f'  - "{src}"  →  "{tgt}"')
+        lines.append("")
+
+    # Operator-supplied creative-direction delta (optional)
+    cd = (creative_direction or "").strip()
+    if cd:
+        lines.append("SETTING / STYLE CHANGE (operator-supplied delta):")
+        lines.append(f"  - {cd}")
+        lines.append(
+            "  - Apply this change to the background / lighting environment "
+            "only. The product, hands, and overall composition stay the same."
+        )
+        lines.append("")
+
+    # Preserve clause
+    lines.append("PRESERVE (do not modify):")
+    lines.append("  - Composition, panel positions, frosted cards, decorative overlays")
+    lines.append("  - Font family, weight, kerning, text size relative to elements")
+    lines.append("  - X-marks (❌) and check-marks (✅) and their colors/positions")
+    lines.append("  - Hand poses, product orientation, lighting direction")
+    lines.append(
+        "  - Total number of text elements (only the ones in the swap table "
+        "above change; the rest remain visually identical)"
+    )
+    lines.append("")
+
+    # Negative
+    lines.append(
+        "Negative: do NOT add FDA disclaimers, body copy paragraphs, "
+        "extra badges, additional brand wordmarks, customer review text, "
+        "ratings, or any text element not in the swap table above. Do not "
+        "introduce new decorative elements, callouts, or visual zones."
+    )
+    lines.append("")
+    lines.append(f"{aspect_ratio} aspect ratio.")
+
+    return "\n".join(lines)
 
 
 def _rewrite_prompt_with_feedback(
