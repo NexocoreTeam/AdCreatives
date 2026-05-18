@@ -3841,6 +3841,19 @@ def remix(
         "Useful when the dashboard wants graceful degradation."
     ),
 )
+@click.option(
+    "--staged",
+    is_flag=True,
+    default=False,
+    help=(
+        "Split the differential edit into 3 sequential passes — product "
+        "swap, then text swap, then optional model/character swap via "
+        "Higgsfield Soul. Each pass has ONE job, mirroring the operator's "
+        "manual workflow that produced the cleanest results. Requires a "
+        "differential-mode remix run (the mappings/ directory). Costs ~3x "
+        "more API calls per brief. Intermediate stage images are saved."
+    ),
+)
 def remix_images(
     remix_dir: str,
     num_images: int,
@@ -3848,6 +3861,7 @@ def remix_images(
     aspect_ratio: str,
     engine: str,
     fallback_engine: str | None,
+    staged: bool,
 ):
     """Generate ad images for an existing remix directory.
 
@@ -3857,6 +3871,9 @@ def remix_images(
     Use --engine higgsfield-soul to route through Higgs Field with each
     persona's trained Soul Character — gives identity-locked output. Use the
     default --engine nb2 for the existing fal.ai Nano Banana 2 pipeline.
+
+    Pass --staged for differential runs to use the 3-pass product → text →
+    model workflow (mirrors the manual Higgsfield process).
     """
     from strategy.ad_remixer import generate_remix_images
     from strategy.cost_tracker import log_cost
@@ -3873,10 +3890,11 @@ def remix_images(
         if engine == "higgsfield-soul"
         else "fal.ai Nano Banana 2"
     )
+    staged_label = " · STAGED 3-pass" if staged else ""
     fallback_label = f" (fallback: {fallback_engine})" if fallback_engine else ""
     with console.status(
         f"Generating {num_images} image(s) per brief — firing "
-        f"{engine_label}{fallback_label}..."
+        f"{engine_label}{staged_label}{fallback_label}..."
     ):
         paths = generate_remix_images(
             remix_dir=remix_dir,
@@ -3885,6 +3903,7 @@ def remix_images(
             aspect_ratio=aspect_ratio,
             engine=engine,
             fallback_engine=fallback_engine,
+            staged=staged,
         )
 
     if paths:

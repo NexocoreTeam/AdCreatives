@@ -1627,6 +1627,167 @@ def _render_remix_tab(selected):
                             )
                         st.markdown("")
 
+            # Mappings review — differential-mode runs only. Lets the operator
+            # edit each source→target mapping before generating images, so the
+            # final image text matches what they'd type into Higgsfield by
+            # hand. After save, `remix-rebuild-prompts` regenerates the .txt
+            # prompt files; the operator then hits the Generate-images button.
+            mappings_dir_run = run_dir / "mappings"
+            if mappings_dir_run.exists():
+                with st.expander(
+                    "✏️ Review & edit text mappings (differential mode)",
+                    expanded=False,
+                ):
+                    st.caption(
+                        "Each source line was vision-extracted from the reference ad. "
+                        "Edit the **Target** column to control exactly what text gets "
+                        "rendered in the final image. `[REMOVE]` deletes the element; "
+                        "`[PRESERVE AS-IS]` keeps the source text unchanged. "
+                        "After editing, click **Save & rebuild prompts** below, then "
+                        "use the Generate-images button as usual."
+                    )
+
+                    # Per-brief editable mapping table. Keep state in session so
+                    # multi-brief edits don't lose unsaved work on rerun.
+                    edited_state_key = f"remix_mapping_edits_{run['timestamp']}"
+                    if edited_state_key not in st.session_state:
+                        st.session_state[edited_state_key] = {}
+
+                    for b in briefs:
+                        bid = b.get("brief_id", "")
+                        map_file = mappings_dir_run / f"{bid}.yaml"
+                        if not map_file.exists():
+                            continue
+                        try:
+                            md = yaml.safe_load(map_file.read_text(encoding="utf-8")) or {}
+                            mapping_items = md.get("mapping") or []
+                        except Exception:
+                            mapping_items = []
+                        if not isinstance(mapping_items, list) or not mapping_items:
+                            continue
+
+                        st.markdown(
+                            f"**{b.get('persona', '—')}** — `{bid[-6:]}` "
+                            f"_({len(mapping_items)} swap(s))_"
+                        )
+
+                        rows = []
+                        for item in mapping_items:
+                            if not isinstance(item, dict):
+                                continue
+                            rows.append({
+                                "Source": str(item.get("source", "")),
+                                "Position": str(item.get("position", "") or ""),
+                                "Role": str(item.get("role", "") or ""),
+                                "Target": str(item.get("target", "")),
+                            })
+
+                        editor_key = f"map_editor_{run['timestamp']}_{bid}"
+                        edited = st.data_editor(
+                            pd.DataFrame(rows),
+                            hide_index=True,
+                            use_container_width=True,
+                            num_rows="fixed",
+                            disabled=("Source", "Position", "Role"),
+                            column_config={
+                                "Source": st.column_config.TextColumn(
+                                    "Source",
+                                    help="Vision-extracted source text (read-only)",
+                                ),
+                                "Position": st.column_config.TextColumn(
+                                    "Position",
+                                    help="Where this element sits in the source",
+                                    width="small",
+                                ),
+                                "Role": st.column_config.TextColumn(
+                                    "Role",
+                                    help="What this slot does in the ad",
+                                    width="small",
+                                ),
+                                "Target": st.column_config.TextColumn(
+                                    "Target",
+                                    help=(
+                                        "What to render in its place. Use "
+                                        "[REMOVE] or [PRESERVE AS-IS] for "
+                                        "special handling."
+                                    ),
+                                ),
+                            },
+                            key=editor_key,
+                        )
+                        # Stash the edited DataFrame so the save-button
+                        # handler below picks up edits from every brief.
+                        st.session_state[edited_state_key][bid] = edited
+
+                    save_l, save_r = st.columns([1, 3])
+                    with save_l:
+                        if st.button(
+                            "💾 Save & rebuild prompts",
+                            key=f"remix_map_save_{run['timestamp']}",
+                            use_container_width=True,
+                            help=(
+                                "Writes the edited mappings back to "
+                                "mappings/*.yaml and runs "
+                                "`adc remix-rebuild-prompts` so prompt files "
+                                "reflect your edits. Free — no LLM calls."
+                            ),
+                        ):
+                            edits = st.session_state.get(edited_state_key, {})
+                            for bid, df in edits.items():
+                                map_file = mappings_dir_run / f"{bid}.yaml"
+                                try:
+                                    cur = yaml.safe_load(
+                                        map_file.read_text(encoding="utf-8")
+                                    ) or {}
+                                except Exception:
+                                    cur = {}
+                                cur_items = cur.get("mapping") or []
+                                # Replace target by source-text match; keep
+                                # the original ordering, position, role.
+                                tgt_by_src = {
+                                    str(row["Source"]): str(row["Target"])
+                                    for _, row in df.iterrows()
+                                }
+                                new_items: list[dict] = []
+                                for item in cur_items:
+                                    if not isinstance(item, dict):
+                                        continue
+                                    src = str(item.get("source", ""))
+                                    new_items.append({
+                                        "source": src,
+                                        "position": item.get("position", ""),
+                                        "role": item.get("role", "callout"),
+                                        "target": tgt_by_src.get(
+                                            src, item.get("target", "")
+                                        ),
+                                    })
+                                map_file.write_text(
+                                    yaml.dump(
+                                        {"mapping": new_items},
+                                        default_flow_style=False,
+                                        sort_keys=False,
+                                        allow_unicode=True,
+                                    ),
+                                    encoding="utf-8",
+                                )
+                            run_adc_command(
+                                [
+                                    "remix-rebuild-prompts",
+                                    "--remix-dir", str(run_dir),
+                                ],
+                                label=(
+                                    f"Rebuilding prompts for {run['timestamp']}"
+                                ),
+                            )
+                            st.rerun()
+                    with save_r:
+                        st.caption(
+                            "💡 Tip: after saving, re-run **Generate images** "
+                            "below to render with the edited text. Mapping "
+                            "edits are free; image regeneration costs the "
+                            "usual ~$0.08/brief."
+                        )
+
             st.markdown("---")
             if images:
                 st.markdown(f"**Images** ({len(images)})")
@@ -1833,12 +1994,40 @@ def _render_remix_tab(selected):
                 ),
             )
 
+            # Staged toggle — only useful for differential runs.
+            # When ON: split the edit into 3 sequential passes (product →
+            # text → model). Each pass has one job; mirrors the manual
+            # Higgsfield workflow. Costs ~3x more.
+            mappings_present = (run_dir / "mappings").exists()
+            staged_disabled = not mappings_present
+            staged_label = (
+                "Staged 3-pass (product → text → model) — best layout fidelity, ~3x cost"
+                + ("" if mappings_present else "  ·  (requires differential mode)")
+            )
+            use_staged = st.checkbox(
+                staged_label,
+                key=f"remix_use_staged_{run['timestamp']}",
+                disabled=staged_disabled,
+                help=(
+                    "Off: single NB2 call applies product + text swaps together "
+                    "(faster, cheaper).\n"
+                    "On: 3 sequential NB2 passes — pass 1 swaps the product "
+                    "(keeps text identical), pass 2 swaps the text (keeps "
+                    "product identical), optional pass 3 routes through "
+                    "Higgs Field Soul for the model/face. Mirrors the manual "
+                    "Higgsfield workflow that produced the cleanest results. "
+                    "Requires a differential-mode run (with mappings/)."
+                ),
+            )
+
             action_l, action_r = st.columns(2)
             engine_suffix = " (HF Soul)" if use_hf else ""
+            staged_suffix = " · 3-pass" if use_staged else ""
+            cost_per_brief = 0.24 if use_staged else 0.08
             label_button = (
-                f"♻️ Re-fire {n_briefs} image(s){engine_suffix} (~${0.08 * n_briefs:.2f})"
+                f"♻️ Re-fire {n_briefs} image(s){engine_suffix}{staged_suffix} (~${cost_per_brief * n_briefs:.2f})"
                 if images
-                else f"🖼️ Generate {n_briefs} image(s){engine_suffix} (~${0.08 * n_briefs:.2f})"
+                else f"🖼️ Generate {n_briefs} image(s){engine_suffix}{staged_suffix} (~${cost_per_brief * n_briefs:.2f})"
             )
             with action_l:
                 if st.button(
@@ -1856,11 +2045,14 @@ def _render_remix_tab(selected):
                             "--engine", "higgsfield-soul",
                             "--fallback-engine", "nb2",
                         ]
+                    if use_staged:
+                        args += ["--staged"]
                     run_adc_command(
                         args,
                         label=(
                             f"Generating {n_briefs} image(s) for {run['timestamp']}"
                             + (" via Higgs Field Soul" if use_hf else "")
+                            + (" — 3-pass staged" if use_staged else "")
                         ),
                     )
                     st.rerun()

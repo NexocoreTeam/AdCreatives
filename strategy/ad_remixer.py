@@ -1631,17 +1631,41 @@ def remix(
     # Differential mode: pre-extract the reference's text inventory ONCE.
     # The same inventory feeds every brief's source→target mapping, so we
     # only pay for one vision call regardless of how many variations.
-    source_texts: list[str] = []
+    # Structured extraction returns role + position per element — that
+    # metadata flows through to the per-brief mapping prompts so the
+    # operator's manual "this text is in this position, replace with that"
+    # workflow is mirrored automatically.
+    source_items: list[dict] = []
     if mode == "differential":
         print(
-            f"[remix] Differential mode — extracting source text inventory "
-            f"from reference (1 vision call)...",
+            f"[remix] Differential mode — extracting structured source text "
+            f"inventory from reference (1 vision call)...",
             flush=True,
         )
         try:
-            source_texts = _extract_visible_text_inventory(archive_dest)
+            source_items = _extract_visible_text_inventory_structured(archive_dest)
+            if not source_items:
+                # Structured call returned empty (likely a parse error) —
+                # last-ditch fall back to the unlabeled extractor so we still
+                # have *something* to map, rather than degrading to strategic.
+                fallback = _extract_visible_text_inventory(archive_dest)
+                source_items = [
+                    {
+                        "text": t,
+                        "position": "",
+                        "role": "callout",
+                        "word_count": len(t.split()),
+                        "char_count": len(t),
+                    }
+                    for t in fallback
+                ]
+            n_callouts = sum(
+                1 for s in source_items
+                if s.get("role", "").startswith("callout")
+            )
             print(
-                f"[remix] Extracted {len(source_texts)} source text element(s).",
+                f"[remix] Extracted {len(source_items)} source text element(s) "
+                f"({n_callouts} callout-slot{'s' if n_callouts != 1 else ''}).",
                 flush=True,
             )
         except Exception as e:
@@ -1653,10 +1677,10 @@ def remix(
             mode = "strategic"
 
     # Save the inventory to disk for transparency / debugging.
-    if mode == "differential" and source_texts:
+    if mode == "differential" and source_items:
         (out_dir / "source_text_inventory.yaml").write_text(
             yaml.dump(
-                {"source_texts": source_texts},
+                {"source_texts": source_items},
                 default_flow_style=False,
                 sort_keys=False,
                 allow_unicode=True,
@@ -1675,7 +1699,7 @@ def remix(
     for brief, (avatar, _lever) in zip(briefs, pairs):
         aspect = infer_aspect_ratio(brief)
 
-        if mode == "differential" and source_texts:
+        if mode == "differential" and source_items:
             # Per-brief: Claude maps each source text → target text based on
             # the brief's hook + benefit_callouts + persona, REWRITTEN in the
             # avatar's ICP voice (language_patterns + customer_language
@@ -1684,7 +1708,7 @@ def remix(
             # edit instructions.
             try:
                 mapping = _generate_source_to_target_mapping(
-                    source_texts=source_texts,
+                    source_items=source_items,
                     brief=brief,
                     brand=brand,
                     product=product,
@@ -1696,7 +1720,15 @@ def remix(
                     f"falling back to identity mapping (source=target).",
                     flush=True,
                 )
-                mapping = [{"source": t, "target": t} for t in source_texts]
+                mapping = [
+                    {
+                        "source": item["text"],
+                        "position": item.get("position", ""),
+                        "role": item.get("role", "callout"),
+                        "target": item["text"],
+                    }
+                    for item in source_items
+                ]
 
             # Save the mapping for operator inspection.
             (mappings_dir / f"{brief.brief_id}.yaml").write_text(
@@ -1822,6 +1854,7 @@ def generate_remix_images(
     aspect_ratio: str = "1:1",
     engine: str = "nb2",
     fallback_engine: str | None = None,
+    staged: bool = False,
 ) -> list[Path]:
     """Fire the image-generation engine for each brief in a saved remix directory.
 
@@ -1832,6 +1865,13 @@ def generate_remix_images(
                             soul_id — identity-locked face, phone-camera
                             aesthetic. Requires HF_CREDENTIALS in env and a
                             'ready' Soul Character on each avatar.
+
+    `staged` (differential mode only): split the single-shot differential
+    edit into 3 sequential passes — product swap, then text swap, then
+    optional model/character swap via Higgsfield Soul. Each pass has ONE
+    job, mirroring the operator's manual workflow that produced the best
+    results. Costs ~3x more API calls (~$0.24/brief). Intermediate stage
+    images are saved for inspection.
 
     `fallback_engine`: if HF fails because of missing credits (the common
     case when running standalone CLI against an HF account whose REST
@@ -1855,6 +1895,40 @@ def generate_remix_images(
 
     images_dir = remix_path / "images"
     images_dir.mkdir(exist_ok=True)
+
+    # Staged mode short-circuits the single-shot path. It needs differential
+    # mappings + an uploadable reference; the staged orchestrator validates
+    # those preconditions itself and raises if they're missing. Final pass
+    # uses Higgsfield Soul when engine implies HF, or when the avatar has a
+    # ready soul; the orchestrator decides per brief.
+    if staged:
+        try:
+            return _generate_remix_images_staged(
+                briefs_data,
+                remix_path=remix_path,
+                images_dir=images_dir,
+                num_images=num_images,
+                aspect_ratio=aspect_ratio,
+                thinking_level=thinking_level,
+                final_pass_soul=(engine == "higgsfield-soul"),
+            )
+        except Exception as e:
+            if fallback_engine and "credit" in str(e).lower():
+                print(
+                    f"  [fallback] Staged mode hit credits issue ({e}). "
+                    f"Falling back to single-shot engine={fallback_engine}.",
+                    flush=True,
+                )
+                return generate_remix_images(
+                    remix_dir,
+                    num_images=num_images,
+                    thinking_level=thinking_level,
+                    aspect_ratio=aspect_ratio,
+                    engine=fallback_engine,
+                    fallback_engine=None,
+                    staged=False,
+                )
+            raise
 
     if engine == "higgsfield-soul":
         try:
@@ -1903,6 +1977,27 @@ def generate_remix_images(
     )
     product_urls = _get_product_image_urls(product, client_slug)
 
+    # Differential mode bug fix: the saved prompts open with "This is a
+    # SURGICAL EDIT of Image 1 (the reference ad). Image 2 is the
+    # replacement product." For that framing to be true, Image 1 must
+    # actually be the reference. Before this fix, only the product was
+    # uploaded and NB2 had to imagine the reference layout from the prompt
+    # text — which is exactly when text density inflates. Upload the
+    # archived reference once for the run and prepend it to image_urls.
+    reference_url: str | None = None
+    if briefs_data:
+        first_prompt = remix_path / "prompts" / f"{briefs_data[0]['brief_id']}.txt"
+        if first_prompt.exists():
+            run_mode = _detect_remix_mode_from_prompt(first_prompt)
+            if run_mode == "differential":
+                reference_url = _resolve_remix_reference_url(remix_path)
+                if reference_url:
+                    print(
+                        f"[remix] Differential mode: reference uploaded to fal.ai. "
+                        f"NB2 will see [reference, product] as Image 1 + Image 2.",
+                        flush=True,
+                    )
+
     saved_paths: list[Path] = []
     for brief_data in briefs_data:
         brief_id = brief_data["brief_id"]
@@ -1918,9 +2013,14 @@ def generate_remix_images(
                 f"Empty prompt after stripping notes header: {prompt_file}"
             )
 
+        # In differential mode the reference is Image 1, product is Image 2,
+        # matching the prompt's "Image 1 (reference) / Image 2 (product)"
+        # framing. Strategic mode keeps the product-only behavior.
+        image_urls = ([reference_url] + product_urls) if reference_url else product_urls
+
         results = generate_and_save(
             prompt=prompt_text,
-            product_image_urls=product_urls,
+            product_image_urls=image_urls,
             save_dir=images_dir,
             filename_prefix=brief_id,
             aspect_ratio=aspect_ratio,
@@ -2003,6 +2103,87 @@ def _strip_text_from_prompt(prompt: str) -> str:
     return stripped + suffix
 
 
+def _load_brief_mapping(remix_path: Path, brief_id: str) -> list[dict]:
+    """Read the saved source→target mapping for a brief, if any.
+
+    Returns a list of `{source, position, role, target}` dicts (older
+    mapping files without position/role are read as-is — missing fields
+    default to empty strings). Returns an empty list when the run is not
+    differential-mode or the mapping file is absent.
+    """
+    mapping_file = remix_path / "mappings" / f"{brief_id}.yaml"
+    if not mapping_file.exists():
+        return []
+    try:
+        data = yaml.safe_load(mapping_file.read_text(encoding="utf-8")) or {}
+    except Exception:
+        return []
+    if not isinstance(data, dict):
+        return []
+    items = data.get("mapping") or []
+    out: list[dict] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        out.append({
+            "source": str(item.get("source") or "").strip(),
+            "position": str(item.get("position") or "").strip(),
+            "role": str(item.get("role") or "callout").strip(),
+            "target": str(item.get("target") or "").strip(),
+        })
+    return out
+
+
+def _pick_overlay_text_from_mapping(
+    mapping: list[dict],
+    fallback_hero: str,
+    fallback_cta: str,
+) -> tuple[str, str]:
+    """From a role-aware mapping, pick the headline + cta target strings.
+
+    Used by the Higgsfield path so the PIL overlay renders the operator-
+    reviewed mapping targets instead of the raw brief.hook / brief.cta.
+    Falls back to the brief values when the mapping lacks a matching role
+    or when no mapping is supplied at all.
+
+    Selection rules:
+      hero_quote ← first non-[REMOVE] target with role in (headline,
+                   subheadline). Otherwise the first non-[REMOVE] target
+                   regardless of role. Otherwise fallback_hero.
+      cta_text   ← first non-[REMOVE] target with role == cta. Otherwise
+                   fallback_cta.
+    """
+    placeholders = ("[REMOVE]", "[PRESERVE AS-IS]")
+
+    def _useful(item: dict) -> bool:
+        tgt = (item.get("target") or "").strip()
+        return bool(tgt) and tgt.upper() not in placeholders
+
+    hero = ""
+    for item in mapping:
+        if not _useful(item):
+            continue
+        role = (item.get("role") or "").lower()
+        if role in ("headline", "subheadline"):
+            hero = item["target"].strip()
+            break
+    if not hero:
+        for item in mapping:
+            if _useful(item):
+                hero = item["target"].strip()
+                break
+
+    cta = ""
+    for item in mapping:
+        if not _useful(item):
+            continue
+        if (item.get("role") or "").lower() == "cta":
+            cta = item["target"].strip()
+            break
+
+    return (hero or fallback_hero, cta or fallback_cta)
+
+
 def _generate_remix_images_higgsfield(
     briefs_data: list[dict],
     *,
@@ -2014,10 +2195,14 @@ def _generate_remix_images_higgsfield(
     """Higgs Field soul_2 image generation + PIL text overlay, identity-locked.
 
     Two-pass per brief:
-      1. soul_2(soul_id=<persona>, prompt=<text-stripped>)
-         → photoreal scene with identity-locked face, no inline text
+      1. soul_2(soul_id=<persona>, reference_image_url=<archived reference>,
+                prompt=<text-stripped>)
+         → photoreal scene with identity-locked face and layout guided by
+           the archived reference, no inline text
       2. PIL overlay
-         → quote + CTA + optional badge composited onto the scene
+         → mapped headline + mapped CTA composited onto the scene.
+           Differential-mode mappings drive hero_quote/cta_text; strategic
+           or no-mapping runs fall back to brief.hook / brief.cta.
 
     For each brief, look up the persona's trained `soul_id` from the avatar
     YAML. If the persona has no Soul Character, skip the brief and log a
@@ -2025,6 +2210,16 @@ def _generate_remix_images_higgsfield(
     """
     from generators.higgsfield_client import HiggsfieldError, soul_generate_and_save
     from generators.text_overlay import render_ad_overlay, SECONDKIND_PRESET
+
+    # Upload the archived reference once per run (if present) so soul_2 can
+    # use it as a composition reference for layout fidelity. This mirrors
+    # the NB2 differential fix at the start of generate_remix_images.
+    reference_url = _resolve_remix_reference_url(remix_path)
+    if reference_url:
+        print(
+            f"[remix] Higgsfield: reference uploaded for layout guidance.",
+            flush=True,
+        )
 
     saved_paths: list[Path] = []
     for brief_data in briefs_data:
@@ -2050,6 +2245,11 @@ def _generate_remix_images_higgsfield(
             )
             continue
 
+        # Load the saved mapping (differential mode only) so the PIL
+        # overlay renders the operator-reviewed target text instead of the
+        # raw brief content. Missing/strategic-mode runs return [].
+        mapping = _load_brief_mapping(remix_path, brief_id)
+
         # Pass 1: scene-only prompt for soul_2 (no text)
         scene_prompt = _strip_text_from_prompt(prompt_text)
 
@@ -2062,6 +2262,7 @@ def _generate_remix_images_higgsfield(
                     soul_id=soul_id,
                     prompt=scene_prompt,
                     out_path=scene_path,
+                    reference_image_url=reference_url,
                     aspect_ratio=aspect_ratio,
                     quality="2k",
                 )
@@ -2074,10 +2275,15 @@ def _generate_remix_images_higgsfield(
                 print(f"  [fail soul] {brief_id}: {e}")
                 continue
 
-            # Pass 2: PIL text overlay (hero quote + CTA pill)
-            hero_quote = (brief_data.get("hook") or "").strip()
-            cta_text = (brief_data.get("cta") or "Learn more").strip()
-            # CTA in our briefs sometimes ends with " →" — strip; PIL will not add an arrow yet
+            # Pass 2: PIL text overlay.
+            # Differential-mode mapping → operator-reviewed targets per role.
+            # Strategic-mode or no-mapping → fall back to brief.hook / brief.cta.
+            fallback_hero = (brief_data.get("hook") or "").strip()
+            fallback_cta = (brief_data.get("cta") or "Learn more").strip()
+            hero_quote, cta_text = _pick_overlay_text_from_mapping(
+                mapping, fallback_hero, fallback_cta
+            )
+            # CTA in briefs sometimes ends with " →" — strip; PIL will not add an arrow yet
             cta_text = cta_text.rstrip("→").strip()
 
             try:
@@ -2133,13 +2339,127 @@ advertisement image. Be exhaustive and exact — preserve case, punctuation, and
 any special characters."""
 
 
-def _extract_visible_text_inventory(image_path: Path) -> list[str]:
-    """Vision call that lists every text element visible in an ad image.
+# Role taxonomy for structured text extraction. Mirrors how operators describe
+# ad anatomy: headlines anchor the hierarchy, callouts decorate panels,
+# brand/CTA carry the action layer, decoration is "don't translate", fine-print
+# is legalese the new brand likely doesn't need.
+_TEXT_ROLES = (
+    "headline",        # primary on-image text, biggest type, top of hierarchy
+    "subheadline",     # secondary headline / lede
+    "callout-pain",    # ❌-side callout in us-vs-them comparisons
+    "callout-benefit", # ✅-side callout in us-vs-them comparisons
+    "callout",         # generic callout (single-sided)
+    "brand",           # brand wordmark / product name on a label
+    "cta",             # button / pill / action prompt
+    "bodycopy",        # paragraph-form supporting copy
+    "fine-print",      # legalese, disclaimers, footnotes
+    "decoration",      # decorative product-label text we PRESERVE AS-IS
+)
 
-    Used during refinement to anchor "what text should stay" to the actual
-    previous output, not to whatever the original prompt described. The
-    original prompt may have described callouts the model dropped — we don't
-    want to add them back during refinement."""
+_TEXT_POSITIONS = (
+    "top-left", "top-center", "top-right",
+    "middle-left", "center", "middle-right",
+    "bottom-left", "bottom-center", "bottom-right",
+    "left-side", "right-side", "top", "bottom",
+)
+
+_STRUCTURED_TEXT_INVENTORY_PROMPT = (
+    "List EVERY visible text element in this advertisement image, EXACTLY as "
+    "it appears (case preserved, punctuation included). For each element, "
+    "also label its position and its role in the ad's anatomy.\n\n"
+    "Include: headlines, body text, callouts, button labels, brand wordmarks, "
+    "badges with text, fine print, product-label text.\n"
+    "EXCLUDE: pure icons or emojis without text, purely decorative shapes.\n\n"
+    "POSITION — pick the single best match from: "
+    + ", ".join(_TEXT_POSITIONS) + ". For us-vs-them comparison ads, the "
+    "❌-side callouts are typically left-side and the ✅-side callouts are "
+    "right-side; use those specifically.\n\n"
+    "ROLE — pick the single best match from:\n"
+    "  - headline:        the largest top-of-hierarchy text (max 1-2 per ad)\n"
+    "  - subheadline:     secondary larger text\n"
+    "  - callout-pain:    a callout marked with ❌ / X / red color / 'before' / "
+    "framed as the pain state\n"
+    "  - callout-benefit: a callout marked with ✅ / check / green color / "
+    "'after' / framed as the result state\n"
+    "  - callout:         a generic callout that isn't clearly pain or benefit "
+    "(single-sided ads)\n"
+    "  - brand:           a brand name or product name wordmark\n"
+    "  - cta:             a button, pill, or action prompt (Shop Now, Learn "
+    "More, etc.)\n"
+    "  - bodycopy:        sentence/paragraph-form supporting copy\n"
+    "  - fine-print:      legalese, asterisks, disclaimers, footnotes\n"
+    "  - decoration:      product-label-only text we should NOT translate "
+    "('Net Wt 4.23 oz', 'SALMON FLAVOR', barcode digits)\n\n"
+    "Output VALID YAML only (no markdown fences), in top-to-bottom order:\n\n"
+    "text_elements:\n"
+    '  - text: "exact text 1"\n'
+    "    position: top-center\n"
+    "    role: headline\n"
+    '  - text: "exact text 2"\n'
+    "    position: bottom-left\n"
+    "    role: callout-pain\n"
+)
+
+
+def _extract_visible_text_inventory_structured(image_path: Path) -> list[dict]:
+    """Vision call that returns each text element with position + role.
+
+    Returns a list of dicts: {text, position, role, word_count, char_count}.
+    Position and role are best-effort labels from a fixed vocabulary —
+    `_TEXT_POSITIONS` / `_TEXT_ROLES`. Word/char counts are computed locally.
+
+    Used by differential remix mode so the mapper knows which source slots
+    are callouts (and how many) before redistributing brief content into them.
+    """
+    raw = _claude_vision_local(
+        prompt=_STRUCTURED_TEXT_INVENTORY_PROMPT,
+        image_path=image_path,
+        system=_TEXT_INVENTORY_SYSTEM,
+        max_tokens=2048,
+    )
+    body = _strip_code_fences(raw)
+    try:
+        data = yaml.safe_load(body) or {}
+    except Exception:
+        return []
+    if not isinstance(data, dict):
+        return []
+    items = data.get("text_elements") or []
+    out: list[dict] = []
+    for item in items:
+        if isinstance(item, str):
+            text = item.strip()
+            position, role = "", "callout"
+        elif isinstance(item, dict):
+            text = str(item.get("text") or "").strip()
+            position = str(item.get("position") or "").strip().lower()
+            role = str(item.get("role") or "").strip().lower()
+        else:
+            continue
+        if not text:
+            continue
+        if role not in _TEXT_ROLES:
+            role = "callout"  # safe default
+        if position and position not in _TEXT_POSITIONS:
+            position = ""
+        words = text.split()
+        out.append({
+            "text": text,
+            "position": position,
+            "role": role,
+            "word_count": len(words),
+            "char_count": len(text),
+        })
+    return out
+
+
+def _extract_visible_text_inventory(image_path: Path) -> list[str]:
+    """Backward-compat wrapper: returns just the visible text strings.
+
+    Used by the refinement path (which only needs the strings) and as a
+    fallback when structured extraction fails. Differential remix mode uses
+    `_extract_visible_text_inventory_structured` instead so it gets role +
+    position metadata."""
     raw = _claude_vision_local(
         prompt=(
             "List EVERY visible text element in this advertisement image, "
@@ -2167,6 +2487,81 @@ def _extract_visible_text_inventory(image_path: Path) -> list[str]:
         return []
     items = data.get("text_elements") or []
     return [str(item).strip() for item in items if str(item).strip()]
+
+
+# ─── Reference-image helpers (shared by differential NB2 + Higgsfield paths)
+
+
+def _find_remix_reference_image(remix_path: Path) -> Path | None:
+    """Find the archived reference ad image in a remix directory.
+
+    `remix()` saves the reference as `reference.<ext>` at the run root. This
+    helper returns the first match by common extension (png/jpg/jpeg/webp),
+    or None if nothing matches."""
+    for ext in (".png", ".jpg", ".jpeg", ".webp"):
+        p = remix_path / f"reference{ext}"
+        if p.exists():
+            return p
+    return None
+
+
+def _detect_remix_mode_from_prompt(prompt_file: Path) -> str:
+    """Read the saved prompt notes header to determine which mode produced it.
+
+    The remix-writer prepends `# MODE: <mode>` to every prompt file. We need
+    this at image-generation time to decide whether to upload the reference
+    as Image 1 (differential) or skip it (strategic). Returns 'differential'
+    or 'strategic' (default)."""
+    try:
+        with open(prompt_file, encoding="utf-8") as f:
+            for _ in range(5):
+                line = f.readline()
+                if not line:
+                    break
+                if line.startswith("# MODE:"):
+                    return line.split(":", 1)[1].strip().split()[0]
+    except OSError:
+        pass
+    return "strategic"
+
+
+def _resolve_remix_reference_url(remix_path: Path) -> str | None:
+    """Upload the run's archived reference ad to fal.ai once and cache the URL.
+
+    fal.ai's NB2/edit endpoint accepts arbitrary public URLs as input
+    images. Higgsfield's soul_2 also accepts arbitrary public URLs in its
+    `medias` param. So one upload → one URL → reused across both engines
+    and across all briefs in the run.
+
+    Cache lives at `<remix_path>/.reference_url.txt`. Returns None if the
+    reference is missing or the upload fails."""
+    ref_path = _find_remix_reference_image(remix_path)
+    if ref_path is None:
+        return None
+    cache = remix_path / ".reference_url.txt"
+    if cache.exists():
+        try:
+            cached = cache.read_text(encoding="utf-8").strip()
+            if cached:
+                return cached
+        except OSError:
+            pass
+    try:
+        from generators.fal_client import upload_image as _fal_upload
+        url = _fal_upload(ref_path)
+    except Exception as e:
+        print(
+            f"[remix] WARNING: failed to upload reference {ref_path.name} to "
+            f"fal.ai ({e}). Differential mode will fall back to product-only "
+            f"image_urls, which is the pre-fix behavior.",
+            flush=True,
+        )
+        return None
+    try:
+        cache.write_text(url, encoding="utf-8")
+    except OSError:
+        pass
+    return url
 
 
 # ─── Differential-edit mode (surgical clone with source→target text swaps) ──
@@ -2289,15 +2684,18 @@ Be exhaustive — include EVERY source text element, in the input order."""
 def _compute_source_structure(source_texts: list[str]) -> list[dict]:
     """Annotate each source line with word_count + char_count.
 
-    Pure-Python; no LLM call. Used to give the mapper hard structural
-    constraints rather than the previous soft "preserve length" hint.
-    """
+    Pure-Python; no LLM call. Kept as a backward-compat shim for any caller
+    still passing raw strings. New code should use the structured extractor
+    (`_extract_visible_text_inventory_structured`) which returns role +
+    position alongside the counts."""
     out: list[dict] = []
     for t in source_texts:
         stripped = (t or "").strip()
         words = stripped.split()
         out.append({
             "text": stripped,
+            "position": "",
+            "role": "callout",
             "word_count": len(words),
             "char_count": len(stripped),
         })
@@ -2382,46 +2780,86 @@ def _validate_and_retry_mapping(
         except Exception:
             pass
 
-        fixed.append({"source": src, "target": tgt})
+        fixed.append({
+            "source": src,
+            "position": item.get("position", ""),
+            "role": item.get("role", "callout"),
+            "target": tgt,
+        })
 
     return fixed
 
 
 def _generate_source_to_target_mapping(
     *,
-    source_texts: list[str],
+    source_items: list[dict],
     brief: CreativeBrief,
     brand: Brand,
     product: Product,
     avatar: "CustomerAvatar | None" = None,
 ) -> list[dict[str, str]]:
     """Claude call: map each source text element to its target equivalent,
-    in the ICP's voice, fitting the source's word-count envelope.
+    in the ICP's voice, fitting the source's word-count envelope and
+    preserving the source's role + position.
 
-    Returns a list of `{"source": str, "target": str}` dicts in the same
-    order as `source_texts`. Target may be "[REMOVE]" (delete from image)
-    or "[PRESERVE AS-IS]" (decorative product-label text we don't touch).
+    `source_items` is a list of dicts from the structured vision extractor:
+    `{text, position, role, word_count, char_count}`. Strings-only callers
+    should pre-wrap via `_compute_source_structure`.
+
+    Returns a list of `{"source", "position", "role", "target"}` dicts in
+    the same order as `source_items`. Target may be "[REMOVE]" (delete from
+    image) or "[PRESERVE AS-IS]" (decorative product-label text we don't
+    touch).
+
+    Pre-processing: trims `brief.benefit_callouts` to the number of callout-
+    role slots in the source. Before this trim, briefs with 5 callouts and
+    sources with 2 slots forced Claude to either pack multiple ideas per
+    slot (bloats target word count) or hallucinate ghost slots (NB2 then
+    renders extra text). With the trim, Claude works with the right amount
+    of content for the envelope.
 
     `avatar` is optional but strongly recommended — without it the mapper
     falls back to brief-only context and the output will sound more like
-    brand-pitch than customer-voice. With the avatar, language_patterns
-    and customer_language quotes get injected as voice reference.
+    brand-pitch than customer-voice.
 
     Used by the differential remix mode to build a surgical-edit prompt.
     """
-    if not source_texts:
+    if not source_items:
         return []
 
-    # Annotate each source line with its structural budget. Claude gets
-    # exact word counts rather than the previous soft "preserve length" hint.
-    structure = _compute_source_structure(source_texts)
+    # Pre-trim brief callouts to the source's callout-slot count. Sources
+    # have a fixed number of callout-shaped holes; pumping extra brief
+    # callouts in only forces Claude to either compress them together
+    # (over-budget text) or invent slots (NB2 then renders extra text not
+    # in the swap table). Trim upstream so the mapper sees a matched count.
+    callout_slots = sum(
+        1 for item in source_items
+        if str(item.get("role") or "").startswith("callout")
+    )
+    raw_callouts = brief.benefit_callouts or []
+    if callout_slots > 0:
+        trimmed_callouts = raw_callouts[:callout_slots]
+    else:
+        trimmed_callouts = []  # no slots → callouts won't be rendered anyway
+
+    # Build the inventory block: include role + position so the mapper can
+    # match content type to slot type (a headline-role brief.hook goes
+    # into the headline-role source slot, not a callout).
+    def _fmt_role_pos(item: dict) -> str:
+        role = str(item.get("role") or "callout")
+        pos = str(item.get("position") or "")
+        if pos:
+            return f"[role: {role}, pos: {pos}]"
+        return f"[role: {role}]"
+
     inventory_block = "\n".join(
-        f'  - "{s["text"]}"  ({s["word_count"]} word{"s" if s["word_count"] != 1 else ""})'
-        for s in structure
+        f'  - "{s["text"]}"  ({s["word_count"]} word{"s" if s["word_count"] != 1 else ""}) '
+        f'{_fmt_role_pos(s)}'
+        for s in source_items
     )
 
     benefit_callouts_block = "\n".join(
-        f"    - {c}" for c in (brief.benefit_callouts or [])
+        f"    - {c}" for c in trimmed_callouts
     ) or "    (none)"
 
     voice_pack = _format_voice_pack(avatar)
@@ -2431,7 +2869,18 @@ def _generate_source_to_target_mapping(
         "phrasing rather than brand-marketing language)\n\n"
     )
 
-    user_prompt = f"""SOURCE AD TEXT INVENTORY (extracted via vision, top→bottom, with word counts):
+    # Note: benefit_callouts are pre-trimmed to N=callout_slots. Spell out
+    # the count so the mapper doesn't think it can invent slots to fit
+    # extras.
+    callout_count_note = (
+        f"  (NOTE: the source has {callout_slots} callout slot(s). The "
+        f"benefit_callouts above have been pre-trimmed to fit.)"
+        if callout_slots > 0 else
+        f"  (NOTE: the source has 0 callout-role slots — do NOT add new "
+        f"callout text to brand/headline/cta slots.)"
+    )
+
+    user_prompt = f"""SOURCE AD TEXT INVENTORY (extracted via vision, top→bottom, with word counts + role + position):
 
 {inventory_block}
 
@@ -2445,9 +2894,20 @@ def _generate_source_to_target_mapping(
   cta: {brief.cta}
   benefit_callouts:
 {benefit_callouts_block}
+{callout_count_note}
   framework: {brief.framework}
   awareness_level: {getattr(brief.awareness_level, 'value', '') if brief.awareness_level else ''}
   pain_point: {brief.pain_point or '(none)'}
+
+ROLE-MATCH the source slots:
+  - headline / subheadline source slots ← brief.hook (compressed to fit)
+  - callout-pain source slots         ← pain-side content (avatar pain language)
+  - callout-benefit source slots      ← benefit-side content (trimmed benefit_callouts)
+  - callout (generic) source slots    ← brief.benefit_callouts (trimmed)
+  - brand source slots                ← brand name / product name
+  - cta source slots                  ← brief.cta
+  - bodycopy source slots             ← compress brief.body_copy or pain_point
+  - fine-print / decoration slots     ← "[PRESERVE AS-IS]" unless the new brand needs different legalese
 
 Map each source text element to its target equivalent now. Honor R1 (word
 count within ±1) and R2 (ICP voice, not brand voice). Output YAML only."""
@@ -2458,24 +2918,51 @@ count within ±1) and R2 (ICP voice, not brand voice). Output YAML only."""
         max_tokens=2048,
     )
     body = _strip_code_fences(raw)
+
+    # Identity-mapping fallback used twice below.
+    def _identity_mapping() -> list[dict]:
+        return [
+            {
+                "source": item["text"],
+                "position": item.get("position", ""),
+                "role": item.get("role", "callout"),
+                "target": item["text"],
+            }
+            for item in source_items
+        ]
+
     try:
         data = yaml.safe_load(body) or {}
     except Exception:
-        return [{"source": t, "target": t} for t in source_texts]
+        return _identity_mapping()
 
     items = data.get("mapping") if isinstance(data, dict) else None
     if not isinstance(items, list):
-        return [{"source": t, "target": t} for t in source_texts]
+        return _identity_mapping()
 
-    result: list[dict[str, str]] = []
+    # Build src→target lookup from LLM output. Index by exact source text so
+    # ordering quirks in the LLM response don't shift slots. Any source the
+    # LLM dropped gets "[REMOVE]" (less risky than identity-mapping an
+    # English string into a Spanish slot, for example).
+    llm_targets: dict[str, str] = {}
     for item in items:
         if not isinstance(item, dict):
             continue
         src = str(item.get("source") or "").strip()
         tgt = str(item.get("target") or "").strip()
-        if not src:
-            continue
-        result.append({"source": src, "target": tgt or "[REMOVE]"})
+        if src:
+            llm_targets[src] = tgt or "[REMOVE]"
+
+    result: list[dict[str, str]] = []
+    for src_item in source_items:
+        src_text = src_item["text"]
+        tgt = llm_targets.get(src_text, "[REMOVE]")
+        result.append({
+            "source": src_text,
+            "position": src_item.get("position", ""),
+            "role": src_item.get("role", "callout"),
+            "target": tgt,
+        })
 
     # Second-pass quality gate — fix any out-of-envelope target.
     result = _validate_and_retry_mapping(mapping=result, avatar=avatar)
@@ -2520,24 +3007,63 @@ def _build_differential_prompt(
     )
     lines.append("")
 
-    # Text swaps
+    # Text swaps. Position + role labels (when available) give NB2 a clearer
+    # anchor than text-only swaps — "at top-center, replace headline 'X' with
+    # 'Y'" beats "replace 'X' with 'Y'" because there's no ambiguity when
+    # the same string appears more than once in the source.
     text_swaps = [m for m in mapping if m.get("source")]
     if text_swaps:
         lines.append(
             "TEXT SWAPS — for each source phrase below, render the target "
-            "phrase instead. Preserve the source's font family, weight, "
-            "color, position, alignment, and any leading marker characters "
-            "(❌, ✅, •, ★). DO NOT change typography style. Where the "
-            "target is [REMOVE], delete that element from the image."
+            "phrase instead AT THE SAME POSITION. Preserve the source's "
+            "font family, weight, color, alignment, and any leading marker "
+            "characters (❌, ✅, •, ★). DO NOT change typography style. "
+            "Where the target is [REMOVE], delete that element from the "
+            "image; where it is [PRESERVE AS-IS], render the source text "
+            "unchanged."
         )
         for m in text_swaps:
             src = m["source"].replace('"', '\\"')
             tgt = m["target"].replace('"', '\\"')
+            pos = (m.get("position") or "").strip()
+            role = (m.get("role") or "").strip()
+            anchor_parts = [p for p in (pos, role) if p]
+            anchor = f"[{', '.join(anchor_parts)}] " if anchor_parts else ""
             if tgt.upper() == "[REMOVE]":
-                lines.append(f'  - "{src}"  →  [REMOVE this element entirely]')
+                lines.append(
+                    f'  - {anchor}"{src}"  →  [REMOVE this element entirely]'
+                )
+            elif tgt.upper() == "[PRESERVE AS-IS]":
+                lines.append(
+                    f'  - {anchor}"{src}"  →  [PRESERVE AS-IS — render unchanged]'
+                )
             else:
-                lines.append(f'  - "{src}"  →  "{tgt}"')
+                lines.append(f'  - {anchor}"{src}"  →  "{tgt}"')
         lines.append("")
+
+        # Allowlist suffix: enumerate the exact final-image text inventory.
+        # NB2 obeys allowlists more reliably than denylists ("render ONLY
+        # these N strings" outperforms "do not add new text"). This is the
+        # differential-mode analogue of the strategic-mode density suffix.
+        rendered_targets = [
+            m["target"].strip() for m in text_swaps
+            if m.get("target")
+            and m["target"].strip().upper() not in ("[REMOVE]", "[PRESERVE AS-IS]")
+        ]
+        preserve_targets = [
+            m["source"].strip() for m in text_swaps
+            if (m.get("target") or "").strip().upper() == "[PRESERVE AS-IS]"
+        ]
+        final_inventory = rendered_targets + preserve_targets
+        if final_inventory:
+            lines.append(
+                f"FINAL TEXT INVENTORY — the output image contains EXACTLY "
+                f"these {len(final_inventory)} text element(s), and NO "
+                f"others (apart from those marked [PRESERVE AS-IS]):"
+            )
+            for t in final_inventory:
+                lines.append(f'  - "{t}"')
+            lines.append("")
 
     # Operator-supplied creative-direction delta (optional)
     cd = (creative_direction or "").strip()
@@ -2573,6 +3099,351 @@ def _build_differential_prompt(
     lines.append(f"{aspect_ratio} aspect ratio.")
 
     return "\n".join(lines)
+
+
+# ─── Staged differential mode (3-pass: product → text → model/character) ────
+#
+# Background: NB2 collapses ALL changes into a single shot in the standard
+# differential prompt — product swap + text swaps + setting delta + preserve
+# clause, all at once. Each instruction competes for attention. The operator's
+# manual Higgsfield workflow that produced the cleanest results did three
+# sequential edits, each with one job. Staged mode mirrors that:
+#
+#   Pass 1 (NB2): swap product. Keep text + layout pixel-identical.
+#   Pass 2 (NB2): swap text. Keep product + layout pixel-identical.
+#   Pass 3 (Higgsfield Soul, optional): swap the model/character.
+#
+# Cost: 3x NB2 calls per brief (~$0.24 vs $0.08 standard). Intermediate
+# images saved to disk for inspection so the operator can spot which pass
+# introduced any drift.
+
+
+def _build_pass1_product_swap_prompt(
+    product: Product,
+    aspect_ratio: str,
+) -> str:
+    """Pass 1 prompt: replace ONLY the product. Lock text + layout in place.
+
+    NB2 receives [reference, product] as image_urls. The prompt has ONE
+    instruction so NB2 doesn't have to triage competing edits."""
+    return (
+        "This is a SURGICAL EDIT of Image 1 (the reference ad). Image 2 is "
+        f"the replacement product ({product.name}).\n\n"
+        "PRODUCT SWAP — this is the ONLY change you make:\n"
+        "  - Replace the product container/package shown in Image 1 with "
+        f"the {product.name} from Image 2.\n"
+        "  - Keep the SAME hand position, same orientation, same scale "
+        "relative to the frame, and same lighting on the product.\n\n"
+        "PRESERVE PIXEL-IDENTICALLY — do NOT change any of the following:\n"
+        "  - Every word of on-image text (headlines, callouts, brand "
+        "wordmarks, CTAs, badges, fine print) — character-for-character.\n"
+        "  - Every font, weight, color, size, alignment, and decorative "
+        "mark (❌, ✅, •, ★, frosted cards, panels, badges).\n"
+        "  - Composition, framing, color palette, lighting register, "
+        "background, props, and any human figure or hand positions.\n\n"
+        "Do NOT change any text content. Do NOT introduce new text. The "
+        "output is Image 1 with ONLY the product swapped — nothing else.\n\n"
+        f"{aspect_ratio} aspect ratio."
+    )
+
+
+def _build_pass2_text_swap_prompt(
+    mapping: list[dict[str, str]],
+    aspect_ratio: str,
+) -> str:
+    """Pass 2 prompt: apply text swaps to the pass-1 output. Lock product +
+    layout in place.
+
+    NB2 receives [pass1_output] as the sole image_url. The prompt enumerates
+    every text swap and the FINAL TEXT INVENTORY allowlist."""
+    text_swaps = [m for m in mapping if m.get("source")]
+
+    lines: list[str] = []
+    lines.append(
+        "This is a SURGICAL EDIT of Image 1. Apply ONLY the text swaps "
+        "below. Image 1 already has the correct product and layout — do "
+        "NOT change them."
+    )
+    lines.append("")
+
+    if text_swaps:
+        lines.append(
+            "TEXT SWAPS — for each source phrase below, render the target "
+            "phrase instead AT THE SAME POSITION, in the SAME font family, "
+            "weight, color, alignment, and with any leading marker "
+            "characters (❌, ✅, •, ★) preserved. Where the target is "
+            "[REMOVE], delete that element from the image; where it is "
+            "[PRESERVE AS-IS], render the source text unchanged."
+        )
+        for m in text_swaps:
+            src = m["source"].replace('"', '\\"')
+            tgt = m["target"].replace('"', '\\"')
+            pos = (m.get("position") or "").strip()
+            role = (m.get("role") or "").strip()
+            anchor_parts = [p for p in (pos, role) if p]
+            anchor = f"[{', '.join(anchor_parts)}] " if anchor_parts else ""
+            if tgt.upper() == "[REMOVE]":
+                lines.append(
+                    f'  - {anchor}"{src}"  →  [REMOVE this element entirely]'
+                )
+            elif tgt.upper() == "[PRESERVE AS-IS]":
+                lines.append(
+                    f'  - {anchor}"{src}"  →  [PRESERVE AS-IS — render unchanged]'
+                )
+            else:
+                lines.append(f'  - {anchor}"{src}"  →  "{tgt}"')
+        lines.append("")
+
+        rendered_targets = [
+            m["target"].strip() for m in text_swaps
+            if m.get("target")
+            and m["target"].strip().upper() not in ("[REMOVE]", "[PRESERVE AS-IS]")
+        ]
+        preserve_targets = [
+            m["source"].strip() for m in text_swaps
+            if (m.get("target") or "").strip().upper() == "[PRESERVE AS-IS]"
+        ]
+        final_inventory = rendered_targets + preserve_targets
+        if final_inventory:
+            lines.append(
+                f"FINAL TEXT INVENTORY — the output image contains EXACTLY "
+                f"these {len(final_inventory)} text element(s), and NO "
+                f"others:"
+            )
+            for t in final_inventory:
+                lines.append(f'  - "{t}"')
+            lines.append("")
+
+    lines.append("PRESERVE PIXEL-IDENTICALLY:")
+    lines.append("  - The product shown in Image 1 (already swapped — keep it)")
+    lines.append("  - Composition, framing, color palette, lighting")
+    lines.append("  - Decorative marks (❌, ✅, panels, frosted cards, badges)")
+    lines.append("  - Hand positions, model pose, background, props")
+    lines.append("")
+
+    lines.append(
+        "Do NOT change the product. Do NOT introduce new visual elements. "
+        "Do NOT add text outside the FINAL TEXT INVENTORY above."
+    )
+    lines.append("")
+    lines.append(f"{aspect_ratio} aspect ratio.")
+
+    return "\n".join(lines)
+
+
+def _build_pass3_model_swap_prompt(aspect_ratio: str) -> str:
+    """Pass 3 prompt for Higgsfield Soul: identity-lock the person/model.
+
+    Sent alongside soul_id + the pass-2 output as reference_image_url. Soul_2
+    is already identity-locked by soul_id; the reference supplies layout +
+    text + product. Prompt is short and instruction-only because soul_2 with
+    a reference is much more directive than text-to-image."""
+    return (
+        "Recreate the reference image EXACTLY — same layout, same product, "
+        "same on-image text, same composition, same lighting, same hand "
+        "positions, same decorative marks. The ONLY change: the person/face "
+        "shown in the ad is the soul character (identity-locked).\n\n"
+        "PRESERVE PIXEL-IDENTICALLY:\n"
+        "  - All on-image text (every word, every font, every position)\n"
+        "  - Product container, hand positions, product orientation\n"
+        "  - Composition, framing, color palette, lighting, background\n"
+        "  - Decorative marks (❌, ✅, panels, frosted cards, badges)\n\n"
+        f"{aspect_ratio} aspect ratio."
+    )
+
+
+def _generate_remix_images_staged(
+    briefs_data: list[dict],
+    *,
+    remix_path: Path,
+    images_dir: Path,
+    num_images: int,
+    aspect_ratio: str,
+    thinking_level: str = "disabled",
+    final_pass_soul: bool = True,
+) -> list[Path]:
+    """Staged 3-pass differential image generation.
+
+    Per brief:
+      1. NB2 edit: [reference, product] + product-swap-only prompt
+         → <brief_id>_stage1_product.png
+      2. NB2 edit: [stage1] + text-swap-only prompt
+         → <brief_id>_stage2_text.png
+      3. (if soul_id ready AND final_pass_soul) Higgsfield soul_2:
+         reference_image_url=stage2, soul_id=<persona's trained character>
+         → <brief_id>_stage3_model.png
+         Otherwise stage2 is also the final.
+
+    The final image (stage3 if soul present, else stage2) is also saved as
+    `<brief_id>_1x1.png` so downstream tooling (dashboard, refinements)
+    keeps finding outputs at the standard path.
+
+    Requires:
+      - mappings/<brief_id>.yaml on disk for each brief (differential mode)
+      - reference.<ext> on disk (auto-uploaded once per run)
+
+    Returns the list of FINAL image paths (one per brief × num_images)."""
+    from generators.fal_client import generate_and_save, upload_image as _fal_upload
+    from generators.image_generator import _get_product_image_urls
+
+    if not briefs_data:
+        return []
+
+    # Resolve mode + reference upload — required for staged.
+    first_prompt = remix_path / "prompts" / f"{briefs_data[0]['brief_id']}.txt"
+    run_mode = (
+        _detect_remix_mode_from_prompt(first_prompt) if first_prompt.exists() else
+        "strategic"
+    )
+    if run_mode != "differential":
+        raise ValueError(
+            "Staged image generation requires a differential-mode remix run "
+            "(needs the per-brief mappings/*.yaml that differential mode "
+            "produces). This run was generated in '{}' mode.".format(run_mode)
+        )
+
+    reference_url = _resolve_remix_reference_url(remix_path)
+    if not reference_url:
+        raise ValueError(
+            "Staged mode requires the archived reference image to be "
+            "uploadable, but no reference was found in "
+            f"{remix_path}. Re-run `adc remix --reference ...` to recreate it."
+        )
+
+    client_slug = briefs_data[0]["client"]
+    product_name = briefs_data[0]["product"]
+    product = _load_product_flexible(
+        client_slug, product_name.lower().replace(" ", "-")
+    )
+    product_urls = _get_product_image_urls(product, client_slug)
+
+    print(
+        f"[remix] Staged mode: {len(briefs_data)} brief(s) × 3 passes each. "
+        f"Final pass via Higgsfield Soul: "
+        f"{'enabled' if final_pass_soul else 'disabled'}.",
+        flush=True,
+    )
+
+    saved_paths: list[Path] = []
+    for brief_data in briefs_data:
+        brief_id = brief_data["brief_id"]
+        mapping = _load_brief_mapping(remix_path, brief_id)
+        if not mapping:
+            print(
+                f"  [skip staged] {brief_id} — no mapping at "
+                f"mappings/{brief_id}.yaml. Run `adc remix --mode differential` first.",
+                flush=True,
+            )
+            continue
+
+        for i in range(num_images):
+            suffix = f"_{i+1}" if num_images > 1 else ""
+            stage1_path = images_dir / f"{brief_id}{suffix}_stage1_product.png"
+            stage2_path = images_dir / f"{brief_id}{suffix}_stage2_text.png"
+            stage3_path = images_dir / f"{brief_id}{suffix}_stage3_model.png"
+            final_path = images_dir / f"{brief_id}{suffix}_1x1.png"
+
+            # ── Pass 1: product swap ──────────────────────────────────────
+            try:
+                p1_results = generate_and_save(
+                    prompt=_build_pass1_product_swap_prompt(product, aspect_ratio),
+                    product_image_urls=[reference_url] + product_urls,
+                    save_dir=images_dir,
+                    filename_prefix=f"{brief_id}{suffix}_stage1_product_raw",
+                    aspect_ratio=aspect_ratio,
+                    num_images=1,
+                    thinking_level=thinking_level,
+                )
+            except Exception as e:
+                print(f"  [fail stage1] {brief_id}: {e}", flush=True)
+                continue
+            if not p1_results or not p1_results[0].local_path:
+                print(f"  [fail stage1] {brief_id}: NB2 returned no image", flush=True)
+                continue
+            p1_results[0].local_path.replace(stage1_path)
+
+            stage1_url = _fal_upload(stage1_path)
+
+            # ── Pass 2: text swap ────────────────────────────────────────
+            try:
+                p2_results = generate_and_save(
+                    prompt=_build_pass2_text_swap_prompt(mapping, aspect_ratio),
+                    product_image_urls=[stage1_url],
+                    save_dir=images_dir,
+                    filename_prefix=f"{brief_id}{suffix}_stage2_text_raw",
+                    aspect_ratio=aspect_ratio,
+                    num_images=1,
+                    thinking_level=thinking_level,
+                )
+            except Exception as e:
+                print(f"  [fail stage2] {brief_id}: {e}", flush=True)
+                # Stage 1 is the best we have — promote it to the final slot
+                # so the operator still sees output rather than an empty run.
+                shutil.copy2(stage1_path, final_path)
+                saved_paths.append(final_path)
+                continue
+            if not p2_results or not p2_results[0].local_path:
+                print(f"  [fail stage2] {brief_id}: NB2 returned no image", flush=True)
+                shutil.copy2(stage1_path, final_path)
+                saved_paths.append(final_path)
+                continue
+            p2_results[0].local_path.replace(stage2_path)
+
+            # ── Pass 3: model/character swap via Higgsfield Soul ─────────
+            soul_id = _get_soul_id_for_brief(brief_data) if final_pass_soul else None
+            if soul_id:
+                from generators.higgsfield_client import (
+                    HiggsfieldError,
+                    soul_generate_and_save,
+                )
+                try:
+                    stage2_url = _fal_upload(stage2_path)
+                    soul_generate_and_save(
+                        soul_id=soul_id,
+                        prompt=_build_pass3_model_swap_prompt(aspect_ratio),
+                        out_path=stage3_path,
+                        reference_image_url=stage2_url,
+                        aspect_ratio=aspect_ratio,
+                        quality="2k",
+                    )
+                except HiggsfieldError as e:
+                    if "credit" in str(e).lower():
+                        # Out-of-credits: stop pass 3 for this brief; promote
+                        # stage 2 as the final. Don't bubble — the operator
+                        # wants stage 2 output even if pass 3 fails.
+                        print(
+                            f"  [warn stage3] {brief_id}: HF credits exhausted. "
+                            f"Using stage 2 output as final.",
+                            flush=True,
+                        )
+                        shutil.copy2(stage2_path, final_path)
+                        saved_paths.append(final_path)
+                        continue
+                    print(f"  [fail stage3] {brief_id}: {e}", flush=True)
+                    shutil.copy2(stage2_path, final_path)
+                    saved_paths.append(final_path)
+                    continue
+                # Stage 3 succeeded — it's the final.
+                shutil.copy2(stage3_path, final_path)
+            else:
+                # No soul character on this persona → stop at stage 2.
+                if final_pass_soul:
+                    print(
+                        f"  [info stage3] {brief_id} — persona has no Soul "
+                        f"Character; using stage 2 output as final.",
+                        flush=True,
+                    )
+                shutil.copy2(stage2_path, final_path)
+
+            saved_paths.append(final_path)
+
+            # Campaign-name sidecar.
+            campaign_name = brief_data.get("campaign_name") or ""
+            if campaign_name:
+                sidecar = final_path.with_name(final_path.stem + "_campaign.txt")
+                sidecar.write_text(campaign_name + "\n", encoding="utf-8")
+
+    return saved_paths
 
 
 def _rewrite_prompt_with_feedback(
