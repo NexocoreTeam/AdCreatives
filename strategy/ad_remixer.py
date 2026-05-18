@@ -1474,6 +1474,8 @@ def remix(
     medium_fidelity: int = 2,
     output_root: Path | None = None,
     creative_direction: str = "",
+    scene_cleanup: str = "",
+    model_descriptor: str = "",
     offer: str = "NONE",
     include_trending: bool = True,
     mode: str = "strategic",
@@ -1622,10 +1624,22 @@ def remix(
     _save_briefs(out_dir, briefs)
 
     # Persist the creative direction so subsequent operations (refinement,
-    # image regeneration) can auto-load it.
+    # image regeneration) can auto-load it. Same pattern for scene_cleanup
+    # (REMOVE-from-scene instructions like "remove the dog") and
+    # model_descriptor (stage-3 prose like "middle-aged white woman") so
+    # staged-mode image generation can read them back without having to
+    # be re-passed every command.
     if creative_direction and creative_direction.strip():
         (out_dir / "creative_directive.txt").write_text(
             creative_direction.strip() + "\n", encoding="utf-8"
+        )
+    if scene_cleanup and scene_cleanup.strip():
+        (out_dir / "scene_cleanup.txt").write_text(
+            scene_cleanup.strip() + "\n", encoding="utf-8"
+        )
+    if model_descriptor and model_descriptor.strip():
+        (out_dir / "model_descriptor.txt").write_text(
+            model_descriptor.strip() + "\n", encoding="utf-8"
         )
 
     # Differential mode: pre-extract the reference's text inventory ONCE.
@@ -1747,6 +1761,7 @@ def remix(
                 mapping=mapping,
                 creative_direction=creative_direction,
                 aspect_ratio=aspect,
+                scene_cleanup=scene_cleanup,
             )
             # No _enforce_text_density_suffix here — the differential prompt
             # is already strict about text inventory (only the swap-table
@@ -2647,11 +2662,29 @@ RULES (priority order — break ties in favor of the higher rule):
       those exact markers at the start of the target. They are part of
       the typographic role.
 
-  R5. [REMOVE] for orphans.
-      If a source line has no plausible target (competitor legalese,
-      "All dogs 12+ weeks", a category-specific badge the new brand
-      doesn't have), set target to "[REMOVE]". The renderer deletes
-      these from the image.
+  R5. [REMOVE] is RESTRICTED to fine-print / decoration / bodycopy roles.
+      [REMOVE] is the escape hatch for content that genuinely has no
+      analog in the new brand: competitor legalese, "All dogs 12+ weeks",
+      category-specific badges, paragraph-length supporting copy the new
+      brand doesn't need.
+
+      [REMOVE] is FORBIDDEN for these roles — they are MUST-REPLACE:
+        - headline / subheadline
+        - callout / callout-pain / callout-benefit
+        - brand
+        - cta
+
+      When the source's literal content seems untranslatable (e.g.
+      source headline is "Probiotic Chew for dogs" and the new product
+      is a human supplement), DO NOT default to [REMOVE]. Instead:
+        (a) Paraphrase the brief's hook to fit the source's word count,
+            ignoring the source's specific category words.
+        (b) Lean on the persona's customer_language to express the
+            brief's intent in their voice.
+        (c) Compress aggressively — a 7-word source slot can hold any
+            6-8-word hook.
+      Outputting [REMOVE] for a headline / callout / brand / cta line is
+      a CORRECTNESS FAILURE. The operator wants their copy in that slot.
 
   R6. Two side panels (us-vs-them).
       When the source is a us-vs-them comparison (one side has ❌, other
@@ -2714,31 +2747,113 @@ def _format_voice_pack(avatar: "CustomerAvatar | None") -> str:
     return format_voice_pack(avatar)
 
 
+# Roles where [REMOVE] is not an acceptable target — the operator wants
+# their copy in those slots. The mapper sometimes gets cold feet when the
+# source's literal content (e.g. "Probiotic Chew for dogs") doesn't translate
+# cleanly into the new brand's category, and bails to [REMOVE]; the
+# validation pass below catches that and re-issues with a "must produce a
+# real target" instruction.
+_MUST_REPLACE_ROLES = (
+    "headline",
+    "subheadline",
+    "callout",
+    "callout-pain",
+    "callout-benefit",
+    "brand",
+    "cta",
+)
+
+
 def _validate_and_retry_mapping(
     *,
     mapping: list[dict[str, str]],
+    brief: "CreativeBrief | None" = None,
     avatar: "CustomerAvatar | None" = None,
     max_retries_per_line: int = 1,
 ) -> list[dict[str, str]]:
-    """Second-pass quality gate: any target whose word count is off by >1
-    from its source gets re-rewritten with a tight "compress to N words"
-    instruction.
+    """Second-pass quality gate. Catches two failure modes:
 
-    Skips [REMOVE] and [PRESERVE AS-IS] targets — those are intentional.
-    Skips brand wordmarks where lengths legitimately differ.
+    1. Target word count is off by >1 from source — re-issue with a "compress
+       to N words" instruction.
+    2. Target is [REMOVE] on a must-replace role (headline / callout / brand
+       / cta) — re-issue with a "produce a real replacement, never abandon
+       this slot" instruction.
 
-    Cheap: only fires Claude for the offending lines, not the whole map.
-    """
+    Skips [PRESERVE AS-IS] targets (intentional) and decoration / fine-print /
+    bodycopy rows where [REMOVE] is legitimate.
+
+    Cheap: only fires Claude for the offending lines, not the whole map."""
     if not mapping:
         return mapping
+
+    voice_block = _format_voice_pack(avatar) if avatar else ""
 
     fixed: list[dict[str, str]] = []
     for item in mapping:
         src = (item.get("source") or "").strip()
         tgt = (item.get("target") or "").strip()
+        role = (item.get("role") or "").strip().lower()
         if not src:
             fixed.append(item)
             continue
+
+        # Failure mode #2: [REMOVE] on a must-replace role.
+        if tgt.upper() == "[REMOVE]" and role in _MUST_REPLACE_ROLES:
+            src_words = len(src.split())
+            hook = (getattr(brief, "hook", "") or "").strip() if brief else ""
+            callouts = list(getattr(brief, "benefit_callouts", []) or []) if brief else []
+            cta_text = (getattr(brief, "cta", "") or "").strip() if brief else ""
+            persona = (getattr(brief, "persona", "") or "").strip() if brief else ""
+            pain = (getattr(brief, "pain_point", "") or "").strip() if brief else ""
+
+            slot_intent = {
+                "headline": f"the brief's hook: \"{hook}\"" if hook else
+                            f"the persona's primary pain: \"{pain}\"",
+                "subheadline": f"a supporting variant of the hook: \"{hook}\"",
+                "brand": "the new brand name (use the brand wordmark)",
+                "cta": f"the brief's CTA: \"{cta_text}\"" if cta_text else "an action prompt",
+                "callout": f"one of these benefit callouts: {callouts}" if callouts else
+                           f"a benefit phrase the {persona} persona would say",
+                "callout-pain": f"the pain state without the product (persona: {persona}, pain: \"{pain}\")",
+                "callout-benefit": f"the result state with the product. Use one of: {callouts}" if callouts else
+                                  f"the result state the {persona} persona wants",
+            }
+            intent = slot_intent.get(role, "the brief's main message")
+
+            forced_prompt = (
+                f"{voice_block}\n"
+                f"You wrote [REMOVE] for a source slot whose role is '{role}'. "
+                f"That role is MUST-REPLACE — the operator wants their copy in "
+                f"this slot.\n\n"
+                f'  source: "{src}"  ({src_words} words, role: {role})\n'
+                f"  budget: {max(1, src_words - 1)} to {src_words + 1} words\n"
+                f"  fill with: {intent}\n\n"
+                f"Rewrite a real target IN THE CUSTOMER'S VOICE, fitting the "
+                f"word budget. Output ONLY the new target text — no quotes, "
+                f"no YAML, no explanation, no [REMOVE]."
+            )
+            forced_system = (
+                "You are rewriting one advertisement copy line to fill a slot "
+                "that was wrongly marked [REMOVE]. The slot's role is "
+                "must-replace. Produce a real target in the customer's voice, "
+                "hitting the word budget. Output is one line of text."
+            )
+            try:
+                new_tgt = claude_complete(
+                    forced_prompt, system=forced_system, max_tokens=128,
+                ).strip().strip('"').strip("'")
+                if new_tgt and new_tgt.upper() != "[REMOVE]":
+                    tgt = new_tgt
+            except Exception:
+                pass
+            fixed.append({
+                "source": src,
+                "position": item.get("position", ""),
+                "role": item.get("role", "callout"),
+                "target": tgt,
+            })
+            continue
+
         if tgt.upper() in ("[REMOVE]", "[PRESERVE AS-IS]"):
             fixed.append(item)
             continue
@@ -2750,7 +2865,6 @@ def _validate_and_retry_mapping(
             continue
 
         # Out of envelope — retry with explicit compression instruction.
-        voice_block = _format_voice_pack(avatar) if avatar else ""
         retry_prompt = (
             f"{voice_block}\n"
             f"You produced this mapping but the target word count is wrong.\n\n"
@@ -2965,7 +3079,7 @@ count within ±1) and R2 (ICP voice, not brand voice). Output YAML only."""
         })
 
     # Second-pass quality gate — fix any out-of-envelope target.
-    result = _validate_and_retry_mapping(mapping=result, avatar=avatar)
+    result = _validate_and_retry_mapping(mapping=result, brief=brief, avatar=avatar)
     return result
 
 
@@ -2976,6 +3090,7 @@ def _build_differential_prompt(
     mapping: list[dict[str, str]],
     creative_direction: str,
     aspect_ratio: str,
+    scene_cleanup: str = "",
 ) -> str:
     """Assemble a surgical-edit NB2 prompt from a source→target mapping.
 
@@ -3007,11 +3122,40 @@ def _build_differential_prompt(
     )
     lines.append("")
 
+    # Scene cleanup — operator-supplied "remove from the scene" instructions
+    # for non-text elements (animals, props, model, background). This is the
+    # automated version of the manual "remove the dog" pass: when the source
+    # ad is a pet-supplement remix going to a human-supplement brand, the
+    # dog has to go; nothing else in the pipeline catches that.
+    sc = (scene_cleanup or "").strip()
+    if sc:
+        lines.append("SCENE CLEANUP — remove these non-text elements:")
+        for line in sc.splitlines():
+            line = line.strip(" -•").strip()
+            if line:
+                lines.append(f"  - {line}")
+        lines.append(
+            "  - After removal, naturally infill the space (extend background, "
+            "shift remaining elements only as needed). Do NOT introduce new "
+            "scene elements to fill the gap."
+        )
+        lines.append("")
+
     # Text swaps. Position + role labels (when available) give NB2 a clearer
     # anchor than text-only swaps — "at top-center, replace headline 'X' with
     # 'Y'" beats "replace 'X' with 'Y'" because there's no ambiguity when
     # the same string appears more than once in the source.
-    text_swaps = [m for m in mapping if m.get("source")]
+    #
+    # Decoration-role items (product-label text like "Net Contents: 4.23 oz",
+    # "SALMON FLAVOR", barcodes) are filtered out of the swap table — they
+    # belong on the bottle, get carried over by the product image, and
+    # enumerating them in the swap table just inflates the prompt and risks
+    # NB2 trying to "render" them on top of the new product label.
+    text_swaps = [
+        m for m in mapping
+        if m.get("source")
+        and (m.get("role") or "").strip().lower() != "decoration"
+    ]
     if text_swaps:
         lines.append(
             "TEXT SWAPS — for each source phrase below, render the target "
@@ -3045,6 +3189,8 @@ def _build_differential_prompt(
         # NB2 obeys allowlists more reliably than denylists ("render ONLY
         # these N strings" outperforms "do not add new text"). This is the
         # differential-mode analogue of the strategic-mode density suffix.
+        # Decoration-role text isn't enumerated here either — the product
+        # image carries it, and NB2 doesn't need a permit to keep it.
         rendered_targets = [
             m["target"].strip() for m in text_swaps
             if m.get("target")
@@ -3057,9 +3203,10 @@ def _build_differential_prompt(
         final_inventory = rendered_targets + preserve_targets
         if final_inventory:
             lines.append(
-                f"FINAL TEXT INVENTORY — the output image contains EXACTLY "
-                f"these {len(final_inventory)} text element(s), and NO "
-                f"others (apart from those marked [PRESERVE AS-IS]):"
+                f"FINAL TEXT INVENTORY — the output image's primary overlay "
+                f"text contains EXACTLY these {len(final_inventory)} element"
+                f"(s), and NO others. (Product-label text printed on the "
+                f"package itself carries over from Image 2 and is exempt.):"
             )
             for t in final_inventory:
                 lines.append(f'  - "{t}"')
@@ -3121,29 +3268,53 @@ def _build_differential_prompt(
 def _build_pass1_product_swap_prompt(
     product: Product,
     aspect_ratio: str,
+    scene_cleanup: str = "",
 ) -> str:
-    """Pass 1 prompt: replace ONLY the product. Lock text + layout in place.
+    """Pass 1 prompt: replace the product (and optionally remove scene
+    elements). Lock text + layout in place.
 
-    NB2 receives [reference, product] as image_urls. The prompt has ONE
-    instruction so NB2 doesn't have to triage competing edits."""
+    NB2 receives [reference, product] as image_urls. The prompt is tight
+    so NB2 doesn't have to triage competing edits. When scene_cleanup is
+    provided (e.g. "remove the dog"), it folds into this pass — the
+    operator's manual workflow handled cleanup alongside the product swap
+    and we mirror that."""
+    cleanup = (scene_cleanup or "").strip()
+    cleanup_block = ""
+    if cleanup:
+        cleanup_lines = []
+        for line in cleanup.splitlines():
+            line = line.strip(" -•").strip()
+            if line:
+                cleanup_lines.append(f"  - {line}")
+        cleanup_block = (
+            "\nSCENE CLEANUP — also remove these non-text elements from the "
+            "scene:\n"
+            + "\n".join(cleanup_lines)
+            + "\n  - Naturally infill the space (extend the existing "
+            "background, do NOT add new scene elements to fill the gap).\n"
+        )
     return (
         "This is a SURGICAL EDIT of Image 1 (the reference ad). Image 2 is "
         f"the replacement product ({product.name}).\n\n"
-        "PRODUCT SWAP — this is the ONLY change you make:\n"
+        "PRODUCT SWAP — replace the product:\n"
         "  - Replace the product container/package shown in Image 1 with "
         f"the {product.name} from Image 2.\n"
         "  - Keep the SAME hand position, same orientation, same scale "
-        "relative to the frame, and same lighting on the product.\n\n"
+        "relative to the frame, and same lighting on the product."
+        f"{cleanup_block}\n"
         "PRESERVE PIXEL-IDENTICALLY — do NOT change any of the following:\n"
         "  - Every word of on-image text (headlines, callouts, brand "
         "wordmarks, CTAs, badges, fine print) — character-for-character.\n"
         "  - Every font, weight, color, size, alignment, and decorative "
         "mark (❌, ✅, •, ★, frosted cards, panels, badges).\n"
         "  - Composition, framing, color palette, lighting register, "
-        "background, props, and any human figure or hand positions.\n\n"
-        "Do NOT change any text content. Do NOT introduce new text. The "
-        "output is Image 1 with ONLY the product swapped — nothing else.\n\n"
-        f"{aspect_ratio} aspect ratio."
+        "background (apart from any cleanup above), and the human figure "
+        "(unless the cleanup list names it).\n\n"
+        "Do NOT change any text content. Do NOT introduce new text or new "
+        "scene elements. The output is Image 1 with the product swapped "
+        + ("and the listed cleanup applied — nothing else." if cleanup
+           else "— nothing else.")
+        + f"\n\n{aspect_ratio} aspect ratio."
     )
 
 
@@ -3155,8 +3326,15 @@ def _build_pass2_text_swap_prompt(
     layout in place.
 
     NB2 receives [pass1_output] as the sole image_url. The prompt enumerates
-    every text swap and the FINAL TEXT INVENTORY allowlist."""
-    text_swaps = [m for m in mapping if m.get("source")]
+    every text swap and the FINAL TEXT INVENTORY allowlist. Decoration-role
+    items (product-label text) are filtered — the product reference carries
+    those, and enumerating them in the swap table only invites NB2 to
+    re-render them over the new label."""
+    text_swaps = [
+        m for m in mapping
+        if m.get("source")
+        and (m.get("role") or "").strip().lower() != "decoration"
+    ]
 
     lines: list[str] = []
     lines.append(
@@ -3206,9 +3384,10 @@ def _build_pass2_text_swap_prompt(
         final_inventory = rendered_targets + preserve_targets
         if final_inventory:
             lines.append(
-                f"FINAL TEXT INVENTORY — the output image contains EXACTLY "
-                f"these {len(final_inventory)} text element(s), and NO "
-                f"others:"
+                f"FINAL TEXT INVENTORY — the output image's primary overlay "
+                f"text contains EXACTLY these {len(final_inventory)} "
+                f"element(s), and NO others. (Product-label text printed on "
+                f"the package itself is exempt — leave it as-is.):"
             )
             for t in final_inventory:
                 lines.append(f'  - "{t}"')
@@ -3248,6 +3427,46 @@ def _build_pass3_model_swap_prompt(aspect_ratio: str) -> str:
         "  - Product container, hand positions, product orientation\n"
         "  - Composition, framing, color palette, lighting, background\n"
         "  - Decorative marks (❌, ✅, panels, frosted cards, badges)\n\n"
+        f"{aspect_ratio} aspect ratio."
+    )
+
+
+def _build_pass3_model_swap_prompt_nb2(
+    model_descriptor: str,
+    aspect_ratio: str,
+) -> str:
+    """Pass 3 prompt for NB2 (text-only model swap, no Higgsfield required).
+
+    Mirrors the operator's manual workflow: "replace the model in the picture
+    with a middle-aged white woman". The descriptor is free-text prose
+    (demographic / styling / vibe) supplied by the operator or pulled from
+    the persona's avatar YAML. NB2 receives [stage2_output] as the sole
+    image_url and edits in place — same person-pose, same hands on the
+    product, just a different model.
+
+    This is the preferred Stage 3 path because (a) it doesn't require a
+    trained soul, (b) it lets the operator describe the model directly in
+    the brief's persona terms, and (c) NB2 with a single-image edit is
+    more directive than soul_2 with a reference."""
+    desc = (model_descriptor or "").strip()
+    return (
+        "This is a SURGICAL EDIT of Image 1. Replace ONLY the human "
+        "model/person shown in the image. Keep everything else "
+        "pixel-identical.\n\n"
+        "MODEL SWAP:\n"
+        f"  - The person/model in Image 1 is now: {desc}\n"
+        "  - Match the same pose, same hand position holding the product, "
+        "same body angle, same wardrobe register (casual/professional/etc), "
+        "same framing. Only the person's identity (face, age, ethnicity, "
+        "hair, body type) changes to fit the description above.\n\n"
+        "PRESERVE PIXEL-IDENTICALLY:\n"
+        "  - All on-image text (every word, every font, every position)\n"
+        "  - Product container, hand positions, product orientation\n"
+        "  - Composition, framing, color palette, lighting, background, "
+        "props\n"
+        "  - Decorative marks (❌, ✅, panels, frosted cards, badges, pills)\n\n"
+        "Do NOT change the product. Do NOT change the text. Do NOT change "
+        "the layout. ONLY the person's identity changes.\n\n"
         f"{aspect_ratio} aspect ratio."
     )
 
@@ -3317,9 +3536,30 @@ def _generate_remix_images_staged(
     )
     product_urls = _get_product_image_urls(product, client_slug)
 
+    # Load operator-supplied directives that were persisted at remix time.
+    # scene_cleanup fires in pass 1 alongside the product swap. model_descriptor
+    # drives pass 3 (NB2 text-only model swap); empty descriptor + final_pass_soul
+    # falls back to the soul_2 path; empty descriptor + no soul stops at pass 2.
+    scene_cleanup = ""
+    model_descriptor = ""
+    sc_path = remix_path / "scene_cleanup.txt"
+    if sc_path.exists():
+        try:
+            scene_cleanup = sc_path.read_text(encoding="utf-8").strip()
+        except OSError:
+            pass
+    md_path = remix_path / "model_descriptor.txt"
+    if md_path.exists():
+        try:
+            model_descriptor = md_path.read_text(encoding="utf-8").strip()
+        except OSError:
+            pass
+
     print(
-        f"[remix] Staged mode: {len(briefs_data)} brief(s) × 3 passes each. "
-        f"Final pass via Higgsfield Soul: "
+        f"[remix] Staged mode: {len(briefs_data)} brief(s) × 3 passes each."
+        + (f" Scene cleanup: '{scene_cleanup[:60]}'." if scene_cleanup else "")
+        + (f" Model descriptor: '{model_descriptor[:60]}'." if model_descriptor else "")
+        + f" Final pass via Higgsfield Soul: "
         f"{'enabled' if final_pass_soul else 'disabled'}.",
         flush=True,
     )
@@ -3343,10 +3583,12 @@ def _generate_remix_images_staged(
             stage3_path = images_dir / f"{brief_id}{suffix}_stage3_model.png"
             final_path = images_dir / f"{brief_id}{suffix}_1x1.png"
 
-            # ── Pass 1: product swap ──────────────────────────────────────
+            # ── Pass 1: product swap (+ scene cleanup if provided) ───────
             try:
                 p1_results = generate_and_save(
-                    prompt=_build_pass1_product_swap_prompt(product, aspect_ratio),
+                    prompt=_build_pass1_product_swap_prompt(
+                        product, aspect_ratio, scene_cleanup=scene_cleanup,
+                    ),
                     product_image_urls=[reference_url] + product_urls,
                     save_dir=images_dir,
                     filename_prefix=f"{brief_id}{suffix}_stage1_product_raw",
@@ -3389,9 +3631,52 @@ def _generate_remix_images_staged(
                 continue
             p2_results[0].local_path.replace(stage2_path)
 
-            # ── Pass 3: model/character swap via Higgsfield Soul ─────────
-            soul_id = _get_soul_id_for_brief(brief_data) if final_pass_soul else None
-            if soul_id:
+            # ── Pass 3: model/character swap ─────────────────────────────
+            # Three possible paths, in priority order:
+            #   (a) model_descriptor provided → NB2 text-mode edit. Preferred
+            #       because it mirrors the operator's manual "replace the
+            #       model with X" workflow and doesn't need a trained soul.
+            #   (b) final_pass_soul=True AND persona has a ready soul_id →
+            #       Higgsfield soul_2 with stage2 as reference. Identity-locked.
+            #   (c) Neither → stop at stage 2, copy it as final.
+            soul_id = (
+                _get_soul_id_for_brief(brief_data) if final_pass_soul else None
+            )
+            stage3_done = False
+
+            if model_descriptor:
+                # Path (a): NB2 text-mode model swap.
+                try:
+                    p3_results = generate_and_save(
+                        prompt=_build_pass3_model_swap_prompt_nb2(
+                            model_descriptor, aspect_ratio,
+                        ),
+                        product_image_urls=[_fal_upload(stage2_path)],
+                        save_dir=images_dir,
+                        filename_prefix=f"{brief_id}{suffix}_stage3_model_raw",
+                        aspect_ratio=aspect_ratio,
+                        num_images=1,
+                        thinking_level=thinking_level,
+                    )
+                    if p3_results and p3_results[0].local_path:
+                        p3_results[0].local_path.replace(stage3_path)
+                        shutil.copy2(stage3_path, final_path)
+                        stage3_done = True
+                    else:
+                        print(
+                            f"  [fail stage3] {brief_id}: NB2 returned no image "
+                            f"for model swap; falling back to stage 2.",
+                            flush=True,
+                        )
+                except Exception as e:
+                    print(
+                        f"  [fail stage3] {brief_id}: {e}; falling back to "
+                        f"stage 2.",
+                        flush=True,
+                    )
+
+            if not stage3_done and soul_id:
+                # Path (b): Higgsfield soul_2.
                 from generators.higgsfield_client import (
                     HiggsfieldError,
                     soul_generate_and_save,
@@ -3406,28 +3691,21 @@ def _generate_remix_images_staged(
                         aspect_ratio=aspect_ratio,
                         quality="2k",
                     )
+                    shutil.copy2(stage3_path, final_path)
+                    stage3_done = True
                 except HiggsfieldError as e:
                     if "credit" in str(e).lower():
-                        # Out-of-credits: stop pass 3 for this brief; promote
-                        # stage 2 as the final. Don't bubble — the operator
-                        # wants stage 2 output even if pass 3 fails.
                         print(
                             f"  [warn stage3] {brief_id}: HF credits exhausted. "
                             f"Using stage 2 output as final.",
                             flush=True,
                         )
-                        shutil.copy2(stage2_path, final_path)
-                        saved_paths.append(final_path)
-                        continue
-                    print(f"  [fail stage3] {brief_id}: {e}", flush=True)
-                    shutil.copy2(stage2_path, final_path)
-                    saved_paths.append(final_path)
-                    continue
-                # Stage 3 succeeded — it's the final.
-                shutil.copy2(stage3_path, final_path)
-            else:
-                # No soul character on this persona → stop at stage 2.
-                if final_pass_soul:
+                    else:
+                        print(f"  [fail stage3] {brief_id}: {e}", flush=True)
+
+            if not stage3_done:
+                # Path (c): stage 2 is the final.
+                if final_pass_soul and not model_descriptor:
                     print(
                         f"  [info stage3] {brief_id} — persona has no Soul "
                         f"Character; using stage 2 output as final.",

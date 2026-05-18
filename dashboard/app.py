@@ -1466,6 +1466,50 @@ def _render_remix_tab(selected):
             ),
         )
 
+        # Scene cleanup — non-text elements to remove (e.g., "remove the dog"
+        # when remixing a pet ad for a human supplement). Fires in staged-mode
+        # pass 1 alongside the product swap; also injects into the single-shot
+        # differential prompt. Without this, the dog stays in the picture.
+        sc_key = f"remix_sc_{selected}"
+        scene_cleanup = st.text_area(
+            "Scene cleanup — remove from scene (optional)",
+            key=sc_key,
+            placeholder=(
+                "e.g. 'remove the dog' (when remixing a pet ad for human use)\n"
+                "'remove the second person in the background'\n"
+                "'remove the gym equipment behind the model'"
+            ),
+            height=70,
+            help=(
+                "Non-text elements to remove from the scene. Different from "
+                "creative direction (which adds/changes styling) — this "
+                "specifically removes things. Use it when the reference ad "
+                "has scene elements that don't fit your brand (a dog in a "
+                "pet-supplement ad becoming a human-supplement remix, etc.)."
+            ),
+        )
+
+        # Model descriptor — pass-3 (staged) NB2 model swap. Free-text prose.
+        # Skip this and pass 3 either uses Higgsfield Soul (if persona has
+        # a trained soul) or no-ops (final = stage 2).
+        md_key = f"remix_md_{selected}"
+        model_descriptor = st.text_input(
+            "Model descriptor for stage 3 (optional, staged mode only)",
+            key=md_key,
+            placeholder=(
+                "e.g. 'middle-aged white woman', "
+                "'early-40s Asian man in casual workwear', "
+                "'late-30s Black woman, athletic build'"
+            ),
+            help=(
+                "Free-text description of the model/person to swap in during "
+                "staged-mode pass 3. NB2 edits the stage-2 image to match. "
+                "When set, this is preferred over Higgsfield Soul (which "
+                "needs a trained soul_id per persona). Leave blank to fall "
+                "back to soul_2 OR to skip pass 3 entirely."
+            ),
+        )
+
         offer_key = f"remix_offer_{selected}"
         offer_input = st.text_input(
             "Offer code (optional, slot 9 of the naming taxonomy)",
@@ -1528,6 +1572,10 @@ def _render_remix_tab(selected):
                 ]
                 if creative_direction.strip():
                     args += ["--creative-direction", creative_direction.strip()]
+                if scene_cleanup.strip():
+                    args += ["--scene-cleanup", scene_cleanup.strip()]
+                if model_descriptor.strip():
+                    args += ["--model-descriptor", model_descriptor.strip()]
                 if ref_path is not None:
                     args += ["--reference", str(ref_path)]
                 else:

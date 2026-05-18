@@ -3641,6 +3641,28 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
     "Becomes the highest-priority constraint in the NB2 prompt-writer.",
 )
 @click.option(
+    "--scene-cleanup",
+    default="",
+    help=(
+        "Optional 'remove from the scene' instructions for non-text elements. "
+        "Example: 'remove the dog' when remixing a pet-supplement ad for a "
+        "human-supplement brand. Fires in staged-mode pass 1 alongside the "
+        "product swap, and also injects into the single-shot differential "
+        "prompt. Persisted as scene_cleanup.txt so re-fires pick it up."
+    ),
+)
+@click.option(
+    "--model-descriptor",
+    default="",
+    help=(
+        "Optional prose description of the model/person for staged-mode "
+        "pass 3 (NB2 text-only model swap). Example: 'middle-aged white "
+        "woman' or 'early-40s Asian man in casual workwear'. When set, "
+        "Stage 3 uses NB2 text-mode instead of Higgsfield Soul. Persisted "
+        "as model_descriptor.txt."
+    ),
+)
+@click.option(
     "--offer",
     default="NONE",
     show_default=True,
@@ -3684,6 +3706,8 @@ def remix(
     high_fidelity: int,
     medium_fidelity: int,
     creative_direction: str,
+    scene_cleanup: str,
+    model_descriptor: str,
     offer: str,
     no_trending: bool,
     mode: str,
@@ -3726,6 +3750,8 @@ def remix(
         high_fidelity=high_fidelity,
         medium_fidelity=medium_fidelity,
         creative_direction=creative_direction,
+        scene_cleanup=scene_cleanup,
+        model_descriptor=model_descriptor,
         offer=offer,
         include_trending=not no_trending,
         mode=mode,
@@ -4144,6 +4170,12 @@ def remix_rebuild_prompts(
     else:
         cd = creative_direction.strip()
 
+    # Scene cleanup uses the same disk-first pattern (no CLI override yet —
+    # operator edits scene_cleanup.txt directly if they want to revise without
+    # re-running the full remix).
+    sc_file = rd / "scene_cleanup.txt"
+    sc = sc_file.read_text(encoding="utf-8").strip() if sc_file.exists() else ""
+
     # Load product for the swap line.
     product = None
     if briefs_data and client_slug:
@@ -4206,6 +4238,7 @@ def remix_rebuild_prompts(
             mapping=mapping,
             creative_direction=cd,
             aspect_ratio=aspect,
+            scene_cleanup=sc,
         )
 
         notes = (
