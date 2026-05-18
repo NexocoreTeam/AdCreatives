@@ -3696,6 +3696,20 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
         "(e.g. \"change background to spring grassy field\")."
     ),
 )
+@click.option(
+    "--analyze-only",
+    is_flag=True,
+    default=False,
+    help=(
+        "Stop after the cheap analysis + text extraction passes (~$0.04). "
+        "Writes analysis.yaml + source_text_inventory.yaml + a sentinel "
+        "and exits. Review the inventory in the dashboard (or edit the "
+        "YAML directly), then `adc remix-continue --remix-dir <dir> "
+        "--variations N` to generate briefs + mappings + prompts. Lets "
+        "you catch vision misreads BEFORE paying for the ~$0.30 brief "
+        "stage."
+    ),
+)
 def remix(
     client: str,
     product: str,
@@ -3711,6 +3725,7 @@ def remix(
     offer: str,
     no_trending: bool,
     mode: str,
+    analyze_only: bool,
 ):
     """Reverse-engineer a reference ad and remix it for your product.
 
@@ -3755,7 +3770,29 @@ def remix(
         offer=offer,
         include_trending=not no_trending,
         mode=mode,
+        analyze_only=analyze_only,
     )
+
+    if analyze_only:
+        out_dir = result["out_dir"]
+        console.print(
+            f"\n[cyan]Analyze-only run complete.[/cyan] "
+            f"Reviewed at: [bold]{out_dir}[/bold]"
+        )
+        console.print(
+            f"  • Analysis:        {out_dir / 'analysis.yaml'}\n"
+            f"  • Text inventory:  {out_dir / 'source_text_inventory.yaml'}\n"
+            f"\nReview and edit `source_text_inventory.yaml` if needed, then:\n"
+            f"  [bold]adc remix-continue --remix-dir \"{out_dir}\" "
+            f"--variations {variations}[/bold]\n"
+            f"\nOr open the run in the dashboard's Remix tab."
+        )
+        if client:
+            log_cost(
+                client, "adc remix --analyze-only",
+                multiplier=1, note=f"analyze-only run {out_dir.name}",
+            )
+        return
 
     analysis = result["analysis"]
     out_dir = result["out_dir"]
@@ -4090,6 +4127,110 @@ def remix_refine(
             "adc remix-refine",
             multiplier=len(paths),
             note=f"{len(paths)} refinement(s) for {brief_id}",
+        )
+
+
+@cli.command(name="remix-continue")
+@click.option(
+    "--remix-dir",
+    required=True,
+    type=click.Path(exists=True, file_okay=False),
+    help="Path to an analyze-only remix directory (must contain "
+    "analysis.yaml and .analyze_only.txt).",
+)
+@click.option(
+    "--variations",
+    default=5,
+    type=int,
+    show_default=True,
+    help="Number of variations to generate. Same semantics as `adc remix`.",
+)
+@click.option(
+    "--high-fidelity",
+    default=2,
+    type=int,
+    show_default=True,
+)
+@click.option(
+    "--medium-fidelity",
+    default=2,
+    type=int,
+    show_default=True,
+)
+@click.option(
+    "--no-trending",
+    "no_trending",
+    is_flag=True,
+    default=False,
+    help="Skip the trending-format recommender.",
+)
+@click.option(
+    "--offer",
+    default="NONE",
+    show_default=True,
+)
+def remix_continue_cmd(
+    remix_dir: str,
+    variations: int,
+    high_fidelity: int,
+    medium_fidelity: int,
+    no_trending: bool,
+    offer: str,
+):
+    """Resume an analyze-only remix run — generate briefs + mappings + prompts.
+
+    Picks up after `adc remix --analyze-only`. Reloads the saved analysis
+    and (if differential) the source text inventory — the operator may
+    have edited source_text_inventory.yaml in the dashboard between
+    analyze and continue, and those edits flow through automatically.
+
+    Removes the `.analyze_only.txt` sentinel on success. Cost: ~$0.10-0.30
+    of Claude calls for brief angles + per-brief mapping."""
+    from strategy.ad_remixer import remix_continue
+    from strategy.cost_tracker import log_cost
+
+    rd = Path(remix_dir)
+    client_slug = ""
+    if "clients" in rd.parts:
+        idx = rd.parts.index("clients")
+        if idx + 1 < len(rd.parts):
+            client_slug = rd.parts[idx + 1]
+
+    if variations < 1:
+        console.print("[red]--variations must be at least 1[/red]")
+        raise SystemExit(1)
+
+    console.print(
+        f"[cyan]Continuing[/cyan] analyze-only run [bold]{rd.name}[/bold] — "
+        f"generating {variations} variation(s)..."
+    )
+    result = remix_continue(
+        remix_dir=remix_dir,
+        variations=variations,
+        high_fidelity=high_fidelity,
+        medium_fidelity=medium_fidelity,
+        include_trending=not no_trending,
+        offer=offer,
+    )
+
+    briefs = result["briefs"]
+    prompts = result["prompts"]
+    out_dir = result["out_dir"]
+
+    console.print(
+        f"\n[green]Generated {len(briefs)} brief(s) + {len(prompts)} prompt(s).[/green]"
+    )
+    console.print(f"Output: [bold]{out_dir}[/bold]")
+    console.print(
+        f"\nNext: `adc remix-images --remix-dir \"{out_dir}\"` to generate images, "
+        f"or open the run in the dashboard."
+    )
+
+    if client_slug:
+        log_cost(
+            client_slug, "adc remix-continue",
+            multiplier=len(briefs),
+            note=f"continued {rd.name}: {len(briefs)} brief(s)",
         )
 
 

@@ -1297,7 +1297,8 @@ def _list_remix_runs(selected: str) -> list[dict]:
     """List all remix runs for a client, newest first.
 
     Each entry has: timestamp, dir, analysis, briefs, reference (Path or None),
-    images (list[Path])."""
+    images (list[Path]), analyze_only (bool — True when the run is paused at
+    the analyze step awaiting operator review)."""
     remixes_dir = CLIENTS_DIR / selected / "remixes"
     if not remixes_dir.exists():
         return []
@@ -1306,14 +1307,22 @@ def _list_remix_runs(selected: str) -> list[dict]:
         if not d.is_dir():
             continue
         analysis_path = d / "analysis.yaml"
-        briefs_path = d / "briefs.yaml"
-        if not analysis_path.exists() or not briefs_path.exists():
+        if not analysis_path.exists():
+            # No analysis yet — incomplete or corrupt run, skip.
             continue
         try:
             analysis = yaml.safe_load(analysis_path.read_text(encoding="utf-8")) or {}
-            briefs = yaml.safe_load(briefs_path.read_text(encoding="utf-8")) or []
         except Exception:
             continue
+        # briefs.yaml is optional — analyze-only runs don't have it yet.
+        briefs_path = d / "briefs.yaml"
+        briefs: list = []
+        if briefs_path.exists():
+            try:
+                briefs = yaml.safe_load(briefs_path.read_text(encoding="utf-8")) or []
+            except Exception:
+                briefs = []
+        analyze_only = (d / ".analyze_only.txt").exists()
         reference = None
         for ext in ("png", "jpg", "jpeg", "webp"):
             cand = d / f"reference.{ext}"
@@ -1329,6 +1338,7 @@ def _list_remix_runs(selected: str) -> list[dict]:
             "briefs": briefs,
             "reference": reference,
             "images": images,
+            "analyze_only": analyze_only,
         })
     return runs
 
@@ -1549,6 +1559,25 @@ def _render_remix_tab(selected):
         )
         mode_flag = "differential" if mode.lower().startswith("differential") else "strategic"
 
+        # Analyze-first option — runs only the cheap analysis + text
+        # extraction passes (~$0.04), pauses, and lets the operator review
+        # what was read before paying for brief generation (~$0.30).
+        analyze_first = st.checkbox(
+            "📷 Analyze first — review extraction before paying for briefs (recommended)",
+            value=True,
+            key=f"remix_analyze_first_{selected}",
+            help=(
+                "ON: runs reference analysis + text extraction only (~$0.04), "
+                "pauses the run. You review the analysis + text inventory in "
+                "the past-remixes section below, edit any vision misreads, "
+                "then click Continue to generate briefs (~$0.30). Catches "
+                "wrong-product-label extractions or mis-classified ad types "
+                "BEFORE they cost money downstream.\n"
+                "OFF: one-shot run — analyze + extract + generate all at "
+                "once."
+            ),
+        )
+
         ready = (ref_path is not None) or bool(foreplay_ref)
         if not ready:
             st.info("Upload an image or paste a Foreplay URL/ID to continue.")
@@ -1576,15 +1605,25 @@ def _render_remix_tab(selected):
                     args += ["--scene-cleanup", scene_cleanup.strip()]
                 if model_descriptor.strip():
                     args += ["--model-descriptor", model_descriptor.strip()]
+                if analyze_first:
+                    args += ["--analyze-only"]
                 if ref_path is not None:
                     args += ["--reference", str(ref_path)]
                 else:
                     args += ["--foreplay-url", foreplay_ref]
+
+                cost_estimate = 0.04 if analyze_first else 0.10 * int(variations)
+                label_phase = (
+                    "Analyzing reference"
+                    if analyze_first else
+                    f"Remixing for {selected}"
+                )
                 run_adc_command(
                     args,
                     label=(
-                        f"Remixing for {selected} "
-                        f"(~${0.10 * int(variations):.2f}, mode={mode_flag})"
+                        f"{label_phase} "
+                        f"(~${cost_estimate:.2f}, mode={mode_flag}"
+                        f"{', analyze-only' if analyze_first else ''})"
                     ),
                 )
                 st.rerun()
@@ -1608,10 +1647,12 @@ def _render_remix_tab(selected):
         levers = analysis.get("psych_levers") or []
         n_briefs = len(briefs)
         n_images = len(images)
+        paused_badge = "  ·  🛑 PAUSED — needs review" if run.get("analyze_only") else ""
         title = (
             f"🗓️ {run['timestamp']}  ·  "
             f"{ad_type}  ·  {n_briefs} brief(s)  ·  "
             f"{n_images} image(s)"
+            f"{paused_badge}"
         )
 
         with st.expander(title, expanded=(run is runs[0])):
@@ -1674,6 +1715,149 @@ def _render_remix_tab(selected):
                                 f"`{fmt_type}` · `{complexity}-complexity` — {rationale}"
                             )
                         st.markdown("")
+
+            # Analyze-only state: run is paused after analysis + extraction,
+            # awaiting operator review of the text inventory before brief
+            # generation kicks off. The sentinel file is the marker.
+            analyze_only_sentinel = run_dir / ".analyze_only.txt"
+            inventory_file = run_dir / "source_text_inventory.yaml"
+            if analyze_only_sentinel.exists():
+                with st.expander(
+                    "🛑 PAUSED — review text inventory, then continue",
+                    expanded=True,
+                ):
+                    st.warning(
+                        "This run was started in **Analyze first** mode. "
+                        "Brief generation hasn't happened yet (~$0.30 saved). "
+                        "Review the extracted text inventory below — remove "
+                        "anything the vision misread (product-label text "
+                        "should already be filtered, but if any slipped in, "
+                        "delete those rows). Then click **Continue**."
+                    )
+
+                    # Editable text inventory
+                    if inventory_file.exists():
+                        try:
+                            inv = yaml.safe_load(
+                                inventory_file.read_text(encoding="utf-8")
+                            ) or {}
+                            items = inv.get("source_texts") or []
+                        except Exception:
+                            items = []
+                        if items:
+                            rows = []
+                            for item in items:
+                                if isinstance(item, dict):
+                                    rows.append({
+                                        "Text": str(item.get("text", "")),
+                                        "Position": str(item.get("position", "") or ""),
+                                        "Role": str(item.get("role", "") or ""),
+                                    })
+                                else:
+                                    rows.append({
+                                        "Text": str(item),
+                                        "Position": "",
+                                        "Role": "callout",
+                                    })
+                            edited_inv = st.data_editor(
+                                pd.DataFrame(rows),
+                                hide_index=True,
+                                use_container_width=True,
+                                num_rows="dynamic",
+                                column_config={
+                                    "Text": st.column_config.TextColumn(
+                                        "Text",
+                                        help="Editorial text extracted from the ad. Delete the row if it's wrong or unwanted.",
+                                    ),
+                                    "Position": st.column_config.TextColumn(
+                                        "Position", width="small",
+                                    ),
+                                    "Role": st.column_config.TextColumn(
+                                        "Role", width="small",
+                                    ),
+                                },
+                                key=f"inv_editor_{run['timestamp']}",
+                            )
+
+                            cont_l, cont_r = st.columns([1, 2])
+                            with cont_l:
+                                cont_variations = st.number_input(
+                                    "Variations",
+                                    min_value=1, max_value=10, value=5,
+                                    key=f"cont_var_{run['timestamp']}",
+                                )
+                            with cont_r:
+                                cont_hf = st.number_input(
+                                    "High-fid",
+                                    min_value=0, max_value=int(cont_variations),
+                                    value=min(2, int(cont_variations)),
+                                    key=f"cont_hf_{run['timestamp']}",
+                                )
+                            if st.button(
+                                f"✨ Save inventory + Continue ({int(cont_variations)} variation(s), ~${0.10 * int(cont_variations):.2f})",
+                                type="primary",
+                                key=f"cont_btn_{run['timestamp']}",
+                                use_container_width=True,
+                            ):
+                                # Save edited inventory back to disk first.
+                                new_items: list[dict] = []
+                                for _, row in edited_inv.iterrows():
+                                    text = str(row.get("Text", "")).strip()
+                                    if not text:
+                                        continue
+                                    new_items.append({
+                                        "text": text,
+                                        "position": str(row.get("Position", "") or ""),
+                                        "role": str(row.get("Role", "callout") or "callout"),
+                                        "word_count": len(text.split()),
+                                        "char_count": len(text),
+                                    })
+                                inventory_file.write_text(
+                                    yaml.dump(
+                                        {"source_texts": new_items},
+                                        default_flow_style=False,
+                                        sort_keys=False,
+                                        allow_unicode=True,
+                                    ),
+                                    encoding="utf-8",
+                                )
+                                cont_med = max(
+                                    0, int(cont_variations) - int(cont_hf)
+                                ) // 2
+                                run_adc_command(
+                                    [
+                                        "remix-continue",
+                                        "--remix-dir", str(run_dir),
+                                        "--variations", str(int(cont_variations)),
+                                        "--high-fidelity", str(int(cont_hf)),
+                                        "--medium-fidelity", str(int(cont_med)),
+                                    ],
+                                    label=(
+                                        f"Continuing {run['timestamp']} — "
+                                        f"{int(cont_variations)} variation(s), "
+                                        f"~${0.10 * int(cont_variations):.2f}"
+                                    ),
+                                )
+                                st.rerun()
+                        else:
+                            st.info(
+                                "No text inventory was extracted (probably "
+                                "strategic mode, or the ad has no overlay "
+                                "text). You can still continue."
+                            )
+                            if st.button(
+                                "✨ Continue (no inventory edits)",
+                                type="primary",
+                                key=f"cont_btn_nox_{run['timestamp']}",
+                            ):
+                                run_adc_command(
+                                    [
+                                        "remix-continue",
+                                        "--remix-dir", str(run_dir),
+                                    ],
+                                    label=f"Continuing {run['timestamp']}",
+                                )
+                                st.rerun()
 
             # Mappings review — differential-mode runs only. Lets the operator
             # edit each source→target mapping before generating images, so the

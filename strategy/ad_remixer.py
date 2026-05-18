@@ -1479,6 +1479,7 @@ def remix(
     offer: str = "NONE",
     include_trending: bool = True,
     mode: str = "strategic",
+    analyze_only: bool = False,
 ) -> dict:
     """Run the full remix pipeline.
 
@@ -1495,6 +1496,13 @@ def remix(
         preserve everything else"). Best for layout-faithful remixes like
         us-vs-them comparison ads. Operator-supplied `creative_direction`
         becomes the ONLY allowed deviation (e.g. background swap).
+
+    `analyze_only`: when True, stops after the cheap analysis + text
+    extraction passes and writes a `.analyze_only.txt` sentinel. The
+    operator reviews/edits source_text_inventory.yaml in the dashboard,
+    then `remix_continue()` (or `adc remix-continue`) picks up to do the
+    expensive brief generation + mapping. This mirrors the manual workflow
+    of "see what was read before paying for briefs."
 
     Returns a dict with keys: out_dir, analysis, briefs, prompts (list of
     Paths), so the CLI can render a summary."""
@@ -1538,6 +1546,118 @@ def remix(
         f"levers={','.join(analysis.psych_levers) or '-'}",
         flush=True,
     )
+
+    # ─── Persist analysis + directives + text inventory early ──────────
+    # These all happen BEFORE brief generation so analyze-only mode can
+    # save them and exit cleanly. (Brief generation is what spends real
+    # money — analysis + extraction together are ~$0.04, briefs are
+    # ~$0.10-0.30 depending on variation count.) Moving these saves
+    # earlier also means the dashboard can show the analysis preview
+    # immediately after an analyze-only run completes.
+    _save_analysis(out_dir, analysis)
+
+    # Persist product_ref so remix_continue() can reload product without
+    # the caller having to re-pass it. Tiny sidecar file.
+    (out_dir / ".product_ref.txt").write_text(
+        str(product_ref).strip() + "\n", encoding="utf-8"
+    )
+
+    # Persist directives so subsequent operations (refinement, image
+    # regeneration, remix_continue) can auto-load them.
+    if creative_direction and creative_direction.strip():
+        (out_dir / "creative_directive.txt").write_text(
+            creative_direction.strip() + "\n", encoding="utf-8"
+        )
+    if scene_cleanup and scene_cleanup.strip():
+        (out_dir / "scene_cleanup.txt").write_text(
+            scene_cleanup.strip() + "\n", encoding="utf-8"
+        )
+    if model_descriptor and model_descriptor.strip():
+        (out_dir / "model_descriptor.txt").write_text(
+            model_descriptor.strip() + "\n", encoding="utf-8"
+        )
+
+    # Differential mode: pre-extract the reference's text inventory once
+    # (one vision call regardless of variation count). Now structured —
+    # role + position per element. Editorial overlay only; product-label
+    # text is filtered at the vision prompt level.
+    source_items: list[dict] = []
+    if mode == "differential":
+        print(
+            f"[remix] Differential mode — extracting structured source text "
+            f"inventory from reference (1 vision call)...",
+            flush=True,
+        )
+        try:
+            source_items = _extract_visible_text_inventory_structured(archive_dest)
+            if not source_items:
+                fallback = _extract_visible_text_inventory(archive_dest)
+                source_items = [
+                    {
+                        "text": t,
+                        "position": "",
+                        "role": "callout",
+                        "word_count": len(t.split()),
+                        "char_count": len(t),
+                    }
+                    for t in fallback
+                ]
+            n_callouts = sum(
+                1 for s in source_items
+                if s.get("role", "").startswith("callout")
+            )
+            print(
+                f"[remix] Extracted {len(source_items)} editorial overlay "
+                f"element(s) "
+                f"({n_callouts} callout-slot{'s' if n_callouts != 1 else ''}).",
+                flush=True,
+            )
+        except Exception as e:
+            print(
+                f"[remix] WARNING: text extraction failed ({e}). "
+                f"Falling back to strategic mode for prompt writing.",
+                flush=True,
+            )
+            mode = "strategic"
+
+    if mode == "differential" and source_items:
+        (out_dir / "source_text_inventory.yaml").write_text(
+            yaml.dump(
+                {"source_texts": source_items},
+                default_flow_style=False,
+                sort_keys=False,
+                allow_unicode=True,
+            ),
+            encoding="utf-8",
+        )
+
+    # ─── EARLY EXIT for analyze-only mode ─────────────────────────────
+    # Operator wanted to review the analysis + text inventory before paying
+    # for brief generation. Write a sentinel and return — `remix_continue()`
+    # (or `adc remix-continue`) picks up from here once the operator OKs
+    # what was extracted.
+    if analyze_only:
+        (out_dir / ".analyze_only.txt").write_text(
+            "Run paused after analysis. Review source_text_inventory.yaml "
+            "in the dashboard, then click 'Continue' or run "
+            "`adc remix-continue --remix-dir <dir> --variations N`.\n",
+            encoding="utf-8",
+        )
+        print(
+            f"[remix] Analyze-only mode — paused at {out_dir}. "
+            f"Review the analysis + text inventory, then continue.",
+            flush=True,
+        )
+        return {
+            "out_dir": out_dir,
+            "analysis": analysis,
+            "briefs": [],
+            "prompts": [],
+            "pairs": [],
+            "fidelity_tiers": [],
+            "creative_direction": creative_direction,
+            "analyze_only": True,
+        }
 
     pairs = _select_avatar_lever_pairs(avatars, variations, analysis.psych_levers)
     fidelity_tiers = _select_fidelity_tiers(
@@ -1620,87 +1740,11 @@ def remix(
             for brief in briefs:
                 brief.trending_format_recommendations = []
 
-    _save_analysis(out_dir, analysis)
     _save_briefs(out_dir, briefs)
 
-    # Persist the creative direction so subsequent operations (refinement,
-    # image regeneration) can auto-load it. Same pattern for scene_cleanup
-    # (REMOVE-from-scene instructions like "remove the dog") and
-    # model_descriptor (stage-3 prose like "middle-aged white woman") so
-    # staged-mode image generation can read them back without having to
-    # be re-passed every command.
-    if creative_direction and creative_direction.strip():
-        (out_dir / "creative_directive.txt").write_text(
-            creative_direction.strip() + "\n", encoding="utf-8"
-        )
-    if scene_cleanup and scene_cleanup.strip():
-        (out_dir / "scene_cleanup.txt").write_text(
-            scene_cleanup.strip() + "\n", encoding="utf-8"
-        )
-    if model_descriptor and model_descriptor.strip():
-        (out_dir / "model_descriptor.txt").write_text(
-            model_descriptor.strip() + "\n", encoding="utf-8"
-        )
-
-    # Differential mode: pre-extract the reference's text inventory ONCE.
-    # The same inventory feeds every brief's source→target mapping, so we
-    # only pay for one vision call regardless of how many variations.
-    # Structured extraction returns role + position per element — that
-    # metadata flows through to the per-brief mapping prompts so the
-    # operator's manual "this text is in this position, replace with that"
-    # workflow is mirrored automatically.
-    source_items: list[dict] = []
-    if mode == "differential":
-        print(
-            f"[remix] Differential mode — extracting structured source text "
-            f"inventory from reference (1 vision call)...",
-            flush=True,
-        )
-        try:
-            source_items = _extract_visible_text_inventory_structured(archive_dest)
-            if not source_items:
-                # Structured call returned empty (likely a parse error) —
-                # last-ditch fall back to the unlabeled extractor so we still
-                # have *something* to map, rather than degrading to strategic.
-                fallback = _extract_visible_text_inventory(archive_dest)
-                source_items = [
-                    {
-                        "text": t,
-                        "position": "",
-                        "role": "callout",
-                        "word_count": len(t.split()),
-                        "char_count": len(t),
-                    }
-                    for t in fallback
-                ]
-            n_callouts = sum(
-                1 for s in source_items
-                if s.get("role", "").startswith("callout")
-            )
-            print(
-                f"[remix] Extracted {len(source_items)} source text element(s) "
-                f"({n_callouts} callout-slot{'s' if n_callouts != 1 else ''}).",
-                flush=True,
-            )
-        except Exception as e:
-            print(
-                f"[remix] WARNING: text extraction failed ({e}). "
-                f"Falling back to strategic mode for prompt writing.",
-                flush=True,
-            )
-            mode = "strategic"
-
-    # Save the inventory to disk for transparency / debugging.
+    # Mappings dir for differential mode (created lazily here, after the
+    # analyze-only early exit, because mappings only get written below).
     if mode == "differential" and source_items:
-        (out_dir / "source_text_inventory.yaml").write_text(
-            yaml.dump(
-                {"source_texts": source_items},
-                default_flow_style=False,
-                sort_keys=False,
-                allow_unicode=True,
-            ),
-            encoding="utf-8",
-        )
         mappings_dir = out_dir / "mappings"
         mappings_dir.mkdir(exist_ok=True)
 
@@ -1808,6 +1852,291 @@ def _load_persisted_creative_direction(remix_dir: Path) -> str:
         return p.read_text(encoding="utf-8").strip()
     except OSError:
         return ""
+
+
+def remix_continue(
+    remix_dir: str | Path,
+    *,
+    variations: int = 5,
+    high_fidelity: int = 2,
+    medium_fidelity: int = 2,
+    include_trending: bool = True,
+    offer: str = "NONE",
+) -> dict:
+    """Resume an analyze-only remix run — generates briefs + mappings + prompts.
+
+    Picks up after `remix(..., analyze_only=True)` paused the run. Expects:
+      - reference.<ext> on disk
+      - analysis.yaml on disk
+      - source_text_inventory.yaml on disk (if mode was differential)
+      - .analyze_only.txt sentinel (will be removed on successful completion)
+      - creative_directive.txt / scene_cleanup.txt / model_descriptor.txt
+        (optional — operator may have set any of these at analyze time)
+
+    The mode is detected from the presence of source_text_inventory.yaml —
+    if it exists, this is a differential run; otherwise strategic.
+
+    The operator may have edited source_text_inventory.yaml between analyze
+    and continue (e.g. to remove a row the vision misread) — those edits
+    flow through automatically since we just reload from disk."""
+    rd = Path(remix_dir)
+    if not rd.exists():
+        raise FileNotFoundError(f"Remix directory not found: {rd}")
+
+    # Detect client + product slugs from the run path. Standard layout is
+    # clients/<slug>/remixes/<timestamp>/. Fall back to scanning analysis
+    # for client info if the path doesn't conform.
+    client_slug = ""
+    if "clients" in rd.parts:
+        idx = rd.parts.index("clients")
+        if idx + 1 < len(rd.parts):
+            client_slug = rd.parts[idx + 1]
+    if not client_slug:
+        raise ValueError(
+            f"Could not infer client_slug from {rd}. Expected "
+            f"clients/<slug>/remixes/<timestamp>/ layout."
+        )
+
+    # Reload analysis.
+    analysis_path = rd / "analysis.yaml"
+    if not analysis_path.exists():
+        raise FileNotFoundError(
+            f"No analysis.yaml in {rd} — run `adc remix --analyze-only` first."
+        )
+    from strategy.ad_remixer import AdAnalysis  # type: ignore  # local import for clarity
+    analysis_data = yaml.safe_load(analysis_path.read_text(encoding="utf-8")) or {}
+    analysis = _analysis_from_dict(analysis_data)
+
+    # Reload directives — operator may have edited the .txt files in the
+    # dashboard between analyze and continue.
+    def _read_txt(name: str) -> str:
+        p = rd / name
+        return p.read_text(encoding="utf-8").strip() if p.exists() else ""
+    creative_direction = _read_txt("creative_directive.txt")
+    scene_cleanup = _read_txt("scene_cleanup.txt")
+    model_descriptor = _read_txt("model_descriptor.txt")
+
+    # Reload product (slug taken from analysis's client_slug + the brief's
+    # `product` field — but we don't have a brief yet, so look it up in
+    # the inventory or use the most-recent product YAML).
+    # Simplest: scan clients/<slug>/products/ and pick the only product
+    # if there's exactly one, else raise. The operator should pass product
+    # at analyze time anyway, persisted via... actually we never persist
+    # product_ref. Let me look for a product hint in the run dir.
+    # For now, require it: continue MUST be called with the same product as
+    # analyze. We persist it during analyze for round-trip safety.
+    product_ref_file = rd / ".product_ref.txt"
+    if not product_ref_file.exists():
+        raise FileNotFoundError(
+            f"{product_ref_file} missing — analyze run wasn't recorded "
+            f"with a product slug. Re-run `adc remix --analyze-only` with "
+            f"--product to record it."
+        )
+    product_ref = product_ref_file.read_text(encoding="utf-8").strip()
+
+    brand = load_brand(client_slug)
+    product = _load_product_flexible(client_slug, product_ref)
+    avatars = _load_client_avatars(client_slug)
+
+    # Load source items if differential.
+    inventory_path = rd / "source_text_inventory.yaml"
+    source_items: list[dict] = []
+    if inventory_path.exists():
+        try:
+            inv_data = yaml.safe_load(inventory_path.read_text(encoding="utf-8")) or {}
+            raw = inv_data.get("source_texts") or []
+            if isinstance(raw, list):
+                source_items = [
+                    item if isinstance(item, dict) else {"text": str(item)}
+                    for item in raw
+                ]
+        except Exception:
+            source_items = []
+    mode = "differential" if source_items else "strategic"
+
+    # Find the archived reference for filename + product-uploading hints.
+    archive_dest = _find_remix_reference_image(rd)
+    if archive_dest is None:
+        raise FileNotFoundError(
+            f"No reference.<ext> in {rd}. Re-run analyze."
+        )
+
+    # Now run the brief-and-mapping pipeline, mirroring what remix() does
+    # after its analyze-only early exit point. Kept inline rather than
+    # factored into a helper to keep remix() readable.
+    timestamp = rd.name  # the run-dir name is the timestamp
+    out_dir = rd
+    prompts_dir = out_dir / "prompts"
+    prompts_dir.mkdir(exist_ok=True)
+
+    from generators.prompt_engine import infer_aspect_ratio, prompt_from_brief
+
+    pairs = _select_avatar_lever_pairs(avatars, variations, analysis.psych_levers)
+    fidelity_tiers = _select_fidelity_tiers(
+        variations, max_high=high_fidelity, max_medium=medium_fidelity
+    )
+    competitive_gaps = _load_competitive_gaps(client_slug)
+    print(
+        f"[remix-continue] Generating {len(pairs)} angle(s) "
+        f"(fidelity tiers: {','.join(fidelity_tiers)})...",
+        flush=True,
+    )
+    angles = generate_remix_angles(
+        analysis,
+        brand,
+        product,
+        pairs,
+        fidelity_tiers=fidelity_tiers,
+        competitive_gaps=competitive_gaps,
+    )
+    if len(angles) < len(pairs):
+        raise RuntimeError(
+            f"Remix angle generation returned {len(angles)} angles, expected "
+            f"{len(pairs)}. Inspect the LLM output or retry with fewer variations."
+        )
+
+    print(f"[remix-continue] Building {len(angles)} brief(s)...", flush=True)
+    briefs: list[CreativeBrief] = []
+    for i, (angle, (avatar, _lever)) in enumerate(zip(angles, pairs)):
+        briefs.append(
+            _angle_to_brief(
+                angle=angle,
+                avatar=avatar,
+                analysis=analysis,
+                client_slug=client_slug,
+                product=product,
+                timestamp=timestamp,
+                index=i,
+            )
+        )
+
+    from strategy.naming import build_campaign_name
+    try:
+        run_date_dt = datetime.strptime(timestamp, "%Y-%m-%d_%H%M%S")
+    except ValueError:
+        run_date_dt = datetime.now()
+    for brief in briefs:
+        try:
+            brief.campaign_name = build_campaign_name(
+                brief, brand, analysis=analysis, offer=offer,
+                iteration=1, date=run_date_dt, source="Remix",
+            )
+        except ValueError:
+            brief.campaign_name = ""
+
+    if include_trending:
+        try:
+            from strategy.trending import recommend_trending_formats_for_briefs
+            recs_by_id = recommend_trending_formats_for_briefs(briefs)
+            for brief in briefs:
+                brief.trending_format_recommendations = recs_by_id.get(
+                    brief.brief_id, []
+                )
+        except Exception:
+            for brief in briefs:
+                brief.trending_format_recommendations = []
+
+    _save_briefs(out_dir, briefs)
+
+    if mode == "differential" and source_items:
+        mappings_dir = out_dir / "mappings"
+        mappings_dir.mkdir(exist_ok=True)
+
+    print(
+        f"[remix-continue] Writing {len(briefs)} NB2 prompt(s) "
+        f"({mode} mode) to {prompts_dir}...",
+        flush=True,
+    )
+    prompt_paths: list[Path] = []
+    for brief, (avatar, _lever) in zip(briefs, pairs):
+        aspect = infer_aspect_ratio(brief)
+
+        if mode == "differential" and source_items:
+            try:
+                mapping = _generate_source_to_target_mapping(
+                    source_items=source_items,
+                    brief=brief,
+                    brand=brand,
+                    product=product,
+                    avatar=avatar,
+                )
+            except Exception as e:
+                print(
+                    f"  [brief {brief.brief_id[-6:]}] mapping failed ({e}); "
+                    f"falling back to identity mapping.",
+                    flush=True,
+                )
+                mapping = [
+                    {
+                        "source": item["text"],
+                        "position": item.get("position", ""),
+                        "role": item.get("role", "callout"),
+                        "target": item["text"],
+                    }
+                    for item in source_items
+                ]
+
+            (out_dir / "mappings" / f"{brief.brief_id}.yaml").write_text(
+                yaml.dump(
+                    {"mapping": mapping},
+                    default_flow_style=False,
+                    sort_keys=False,
+                    allow_unicode=True,
+                ),
+                encoding="utf-8",
+            )
+
+            prompt_text = _build_differential_prompt(
+                brief=brief,
+                product=product,
+                mapping=mapping,
+                creative_direction=creative_direction,
+                aspect_ratio=aspect,
+                scene_cleanup=scene_cleanup,
+            )
+        else:
+            prompt_text = prompt_from_brief(
+                brief=brief, brand=brand, product=product, avatar=avatar,
+                aspect_ratio=aspect, creative_direction=creative_direction,
+            )
+            prompt_text = _enforce_text_density_suffix(prompt_text, brief, analysis)
+
+        notes = _format_remix_notes(brief, product, aspect, analysis)
+        notes = f"# MODE: {mode}\n" + notes
+        out_path = prompts_dir / f"{brief.brief_id}.txt"
+        out_path.write_text(notes + "\n\n" + prompt_text + "\n", encoding="utf-8")
+        prompt_paths.append(out_path)
+
+    # Remove the analyze-only sentinel — run is complete.
+    sentinel = out_dir / ".analyze_only.txt"
+    if sentinel.exists():
+        sentinel.unlink()
+
+    print(f"[remix-continue] Done. Output: {out_dir}", flush=True)
+
+    return {
+        "out_dir": out_dir,
+        "analysis": analysis,
+        "briefs": briefs,
+        "prompts": prompt_paths,
+        "pairs": pairs,
+        "fidelity_tiers": fidelity_tiers,
+        "creative_direction": creative_direction,
+    }
+
+
+def _analysis_from_dict(data: dict) -> "AdAnalysis":
+    """Rebuild an AdAnalysis dataclass from the saved analysis.yaml dict.
+
+    `_save_analysis` uses asdict() to serialize; this is the inverse. Kept
+    here as a helper for `remix_continue` rather than as a method on the
+    dataclass since the dataclass module is shared by other call sites that
+    don't need this."""
+    return AdAnalysis(**{
+        k: data.get(k)
+        for k in AdAnalysis.__dataclass_fields__.keys()
+        if k in data
+    })
 
 
 # ─── Image generation from a saved remix ────────────────────────────────────
@@ -2379,12 +2708,36 @@ _TEXT_POSITIONS = (
 )
 
 _STRUCTURED_TEXT_INVENTORY_PROMPT = (
-    "List EVERY visible text element in this advertisement image, EXACTLY as "
-    "it appears (case preserved, punctuation included). For each element, "
-    "also label its position and its role in the ad's anatomy.\n\n"
-    "Include: headlines, body text, callouts, button labels, brand wordmarks, "
-    "badges with text, fine print, product-label text.\n"
-    "EXCLUDE: pure icons or emojis without text, purely decorative shapes.\n\n"
+    "List the EDITORIAL TEXT elements overlaid on this advertisement image, "
+    "EXACTLY as they appear (case preserved, punctuation included). For each "
+    "element, also label its position and its role in the ad's anatomy.\n\n"
+    "CRITICAL — INCLUDE vs EXCLUDE:\n\n"
+    "INCLUDE (editorial text added on top of the photo by the ad designer):\n"
+    "  - Headlines and subheadlines overlaid on the image\n"
+    "  - Callout pills / bubbles / strips with benefit or pain text\n"
+    "  - CTAs (Shop Now, Learn More, etc.) — buttons or pill-shaped labels\n"
+    "  - Brand wordmarks that appear in the ad header / footer area as an "
+    "ad-design element (NOT the wordmark printed on the product label itself)\n"
+    "  - Trust badges with text (Trustpilot 4.5, B-Corp Certified, As Seen In…)\n"
+    "  - Fine print / disclaimers / footnotes overlaid at the bottom of the ad\n"
+    "  - Offer text overlays (30% OFF, FREE SHIPPING, LIMITED TIME)\n"
+    "  - Body copy paragraphs overlaid on the photo\n\n"
+    "EXCLUDE — DO NOT LIST any of the following (this is critical):\n"
+    "  - ANY text physically printed on the product package itself "
+    "(jar, bottle, box, can, tube, pouch). This includes the brand/product "
+    "name on the label, ingredient lists, flavor descriptors ('SALMON "
+    "FLAVOR', 'VANILLA'), weight/count ('30 SOFT CHEWS', 'Net Wt 4.23 oz'), "
+    "barcodes, certification stamps printed on the bottle, supplement-facts "
+    "panels, audience labels ('ALL DOGS', '12+ WEEKS'), and any other text "
+    "that is part of the product's physical packaging artwork.\n"
+    "  - Reason: the product image will be swapped to the new brand's "
+    "package, so the source's package text is irrelevant — it gets carried "
+    "over from the new product image automatically, not via the swap table.\n"
+    "  - Pure icons / emojis without text, purely decorative shapes, "
+    "pictograms.\n\n"
+    "The litmus test: 'If I removed the product from the photo, would this "
+    "text still be there as an ad overlay?' If YES → include. If the text "
+    "would disappear with the bottle/jar/box → exclude.\n\n"
     "POSITION — pick the single best match from: "
     + ", ".join(_TEXT_POSITIONS) + ". For us-vs-them comparison ads, the "
     "❌-side callouts are typically left-side and the ✅-side callouts are "
@@ -2398,14 +2751,15 @@ _STRUCTURED_TEXT_INVENTORY_PROMPT = (
     "'after' / framed as the result state\n"
     "  - callout:         a generic callout that isn't clearly pain or benefit "
     "(single-sided ads)\n"
-    "  - brand:           a brand name or product name wordmark\n"
+    "  - brand:           a brand wordmark in the ad header / footer area "
+    "(NOT on the product label)\n"
     "  - cta:             a button, pill, or action prompt (Shop Now, Learn "
     "More, etc.)\n"
-    "  - bodycopy:        sentence/paragraph-form supporting copy\n"
-    "  - fine-print:      legalese, asterisks, disclaimers, footnotes\n"
-    "  - decoration:      product-label-only text we should NOT translate "
-    "('Net Wt 4.23 oz', 'SALMON FLAVOR', barcode digits)\n\n"
-    "Output VALID YAML only (no markdown fences), in top-to-bottom order:\n\n"
+    "  - bodycopy:        sentence/paragraph-form supporting copy overlay\n"
+    "  - fine-print:      legalese, asterisks, disclaimers, footnotes\n\n"
+    "Output VALID YAML only (no markdown fences), in top-to-bottom order. "
+    "If the ad has no overlay text at all (pure photo with the product "
+    "speaking for itself), return an empty list.\n\n"
     "text_elements:\n"
     '  - text: "exact text 1"\n'
     "    position: top-center\n"
@@ -2474,15 +2828,31 @@ def _extract_visible_text_inventory(image_path: Path) -> list[str]:
     Used by the refinement path (which only needs the strings) and as a
     fallback when structured extraction fails. Differential remix mode uses
     `_extract_visible_text_inventory_structured` instead so it gets role +
-    position metadata."""
+    position metadata.
+
+    Excludes product-package text — the litmus test is whether the text
+    would still exist if you removed the product from the photo. Editorial
+    overlays survive; package labels don't."""
     raw = _claude_vision_local(
         prompt=(
-            "List EVERY visible text element in this advertisement image, "
-            "EXACTLY as it appears (case preserved, punctuation included). "
-            "Each text element on its own line.\n\n"
-            "Include: headlines, body text, callouts, button labels, "
-            "brand wordmarks, badges with text, fine print, product label text.\n"
-            "EXCLUDE: pure icons or emojis without text, decorative elements.\n\n"
+            "List the EDITORIAL TEXT elements overlaid on this advertisement "
+            "image, EXACTLY as they appear (case preserved, punctuation "
+            "included). Each text element on its own line.\n\n"
+            "INCLUDE — editorial overlays added by the ad designer:\n"
+            "  - Headlines, subheadlines, body copy overlays\n"
+            "  - Callout pills / bubbles / strips with benefit or pain text\n"
+            "  - CTAs (Shop Now, Learn More, button labels)\n"
+            "  - Brand wordmarks in the AD HEADER / FOOTER area (not on the "
+            "product label)\n"
+            "  - Trust badges with text, offer overlays, fine print\n\n"
+            "EXCLUDE — do NOT list any of the following:\n"
+            "  - Text physically printed on the product package itself "
+            "(jar/bottle/box label): brand/product name on the label, "
+            "ingredient lists, flavor descriptors, weight/count, barcodes, "
+            "certification stamps, supplement-facts panels, audience tags.\n"
+            "  - Pure icons or emojis without text, decorative shapes.\n\n"
+            "Litmus test: 'If I removed the product from the photo, would "
+            "this text still be there?' Yes → include. No → exclude.\n\n"
             "Output VALID YAML only (no markdown fences) with this structure:\n\n"
             "text_elements:\n"
             '  - "exact text 1"\n'
