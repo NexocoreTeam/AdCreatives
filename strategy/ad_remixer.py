@@ -1775,15 +1775,22 @@ def remix(
             except Exception as e:
                 print(
                     f"  [brief {brief.brief_id[-6:]}] mapping failed ({e}); "
-                    f"falling back to identity mapping (source=target).",
+                    f"writing [MAPPING_FAILED] sentinel targets — operator "
+                    f"will see them in the dashboard editor.",
                     flush=True,
                 )
+                # Sentinel pattern instead of silent identity fallback: the
+                # dashboard mapping editor detects this string and flags the
+                # row so the operator knows manual editing is required. NB2
+                # also receives this string verbatim if not edited, which is
+                # noisier than identity (= obviously wrong output) — exactly
+                # the goal: silent failures cost the operator money.
                 mapping = [
                     {
                         "source": item["text"],
                         "position": item.get("position", ""),
                         "role": item.get("role", "callout"),
-                        "target": item["text"],
+                        "target": "[MAPPING_FAILED — edit me]",
                     }
                     for item in source_items
                 ]
@@ -2063,7 +2070,7 @@ def remix_continue(
             except Exception as e:
                 print(
                     f"  [brief {brief.brief_id[-6:]}] mapping failed ({e}); "
-                    f"falling back to identity mapping.",
+                    f"writing [MAPPING_FAILED] sentinel targets.",
                     flush=True,
                 )
                 mapping = [
@@ -2071,7 +2078,7 @@ def remix_continue(
                         "source": item["text"],
                         "position": item.get("position", ""),
                         "role": item.get("role", "callout"),
-                        "target": item["text"],
+                        "target": "[MAPPING_FAILED — edit me]",
                     }
                     for item in source_items
                 ]

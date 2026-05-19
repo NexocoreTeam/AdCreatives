@@ -1898,9 +1898,42 @@ def _render_remix_tab(selected):
                         if not isinstance(mapping_items, list) or not mapping_items:
                             continue
 
+                        # Detect failure modes so the operator sees them.
+                        # 1. [MAPPING_FAILED] sentinel = Claude transient
+                        #    error during mapping; rows need manual edit.
+                        # 2. All-identity (source==target everywhere) = either
+                        #    Claude returned malformed YAML or mapping was
+                        #    never run. Also needs manual attention.
+                        failed_rows = sum(
+                            1 for m in mapping_items
+                            if isinstance(m, dict)
+                            and str(m.get("target", "")).startswith("[MAPPING_FAILED")
+                        )
+                        identity_rows = sum(
+                            1 for m in mapping_items
+                            if isinstance(m, dict)
+                            and str(m.get("source", "")).strip()
+                            == str(m.get("target", "")).strip()
+                            and str(m.get("source", "")).strip()
+                        )
+                        warning_bits: list[str] = []
+                        if failed_rows:
+                            warning_bits.append(
+                                f"🛑 {failed_rows} row(s) failed during mapping — edit them"
+                            )
+                        if identity_rows == len(mapping_items) and identity_rows > 0:
+                            warning_bits.append(
+                                f"⚠️ All {identity_rows} rows are identity "
+                                f"(source==target) — mapper may have silently "
+                                f"failed; edit each target"
+                            )
+                        warning_str = (
+                            "  ·  " + "  ·  ".join(warning_bits) if warning_bits else ""
+                        )
+
                         st.markdown(
                             f"**{b.get('persona', '—')}** — `{bid[-6:]}` "
-                            f"_({len(mapping_items)} swap(s))_"
+                            f"_({len(mapping_items)} swap(s))_{warning_str}"
                         )
 
                         rows = []
