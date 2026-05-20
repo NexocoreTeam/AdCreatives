@@ -2977,6 +2977,20 @@ reference ad to a new brand, preserving the source ad's STRUCTURAL SHAPE
 content in the target customer's AUTHENTIC VOICE — not in brand-side
 marketing language.
 
+CRITICAL — IDENTITY OUTPUT IS FORBIDDEN.
+The operator is paying for new copy. Returning `target: <same as source>`
+defeats the entire purpose: NB2 will render the source ad's text exactly,
+unchanged. This is a CORRECTNESS FAILURE — never do it.
+
+  - If the source's literal content doesn't translate (e.g. source headline
+    is "Probiotic Chew for dogs" and the new product is for humans), DO
+    NOT echo the source. Compress the brief's hook to fit the source's
+    word count, OR paraphrase the persona's main pain.
+  - If you genuinely cannot produce a target (you've thought hard and
+    nothing fits), output the literal string "[MAPPING_FAILED]" as the
+    target — the operator will edit it manually. NEVER echo the source as
+    a fallback.
+
 INPUTS YOU WILL RECEIVE:
   1. SOURCE TEXT INVENTORY — every text element from the reference, each
      annotated with its exact word count. This is the structural envelope
@@ -3071,14 +3085,45 @@ RULES (priority order — break ties in favor of the higher rule):
       language outcome phrasing. Both sides should sound like the same
       customer talking, not like a brand pitching.
 
-THINK BEFORE WRITING. For EACH source line, work through:
-  (a) What's the role? (headline / pain callout / benefit callout / brand /
-      CTA / decoration)
+THINK BEFORE WRITING.
+
+STEP 0 — PLAN THE AD'S NARRATIVE (do this FIRST, before any individual line).
+  An ad is one connected idea, not a stack of disconnected sentences. Before
+  filling slots, decide:
+    - CORE MESSAGE: in one sentence, what is this ad saying?
+    - SUPPORTING BEATS: 3 proof points / hooks that reinforce the core
+      message — these will become your callouts.
+    - ACTION: what does the headline ask the viewer to do or feel?
+  Every target you write must serve this single narrative. Disjoint targets
+  (headline says X, callouts say unrelated Y) produce broken ads.
+
+  Example for a "probiotics don't survive" hook:
+    CORE: "Most probiotics die before they help — ours doesn't."
+    BEATS: (1) survival rate, (2) what makes ours different (mechanism),
+           (3) the result the user feels
+    ACTION: investigate the science
+
+  The headline target compresses the CORE. The 3 callout targets are the
+  3 BEATS. The CTA aligns with the ACTION. Brand wordmark just swaps names.
+
+STEP 1 — FOR EACH SOURCE LINE, work through:
+  (a) What's the role? (headline / callout-pain / callout-benefit / brand /
+      CTA / fine-print)
   (b) What's the word count budget? (source_words ± 1)
-  (c) What does the brief intend for this role?
-  (d) How would the avatar's customer talk about that, in <= word_count + 1
-      words?
-  (e) Write the target. Then count words. If over budget, compress.
+  (c) Which part of the NARRATIVE goes here?
+      - headline / subheadline → the CORE
+      - callout-pain / callout (1st) → BEAT 1 (pain or survival problem)
+      - callout-benefit / callout (2nd) → BEAT 2 (mechanism / proof)
+      - callout (3rd) → BEAT 3 (result / payoff)
+      - cta → the ACTION
+      - brand → wordmark swap
+      - fine-print → adapted legalese OR [PRESERVE AS-IS] only when the
+        source's claim is generic enough to still apply (NEVER preserve
+        competitor brand names — rewrite to remove them, or [REMOVE])
+  (d) How would the avatar's customer talk about that beat, in <=
+      word_count + 1 words?
+  (e) Write the target. Then count words. If over budget, compress —
+      do NOT echo the source.
 
 OUTPUT FORMAT — VALID YAML only, no markdown fences:
 
@@ -3410,26 +3455,34 @@ count within ±1) and R2 (ICP voice, not brand voice). Output YAML only."""
     )
     body = _strip_code_fences(raw)
 
-    # Identity-mapping fallback used twice below.
-    def _identity_mapping() -> list[dict]:
+    # Failure-sentinel fallback used twice below. Writing the sentinel
+    # surfaces the failure in the dashboard mapping editor — silent identity
+    # (target=source) looks like a working run that just happens to produce
+    # the reference back, which is exactly the bug we want to avoid.
+    def _failed_mapping(reason: str) -> list[dict]:
+        print(
+            f"  [mapper] sentinel fallback ({reason}) — writing "
+            f"[MAPPING_FAILED] targets for operator review.",
+            flush=True,
+        )
         return [
             {
                 "source": item["text"],
                 "position": item.get("position", ""),
                 "role": item.get("role", "callout"),
-                "target": item["text"],
+                "target": f"[MAPPING_FAILED — {reason}; edit me]",
             }
             for item in source_items
         ]
 
     try:
         data = yaml.safe_load(body) or {}
-    except Exception:
-        return _identity_mapping()
+    except Exception as e:
+        return _failed_mapping(f"YAML parse failed: {type(e).__name__}")
 
     items = data.get("mapping") if isinstance(data, dict) else None
     if not isinstance(items, list):
-        return _identity_mapping()
+        return _failed_mapping("LLM output had no 'mapping:' list")
 
     # Build src→target lookup from LLM output. Index by exact source text so
     # ordering quirks in the LLM response don't shift slots. Any source the
@@ -3454,6 +3507,21 @@ count within ±1) and R2 (ICP voice, not brand voice). Output YAML only."""
             "role": src_item.get("role", "callout"),
             "target": tgt,
         })
+
+    # Catch the case where Claude returned valid YAML but every target
+    # equals its source. Claude sometimes does this when it can't translate
+    # the source's category to the new brand AND doesn't want to use [REMOVE]
+    # (it's a "preserve" cop-out). Treat as a failure so the operator sees it.
+    must_replace_identities = [
+        r for r in result
+        if r["source"].strip() == r["target"].strip()
+        and (r.get("role") or "").lower() in _MUST_REPLACE_ROLES
+    ]
+    if len(must_replace_identities) >= 3:
+        return _failed_mapping(
+            f"LLM returned source=target for {len(must_replace_identities)} "
+            f"must-replace roles"
+        )
 
     # Second-pass quality gate — fix any out-of-envelope target.
     result = _validate_and_retry_mapping(mapping=result, brief=brief, avatar=avatar)
@@ -3489,13 +3557,24 @@ def _build_differential_prompt(
     )
     lines.append("")
 
-    # Product swap (always present)
+    # Product swap (always present). Hand-pose adaptation note: if the
+    # source ad shows a hand reaching INTO an open product (jar lid off,
+    # pouring, scooping), but the new product is a closed bottle or sealed
+    # container, naturally adjust the hand pose to fit. Otherwise we get
+    # nonsense images of a hand reaching into a closed lid.
     lines.append("PRODUCT SWAP:")
     lines.append(
         f"  - Replace the product container/package shown in Image 1 with "
-        f"the {product.name} from Image 2. Keep the same hand position, "
-        f"same orientation, same scale relative to the frame, and same "
-        f"lighting on the product."
+        f"the {product.name} from Image 2. Keep the same general hand "
+        f"position in the frame and same lighting on the product.\n"
+        f"  - HAND-POSE ADAPTATION: if the source ad shows a hand "
+        f"reaching INTO an open product (e.g. fingers inside a jar with "
+        f"the lid off, pouring, scooping out capsules) but the "
+        f"{product.name} from Image 2 is CLOSED (sealed lid, no opening "
+        f"visible), naturally adjust the hand to PRESENT the closed "
+        f"product instead — holding it up, displaying it, fingers around "
+        f"the side of the bottle. Do NOT render a hand reaching into a "
+        f"closed lid; that's physically impossible and breaks the image."
     )
     lines.append("")
 
@@ -3535,13 +3614,16 @@ def _build_differential_prompt(
     ]
     if text_swaps:
         lines.append(
-            "TEXT SWAPS — for each source phrase below, render the target "
-            "phrase instead AT THE SAME POSITION. Preserve the source's "
-            "font family, weight, color, alignment, and any leading marker "
-            "characters (❌, ✅, •, ★). DO NOT change typography style. "
-            "Where the target is [REMOVE], delete that element from the "
-            "image; where it is [PRESERVE AS-IS], render the source text "
-            "unchanged."
+            "TEXT SWAPS — MANDATORY. For each line below, the source text "
+            "currently appearing in Image 1 MUST be replaced with the "
+            "target text. This is not optional and not a suggestion. The "
+            "swap table is the contract for this edit:\n"
+            "  - render target AT THE SAME POSITION as source\n"
+            "  - keep the SAME font family, weight, color, alignment\n"
+            "  - keep any leading marker characters (❌, ✅, •, ★)\n"
+            "  - DO NOT change typography style\n"
+            "  - where target is [REMOVE], delete that element entirely\n"
+            "  - where target is [PRESERVE AS-IS], render source text unchanged"
         )
         for m in text_swaps:
             src = m["source"].replace('"', '\\"')
@@ -3676,8 +3758,16 @@ def _build_pass1_product_swap_prompt(
         "PRODUCT SWAP — replace the product:\n"
         "  - Replace the product container/package shown in Image 1 with "
         f"the {product.name} from Image 2.\n"
-        "  - Keep the SAME hand position, same orientation, same scale "
-        "relative to the frame, and same lighting on the product."
+        "  - Keep the SAME general hand position in the frame and same "
+        "lighting on the product.\n"
+        "  - HAND-POSE ADAPTATION: if the source ad shows a hand reaching "
+        "INTO an open product (e.g. fingers inside a jar with the lid "
+        f"off, pouring, scooping out capsules) but the {product.name} "
+        "from Image 2 is CLOSED (sealed lid, no opening visible), "
+        "naturally adjust the hand to PRESENT the closed product "
+        "instead — holding it up, displaying it, fingers around the "
+        "side of the bottle. Do NOT render a hand reaching into a closed "
+        "lid; that's physically impossible and breaks the image."
         f"{cleanup_block}\n"
         "PRESERVE PIXEL-IDENTICALLY — do NOT change any of the following:\n"
         "  - Every word of on-image text (headlines, callouts, brand "
@@ -3689,6 +3779,7 @@ def _build_pass1_product_swap_prompt(
         "(unless the cleanup list names it).\n\n"
         "Do NOT change any text content. Do NOT introduce new text or new "
         "scene elements. The output is Image 1 with the product swapped "
+        "(hand pose adapted if needed) "
         + ("and the listed cleanup applied — nothing else." if cleanup
            else "— nothing else.")
         + f"\n\n{aspect_ratio} aspect ratio."
@@ -3715,20 +3806,27 @@ def _build_pass2_text_swap_prompt(
 
     lines: list[str] = []
     lines.append(
-        "This is a SURGICAL EDIT of Image 1. Apply ONLY the text swaps "
-        "below. Image 1 already has the correct product and layout — do "
-        "NOT change them."
+        "This is a SURGICAL EDIT of Image 1. The product and layout in "
+        "Image 1 are CORRECT — keep them. The only thing to change is the "
+        "on-image text per the swap table below."
     )
     lines.append("")
 
     if text_swaps:
         lines.append(
-            "TEXT SWAPS — for each source phrase below, render the target "
-            "phrase instead AT THE SAME POSITION, in the SAME font family, "
-            "weight, color, alignment, and with any leading marker "
-            "characters (❌, ✅, •, ★) preserved. Where the target is "
-            "[REMOVE], delete that element from the image; where it is "
-            "[PRESERVE AS-IS], render the source text unchanged."
+            "TEXT SWAPS — MANDATORY. For each line below, the source text "
+            "currently appearing in Image 1 MUST be replaced with the "
+            "target text. This is not optional and not a suggestion. The "
+            "swap table is the contract for this edit:\n"
+            "  - render target AT THE SAME POSITION as source\n"
+            "  - keep the SAME font family, weight, color, alignment\n"
+            "  - keep any leading marker characters (❌, ✅, •, ★)\n"
+            "  - where target is [REMOVE], delete that element entirely\n"
+            "  - where target is [PRESERVE AS-IS], render source text unchanged\n"
+            "  - where target starts with [MAPPING_FAILED, that row was a "
+            "Claude failure during mapping — render the source text "
+            "unchanged but the operator will need to fix it before "
+            "shipping the ad"
         )
         for m in text_swaps:
             src = m["source"].replace('"', '\\"')
