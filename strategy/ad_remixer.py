@@ -3085,11 +3085,14 @@ RULES (priority order — break ties in favor of the higher rule):
       language outcome phrasing. Both sides should sound like the same
       customer talking, not like a brand pitching.
 
-THINK BEFORE WRITING.
+THINK SILENTLY BEFORE WRITING. The reasoning steps below happen IN YOUR
+HEAD ONLY. Your visible output is YAML only — see OUTPUT FORMAT at the
+bottom of these rules. Do NOT print the plan, do not narrate, do not
+write "Let me work through this" — those break the parser downstream.
 
-STEP 0 — PLAN THE AD'S NARRATIVE (do this FIRST, before any individual line).
+STEP 0 (INTERNAL ONLY) — PLAN THE AD'S NARRATIVE.
   An ad is one connected idea, not a stack of disconnected sentences. Before
-  filling slots, decide:
+  filling slots, decide silently:
     - CORE MESSAGE: in one sentence, what is this ad saying?
     - SUPPORTING BEATS: 3 proof points / hooks that reinforce the core
       message — these will become your callouts.
@@ -3097,7 +3100,8 @@ STEP 0 — PLAN THE AD'S NARRATIVE (do this FIRST, before any individual line).
   Every target you write must serve this single narrative. Disjoint targets
   (headline says X, callouts say unrelated Y) produce broken ads.
 
-  Example for a "probiotics don't survive" hook:
+  Example for a "probiotics don't survive" hook (this is YOUR INTERNAL
+  thinking — DO NOT print this):
     CORE: "Most probiotics die before they help — ours doesn't."
     BEATS: (1) survival rate, (2) what makes ours different (mechanism),
            (3) the result the user feels
@@ -3106,7 +3110,7 @@ STEP 0 — PLAN THE AD'S NARRATIVE (do this FIRST, before any individual line).
   The headline target compresses the CORE. The 3 callout targets are the
   3 BEATS. The CTA aligns with the ACTION. Brand wordmark just swaps names.
 
-STEP 1 — FOR EACH SOURCE LINE, work through:
+STEP 1 (INTERNAL ONLY) — FOR EACH SOURCE LINE, work through:
   (a) What's the role? (headline / callout-pain / callout-benefit / brand /
       CTA / fine-print)
   (b) What's the word count budget? (source_words ± 1)
@@ -3125,7 +3129,16 @@ STEP 1 — FOR EACH SOURCE LINE, work through:
   (e) Write the target. Then count words. If over budget, compress —
       do NOT echo the source.
 
-OUTPUT FORMAT — VALID YAML only, no markdown fences:
+OUTPUT FORMAT — VALID YAML ONLY. NO PROSE. NO PLANNING NARRATIVE.
+
+Your entire visible response MUST start with the literal line `mapping:`
+and contain nothing else. The CORE/BEATS/ACTION plan from STEP 0 stays in
+your internal reasoning — it does NOT appear in your output. Same for
+STEP 1's per-line analysis. The parser downstream is strict — any prose
+before `mapping:` will break it and the operator will see [MAPPING_FAILED]
+in every row.
+
+Visible output template (this is ALL you produce):
 
 mapping:
   - source: "exact source text 1"
@@ -3133,7 +3146,9 @@ mapping:
   - source: "exact source text 2"
     target: "target text 2"
 
-Be exhaustive — include EVERY source text element, in the input order."""
+Be exhaustive — include EVERY source text element, in the input order.
+NO markdown fences, NO commentary, NO "Here's the mapping:" preamble.
+Start your response with `mapping:` on the very first line."""
 
 
 def _compute_source_structure(source_texts: list[str]) -> list[dict]:
@@ -3454,6 +3469,16 @@ count within ±1) and R2 (ICP voice, not brand voice). Output YAML only."""
         max_tokens=2048,
     )
     body = _strip_code_fences(raw)
+
+    # Defensive extraction: the system prompt tells Claude to start the
+    # response with `mapping:`, but the planning pass we added makes Claude
+    # occasionally emit STEP 0 / STEP 1 thinking as prose first. Find the
+    # first `mapping:` line and parse from there so a leaked planning
+    # preamble doesn't break the whole run.
+    for line_idx, line in enumerate(body.splitlines()):
+        if line.lstrip().startswith("mapping:") and not line.lstrip().startswith("mapping:s"):
+            body = "\n".join(body.splitlines()[line_idx:])
+            break
 
     # Failure-sentinel fallback used twice below. Writing the sentinel
     # surfaces the failure in the dashboard mapping editor — silent identity
