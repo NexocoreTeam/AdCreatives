@@ -2563,14 +2563,32 @@ def _generate_remix_images_higgsfield(
     from generators.text_overlay import render_ad_overlay, SECONDKIND_PRESET
 
     # Upload the archived reference once per run (if present) so soul_2 can
-    # use it as a composition reference for layout fidelity. This mirrors
-    # the NB2 differential fix at the start of generate_remix_images.
-    reference_url = _resolve_remix_reference_url(remix_path)
-    if reference_url:
+    # use it as a composition reference for layout fidelity. Note: the
+    # reference still goes through fal.ai for hosting even in HF mode — fal
+    # is just the public-URL host, not the generation engine here. So
+    # "Higgsfield" mode is fal-credit-free for generation but still needs
+    # a working fal upload for the layout reference. Surface that
+    # constraint explicitly when the upload fails.
+    try:
+        reference_url = _resolve_remix_reference_url(
+            remix_path, raise_on_error=True,
+        )
+        if reference_url:
+            print(
+                f"[remix] Higgsfield: reference uploaded for layout guidance.",
+                flush=True,
+            )
+    except _ReferenceUploadError as e:
         print(
-            f"[remix] Higgsfield: reference uploaded for layout guidance.",
+            f"[remix] Higgsfield: skipping reference upload — {e}\n"
+            f"Continuing with NO layout reference (soul_2 will generate "
+            f"from prompt + soul_id only). Layout fidelity will be lower; "
+            f"top up fal credits to fix.",
             flush=True,
         )
+        reference_url = None
+    except _ReferenceMissingError:
+        reference_url = None
 
     saved_paths: list[Path] = []
     for brief_data in briefs_data:
@@ -2917,7 +2935,23 @@ def _detect_remix_mode_from_prompt(prompt_file: Path) -> str:
     return "strategic"
 
 
-def _resolve_remix_reference_url(remix_path: Path) -> str | None:
+class _ReferenceUploadError(RuntimeError):
+    """Raised when the reference exists on disk but couldn't be hosted at
+    a public URL (typically because fal.ai's upload API rejected the
+    request — most commonly out-of-credits). Distinct from
+    `_ReferenceMissingError` so callers can give the operator an
+    actionable error message."""
+
+
+class _ReferenceMissingError(FileNotFoundError):
+    """Raised when no reference image file exists in the run directory."""
+
+
+def _resolve_remix_reference_url(
+    remix_path: Path,
+    *,
+    raise_on_error: bool = False,
+) -> str | None:
     """Upload the run's archived reference ad to fal.ai once and cache the URL.
 
     fal.ai's NB2/edit endpoint accepts arbitrary public URLs as input
@@ -2925,10 +2959,21 @@ def _resolve_remix_reference_url(remix_path: Path) -> str | None:
     `medias` param. So one upload → one URL → reused across both engines
     and across all briefs in the run.
 
-    Cache lives at `<remix_path>/.reference_url.txt`. Returns None if the
-    reference is missing or the upload fails."""
+    Cache lives at `<remix_path>/.reference_url.txt`.
+
+    Default behaviour (raise_on_error=False) returns None on any failure
+    so the legacy callers can fall through to product-only image_urls.
+    Set raise_on_error=True (used by staged mode and HF mode) to get
+    actionable typed exceptions instead — the wrapper surfaces "no
+    reference file" vs. "upload to fal failed" so the operator's error
+    message points at the right fix."""
     ref_path = _find_remix_reference_image(remix_path)
     if ref_path is None:
+        if raise_on_error:
+            raise _ReferenceMissingError(
+                f"No reference.<ext> found in {remix_path}. Re-run "
+                f"`adc remix --reference ...` to recreate the run."
+            )
         return None
     cache = remix_path / ".reference_url.txt"
     if cache.exists():
@@ -2942,12 +2987,16 @@ def _resolve_remix_reference_url(remix_path: Path) -> str | None:
         from generators.fal_client import upload_image as _fal_upload
         url = _fal_upload(ref_path)
     except Exception as e:
-        print(
-            f"[remix] WARNING: failed to upload reference {ref_path.name} to "
-            f"fal.ai ({e}). Differential mode will fall back to product-only "
-            f"image_urls, which is the pre-fix behavior.",
-            flush=True,
+        msg = (
+            f"Failed to upload reference {ref_path.name} to fal.ai: {e}\n\n"
+            f"Most common cause: your fal.ai account is out of credits. "
+            f"Top up at https://fal.ai/dashboard/billing and re-run.\n"
+            f"(The reference image is on disk at {ref_path} — no need to "
+            f"re-extract briefs or mappings after topping up.)"
         )
+        if raise_on_error:
+            raise _ReferenceUploadError(msg) from e
+        print(f"[remix] WARNING: {msg}", flush=True)
         return None
     try:
         cache.write_text(url, encoding="utf-8")
@@ -4021,12 +4070,27 @@ def _generate_remix_images_staged(
             "produces). This run was generated in '{}' mode.".format(run_mode)
         )
 
-    reference_url = _resolve_remix_reference_url(remix_path)
+    # Staged mode is fal-dependent for stages 1 + 2 (NB2 edits). If fal is
+    # offline or out of credits, the run cannot proceed even with
+    # `engine=higgsfield-soul` — HF only handles stage 3. Use the
+    # raise_on_error variant so the operator sees the actual fal error
+    # (typically "exhausted balance") instead of a misleading
+    # "no reference found" message.
+    try:
+        reference_url = _resolve_remix_reference_url(
+            remix_path, raise_on_error=True,
+        )
+    except _ReferenceUploadError as e:
+        raise RuntimeError(
+            f"Staged mode requires fal.ai for stages 1 + 2 (NB2 edits). "
+            f"{e}"
+        ) from e
+    except _ReferenceMissingError as e:
+        raise RuntimeError(str(e)) from e
     if not reference_url:
-        raise ValueError(
-            "Staged mode requires the archived reference image to be "
-            "uploadable, but no reference was found in "
-            f"{remix_path}. Re-run `adc remix --reference ...` to recreate it."
+        raise RuntimeError(
+            f"Could not resolve reference URL for {remix_path} (no file "
+            f"on disk and no error raised — this is a bug, please report)."
         )
 
     client_slug = briefs_data[0]["client"]
