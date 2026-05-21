@@ -2262,11 +2262,14 @@ def _render_remix_tab(selected):
             # Staged toggle — only useful for differential runs.
             # When ON: split the edit into 3 sequential passes (product →
             # text → model). Each pass has one job; mirrors the manual
-            # Higgsfield workflow. Costs ~3x more.
+            # Higgsfield workflow.
+            # Combined with the HF checkbox above:
+            #   staged + HF OFF → fal NB2 for stages 1+2, HF Soul for stage 3
+            #   staged + HF ON  → all-HF (soul_2 throughout, no fal calls)
             mappings_present = (run_dir / "mappings").exists()
             staged_disabled = not mappings_present
             staged_label = (
-                "Staged 3-pass (product → text → model) — best layout fidelity, ~3x cost"
+                "Staged 3-pass (product → text → model)"
                 + ("" if mappings_present else "  ·  (requires differential mode)")
             )
             use_staged = st.checkbox(
@@ -2275,20 +2278,36 @@ def _render_remix_tab(selected):
                 disabled=staged_disabled,
                 help=(
                     "Off: single NB2 call applies product + text swaps together "
-                    "(faster, cheaper).\n"
-                    "On: 3 sequential NB2 passes — pass 1 swaps the product "
-                    "(keeps text identical), pass 2 swaps the text (keeps "
-                    "product identical), optional pass 3 routes through "
-                    "Higgs Field Soul for the model/face. Mirrors the manual "
-                    "Higgsfield workflow that produced the cleanest results. "
-                    "Requires a differential-mode run (with mappings/)."
+                    "(faster, cheaper).\n\n"
+                    "On + HF checkbox OFF: 3-pass NB2 via fal — best layout "
+                    "fidelity, true edit semantics, requires fal credits. "
+                    "Optional HF Soul for stage 3 if persona has a trained "
+                    "soul. ~$0.24/brief.\n\n"
+                    "On + HF checkbox ON: ALL 3 passes via Higgsfield "
+                    "soul_2 — no fal calls at all. Experimental — soul_2 "
+                    "isn't an edit model so layout drifts more between "
+                    "passes, but doesn't depend on fal credits and can use "
+                    "an identity-locked soul on stage 3. ~$0.15/brief in "
+                    "HF credits."
                 ),
             )
 
             action_l, action_r = st.columns(2)
             engine_suffix = " (HF Soul)" if use_hf else ""
-            staged_suffix = " · 3-pass" if use_staged else ""
-            cost_per_brief = 0.24 if use_staged else 0.08
+            staged_suffix = " · 3-pass"
+            if use_staged and use_hf:
+                staged_suffix = " · 3-pass (all-HF)"
+            elif use_staged:
+                staged_suffix = " · 3-pass (NB2+HF)"
+            else:
+                staged_suffix = ""
+            # Cost depends on combo: NB2 staged ~$0.24, HF staged ~$0.15.
+            if use_staged and use_hf:
+                cost_per_brief = 0.15
+            elif use_staged:
+                cost_per_brief = 0.24
+            else:
+                cost_per_brief = 0.08
             label_button = (
                 f"♻️ Re-fire {n_briefs} image(s){engine_suffix}{staged_suffix} (~${cost_per_brief * n_briefs:.2f})"
                 if images

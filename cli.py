@@ -3910,11 +3910,18 @@ def remix(
     default=False,
     help=(
         "Split the differential edit into 3 sequential passes — product "
-        "swap, then text swap, then optional model/character swap via "
-        "Higgsfield Soul. Each pass has ONE job, mirroring the operator's "
-        "manual workflow that produced the cleanest results. Requires a "
-        "differential-mode remix run (the mappings/ directory). Costs ~3x "
-        "more API calls per brief. Intermediate stage images are saved."
+        "swap, then text swap, then model/character swap. Each pass has "
+        "ONE job, mirroring the operator's manual workflow.\n\n"
+        "Engine combinations:\n"
+        "  --staged (default --engine nb2): stages 1+2 via NB2 (fal), "
+        "stage 3 via Higgsfield Soul if persona has a trained soul, else "
+        "stops at stage 2. Best layout fidelity.\n"
+        "  --staged --engine higgsfield-soul: ALL 3 passes via Higgsfield "
+        "soul_2 (no fal calls). Experimental — soul_2 isn't an edit "
+        "model so layout drifts a bit between passes, but doesn't depend "
+        "on fal at all. Identity-locked on stage 3 if soul present.\n\n"
+        "Both require a differential-mode remix run (the mappings/ dir). "
+        "Intermediate stage images are saved as <bid>_stage{1,2,3}_*.png."
     ),
 )
 def remix_images(

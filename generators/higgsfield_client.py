@@ -39,22 +39,62 @@ HF_USER_AGENT = "adcreatives-py/0.1"
 # These may need adjustment after the first real call; the SDK loads endpoints
 # dynamically from a server-side schema so we're pinning them here statically.
 SOUL_TEXT_TO_IMAGE = "/v1/text2image/soul"
-MEDIA_UPLOAD = "/v1/media/upload"
+
+# File upload: two-step presigned-URL flow (verified against the higgsfield-js
+# v1 SDK source). Step 1: POST /files/generate-upload-url with content_type
+# to get back { upload_url, public_url }. Step 2: PUT raw bytes to upload_url
+# (which is an S3 presigned URL) with the matching Content-Type header. The
+# public_url is what subsequent generation calls reference. No media_id —
+# the response is plain URL strings.
+FILES_GENERATE_UPLOAD_URL = "/files/generate-upload-url"
 
 
 # ─── Auth + transport ───────────────────────────────────────────────────────
+
+
+def _looks_like_placeholder(value: str) -> bool:
+    """Return True if `value` looks like an .env.example placeholder.
+
+    Common patterns:
+      - starts with 'your_'
+      - exactly 'your_hf_key_id:your_hf_key_secret'
+      - contains '_here' (matches 'your_<thing>_here' templates)
+    Used to fall through to the split HF_API_KEY/HF_API_SECRET pair when
+    the operator uncommented those but forgot to also clean up the
+    HF_CREDENTIALS placeholder line. (Common footgun.)"""
+    v = value.strip().lower()
+    if not v:
+        return True
+    return (
+        v.startswith("your_")
+        or "your_hf_key" in v
+        or v.endswith("_here")
+    )
 
 
 def _get_credentials() -> str:
     """Read HF credentials from env. Returns 'KEY_ID:KEY_SECRET'.
 
     Raises with a clear setup hint if missing or malformed.
+
+    HF_CREDENTIALS takes priority — but if it's an .env.example placeholder
+    (`your_hf_key_id:...`), we treat it as unset and fall through to the
+    split HF_API_KEY + HF_API_SECRET pair. This handles the common case
+    where the operator uncommented HF_API_KEY/HF_API_SECRET but forgot to
+    delete or comment out the HF_CREDENTIALS template line.
     """
     creds = os.environ.get("HF_CREDENTIALS", "").strip()
+    if creds and _looks_like_placeholder(creds):
+        # Pretend HF_CREDENTIALS is unset so the split-pair path can win.
+        creds = ""
     if not creds:
         key = os.environ.get("HF_API_KEY", "").strip()
         secret = os.environ.get("HF_API_SECRET", "").strip()
-        if key and secret:
+        if (
+            key and secret
+            and not _looks_like_placeholder(key)
+            and not _looks_like_placeholder(secret)
+        ):
             creds = f"{key}:{secret}"
     if not creds or ":" not in creds:
         raise RuntimeError(
@@ -70,6 +110,23 @@ def _headers() -> dict:
     creds = _get_credentials()
     return {
         "Authorization": f"Key {creds}",
+        "Content-Type": "application/json",
+        "User-Agent": HF_USER_AGENT,
+    }
+
+
+def _sdk_style_headers() -> dict:
+    """Header style used by the higgsfield-js v1 SDK.
+
+    Uses `hf-api-key` + `hf-secret` (custom headers) rather than the
+    `Authorization: Key X:Y` form. The soul endpoint accepts both, but the
+    /files/generate-upload-url endpoint returns 500 on the Authorization
+    form and accepts SDK-style headers — verified by experimentation."""
+    creds = _get_credentials()
+    key_id, _, key_secret = creds.partition(":")
+    return {
+        "hf-api-key": key_id,
+        "hf-secret": key_secret,
         "Content-Type": "application/json",
         "User-Agent": HF_USER_AGENT,
     }
@@ -150,6 +207,107 @@ def _subscribe(endpoint: str, body: dict, with_polling: bool = True) -> dict:
         if not request_id:
             return response
         return _poll(client, request_id)
+
+
+_CONTENT_TYPE_BY_SUFFIX = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+    ".gif": "image/gif",
+}
+
+
+def upload_image(image_path: Path) -> str:
+    """Upload a local image to Higgsfield's file host and return its public URL.
+
+    Two-step flow matching the higgsfield-js v1 SDK:
+      1. POST /files/generate-upload-url with `content_type` to receive a
+         presigned upload_url + public_url pair.
+      2. PUT the raw image bytes to upload_url with the matching
+         Content-Type header (presigned URLs are S3 — they want the same
+         content-type the URL was signed for).
+
+    Returns the public URL — pass it as `reference_image_url` to
+    `soul_generate_and_save`, or stick it in the `medias` array directly.
+
+    Used as a fallback when fal.ai's upload endpoint is unavailable (e.g.,
+    out of credits) so the reference image can still be hosted somewhere
+    soul_2 can fetch it. Same auth as the rest of the HF API."""
+    image_path = Path(image_path)
+    suffix = image_path.suffix.lower()
+    content_type = _CONTENT_TYPE_BY_SUFFIX.get(suffix, "image/png")
+
+    # Step 1: ask HF for a presigned upload URL.
+    # Uses the SDK-style hf-api-key / hf-secret headers — the file endpoint
+    # returns 500 on the `Authorization: Key X:Y` form that the soul endpoint
+    # accepts, so we send the SDK form here specifically.
+    url = f"{HF_BASE_URL}{FILES_GENERATE_UPLOAD_URL}"
+    with httpx.Client(timeout=HF_REQUEST_TIMEOUT) as client:
+        try:
+            r = client.post(
+                url,
+                json={"content_type": content_type},
+                headers=_sdk_style_headers(),
+            )
+        except httpx.HTTPError as e:
+            raise HiggsfieldError(
+                f"POST {url} failed (presigned-URL request): {e}"
+            ) from e
+        if r.status_code == 401:
+            raise HiggsfieldError(
+                "HF auth failed (401) on upload. Check HF_CREDENTIALS."
+            )
+        if r.status_code == 403:
+            raise HiggsfieldError(
+                "HF 403 on upload — likely out of credits or plan doesn't "
+                "include file uploads. https://platform.higgsfield.ai/billing"
+            )
+        if r.status_code >= 400:
+            raise HiggsfieldError(
+                f"POST {url} returned {r.status_code}: {r.text[:400]}"
+            )
+        try:
+            payload = r.json()
+        except ValueError as e:
+            raise HiggsfieldError(
+                f"POST {url} returned non-JSON: {r.text[:200]}"
+            ) from e
+        upload_url = payload.get("upload_url")
+        public_url = payload.get("public_url")
+        if not upload_url or not public_url:
+            raise HiggsfieldError(
+                f"POST {url} returned unexpected shape: {payload!r}"
+            )
+
+        # Step 2: PUT raw bytes to the presigned URL. Note: this hits S3
+        # (or whatever HF's storage backend is) directly — auth is baked
+        # into the presigned URL, so we DO NOT send HF auth headers here.
+        # Sending them can confuse some presigned-URL backends.
+        try:
+            with open(image_path, "rb") as f:
+                data = f.read()
+        except OSError as e:
+            raise HiggsfieldError(
+                f"Failed to read image at {image_path}: {e}"
+            ) from e
+        try:
+            put_resp = client.put(
+                upload_url,
+                content=data,
+                headers={"Content-Type": content_type},
+            )
+        except httpx.HTTPError as e:
+            raise HiggsfieldError(
+                f"PUT presigned upload failed: {e}"
+            ) from e
+        if put_resp.status_code >= 400:
+            raise HiggsfieldError(
+                f"PUT to presigned URL returned {put_resp.status_code}: "
+                f"{put_resp.text[:200]}"
+            )
+
+    return public_url
 
 
 _TERMINAL_JOB_STATUSES = {"completed", "failed", "nsfw"}

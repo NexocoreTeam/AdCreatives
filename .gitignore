@@ -3,6 +3,7 @@ output/
 __pycache__/
 *.pyc
 .ruff_cache/
+.claude/
 .pytest_cache/
 dist/
 *.egg-info/

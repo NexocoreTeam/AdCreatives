@@ -2253,6 +2253,38 @@ def generate_remix_images(
     # uses Higgsfield Soul when engine implies HF, or when the avatar has a
     # ready soul; the orchestrator decides per brief.
     if staged:
+        # Route to the right staged orchestrator:
+        #   engine="higgsfield-soul" + staged → ALL-HF path (soul_2 throughout,
+        #     no fal calls — experimental, lower text fidelity, identity-locked)
+        #   engine="nb2" (default) + staged → fal-NB2 path for stages 1+2,
+        #     Higgsfield Soul only on stage 3 (if persona has trained soul)
+        if engine == "higgsfield-soul":
+            try:
+                return _generate_remix_images_hf_staged(
+                    briefs_data,
+                    remix_path=remix_path,
+                    images_dir=images_dir,
+                    num_images=num_images,
+                    aspect_ratio=aspect_ratio,
+                )
+            except Exception as e:
+                if fallback_engine:
+                    print(
+                        f"  [fallback] HF staged failed ({e}). "
+                        f"Falling back to single-shot engine={fallback_engine}.",
+                        flush=True,
+                    )
+                    return generate_remix_images(
+                        remix_dir,
+                        num_images=num_images,
+                        thinking_level=thinking_level,
+                        aspect_ratio=aspect_ratio,
+                        engine=fallback_engine,
+                        fallback_engine=None,
+                        staged=False,
+                    )
+                raise
+
         try:
             return _generate_remix_images_staged(
                 briefs_data,
@@ -2951,22 +2983,30 @@ def _resolve_remix_reference_url(
     remix_path: Path,
     *,
     raise_on_error: bool = False,
+    prefer_host: str = "fal",
 ) -> str | None:
-    """Upload the run's archived reference ad to fal.ai once and cache the URL.
+    """Upload the run's archived reference ad and cache the public URL.
 
-    fal.ai's NB2/edit endpoint accepts arbitrary public URLs as input
-    images. Higgsfield's soul_2 also accepts arbitrary public URLs in its
-    `medias` param. So one upload → one URL → reused across both engines
-    and across all briefs in the run.
+    Both fal.ai's NB2/edit endpoint and Higgsfield's soul_2 accept arbitrary
+    public URLs as input images, so one upload → one URL → reused across
+    every brief in the run regardless of engine.
 
-    Cache lives at `<remix_path>/.reference_url.txt`.
+    Host selection (`prefer_host`):
+      - "fal"  (default): upload to fal.ai. If fal rejects with a credit /
+                          locked-account error, fall through to HF native
+                          upload — same URL works for both engines so this
+                          is purely a hosting concern.
+      - "hf":             upload to HF first (no fal involvement). Used by
+                          the all-HF pipeline so we never touch fal credits
+                          even for hosting.
+
+    Cache lives at `<remix_path>/.reference_url.txt` and is host-agnostic
+    (the file just stores whatever URL succeeded).
 
     Default behaviour (raise_on_error=False) returns None on any failure
-    so the legacy callers can fall through to product-only image_urls.
-    Set raise_on_error=True (used by staged mode and HF mode) to get
-    actionable typed exceptions instead — the wrapper surfaces "no
-    reference file" vs. "upload to fal failed" so the operator's error
-    message points at the right fix."""
+    so legacy callers can fall through to product-only image_urls. Set
+    raise_on_error=True (used by staged mode and HF mode) to get typed
+    exceptions instead."""
     ref_path = _find_remix_reference_image(remix_path)
     if ref_path is None:
         if raise_on_error:
@@ -2983,21 +3023,64 @@ def _resolve_remix_reference_url(
                 return cached
         except OSError:
             pass
-    try:
-        from generators.fal_client import upload_image as _fal_upload
-        url = _fal_upload(ref_path)
-    except Exception as e:
+
+    # Build the attempt order. fal preferred = try fal then HF; hf preferred
+    # = try HF only (no fal fallback needed since HF was an explicit choice).
+    if prefer_host == "hf":
+        attempts: list[str] = ["hf"]
+    else:
+        attempts = ["fal", "hf"]
+
+    last_error: Exception | None = None
+    url: str | None = None
+    for host in attempts:
+        try:
+            if host == "fal":
+                from generators.fal_client import upload_image as _fal_upload
+                url = _fal_upload(ref_path)
+                print(
+                    f"[remix] Reference uploaded via fal.ai: {ref_path.name}",
+                    flush=True,
+                )
+                break
+            if host == "hf":
+                from generators.higgsfield_client import upload_image as _hf_upload
+                url = _hf_upload(ref_path)
+                print(
+                    f"[remix] Reference uploaded via Higgsfield: "
+                    f"{ref_path.name}",
+                    flush=True,
+                )
+                break
+        except Exception as e:
+            last_error = e
+            # If fal failed for a credit reason and HF is next in line,
+            # log a friendly message and continue.
+            msg = str(e).lower()
+            if host == "fal" and any(
+                hint in msg for hint in ("locked", "exhausted", "credit")
+            ):
+                print(
+                    f"[remix] fal.ai rejected the upload (out of credits). "
+                    f"Falling back to Higgsfield's file host...",
+                    flush=True,
+                )
+                continue
+            # Other fal errors AND any HF error: stop and surface.
+            continue
+
+    if url is None:
         msg = (
-            f"Failed to upload reference {ref_path.name} to fal.ai: {e}\n\n"
-            f"Most common cause: your fal.ai account is out of credits. "
-            f"Top up at https://fal.ai/dashboard/billing and re-run.\n"
-            f"(The reference image is on disk at {ref_path} — no need to "
-            f"re-extract briefs or mappings after topping up.)"
+            f"Failed to upload reference {ref_path.name} to any host. "
+            f"Last error: {last_error}\n\n"
+            f"Check fal.ai credits (https://fal.ai/dashboard/billing) and "
+            f"HF_CREDENTIALS / HF_API_KEY in your .env."
         )
         if raise_on_error:
-            raise _ReferenceUploadError(msg) from e
+            raise _ReferenceUploadError(msg) from last_error
         print(f"[remix] WARNING: {msg}", flush=True)
         return None
+
     try:
         cache.write_text(url, encoding="utf-8")
     except OSError:
@@ -4018,6 +4101,330 @@ def _build_pass3_model_swap_prompt_nb2(
         "the layout. ONLY the person's identity changes.\n\n"
         f"{aspect_ratio} aspect ratio."
     )
+
+
+# ─── All-HF staged pipeline (soul_2 throughout, no fal calls) ────────────────
+#
+# Unlike NB2's /edit endpoint (which is a true edit model — preserves pixels
+# not mentioned in the prompt), Higgsfield's soul_2 is a text-to-image model
+# with composition reference. Each call GENERATES a fresh image with the
+# reference as a structural guide. Practical implications:
+#   - Text rendering is unreliable (soul_2 produces gibberish letterforms when
+#     asked to render legible copy). We use PIL overlay for crisp final text.
+#   - Reference is compositional, not pixel-precise — some drift is expected
+#     between stages.
+#   - soul_id locks identity in the pass it's applied to, so we save it for
+#     stage 3 (model swap).
+#
+# This pipeline is intentionally an "experiment" for the operator to compare
+# against the NB2 staged path. NB2 will usually produce higher layout fidelity
+# because it's literally editing; soul_2 wins on identity-locked faces and
+# doesn't depend on fal for either hosting or generation.
+
+
+def _build_hf_pass1_product_prompt(
+    product: "Product",
+    aspect_ratio: str,
+    scene_cleanup: str = "",
+) -> str:
+    """HF pass 1: soul_2 generates an ad with the new product, keeping the
+    reference's composition + people + (placeholder) text intact.
+
+    The reference image is supplied via `medias` — soul_2 uses it as
+    structural guidance. We describe the desired output rather than
+    instructing an edit (soul_2 isn't an edit model)."""
+    cleanup = (scene_cleanup or "").strip()
+    cleanup_block = ""
+    if cleanup:
+        cleanup_block = (
+            f"\n\nDO NOT show in the scene: {cleanup}. After removal, "
+            f"naturally infill the space with the reference's existing "
+            f"background — do not invent new scene elements to fill the gap."
+        )
+    return (
+        f"Recreate the composition, lighting, framing, and on-image typography "
+        f"of the reference image, but with this change:\n\n"
+        f"  - The product shown in the scene is {product.name} (a "
+        f"supplement / consumer product container — match the bottle / jar "
+        f"/ package shape you'd expect for this product). Hand placement, "
+        f"product orientation, and product scale match the reference exactly.\n\n"
+        f"Keep the same person/model from the reference (we'll swap the "
+        f"face/identity in a later pass). Keep the same on-image text "
+        f"placement and styling as the reference (we'll swap the actual "
+        f"text content in a later pass).{cleanup_block}\n\n"
+        f"Photoreal style matching the reference's lighting + composition. "
+        f"{aspect_ratio} aspect ratio."
+    )
+
+
+def _build_hf_pass2_text_prompt(
+    mapping: list[dict[str, str]],
+    aspect_ratio: str,
+) -> str:
+    """HF pass 2: soul_2 generates the ad with new copy in place of the
+    source copy. Reference is the pass-1 output (product already swapped).
+
+    Note: soul_2 often produces gibberish text. We accept lower text
+    fidelity here and lean on PIL overlay downstream for the final crisp
+    text render. The pass-2 image is mostly to capture the right CONTENT
+    intent so PIL has a sensible base to overlay onto."""
+    text_swaps = [
+        m for m in mapping
+        if m.get("source")
+        and (m.get("role") or "").strip().lower() != "decoration"
+    ]
+    if not text_swaps:
+        return (
+            "Recreate the reference image exactly. Keep all on-image text, "
+            "product, model, layout, and composition pixel-identical to the "
+            f"reference. {aspect_ratio} aspect ratio."
+        )
+
+    swap_lines: list[str] = []
+    for m in text_swaps:
+        tgt = (m.get("target") or "").strip()
+        if tgt.upper() in ("[REMOVE]", "[PRESERVE AS-IS]"):
+            continue
+        pos = (m.get("position") or "").strip()
+        role = (m.get("role") or "").strip()
+        anchor = f"[{pos}, {role}]" if pos and role else (
+            f"[{role}]" if role else "")
+        swap_lines.append(f'  - {anchor} "{tgt}"')
+
+    targets_block = "\n".join(swap_lines) if swap_lines else "  (no text changes)"
+    return (
+        "Recreate the reference image's composition, lighting, product, and "
+        "model. The ONLY change: the on-image text now reads as follows "
+        "(matching position/role labels from the reference):\n\n"
+        f"{targets_block}\n\n"
+        "Render the text in the same fonts, weights, colors, and positions "
+        "as the reference. The product, model, hand positions, background, "
+        "and decorative marks stay identical to the reference. "
+        f"{aspect_ratio} aspect ratio."
+    )
+
+
+def _build_hf_pass3_model_prompt(
+    model_descriptor: str,
+    aspect_ratio: str,
+) -> str:
+    """HF pass 3: soul_2 generates the final with identity locked (via
+    soul_id supplied separately, or via the descriptor prose if no soul).
+
+    Reference is the pass-2 output."""
+    desc = (model_descriptor or "").strip()
+    if not desc:
+        return (
+            "Recreate the reference image's layout, product, on-image text, "
+            "composition, lighting, and decorative marks EXACTLY. The person "
+            "in the ad takes the identity of the supplied soul character. "
+            f"{aspect_ratio} aspect ratio."
+        )
+    return (
+        "Recreate the reference image's layout, product, on-image text, "
+        "composition, lighting, and decorative marks EXACTLY. The ONLY change: "
+        f"the person/model in the ad is now {desc}. Same pose, same hand "
+        f"position holding the product, same body angle, same wardrobe "
+        f"register, same framing — only the identity (face, age, ethnicity, "
+        f"hair, body type) changes to match the descriptor.\n\n"
+        f"{aspect_ratio} aspect ratio."
+    )
+
+
+def _generate_remix_images_hf_staged(
+    briefs_data: list[dict],
+    *,
+    remix_path: Path,
+    images_dir: Path,
+    num_images: int,
+    aspect_ratio: str,
+) -> list[Path]:
+    """3-pass all-HF staged image generation.
+
+    Per brief × num_images:
+      Stage 1 (soul_2, no soul_id): reference=source_ad, prompt=product swap
+        → <brief_id>_stage1_product.png
+      Stage 2 (soul_2, no soul_id): reference=stage1, prompt=text swap
+        → <brief_id>_stage2_text.png
+      Stage 3 (soul_2, with soul_id if available + model descriptor):
+        reference=stage2 → <brief_id>_stage3_model.png
+
+    Final is stage 3 (or stage 2 if stage 3 fails). No fal involvement at
+    any step — reference upload uses HF native, intermediate uploads use
+    HF native too."""
+    from generators.higgsfield_client import (
+        HiggsfieldError,
+        soul_generate_and_save,
+        upload_image as _hf_upload,
+    )
+
+    if not briefs_data:
+        return []
+
+    first_prompt = remix_path / "prompts" / f"{briefs_data[0]['brief_id']}.txt"
+    run_mode = (
+        _detect_remix_mode_from_prompt(first_prompt) if first_prompt.exists() else
+        "strategic"
+    )
+    if run_mode != "differential":
+        raise ValueError(
+            "HF staged mode requires a differential-mode remix run (needs "
+            "the per-brief mappings/*.yaml). This run was generated in "
+            f"'{run_mode}' mode."
+        )
+
+    # Reference uploaded via HF natively — no fal calls anywhere.
+    try:
+        reference_url = _resolve_remix_reference_url(
+            remix_path, prefer_host="hf", raise_on_error=True,
+        )
+    except _ReferenceUploadError as e:
+        raise RuntimeError(
+            f"HF staged mode could not upload the reference. {e}"
+        ) from e
+    except _ReferenceMissingError as e:
+        raise RuntimeError(str(e)) from e
+    if not reference_url:
+        raise RuntimeError(
+            f"Could not resolve reference URL for {remix_path}."
+        )
+
+    client_slug = briefs_data[0]["client"]
+    product_name = briefs_data[0]["product"]
+    product = _load_product_flexible(
+        client_slug, product_name.lower().replace(" ", "-")
+    )
+
+    # Operator-supplied directives.
+    scene_cleanup = ""
+    model_descriptor = ""
+    sc_path = remix_path / "scene_cleanup.txt"
+    if sc_path.exists():
+        try:
+            scene_cleanup = sc_path.read_text(encoding="utf-8").strip()
+        except OSError:
+            pass
+    md_path = remix_path / "model_descriptor.txt"
+    if md_path.exists():
+        try:
+            model_descriptor = md_path.read_text(encoding="utf-8").strip()
+        except OSError:
+            pass
+
+    print(
+        f"[remix] All-HF staged mode: {len(briefs_data)} brief(s) × 3 soul_2 "
+        f"passes each."
+        + (f" Scene cleanup: '{scene_cleanup[:60]}'." if scene_cleanup else "")
+        + (f" Model descriptor: '{model_descriptor[:60]}'." if model_descriptor else ""),
+        flush=True,
+    )
+
+    saved_paths: list[Path] = []
+    for brief_data in briefs_data:
+        brief_id = brief_data["brief_id"]
+        mapping = _load_brief_mapping(remix_path, brief_id)
+        if not mapping:
+            print(
+                f"  [skip hf-staged] {brief_id} — no mapping at "
+                f"mappings/{brief_id}.yaml. Run differential first.",
+                flush=True,
+            )
+            continue
+        soul_id = _get_soul_id_for_brief(brief_data)
+
+        for i in range(num_images):
+            suffix = f"_{i+1}" if num_images > 1 else ""
+            stage1_path = images_dir / f"{brief_id}{suffix}_stage1_product.png"
+            stage2_path = images_dir / f"{brief_id}{suffix}_stage2_text.png"
+            stage3_path = images_dir / f"{brief_id}{suffix}_stage3_model.png"
+            final_path = images_dir / f"{brief_id}{suffix}_1x1.png"
+
+            # ── Pass 1: product swap ──────────────────────────────────────
+            try:
+                soul_generate_and_save(
+                    soul_id=None,
+                    prompt=_build_hf_pass1_product_prompt(
+                        product, aspect_ratio, scene_cleanup=scene_cleanup,
+                    ),
+                    out_path=stage1_path,
+                    reference_image_url=reference_url,
+                    aspect_ratio=aspect_ratio,
+                    quality="2k",
+                )
+            except HiggsfieldError as e:
+                print(f"  [fail hf-stage1] {brief_id}: {e}", flush=True)
+                continue
+            try:
+                stage1_url = _hf_upload(stage1_path)
+            except HiggsfieldError as e:
+                print(
+                    f"  [fail hf-stage1-upload] {brief_id}: {e}. "
+                    f"Promoting stage 1 to final.",
+                    flush=True,
+                )
+                shutil.copy2(stage1_path, final_path)
+                saved_paths.append(final_path)
+                continue
+
+            # ── Pass 2: text swap ─────────────────────────────────────────
+            try:
+                soul_generate_and_save(
+                    soul_id=None,
+                    prompt=_build_hf_pass2_text_prompt(mapping, aspect_ratio),
+                    out_path=stage2_path,
+                    reference_image_url=stage1_url,
+                    aspect_ratio=aspect_ratio,
+                    quality="2k",
+                )
+            except HiggsfieldError as e:
+                print(
+                    f"  [fail hf-stage2] {brief_id}: {e}. "
+                    f"Promoting stage 1 to final.",
+                    flush=True,
+                )
+                shutil.copy2(stage1_path, final_path)
+                saved_paths.append(final_path)
+                continue
+            try:
+                stage2_url = _hf_upload(stage2_path)
+            except HiggsfieldError as e:
+                print(
+                    f"  [fail hf-stage2-upload] {brief_id}: {e}. "
+                    f"Promoting stage 2 to final.",
+                    flush=True,
+                )
+                shutil.copy2(stage2_path, final_path)
+                saved_paths.append(final_path)
+                continue
+
+            # ── Pass 3: model swap ────────────────────────────────────────
+            try:
+                soul_generate_and_save(
+                    soul_id=soul_id,
+                    prompt=_build_hf_pass3_model_prompt(
+                        model_descriptor, aspect_ratio,
+                    ),
+                    out_path=stage3_path,
+                    reference_image_url=stage2_url,
+                    aspect_ratio=aspect_ratio,
+                    quality="2k",
+                )
+                shutil.copy2(stage3_path, final_path)
+            except HiggsfieldError as e:
+                print(
+                    f"  [fail hf-stage3] {brief_id}: {e}. "
+                    f"Promoting stage 2 to final.",
+                    flush=True,
+                )
+                shutil.copy2(stage2_path, final_path)
+
+            saved_paths.append(final_path)
+            campaign_name = brief_data.get("campaign_name") or ""
+            if campaign_name:
+                sidecar = final_path.with_name(final_path.stem + "_campaign.txt")
+                sidecar.write_text(campaign_name + "\n", encoding="utf-8")
+
+    return saved_paths
 
 
 def _generate_remix_images_staged(
