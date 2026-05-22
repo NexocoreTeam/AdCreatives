@@ -2253,13 +2253,40 @@ def generate_remix_images(
     # uses Higgsfield Soul when engine implies HF, or when the avatar has a
     # ready soul; the orchestrator decides per brief.
     if staged:
-        # Single staged path: fal NB2 for stages 1+2, optional Higgsfield Soul
-        # for stage 3 if persona has a trained soul. The former all-HF
-        # staged path (soul_2 throughout) was removed in 2026-05-21 — it
-        # produced unusable output because soul_2 isn't an edit model and
-        # each stage's generation was a fresh interpretation of the previous
-        # stage's noise. Replaced by `hf-cli-staged` (nano_banana_2 via the
-        # Higgsfield CLI), which IS an edit model.
+        # Two staged paths:
+        #   engine="hf-cli"       → nano_banana_2 via Higgsfield CLI (no fal)
+        #   engine="nb2" (default) → fal NB2 for stages 1+2, optional HF Soul
+        #                            for stage 3 if persona has a trained soul
+        # The former all-HF staged path (soul_2 throughout) was removed in
+        # 2026-05-21 — soul_2 isn't an edit model and produced compounding
+        # drift across passes.
+        if engine == "hf-cli":
+            try:
+                return _generate_remix_images_hf_cli_staged(
+                    briefs_data,
+                    remix_path=remix_path,
+                    images_dir=images_dir,
+                    num_images=num_images,
+                    aspect_ratio=aspect_ratio,
+                )
+            except Exception as e:
+                if fallback_engine:
+                    print(
+                        f"  [fallback] HF-CLI staged failed ({e}). "
+                        f"Falling back to engine={fallback_engine}.",
+                        flush=True,
+                    )
+                    return generate_remix_images(
+                        remix_dir,
+                        num_images=num_images,
+                        thinking_level=thinking_level,
+                        aspect_ratio=aspect_ratio,
+                        engine=fallback_engine,
+                        fallback_engine=None,
+                        staged=False,
+                    )
+                raise
+
         try:
             return _generate_remix_images_staged(
                 briefs_data,
@@ -4121,135 +4148,383 @@ def _build_pass3_model_swap_prompt_nb2(
     )
 
 
-# ─── All-HF staged pipeline (soul_2 throughout, no fal calls) ────────────────
+# ─── REMOVED 2026-05-21: All-HF staged pipeline (soul_2 throughout) ──────────
+# The previous all-HF staged path used soul_2 for each of the 3 stages and
+# produced unusable output (verified against the secondkind-bold/2026-05-21_111750
+# run). Root cause: soul_2 is a text-to-image model — its `reference_image_url`
+# is loose compositional guidance that the model mostly ignores. Each stage
+# regenerated from the prompt without anchoring to the previous output, so
+# drift compounded across passes. Output was a sequence of disconnected
+# images that bore no resemblance to the source ad.
 #
-# Unlike NB2's /edit endpoint (which is a true edit model — preserves pixels
-# not mentioned in the prompt), Higgsfield's soul_2 is a text-to-image model
-# with composition reference. Each call GENERATES a fresh image with the
-# reference as a structural guide. Practical implications:
-#   - Text rendering is unreliable (soul_2 produces gibberish letterforms when
-#     asked to render legible copy). We use PIL overlay for crisp final text.
-#   - Reference is compositional, not pixel-precise — some drift is expected
-#     between stages.
-#   - soul_id locks identity in the pass it's applied to, so we save it for
-#     stage 3 (model swap).
+# Code removed: _build_hf_pass1_product_prompt, _build_hf_pass2_text_prompt,
+# _build_hf_pass3_model_prompt, _generate_remix_images_hf_staged.
 #
-# This pipeline is intentionally an "experiment" for the operator to compare
-# against the NB2 staged path. NB2 will usually produce higher layout fidelity
-# because it's literally editing; soul_2 wins on identity-locked faces and
-# doesn't depend on fal for either hosting or generation.
+# Replacement: the `hf-cli-staged` engine, below — same 3-stage architecture
+# but routes through Higgsfield's nano_banana_2 model via the `higgsfield`
+# CLI. nano_banana_2 IS an edit model (it's Google's Gemini 3.1 Flash Image,
+# the same underlying model fal exposes as NB2), so each stage actually
+# edits the previous stage's output rather than regenerating from scratch.
 
 
-def _build_hf_pass1_product_prompt(
+# ─── HF CLI 3-pass orchestrator (nano_banana_2 throughout) ───────────────────
+#
+# Each pass is a `higgsfield generate create nano_banana_2` subprocess call:
+#   Stage 1: [reference, product] + product-swap-only prompt
+#   Stage 2: [stage1_output]     + text-swap-only prompt
+#   Stage 3: [stage2_output]     + model-swap + scene-cleanup prompt
+#
+# The CLI handles auth (OAuth token from `higgsfield auth login`), uploads
+# (--image accepts local paths and auto-uploads), and job polling (--wait
+# blocks until result is ready). We just collect the result URL from the
+# JSON output and download.
+#
+# CLI quirks worth knowing:
+#   - Param flags use snake_case: --aspect_ratio 9:16 (NOT --aspect-ratio)
+#   - Em-dashes survive when we use subprocess.run with an args LIST (Windows
+#     Unicode API). They'd get mangled if we built a single command string
+#     and passed it through PowerShell — Python sidesteps that.
+#   - `generate create --wait` sometimes returns before the job actually
+#     finishes; safer to call `generate create` (gets job_id), then
+#     `generate wait <id>` separately with a longer timeout.
+
+
+def _build_hf_cli_pass1_product_prompt(
     product: "Product",
-    aspect_ratio: str,
     scene_cleanup: str = "",
 ) -> str:
-    """HF pass 1: soul_2 generates an ad with the new product, keeping the
-    reference's composition + people + (placeholder) text intact.
+    """Pass 1: replace ONLY the product. Lock text, layout, model, scene.
 
-    The reference image is supplied via `medias` — soul_2 uses it as
-    structural guidance. We describe the desired output rather than
-    instructing an edit (soul_2 isn't an edit model)."""
+    nano_banana_2 receives [reference, product] as input images. Image 1 is
+    the canvas (reference ad), image 2 is the new product. Prompt has ONE
+    job — instructing the model to swap the product container in image 1
+    with the product shown in image 2, and to keep everything else
+    pixel-identical. The narrower the instruction the better the result.
+
+    No em-dashes / curly quotes in the static body — we use plain ASCII for
+    the structural prompt text and let dynamic fields (product.name) carry
+    any non-ASCII the operator's product YAML provides. Belt-and-suspenders
+    against CLI encoding edge cases."""
+    # Scene cleanup (remove specific scene elements) folds into this pass
+    # so it happens alongside the product swap. Stage 2 (text) and stage 3
+    # (model) shouldn't need to re-remove things.
     cleanup = (scene_cleanup or "").strip()
     cleanup_block = ""
     if cleanup:
+        cleanup_lines = [
+            f"  - {ln.strip(' -*').strip()}"
+            for ln in cleanup.splitlines()
+            if ln.strip(" -*").strip()
+        ]
         cleanup_block = (
-            f"\n\nDO NOT show in the scene: {cleanup}. After removal, "
-            f"naturally infill the space with the reference's existing "
-            f"background — do not invent new scene elements to fill the gap."
+            "\n\nSCENE CLEANUP - also remove these non-text scene elements:\n"
+            + "\n".join(cleanup_lines)
+            + "\n  - Naturally extend the existing background into the freed "
+            "space. Do NOT add new scene elements."
         )
+
     return (
-        f"Recreate the composition, lighting, framing, and on-image typography "
-        f"of the reference image, but with this change:\n\n"
-        f"  - The product shown in the scene is {product.name} (a "
-        f"supplement / consumer product container — match the bottle / jar "
-        f"/ package shape you'd expect for this product). Hand placement, "
-        f"product orientation, and product scale match the reference exactly.\n\n"
-        f"Keep the same person/model from the reference (we'll swap the "
-        f"face/identity in a later pass). Keep the same on-image text "
-        f"placement and styling as the reference (we'll swap the actual "
-        f"text content in a later pass).{cleanup_block}\n\n"
-        f"Photoreal style matching the reference's lighting + composition. "
-        f"{aspect_ratio} aspect ratio."
+        f"This is a SURGICAL EDIT of Image 1 (the reference ad). Image 2 is "
+        f"the replacement product ({product.name}).\n\n"
+        f"PRODUCT SWAP - this is the ONLY change:\n"
+        f"  - Replace the product container shown in Image 1 with the "
+        f"{product.name} from Image 2.\n"
+        f"  - Match the same hand position, orientation, scale relative to "
+        f"the frame, and lighting on the product.\n"
+        f"  - If Image 1 shows a hand reaching INTO an open container "
+        f"(fingers inside the jar, scooping) but Image 2 is closed/sealed, "
+        f"adjust the hand to PRESENT the closed product (holding it up, "
+        f"fingers around the side). Do NOT render a hand reaching into a "
+        f"closed lid - that's physically impossible.{cleanup_block}\n\n"
+        f"PRESERVE PIXEL-IDENTICALLY - do NOT change:\n"
+        f"  - Every on-image text element (headlines, callouts, brand "
+        f"wordmarks, CTAs, badges, fine print) - character-for-character.\n"
+        f"  - Font family, weight, size, color, alignment, decorative marks "
+        f"(checkmarks, X-marks, pill backgrounds, panels, badges).\n"
+        f"  - Composition, framing, color palette, lighting, background, "
+        f"props, and the person/model in the scene.\n\n"
+        f"Do NOT change any text content. Do NOT introduce new text or new "
+        f"scene elements. The output is Image 1 with ONLY the product "
+        f"swapped (plus any scene cleanup above)."
     )
 
 
-def _build_hf_pass2_text_prompt(
+def _build_hf_cli_pass2_text_prompt(
     mapping: list[dict[str, str]],
-    aspect_ratio: str,
 ) -> str:
-    """HF pass 2: soul_2 generates the ad with new copy in place of the
-    source copy. Reference is the pass-1 output (product already swapped).
+    """Pass 2: swap the on-image text per the mapping. Lock product, model,
+    layout, scene.
 
-    Note: soul_2 often produces gibberish text. We accept lower text
-    fidelity here and lean on PIL overlay downstream for the final crisp
-    text render. The pass-2 image is mostly to capture the right CONTENT
-    intent so PIL has a sensible base to overlay onto."""
+    nano_banana_2 receives [stage1_output] as the sole input image. Image 1
+    already has the new product (from pass 1). Now we swap ALL the text
+    placeholders for the mapped targets. Decoration-role items (product-
+    label text printed on the package itself) are filtered - they belong
+    on the bottle and the new product image carries them automatically."""
     text_swaps = [
         m for m in mapping
         if m.get("source")
         and (m.get("role") or "").strip().lower() != "decoration"
     ]
-    if not text_swaps:
-        return (
-            "Recreate the reference image exactly. Keep all on-image text, "
-            "product, model, layout, and composition pixel-identical to the "
-            f"reference. {aspect_ratio} aspect ratio."
-        )
 
-    swap_lines: list[str] = []
-    for m in text_swaps:
-        tgt = (m.get("target") or "").strip()
-        if tgt.upper() in ("[REMOVE]", "[PRESERVE AS-IS]"):
-            continue
-        pos = (m.get("position") or "").strip()
-        role = (m.get("role") or "").strip()
-        anchor = f"[{pos}, {role}]" if pos and role else (
-            f"[{role}]" if role else "")
-        swap_lines.append(f'  - {anchor} "{tgt}"')
-
-    targets_block = "\n".join(swap_lines) if swap_lines else "  (no text changes)"
-    return (
-        "Recreate the reference image's composition, lighting, product, and "
-        "model. The ONLY change: the on-image text now reads as follows "
-        "(matching position/role labels from the reference):\n\n"
-        f"{targets_block}\n\n"
-        "Render the text in the same fonts, weights, colors, and positions "
-        "as the reference. The product, model, hand positions, background, "
-        "and decorative marks stay identical to the reference. "
-        f"{aspect_ratio} aspect ratio."
+    lines: list[str] = []
+    lines.append(
+        "OVERRIDE DIRECTIVE - every text element currently visible in "
+        "Image 1 is treated as PLACEHOLDER content. Replace each one per "
+        "the swap table below. Do NOT preserve any of Image 1's existing "
+        "text content - all final text comes from the `target` column."
     )
+    lines.append("")
+    lines.append(
+        "This is a SURGICAL EDIT of Image 1. The product, model, layout, "
+        "composition, and decorative marks in Image 1 are CORRECT - keep "
+        "them all pixel-identical. The ONLY change is the on-image text "
+        "per the swap table below."
+    )
+    lines.append("")
+
+    if text_swaps:
+        lines.append(
+            "TEXT SWAPS - MANDATORY. For each row, the source text "
+            "currently appearing in Image 1 must be REPLACED with the "
+            "target text, in the same position, font, weight, color, and "
+            "alignment. Where target is [REMOVE], delete that element. "
+            "Where target is [PRESERVE AS-IS], keep the source text "
+            "unchanged."
+        )
+        for m in text_swaps:
+            src = m["source"].replace('"', '\\"').replace("\n", " ")
+            tgt = m["target"].replace('"', '\\"').replace("\n", " ")
+            pos = (m.get("position") or "").strip()
+            role = (m.get("role") or "").strip()
+            anchor_parts = [p for p in (pos, role) if p]
+            anchor = f"[{', '.join(anchor_parts)}] " if anchor_parts else ""
+            if tgt.upper() == "[REMOVE]":
+                lines.append(f'  - {anchor}"{src}"  ->  [REMOVE entirely]')
+            elif tgt.upper() == "[PRESERVE AS-IS]":
+                lines.append(
+                    f'  - {anchor}"{src}"  ->  [PRESERVE AS-IS]'
+                )
+            else:
+                lines.append(f'  - {anchor}"{src}"  ->  "{tgt}"')
+        lines.append("")
+
+        # Allowlist of final text elements — what NB2 should render and
+        # nothing more.
+        rendered = [
+            m["target"].strip().replace("\n", " ")
+            for m in text_swaps
+            if m.get("target")
+            and m["target"].strip().upper()
+            not in ("[REMOVE]", "[PRESERVE AS-IS]")
+        ]
+        if rendered:
+            lines.append(
+                f"FINAL TEXT INVENTORY - the output image's overlay text "
+                f"contains EXACTLY these {len(rendered)} elements, in the "
+                f"positions indicated above, and NO others (product-label "
+                f"text printed on the package is exempt):"
+            )
+            for t in rendered:
+                lines.append(f'  - "{t}"')
+            lines.append("")
+
+    lines.append(
+        "PRESERVE PIXEL-IDENTICALLY: the product, hand positions, model, "
+        "composition, background, lighting, colors, and decorative marks."
+    )
+    lines.append("")
+    lines.append(
+        "Do NOT change the product. Do NOT add scene elements. Do NOT "
+        "render any text outside the FINAL TEXT INVENTORY."
+    )
+    return "\n".join(lines)
 
 
-def _build_hf_pass3_model_prompt(
+def _build_hf_cli_pass3_model_prompt(
     model_descriptor: str,
-    aspect_ratio: str,
 ) -> str:
-    """HF pass 3: soul_2 generates the final with identity locked (via
-    soul_id supplied separately, or via the descriptor prose if no soul).
+    """Pass 3: swap the person/model. Lock product, text, layout, scene.
 
-    Reference is the pass-2 output."""
+    nano_banana_2 receives [stage2_output] as the sole input. By this point
+    the image has the right product (pass 1) and right text (pass 2). The
+    only edit left is replacing the person's identity. Pass-3 is optional:
+    when no model_descriptor is supplied, the orchestrator skips this pass
+    and stage 2 becomes the final."""
     desc = (model_descriptor or "").strip()
     if not desc:
+        # Should never be called without descriptor (orchestrator gates),
+        # but degrade gracefully if so — produce a no-op prompt.
         return (
-            "Recreate the reference image's layout, product, on-image text, "
-            "composition, lighting, and decorative marks EXACTLY. The person "
-            "in the ad takes the identity of the supplied soul character. "
-            f"{aspect_ratio} aspect ratio."
+            "Recreate Image 1 exactly. No changes."
         )
     return (
-        "Recreate the reference image's layout, product, on-image text, "
-        "composition, lighting, and decorative marks EXACTLY. The ONLY change: "
-        f"the person/model in the ad is now {desc}. Same pose, same hand "
-        f"position holding the product, same body angle, same wardrobe "
-        f"register, same framing — only the identity (face, age, ethnicity, "
-        f"hair, body type) changes to match the descriptor.\n\n"
-        f"{aspect_ratio} aspect ratio."
+        f"This is a SURGICAL EDIT of Image 1. The ONLY change: replace the "
+        f"person/model in the scene with {desc}.\n\n"
+        f"MODEL SWAP:\n"
+        f"  - The person currently in the scene becomes: {desc}\n"
+        f"  - Same pose, same hand position holding the product, same body "
+        f"angle, same wardrobe register, same framing. ONLY the identity "
+        f"(face, age, ethnicity, hair, body type) changes to match the "
+        f"description above.\n\n"
+        f"PRESERVE PIXEL-IDENTICALLY:\n"
+        f"  - All on-image text (every word, font, position, color)\n"
+        f"  - The product container, hand placement, product orientation\n"
+        f"  - Composition, framing, color palette, lighting, background, props\n"
+        f"  - Decorative marks (checkmarks, X-marks, pill backgrounds, panels, badges)\n\n"
+        f"Do NOT change the product. Do NOT change the text. Do NOT change "
+        f"the layout. ONLY the person's identity changes."
     )
 
 
-def _generate_remix_images_hf_staged(
+# Path to the higgsfield CLI shim. Platform-aware: on Windows it's the
+# .cmd in %APPDATA%\npm; on Linux/macOS the binary is on PATH as `higgsfield`.
+def _resolve_higgsfield_cli() -> str:
+    """Return the executable path/name for the higgsfield CLI.
+
+    On Windows the global npm install puts a .cmd shim in %APPDATA%\\npm
+    that Python's subprocess can launch with shell=False. On other OSes
+    the binary is on PATH and `higgsfield` works directly."""
+    import os
+    import shutil as _shutil
+    # Honor explicit override via env var, useful for CI / non-standard installs.
+    override = os.environ.get("HIGGSFIELD_CLI_PATH", "").strip()
+    if override:
+        return override
+    # On PATH? Use it.
+    found = _shutil.which("higgsfield") or _shutil.which("higgsfield.cmd")
+    if found:
+        return found
+    # Windows fallback: npm's global prefix is %APPDATA%\npm by default.
+    appdata = os.environ.get("APPDATA", "")
+    if appdata:
+        for name in ("higgsfield.cmd", "higgsfield"):
+            cand = os.path.join(appdata, "npm", name)
+            if os.path.exists(cand):
+                return cand
+    # Last resort — let subprocess raise FileNotFoundError if it's truly missing.
+    return "higgsfield"
+
+
+def _hf_cli_run(args: list[str], *, timeout: int = 600) -> dict:
+    """Invoke `higgsfield --json ...` and parse its stdout as JSON.
+
+    Uses subprocess.run with args=list, which goes through Windows
+    CreateProcessW (UTF-16 native). Em-dashes / curly quotes / TM marks in
+    --prompt values survive intact — unlike PowerShell-built command strings,
+    which mangle wide characters to UTF-8 mojibake before the CLI ever
+    parses argv.
+
+    Raises RuntimeError with the CLI's stderr on non-zero exit. Common
+    actionable errors are surfaced verbatim so the operator sees "Not
+    authenticated. Hint: Run hf auth login" or similar without grep."""
+    import subprocess
+    cli = _resolve_higgsfield_cli()
+    full_args = [cli, "--json"] + list(args)
+    try:
+        proc = subprocess.run(
+            full_args,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=timeout,
+        )
+    except FileNotFoundError as e:
+        raise RuntimeError(
+            f"higgsfield CLI not found ({cli}). Install with "
+            f"`npm install -g @higgsfield/cli` and run `higgsfield auth login`."
+        ) from e
+    if proc.returncode != 0:
+        stderr = (proc.stderr or "").strip()
+        stdout = (proc.stdout or "").strip()
+        msg = stderr or stdout or f"exit {proc.returncode}"
+        if "Not authenticated" in msg:
+            raise RuntimeError(
+                "Higgsfield CLI not authenticated. Run "
+                "`higgsfield auth login` (browser device flow) and retry."
+            )
+        raise RuntimeError(
+            f"higgsfield CLI failed (exit {proc.returncode}): {msg}"
+        )
+    out = (proc.stdout or "").strip()
+    if not out:
+        return {}
+    try:
+        return json.loads(out)
+    except json.JSONDecodeError as e:
+        raise RuntimeError(
+            f"higgsfield CLI returned non-JSON output: {out[:200]}"
+        ) from e
+
+
+def _hf_cli_generate(
+    *,
+    prompt: str,
+    image_paths: list[str],
+    aspect_ratio: str = "1:1",
+    resolution: str = "2k",
+    wait_timeout: str = "10m",
+) -> str:
+    """Fire one nano_banana_2 generation via the CLI and wait for the result.
+
+    Returns the `result_url` of the completed job. Caller is responsible
+    for downloading that URL to disk.
+
+    Two-step internally because `generate create --wait` sometimes returns
+    before the job actually finishes (we saw this empirically — exit 0
+    with empty job status). Safer pattern: `generate create` returns a job
+    id list; we then call `generate wait <id> --timeout` separately."""
+    args = [
+        "generate", "create", "nano_banana_2",
+        "--prompt", prompt,
+        "--aspect_ratio", aspect_ratio,  # snake_case, NOT hyphen
+        "--resolution", resolution,
+    ]
+    for p in image_paths:
+        args += ["--image", str(p)]
+    create_resp = _hf_cli_run(args, timeout=120)
+    # `generate create` returns a list of job IDs (one per batched job).
+    # We submit batch_size=1, so we expect a list of length 1.
+    if not isinstance(create_resp, list) or not create_resp:
+        raise RuntimeError(
+            f"generate create returned unexpected shape: {create_resp!r}"
+        )
+    job_id = create_resp[0]
+    # Block until terminal status. --quiet so we don't pollute stdout with
+    # progress dots that would break JSON parsing.
+    wait_resp = _hf_cli_run(
+        ["generate", "wait", job_id, "--timeout", wait_timeout, "--quiet"],
+        timeout=900,  # generous; CLI's own timeout fires first
+    )
+    if not isinstance(wait_resp, dict):
+        raise RuntimeError(
+            f"generate wait returned unexpected shape: {wait_resp!r}"
+        )
+    status = wait_resp.get("status")
+    if status != "completed":
+        raise RuntimeError(
+            f"Job {job_id} ended with status={status}: "
+            f"{wait_resp.get('error') or wait_resp}"
+        )
+    result_url = wait_resp.get("result_url", "")
+    if not result_url:
+        raise RuntimeError(
+            f"Job {job_id} completed but result_url is empty: {wait_resp}"
+        )
+    return result_url
+
+
+def _hf_download(url: str, out_path: "Path") -> "Path":
+    """Download a CLI-job result URL to a local file."""
+    import httpx
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with httpx.Client(timeout=120) as c:
+        r = c.get(url)
+        r.raise_for_status()
+        out_path.write_bytes(r.content)
+    return out_path
+
+
+def _generate_remix_images_hf_cli_staged(
     briefs_data: list[dict],
     *,
     remix_path: Path,
@@ -4257,25 +4532,31 @@ def _generate_remix_images_hf_staged(
     num_images: int,
     aspect_ratio: str,
 ) -> list[Path]:
-    """3-pass all-HF staged image generation.
+    """3-pass nano_banana_2-via-CLI staged image generation.
+
+    Each pass is a `higgsfield generate create nano_banana_2` subprocess
+    that produces a real image-edit of the previous stage's output. The
+    image hand-off between stages uses local file paths (the CLI's --image
+    flag accepts paths and auto-uploads to HF). No fal involvement.
 
     Per brief × num_images:
-      Stage 1 (soul_2, no soul_id): reference=source_ad, prompt=product swap
-        → <brief_id>_stage1_product.png
-      Stage 2 (soul_2, no soul_id): reference=stage1, prompt=text swap
-        → <brief_id>_stage2_text.png
-      Stage 3 (soul_2, with soul_id if available + model descriptor):
-        reference=stage2 → <brief_id>_stage3_model.png
+      Stage 1: [reference.png, product.png] -> stage1_product.png
+      Stage 2: [stage1_product.png]         -> stage2_text.png
+      Stage 3: [stage2_text.png]            -> stage3_model.png  (skipped if
+                                                                  no model_descriptor)
+      Final: stage3 if present, else stage2.
 
-    Final is stage 3 (or stage 2 if stage 3 fails). No fal involvement at
-    any step — reference upload uses HF native, intermediate uploads use
-    HF native too."""
-    from generators.higgsfield_client import (
-        HiggsfieldError,
-        soul_generate_and_save,
-        upload_image as _hf_upload,
-    )
+    Stages 2 and 3 use the previous stage's local file directly — the CLI
+    re-uploads each time (fast since they're already at HF's CDN edge).
 
+    Requires:
+      - `higgsfield` CLI installed (npm i -g @higgsfield/cli) and
+        authenticated (`higgsfield auth login`)
+      - The remix run is differential mode (mappings/<brief_id>.yaml exist)
+      - reference.<ext> on disk in the run folder
+      - A local product image (from product YAML's image_path or downloaded
+        from image_url)
+    """
     if not briefs_data:
         return []
 
@@ -4286,32 +4567,30 @@ def _generate_remix_images_hf_staged(
     )
     if run_mode != "differential":
         raise ValueError(
-            "HF staged mode requires a differential-mode remix run (needs "
-            "the per-brief mappings/*.yaml). This run was generated in "
+            "HF-CLI staged mode requires a differential-mode remix run "
+            "(needs the per-brief mappings/*.yaml). This run is "
             f"'{run_mode}' mode."
         )
 
-    # Reference uploaded via HF natively — no fal calls anywhere.
-    try:
-        reference_url = _resolve_remix_reference_url(
-            remix_path, prefer_host="hf", raise_on_error=True,
-        )
-    except _ReferenceUploadError as e:
+    # Locate the archived reference image on disk. The CLI uploads it
+    # itself from a local path, so no fal-vs-HF host resolution needed.
+    reference_path = _find_remix_reference_image(remix_path)
+    if reference_path is None:
         raise RuntimeError(
-            f"HF staged mode could not upload the reference. {e}"
-        ) from e
-    except _ReferenceMissingError as e:
-        raise RuntimeError(str(e)) from e
-    if not reference_url:
-        raise RuntimeError(
-            f"Could not resolve reference URL for {remix_path}."
+            f"No reference.<ext> found in {remix_path}. Re-run "
+            f"`adc remix --reference ...` to recreate."
         )
 
+    # Locate or download the product image. The CLI also wants a local
+    # path. Many product YAMLs have image_url but no image_path; download
+    # to a per-run cache so we only fetch once per run regardless of how
+    # many briefs.
     client_slug = briefs_data[0]["client"]
     product_name = briefs_data[0]["product"]
     product = _load_product_flexible(
         client_slug, product_name.lower().replace(" ", "-")
     )
+    product_path = _resolve_product_local_path(remix_path, product, client_slug)
 
     # Operator-supplied directives.
     scene_cleanup = ""
@@ -4330,10 +4609,10 @@ def _generate_remix_images_hf_staged(
             pass
 
     print(
-        f"[remix] All-HF staged mode: {len(briefs_data)} brief(s) × 3 soul_2 "
-        f"passes each."
+        f"[remix] HF-CLI staged mode: {len(briefs_data)} brief(s) x "
+        f"{'3' if model_descriptor else '2'} nano_banana_2 passes each."
         + (f" Scene cleanup: '{scene_cleanup[:60]}'." if scene_cleanup else "")
-        + (f" Model descriptor: '{model_descriptor[:60]}'." if model_descriptor else ""),
+        + (f" Model descriptor: '{model_descriptor[:60]}'." if model_descriptor else " (pass 3 skipped — no model descriptor)"),
         flush=True,
     )
 
@@ -4343,12 +4622,11 @@ def _generate_remix_images_hf_staged(
         mapping = _load_brief_mapping(remix_path, brief_id)
         if not mapping:
             print(
-                f"  [skip hf-staged] {brief_id} — no mapping at "
-                f"mappings/{brief_id}.yaml. Run differential first.",
+                f"  [skip hf-cli] {brief_id} — no mapping at "
+                f"mappings/{brief_id}.yaml.",
                 flush=True,
             )
             continue
-        soul_id = _get_soul_id_for_brief(brief_data)
 
         for i in range(num_images):
             suffix = f"_{i+1}" if num_images > 1 else ""
@@ -4357,92 +4635,141 @@ def _generate_remix_images_hf_staged(
             stage3_path = images_dir / f"{brief_id}{suffix}_stage3_model.png"
             final_path = images_dir / f"{brief_id}{suffix}_1x1.png"
 
-            # ── Pass 1: product swap ──────────────────────────────────────
+            # ── Pass 1: product swap ─────────────────────────────────────
             try:
-                soul_generate_and_save(
-                    soul_id=None,
-                    prompt=_build_hf_pass1_product_prompt(
-                        product, aspect_ratio, scene_cleanup=scene_cleanup,
+                p1_url = _hf_cli_generate(
+                    prompt=_build_hf_cli_pass1_product_prompt(
+                        product, scene_cleanup=scene_cleanup,
                     ),
-                    out_path=stage1_path,
-                    reference_image_url=reference_url,
+                    image_paths=[str(reference_path), str(product_path)],
                     aspect_ratio=aspect_ratio,
-                    quality="2k",
                 )
-            except HiggsfieldError as e:
-                print(f"  [fail hf-stage1] {brief_id}: {e}", flush=True)
+                _hf_download(p1_url, stage1_path)
+                print(f"  [hf-cli stage1] {brief_id}: {stage1_path.name}", flush=True)
+            except Exception as e:
+                print(f"  [fail hf-cli stage1] {brief_id}: {e}", flush=True)
                 continue
+
+            # ── Pass 2: text swap ────────────────────────────────────────
             try:
-                stage1_url = _hf_upload(stage1_path)
-            except HiggsfieldError as e:
+                p2_url = _hf_cli_generate(
+                    prompt=_build_hf_cli_pass2_text_prompt(mapping),
+                    image_paths=[str(stage1_path)],
+                    aspect_ratio=aspect_ratio,
+                )
+                _hf_download(p2_url, stage2_path)
+                print(f"  [hf-cli stage2] {brief_id}: {stage2_path.name}", flush=True)
+            except Exception as e:
                 print(
-                    f"  [fail hf-stage1-upload] {brief_id}: {e}. "
-                    f"Promoting stage 1 to final.",
+                    f"  [fail hf-cli stage2] {brief_id}: {e}. Promoting "
+                    f"stage 1 to final.",
                     flush=True,
                 )
                 shutil.copy2(stage1_path, final_path)
                 saved_paths.append(final_path)
                 continue
 
-            # ── Pass 2: text swap ─────────────────────────────────────────
-            try:
-                soul_generate_and_save(
-                    soul_id=None,
-                    prompt=_build_hf_pass2_text_prompt(mapping, aspect_ratio),
-                    out_path=stage2_path,
-                    reference_image_url=stage1_url,
-                    aspect_ratio=aspect_ratio,
-                    quality="2k",
-                )
-            except HiggsfieldError as e:
-                print(
-                    f"  [fail hf-stage2] {brief_id}: {e}. "
-                    f"Promoting stage 1 to final.",
-                    flush=True,
-                )
-                shutil.copy2(stage1_path, final_path)
-                saved_paths.append(final_path)
-                continue
-            try:
-                stage2_url = _hf_upload(stage2_path)
-            except HiggsfieldError as e:
-                print(
-                    f"  [fail hf-stage2-upload] {brief_id}: {e}. "
-                    f"Promoting stage 2 to final.",
-                    flush=True,
-                )
-                shutil.copy2(stage2_path, final_path)
-                saved_paths.append(final_path)
-                continue
-
-            # ── Pass 3: model swap ────────────────────────────────────────
-            try:
-                soul_generate_and_save(
-                    soul_id=soul_id,
-                    prompt=_build_hf_pass3_model_prompt(
-                        model_descriptor, aspect_ratio,
-                    ),
-                    out_path=stage3_path,
-                    reference_image_url=stage2_url,
-                    aspect_ratio=aspect_ratio,
-                    quality="2k",
-                )
-                shutil.copy2(stage3_path, final_path)
-            except HiggsfieldError as e:
-                print(
-                    f"  [fail hf-stage3] {brief_id}: {e}. "
-                    f"Promoting stage 2 to final.",
-                    flush=True,
-                )
+            # ── Pass 3: model swap (only if descriptor provided) ────────
+            if model_descriptor:
+                try:
+                    p3_url = _hf_cli_generate(
+                        prompt=_build_hf_cli_pass3_model_prompt(model_descriptor),
+                        image_paths=[str(stage2_path)],
+                        aspect_ratio=aspect_ratio,
+                    )
+                    _hf_download(p3_url, stage3_path)
+                    print(
+                        f"  [hf-cli stage3] {brief_id}: {stage3_path.name}",
+                        flush=True,
+                    )
+                    shutil.copy2(stage3_path, final_path)
+                except Exception as e:
+                    print(
+                        f"  [fail hf-cli stage3] {brief_id}: {e}. Promoting "
+                        f"stage 2 to final.",
+                        flush=True,
+                    )
+                    shutil.copy2(stage2_path, final_path)
+            else:
+                # No model swap requested — stage 2 is the final.
                 shutil.copy2(stage2_path, final_path)
 
             saved_paths.append(final_path)
+
+            # Campaign-name sidecar.
             campaign_name = brief_data.get("campaign_name") or ""
             if campaign_name:
                 sidecar = final_path.with_name(final_path.stem + "_campaign.txt")
                 sidecar.write_text(campaign_name + "\n", encoding="utf-8")
 
     return saved_paths
+
+
+def _resolve_product_local_path(
+    remix_path: Path,
+    product: "Product",
+    client_slug: str,
+) -> Path:
+    """Return a local file path to the product image, downloading if needed.
+
+    Product YAMLs typically carry one of:
+      - image_path: a path relative to the client folder (preferred)
+      - image_url:  a public URL (we download once per run, cache in
+                    <remix_path>/.product_image_cache/<filename>)
+      - additional_images: list of either form (we take the first)
+
+    Raises if neither is set, since the CLI pipeline requires a real
+    product image to make pass 1 (product swap) work."""
+    import httpx
+
+    # 1. image_path relative to client folder
+    rel_path = getattr(product, "image_path", "") or ""
+    if rel_path:
+        candidate = (CLIENTS_DIR / client_slug / rel_path).resolve()
+        # The image_path field is often relative to the products/ subfolder
+        # rather than the client root — try both.
+        if not candidate.exists():
+            alt = (CLIENTS_DIR / client_slug / "products" / rel_path).resolve()
+            if alt.exists():
+                candidate = alt
+        if candidate.exists():
+            return candidate
+
+    # 2. image_url — download to per-run cache
+    image_url = getattr(product, "image_url", "") or ""
+    if not image_url:
+        # Try additional_images
+        extras = getattr(product, "additional_images", None) or []
+        if extras:
+            first = extras[0]
+            if isinstance(first, str) and first.startswith("http"):
+                image_url = first
+
+    if image_url:
+        cache_dir = remix_path / ".product_image_cache"
+        cache_dir.mkdir(exist_ok=True)
+        # Derive a stable filename from the URL.
+        from urllib.parse import urlparse
+        parsed = urlparse(image_url)
+        stem = Path(parsed.path).stem or "product"
+        ext = Path(parsed.path).suffix or ".png"
+        cached = cache_dir / f"{stem}{ext}"
+        if not cached.exists():
+            print(
+                f"[remix] Downloading product image from {image_url[:80]}...",
+                flush=True,
+            )
+            with httpx.Client(timeout=60) as c:
+                r = c.get(image_url)
+                r.raise_for_status()
+                cached.write_bytes(r.content)
+        return cached
+
+    raise RuntimeError(
+        f"Product '{product.name}' has no image_path or image_url. "
+        f"HF-CLI staged mode needs a local product image for pass 1. "
+        f"Edit clients/{client_slug}/products/<slug>.yaml to set one."
+    )
 
 
 def _generate_remix_images_staged(

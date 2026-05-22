@@ -4146,15 +4146,17 @@ def remix(
 )
 @click.option(
     "--engine",
-    type=click.Choice(["nb2", "higgsfield-soul"]),
+    type=click.Choice(["nb2", "higgsfield-soul", "hf-cli"]),
     default="nb2",
     show_default=True,
     help=(
         "Image-generation engine. "
         "'nb2' = fal.ai Nano Banana 2 (existing, product-aware). "
         "'higgsfield-soul' = Higgs Field soul_2 using each persona's trained "
-        "soul_id (identity-locked face, phone-camera aesthetic). Requires "
-        "HF_CREDENTIALS in .env and a 'ready' Soul Character on each avatar."
+        "soul_id (identity-locked face, phone-camera aesthetic). "
+        "'hf-cli' = Higgsfield CLI calling nano_banana_2 (the actual edit "
+        "model) — pair with --staged. Requires `npm i -g @higgsfield/cli` "
+        "and `higgsfield auth login`."
     ),
 )
 @click.option(
@@ -4162,7 +4164,7 @@ def remix(
     type=click.Choice(["nb2"]),
     default=None,
     help=(
-        "If --engine higgsfield-soul fails because of missing API credits, "
+        "If --engine higgsfield-soul or hf-cli fails (auth, credits, etc), "
         "automatically retry the run with this engine instead of aborting. "
         "Useful when the dashboard wants graceful degradation."
     ),
@@ -4178,7 +4180,11 @@ def remix(
         "Engine combinations:\n"
         "  --staged (default --engine nb2): stages 1+2 via NB2 (fal), "
         "stage 3 via Higgsfield Soul if persona has a trained soul, else "
-        "stops at stage 2. Best layout fidelity.\n"
+        "stops at stage 2. Best fal-backed path.\n"
+        "  --staged --engine hf-cli: ALL 3 passes via Higgsfield's "
+        "nano_banana_2 model (the real edit model) through the `higgsfield` "
+        "CLI. No fal calls. Pass 3 only fires if --model-descriptor was "
+        "set on the original `adc remix` run.\n"
         "  --staged --engine higgsfield-soul: ALL 3 passes via Higgsfield "
         "soul_2 (no fal calls). Experimental — soul_2 isn't an edit "
         "model so layout drifts a bit between passes, but doesn't depend "

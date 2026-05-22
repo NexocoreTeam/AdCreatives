@@ -2243,72 +2243,85 @@ def _render_remix_tab(selected):
             else:
                 st.info("No images generated yet for this run.")
 
-            # ── Engine toggle ────────────────────────────────────────────
-            # When ON: route through Higgs Field soul_2 with each persona's
-            # trained Soul Character (identity-locked face) + PIL text overlay.
-            # Falls back to NB2 automatically if HF API credits are empty.
-            use_hf = st.checkbox(
-                "Use Higgs Field (identity-locked) — falls back to NB2 if HF credits are empty",
-                key=f"remix_use_hf_{run['timestamp']}",
+            # ── Engine selector ──────────────────────────────────────────
+            # Three engines now:
+            #   "fal NB2"           — fast single-shot via fal.ai's Gemini-Flash-Image
+            #   "fal NB2 + HF Soul" — single-shot NB2 with optional HF Soul stage-3
+            #                         (only when paired with Staged checkbox)
+            #   "HF CLI nano_banana_2" — 3-pass via Higgsfield's edit model
+            #                            (no fal credits). Requires `higgsfield`
+            #                            CLI installed + auth'd.
+            mappings_present = (run_dir / "mappings").exists()
+            engine_options = [
+                "fal NB2 (fast, fal credits)",
+                "fal NB2 + HF Soul stage-3 (identity-locked)",
+                "HF CLI nano_banana_2 (3-pass, HF credits, no fal)",
+            ]
+            engine_choice = st.radio(
+                "Engine",
+                engine_options,
+                index=0,
+                key=f"remix_engine_{run['timestamp']}",
                 help=(
-                    "Off: fast NB2 with your product image (default, no identity lock). "
-                    "On: routes through each persona's trained Soul Character via Higgs "
-                    "Field soul_2 + PIL text overlay — same face every generation. "
-                    "Requires HF_CREDENTIALS in .env and a 'ready' Soul Character on each "
-                    "persona's avatar YAML. If the Higgs Field REST API has no credits, "
-                    "the run automatically falls back to NB2 instead of aborting."
+                    "Pick how images get generated:\n"
+                    "• **fal NB2** — single-shot via fal.ai. Fastest, cheapest "
+                    "($0.08/brief). Requires fal credits.\n"
+                    "• **fal NB2 + HF Soul stage-3** — pair with the Staged "
+                    "checkbox. Stages 1+2 NB2 via fal, stage 3 identity-locked "
+                    "via Higgs Field Soul if persona has a trained soul.\n"
+                    "• **HF CLI nano_banana_2** — 3-pass through Higgsfield's "
+                    "actual edit model (the same Google Gemini-Flash-Image "
+                    "behind fal NB2, but routed through HF). No fal calls. "
+                    "Requires `npm i -g @higgsfield/cli` + `higgsfield auth "
+                    "login`. Pass 3 (model swap) only fires if --model-"
+                    "descriptor was set on the original remix run."
                 ),
+            )
+            engine_choice_id = (
+                "hf-cli" if engine_choice.startswith("HF CLI") else
+                "higgsfield-soul" if engine_choice.startswith("fal NB2 + HF") else
+                "nb2"
             )
 
             # Staged toggle — only useful for differential runs.
-            # When ON: split the edit into 3 sequential passes (product →
-            # text → model). Each pass has one job; mirrors the manual
-            # Higgsfield workflow.
-            # Combined with the HF checkbox above:
-            #   staged + HF OFF → fal NB2 for stages 1+2, HF Soul for stage 3
-            #   staged + HF ON  → all-HF (soul_2 throughout, no fal calls)
-            mappings_present = (run_dir / "mappings").exists()
             staged_disabled = not mappings_present
             staged_label = (
                 "Staged 3-pass (product → text → model)"
                 + ("" if mappings_present else "  ·  (requires differential mode)")
             )
+            # HF-CLI engine is ALWAYS staged — there's no single-shot HF-CLI
+            # variant. Force the checkbox on (and disable it) so the operator
+            # doesn't accidentally hit an unsupported combo.
+            staged_forced_on = (engine_choice_id == "hf-cli")
             use_staged = st.checkbox(
-                staged_label,
+                staged_label + ("  ·  (required for HF CLI)" if staged_forced_on else ""),
                 key=f"remix_use_staged_{run['timestamp']}",
-                disabled=staged_disabled,
+                value=True if staged_forced_on else None,
+                disabled=staged_disabled or staged_forced_on,
                 help=(
-                    "Off: single NB2 call applies product + text swaps together "
-                    "(faster, cheaper).\n\n"
-                    "On + HF checkbox OFF: 3-pass NB2 via fal — best layout "
-                    "fidelity, true edit semantics, requires fal credits. "
-                    "Optional HF Soul for stage 3 if persona has a trained "
-                    "soul. ~$0.24/brief.\n\n"
-                    "On + HF checkbox ON: ALL 3 passes via Higgsfield "
-                    "soul_2 — no fal calls at all. Experimental — soul_2 "
-                    "isn't an edit model so layout drifts more between "
-                    "passes, but doesn't depend on fal credits and can use "
-                    "an identity-locked soul on stage 3. ~$0.15/brief in "
-                    "HF credits."
+                    "Off: single fal-NB2 call applies product + text swaps "
+                    "together. Faster.\n\n"
+                    "On: 3 sequential passes — pass 1 swaps product, pass 2 "
+                    "swaps text, pass 3 swaps model/character. Mirrors the "
+                    "manual Higgsfield workflow. Highest layout fidelity."
                 ),
             )
 
             action_l, action_r = st.columns(2)
-            engine_suffix = " (HF Soul)" if use_hf else ""
-            staged_suffix = " · 3-pass"
-            if use_staged and use_hf:
-                staged_suffix = " · 3-pass (all-HF)"
-            elif use_staged:
-                staged_suffix = " · 3-pass (NB2+HF)"
-            else:
-                staged_suffix = ""
-            # Cost depends on combo: NB2 staged ~$0.24, HF staged ~$0.15.
-            if use_staged and use_hf:
-                cost_per_brief = 0.15
+            # Cost estimates per brief, by engine × staged.
+            if engine_choice_id == "hf-cli":
+                cost_per_brief = 0.15  # HF credits, 2-3 nano_banana_2 passes
+                engine_suffix = " (HF CLI)"
+            elif engine_choice_id == "higgsfield-soul" and use_staged:
+                cost_per_brief = 0.24
+                engine_suffix = " (NB2 + HF Soul)"
             elif use_staged:
                 cost_per_brief = 0.24
+                engine_suffix = ""
             else:
                 cost_per_brief = 0.08
+                engine_suffix = ""
+            staged_suffix = " · 3-pass" if use_staged else ""
             label_button = (
                 f"♻️ Re-fire {n_briefs} image(s){engine_suffix}{staged_suffix} (~${cost_per_brief * n_briefs:.2f})"
                 if images
@@ -2325,7 +2338,12 @@ def _render_remix_tab(selected):
                         "--remix-dir", str(run_dir),
                         "--num-images", "1",
                     ]
-                    if use_hf:
+                    if engine_choice_id == "hf-cli":
+                        args += [
+                            "--engine", "hf-cli",
+                            "--fallback-engine", "nb2",
+                        ]
+                    elif engine_choice_id == "higgsfield-soul":
                         args += [
                             "--engine", "higgsfield-soul",
                             "--fallback-engine", "nb2",
@@ -2336,7 +2354,7 @@ def _render_remix_tab(selected):
                         args,
                         label=(
                             f"Generating {n_briefs} image(s) for {run['timestamp']}"
-                            + (" via Higgs Field Soul" if use_hf else "")
+                            + (f" via {engine_suffix.strip(' ()')}" if engine_suffix else "")
                             + (" — 3-pass staged" if use_staged else "")
                         ),
                     )
