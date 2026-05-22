@@ -20,21 +20,56 @@ the public REST API path (`platform.higgsfield.ai`, used by the
 For simple "fresh ad inspired by reference" generation, the existing
 `--engine nb2` (fal NB2) is fine and faster to set up.
 
-## One-time setup (~5 minutes)
+## One-time setup (~30 seconds)
 
 The web backend uses your browser's Higgsfield session cookies — the
-same auth as cloud.higgsfield.ai. Two cookies to copy:
+same auth as cloud.higgsfield.ai. **Easiest path: use the helper script.**
+
+### Recommended: run the extraction script
+
+```bash
+# One-time install of the cookie-reading lib (~5 sec)
+py -3.14 -m pip install browser-cookie3
+
+# Make sure you're logged into cloud.higgsfield.ai in Chrome, then:
+py -3.14 scripts/extract_hf_cookies.py
+```
+
+The script reads Chrome's local cookie database (already on your
+machine, encrypted with DPAPI on Windows / Keychain on macOS) and
+writes `HIGGSFIELD_CLERK_CLIENT` + `HIGGSFIELD_JWT` to `.env` for you.
+
+Common options:
+
+```bash
+py -3.14 scripts/extract_hf_cookies.py --browser edge        # use Edge
+py -3.14 scripts/extract_hf_cookies.py --browser brave       # use Brave
+py -3.14 scripts/extract_hf_cookies.py --profile "Profile 1" # second Chrome profile
+py -3.14 scripts/extract_hf_cookies.py --dry-run             # preview without writing
+```
+
+If Chrome is still running when you run the script, Windows locks the
+cookie database. Close all Chrome windows (including any in the system
+tray) and retry. macOS/Linux don't have this lock.
+
+### Fallback: manual extraction via DevTools
+
+If the script can't read your browser for some reason, you can copy the
+cookies by hand:
 
 1. Open <https://cloud.higgsfield.ai> in Chrome. Make sure you're logged
-   in (you should be if the official Higgsfield MCP works in your
-   Claude/Cursor setup).
-2. Open dev tools: `F12` (Windows) or `Cmd-Opt-I` (macOS).
-3. Switch to the **Application** tab → **Cookies** → `https://cloud.higgsfield.ai`.
-4. Find these two cookies:
-   - **`__client`** — long-lived (~7 days). Copy the full value.
-   - **`__session`** — short-lived (~1 min). Copy the full value.
-     *Optional* — see below.
-5. Paste into your `.env`:
+   in.
+2. Open dev tools: `F12` (Windows) or `Cmd-Opt-I` (macOS). If F12 doesn't
+   open them, try the Chrome menu → **More tools** → **Developer tools**.
+3. In DevTools, click the **>>** overflow arrow if you don't see
+   "Application" — depending on window width, it can be hidden. Then
+   switch to the **Application** tab.
+4. Left sidebar: **Cookies** → `https://cloud.higgsfield.ai`.
+5. Find these two cookies in the table:
+   - **`__client`** — long-lived (~7 days). Click the row, then the
+     **Cookie Value** field at the bottom — Ctrl+A then Ctrl+C copies it.
+   - **`__session`** — short-lived (~1 min). Same copy procedure. *Optional.*
+6. Paste into your `.env`:
 
 ```env
 HIGGSFIELD_CLERK_CLIENT=<paste __client value here>
@@ -42,8 +77,7 @@ HIGGSFIELD_JWT=<paste __session value here>   # optional
 ```
 
 `HIGGSFIELD_JWT` is optional — if unset, the client will mint a fresh
-JWT from your `__client` cookie on each call (one extra round-trip per
-~minute, invisible).
+JWT from your `__client` cookie on each call.
 
 ## Refresh schedule
 
@@ -59,7 +93,11 @@ JWT from your `__client` cookie on each call (one extra round-trip per
   into .env.
   ```
 
-  Repeat steps 1-3 above to re-extract.
+  Re-run the extraction script:
+
+  ```
+  py -3.14 scripts/extract_hf_cookies.py
+  ```
 
 ## How the auth flow works
 
