@@ -3368,11 +3368,25 @@ def prompts(client: str, pick: str, product: str | None, creative_direction: str
         "Useful when the dashboard wants graceful degradation."
     ),
 )
+@click.option(
+    "--legacy-product-first",
+    is_flag=True,
+    default=False,
+    help=(
+        "Escape hatch for the art-directed (--reference) path: revert to "
+        "the pre-fix image_urls ordering of [product, reference] where the "
+        "product is treated as the canvas. New default is [reference, product] "
+        "which clones the reference's layout much more faithfully. Use this "
+        "flag only if you need to reproduce historic outputs or you find a "
+        "case where the new default doesn't work for your reference."
+    ),
+)
 def generate(client: str, pick: str, product: str | None, num_images: int,
              aspect_ratio: str | None, thinking: str,
              include_alternates: bool, reference_template_id: str | None,
              creative_direction: str, offer: str,
-             engine: str, fallback_engine: str | None):
+             engine: str, fallback_engine: str | None,
+             legacy_product_first: bool):
     """Generate finished ad images for picked briefs — writes prompts AND calls fal.ai."""
     from models.loader import (
         load_all_briefs,
@@ -3536,6 +3550,7 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
                     thinking_level=thinking,
                     creative_direction=creative_direction,
                     offer=offer,
+                    legacy_product_first=legacy_product_first,
                 )
             else:
                 prompt_text, results = generate_from_brief(
@@ -3585,6 +3600,254 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
     log_cost(client, "adc generate", multiplier=total_images_estimate,
              note=f"{total_images_estimate} image(s)"
              + (f" ({total_jobs} variants, alternates included)" if include_alternates else ""))
+
+
+# ─── PYNK-style text-only generation (B variant) ────────────────────────────
+
+
+@cli.command(name="generate-text")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--template",
+    "template_id",
+    default=None,
+    help="Cooper template ID (e.g. cooper-11-pull-quote-review). "
+         "Required unless --list-templates is set.",
+)
+@click.option(
+    "--product",
+    "product_name",
+    default=None,
+    help="Product name. If omitted and --brief is set, uses the brief's product.",
+)
+@click.option(
+    "--brief",
+    "brief_id",
+    default=None,
+    help="Brief ID (e.g. brf_abc123). If provided, headlines/benefits/etc "
+         "come from the brief. Otherwise a stub brief is built from product data.",
+)
+@click.option(
+    "--num-images",
+    type=int,
+    default=1,
+    show_default=True,
+    help="Number of images per template",
+)
+@click.option(
+    "--aspect",
+    "aspect_override",
+    default=None,
+    help="Override aspect ratio. Default: locked from template.",
+)
+@click.option(
+    "--list-templates",
+    "list_only",
+    is_flag=True,
+    help="List available Cooper templates and exit.",
+)
+def generate_text_cmd(
+    client: str,
+    template_id: str | None,
+    product_name: str | None,
+    brief_id: str | None,
+    num_images: int,
+    aspect_override: str | None,
+    list_only: bool,
+):
+    """Generate ads using PYNK-style text-only flow (B-variant for drift testing).
+
+    Sends ONLY the product image to fal.ai — no reference ad image. Uses
+    Cooper-library templates with verbose layout directives plus a Product
+    Anchor preamble. Outputs to ai-ads/<client>/text-only/<brief_id>_<ts>/.
+
+    The reference-based `adc generate` command is untouched — this is a
+    parallel track for testing whether text-only beats reference-based on
+    layout drift.
+
+    Examples:
+      adc generate-text --client pynk --list-templates
+      adc generate-text --client pynk --template cooper-11-pull-quote-review --product "PYNK Can"
+      adc generate-text --client pynk --template cooper-07-us-vs-them --brief brf_abc123
+    """
+    from generators.pynk_text_filler import (
+        load_cooper_template,
+        list_cooper_templates,
+        fill_template,
+    )
+    from generators.pynk_text_client import (
+        generate_text_only_ad,
+        build_run_dir,
+        build_template_subdir,
+        parse_template_number,
+    )
+    from models.loader import (
+        load_brand,
+        load_product_by_name,
+        load_avatar,
+        load_all_briefs,
+    )
+
+    library_root = Path("prompts/library")
+
+    # --list-templates short-circuit
+    if list_only:
+        templates = list_cooper_templates(library_root)
+        if not templates:
+            console.print("[yellow]No Cooper templates found at prompts/library/cooper/.[/yellow]")
+            return
+        console.print(f"\n[bold]{len(templates)} Cooper templates available:[/bold]\n")
+        for t in templates:
+            aspects = "/".join(t.get("aspect_ratios") or [])
+            console.print(
+                f"  [cyan]{t['id']:42}[/cyan] {aspects:10}  {t.get('name', '')}"
+            )
+        return
+
+    if not template_id:
+        console.print("[red]--template is required (or use --list-templates to browse).[/red]")
+        raise SystemExit(1)
+
+    # Resolve brief
+    brief = None
+    if brief_id:
+        briefs = load_all_briefs(client)
+        for b in briefs:
+            if b.brief_id == brief_id:
+                brief = b
+                break
+        if not brief:
+            console.print(f"[red]Brief not found: {brief_id}[/red]")
+            console.print(f"[dim]Run `adc menu --client {client}` to list briefs.[/dim]")
+            raise SystemExit(1)
+
+    # Resolve product name
+    resolved_product_name = product_name or (brief.product if brief else None)
+    if not resolved_product_name:
+        console.print("[red]Must specify --product (or --brief, which carries product).[/red]")
+        raise SystemExit(1)
+
+    # Load data
+    brand = load_brand(client)
+    product = load_product_by_name(client, resolved_product_name)
+    avatar = load_avatar(client)  # default avatar; matches `adc generate` behavior
+
+    # Stub brief if not provided so the filler has something to work with
+    if not brief:
+        from models.brief import CreativeBrief, AwarenessLevel, CopyFramework
+        brief = CreativeBrief(
+            brief_id="stub-text-only",
+            client=client,
+            product=resolved_product_name,
+            awareness_level=AwarenessLevel.SOLUTION_AWARE,
+            framework=CopyFramework.AIDA,
+            angle=product.unique_mechanism or product.description or product.name,
+            hook=(product.benefits[0] if product.benefits else product.name),
+            benefit_callouts=list(product.benefits[:3]) if product.benefits else [],
+        )
+
+    # Load template
+    try:
+        template_data = load_cooper_template(template_id, library_root)
+    except FileNotFoundError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    # Resolve product image — prefer image_url (already public), fall back
+    # to image_path (uploaded by FAL wrapper before render).
+    product_image_ref: str | Path | None = None
+    if product.image_url:
+        product_image_ref = product.image_url
+    elif product.image_path:
+        candidate = Path("clients") / client / product.image_path
+        if candidate.exists():
+            product_image_ref = candidate
+        elif Path(product.image_path).exists():
+            product_image_ref = Path(product.image_path)
+    if product_image_ref is None:
+        console.print(
+            f"[red]Product image not found.[/red]\n"
+            f"[dim]Set image_url or image_path on "
+            f"clients/{client}/products/<slug>.yaml.[/dim]"
+        )
+        raise SystemExit(1)
+
+    console.print(
+        f"\n[bold]Filling template:[/bold] {template_data.get('name')} "
+        f"([cyan]{template_id}[/cyan])"
+    )
+
+    filled = fill_template(
+        template_data=template_data,
+        brand=brand,
+        product=product,
+        avatar=avatar,
+        brief=brief,
+        aspect_ratio=aspect_override,
+    )
+
+    console.print(f"  aspect_ratio:  [yellow]{filled.aspect_ratio}[/yellow] (locked)")
+    console.print(f"  product anchor: applied")
+    console.print(
+        f"  text color:    {filled.chosen_text_color_descriptor} "
+        f"({filled.chosen_text_color_hex})"
+    )
+    if filled.flagged_invented:
+        console.print(
+            f"  [yellow]flagged ⚠️ {len(filled.flagged_invented)} invented "
+            f"slot(s) — see ad-spec.json[/yellow]"
+        )
+        for f in filled.flagged_invented[:5]:
+            console.print(f"     ⚠️  [{f['slot']}] {f['value']}")
+        if len(filled.flagged_invented) > 5:
+            console.print(f"     ⚠️  …and {len(filled.flagged_invented) - 5} more")
+
+    # Build output dirs
+    run_dir = build_run_dir(
+        ai_ads_root=AI_ADS_DIR,
+        client_slug=client,
+        brief_id=(brief.brief_id if brief.brief_id != "stub-text-only" else ""),
+    )
+    template_number = parse_template_number(filled.template_id)
+    template_dir = build_template_subdir(
+        run_dir=run_dir,
+        template_number=template_number,
+        template_slug=filled.template_slug,
+    )
+
+    output_name = f"{client}_{filled.template_slug}"
+
+    console.print(
+        f"\n[bold]Generating[/bold] {num_images} image(s) — "
+        f"product-only image_urls to fal.ai..."
+    )
+
+    with console.status(
+        f"  → {filled.aspect_ratio} via nano-banana-2/edit..."
+    ):
+        result = generate_text_only_ad(
+            filled=filled,
+            product_image_ref=product_image_ref,
+            output_dir=template_dir,
+            output_name=output_name,
+            num_images=num_images,
+            brand_slug=client,
+            product_name=resolved_product_name,
+            brief_id=(brief.brief_id if brief.brief_id != "stub-text-only" else ""),
+        )
+
+    console.print("\n[green][OK][/green] done")
+    console.print(f"  spec:  {result.spec_path}")
+    for p in result.image_paths:
+        console.print(f"  image: {p}")
+
+    from strategy.cost_tracker import log_cost
+    log_cost(
+        client,
+        "adc generate-text",
+        multiplier=num_images,
+        note=f"text-only / {template_id} / {num_images} image(s)",
+    )
 
 
 # ─── Ad Remix ───────────────────────────────────────────────────────────────

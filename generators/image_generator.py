@@ -924,6 +924,7 @@ def generate_from_brief_and_template(
     thinking_level: str = "disabled",
     creative_direction: str = "",
     offer: str = "NONE",
+    legacy_product_first: bool = False,
 ) -> tuple[str, list[GenerationResult]]:
     """ART-DIRECTED generation: one brief + one extracted template + one
     reference image. No swipe library, no template averaging, no Nanobana
@@ -993,8 +994,70 @@ def generate_from_brief_and_template(
     if output_dir is None:
         output_dir = Path("ai-ads") / client_slug / "images"
 
-    # Exactly 2 images to NB2: [product, reference] — no aggregation
-    image_urls = product_urls + [reference_url]
+    # Exactly 2 images to NB2 — order matters because NB2 /edit treats
+    # image 1 as the canvas to edit and image 2 as supplemental reference.
+    #
+    # DEFAULT (reference-first): image_urls = [reference, product]
+    #     The reference ad is the canvas; the product is inserted into it.
+    #     This is what you want when the user supplied a reference: clone
+    #     the reference's layout/composition, swap in the actual product.
+    #     Replaced the old [product, reference] default after A/B testing
+    #     showed the old order caused major layout drift (the reference
+    #     was treated as supplemental, not as the canvas).
+    #
+    # LEGACY (product-first): image_urls = [product, reference]
+    #     The product is the canvas; the reference is supplemental style
+    #     guide. Loose, brand-tone-preserving, but doesn't faithfully
+    #     replicate the reference's layout. Kept as an escape hatch via
+    #     legacy_product_first=True or ADC_LEGACY_PRODUCT_FIRST=1.
+    import os as _os
+    env_legacy = _os.environ.get("ADC_LEGACY_PRODUCT_FIRST", "").strip() in ("1", "true", "yes")
+    use_legacy = legacy_product_first or env_legacy
+    reference_first = not use_legacy
+    if reference_first:
+        image_urls = [reference_url] + product_urls
+        # Override the standard "image 1 is the product" directive with one
+        # that matches the new ordering. Tightened in v2 to prevent copy
+        # contamination from the reference (where the reference's brand
+        # name, product noun, headlines, etc. leaked into the rendered ad).
+        prompt = (
+            "═══════════════════════════════════════════════════════════════\n"
+            "OVERRIDE RULES — APPLY BEFORE ANYTHING ELSE BELOW:\n"
+            "═══════════════════════════════════════════════════════════════\n"
+            "\n"
+            "IMAGE 1 = LAYOUT WIREFRAME ONLY.\n"
+            "  Take from image 1: composition, panel positions, background\n"
+            "  color, color scheme, element placement, typography style,\n"
+            "  spatial rhythm, photographic treatment (lighting, angle,\n"
+            "  shadows), and the overall structural feel.\n"
+            "\n"
+            "  DO NOT TAKE ANY TEXT, WORDS, OR LANGUAGE FROM IMAGE 1.\n"
+            "  Every headline, body line, bullet point, CTA, badge label,\n"
+            "  brand name, product name, product noun (e.g. 'Chews',\n"
+            "  'Capsules', 'Drops'), star-rating count, review count, and\n"
+            "  any other text visible in image 1 IS NOT YOURS TO USE.\n"
+            "  Mentally blur out every piece of text in image 1 and only\n"
+            "  replicate its shapes and regions. If image 1 says 'Probiotic\n"
+            "  Chews' or 'PetLabCo' or any brand or product noun, IGNORE IT.\n"
+            "  If image 1 has a brand logo, replace it with the brand named\n"
+            "  in the prompt body below.\n"
+            "\n"
+            "IMAGE 2 = ACTUAL PRODUCT.\n"
+            "  Replicate image 2's design, colors, label text, shape, and\n"
+            "  packaging EXACTLY. This is the product that appears in the\n"
+            "  final ad, placed where image 1's product is placed.\n"
+            "\n"
+            "ALL TEXT IN THE FINAL AD comes from the prompt below, NOT from\n"
+            "image 1. Quote the prompt's words verbatim. If the prompt and\n"
+            "image 1 disagree on any word, the PROMPT WINS.\n"
+            "\n"
+            "Any later instruction in this message that says 'image 1 is the\n"
+            "product' is REVERSED for this generation — ignore it.\n"
+            "═══════════════════════════════════════════════════════════════\n"
+            "\n"
+        ) + prompt
+    else:
+        image_urls = product_urls + [reference_url]
 
     # Build campaign_name if not already set
     if not getattr(brief, "campaign_name", ""):
