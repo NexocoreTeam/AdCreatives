@@ -781,8 +781,9 @@ def _render_products_tab(selected):
                     for o in p["objections"]:
                         st.markdown(f"- {o}")
             with col_r:
-                if p.get("image_url"):
-                    st.image(p["image_url"], use_container_width=True)
+                img_url = p.get("image_url") or ""
+                if img_url.startswith(("http://", "https://")):
+                    st.image(img_url, use_container_width=True)
                 pc = p.get("product_characteristics") or {}
                 ings = pc.get("materials_or_ingredients") or []
                 if ings:

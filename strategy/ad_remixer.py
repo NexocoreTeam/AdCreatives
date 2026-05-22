@@ -2253,38 +2253,13 @@ def generate_remix_images(
     # uses Higgsfield Soul when engine implies HF, or when the avatar has a
     # ready soul; the orchestrator decides per brief.
     if staged:
-        # Route to the right staged orchestrator:
-        #   engine="higgsfield-soul" + staged → ALL-HF path (soul_2 throughout,
-        #     no fal calls — experimental, lower text fidelity, identity-locked)
-        #   engine="nb2" (default) + staged → fal-NB2 path for stages 1+2,
-        #     Higgsfield Soul only on stage 3 (if persona has trained soul)
-        if engine == "higgsfield-soul":
-            try:
-                return _generate_remix_images_hf_staged(
-                    briefs_data,
-                    remix_path=remix_path,
-                    images_dir=images_dir,
-                    num_images=num_images,
-                    aspect_ratio=aspect_ratio,
-                )
-            except Exception as e:
-                if fallback_engine:
-                    print(
-                        f"  [fallback] HF staged failed ({e}). "
-                        f"Falling back to single-shot engine={fallback_engine}.",
-                        flush=True,
-                    )
-                    return generate_remix_images(
-                        remix_dir,
-                        num_images=num_images,
-                        thinking_level=thinking_level,
-                        aspect_ratio=aspect_ratio,
-                        engine=fallback_engine,
-                        fallback_engine=None,
-                        staged=False,
-                    )
-                raise
-
+        # Single staged path: fal NB2 for stages 1+2, optional Higgsfield Soul
+        # for stage 3 if persona has a trained soul. The former all-HF
+        # staged path (soul_2 throughout) was removed in 2026-05-21 — it
+        # produced unusable output because soul_2 isn't an edit model and
+        # each stage's generation was a fresh interpretation of the previous
+        # stage's noise. Replaced by `hf-cli-staged` (nano_banana_2 via the
+        # Higgsfield CLI), which IS an edit model.
         try:
             return _generate_remix_images_staged(
                 briefs_data,
@@ -3704,6 +3679,34 @@ def _build_differential_prompt(
     photography spec from prompt_from_brief() is NOT generated for
     differential mode — the reference image carries that information."""
     lines: list[str] = []
+
+    # Tightened OVERRIDE directive (ported from generate_from_brief_and_template
+    # in the other session). Without this, NB2 lets the reference's TEXT CONTENT
+    # bleed through — we saw "America's #1 selling Postbiotic Capsule" leak into
+    # a SecondKind ad on a CLI test. The fix: explicitly tell NB2 that Image 1
+    # is a layout wireframe (composition, typography style, colors) but NOT the
+    # source of text content. All text comes from the swap table below.
+    lines.append(
+        "OVERRIDE DIRECTIVE — read this before doing anything else:"
+    )
+    lines.append(
+        "  - Image 1 is a LAYOUT WIREFRAME ONLY. Take composition, panel "
+        "positions, color palette, font family/weight, lighting register, "
+        "and decorative marks (❌, ✅, pills, badges) from it. DO NOT take "
+        "text CONTENT from Image 1."
+    )
+    lines.append(
+        "  - Image 2 is the ACTUAL PRODUCT. Replicate it exactly in the "
+        "scene where Image 1's product was."
+    )
+    lines.append(
+        "  - All on-image text in the OUTPUT comes from the TEXT SWAPS table "
+        "below. Do NOT carry over Image 1's text content, headlines, "
+        "callouts, brand wordmark, CTA, or fine-print verbatim — every text "
+        "element gets REPLACED per the swap table."
+    )
+    lines.append("")
+
     lines.append(
         "This is a SURGICAL EDIT of Image 1 (the reference ad). Image 2 "
         "is the replacement product. Apply ONLY the changes listed below; "
@@ -3962,6 +3965,21 @@ def _build_pass2_text_swap_prompt(
     ]
 
     lines: list[str] = []
+
+    # OVERRIDE directive — prevent text content from leaking through
+    # untouched. Image 1 here is the stage-1 output (product already swapped),
+    # so its remaining text content is the ORIGINAL source ad's text (which
+    # we WANT to replace). NB2 sometimes preserves "untouched" text rather
+    # than swapping it; the directive makes the swap mandatory.
+    lines.append(
+        "OVERRIDE DIRECTIVE — every text element in Image 1's CURRENT state "
+        "is treated as PLACEHOLDER content. The text swaps below REPLACE "
+        "those placeholders. Do NOT preserve any text content from Image 1 "
+        "that appears in the swap table's `source` column — replace each "
+        "with its `target`. Image 1 contributes layout, typography style, "
+        "colors, and product; it does NOT contribute final text content."
+    )
+    lines.append("")
     lines.append(
         "This is a SURGICAL EDIT of Image 1. The product and layout in "
         "Image 1 are CORRECT — keep them. The only thing to change is the "

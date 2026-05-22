@@ -235,10 +235,11 @@ Quality checks:
 
 Output YAML only. No markdown fences."""
 
-    # 16000 tokens — generous headroom for 3 personas × 5 stages × ~10 fields each
-    # plus the cross-stage observations block. The pre-patch budget of 10000 was
-    # snug for 1 persona; 3 personas need ~3x the body.
-    raw = claude_complete(prompt, system=MATRIX_SYSTEM, max_tokens=16000)
+    # 32000 tokens — comfortable runway for 6+ personas × 5 stages × ~10 fields each
+    # plus the cross-stage observations block. Earlier 16000 was snug at 6 personas
+    # and truncated the trailing meta. Sonnet 4.6 supports up to 64K output, so 32K
+    # leaves plenty of margin without paying for headroom we'll never use.
+    raw = claude_complete(prompt, system=MATRIX_SYSTEM, max_tokens=32000)
     raw = raw.strip()
     if raw.startswith("```"):
         raw = raw.split("\n", 1)[1]

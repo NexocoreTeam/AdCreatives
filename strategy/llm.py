@@ -70,9 +70,21 @@ def claude_complete(
     if system:
         kwargs["system"] = system
 
+    # SDK requires streaming for requests that might exceed the 10-minute
+    # non-streaming timeout. The threshold lands around ~30K output tokens for
+    # Sonnet, so we switch to streaming above 20K to leave margin. Streaming is
+    # transparent here — we just collect the text and return the final string.
+    use_streaming = max_tokens > 20000
+
     last_exc: Exception | None = None
     for attempt in range(max_retries + 1):
         try:
+            if use_streaming:
+                with client.messages.stream(**kwargs) as stream:
+                    for _ in stream.text_stream:
+                        pass  # consume the stream; the final message is what we return
+                    final = stream.get_final_message()
+                    return final.content[0].text
             response = client.messages.create(**kwargs)
             return response.content[0].text
         except Exception as e:
