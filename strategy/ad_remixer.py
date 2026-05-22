@@ -4747,13 +4747,10 @@ def _generate_remix_images_hf_web_single(
 
     Output naming matches the other orchestrators (no stage1/2/3
     intermediates since this is single-shot)."""
-    from generators.higgsfield_client import (
-        upload_image as _hf_file_upload,
-        HiggsfieldError,
-    )
     from generators.higgsfield_web_client import (
         submit_and_wait,
         download_result,
+        upload_image_for_edit,
         HiggsfieldWebError,
         HiggsfieldAuthError,
     )
@@ -4785,52 +4782,50 @@ def _generate_remix_images_hf_web_single(
     )
     product_path = _resolve_product_local_path(remix_path, product, client_slug)
 
-    # Upload both images ONCE per run to get public URLs. Reuse the cached
-    # reference URL if it's already on disk (saves an upload across re-fires).
+    # Upload both images ONCE per run to fnf.higgsfield.ai/media — the
+    # web-app's media store, which is the only one nano_banana_flash will
+    # accept media_id references from. (We previously tried uploading via
+    # platform.higgsfield.ai/files and got "Media input not found" 404
+    # because the two media stores have separate namespaces.)
+    # Cache both the media_id and the public URL so re-fires don't pay
+    # for another upload.
     print(
         f"[remix] HF-web mode: uploading reference + product to "
-        f"platform.higgsfield.ai (for CloudFront URLs)...",
+        f"fnf.higgsfield.ai/media...",
         flush=True,
     )
+    ref_media_cache = remix_path / ".reference_media.txt"
+    prod_media_cache = remix_path / ".product_media.txt"
+
+    def _load_or_upload(local_path: Path, cache: Path) -> tuple[str, str]:
+        """Return `(media_id, public_url)` for a local file, uploading
+        only if no cache exists. Cache shape: two lines, media_id then
+        url. Empty / malformed cache → re-upload."""
+        if cache.exists():
+            try:
+                lines = cache.read_text(encoding="utf-8").splitlines()
+                if len(lines) >= 2 and lines[0].strip() and lines[1].strip():
+                    return lines[0].strip(), lines[1].strip()
+            except OSError:
+                pass
+        media_id, public_url = upload_image_for_edit(local_path)
+        try:
+            cache.write_text(f"{media_id}\n{public_url}\n", encoding="utf-8")
+        except OSError:
+            pass
+        return media_id, public_url
+
     try:
-        # Reference: cache the URL so re-fires don't re-upload.
-        ref_cache = remix_path / ".reference_url.txt"
-        ref_url = ""
-        if ref_cache.exists():
-            try:
-                cached = ref_cache.read_text(encoding="utf-8").strip()
-                # The web endpoint accepts arbitrary public URLs (fal.media,
-                # HF CDN, anywhere), so any cached URL works.
-                if cached:
-                    ref_url = cached
-            except OSError:
-                pass
-        if not ref_url:
-            ref_url = _hf_file_upload(reference_path)
-            try:
-                ref_cache.write_text(ref_url, encoding="utf-8")
-            except OSError:
-                pass
-        # Product: cache too.
-        prod_cache = remix_path / ".product_url.txt"
-        product_url = ""
-        if prod_cache.exists():
-            try:
-                cached = prod_cache.read_text(encoding="utf-8").strip()
-                if cached:
-                    product_url = cached
-            except OSError:
-                pass
-        if not product_url:
-            product_url = _hf_file_upload(product_path)
-            try:
-                prod_cache.write_text(product_url, encoding="utf-8")
-            except OSError:
-                pass
-    except HiggsfieldError as e:
+        ref_media_id, ref_url = _load_or_upload(reference_path, ref_media_cache)
+        product_media_id, product_url = _load_or_upload(product_path, prod_media_cache)
+    except HiggsfieldAuthError as e:
         raise RuntimeError(
-            f"HF-web mode could not upload reference/product to HF's "
-            f"file store: {e}\nCheck HF_API_KEY / HF_API_SECRET in .env."
+            f"HF-web upload failed (auth): {e}"
+        ) from e
+    except HiggsfieldWebError as e:
+        raise RuntimeError(
+            f"HF-web upload failed: {e}\nCheck HIGGSFIELD_CLERK_CLIENT and "
+            f"HIGGSFIELD_DATADOME in .env."
         ) from e
 
     scene_cleanup = ""
@@ -4879,7 +4874,10 @@ def _generate_remix_images_hf_web_single(
                         scene_cleanup=scene_cleanup,
                         model_descriptor=model_descriptor,
                     ),
-                    input_image_urls=[ref_url, product_url],
+                    input_media=[
+                        (ref_media_id, ref_url),
+                        (product_media_id, product_url),
+                    ],
                     aspect_ratio=aspect_ratio,
                     resolution="1k",
                     timeout_s=600,

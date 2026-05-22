@@ -89,12 +89,23 @@ CLERK_VERSION_PARAMS = {
 
 COMMON_HEADERS = {
     "Accept": "*/*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
     "Origin": "https://cloud.higgsfield.ai",
     "Referer": "https://cloud.higgsfield.ai/",
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
     ),
+    # Full set of Chrome client-hint headers. DataDome cross-checks these
+    # against the JA3 fingerprint — having the TLS look like Chrome but
+    # the headers look stripped-down is a classic bot tell.
+    "sec-ch-ua": '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"Windows"',
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
 }
 
 # Minimum lifetime to consider a cached JWT still usable. Clerk JWTs are
@@ -352,47 +363,221 @@ def _get_fresh_jwt(force_refresh: bool = False) -> str:
 # ─── Image-edit submission ───────────────────────────────────────────────────
 
 
-def _auth_headers() -> dict[str, str]:
+def upload_image_for_edit(image_path: Path) -> tuple[str, str]:
+    """Upload an image into Higgsfield's web-app media store (fnf.higgsfield.ai
+    /media). Returns `(media_id, public_url)`.
+
+    This is DIFFERENT from generators.higgsfield_client.upload_image, which
+    uses platform.higgsfield.ai/files. The two media stores are separate
+    namespaces — the platform.higgsfield.ai upload returns CloudFront URLs
+    that nano_banana_flash on fnf.higgsfield.ai refuses to recognize
+    ("Media input not found" 404).
+
+    Three-step flow, matching what the MCP media_upload tool does behind
+    the scenes:
+      1. POST /media/batch  →  {items: [{upload_url, id, url}, ...]}
+      2. PUT raw bytes to upload_url (S3 presigned)
+      3. POST /media/{id}/upload  →  registers the media so nano_banana_flash
+                                       can reference it
+    Auth: Clerk JWT + datadome cookie, just like the generation submit.
+    """
+    image_path = Path(image_path)
+    suffix = image_path.suffix.lower()
+    content_type_map = {
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".webp": "image/webp",
+        ".gif": "image/gif",
+    }
+    content_type = content_type_map.get(suffix, "image/png")
+
+    with _impersonate_requests.Session(impersonate=_IMPERSONATE) as session:
+        # Step 1: request a presigned upload URL + media id.
+        r = session.post(
+            f"{FNF_BASE}/media/batch",
+            json={"mimetypes": [content_type], "source": "user_upload"},
+            headers=_auth_headers(include_datadome=True),
+            timeout=HTTP_TIMEOUT_S,
+        )
+        if r.status_code >= 400:
+            raise HiggsfieldWebError(
+                f"POST /media/batch returned {r.status_code}: {r.text[:300]}"
+            )
+        try:
+            payload = r.json()
+        except ValueError as e:
+            raise HiggsfieldWebError(
+                f"POST /media/batch returned non-JSON: {r.text[:200]}"
+            ) from e
+        # The endpoint sometimes returns a bare list, sometimes wraps in
+        # {items: [...]} or {media: [...]} depending on the API version.
+        # Accept all three shapes.
+        if isinstance(payload, list):
+            items = payload
+        elif isinstance(payload, dict):
+            items = payload.get("items") or payload.get("media") or []
+        else:
+            items = []
+        if not items:
+            raise HiggsfieldWebError(
+                f"POST /media/batch returned no items: {payload!r}"
+            )
+        item = items[0]
+        upload_url = item.get("upload_url")
+        media_id = item.get("id") or item.get("media_id")
+        public_url = item.get("url") or item.get("public_url")
+        if not upload_url or not media_id:
+            raise HiggsfieldWebError(
+                f"/media/batch item missing upload_url/id: {item!r}"
+            )
+
+        # Step 2: PUT raw bytes to S3. The presigned URL has auth baked in,
+        # so we do NOT send any cookies/headers — those would actually
+        # confuse some S3 endpoints.
+        try:
+            data = image_path.read_bytes()
+        except OSError as e:
+            raise HiggsfieldWebError(
+                f"Failed to read image at {image_path}: {e}"
+            ) from e
+        put_resp = session.put(
+            upload_url,
+            data=data,
+            headers={"Content-Type": content_type},
+            timeout=HTTP_TIMEOUT_S,
+        )
+        if put_resp.status_code >= 400:
+            raise HiggsfieldWebError(
+                f"PUT to presigned URL returned {put_resp.status_code}: "
+                f"{put_resp.text[:200]}"
+            )
+
+        # Step 3: finalize. Tells the server the upload succeeded so the
+        # media_id becomes referenceable from generation jobs.
+        confirm = session.post(
+            f"{FNF_BASE}/media/{media_id}/upload",
+            json={},
+            headers=_auth_headers(include_datadome=True),
+            timeout=HTTP_TIMEOUT_S,
+        )
+        if confirm.status_code >= 400:
+            raise HiggsfieldWebError(
+                f"POST /media/{media_id}/upload returned "
+                f"{confirm.status_code}: {confirm.text[:200]}"
+            )
+
+    return str(media_id), str(public_url or "")
+
+
+def _auth_headers(include_datadome: bool = False) -> dict[str, str]:
+    """Standard auth header set for fnf.higgsfield.ai.
+
+    When include_datadome=True, the datadome cookie is added explicitly
+    via the Cookie header. We send it via the header rather than the
+    per-request `cookies={"datadome": ...}` kwarg because curl_cffi
+    sometimes doesn't merge per-request cookies with the impersonated
+    Chrome cookie-handling logic correctly, and DataDome is strict
+    about cookie presence."""
     jwt = _get_fresh_jwt()
-    return {
+    headers = {
         "Authorization": f"Bearer {jwt}",
         "Content-Type": "application/json",
         **COMMON_HEADERS,
     }
+    if include_datadome:
+        headers["Cookie"] = f"datadome={_read_datadome_cookie()}"
+    return headers
+
+
+def _aspect_to_width_height(aspect_ratio: str, resolution: str) -> tuple[int, int]:
+    """Map (aspect_ratio, resolution) → (width, height) pixel dimensions.
+
+    The fnf endpoint accepts `aspect_ratio` in the body but ALSO requires
+    explicit `width` + `height` fields (verified via a 422 "Field required"
+    on width — the server doesn't compute them from aspect_ratio alone).
+
+    Targets roughly 1MP at 1k, 4MP at 2k, 8MP at 4k, with the ratio
+    enforced precisely. Numbers chosen to match what nano_banana_flash
+    accepts (multiples of 64 are safest for diffusion-family models)."""
+    # Base "long side" pixels for each resolution tier.
+    long_side_map = {"1k": 1280, "2k": 2048, "4k": 3840}
+    long_side = long_side_map.get(resolution.lower(), 1280)
+    # Parse the W:H ratio.
+    try:
+        w_part, h_part = aspect_ratio.split(":")
+        wr, hr = float(w_part), float(h_part)
+    except (ValueError, AttributeError):
+        # Fallback: square at the long-side dimension.
+        return long_side, long_side
+    if wr >= hr:
+        # Landscape (or square). Width = long_side, height scaled.
+        width = long_side
+        height = int(round(long_side * hr / wr))
+    else:
+        # Portrait. Height = long_side, width scaled.
+        height = long_side
+        width = int(round(long_side * wr / hr))
+    # Round both to multiples of 64 to avoid model-side validation rejection.
+    width = max(64, (width // 64) * 64)
+    height = max(64, (height // 64) * 64)
+    return width, height
 
 
 def submit_nano_banana_edit(
     *,
     prompt: str,
-    input_image_urls: list[str],
+    input_media: list[tuple[str, str]],
     aspect_ratio: str = "1:1",
     resolution: str = "1k",
     batch_size: int = 1,
     seed: int | None = None,
     enhance_prompt: bool = False,
 ) -> str:
-    """Submit a nano_banana_flash edit job. Returns the request_id.
+    """Submit a nano_banana_flash edit job. Returns the job_id.
 
-    `input_image_urls` is the list of input images (reference first, product
-    second by convention — same ordering that worked in the MCP test). Up
-    to 16 URLs supported by the backend.
+    `input_media` is a list of `(media_id, public_url)` pairs — both
+    obtained from `upload_image_for_edit()`. Reference image first,
+    product image second by convention. Up to 16 entries supported.
 
-    Returns the request_id immediately. Callers should then poll via
-    `wait_for_result_url(request_id)` to get the final image URL."""
-    if not input_image_urls:
-        raise ValueError("input_image_urls must contain at least one URL")
-    if len(input_image_urls) > 16:
+    The media_id MUST come from fnf.higgsfield.ai/media (NOT from
+    platform.higgsfield.ai/files) — the two stores are separate
+    namespaces and the wrong one yields "Media input not found" 404.
+
+    Returns the job_id immediately. Callers then poll via
+    `wait_for_result_url(job_id)` to get the final image URL."""
+    if not input_media:
+        raise ValueError("input_media must contain at least one (id, url) pair")
+    if len(input_media) > 16:
         raise ValueError(
-            f"input_image_urls capped at 16, got {len(input_image_urls)}"
+            f"input_media capped at 16, got {len(input_media)}"
         )
 
     url = f"{FNF_BASE}/jobs/v2/nano_banana_flash"
+    # The fnf endpoint requires explicit width + height — aspect_ratio is
+    # accepted but doesn't auto-populate them (verified empirically:
+    # submitting only aspect_ratio returned 422 "Field required" on width).
+    width, height = _aspect_to_width_height(aspect_ratio, resolution)
+    # Images go in the `medias` array with the shape
+    #   {role: "image", data: {id: <media_id>, url: <public_url>, type: "media_input"}}
+    # which matches what the MCP server sends. Both id and url come from
+    # upload_image_for_edit() which uses fnf.higgsfield.ai/media/* — the
+    # only media store nano_banana_flash will accept ids from.
+    medias: list[dict[str, Any]] = [
+        {
+            "role": "image",
+            "data": {"id": media_id, "url": public_url, "type": "media_input"},
+        }
+        for (media_id, public_url) in input_media
+    ]
     params: dict[str, Any] = {
         "prompt": prompt,
         "aspect_ratio": aspect_ratio,
         "resolution": resolution,
+        "width": width,
+        "height": height,
         "batch_size": batch_size,
-        "input_image_urls": input_image_urls,
+        "medias": medias,
         "enhance_prompt": enhance_prompt,
     }
     if seed is not None:
@@ -400,14 +585,12 @@ def submit_nano_banana_edit(
     body = {"params": params, "use_unlim": False, "use_free_gens": False}
 
     # curl_cffi Session impersonating Chrome 131 to clear Cloudflare's TLS
-    # check, plus the datadome cookie to clear DataDome's bot challenge.
-    datadome = _read_datadome_cookie()
+    # check. datadome cookie sent via the Cookie header (in _auth_headers).
     with _impersonate_requests.Session(impersonate=_IMPERSONATE) as client:
         # Try once with cached JWT, retry once on 401 with forced refresh.
         for attempt in range(2):
             r = client.post(
-                url, json=body, headers=_auth_headers(),
-                cookies={"datadome": datadome},
+                url, json=body, headers=_auth_headers(include_datadome=True),
                 timeout=HTTP_TIMEOUT_S,
             )
             if r.status_code == 401 and attempt == 0:
@@ -425,16 +608,40 @@ def submit_nano_banana_edit(
                 f"POST {url} returned non-JSON: {r.text[:200]}"
             ) from e
 
-    request_id = (
-        payload.get("request_id")
-        or payload.get("id")
-        or (payload.get("jobs") or [{}])[0].get("request_id")
-    )
-    if not request_id:
-        raise HiggsfieldWebError(
-            f"submit returned no request_id: {payload!r}"
+    # The fnf submit response is shaped as
+    #   { id: <workspace_id>,          ← NOT what we want
+    #     job_sets: [{
+    #         id: <job_set_id>,
+    #         type: "nano_banana_flash",
+    #         jobs: [{id: <job_id>, status: "queued", ...}]
+    #     }],
+    #     has_more: bool }
+    # The actual job id we poll on is job_sets[0].jobs[0].id. The top-level
+    # `id` is the workspace/project id and matching on it never finds the
+    # job in /jobs listings (different namespace).
+    job_id: str | None = None
+    job_sets = payload.get("job_sets") or []
+    if isinstance(job_sets, list) and job_sets:
+        first_set = job_sets[0]
+        if isinstance(first_set, dict):
+            jobs = first_set.get("jobs") or []
+            if isinstance(jobs, list) and jobs:
+                first_job = jobs[0]
+                if isinstance(first_job, dict):
+                    job_id = first_job.get("id") or first_job.get("trace_id")
+    # Fallback chain in case the response shape ever changes — kept defensive
+    # so a schema tweak doesn't break us silently.
+    if not job_id:
+        job_id = (
+            payload.get("request_id")
+            or payload.get("job_id")
         )
-    return str(request_id)
+    if not job_id:
+        raise HiggsfieldWebError(
+            f"submit returned no job id at expected paths. Response keys: "
+            f"{list(payload.keys())}, payload snippet: {str(payload)[:400]}"
+        )
+    return str(job_id)
 
 
 # ─── Polling + result extraction ─────────────────────────────────────────────
@@ -452,66 +659,127 @@ def _find_job_by_request_id(
     don't have a per-request status URL the way platform.higgsfield.ai
     does, so we have to filter the list.
 
-    `client` is a curl_cffi Session impersonating chrome120."""
-    datadome = _read_datadome_cookie()
-    r = client.get(
-        f"{FNF_BASE}/jobs",
-        params={"size": 100},
-        headers=_auth_headers(),
-        cookies={"datadome": datadome},
-        timeout=HTTP_TIMEOUT_S,
-    )
-    if r.status_code == 401:
-        _get_fresh_jwt(force_refresh=True)
-        r = client.get(
+    Retries on Cloudflare 502/503/504 — the /jobs endpoint occasionally
+    flakes when other parts of fnf.higgsfield.ai are fine. Short retry
+    cycle (0.5s, 1s, 2s) to avoid extending the overall polling cadence
+    by much when a single fetch fails.
+
+    `client` is a curl_cffi Session impersonating chrome131."""
+
+    def _do_get():
+        return client.get(
             f"{FNF_BASE}/jobs",
             params={"size": 100},
-            headers=_auth_headers(),
-            cookies={"datadome": datadome},
+            headers=_auth_headers(include_datadome=True),
             timeout=HTTP_TIMEOUT_S,
         )
+
+    r = None
+    for attempt, wait_s in enumerate([0, 0.5, 1.0, 2.0]):
+        if wait_s > 0:
+            time.sleep(wait_s)
+        r = _do_get()
+        if r.status_code == 401 and attempt == 0:
+            _get_fresh_jwt(force_refresh=True)
+            continue
+        if r.status_code in (502, 503, 504):
+            # Cloudflare upstream blip — retry without re-auth.
+            continue
+        break
+    assert r is not None
     if r.status_code >= 400:
         raise HiggsfieldWebError(
-            f"GET /jobs returned {r.status_code}: {r.text[:200]}"
+            f"GET /jobs returned {r.status_code} after retries: {r.text[:200]}"
         )
     try:
         payload = r.json()
     except ValueError as e:
         raise HiggsfieldWebError(f"GET /jobs returned non-JSON") from e
     items = payload.get("items") or payload.get("jobs") or []
+    # Debug: on the very first poll, dump the shape of the first job entry
+    # so we can verify request_id field name actually matches. Cheap because
+    # it fires once per orchestrator call.
+    global _logged_first_jobs_shape
+    if not _logged_first_jobs_shape and items:
+        first = items[0]
+        if isinstance(first, dict):
+            print(
+                f"[hf-web] /jobs first-entry keys: {list(first.keys())}",
+                flush=True,
+            )
+        _logged_first_jobs_shape = True
     for item in items:
         if not isinstance(item, dict):
             continue
-        rid = item.get("request_id") or item.get("id")
-        if str(rid) == str(request_id):
+        # Try every plausible field name for the request id. Some endpoints
+        # use request_id, others id, others job_id; we filter on any match.
+        rids = {
+            str(item.get(k)) for k in ("request_id", "id", "job_id")
+            if item.get(k)
+        }
+        if str(request_id) in rids:
             return item
     return None
 
 
-def _extract_result_url(job: dict) -> str:
-    """Pull the image URL out of a completed job entry.
+# Module-level flag for the debug log in _find_job_by_request_id.
+_logged_first_jobs_shape = False
 
-    HF's job shape uses one of: `results.rawUrl`, `images[].url`,
-    `outputs[].url`, or a flat `result_url`. We try them in order."""
+
+def _extract_result_url(job: dict) -> str:
+    """Pull the OUTPUT image URL from a completed nano_banana_flash job.
+
+    Verified shape (2026-05-22):
+        results: {
+            raw: {type: "image", url: <hf cdn rendered image>},
+            min: {type: "image", url: <small webp version>}
+        }
+    so `results.raw.url` is what we want. The earlier walk-everything
+    fallback was matching INPUT image URLs from params.medias because
+    they share the same CloudFront host as the output — we now anchor
+    on the d8j0ntlcm91z4 CDN distribution (HF's RENDERED-OUTPUT bucket,
+    distinct from d2ol7oe51mr4n9 which serves input medias)."""
+    # Primary path: results.raw.url
     results = job.get("results")
     if isinstance(results, dict):
-        for k in ("rawUrl", "raw_url", "url"):
+        raw = results.get("raw")
+        if isinstance(raw, dict):
+            url = raw.get("url")
+            if isinstance(url, str) and url:
+                return url
+        # Some older endpoints used a flat `results.url`. Try that too.
+        for k in ("rawUrl", "url"):
             v = results.get(k)
             if isinstance(v, str) and v:
                 return v
-    if isinstance(results, list):
-        for r in results:
-            if isinstance(r, dict):
-                for k in ("rawUrl", "raw_url", "url"):
-                    v = r.get(k)
-                    if isinstance(v, str) and v:
-                        return v
+        # List-of-results variant.
+        items = results.get("items")
+        if isinstance(items, list):
+            for r in items:
+                if isinstance(r, dict):
+                    for k in ("url", "rawUrl"):
+                        v = r.get(k)
+                        if isinstance(v, str) and v:
+                            return v
+    # `result` (singular) used by some other endpoints.
+    result = job.get("result")
+    if isinstance(result, dict):
+        raw = result.get("raw")
+        if isinstance(raw, dict):
+            url = raw.get("url")
+            if isinstance(url, str) and url:
+                return url
+        for k in ("rawUrl", "url"):
+            v = result.get(k)
+            if isinstance(v, str) and v:
+                return v
+    # Legacy: images[]/outputs[] collections.
     for collection_key in ("images", "outputs"):
         coll = job.get(collection_key)
         if isinstance(coll, list):
             for entry in coll:
                 if isinstance(entry, dict):
-                    for k in ("url", "rawUrl", "raw_url"):
+                    for k in ("url", "rawUrl"):
                         v = entry.get(k)
                         if isinstance(v, str) and v:
                             return v
@@ -520,8 +788,12 @@ def _extract_result_url(job: dict) -> str:
     flat = job.get("result_url")
     if isinstance(flat, str) and flat:
         return flat
+    # Diagnostic dump if all else fails.
+    import json as _json
     raise HiggsfieldWebError(
-        f"Could not extract result URL from completed job: keys={list(job.keys())}"
+        f"Could not extract result URL from completed job. Keys: "
+        f"{list(job.keys())}. result={_json.dumps(job.get('result'), default=str)[:300]} "
+        f"results={_json.dumps(job.get('results'), default=str)[:300]}"
     )
 
 
@@ -565,21 +837,21 @@ def wait_for_result_url(
 def submit_and_wait(
     *,
     prompt: str,
-    input_image_urls: list[str],
+    input_media: list[tuple[str, str]],
     aspect_ratio: str = "1:1",
     resolution: str = "1k",
     timeout_s: int = 600,
     seed: int | None = None,
 ) -> str:
     """Convenience: submit a job and block until the result URL is ready."""
-    request_id = submit_nano_banana_edit(
+    job_id = submit_nano_banana_edit(
         prompt=prompt,
-        input_image_urls=input_image_urls,
+        input_media=input_media,
         aspect_ratio=aspect_ratio,
         resolution=resolution,
         seed=seed,
     )
-    return wait_for_result_url(request_id, timeout_s=timeout_s)
+    return wait_for_result_url(job_id, timeout_s=timeout_s)
 
 
 def download_result(url: str, out_path: Path) -> Path:
