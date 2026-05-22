@@ -146,6 +146,96 @@ def _truncate_for_display(value: str, head: int = 12, tail: int = 6) -> str:
     return f"{value[:head]}...{value[-tail:]} ({len(value)} chars)"
 
 
+def _paste_mode(dry_run: bool) -> int:
+    """Interactive fallback: prompt the operator for the cookie values
+    one at a time, write them to .env. Used when browser_cookie3 can't
+    decrypt the cookies (Chrome v127+ App-Bound Encryption blocks
+    automated extraction even with admin privileges).
+
+    Walks the operator through the DevTools cookie-pickup once with
+    explicit instructions so they know exactly what to copy."""
+    print()
+    print("=" * 70)
+    print("PASTE MODE — manually copy the Higgsfield Clerk cookies from")
+    print("Chrome's DevTools and paste them when prompted.")
+    print("=" * 70)
+    print()
+    print("Step-by-step (Chrome):")
+    print()
+    print("  1. Open https://cloud.higgsfield.ai in Chrome — confirm you're")
+    print("     logged in.")
+    print("  2. Right-click anywhere on the page → 'Inspect'.")
+    print("  3. The DevTools panel opens on the right or bottom.")
+    print("     Look at the top row of tabs: 'Elements | Console | Sources |")
+    print("     Network | Performance | Memory | Application | …'.")
+    print("     If 'Application' is hidden, click the >> overflow arrow at the")
+    print("     end of the row and pick it.")
+    print("  4. In the LEFT sidebar of the Application panel: scroll down to")
+    print("     'Storage' → expand 'Cookies' → click 'https://cloud.higgsfield.ai'.")
+    print("  5. A table of cookies appears on the right. Find the row whose")
+    print("     'Name' column is exactly '__client'.")
+    print("  6. Single-click that row (don't double-click). At the BOTTOM of")
+    print("     the DevTools panel, a 'Cookie Value' detail pane appears with")
+    print("     a long string starting with 'eyJ...'. Click in that pane,")
+    print("     press Ctrl+A then Ctrl+C to copy the full value.")
+    print("  7. Paste below when prompted. The value will be hundreds of")
+    print("     characters long; the script trims the on-screen confirmation.")
+    print()
+    print("Repeat for '__session' if you want to skip the first JWT-mint")
+    print("round-trip (optional — the client auto-mints from __client).")
+    print()
+
+    values: dict[str, str] = {}
+    try:
+        client_val = input("Paste __client value (long-lived, required): ").strip()
+    except (EOFError, KeyboardInterrupt):
+        print("\nCancelled.")
+        return 1
+    if not client_val:
+        print(
+            "\nERROR: __client is required. Without it the web client can't "
+            "authenticate. Re-run and paste a value.",
+            file=sys.stderr,
+        )
+        return 1
+    # Strip surrounding quotes that some terminals add when right-click-pasting.
+    client_val = client_val.strip("'\"")
+    values["__client"] = client_val
+
+    try:
+        session_val = input(
+            "Paste __session value (short-lived, optional — press Enter to skip): "
+        ).strip().strip("'\"")
+    except (EOFError, KeyboardInterrupt):
+        session_val = ""
+    if session_val:
+        values["__session"] = session_val
+
+    print()
+    for cookie_name, env_key in COOKIE_NAMES.items():
+        if cookie_name in values:
+            print(
+                f"  {cookie_name:<10}  -> {env_key:<26}  "
+                f"= {_truncate_for_display(values[cookie_name])}"
+            )
+
+    if dry_run:
+        print("\n--dry-run: NOT modifying .env.")
+        return 0
+
+    env_lines = _read_env()
+    for cookie_name, env_key in COOKIE_NAMES.items():
+        if cookie_name in values:
+            env_lines = _upsert_env_key(env_lines, env_key, values[cookie_name])
+    ENV_PATH.write_text("".join(env_lines), encoding="utf-8")
+    print(
+        f"\nWrote {len(values)} value(s) to {ENV_PATH}. "
+        f"Re-run this script (with or without --paste) when __client expires "
+        f"(~weekly)."
+    )
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Extract Higgsfield Clerk cookies and write them to .env",
@@ -167,7 +257,18 @@ def main() -> int:
         action="store_true",
         help="Print what would be written without modifying .env.",
     )
+    parser.add_argument(
+        "--paste",
+        action="store_true",
+        help="Skip automated extraction; prompt for the cookie values "
+        "interactively. Use this when Chrome v127+ App-Bound Encryption "
+        "blocks browser_cookie3 from decrypting cookies on your machine.",
+    )
     args = parser.parse_args()
+
+    # Paste mode bypasses browser_cookie3 entirely.
+    if args.paste:
+        return _paste_mode(args.dry_run)
 
     bc3 = _import_browser_cookie3()
     print(
@@ -180,16 +281,33 @@ def main() -> int:
     try:
         jar = _load_cookie_jar(bc3, args.browser, args.profile)
     except Exception as e:
+        msg = str(e).lower()
+        # Chrome v127+ App-Bound Encryption: cookie file is readable but
+        # the decryption key requires Chrome's running process token.
+        # browser_cookie3 doesn't support this yet (as of 0.20.1). Steer
+        # the operator to paste mode rather than churning on browser flags.
+        app_bound_hint = (
+            "unable to get key" in msg
+            or "requires admin" in msg
+            or "app-bound" in msg
+        )
         print(
             f"ERROR reading cookies: {e}\n\n"
-            "Common causes:\n"
-            "  1. Chrome is still running — close it fully (all windows, "
-            "including system-tray) and retry. On Windows Chrome locks the "
-            "cookie database while running.\n"
-            "  2. You're not logged into cloud.higgsfield.ai. Open it in "
-            "the browser, log in, then re-run this script.\n"
-            "  3. Multiple Chrome profiles — try `--profile \"Profile 1\"`.\n"
-            "  4. Different browser — try `--browser edge` or `--browser brave`.\n",
+            + (
+                "This is Chrome/Edge v127+ App-Bound Encryption. The cookie\n"
+                "file is readable but the encryption key is bound to Chrome's\n"
+                "live process, and browser_cookie3 can't decrypt it offline.\n"
+                "Use paste mode instead — same result, ~30 seconds of clicking:\n\n"
+                "  py -3.14 scripts/extract_hf_cookies.py --paste\n\n"
+                if app_bound_hint
+                else "Common causes:\n"
+                "  1. Chrome is still running — close all windows (incl. system tray).\n"
+                "  2. Not logged into cloud.higgsfield.ai — open + log in, retry.\n"
+                "  3. Wrong Chrome profile — try `--profile \"Profile 1\"`.\n"
+                "  4. Wrong browser — try `--browser edge` or `--browser brave`.\n"
+                "  5. If none of the above work, use paste mode:\n"
+                "       py -3.14 scripts/extract_hf_cookies.py --paste\n"
+            ),
             file=sys.stderr,
         )
         return 1
