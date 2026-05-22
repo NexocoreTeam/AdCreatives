@@ -51,7 +51,31 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+# We use curl_cffi (not httpx) for ALL calls to clerk.higgsfield.ai and
+# fnf.higgsfield.ai. Reason: both sit behind Cloudflare bot protection,
+# which rejects plain Python TLS fingerprints with a 403 + "Just a moment..."
+# challenge page. curl_cffi with impersonate="chrome120" emits the exact
+# JA3 + HTTP/2 frame ordering Chrome does, which Cloudflare accepts. This
+# is the same trick the Hikhakk reference implementation uses; verified
+# empirically against a 403 we hit without it on 2026-05-22.
+try:
+    from curl_cffi import requests as _impersonate_requests
+except ImportError as e:
+    raise ImportError(
+        "curl_cffi is required for the hf-web engine (Cloudflare bypass on "
+        "fnf.higgsfield.ai). Install it with:\n"
+        "  py -3.14 -m pip install curl_cffi"
+    ) from e
+
+# httpx is still used for the direct CDN download at the end (no Cloudflare
+# on the result-URL bucket).
 import httpx
+
+# Chrome version we impersonate. Bumped from chrome120 to chrome131 on
+# 2026-05-22 after Higgsfield rolled out DataDome (separate from
+# Cloudflare). chrome131 matches the TLS + HTTP/2 fingerprint of a
+# late-2024 Chrome which the user's actual browser is closer to.
+_IMPERSONATE = "chrome131"
 
 # ─── Constants (reverse-engineered from Hikhakk's open-source MCP server) ────
 
@@ -159,13 +183,34 @@ def _read_env_jwt() -> str | None:
     return jwt
 
 
-def _discover_session_id(client: httpx.Client, client_cookie: str) -> str:
+def _read_datadome_cookie() -> str:
+    """Read HIGGSFIELD_DATADOME from env. Required for fnf.higgsfield.ai
+    requests — DataDome's bot protection rejects requests that lack a
+    valid `datadome` cookie with a 403 + "Please enable JS" page even
+    after the Cloudflare TLS check passes."""
+    cookie = os.environ.get("HIGGSFIELD_DATADOME", "").strip()
+    if not cookie or cookie.startswith("your_"):
+        raise HiggsfieldAuthError(
+            "HIGGSFIELD_DATADOME is not set in .env. fnf.higgsfield.ai sits "
+            "behind DataDome bot protection which rejects requests lacking "
+            "this cookie. Re-run the cookie extraction script:\n"
+            "  py -3.14 scripts/extract_hf_cookies.py --paste\n"
+            "and paste the `datadome` cookie value when prompted (extract "
+            "it from cloud.higgsfield.ai's cookies in DevTools alongside "
+            "__client and __session)."
+        )
+    return cookie
+
+
+def _discover_session_id(client, client_cookie: str) -> str:
     """GET /v1/client → find the active session id.
 
     Clerk's /v1/client returns a `response.last_active_session_id` for
     accounts with exactly one active session (the common case). For
     multi-session accounts it also returns a `sessions[]` list; we fall
-    back to the first session that's active or unmarked."""
+    back to the first session that's active or unmarked.
+
+    `client` is a curl_cffi Session impersonating chrome120."""
     url = f"{CLERK_BASE}/v1/client"
     r = client.get(
         url,
@@ -212,15 +257,18 @@ def _discover_session_id(client: httpx.Client, client_cookie: str) -> str:
     )
 
 
-def _mint_jwt(client: httpx.Client, client_cookie: str, sid: str) -> str:
-    """POST /v1/client/sessions/{sid}/tokens → fresh JWT."""
+def _mint_jwt(client, client_cookie: str, sid: str) -> str:
+    """POST /v1/client/sessions/{sid}/tokens → fresh JWT.
+
+    `client` is a curl_cffi Session. curl_cffi's POST takes the body as
+    `data=` (not `content=` like httpx). Empty body matches upstream impl."""
     url = f"{CLERK_BASE}/v1/client/sessions/{sid}/tokens"
     r = client.post(
         url,
         params=CLERK_VERSION_PARAMS,
         headers=COMMON_HEADERS,
         cookies={"__client": client_cookie},
-        content="",  # empty body, matching the upstream impl
+        data="",
         timeout=HTTP_TIMEOUT_S,
     )
     if r.status_code == 401 or r.status_code == 403:
@@ -280,9 +328,10 @@ def _get_fresh_jwt(force_refresh: bool = False) -> str:
         ):
             return _jwt_cache.jwt
 
-        # Path 3: refresh from __client cookie via Clerk
+        # Path 3: refresh from __client cookie via Clerk. Use curl_cffi
+        # with chrome120 impersonation to clear Cloudflare's bot check.
         client_cookie = _read_client_cookie()
-        with httpx.Client(timeout=HTTP_TIMEOUT_S) as client:
+        with _impersonate_requests.Session(impersonate=_IMPERSONATE) as client:
             sid = _session_id_cache
             if sid is None or force_refresh:
                 sid = _discover_session_id(client, client_cookie)
@@ -350,10 +399,17 @@ def submit_nano_banana_edit(
         params["seed"] = seed
     body = {"params": params, "use_unlim": False, "use_free_gens": False}
 
-    with httpx.Client(timeout=HTTP_TIMEOUT_S) as client:
+    # curl_cffi Session impersonating Chrome 131 to clear Cloudflare's TLS
+    # check, plus the datadome cookie to clear DataDome's bot challenge.
+    datadome = _read_datadome_cookie()
+    with _impersonate_requests.Session(impersonate=_IMPERSONATE) as client:
         # Try once with cached JWT, retry once on 401 with forced refresh.
         for attempt in range(2):
-            r = client.post(url, json=body, headers=_auth_headers())
+            r = client.post(
+                url, json=body, headers=_auth_headers(),
+                cookies={"datadome": datadome},
+                timeout=HTTP_TIMEOUT_S,
+            )
             if r.status_code == 401 and attempt == 0:
                 _get_fresh_jwt(force_refresh=True)
                 continue
@@ -388,17 +444,21 @@ _TERMINAL = {"completed", "failed", "nsfw", "cancelled", "rejected"}
 
 
 def _find_job_by_request_id(
-    client: httpx.Client, request_id: str
+    client, request_id: str
 ) -> dict | None:
     """GET /jobs?size=100 and find the entry whose request_id matches.
 
     Higgsfield's /jobs endpoint returns recent jobs (up to size). We
     don't have a per-request status URL the way platform.higgsfield.ai
-    does, so we have to filter the list."""
+    does, so we have to filter the list.
+
+    `client` is a curl_cffi Session impersonating chrome120."""
+    datadome = _read_datadome_cookie()
     r = client.get(
         f"{FNF_BASE}/jobs",
         params={"size": 100},
         headers=_auth_headers(),
+        cookies={"datadome": datadome},
         timeout=HTTP_TIMEOUT_S,
     )
     if r.status_code == 401:
@@ -407,6 +467,7 @@ def _find_job_by_request_id(
             f"{FNF_BASE}/jobs",
             params={"size": 100},
             headers=_auth_headers(),
+            cookies={"datadome": datadome},
             timeout=HTTP_TIMEOUT_S,
         )
     if r.status_code >= 400:
@@ -473,7 +534,7 @@ def wait_for_result_url(
     """Poll until the given job reaches a terminal state, return its
     result URL. Raises HiggsfieldWebError on failure / nsfw / timeout."""
     deadline = time.time() + timeout_s
-    with httpx.Client(timeout=HTTP_TIMEOUT_S) as client:
+    with _impersonate_requests.Session(impersonate=_IMPERSONATE) as client:
         while True:
             job = _find_job_by_request_id(client, request_id)
             if job is None:

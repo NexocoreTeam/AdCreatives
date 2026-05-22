@@ -43,10 +43,14 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ENV_PATH = REPO_ROOT / ".env"
 
-# Cookies we care about. Both are Clerk-set on the higgsfield.ai domain.
+# Cookies we care about. __client + __session are Clerk-set; datadome is
+# the DataDome bot-protection cookie that authorizes requests through
+# fnf.higgsfield.ai's challenge layer. All three live on the higgsfield.ai
+# domain.
 COOKIE_NAMES = {
     "__client": "HIGGSFIELD_CLERK_CLIENT",
     "__session": "HIGGSFIELD_JWT",
+    "datadome": "HIGGSFIELD_DATADOME",
 }
 COOKIE_DOMAIN_SUFFIX = "higgsfield.ai"
 
@@ -165,24 +169,24 @@ def _paste_mode(dry_run: bool) -> int:
     print("  1. Open https://cloud.higgsfield.ai in Chrome — confirm you're")
     print("     logged in.")
     print("  2. Right-click anywhere on the page → 'Inspect'.")
-    print("  3. The DevTools panel opens on the right or bottom.")
-    print("     Look at the top row of tabs: 'Elements | Console | Sources |")
-    print("     Network | Performance | Memory | Application | …'.")
-    print("     If 'Application' is hidden, click the >> overflow arrow at the")
-    print("     end of the row and pick it.")
-    print("  4. In the LEFT sidebar of the Application panel: scroll down to")
-    print("     'Storage' → expand 'Cookies' → click 'https://cloud.higgsfield.ai'.")
-    print("  5. A table of cookies appears on the right. Find the row whose")
-    print("     'Name' column is exactly '__client'.")
-    print("  6. Single-click that row (don't double-click). At the BOTTOM of")
-    print("     the DevTools panel, a 'Cookie Value' detail pane appears with")
-    print("     a long string starting with 'eyJ...'. Click in that pane,")
-    print("     press Ctrl+A then Ctrl+C to copy the full value.")
-    print("  7. Paste below when prompted. The value will be hundreds of")
-    print("     characters long; the script trims the on-screen confirmation.")
+    print("  3. In the DevTools top tab bar, click 'Application' (may be")
+    print("     hidden behind the >> arrow if the panel is narrow).")
+    print("  4. Left sidebar: 'Storage' → expand 'Cookies' → click")
+    print("     'https://cloud.higgsfield.ai'.")
+    print("  5. A table of cookies appears on the right.")
     print()
-    print("Repeat for '__session' if you want to skip the first JWT-mint")
-    print("round-trip (optional — the client auto-mints from __client).")
+    print("  Three cookies to copy, one at a time:")
+    print()
+    print("    a. '__client'  — long-lived (~7 days). Single-click the row,")
+    print("       then look at the BOTTOM 'Cookie Value' pane. Click in it,")
+    print("       Ctrl+A, Ctrl+C.")
+    print()
+    print("    b. '__session' — short-lived (~1 min), OPTIONAL. Same procedure.")
+    print()
+    print("    c. 'datadome'  — REQUIRED to bypass DataDome's bot challenge.")
+    print("       Same procedure.")
+    print()
+    print("  Paste each one below when prompted.")
     print()
 
     values: dict[str, str] = {}
@@ -210,6 +214,17 @@ def _paste_mode(dry_run: bool) -> int:
         session_val = ""
     if session_val:
         values["__session"] = session_val
+
+    # The datadome cookie clears DataDome's bot challenge on fnf.higgsfield.ai.
+    # Without it, requests come back with a 403 + "Please enable JS" page.
+    try:
+        datadome_val = input(
+            "Paste datadome value (required for fnf.higgsfield.ai): "
+        ).strip().strip("'\"")
+    except (EOFError, KeyboardInterrupt):
+        datadome_val = ""
+    if datadome_val:
+        values["datadome"] = datadome_val
 
     print()
     for cookie_name, env_key in COOKIE_NAMES.items():
