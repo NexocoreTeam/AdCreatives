@@ -2284,33 +2284,39 @@ def _render_remix_tab(selected):
             )
 
             # Staged toggle — only useful for differential runs.
+            # NOTE: as of 2026-05-22, HF-CLI single-shot empirically beats
+            # HF-CLI 3-pass. nano_banana_2 treats narrow "only change X"
+            # prompts as fresh-generation rather than precise edits, so
+            # the 3-pass output drifted catastrophically on the us-vs-them
+            # PetLab reference. The dashboard now defaults staged=OFF for
+            # HF CLI; 3-pass is kept available but labeled experimental.
             staged_disabled = not mappings_present
             staged_label = (
                 "Staged 3-pass (product → text → model)"
                 + ("" if mappings_present else "  ·  (requires differential mode)")
+                + ("  ·  ⚠️ experimental for HF CLI" if engine_choice_id == "hf-cli" else "")
             )
-            # HF-CLI engine is ALWAYS staged — there's no single-shot HF-CLI
-            # variant. Force the checkbox on (and disable it) so the operator
-            # doesn't accidentally hit an unsupported combo.
-            staged_forced_on = (engine_choice_id == "hf-cli")
             use_staged = st.checkbox(
-                staged_label + ("  ·  (required for HF CLI)" if staged_forced_on else ""),
+                staged_label,
                 key=f"remix_use_staged_{run['timestamp']}",
-                value=True if staged_forced_on else None,
-                disabled=staged_disabled or staged_forced_on,
+                disabled=staged_disabled,
                 help=(
-                    "Off: single fal-NB2 call applies product + text swaps "
-                    "together. Faster.\n\n"
-                    "On: 3 sequential passes — pass 1 swaps product, pass 2 "
-                    "swaps text, pass 3 swaps model/character. Mirrors the "
-                    "manual Higgsfield workflow. Highest layout fidelity."
+                    "Off: single image-gen call applies all edits together. "
+                    "Recommended for HF CLI (nano_banana_2 produces best "
+                    "output single-shot). For fal NB2 + HF Soul, off means "
+                    "single NB2 call.\n\n"
+                    "On: 3 sequential passes — pass 1 product, pass 2 text, "
+                    "pass 3 model/character. Works well for fal NB2 staged; "
+                    "produces worse output than single-shot for HF CLI (kept "
+                    "for testing only)."
                 ),
             )
 
             action_l, action_r = st.columns(2)
             # Cost estimates per brief, by engine × staged.
             if engine_choice_id == "hf-cli":
-                cost_per_brief = 0.15  # HF credits, 2-3 nano_banana_2 passes
+                # 1 nano_banana_2 call single-shot, 2-3 if staged.
+                cost_per_brief = 0.15 if use_staged else 0.05
                 engine_suffix = " (HF CLI)"
             elif engine_choice_id == "higgsfield-soul" and use_staged:
                 cost_per_brief = 0.24

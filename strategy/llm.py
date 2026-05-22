@@ -51,19 +51,26 @@ def claude_complete(
     system: str = "",
     max_tokens: int = 4096,
     *,
-    max_retries: int = 3,
+    max_retries: int = 5,
 ) -> str:
     """Simple Claude completion wrapper with automatic retry on transient
     errors.
 
-    Retries up to `max_retries` times with exponential backoff (1s, 2s, 4s)
-    on rate-limit (429), server-error (5xx), and network hiccups. Auth /
+    Retries up to `max_retries` times with exponential backoff (1, 2, 4,
+    8, 16 seconds = 31s total at default max_retries=5) on rate-limit (429),
+    server-error (5xx), overloaded (529), and network hiccups. Auth /
     content-policy errors raise immediately — those won't change on retry.
 
-    Silent-failure prevention: previously a single 429 during a remix run
-    of 5 briefs would cause 1-2 mappings to fall back to identity output
-    without the operator noticing. The retries here mean almost every
-    transient hiccup is invisibly recovered."""
+    Default was bumped from 3 to 5 on 2026-05-22 after Anthropic 529
+    "Overloaded" errors began surfacing in remix_continue runs. 529s often
+    last a couple of minutes when Anthropic's capacity is constrained;
+    1+2+4=7s of backoff was sometimes not enough to ride them out.
+    31s of total backoff catches the typical short overload window
+    without making the operator wait absurdly long if it really is broken.
+
+    When retries exhaust on a 529, raises with a user-friendly message
+    pointing at https://status.anthropic.com and explaining how to
+    resume manually."""
     client = get_anthropic_client()
     messages = [{"role": "user", "content": prompt}]
     kwargs: dict = {"model": "claude-sonnet-4-6", "max_tokens": max_tokens, "messages": messages}
@@ -90,8 +97,25 @@ def claude_complete(
         except Exception as e:
             last_exc = e
             if attempt == max_retries or not _is_retryable(e):
+                # Friendlier error on terminal 529 (Anthropic overload) —
+                # tells the operator this is an Anthropic capacity issue,
+                # not a code bug, and how to recover.
+                status = getattr(e, "status_code", None)
+                msg = str(e).lower()
+                is_overload = (status == 529) or ("overloaded" in msg) or ("529" in msg)
+                if is_overload and attempt == max_retries:
+                    raise RuntimeError(
+                        f"Anthropic API is currently overloaded (HTTP 529). "
+                        f"Tried {max_retries + 1} times with exponential "
+                        f"backoff (31s total) and the API never recovered. "
+                        f"This is a temporary Anthropic capacity issue, not "
+                        f"a code bug. Check https://status.anthropic.com and "
+                        f"retry the same command in a few minutes — your "
+                        f"analyze-only / mapping work is on disk and will "
+                        f"resume from where it stopped."
+                    ) from e
                 raise
-            wait_s = 2 ** attempt  # 1, 2, 4 seconds
+            wait_s = 2 ** attempt  # 1, 2, 4, 8, 16 seconds at max_retries=5
             status = getattr(e, "status_code", "?")
             print(
                 f"  [claude_complete] retryable error (status={status}, "

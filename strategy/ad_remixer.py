@@ -2252,14 +2252,47 @@ def generate_remix_images(
     # those preconditions itself and raises if they're missing. Final pass
     # uses Higgsfield Soul when engine implies HF, or when the avatar has a
     # ready soul; the orchestrator decides per brief.
+    # HF CLI engine: defaults to single-shot. Staged is kept as a legacy/
+    # experimental path but produces worse output than single-shot
+    # empirically (verified 2026-05-22 against the us-vs-them PetLab
+    # reference) because nano_banana_2 treats narrow per-pass prompts as
+    # fresh-generation tasks rather than precise edits. Single-shot with a
+    # comprehensive prompt is what works.
+    if engine == "hf-cli" and not staged:
+        try:
+            return _generate_remix_images_hf_cli_single(
+                briefs_data,
+                remix_path=remix_path,
+                images_dir=images_dir,
+                num_images=num_images,
+                aspect_ratio=aspect_ratio,
+            )
+        except Exception as e:
+            if fallback_engine:
+                print(
+                    f"  [fallback] HF-CLI single-shot failed ({e}). "
+                    f"Falling back to engine={fallback_engine}.",
+                    flush=True,
+                )
+                return generate_remix_images(
+                    remix_dir,
+                    num_images=num_images,
+                    thinking_level=thinking_level,
+                    aspect_ratio=aspect_ratio,
+                    engine=fallback_engine,
+                    fallback_engine=None,
+                    staged=False,
+                )
+            raise
+
     if staged:
-        # Two staged paths:
-        #   engine="hf-cli"       → nano_banana_2 via Higgsfield CLI (no fal)
-        #   engine="nb2" (default) → fal NB2 for stages 1+2, optional HF Soul
-        #                            for stage 3 if persona has a trained soul
+        # Staged paths:
+        #   engine="hf-cli" + staged=True → 3-pass nano_banana_2 (LEGACY,
+        #     produces worse output than single-shot; kept for testing)
+        #   engine="nb2" (default) + staged → fal NB2 for stages 1+2,
+        #     optional HF Soul stage 3 if persona has a trained soul
         # The former all-HF staged path (soul_2 throughout) was removed in
-        # 2026-05-21 — soul_2 isn't an edit model and produced compounding
-        # drift across passes.
+        # 2026-05-21 — soul_2 isn't an edit model.
         if engine == "hf-cli":
             try:
                 return _generate_remix_images_hf_cli_staged(
@@ -4463,8 +4496,18 @@ def _hf_cli_generate(
     aspect_ratio: str = "1:1",
     resolution: str = "2k",
     wait_timeout: str = "10m",
+    model: str = "nano_banana_flash",
 ) -> str:
-    """Fire one nano_banana_2 generation via the CLI and wait for the result.
+    """Fire one Higgsfield image-edit generation via the CLI and wait for the
+    result.
+
+    Default model is `nano_banana_flash` (Higgsfield's display name "Nano
+    Banana 2"). Switched from `nano_banana_2` ("Nano Banana Pro") on
+    2026-05-22 after the Pro variant produced fresh-generation output
+    rather than reference-preserving edits on a complex us-vs-them ad,
+    while the flash variant successfully edited the same complex layout
+    via MCP. Confusingly, "flash" is the better choice for preserving
+    reference layouts despite the name suggesting otherwise.
 
     Returns the `result_url` of the completed job. Caller is responsible
     for downloading that URL to disk.
@@ -4474,7 +4517,7 @@ def _hf_cli_generate(
     with empty job status). Safer pattern: `generate create` returns a job
     id list; we then call `generate wait <id> --timeout` separately."""
     args = [
-        "generate", "create", "nano_banana_2",
+        "generate", "create", model,
         "--prompt", prompt,
         "--aspect_ratio", aspect_ratio,  # snake_case, NOT hyphen
         "--resolution", resolution,
@@ -4522,6 +4565,241 @@ def _hf_download(url: str, out_path: "Path") -> "Path":
         r.raise_for_status()
         out_path.write_bytes(r.content)
     return out_path
+
+
+def _build_hf_cli_single_prompt(
+    product: "Product",
+    mapping: list[dict[str, str]],
+    scene_cleanup: str = "",
+    model_descriptor: str = "",
+) -> str:
+    """Comprehensive single-shot prompt for nano_banana_2.
+
+    Combines all four edit operations (product, text, scene cleanup, model)
+    into ONE prompt block. Empirical finding (2026-05-22): nano_banana_2
+    produces dramatically better output with one comprehensive prompt than
+    with three narrow ones — the narrow-prompt path causes the model to
+    treat each pass as a fresh-generation task and ignore the reference.
+
+    Matches the prompt pattern that worked in our earlier MCP test:
+      1) Product swap (from image 2)
+      2) Numbered text swaps with [position, role] anchors
+      3) Scene cleanup (operator-supplied "remove X" instructions)
+      4) Model swap (operator-supplied prose descriptor)
+      Plus PRESERVE clause for everything else.
+
+    Decoration-role mapping items are filtered out — they're product-label
+    text carried by image 2 automatically."""
+
+    text_swaps = [
+        m for m in mapping
+        if m.get("source")
+        and (m.get("role") or "").strip().lower() != "decoration"
+    ]
+
+    lines: list[str] = []
+    lines.append(
+        f"EDIT TASK - this is a precise edit of the first reference image "
+        f"(the source ad). Image 2 is the replacement product "
+        f"({product.name}). Apply ALL of the following changes; preserve "
+        f"everything not listed."
+    )
+    lines.append("")
+
+    # 1) PRODUCT SWAP
+    lines.append(
+        f"1) PRODUCT SWAP - replace the product container shown in Image 1 "
+        f"with the {product.name} from Image 2. Keep the same hand "
+        f"position, orientation, scale relative to the frame, and lighting "
+        f"on the product. If Image 1 shows a hand reaching INTO an open "
+        f"container but Image 2 is closed/sealed, naturally adjust the "
+        f"hand to PRESENT the closed product (holding it up, fingers "
+        f"around the side) - do NOT render a hand reaching into a closed "
+        f"lid."
+    )
+    lines.append("")
+
+    # 2) TEXT SWAPS
+    if text_swaps:
+        lines.append(
+            "2) TEXT SWAPS - render exactly these text strings at the same "
+            "positions, with the same fonts, weights, alignment, and "
+            "pill/wash-bubble styling as the source ad. Where target is "
+            "[REMOVE], delete that element. Where target is [PRESERVE "
+            "AS-IS], keep the source text unchanged."
+        )
+        for m in text_swaps:
+            src = m["source"].replace('"', '\\"').replace("\n", " ")
+            tgt = m["target"].replace('"', '\\"').replace("\n", " ")
+            pos = (m.get("position") or "").strip()
+            role = (m.get("role") or "").strip()
+            anchor_parts = [p for p in (pos, role) if p]
+            anchor = f"[{', '.join(anchor_parts)}] " if anchor_parts else ""
+            if tgt.upper() == "[REMOVE]":
+                lines.append(f'  - {anchor}"{src}"  ->  [REMOVE entirely]')
+            elif tgt.upper() == "[PRESERVE AS-IS]":
+                lines.append(
+                    f'  - {anchor}"{src}"  ->  [PRESERVE AS-IS]'
+                )
+            else:
+                lines.append(f'  - {anchor}"{src}"  ->  "{tgt}"')
+        lines.append("")
+
+    # 3) SCENE CLEANUP (optional)
+    cleanup = (scene_cleanup or "").strip()
+    if cleanup:
+        lines.append("3) SCENE CLEANUP - also remove these non-text scene elements:")
+        for ln in cleanup.splitlines():
+            ln = ln.strip(" -*").strip()
+            if ln:
+                lines.append(f"  - {ln}")
+        lines.append(
+            "  - Naturally extend the existing background into the freed "
+            "space. Do NOT add new scene elements to fill the gap."
+        )
+        lines.append("")
+
+    # 4) MODEL SWAP (optional)
+    desc = (model_descriptor or "").strip()
+    if desc:
+        lines.append(
+            f"4) MODEL SWAP - replace the person/model in the scene with "
+            f"{desc}. Same pose, same hand position holding the product, "
+            f"same body angle, same wardrobe register, same framing. ONLY "
+            f"the identity (face, age, ethnicity, hair, body type) changes."
+        )
+        lines.append("")
+
+    # PRESERVE clause
+    lines.append(
+        "PRESERVE PIXEL-IDENTICALLY: composition, framing, lighting "
+        "register, color palette, white callout pill backgrounds, panels, "
+        "badges, decorative marks (checkmarks, X-marks, vignettes), "
+        "tabletop/background, and any human figure or props NOT listed for "
+        "swap above."
+    )
+    return "\n".join(lines)
+
+
+def _generate_remix_images_hf_cli_single(
+    briefs_data: list[dict],
+    *,
+    remix_path: Path,
+    images_dir: Path,
+    num_images: int,
+    aspect_ratio: str,
+) -> list[Path]:
+    """Single-shot nano_banana_2 image generation via the higgsfield CLI.
+
+    One subprocess call per brief × num_images. The prompt bundles every
+    edit (product swap, text swaps, scene cleanup, model swap) into a
+    single block — empirically this produces better output than the 3-pass
+    staged variant because nano_banana_2 treats narrow "only change X"
+    prompts as fresh-generation tasks rather than precise edits.
+
+    Saves directly as <brief_id>_1x1.png (no stage1/stage2/stage3 files).
+
+    Requires:
+      - `higgsfield` CLI installed + authenticated
+      - The remix run is differential mode (mappings/<brief_id>.yaml exist)
+      - reference.<ext> + a resolvable product image"""
+    if not briefs_data:
+        return []
+
+    first_prompt = remix_path / "prompts" / f"{briefs_data[0]['brief_id']}.txt"
+    run_mode = (
+        _detect_remix_mode_from_prompt(first_prompt) if first_prompt.exists() else
+        "strategic"
+    )
+    if run_mode != "differential":
+        raise ValueError(
+            "HF-CLI single-shot mode requires a differential-mode remix run "
+            "(needs the per-brief mappings/*.yaml). This run is "
+            f"'{run_mode}' mode."
+        )
+
+    reference_path = _find_remix_reference_image(remix_path)
+    if reference_path is None:
+        raise RuntimeError(
+            f"No reference.<ext> found in {remix_path}. Re-run "
+            f"`adc remix --reference ...` to recreate."
+        )
+
+    client_slug = briefs_data[0]["client"]
+    product_name = briefs_data[0]["product"]
+    product = _load_product_flexible(
+        client_slug, product_name.lower().replace(" ", "-")
+    )
+    product_path = _resolve_product_local_path(remix_path, product, client_slug)
+
+    scene_cleanup = ""
+    model_descriptor = ""
+    sc_path = remix_path / "scene_cleanup.txt"
+    if sc_path.exists():
+        try:
+            scene_cleanup = sc_path.read_text(encoding="utf-8").strip()
+        except OSError:
+            pass
+    md_path = remix_path / "model_descriptor.txt"
+    if md_path.exists():
+        try:
+            model_descriptor = md_path.read_text(encoding="utf-8").strip()
+        except OSError:
+            pass
+
+    print(
+        f"[remix] HF-CLI single-shot mode: {len(briefs_data)} brief(s) x "
+        f"1 nano_banana_2 call each."
+        + (f" Scene cleanup: '{scene_cleanup[:60]}'." if scene_cleanup else "")
+        + (f" Model descriptor: '{model_descriptor[:60]}'." if model_descriptor else ""),
+        flush=True,
+    )
+
+    saved_paths: list[Path] = []
+    for brief_data in briefs_data:
+        brief_id = brief_data["brief_id"]
+        mapping = _load_brief_mapping(remix_path, brief_id)
+        if not mapping:
+            print(
+                f"  [skip hf-cli-single] {brief_id} - no mapping at "
+                f"mappings/{brief_id}.yaml.",
+                flush=True,
+            )
+            continue
+
+        for i in range(num_images):
+            suffix = f"_{i+1}" if num_images > 1 else ""
+            final_path = images_dir / f"{brief_id}{suffix}_1x1.png"
+
+            try:
+                result_url = _hf_cli_generate(
+                    prompt=_build_hf_cli_single_prompt(
+                        product, mapping,
+                        scene_cleanup=scene_cleanup,
+                        model_descriptor=model_descriptor,
+                    ),
+                    image_paths=[str(reference_path), str(product_path)],
+                    aspect_ratio=aspect_ratio,
+                )
+                _hf_download(result_url, final_path)
+                print(
+                    f"  [hf-cli-single] {brief_id}: {final_path.name}",
+                    flush=True,
+                )
+                saved_paths.append(final_path)
+            except Exception as e:
+                print(
+                    f"  [fail hf-cli-single] {brief_id}: {e}",
+                    flush=True,
+                )
+                continue
+
+            campaign_name = brief_data.get("campaign_name") or ""
+            if campaign_name:
+                sidecar = final_path.with_name(final_path.stem + "_campaign.txt")
+                sidecar.write_text(campaign_name + "\n", encoding="utf-8")
+
+    return saved_paths
 
 
 def _generate_remix_images_hf_cli_staged(
