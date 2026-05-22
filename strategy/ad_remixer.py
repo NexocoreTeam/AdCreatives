@@ -2252,12 +2252,43 @@ def generate_remix_images(
     # those preconditions itself and raises if they're missing. Final pass
     # uses Higgsfield Soul when engine implies HF, or when the avatar has a
     # ready soul; the orchestrator decides per brief.
-    # HF CLI engine: defaults to single-shot. Staged is kept as a legacy/
-    # experimental path but produces worse output than single-shot
-    # empirically (verified 2026-05-22 against the us-vs-them PetLab
-    # reference) because nano_banana_2 treats narrow per-pass prompts as
-    # fresh-generation tasks rather than precise edits. Single-shot with a
-    # comprehensive prompt is what works.
+    # HF-web engine (recommended): direct POST to fnf.higgsfield.ai's
+    # nano_banana_flash endpoint, the same backend cloud.higgsfield.ai
+    # uses. Produces near-perfect output on complex multi-panel references
+    # — verified 2026-05-22 vs both the dysfunctional CLI path and a
+    # successful MCP test. Auth is a Clerk JWT (from cloud.higgsfield.ai
+    # session cookies); JWT auto-refreshes from the long-lived __client
+    # cookie. Doesn't use fal credits at all. ~$0.10/brief in HF credits.
+    if engine == "hf-web":
+        try:
+            return _generate_remix_images_hf_web_single(
+                briefs_data,
+                remix_path=remix_path,
+                images_dir=images_dir,
+                num_images=num_images,
+                aspect_ratio=aspect_ratio,
+            )
+        except Exception as e:
+            if fallback_engine:
+                print(
+                    f"  [fallback] HF-web failed ({e}). Falling back to "
+                    f"engine={fallback_engine}.",
+                    flush=True,
+                )
+                return generate_remix_images(
+                    remix_dir,
+                    num_images=num_images,
+                    thinking_level=thinking_level,
+                    aspect_ratio=aspect_ratio,
+                    engine=fallback_engine,
+                    fallback_engine=None,
+                    staged=False,
+                )
+            raise
+
+    # HF CLI engine (legacy): kept available but the model variant the CLI
+    # routes to doesn't produce reference-faithful edits on complex
+    # references. Use hf-web instead for production work.
     if engine == "hf-cli" and not staged:
         try:
             return _generate_remix_images_hf_cli_single(
@@ -4679,6 +4710,205 @@ def _build_hf_cli_single_prompt(
         "swap above."
     )
     return "\n".join(lines)
+
+
+def _generate_remix_images_hf_web_single(
+    briefs_data: list[dict],
+    *,
+    remix_path: Path,
+    images_dir: Path,
+    num_images: int,
+    aspect_ratio: str,
+) -> list[Path]:
+    """Single-shot image generation via Higgsfield's web backend
+    (fnf.higgsfield.ai/jobs/v2/nano_banana_flash).
+
+    This is the path that actually produces reference-faithful edits on
+    complex layouts like us-vs-them comparison ads — verified 2026-05-22.
+    The official `higgsfield` CLI hits a different endpoint
+    (platform.higgsfield.ai) that doesn't route to the real edit backend;
+    only the web backend does.
+
+    Auth: requires HIGGSFIELD_JWT and/or HIGGSFIELD_CLERK_CLIENT in .env
+    (Clerk session cookies extracted from cloud.higgsfield.ai). See
+    docs/hf-web-engine.md for setup. JWT auto-refreshes from the
+    long-lived __client cookie; operator only re-pastes every ~7 days.
+
+    Image flow per brief:
+      1. Upload reference (local file) + product (local or URL) to HF's
+         platform.higgsfield.ai file store → get public CloudFront URLs
+         (reuses existing higgsfield_client.upload_image which uses the
+         hf-api-key/hf-secret auth, NOT the Clerk JWT — different auth
+         system for the file store).
+      2. POST nano_banana_flash job to fnf.higgsfield.ai with both URLs
+         in input_image_urls. Uses Clerk JWT auth.
+      3. Poll /jobs?size=100 until terminal. Download result URL to
+         <brief_id>_1x1.png.
+
+    Output naming matches the other orchestrators (no stage1/2/3
+    intermediates since this is single-shot)."""
+    from generators.higgsfield_client import (
+        upload_image as _hf_file_upload,
+        HiggsfieldError,
+    )
+    from generators.higgsfield_web_client import (
+        submit_and_wait,
+        download_result,
+        HiggsfieldWebError,
+        HiggsfieldAuthError,
+    )
+
+    if not briefs_data:
+        return []
+
+    first_prompt = remix_path / "prompts" / f"{briefs_data[0]['brief_id']}.txt"
+    run_mode = (
+        _detect_remix_mode_from_prompt(first_prompt) if first_prompt.exists() else
+        "strategic"
+    )
+    if run_mode != "differential":
+        raise ValueError(
+            "HF-web mode requires a differential-mode remix run (needs the "
+            f"per-brief mappings/*.yaml). This run is '{run_mode}' mode."
+        )
+
+    reference_path = _find_remix_reference_image(remix_path)
+    if reference_path is None:
+        raise RuntimeError(
+            f"No reference.<ext> in {remix_path}. Re-run `adc remix --reference ...`."
+        )
+
+    client_slug = briefs_data[0]["client"]
+    product_name = briefs_data[0]["product"]
+    product = _load_product_flexible(
+        client_slug, product_name.lower().replace(" ", "-")
+    )
+    product_path = _resolve_product_local_path(remix_path, product, client_slug)
+
+    # Upload both images ONCE per run to get public URLs. Reuse the cached
+    # reference URL if it's already on disk (saves an upload across re-fires).
+    print(
+        f"[remix] HF-web mode: uploading reference + product to "
+        f"platform.higgsfield.ai (for CloudFront URLs)...",
+        flush=True,
+    )
+    try:
+        # Reference: cache the URL so re-fires don't re-upload.
+        ref_cache = remix_path / ".reference_url.txt"
+        ref_url = ""
+        if ref_cache.exists():
+            try:
+                cached = ref_cache.read_text(encoding="utf-8").strip()
+                # The web endpoint accepts arbitrary public URLs (fal.media,
+                # HF CDN, anywhere), so any cached URL works.
+                if cached:
+                    ref_url = cached
+            except OSError:
+                pass
+        if not ref_url:
+            ref_url = _hf_file_upload(reference_path)
+            try:
+                ref_cache.write_text(ref_url, encoding="utf-8")
+            except OSError:
+                pass
+        # Product: cache too.
+        prod_cache = remix_path / ".product_url.txt"
+        product_url = ""
+        if prod_cache.exists():
+            try:
+                cached = prod_cache.read_text(encoding="utf-8").strip()
+                if cached:
+                    product_url = cached
+            except OSError:
+                pass
+        if not product_url:
+            product_url = _hf_file_upload(product_path)
+            try:
+                prod_cache.write_text(product_url, encoding="utf-8")
+            except OSError:
+                pass
+    except HiggsfieldError as e:
+        raise RuntimeError(
+            f"HF-web mode could not upload reference/product to HF's "
+            f"file store: {e}\nCheck HF_API_KEY / HF_API_SECRET in .env."
+        ) from e
+
+    scene_cleanup = ""
+    model_descriptor = ""
+    sc_path = remix_path / "scene_cleanup.txt"
+    if sc_path.exists():
+        try:
+            scene_cleanup = sc_path.read_text(encoding="utf-8").strip()
+        except OSError:
+            pass
+    md_path = remix_path / "model_descriptor.txt"
+    if md_path.exists():
+        try:
+            model_descriptor = md_path.read_text(encoding="utf-8").strip()
+        except OSError:
+            pass
+
+    print(
+        f"[remix] HF-web single-shot: {len(briefs_data)} brief(s) x 1 "
+        f"nano_banana_flash call each."
+        + (f" Scene cleanup: '{scene_cleanup[:60]}'." if scene_cleanup else "")
+        + (f" Model descriptor: '{model_descriptor[:60]}'." if model_descriptor else ""),
+        flush=True,
+    )
+
+    saved_paths: list[Path] = []
+    for brief_data in briefs_data:
+        brief_id = brief_data["brief_id"]
+        mapping = _load_brief_mapping(remix_path, brief_id)
+        if not mapping:
+            print(
+                f"  [skip hf-web] {brief_id} - no mapping at "
+                f"mappings/{brief_id}.yaml.",
+                flush=True,
+            )
+            continue
+
+        for i in range(num_images):
+            suffix = f"_{i+1}" if num_images > 1 else ""
+            final_path = images_dir / f"{brief_id}{suffix}_1x1.png"
+
+            try:
+                result_url = submit_and_wait(
+                    prompt=_build_hf_cli_single_prompt(
+                        product, mapping,
+                        scene_cleanup=scene_cleanup,
+                        model_descriptor=model_descriptor,
+                    ),
+                    input_image_urls=[ref_url, product_url],
+                    aspect_ratio=aspect_ratio,
+                    resolution="1k",
+                    timeout_s=600,
+                )
+                download_result(result_url, final_path)
+                print(
+                    f"  [hf-web] {brief_id}: {final_path.name}",
+                    flush=True,
+                )
+                saved_paths.append(final_path)
+            except HiggsfieldAuthError as e:
+                # Surface auth errors loudly — the operator likely needs to
+                # re-paste the __client cookie.
+                raise RuntimeError(
+                    f"HF-web auth failed: {e}"
+                ) from e
+            except HiggsfieldWebError as e:
+                print(
+                    f"  [fail hf-web] {brief_id}: {e}",
+                    flush=True,
+                )
+                continue
+
+            campaign_name = brief_data.get("campaign_name") or ""
+            if campaign_name:
+                sidecar = final_path.with_name(final_path.stem + "_campaign.txt")
+                sidecar.write_text(campaign_name + "\n", encoding="utf-8")
+
+    return saved_paths
 
 
 def _generate_remix_images_hf_cli_single(

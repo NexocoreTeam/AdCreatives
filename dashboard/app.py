@@ -2253,9 +2253,10 @@ def _render_remix_tab(selected):
             #                            CLI installed + auth'd.
             mappings_present = (run_dir / "mappings").exists()
             engine_options = [
+                "HF Web nano_banana_flash (RECOMMENDED — best layout fidelity)",
                 "fal NB2 (fast, fal credits)",
                 "fal NB2 + HF Soul stage-3 (identity-locked)",
-                "HF CLI nano_banana_2 (3-pass, HF credits, no fal)",
+                "HF CLI nano_banana_2 (LEGACY — does not produce real edits)",
             ]
             engine_choice = st.radio(
                 "Engine",
@@ -2264,20 +2265,25 @@ def _render_remix_tab(selected):
                 key=f"remix_engine_{run['timestamp']}",
                 help=(
                     "Pick how images get generated:\n"
-                    "• **fal NB2** — single-shot via fal.ai. Fastest, cheapest "
-                    "($0.08/brief). Requires fal credits.\n"
+                    "• **HF Web nano_banana_flash** (recommended) — the same "
+                    "edit backend cloud.higgsfield.ai uses internally. "
+                    "Verified to produce reference-faithful edits on complex "
+                    "layouts. Single-shot. Requires Clerk session cookies "
+                    "(HIGGSFIELD_JWT + HIGGSFIELD_CLERK_CLIENT) in .env — "
+                    "see docs/hf-web-engine.md. ~$0.10/brief in HF credits.\n"
+                    "• **fal NB2** — single-shot via fal.ai's edit endpoint. "
+                    "$0.08/brief. Requires fal credits.\n"
                     "• **fal NB2 + HF Soul stage-3** — pair with the Staged "
                     "checkbox. Stages 1+2 NB2 via fal, stage 3 identity-locked "
-                    "via Higgs Field Soul if persona has a trained soul.\n"
-                    "• **HF CLI nano_banana_2** — 3-pass through Higgsfield's "
-                    "actual edit model (the same Google Gemini-Flash-Image "
-                    "behind fal NB2, but routed through HF). No fal calls. "
-                    "Requires `npm i -g @higgsfield/cli` + `higgsfield auth "
-                    "login`. Pass 3 (model swap) only fires if --model-"
-                    "descriptor was set on the original remix run."
+                    "via HF Soul if persona has a trained soul.\n"
+                    "• **HF CLI** — LEGACY. The `higgsfield` CLI hits "
+                    "platform.higgsfield.ai which doesn't route nano_banana_2 "
+                    "to the real edit backend. Kept for testing; do not use "
+                    "for production."
                 ),
             )
             engine_choice_id = (
+                "hf-web" if engine_choice.startswith("HF Web") else
                 "hf-cli" if engine_choice.startswith("HF CLI") else
                 "higgsfield-soul" if engine_choice.startswith("fal NB2 + HF") else
                 "nb2"
@@ -2314,7 +2320,11 @@ def _render_remix_tab(selected):
 
             action_l, action_r = st.columns(2)
             # Cost estimates per brief, by engine × staged.
-            if engine_choice_id == "hf-cli":
+            if engine_choice_id == "hf-web":
+                # Single nano_banana_flash call (staged not applicable).
+                cost_per_brief = 0.10
+                engine_suffix = " (HF Web)"
+            elif engine_choice_id == "hf-cli":
                 # 1 nano_banana_2 call single-shot, 2-3 if staged.
                 cost_per_brief = 0.15 if use_staged else 0.05
                 engine_suffix = " (HF CLI)"
@@ -2344,7 +2354,12 @@ def _render_remix_tab(selected):
                         "--remix-dir", str(run_dir),
                         "--num-images", "1",
                     ]
-                    if engine_choice_id == "hf-cli":
+                    if engine_choice_id == "hf-web":
+                        args += [
+                            "--engine", "hf-web",
+                            "--fallback-engine", "nb2",
+                        ]
+                    elif engine_choice_id == "hf-cli":
                         args += [
                             "--engine", "hf-cli",
                             "--fallback-engine", "nb2",

@@ -4146,17 +4146,21 @@ def remix(
 )
 @click.option(
     "--engine",
-    type=click.Choice(["nb2", "higgsfield-soul", "hf-cli"]),
+    type=click.Choice(["nb2", "higgsfield-soul", "hf-cli", "hf-web"]),
     default="nb2",
     show_default=True,
     help=(
         "Image-generation engine. "
-        "'nb2' = fal.ai Nano Banana 2 (existing, product-aware). "
-        "'higgsfield-soul' = Higgs Field soul_2 using each persona's trained "
-        "soul_id (identity-locked face, phone-camera aesthetic). "
-        "'hf-cli' = Higgsfield CLI calling nano_banana_2 (the actual edit "
-        "model) — pair with --staged. Requires `npm i -g @higgsfield/cli` "
-        "and `higgsfield auth login`."
+        "'nb2' = fal.ai Nano Banana 2 (default, product-aware). "
+        "'higgsfield-soul' = Higgs Field soul_2 with each persona's trained "
+        "soul_id (identity-locked face). "
+        "'hf-web' = Higgsfield's nano_banana_flash via the web backend "
+        "(fnf.higgsfield.ai) — the real edit model. Recommended for "
+        "reference-replication. Requires HIGGSFIELD_JWT + "
+        "HIGGSFIELD_CLERK_CLIENT cookies in .env (see docs/hf-web-engine.md). "
+        "'hf-cli' = LEGACY. Higgsfield CLI calling nano_banana_2 via "
+        "platform.higgsfield.ai — doesn't route to the actual edit model. "
+        "Kept for testing only."
     ),
 )
 @click.option(
