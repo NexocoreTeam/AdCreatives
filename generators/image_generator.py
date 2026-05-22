@@ -910,6 +910,287 @@ def _write_campaign_sidecars(results: list[GenerationResult], campaign_name: str
 # ─── Single-reference, single-template mode (art-directed) ───────────────────
 
 
+def _build_hf_web_brief_edit_prompt(
+    brief: CreativeBrief,
+    product: Product,
+    brand: Brand,
+    creative_direction: str = "",
+) -> str:
+    """Build a nano_banana_flash edit prompt from a CreativeBrief + product.
+
+    Unlike the remix differential path, the single-brief generate path
+    does NOT have a per-brief mappings/*.yaml of {source -> target} text
+    swaps. Instead we build a swap-style prompt directly from the brief
+    fields (hook, body_copy, benefit_callouts, cta) and instruct
+    nano_banana_flash to render those as the new text payload while
+    preserving the source ad's composition, fonts, and pill styling.
+
+    Pattern mirrors `_build_hf_cli_single_prompt` from the remix path so
+    operators get consistent edit behavior across both flows."""
+    lines: list[str] = []
+    lines.append(
+        f"EDIT TASK - this is a precise edit of the first reference image "
+        f"(the source ad). Image 2 is the replacement product "
+        f"({product.name}). Apply ALL of the following changes; preserve "
+        f"everything not listed."
+    )
+    lines.append("")
+
+    # 1) PRODUCT SWAP
+    lines.append(
+        f"1) PRODUCT SWAP - replace the product container shown in Image 1 "
+        f"with the {product.name} from Image 2. Keep the same hand "
+        f"position, orientation, scale relative to the frame, and lighting "
+        f"on the product."
+    )
+    lines.append("")
+
+    # 2) TEXT REPLACEMENT - drawn directly from brief fields
+    lines.append(
+        "2) TEXT REPLACEMENT - replace ALL visible text from the source ad "
+        "with the content below. Use the same fonts, weights, alignment, "
+        "and pill/wash-bubble/panel styling as the source ad. If the source "
+        "has 3 callouts, use the 3 most important strings below. If the "
+        "source has a single headline + body, condense accordingly. Where "
+        "the source has a number of badges/marks, keep the same count and "
+        "swap only the text content."
+    )
+    hook = (brief.hook or "").strip()
+    if hook:
+        lines.append(f'  - Headline:        "{hook}"')
+    body = (brief.body_copy or "").strip()
+    if body:
+        body_one_line = " ".join(body.split())
+        lines.append(f'  - Body copy:       "{body_one_line}"')
+    for i, callout in enumerate(brief.benefit_callouts or [], 1):
+        c = (callout or "").strip()
+        if c:
+            lines.append(f'  - Benefit {i}:       "{c}"')
+    cta = (brief.cta or "").strip()
+    if cta:
+        lines.append(f'  - CTA / button:    "{cta}"')
+    lines.append("")
+
+    # 3) BRAND IDENTITY swap
+    brand_name = (getattr(brand, "name", "") or "").strip()
+    if brand_name:
+        lines.append(
+            f"3) BRAND IDENTITY - replace any brand name, wordmark, badge, "
+            f"or logo visible in the source ad with the {brand_name} brand. "
+            f"If the source ad shows a different brand's product noun "
+            f"(e.g. 'Chews', 'Capsules', 'Drops'), use {product.name} or "
+            f"the appropriate noun for {brand_name} instead."
+        )
+        lines.append("")
+
+    # 4) Optional creative direction
+    cd = (creative_direction or "").strip()
+    if cd:
+        lines.append(f"4) CREATIVE DIRECTION (highest priority): {cd}")
+        lines.append("")
+
+    # PRESERVE clause
+    lines.append(
+        "PRESERVE PIXEL-IDENTICALLY: composition, framing, lighting "
+        "register, color palette, callout pill/panel backgrounds, badges, "
+        "decorative marks (checkmarks, X-marks, vignettes), "
+        "tabletop/background, and any human figure or props NOT explicitly "
+        "swapped above."
+    )
+    return "\n".join(lines)
+
+
+def generate_from_brief_and_template_hf_web(
+    brief: CreativeBrief,
+    template_id: str,
+    reference_image_path: Path,
+    brand: Brand,
+    product: Product,
+    avatar: CustomerAvatar | None = None,
+    client_slug: str = "",
+    output_dir: Path | None = None,
+    num_images: int = 1,
+    aspect_ratio: str | None = None,
+    creative_direction: str = "",
+    offer: str = "NONE",
+    resolution: str = "1k",
+) -> tuple[str, list[GenerationResult]]:
+    """ART-DIRECTED generation via Higgsfield web nano_banana_flash.
+
+    Counterpart to `generate_from_brief_and_template` that routes through
+    fnf.higgsfield.ai instead of fal.ai NB2. Use this when:
+      - You want the same reference-faithful edit behavior the remix
+        differential mode produces, but for a single brief at a time.
+      - You're avoiding fal credits and prefer HF plan credits.
+      - The reference layout is complex (us-vs-them panels, multi-callout
+        comparison ads) where fal NB2 drifts.
+
+    Image flow:
+      1. Upload reference + product to fnf.higgsfield.ai/media (returns
+         media_id + public CloudFront URL for each).
+      2. Build an edit prompt from brief.hook / body_copy / benefit_callouts
+         / cta using `_build_hf_web_brief_edit_prompt`.
+      3. POST nano_banana_flash with the two medias. Poll. Download.
+
+    Auth: requires HIGGSFIELD_CLERK_CLIENT (and optionally HIGGSFIELD_JWT
+    + HIGGSFIELD_DATADOME) in .env. See docs/hf-web-engine.md.
+
+    Returns (prompt_used, generation_results) matching the fal-NB2 contract.
+    """
+    from generators.higgsfield_web_client import (
+        submit_and_wait,
+        download_result,
+        upload_image_for_edit,
+        HiggsfieldWebError,
+        HiggsfieldAuthError,
+    )
+    from models.library import load_prompt, LibraryPrompt
+    import yaml as _yaml
+
+    # Resolve template (mirrors generate_from_brief_and_template - keeps
+    # the behavior of looking up the named template even though the hf-web
+    # path doesn't use the template_prompt directly).
+    template = None
+    if client_slug:
+        client_templates_root = Path("clients") / client_slug / "templates"
+        for yaml_file in client_templates_root.rglob("*.yaml"):
+            try:
+                with open(yaml_file, encoding="utf-8") as f:
+                    data = _yaml.safe_load(f)
+                if data and data.get("id") == template_id:
+                    allowed = LibraryPrompt.model_fields.keys()
+                    data = {k: v for k, v in data.items() if k in allowed}
+                    template = LibraryPrompt(**data)
+                    break
+            except Exception:
+                continue
+    if template is None:
+        try:
+            template = load_prompt(template_id)
+        except FileNotFoundError:
+            raise ValueError(
+                f"Template '{template_id}' not found in client templates "
+                f"or global library."
+            )
+
+    if not reference_image_path.exists():
+        raise FileNotFoundError(
+            f"Reference image not found: {reference_image_path}"
+        )
+
+    if aspect_ratio is None:
+        aspect_ratio = infer_aspect_ratio(brief)
+
+    if output_dir is None:
+        output_dir = Path("ai-ads") / client_slug / "images"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Build the edit prompt FROM THE BRIEF (not from the template_prompt -
+    # that's NB2-style from-scratch generation; we want edit-swap semantics
+    # for nano_banana_flash).
+    prompt = _build_hf_web_brief_edit_prompt(
+        brief=brief,
+        product=product,
+        brand=brand,
+        creative_direction=creative_direction,
+    )
+
+    # Resolve product local image path (HF media upload needs a local file).
+    product_local: Path | None = None
+    if product.image_path:
+        candidate = Path("clients") / client_slug / product.image_path
+        if candidate.exists():
+            product_local = candidate
+        else:
+            candidate2 = Path(product.image_path)
+            if candidate2.exists():
+                product_local = candidate2
+    if product_local is None:
+        # Fallback: try to download the URL into a temp file
+        if product.image_url:
+            import tempfile
+            import urllib.request
+            tmp = Path(tempfile.gettempdir()) / f"hf_web_product_{product.name.replace(' ', '_')}.png"
+            try:
+                urllib.request.urlretrieve(product.image_url, tmp)
+                product_local = tmp
+            except Exception as e:
+                raise RuntimeError(
+                    f"Could not resolve a local product image for hf-web "
+                    f"upload. image_path missing/invalid and image_url "
+                    f"download failed: {e}"
+                )
+        else:
+            raise RuntimeError(
+                f"No local product image available for '{product.name}'. "
+                f"hf-web requires a local file to upload; add image_path or "
+                f"image_url to the product YAML."
+            )
+
+    # Upload reference + product to fnf.higgsfield.ai/media. Both fields
+    # need the media_id (canonical reference) AND the public URL (sent in
+    # the medias[].data.url payload).
+    try:
+        ref_media_id, ref_url = upload_image_for_edit(reference_image_path)
+        product_media_id, product_url = upload_image_for_edit(product_local)
+    except HiggsfieldAuthError as e:
+        raise RuntimeError(f"HF-web upload failed (auth): {e}") from e
+    except HiggsfieldWebError as e:
+        raise RuntimeError(
+            f"HF-web upload failed: {e}\nCheck HIGGSFIELD_CLERK_CLIENT and "
+            f"HIGGSFIELD_DATADOME in .env."
+        ) from e
+
+    # Build campaign_name if not already set
+    if not getattr(brief, "campaign_name", ""):
+        try:
+            from strategy.naming import build_campaign_name
+            brief.campaign_name = build_campaign_name(
+                brief, brand, offer=offer, iteration=1, source="AI",
+            )
+        except (ValueError, Exception):
+            pass
+
+    # Submit num_images calls (nano_banana_flash returns one image per
+    # submission; matches fal NB2 semantics).
+    results: list[GenerationResult] = []
+    for i in range(num_images):
+        suffix = f"_{i+1}" if num_images > 1 else ""
+        out_path = output_dir / f"{brief.brief_id}_ref_{template.id[:30]}{suffix}.png"
+        try:
+            result_url = submit_and_wait(
+                prompt=prompt,
+                input_media=[
+                    (ref_media_id, ref_url),
+                    (product_media_id, product_url),
+                ],
+                aspect_ratio=aspect_ratio,
+                resolution=resolution,
+                timeout_s=600,
+            )
+            download_result(result_url, out_path)
+        except HiggsfieldAuthError as e:
+            raise RuntimeError(f"HF-web auth failed: {e}") from e
+        except HiggsfieldWebError as e:
+            raise RuntimeError(f"HF-web job failed: {e}") from e
+
+        results.append(
+            GenerationResult(
+                image_url=result_url,
+                seed=None,
+                model="nano_banana_flash",
+                prompt_used=prompt,
+                local_path=out_path,
+                product_images_used=[product_url],
+                aspect_ratio=aspect_ratio,
+                resolution=resolution,
+            )
+        )
+
+    _write_campaign_sidecars(results, getattr(brief, "campaign_name", ""))
+    return prompt, results
+
+
 def generate_from_brief_and_template(
     brief: CreativeBrief,
     template_id: str,

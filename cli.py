@@ -3345,7 +3345,7 @@ def prompts(client: str, pick: str, product: str | None, creative_direction: str
 )
 @click.option(
     "--engine",
-    type=click.Choice(["nb2", "higgsfield-soul"]),
+    type=click.Choice(["nb2", "higgsfield-soul", "hf-web"]),
     default="nb2",
     show_default=True,
     help=(
@@ -3355,7 +3355,12 @@ def prompts(client: str, pick: str, product: str | None, creative_direction: str
         "Soul Character + PIL text overlay (identity-locked face, phone-camera "
         "aesthetic). Requires HF_CREDENTIALS in .env and a 'ready' Soul on each "
         "persona's avatar YAML. Ignores --reference and the product image — "
-        "soul_2 doesn't accept multi-image edits."
+        "soul_2 doesn't accept multi-image edits. "
+        "'hf-web' = Higgsfield web nano_banana_flash (the same edit endpoint "
+        "as the working remix --engine hf-web path). REQUIRES --reference. "
+        "Best for cloning a specific reference layout faithfully on complex "
+        "ads (us-vs-them comparison panels, multi-callout). Uses HF plan "
+        "credits, not fal credits. See docs/hf-web-engine.md for .env setup."
     ),
 )
 @click.option(
@@ -3394,8 +3399,23 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
         load_product_by_name,
         load_avatar,
     )
-    from generators.image_generator import generate_from_brief, generate_from_brief_and_template
+    from generators.image_generator import (
+        generate_from_brief,
+        generate_from_brief_and_template,
+        generate_from_brief_and_template_hf_web,
+    )
     from generators.prompt_engine import infer_aspect_ratio
+
+    # hf-web engine requires --reference. It's an edit operation, not a
+    # from-scratch generation; without a reference there's nothing to edit.
+    if engine == "hf-web" and not reference_template_id:
+        console.print(
+            "[red]--engine hf-web requires --reference TEMPLATE_ID. "
+            "It edits the reference image into a brief-driven variant; "
+            "without a reference there's nothing to edit. Either pass "
+            "--reference, or switch to --engine nb2 / higgsfield-soul.[/red]"
+        )
+        raise SystemExit(1)
 
     try:
         picks = [int(x.strip()) for x in pick.split(",") if x.strip()]
@@ -3535,23 +3555,42 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
                     fallback_engine=fallback_engine,
                 )
             elif reference_template_id:
-                from generators.image_generator import generate_from_brief_and_template
-                prompt_text, results = generate_from_brief_and_template(
-                    brief=active_brief,
-                    template_id=reference_template_id,
-                    reference_image_path=reference_image_path,
-                    brand=brand,
-                    product=prod,
-                    avatar=avatar,
-                    client_slug=client,
-                    output_dir=images_dir,
-                    num_images=num_images,
-                    aspect_ratio=ar,
-                    thinking_level=thinking,
-                    creative_direction=creative_direction,
-                    offer=offer,
-                    legacy_product_first=legacy_product_first,
-                )
+                # hf-web engine takes the same args minus thinking_level
+                # (nano_banana_flash has no thinking knob) and minus
+                # legacy_product_first (no fal NB2 ordering semantics).
+                if engine == "hf-web":
+                    prompt_text, results = generate_from_brief_and_template_hf_web(
+                        brief=active_brief,
+                        template_id=reference_template_id,
+                        reference_image_path=reference_image_path,
+                        brand=brand,
+                        product=prod,
+                        avatar=avatar,
+                        client_slug=client,
+                        output_dir=images_dir,
+                        num_images=num_images,
+                        aspect_ratio=ar,
+                        creative_direction=creative_direction,
+                        offer=offer,
+                    )
+                else:
+                    from generators.image_generator import generate_from_brief_and_template
+                    prompt_text, results = generate_from_brief_and_template(
+                        brief=active_brief,
+                        template_id=reference_template_id,
+                        reference_image_path=reference_image_path,
+                        brand=brand,
+                        product=prod,
+                        avatar=avatar,
+                        client_slug=client,
+                        output_dir=images_dir,
+                        num_images=num_images,
+                        aspect_ratio=ar,
+                        thinking_level=thinking,
+                        creative_direction=creative_direction,
+                        offer=offer,
+                        legacy_product_first=legacy_product_first,
+                    )
             else:
                 prompt_text, results = generate_from_brief(
                     brief=active_brief,
@@ -4316,18 +4355,18 @@ def remix_images(
 )
 @click.option(
     "--engine",
-    type=click.Choice(["nb2", "higgsfield-soul"]),
+    type=click.Choice(["nb2", "higgsfield-soul", "hf-web"]),
     default="nb2",
     show_default=True,
     help=(
         "Refinement engine. "
-        "'nb2' = fal.ai NB2 edit endpoint (Claude rewrites the prompt + uses "
-        "product image and previous output as refs). "
-        "'higgsfield-soul' = Higgs Field soul_2 iterative refinement using "
-        "the persona's trained Soul Character + the previous SCENE image as "
-        "a composition reference. Mirrors the manual HF workflow (generate → "
-        "use as reference → generate next). Requires HF_CREDENTIALS and a "
-        "'ready' Soul on the brief's persona."
+        "'nb2' = fal.ai NB2 edit endpoint (Claude rewrites prompt; uses "
+        "product + previous output as refs; fal credits). "
+        "'higgsfield-soul' = Higgs Field soul_2 iterative refinement with "
+        "trained Soul Character. "
+        "'hf-web' = Higgsfield's nano_banana_flash via the web backend — "
+        "single-image edit using your plain-English feedback as the edit "
+        "prompt. Uses HF plan credits, no fal needed."
     ),
 )
 @click.option(
@@ -4335,9 +4374,9 @@ def remix_images(
     type=click.Choice(["nb2"]),
     default=None,
     help=(
-        "If --engine higgsfield-soul fails because of missing API credits, "
-        "automatically retry the refinement with this engine instead of "
-        "aborting. Used by the dashboard for graceful degradation."
+        "If --engine hf-web or higgsfield-soul fails (auth, credits, etc), "
+        "automatically retry with this engine instead of aborting. Used by "
+        "the dashboard for graceful degradation."
     ),
 )
 def remix_refine(
@@ -4512,6 +4551,187 @@ def remix_continue_cmd(
             multiplier=len(briefs),
             note=f"continued {rd.name}: {len(briefs)} brief(s)",
         )
+
+
+@cli.command(name="edit")
+@click.option(
+    "--image",
+    "image_paths",
+    required=True,
+    multiple=True,
+    type=click.Path(exists=True, dir_okay=False),
+    help=(
+        "Image path(s) to edit. Pass multiple --image flags for multi-input "
+        "edits (e.g. reference + product). The first image is the primary "
+        "canvas; subsequent images are supplemental references."
+    ),
+)
+@click.option(
+    "--prompt",
+    required=True,
+    help="Plain-English edit instruction. Examples: "
+    "'change the headline to FREE SHIPPING in bold red', "
+    "'replace the woman with a middle-aged white man', "
+    "'remove the dog and extend the background'.",
+)
+@click.option(
+    "--output",
+    "-o",
+    "out_path",
+    type=click.Path(dir_okay=False),
+    default=None,
+    help="Output PNG path. Default: <first-input-stem>_edited.png in the "
+    "same directory as the first --image.",
+)
+@click.option(
+    "--aspect-ratio",
+    default=None,
+    type=click.Choice(["1:1", "3:2", "2:3", "4:3", "3:4", "4:5", "5:4", "9:16", "16:9", "21:9"]),
+    help="Output aspect ratio. Default: match the first input image's "
+    "dimensions (auto-detected via PIL).",
+)
+@click.option(
+    "--resolution",
+    default="1k",
+    type=click.Choice(["1k", "2k", "4k"]),
+    show_default=True,
+    help="Output resolution tier. 1k ≈ 1MP, 2k ≈ 4MP, 4k ≈ 8MP.",
+)
+@click.option(
+    "--engine",
+    type=click.Choice(["hf-web"]),
+    default="hf-web",
+    show_default=True,
+    help="Image-edit engine. Only hf-web (Higgsfield nano_banana_flash) is "
+    "supported today; CLI flag exists for future extension to fal NB2.",
+)
+def edit_cmd(
+    image_paths: tuple[str, ...],
+    prompt: str,
+    out_path: str | None,
+    aspect_ratio: str | None,
+    resolution: str,
+    engine: str,
+):
+    """One-off edit of any image(s) — no Remix run required.
+
+    Submits the input image(s) + your plain-English instruction to
+    Higgsfield's nano_banana_flash edit model and saves the result.
+    Useful for tweaking AI-generated ads, swapping elements in existing
+    creative, or any one-shot edit outside the multi-variation Remix
+    workflow.
+
+    Examples:
+
+      \b
+      # Tweak an existing creative
+      adc edit --image my-ad.png --prompt "change the CTA button to red"
+
+      \b
+      # Multi-input (reference + product)
+      adc edit --image source.png --image product.png \\
+               --prompt "replace the bottle in image 1 with the product from image 2"
+
+      \b
+      # Specify output + aspect
+      adc edit --image hero.png --prompt "remove the model" \\
+               --output hero-no-model.png --aspect-ratio 9:16
+    """
+    from generators.higgsfield_web_client import (
+        upload_image_for_edit,
+        submit_and_wait,
+        download_result,
+        HiggsfieldWebError,
+        HiggsfieldAuthError,
+    )
+    from strategy.cost_tracker import log_cost
+
+    paths = [Path(p) for p in image_paths]
+    if not paths:
+        console.print("[red]At least one --image is required[/red]")
+        raise SystemExit(1)
+    for p in paths:
+        if not p.exists():
+            console.print(f"[red]--image not found: {p}[/red]")
+            raise SystemExit(1)
+
+    # Auto-detect aspect ratio from the first image if not specified.
+    if aspect_ratio is None:
+        try:
+            from PIL import Image as _PILImage
+            with _PILImage.open(paths[0]) as im:
+                w, h = im.size
+            # Map to the nearest supported ratio.
+            ratio = w / h
+            candidates = {
+                "1:1": 1.0, "3:2": 1.5, "2:3": 0.667, "4:3": 1.333,
+                "3:4": 0.75, "4:5": 0.8, "5:4": 1.25,
+                "9:16": 0.5625, "16:9": 1.778, "21:9": 2.333,
+            }
+            aspect_ratio = min(candidates, key=lambda k: abs(candidates[k] - ratio))
+            console.print(
+                f"[dim]Auto-detected aspect ratio from {paths[0].name}: "
+                f"{w}x{h} → {aspect_ratio}[/dim]"
+            )
+        except Exception:
+            aspect_ratio = "1:1"
+            console.print(
+                "[yellow]Couldn't auto-detect aspect ratio; defaulting to 1:1. "
+                "Pass --aspect-ratio explicitly if you want something else.[/yellow]"
+            )
+
+    # Default output path: <first-input>_edited.png next to the input.
+    if out_path is None:
+        first = paths[0]
+        out_path = str(first.parent / f"{first.stem}_edited.png")
+    output = Path(out_path)
+
+    console.print(
+        f"[cyan]adc edit[/cyan]: {len(paths)} input image(s) → {output} "
+        f"(aspect {aspect_ratio}, {resolution}, engine={engine})"
+    )
+
+    # Upload each input to fnf.higgsfield.ai/media and collect (id, url) pairs.
+    input_media: list[tuple[str, str]] = []
+    try:
+        for i, p in enumerate(paths):
+            console.print(f"  Uploading {p.name} ({i + 1}/{len(paths)})...")
+            mid, murl = upload_image_for_edit(p)
+            input_media.append((mid, murl))
+    except HiggsfieldAuthError as e:
+        console.print(f"[red]Auth failed:[/red] {e}")
+        raise SystemExit(1)
+    except HiggsfieldWebError as e:
+        console.print(f"[red]Upload failed:[/red] {e}")
+        raise SystemExit(1)
+
+    console.print("  Submitting nano_banana_flash edit job...")
+    try:
+        result_url = submit_and_wait(
+            prompt=prompt,
+            input_media=input_media,
+            aspect_ratio=aspect_ratio,
+            resolution=resolution,
+            timeout_s=600,
+        )
+    except HiggsfieldWebError as e:
+        console.print(f"[red]Edit failed:[/red] {e}")
+        raise SystemExit(1)
+
+    download_result(result_url, output)
+    console.print(f"[green]✓ Saved {output} ({output.stat().st_size:,} bytes)[/green]")
+
+    # Best-effort cost log. `adc edit` doesn't carry a client slug since it
+    # can run on any image, so we tag it generic.
+    try:
+        log_cost(
+            "_global",
+            "adc edit",
+            multiplier=1,
+            note=f"hf-web edit: {output.name}",
+        )
+    except Exception:
+        pass
 
 
 @cli.command(name="remix-rebuild-prompts")

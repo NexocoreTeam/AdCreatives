@@ -2174,26 +2174,42 @@ def _render_remix_tab(selected):
                             )
                             base_filename = base_options[base_choice][1]
 
-                            # ── Engine toggle for refinement ──────────────
-                            # When ON: route through Higgs Field soul_2 +
-                            # PIL overlay (iterative refinement using the
-                            # previous SCENE image as a composition ref).
-                            # Falls back to NB2 if HF credits are empty.
-                            refine_use_hf = st.checkbox(
-                                "Use Higgs Field for refinement (iterative, identity-locked)",
-                                key=f"refine_use_hf_{run['timestamp']}_{bid}",
+                            # ── Engine selector for refinement ────────────
+                            # Three options:
+                            #   HF Web nano_banana_flash — recommended; the
+                            #     real edit model behind cloud.higgsfield.ai.
+                            #     Single-image edit, feedback becomes the
+                            #     edit prompt. HF plan credits.
+                            #   fal NB2 — fal-hosted edit model; Claude
+                            #     rewrites the prompt incorporating feedback.
+                            #     Needs fal credits.
+                            #   Higgs Field Soul — identity-locked iterative;
+                            #     needs a trained Soul Character per persona.
+                            refine_engine_options = [
+                                "HF Web nano_banana_flash (RECOMMENDED — best edit fidelity)",
+                                "fal NB2 (Claude prompt-rewrite + product ref)",
+                                "Higgs Field Soul (identity-locked iterative)",
+                            ]
+                            refine_engine_choice = st.radio(
+                                "Engine",
+                                refine_engine_options,
+                                index=0,
+                                key=f"refine_engine_{run['timestamp']}_{bid}",
                                 help=(
-                                    "Off: NB2 with Claude prompt-rewrite (default, "
-                                    "edits the layout precisely; product image is a ref). "
-                                    "On: routes through the persona's trained Soul "
-                                    "Character via Higgs Field soul_2 + PIL text overlay, "
-                                    "using the previous SCENE image as a composition "
-                                    "reference — mirrors the manual HF workflow "
-                                    "(generate → use as reference → iterate). "
-                                    "Requires HF_CREDENTIALS in .env and a 'ready' Soul "
-                                    "Character on this brief's persona. Falls back to NB2 "
-                                    "if HF credits are empty."
+                                    "• **HF Web** — Higgsfield's real edit model. "
+                                    "Single-image edit; your feedback is the edit "
+                                    "prompt. Uses HF plan credits.\n"
+                                    "• **fal NB2** — fal-hosted edit; Claude rewrites "
+                                    "the whole prompt incorporating feedback. Uses fal "
+                                    "credits.\n"
+                                    "• **HF Soul** — for identity-locked iteration. "
+                                    "Needs a trained Soul Character on this persona."
                                 ),
+                            )
+                            refine_engine_id = (
+                                "hf-web" if refine_engine_choice.startswith("HF Web") else
+                                "higgsfield-soul" if refine_engine_choice.startswith("Higgs Field Soul") else
+                                "nb2"
                             )
 
                             cols_form = st.columns([1, 4])
@@ -2206,11 +2222,17 @@ def _render_remix_tab(selected):
                                     key=vn_key,
                                 )
                             with cols_form[1]:
-                                engine_suffix = " (HF Soul)" if refine_use_hf else ""
+                                engine_suffix_map = {
+                                    "hf-web": " (HF Web)",
+                                    "higgsfield-soul": " (HF Soul)",
+                                    "nb2": "",
+                                }
+                                engine_suffix = engine_suffix_map[refine_engine_id]
+                                cost_per = 0.10 if refine_engine_id != "hf-web" else 0.10
                                 refine_label = (
                                     f"🔄 Refine from {base_options[base_choice][0]}"
                                     f"{engine_suffix} "
-                                    f"({int(n_vars)} variation(s), ~${0.10 * int(n_vars):.2f})"
+                                    f"({int(n_vars)} variation(s), ~${cost_per * int(n_vars):.2f})"
                                 )
                                 if st.button(
                                     refine_label,
@@ -2226,17 +2248,18 @@ def _render_remix_tab(selected):
                                         "--num-images", str(int(n_vars)),
                                         "--from-image", base_filename,
                                     ]
-                                    if refine_use_hf:
+                                    if refine_engine_id != "nb2":
                                         args += [
-                                            "--engine", "higgsfield-soul",
+                                            "--engine", refine_engine_id,
                                             "--fallback-engine", "nb2",
                                         ]
                                     run_adc_command(
                                         args,
                                         label=(
-                                            f"Refining {bid[-6:]} from {base_options[base_choice][0]} "
-                                            f"— {int(n_vars)} variation(s)"
-                                            + (" via Higgs Field Soul" if refine_use_hf else "")
+                                            f"Refining {bid[-6:]} from "
+                                            f"{base_options[base_choice][0]} — "
+                                            f"{int(n_vars)} variation(s) via "
+                                            f"{refine_engine_choice.split(' ')[0:2]}"
                                         ),
                                     )
                                     st.rerun()
@@ -2980,27 +3003,58 @@ def _render_actions_tab(selected):
             ),
         )
 
-        # ── Engine toggle ───────────────────────────────────────────────
-        # When ON: route through Higgs Field soul_2 with each persona's
-        # trained Soul Character + PIL text overlay. Ignores --reference and
-        # the product image because soul_2 doesn't accept multi-image edits.
-        # Falls back to NB2 automatically if HF API credits are empty.
-        use_hf_gen = st.checkbox(
-            "Use Higgs Field (identity-locked) — falls back to NB2 if HF credits are empty",
-            key="generate_use_hf",
+        # ── Engine selector (3-way radio) ──────────────────────────────
+        # Three engines available for adc generate:
+        #   - nb2 (fal NB2): fast, multi-image, optional --reference for
+        #     loose template-as-style-guide. Default.
+        #   - hf-web (Higgsfield nano_banana_flash): reference-faithful
+        #     edit. REQUIRES a manual --reference template. Best for
+        #     complex layouts (us-vs-them, multi-callout panels).
+        #   - higgsfield-soul (HF soul_2 + Soul Character): identity-
+        #     locked face, ignores --reference. Falls back to NB2 if HF
+        #     credits are empty.
+        gen_engine_label = st.radio(
+            "Image-generation engine",
+            options=[
+                "fal NB2 (default, fast, optional reference)",
+                "HF Web nano_banana_flash (reference-faithful edit) — needs manual reference",
+                "HF Soul (identity-locked, ignores reference)",
+            ],
+            key="generate_engine_radio",
+            index=0,
             help=(
-                "Off: fast NB2 with your product image + auto-pick / manual template "
-                "(default, no identity lock). "
-                "On: routes through each persona's trained Soul Character via Higgs "
-                "Field soul_2 + PIL text overlay — same face every generation. "
-                "Reference templates are ignored in HF mode because soul_2 doesn't "
-                "accept multi-image edits. Requires HF_CREDENTIALS in .env and a "
-                "'ready' Soul Character on each persona's avatar YAML. If the Higgs "
-                "Field REST API has no credits, the run automatically falls back to NB2."
+                "fal NB2: standard NB2 from-scratch generation with your "
+                "product image. Optional --reference template loosely "
+                "guides composition.\n\n"
+                "HF Web nano_banana_flash: reference-EDIT path that clones "
+                "the reference's layout exactly and swaps in the brief's "
+                "content. Best on complex layouts where NB2 drifts. "
+                "REQUIRES Manual reference (not auto-pick). Uses HF plan "
+                "credits, not fal credits.\n\n"
+                "HF Soul: per-persona Soul Character + PIL text overlay. "
+                "Reference templates are ignored. Requires HF_CREDENTIALS "
+                "+ ready Souls on persona YAMLs. Falls back to NB2 if "
+                "credits are empty."
             ),
         )
 
-        engine_suffix = " (HF Soul)" if use_hf_gen else ""
+        use_hf_gen = gen_engine_label.startswith("HF Soul")
+        use_hf_web_gen = gen_engine_label.startswith("HF Web")
+
+        if use_hf_web_gen and not (
+            reference_mode.startswith("Manual") and chosen_template_id
+        ):
+            st.warning(
+                "HF Web engine requires Manual reference mode + a chosen "
+                "template. Pick 'Manual' above and select a template, "
+                "or switch to fal NB2 / HF Soul."
+            )
+
+        engine_suffix = (
+            " (HF Soul)" if use_hf_gen
+            else " (HF Web)" if use_hf_web_gen
+            else ""
+        )
         if st.button(f"🖼️ Generate images for picks{engine_suffix}",
                      use_container_width=True, type="primary",
                      disabled=not picks.strip()):
@@ -3009,7 +3063,10 @@ def _render_actions_tab(selected):
                     "--offer", gen_offer.strip() or "NONE"]
             if include_alts:
                 args.append("--include-alternates")
-            if reference_mode.startswith("Manual") and chosen_template_id and not use_hf_gen:
+            # Reference is passed for NB2 + hf-web (both consume templates);
+            # ignored for HF Soul.
+            if (reference_mode.startswith("Manual") and chosen_template_id
+                    and not use_hf_gen):
                 args.extend(["--reference", chosen_template_id])
             if gen_cd.strip():
                 args.extend(["--creative-direction", gen_cd.strip()])
@@ -3018,22 +3075,36 @@ def _render_actions_tab(selected):
                     "--engine", "higgsfield-soul",
                     "--fallback-engine", "nb2",
                 ])
+            elif use_hf_web_gen:
+                args.extend(["--engine", "hf-web"])
             n_picks = len([p for p in picks.split(",") if p.strip()])
             variants_per_brief = 3 if include_alts else 1
             total_imgs = n_picks * int(num_images) * variants_per_brief
+            # Cost estimate varies by engine. HF Web's nano_banana_flash is
+            # billed against HF plan credits (~$0.10/brief equivalent).
+            per_img = (
+                0.10 if use_hf_web_gen
+                else 0.08
+            )
+            engine_note = (
+                " via Higgs Field Soul" if use_hf_gen
+                else " via HF Web nano_banana_flash" if use_hf_web_gen
+                else ""
+            )
             run_adc_command(
                 args,
                 label=(
-                    f"Generating {total_imgs} image(s) (~${total_imgs * 0.08:.2f})"
-                    + (" via Higgs Field Soul" if use_hf_gen else "")
+                    f"Generating {total_imgs} image(s) "
+                    f"(~${total_imgs * per_img:.2f}){engine_note}"
                 ),
             )
             st.rerun()
         st.caption(
-            "Est: ~$0.08 per image (Sonnet prompt + fal.ai NB2). "
-            "HF Soul mode uses Higgs Field Ultra credits instead. "
-            "Auto-pick picks 1 reference per brief (ignored in HF mode); "
-            "Manual override applies one template to all picks (ignored in HF mode)."
+            "Est: ~$0.08/image (fal NB2) or ~$0.10/image (HF Web). "
+            "HF Soul uses Higgs Field Ultra credits instead. "
+            "Auto-pick picks 1 reference per brief (ignored in HF Soul mode); "
+            "Manual override applies one template to all picks. "
+            "HF Web REQUIRES Manual reference."
         )
 
 

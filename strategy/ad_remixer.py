@@ -6010,6 +6010,135 @@ def refine_image_higgsfield(
     return saved_paths
 
 
+def refine_image_hf_web(
+    *,
+    remix_dir: str | Path,
+    brief_id: str,
+    feedback: str,
+    num_images: int = 1,
+    aspect_ratio: str = "1:1",
+    base_image: str | Path | None = None,
+) -> list[Path]:
+    """Refine an existing image via Higgsfield's nano_banana_flash web
+    endpoint. Single-image edit — the previous output is uploaded as the
+    sole input and the operator's feedback becomes the edit prompt.
+
+    Differs from the fal-NB2 refine path in three ways:
+      1. No Claude prompt-rewrite step — nano_banana_flash takes plain
+         English edit instructions natively, so we wrap the feedback with
+         a thin "preserve everything else" frame and send it as-is.
+      2. No product-image reference — the previous output already shows
+         the right product; carrying a separate product image would
+         dilute the edit signal.
+      3. Uses Higgsfield plan credits, not fal credits.
+
+    Pipeline:
+      1. Resolve the previous output image (latest version or explicit
+         base_image).
+      2. Upload it to fnf.higgsfield.ai/media via the web client.
+      3. Submit nano_banana_flash with [previous_image] + the wrapped
+         feedback prompt.
+      4. Download result(s) and save as the next versioned <brief_id>_v<N>.png.
+      5. Append a record to refinement_log.yaml.
+
+    Returns the list of saved image paths."""
+    from generators.higgsfield_web_client import (
+        upload_image_for_edit, submit_and_wait, download_result,
+        HiggsfieldWebError, HiggsfieldAuthError,
+    )
+
+    if num_images < 1:
+        raise ValueError(f"num_images must be ≥ 1, got {num_images}")
+    if not feedback.strip():
+        raise ValueError("feedback must be non-empty")
+
+    remix_path = Path(remix_dir)
+    if not remix_path.exists():
+        raise FileNotFoundError(f"Remix directory not found: {remix_path}")
+    images_dir = remix_path / "images"
+
+    # Resolve the previous output image — same logic the NB2 refine path
+    # uses, lifted here so hf-web refine can stand alone.
+    if base_image is not None:
+        candidate = Path(base_image)
+        if not candidate.is_absolute() and not candidate.exists():
+            candidate = images_dir / candidate.name
+        if not candidate.exists():
+            available = [p.name for p in images_dir.glob(f"{brief_id}*.png")]
+            raise FileNotFoundError(
+                f"Specified base_image '{base_image}' not found. "
+                f"Available for {brief_id}: {available}"
+            )
+        previous_image = candidate
+    else:
+        previous_image = _find_latest_image_for_brief(images_dir, brief_id)
+        if previous_image is None:
+            raise FileNotFoundError(
+                f"No previous output image found for brief '{brief_id}' in "
+                f"{images_dir}. Generate the base image first via "
+                f"`adc remix-images`."
+            )
+
+    print(
+        f"[refine hf-web] Uploading {previous_image.name} to "
+        f"fnf.higgsfield.ai/media...",
+        flush=True,
+    )
+    try:
+        prev_media_id, prev_url = upload_image_for_edit(previous_image)
+    except HiggsfieldAuthError as e:
+        raise RuntimeError(f"HF-web refine auth failed: {e}") from e
+    except HiggsfieldWebError as e:
+        raise RuntimeError(
+            f"HF-web refine could not upload previous image: {e}\nCheck "
+            f"HIGGSFIELD_CLERK_CLIENT + HIGGSFIELD_DATADOME in .env."
+        ) from e
+
+    # Wrap feedback with a thin "edit only what was asked" frame. Without
+    # this, nano_banana_flash can interpret a terse instruction like
+    # "make the lighting warmer" too broadly and regenerate the whole scene.
+    prompt = (
+        f"Edit the supplied image. Apply ONLY the following change(s); "
+        f"preserve every other visual element (composition, layout, "
+        f"product, model, on-image text not mentioned in the change "
+        f"request, background, lighting, decorative marks) pixel-identically.\n\n"
+        f"CHANGE: {feedback.strip()}"
+    )
+
+    version = _next_refinement_version(images_dir, brief_id)
+    images_dir.mkdir(parents=True, exist_ok=True)
+
+    saved: list[Path] = []
+    for i in range(num_images):
+        suffix = "" if num_images == 1 else f"_{chr(ord('a') + i)}"
+        out_path = images_dir / f"{brief_id}_v{version}{suffix}.png"
+        try:
+            result_url = submit_and_wait(
+                prompt=prompt,
+                input_media=[(prev_media_id, prev_url)],
+                aspect_ratio=aspect_ratio,
+                resolution="1k",
+                timeout_s=600,
+            )
+            download_result(result_url, out_path)
+            print(f"[refine hf-web] saved {out_path.name}", flush=True)
+            saved.append(out_path)
+        except HiggsfieldWebError as e:
+            print(f"[refine hf-web] variation {i+1} failed: {e}", flush=True)
+            continue
+
+    if saved:
+        _append_refinement_log(
+            remix_path,
+            brief_id=brief_id,
+            feedback=feedback,
+            version=version,
+            base_image_name=previous_image.name,
+            output_image_names=[p.name for p in saved],
+        )
+    return saved
+
+
 def refine_image(
     *,
     remix_dir: str | Path,
@@ -6033,6 +6162,10 @@ def refine_image(
                             + the previous scene image as composition
                             reference. Mirrors the user's manual HF
                             iterative workflow.
+      - "hf-web"           Higgsfield's nano_banana_flash via the web
+                            backend. Single-image edit (previous output as
+                            input); feedback becomes the edit prompt. Uses
+                            HF plan credits, no fal involvement.
 
     `fallback_engine`: if HF fails because of missing credits, retry the
     run with this engine. Set to "nb2" from the dashboard for graceful
@@ -6051,6 +6184,36 @@ def refine_image(
       6. Append a record to refinement_log.yaml.
 
     Returns the list of saved image paths."""
+    # ─── HF Web (nano_banana_flash) refine path ───
+    if engine == "hf-web":
+        try:
+            return refine_image_hf_web(
+                remix_dir=remix_dir,
+                brief_id=brief_id,
+                feedback=feedback,
+                num_images=num_images,
+                aspect_ratio=aspect_ratio,
+                base_image=base_image,
+            )
+        except Exception as e:
+            if fallback_engine:
+                print(
+                    f"  [fallback] HF-web refine failed ({e}). "
+                    f"Falling back to engine={fallback_engine}."
+                )
+                return refine_image(
+                    remix_dir=remix_dir,
+                    brief_id=brief_id,
+                    feedback=feedback,
+                    num_images=num_images,
+                    thinking_level=thinking_level,
+                    aspect_ratio=aspect_ratio,
+                    base_image=base_image,
+                    engine=fallback_engine,
+                    fallback_engine=None,
+                )
+            raise
+
     # ─── Higgs Field iterative refine path ───
     if engine == "higgsfield-soul":
         try:
