@@ -3642,9 +3642,13 @@ def generate(client: str, pick: str, product: str | None, num_images: int,
 
 
 # ─── PYNK-style text-only generation (B variant) ────────────────────────────
+# DEPRECATED 2026-05-22 — kept for back-compat but no dashboard wiring and no
+# active callers. The drift-testing experiment this was built for is complete;
+# `adc generate --reference X --engine hf-web` produces better reference-
+# faithful output. Remove after the next operator confirms they aren't using it.
 
 
-@cli.command(name="generate-text")
+@cli.command(name="generate-text", deprecated=True)
 @click.option("--client", required=True, help="Client slug")
 @click.option(
     "--template",
@@ -3694,8 +3698,13 @@ def generate_text_cmd(
     aspect_override: str | None,
     list_only: bool,
 ):
-    """Generate ads using PYNK-style text-only flow (B-variant for drift testing).
+    """[DEPRECATED 2026-05-22] PYNK-style text-only generation (B-variant).
 
+    Kept for back-compat only. Use `adc generate --engine hf-web --reference X`
+    for reference-faithful single-brief generation, or `adc generate` (no
+    --reference) for text-only NB2 generation.
+
+    Original docs:
     Sends ONLY the product image to fal.ai — no reference ad image. Uses
     Cooper-library templates with verbose layout directives plus a Product
     Anchor preamble. Outputs to ai-ads/<client>/text-only/<brief_id>_<ts>/.
@@ -4185,7 +4194,7 @@ def remix(
 )
 @click.option(
     "--engine",
-    type=click.Choice(["nb2", "higgsfield-soul", "hf-cli", "hf-web"]),
+    type=click.Choice(["nb2", "higgsfield-soul", "hf-web"]),
     default="nb2",
     show_default=True,
     help=(
@@ -4197,9 +4206,8 @@ def remix(
         "(fnf.higgsfield.ai) — the real edit model. Recommended for "
         "reference-replication. Requires HIGGSFIELD_JWT + "
         "HIGGSFIELD_CLERK_CLIENT cookies in .env (see docs/hf-web-engine.md). "
-        "'hf-cli' = LEGACY. Higgsfield CLI calling nano_banana_2 via "
-        "platform.higgsfield.ai — doesn't route to the actual edit model. "
-        "Kept for testing only."
+        "(The former 'hf-cli' engine was removed 2026-05-22; the npm CLI "
+        "hit the wrong endpoint.)"
     ),
 )
 @click.option(
@@ -4207,7 +4215,7 @@ def remix(
     type=click.Choice(["nb2"]),
     default=None,
     help=(
-        "If --engine higgsfield-soul or hf-cli fails (auth, credits, etc), "
+        "If --engine higgsfield-soul or hf-web fails (auth, credits, etc), "
         "automatically retry the run with this engine instead of aborting. "
         "Useful when the dashboard wants graceful degradation."
     ),
@@ -4223,17 +4231,15 @@ def remix(
         "Engine combinations:\n"
         "  --staged (default --engine nb2): stages 1+2 via NB2 (fal), "
         "stage 3 via Higgsfield Soul if persona has a trained soul, else "
-        "stops at stage 2. Best fal-backed path.\n"
-        "  --staged --engine hf-cli: ALL 3 passes via Higgsfield's "
-        "nano_banana_2 model (the real edit model) through the `higgsfield` "
-        "CLI. No fal calls. Pass 3 only fires if --model-descriptor was "
-        "set on the original `adc remix` run.\n"
+        "stops at stage 2. Best fal-backed staged path.\n"
         "  --staged --engine higgsfield-soul: ALL 3 passes via Higgsfield "
         "soul_2 (no fal calls). Experimental — soul_2 isn't an edit "
         "model so layout drifts a bit between passes, but doesn't depend "
         "on fal at all. Identity-locked on stage 3 if soul present.\n\n"
-        "Both require a differential-mode remix run (the mappings/ dir). "
-        "Intermediate stage images are saved as <bid>_stage{1,2,3}_*.png."
+        "Requires a differential-mode remix run (the mappings/ dir). "
+        "Intermediate stage images are saved as <bid>_stage{1,2,3}_*.png. "
+        "Note: for single-shot reference-faithful edits, use --engine hf-web "
+        "(no --staged) — it's strictly better than the legacy hf-cli staged path."
     ),
 )
 def remix_images(

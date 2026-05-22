@@ -2268,18 +2268,20 @@ def _render_remix_tab(selected):
 
             # ── Engine selector ──────────────────────────────────────────
             # Three engines now:
-            #   "fal NB2"           — fast single-shot via fal.ai's Gemini-Flash-Image
-            #   "fal NB2 + HF Soul" — single-shot NB2 with optional HF Soul stage-3
-            #                         (only when paired with Staged checkbox)
-            #   "HF CLI nano_banana_2" — 3-pass via Higgsfield's edit model
-            #                            (no fal credits). Requires `higgsfield`
-            #                            CLI installed + auth'd.
+            #   "HF Web nano_banana_flash" — recommended. Direct call to
+            #                                fnf.higgsfield.ai's edit endpoint.
+            #   "fal NB2"                  — fast single-shot via fal.ai's NB2.
+            #   "fal NB2 + HF Soul"        — single-shot NB2 with optional
+            #                                HF Soul stage-3 when --staged.
+            #
+            # The HF CLI option was removed 2026-05-22 — the npm `higgsfield`
+            # CLI hits platform.higgsfield.ai which routes to a different
+            # model variant and produced poor output on every test.
             mappings_present = (run_dir / "mappings").exists()
             engine_options = [
                 "HF Web nano_banana_flash (RECOMMENDED — best layout fidelity)",
                 "fal NB2 (fast, fal credits)",
                 "fal NB2 + HF Soul stage-3 (identity-locked)",
-                "HF CLI nano_banana_2 (LEGACY — does not produce real edits)",
             ]
             engine_choice = st.radio(
                 "Engine",
@@ -2298,32 +2300,20 @@ def _render_remix_tab(selected):
                     "$0.08/brief. Requires fal credits.\n"
                     "• **fal NB2 + HF Soul stage-3** — pair with the Staged "
                     "checkbox. Stages 1+2 NB2 via fal, stage 3 identity-locked "
-                    "via HF Soul if persona has a trained soul.\n"
-                    "• **HF CLI** — LEGACY. The `higgsfield` CLI hits "
-                    "platform.higgsfield.ai which doesn't route nano_banana_2 "
-                    "to the real edit backend. Kept for testing; do not use "
-                    "for production."
+                    "via HF Soul if persona has a trained soul."
                 ),
             )
             engine_choice_id = (
                 "hf-web" if engine_choice.startswith("HF Web") else
-                "hf-cli" if engine_choice.startswith("HF CLI") else
                 "higgsfield-soul" if engine_choice.startswith("fal NB2 + HF") else
                 "nb2"
             )
 
             # Staged toggle — only useful for differential runs.
-            # NOTE: as of 2026-05-22, HF-CLI single-shot empirically beats
-            # HF-CLI 3-pass. nano_banana_2 treats narrow "only change X"
-            # prompts as fresh-generation rather than precise edits, so
-            # the 3-pass output drifted catastrophically on the us-vs-them
-            # PetLab reference. The dashboard now defaults staged=OFF for
-            # HF CLI; 3-pass is kept available but labeled experimental.
             staged_disabled = not mappings_present
             staged_label = (
                 "Staged 3-pass (product → text → model)"
                 + ("" if mappings_present else "  ·  (requires differential mode)")
-                + ("  ·  ⚠️ experimental for HF CLI" if engine_choice_id == "hf-cli" else "")
             )
             use_staged = st.checkbox(
                 staged_label,
@@ -2331,13 +2321,12 @@ def _render_remix_tab(selected):
                 disabled=staged_disabled,
                 help=(
                     "Off: single image-gen call applies all edits together. "
-                    "Recommended for HF CLI (nano_banana_2 produces best "
-                    "output single-shot). For fal NB2 + HF Soul, off means "
-                    "single NB2 call.\n\n"
+                    "For HF Web, this is the only mode (single nano_banana_flash "
+                    "call). For fal NB2 + HF Soul, off means one NB2 call.\n\n"
                     "On: 3 sequential passes — pass 1 product, pass 2 text, "
-                    "pass 3 model/character. Works well for fal NB2 staged; "
-                    "produces worse output than single-shot for HF CLI (kept "
-                    "for testing only)."
+                    "pass 3 model/character. Only useful for the fal NB2 + "
+                    "HF Soul pairing; HF Web ignores this toggle and runs "
+                    "single-shot."
                 ),
             )
 
@@ -2347,10 +2336,6 @@ def _render_remix_tab(selected):
                 # Single nano_banana_flash call (staged not applicable).
                 cost_per_brief = 0.10
                 engine_suffix = " (HF Web)"
-            elif engine_choice_id == "hf-cli":
-                # 1 nano_banana_2 call single-shot, 2-3 if staged.
-                cost_per_brief = 0.15 if use_staged else 0.05
-                engine_suffix = " (HF CLI)"
             elif engine_choice_id == "higgsfield-soul" and use_staged:
                 cost_per_brief = 0.24
                 engine_suffix = " (NB2 + HF Soul)"
@@ -2380,11 +2365,6 @@ def _render_remix_tab(selected):
                     if engine_choice_id == "hf-web":
                         args += [
                             "--engine", "hf-web",
-                            "--fallback-engine", "nb2",
-                        ]
-                    elif engine_choice_id == "hf-cli":
-                        args += [
-                            "--engine", "hf-cli",
                             "--fallback-engine", "nb2",
                         ]
                     elif engine_choice_id == "higgsfield-soul":

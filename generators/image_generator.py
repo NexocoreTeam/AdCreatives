@@ -1,12 +1,13 @@
 """Image generation orchestrator — ties prompt engine + fal client + validators together.
 
-Four generation modes matching the prompt engine:
-1. generate_from_reference: "Make it like this" ad
-2. generate_from_library: Use a library prompt template
-3. generate_from_recommendation: Let the system pick the best templates
-4. generate_from_brief: Drive both prompt + image from a CreativeBrief
+Active generation modes:
+- generate_from_brief: from a CreativeBrief (single-image or batch)
+- generate_from_brief_and_template: brief + hand-picked reference template
+  (art-directed flow used by `adc generate --reference X`)
+- generate_from_brief_and_template_hf_web: same as above but routed
+  through Higgsfield's nano_banana_flash edit endpoint instead of fal NB2.
 
-All modes pass real product images alongside the prompt to Nano Banana 2.
+All modes pass real product images alongside the prompt to the image model.
 """
 
 from __future__ import annotations
@@ -17,8 +18,10 @@ from pathlib import Path
 from models.avatar import CustomerAvatar
 from models.brand import Brand
 from models.brief import CreativeBrief
-from models.library import LibraryPrompt, load_prompt
 from models.product import Product
+# load_prompt + LibraryPrompt are imported locally inside the two template-
+# resolver functions further down. Keeping them off the module top-level
+# import avoids re-loading the library on import.
 from generators.fal_client import (
     GenerationResult,
     generate_and_save,
@@ -30,9 +33,6 @@ from generators.prompt_engine import (
     infer_aspect_ratio,
     prompt_from_brief,
     prompt_from_brief_and_template,
-    prompt_from_library,
-    prompt_from_reference,
-    recommend_prompts,
 )
 from generators.swipe_matcher import match_for_brief
 
@@ -66,173 +66,13 @@ def _build_output_dir(client_slug: str, label: str) -> Path:
     return Path("output") / client_slug / today / label
 
 
-# ─── Mode 1: "Make it like this" ────────────────────────────────────────────
-
-
-def generate_like_this(
-    reference_image_path: str,
-    brand: Brand,
-    product: Product,
-    avatar: CustomerAvatar | None = None,
-    platform: str = "meta",
-    aspect_ratio: str = "1:1",
-    client_slug: str = "",
-    output_dir: Path | None = None,
-    num_images: int = 1,
-    thinking_level: str = "disabled",
-) -> tuple[str, list[GenerationResult]]:
-    """Analyze a reference ad and generate a similar one for your product.
-
-    Returns (prompt_used, generation_results).
-    """
-    # Get real product images
-    product_urls = _get_product_image_urls(product, client_slug)
-
-    # Claude writes the prompt based on the reference ad
-    prompt = prompt_from_reference(
-        reference_image_path=reference_image_path,
-        brand=brand,
-        product=product,
-        avatar=avatar,
-        platform=platform,
-        aspect_ratio=aspect_ratio,
-    )
-
-    # Generate with Nano Banana 2
-    if output_dir is None:
-        output_dir = _build_output_dir(client_slug, "make-like-this")
-
-    product_slug = product.name.lower().replace(" ", "-")
-    results = generate_and_save(
-        prompt=prompt,
-        product_image_urls=product_urls,
-        save_dir=output_dir,
-        filename_prefix=product_slug,
-        aspect_ratio=aspect_ratio,
-        num_images=num_images,
-        thinking_level=thinking_level,
-    )
-
-    return prompt, results
-
-
-# ─── Mode 2: "Use this library prompt" ──────────────────────────────────────
-
-
-def generate_from_library(
-    prompt_id: str,
-    brand: Brand,
-    product: Product,
-    avatar: CustomerAvatar | None = None,
-    platform: str = "meta",
-    aspect_ratio: str | None = None,
-    modifications: dict | None = None,
-    client_slug: str = "",
-    output_dir: Path | None = None,
-    num_images: int = 1,
-    thinking_level: str = "disabled",
-) -> tuple[str, list[GenerationResult]]:
-    """Generate an ad using a library prompt template customized for your product.
-
-    Returns (prompt_used, generation_results).
-    """
-    # Load the template
-    library_prompt = load_prompt(prompt_id)
-
-    # Get real product images
-    product_urls = _get_product_image_urls(product, client_slug)
-
-    # Claude customizes the template
-    prompt = prompt_from_library(
-        library_prompt=library_prompt,
-        brand=brand,
-        product=product,
-        avatar=avatar,
-        platform=platform,
-        aspect_ratio=aspect_ratio,
-        modifications=modifications,
-    )
-
-    # Use template's aspect ratio if not overridden
-    final_ratio = aspect_ratio or (
-        library_prompt.aspect_ratios[0] if library_prompt.aspect_ratios else "1:1"
-    )
-
-    # Generate with Nano Banana 2
-    if output_dir is None:
-        output_dir = _build_output_dir(client_slug, library_prompt.id)
-
-    product_slug = product.name.lower().replace(" ", "-")
-    results = generate_and_save(
-        prompt=prompt,
-        product_image_urls=product_urls,
-        save_dir=output_dir,
-        filename_prefix=f"{product_slug}_{library_prompt.id}",
-        aspect_ratio=final_ratio,
-        num_images=num_images,
-        thinking_level=thinking_level,
-    )
-
-    return prompt, results
-
-
-# ─── Mode 3: "What would you recommend?" ────────────────────────────────────
-
-
-def get_recommendations(
-    brand: Brand,
-    product: Product,
-    avatar: CustomerAvatar | None = None,
-    count: int = 10,
-    platform: str = "meta",
-) -> list[dict]:
-    """Get prompt recommendations for a product. Does NOT generate images.
-
-    Returns a ranked list of recommended prompt IDs with reasoning.
-    Use generate_from_library() to actually generate images from a recommendation.
-    """
-    return recommend_prompts(
-        brand=brand,
-        product=product,
-        avatar=avatar,
-        count=count,
-        product_type=product.category or None,
-        platform=platform,
-    )
-
-
-# ─── Batch generation ────────────────────────────────────────────────────────
-
-
-def generate_batch(
-    prompt_ids: list[str],
-    brand: Brand,
-    product: Product,
-    avatar: CustomerAvatar | None = None,
-    platform: str = "meta",
-    client_slug: str = "",
-    num_images: int = 1,
-) -> list[tuple[str, list[GenerationResult]]]:
-    """Generate ads from multiple library prompts in sequence.
-
-    Returns list of (prompt_used, results) tuples.
-    """
-    all_results = []
-    for prompt_id in prompt_ids:
-        prompt, results = generate_from_library(
-            prompt_id=prompt_id,
-            brand=brand,
-            product=product,
-            avatar=avatar,
-            platform=platform,
-            client_slug=client_slug,
-            num_images=num_images,
-        )
-        all_results.append((prompt, results))
-    return all_results
-
-
-# ─── Mode 4: "Turn this brief into a finished ad image" ──────────────────────
+# ─── Brief-driven generation (the only active mode) ─────────────────────────
+#
+# Earlier modes removed (2026-05-22): generate_like_this, generate_from_library,
+# get_recommendations wrapper, generate_batch. None of them were wired to a
+# CLI command or dashboard button. The matching prompt_from_reference /
+# prompt_from_library / recommend_prompts functions in generators/prompt_engine
+# remain — they're called directly by `adc generate` / `adc remix` paths.
 
 
 def _classify_brief_style(brief: CreativeBrief) -> str:
@@ -925,7 +765,7 @@ def _build_hf_web_brief_edit_prompt(
     nano_banana_flash to render those as the new text payload while
     preserving the source ad's composition, fonts, and pill styling.
 
-    Pattern mirrors `_build_hf_cli_single_prompt` from the remix path so
+    Pattern mirrors `_build_remix_edit_prompt` from the remix path so
     operators get consistent edit behavior across both flows."""
     lines: list[str] = []
     lines.append(
