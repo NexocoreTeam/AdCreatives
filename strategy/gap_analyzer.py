@@ -17,7 +17,6 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
 from pathlib import Path
 
 import yaml
@@ -25,17 +24,22 @@ import yaml
 from models.skills import load_skill
 from strategy.apify_amazon import AmazonReviewBundle, load_cached_amazon_bundles
 from strategy.competitor_research import (
-    Competitor,
     CompetitorReviewBundle,
     load_cached_competitor_bundles,
     load_competitors,
 )
 from strategy.exa_research import ExaQueryResult, load_cached
 from strategy.llm import claude_complete
+from strategy.social_comments import SocialComment, SocialCommentBundle
+from strategy.social_comments import (
+    load_cached_bundles as load_cached_social_bundles,
+)
 
 CLIENTS_DIR = Path("clients")
 MAX_EXA_CHARS_PER_BRAND = 80_000        # token budget per per-brand Claude call
 MAX_REVIEWS_PER_BRAND = 80              # cap on-site reviews to avoid blowing context
+MAX_SOCIAL_COMMENTS_PER_PLATFORM = 40   # cap social comments per (brand, platform)
+SOCIAL_PLATFORMS = ("tiktok", "instagram", "youtube")
 
 
 GAP_ANALYST_SYSTEM = """You are a competitive strategist for direct-response advertising.
@@ -161,9 +165,15 @@ def _gather_brand_content(
     on_site_bundle: CompetitorReviewBundle | None = None,
     amazon_bundles: list[AmazonReviewBundle] | None = None,
     is_own_brand: bool = False,
+    social_bundles: list[SocialCommentBundle] | None = None,
 ) -> tuple[str, dict]:
     """Concatenate every piece of customer voice we have about one brand into a
-    single context string, plus a metadata dict. Returns (content, meta)."""
+    single context string, plus a metadata dict. Returns (content, meta).
+
+    `social_bundles` is a unified list across platforms for a single brand.
+    Each platform is sampled independently (top-N by likes) so high-volume
+    TikTok doesn't crowd out Instagram or YouTube signal.
+    """
     parts: list[str] = []
     meta = {
         "exa_hits": 0,
@@ -172,6 +182,9 @@ def _gather_brand_content(
         "trustpilot_hits": 0,
         "on_site_reviews": 0,
         "amazon_reviews": 0,
+        "tiktok_comments": 0,
+        "instagram_comments": 0,
+        "youtube_comments": 0,
         "total_chars": 0,
         "sources": set(),
     }
@@ -246,6 +259,34 @@ def _gather_brand_content(
             meta["amazon_reviews"] = len(sampled)
             meta["sources"].add("amazon")
 
+    # Add social comments if available — Tier 3 signal (TikTok UGC reviews
+    # specifically tend to carry far richer product-experience commentary
+    # than brand-owned IG posts or YouTube videos with comments disabled).
+    # Each platform is sampled independently so high-volume platforms don't
+    # crowd out others.
+    if social_bundles:
+        by_platform: dict[str, list[SocialComment]] = {}
+        for bundle in social_bundles:
+            by_platform.setdefault(bundle.platform, []).extend(bundle.comments)
+        for platform in SOCIAL_PLATFORMS:
+            comments = by_platform.get(platform, [])
+            if not comments:
+                continue
+            # Sort by likes desc — top-engagement comments lead so they
+            # survive the MAX_EXA_CHARS_PER_BRAND truncation if hit.
+            comments_sorted = sorted(
+                comments, key=lambda c: c.likes or 0, reverse=True,
+            )[:MAX_SOCIAL_COMMENTS_PER_PLATFORM]
+            comments_text = [
+                f"--- {platform.upper()} COMMENT | likes={c.likes} | "
+                f"replies={c.reply_count} | @{c.author or 'anon'} ---\n"
+                f"{c.text}\n"
+                for c in comments_sorted
+            ]
+            parts.append("\n".join(comments_text))
+            meta[f"{platform}_comments"] = len(comments_sorted)
+            meta["sources"].add(f"{platform}_comments")
+
     content = "\n\n".join(parts)
 
     # Truncate hard if too long (rare, but defensive)
@@ -263,10 +304,16 @@ def analyze_one_brand(
     exa_results: list[ExaQueryResult],
     on_site_bundle: CompetitorReviewBundle | None,
     amazon_bundles: list[AmazonReviewBundle] | None = None,
+    social_bundles: list[SocialCommentBundle] | None = None,
 ) -> dict:
     """One Claude call: produce a gap map for one brand."""
     content, meta = _gather_brand_content(
-        brand_name, exa_results, on_site_bundle, amazon_bundles, is_own_brand
+        brand_name,
+        exa_results,
+        on_site_bundle,
+        amazon_bundles,
+        is_own_brand,
+        social_bundles=social_bundles,
     )
 
     if not content.strip():
@@ -280,7 +327,8 @@ def analyze_one_brand(
     role = "OUR brand" if is_own_brand else "a competitor brand"
     prompt = (
         f"Analyze the following customer voice content about {role} named '{brand_name}'.\n\n"
-        f"Stratify findings into LOVES (5-star equivalent), GAPS (3-star), DEALBREAKERS (1-star).\n\n"
+        f"Stratify findings into LOVES (5-star equivalent), GAPS (3-star), "
+        f"DEALBREAKERS (1-star).\n\n"
         f"Return YAML matching this exact schema:\n\n"
         f"brand: \"{brand_name}\"\n"
         f"loves:\n"
@@ -331,7 +379,8 @@ def synthesize_gaps(
     own_section = yaml.safe_dump(own_brand_analysis, sort_keys=False)
 
     prompt = (
-        f"Synthesize the following per-brand gap maps into a competitive opportunity map for {own_brand}.\n\n"
+        f"Synthesize the following per-brand gap maps into a competitive "
+        f"opportunity map for {own_brand}.\n\n"
         f"=== OUR BRAND ({own_brand}) ===\n{own_section}\n\n"
         f"=== COMPETITORS ===\n{competitor_section}\n\n"
         + (f"=== OUR BRAND CONTEXT ===\n{brand_context}\n\n" if brand_context else "")
@@ -433,9 +482,23 @@ def analyze_competitive_gaps(
     amazon_by_slug: dict[str, list[AmazonReviewBundle]] = {}
     for ab in amazon_bundles:
         amazon_by_slug.setdefault(ab.competitor_slug, []).append(ab)
+
+    # Tier 3 social comment bundles, grouped by (competitor_slug, *platforms).
+    # We load each platform separately so a missing platform doesn't break the
+    # whole load — and so a brand with only IG (no TikTok) is still served.
+    social_by_slug: dict[str, list[SocialCommentBundle]] = {}
+    for platform in SOCIAL_PLATFORMS:
+        for bundle in load_cached_social_bundles(client_slug, platform):
+            social_by_slug.setdefault(bundle.competitor_slug, []).append(bundle)
+
     competitors = load_competitors(client_slug)
 
-    if not exa_results and not on_site_bundles and not amazon_bundles:
+    if (
+        not exa_results
+        and not on_site_bundles
+        and not amazon_bundles
+        and not social_by_slug
+    ):
         raise RuntimeError(
             f"No cached research found for {client_slug}. "
             f"Run `adc research-competitors --client {client_slug}` first."
@@ -458,12 +521,14 @@ def analyze_competitive_gaps(
             )
     else:
         # Per-brand passes
+        own_slug = _slugify_for_match(brand_name)
         own_analysis = analyze_one_brand(
             brand_name=brand_name,
             is_own_brand=True,
             exa_results=exa_results,
             on_site_bundle=None,
-            amazon_bundles=amazon_by_slug.get(_slugify_for_match(brand_name)),
+            amazon_bundles=amazon_by_slug.get(own_slug),
+            social_bundles=social_by_slug.get(own_slug),
         )
 
         competitor_analyses = []
@@ -474,6 +539,7 @@ def analyze_competitive_gaps(
                 exa_results=exa_results,
                 on_site_bundle=on_site_by_slug.get(c.slug),
                 amazon_bundles=amazon_by_slug.get(c.slug),
+                social_bundles=social_by_slug.get(c.slug),
             )
             competitor_analyses.append(analysis)
 
@@ -504,7 +570,10 @@ def analyze_competitive_gaps(
     research_dir.mkdir(parents=True, exist_ok=True)
     yaml_path = research_dir / "competitive-gaps.yaml"
     md_path = research_dir / "competitive-gaps.md"
-    yaml_path.write_text(yaml.safe_dump(output, sort_keys=False, allow_unicode=True), encoding="utf-8")
+    yaml_path.write_text(
+        yaml.safe_dump(output, sort_keys=False, allow_unicode=True),
+        encoding="utf-8",
+    )
     md_path.write_text(_render_markdown(output), encoding="utf-8")
 
     return output
@@ -577,7 +646,8 @@ def _render_markdown(output: dict) -> str:
     if syn.get("shared_dealbreakers"):
         lines.append("## Shared Dealbreakers (Category Vulnerabilities)\n")
         for d in syn["shared_dealbreakers"]:
-            lines.append(f"- **{d.get('issue', '')}** — affects: {', '.join(d.get('affected_competitors', []))}")
+            affected = ", ".join(d.get("affected_competitors", []))
+            lines.append(f"- **{d.get('issue', '')}** — affects: {affected}")
             lines.append(f"  - Our response: {d.get('our_response', '')}\n")
 
     if syn.get("defensive_priorities"):
@@ -602,7 +672,8 @@ def _render_markdown(output: dict) -> str:
         if analysis.get("summary"):
             lines.append(f"_{analysis['summary']}_\n")
 
-        for bucket_name, key in [("Loves", "loves"), ("Gaps", "gaps"), ("Dealbreakers", "dealbreakers")]:
+        buckets = [("Loves", "loves"), ("Gaps", "gaps"), ("Dealbreakers", "dealbreakers")]
+        for bucket_name, key in buckets:
             items = analysis.get(key, []) or []
             if not items:
                 continue
