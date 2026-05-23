@@ -23,6 +23,7 @@ dependencies = [
     "exa-py>=1.0",         # Neural web search for unfiltered VoC
     "apify-client>=1.6",   # Amazon Reviews scraping
     "streamlit>=1.30",     # Interactive web dashboard
+    "openpyxl>=3.1",       # Creative matrix XLSX output
 ]
 
 [project.optional-dependencies]
