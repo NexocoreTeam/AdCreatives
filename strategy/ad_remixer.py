@@ -1105,6 +1105,71 @@ Each variation must:
          (e.g. authority_bias persona → gaps about lab data; social_proof persona →
          gaps where competitors lack customer trust)."""}
 
+STRATEGIC ANGLE FRAMING — read this BEFORE writing any hook:
+
+  AUDIENCE AWARENESS CALIBRATION.
+    Some product categories are HIGH-AWARENESS — the customer knows what a
+    protein shake is, what a multivitamin does, what a baby crib is for.
+    Broad messaging can work for these.
+
+    Other categories are LOW-AWARENESS — postbiotics (not probiotics),
+    bioactive compounds (not live bacteria), novel mechanisms, first-of-
+    kind products. For these, vague claims read as untrustworthy because
+    the reader has no mental scaffolding to anchor your claim against.
+
+    Rule of thumb: if the product's `unique_mechanism` field above
+    describes something the average customer in this brand's target
+    audience has NEVER HEARD OF, treat the category as low-awareness.
+    For low-awareness categories:
+      - Be more specific (numbers, durations, named ingredients).
+      - Explain the mechanism in plain language at least once across the
+        N variations.
+      - Don't rely on "trust me, it works" energy — earn the trust.
+    For high-awareness categories:
+      - Lean harder on persuasion (rhythm, wink, customer-truth headlines).
+      - You don't need to explain the mechanism — the audience already knows.
+
+  THE "NAME THE OBVIOUS THING" MOVE (Wendy's "Where's the beef?").
+    Before writing each hook, ask yourself:
+
+      "What does every customer in this category already know but no
+       competitor is saying out loud?"
+
+    The brand that NAMES the obvious thing first becomes the category
+    leader. Wendy's said "competitors give less beef on more bun" in 1984,
+    revenue jumped 31% — even though when competitors weighed their
+    burgers it turned out Wendy's didn't actually have more meat. The
+    consumer rewarded the brand that NAMED the thing they were already
+    thinking.
+
+    For postbiotic / gut-health: the obvious unspoken truth is
+    "probiotics arrive dead at your gut." For practitioner-targeted
+    supplements: "your patients try the brands you recommend and report
+    nothing back." For sleep products: "you've tried five things, none
+    of them work after week 2."
+
+    At least 1 of the N variations should USE this move — find the
+    obvious-but-unsaid thing in this product's category and name it
+    head-on in the hook.
+
+  SPECIFICITY > VAGUENESS (always).
+    Numbers, durations, doses, percents, and named thresholds beat
+    abstract claims every time. The brain processes vague claims
+    shallowly; specific claims get processed deeply and assumed-credible
+    (because specific numbers create legal exposure → audiences assume
+    you must have done the work).
+
+    For every variation, if the product YAML or brand context gives you
+    a number, USE IT. If it gives you a study duration, name it. If it
+    names ingredients, name them. Do not default to "clinically studied"
+    or "scientifically formulated" — those phrases tell the reader you
+    don't trust your own data.
+
+    Banned "puffery" phrases (legally protected → empty of information):
+    "best in the world", "industry-leading", "world-class", "the only
+    X you'll ever need", "unmatched", "the gold standard". These are
+    style smells — replace with a specific claim every time.
+
 TEXT DENSITY — HARD RULES (critical: ads with too much text underperform):
 
   A. TRUST BADGES vs TEXT CALLOUTS — read the reference inventory carefully:
@@ -3232,6 +3297,38 @@ RULES (priority order — break ties in favor of the higher rule):
       If you cannot fit the brief's idea into the source's envelope,
       COMPRESS the idea, do NOT exceed the envelope. A 2-word source
       slot cannot hold a 6-word brief callout — the layout breaks.
+
+      R1a. NUMBERS ARE PROTECTED WHEN COMPRESSING.
+        When you compress a brief callout to fit a tight word envelope,
+        NUMBERS, DURATIONS, PERCENTS, and DOSES are protected. Drop
+        adjectives, descriptors, modifiers, and category words instead.
+        The number IS the credibility — vague claims slide past the
+        brain unprocessed, specific numbers stick and create the
+        perception that you must have done the work to back them up.
+
+        Examples (source slot = 2 words):
+          brief: "84-day GI trial data"
+            ❌ "Trial data" (dropped the number → vague, untrustworthy)
+            ❌ "GI study" (dropped the number)
+            ✓ "84-day RCT" (kept the number, dropped GI/data wrappers)
+
+          brief: "17% fewer sick days from RCT"
+            ❌ "Fewer sick days" (dropped the percent)
+            ✓ "17% fewer sick" (kept the percent)
+            ✓ "17% — RCT" (kept the percent AND the proof signal)
+
+          brief: "1 trillion clinically studied bioactive compounds"
+            ❌ "Bioactive compounds" (dropped the dose)
+            ❌ "Clinically studied" (dropped the dose; "clinically" is
+              the kind of vague signal we're trying to avoid)
+            ✓ "1T bioactives" (kept the dose)
+
+        If the brief has NO specific number / duration / percent / dose,
+        this rule doesn't apply — write the best vague-but-concrete
+        target you can. But if there IS a number in the source brief,
+        you MUST preserve it. Dropping the number for word-count
+        reasons is a CORRECTNESS FAILURE — the operator picked that
+        number deliberately as the credibility carrier.
 
   R2. ICP VOICE (strong rewrite).
       The brief's wording is brand-side marketing voice ("Viability

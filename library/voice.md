@@ -33,6 +33,115 @@ the loader prefers per-client over this global default.
    "Never plastic." "No bars between you." This is one of the brand's
    strongest moves.
 
+6. **Be specific. Be the believable.** Vague claims slide past the brain
+   without sticking. Specific numbers, durations, doses, and named
+   thresholds get processed deeply AND signal that you've done the work
+   to back the claim. Use specificity wherever the brief gives you the
+   raw material. (Full rules in the SPECIFICITY section below.)
+
+---
+
+## PERSUASION vs SPECIFICITY (two different layers — use both)
+
+These are easy to confuse. They aren't the same lever.
+
+- **Persuasion** is the EMOTIONAL angle. The hook, the rhythm, the wink,
+  the negation move, the customer-truth headline. It makes the reader
+  FEEL something fast enough to stop scrolling. The signature moves
+  below cover this.
+
+- **Specificity** is the PROOF layer. A number, a duration, an exact
+  threshold, a named ingredient, a percent. It gives the reader the
+  REASON TO BELIEVE the angle. The specificity section below covers
+  this.
+
+A great ad has both. "Eating clean. Still bloated by dinner." (persuasion)
++ "84-day RCT data" (specificity). Without persuasion, specificity reads
+as a spec sheet. Without specificity, persuasion reads as a hot take.
+
+---
+
+## SPECIFICITY RULES (apply whenever the brief has the raw material)
+
+The research underlying these rules:
+
+1. **Vagueness gets shallow processing.** The brain doesn't deeply
+   evaluate vague claims — they don't stick. Specific claims do.
+2. **Specific numbers create perceived credibility through legal
+   exposure.** "Best in the world" is legally protected puffery (anyone
+   can say it; nobody's expected to take it literally). "30% reduction"
+   creates legal liability — so readers assume you must have done the
+   work to back it up, and they believe you more.
+3. **The more vague the claim, the more the reader thinks
+   "I'm being marketed to."** Skepticism rises in lockstep with
+   vagueness.
+4. **Audience awareness calibrates.** For high-awareness categories
+   (everyone knows what protein powder is) you can be a bit broad.
+   For LOW-awareness categories — novel mechanisms, new ingredients,
+   first-of-kind products — specificity is REQUIRED or the reader
+   reads it as untrustworthy. Postbiotics are low-awareness. RCT-backed
+   formulations are low-awareness. Treat them accordingly.
+
+### Specificity moves (use these in order of preference)
+
+**(a) Name the threshold.**
+- ❌ "Bloat clears soon" / "Bloat clears" → ✓ "Bloat clears by noon"
+- ❌ "Energy steady" → ✓ "Steady through 3pm" / "No 2pm wall"
+- ❌ "Feel better" → ✓ "Feel it by week 2"
+
+**(b) Name the duration / study window.**
+- ❌ "Clinically studied" → ✓ "84-day RCT" / "14-day trial"
+- ❌ "Published research" → ✓ "Peer-reviewed in JAMA"
+- ❌ "Long-term effects" → ✓ "12-month follow-up"
+
+**(c) Name the dose / quantity.**
+- ❌ "Trillions of bioactives" → ✓ "1T bioactives"
+- ❌ "Multiple strains" → ✓ "4 strains"
+- ❌ "High-potency" → ✓ "500mg per serving"
+
+**(d) Name the percent.**
+- ❌ "Fewer sick days" → ✓ "17% fewer sick days"
+- ❌ "Better absorption" → ✓ "3x absorption"
+- ❌ "Reduced bloating" → ✓ "72% report less bloating"
+
+**(e) Name the ingredient (without ®/™ in callouts).**
+- ❌ "Patented BiomeBalance™ complex" → ✓ "EpiCor-backed" or "Totipro + EpiCor"
+- The ®/™ marks belong on the product label, not in 2–4 word callouts.
+
+### The Rolls-Royce move (signature move worth its own callout)
+
+In 1958, the most-famous Rolls-Royce ad ever ran with the headline:
+
+> "At 60 mph, the loudest noise in this new Rolls-Royce comes from the
+> electric clock."
+
+One hyper-specific concrete detail (an electric clock at 60 mph) that
+IMPLIES all the rest of the quality (suspension, engineering, build).
+50% sales increase. $25K ad spend.
+
+The move: instead of listing 5 features, pick ONE concrete observable
+moment that, if you saw it, would tell you everything else is also great.
+
+**Apply:**
+- ❌ "Better digestion, sharper focus, steady energy"
+- ✓ "By week 2, the only thing your gut does is digest."
+- ✓ "Three probiotic brands later, still bloated. One bottle of this,
+  done."
+- ✓ "At noon, the bloat is already gone."
+
+One specific moment. Implies the rest.
+
+### Numbers are protected during compression
+
+When fitting a target to a source's word envelope, NUMBERS are protected.
+Drop adjectives, descriptors, modifiers — keep the number, the duration,
+the percent, the dose. The number IS the credibility.
+
+- Source slot: 2 words. Brief: "84-day GI trial data" (4 words).
+  - ❌ "Trial data" (dropped the number)
+  - ❌ "GI study" (dropped the number)
+  - ✓ "84-day RCT" (kept the number, dropped the GI/data wrappers)
+
 ---
 
 ## SIGNATURE MOVES (use these patterns — they work)
@@ -173,6 +282,22 @@ from every target you write.
   is too marketing-y for a callout slot)
 - holistic, synergistic, optimal, ideal
 - experience, journey (as nouns)
+
+**Puffery — legally-protected phrases that signal weakness (banned):**
+These are legally protected BECAUSE nobody's expected to take them
+literally (under US ad law, "puffery" can't get you sued because no
+reasonable person would believe a literal "best in the world" claim).
+That's exactly why they carry no information — and exactly why
+specific claims with numbers beat them.
+- "best in the world", "world's best", "best ever"
+- "industry-leading", "category-defining", "market-leading"
+- "the gold standard", "the only X you'll ever need"
+- "unmatched", "unparalleled", "second to none"
+- "trusted by millions" (vague — use "Loved by 1M+ families" if you
+  have the count; otherwise drop it)
+- "world-class", "best-in-class"
+Rewrite any of these as a specific claim with a number, a duration, a
+named threshold, or a customer quote.
 
 **Hedges (banned — these signal weakness):**
 - actually, finally, really, just, honestly, literally
