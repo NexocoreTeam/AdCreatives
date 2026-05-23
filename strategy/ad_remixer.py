@@ -1103,9 +1103,63 @@ TEXT DENSITY — HARD RULES (critical: ads with too much text underperform):
        - Items like "Certified B Corporation", "Trustpilot 4.5 stars", star ratings,
          certification logos = BADGE icons (not text). These belong in
          `visual_direction` as "render B Corp + Trustpilot badges at bottom".
-       - Items like "30% off", "Free shipping" = TEXT callouts (real text strips).
-       - For THIS reference: if all visible callouts are trust badges, your
-         `benefit_callouts` MUST be EMPTY array [].
+       - Items like "30% off", "Free shipping", "Grass eating", "Itching",
+         "Digestive support", checklist-style ❌/✅ items, before/after labels
+         = TEXT callouts (real text strips you must fill with content).
+
+       Rules (read both):
+       (i) If ALL visible callouts in the reference are trust BADGES, your
+           `benefit_callouts` MUST be the EMPTY array []. Don't invent text
+           callouts that won't be rendered.
+       (ii) If the reference has TEXT callouts (the common case for
+           us-vs-them, before/after, features-list, and pill-stack ads),
+           your `benefit_callouts` MUST be a non-empty array of 3 strings,
+           written IN THE PERSONA'S VOICE.
+
+           Empty `benefit_callouts: []` when text callouts exist is a
+           CORRECTNESS FAILURE — it forces the downstream mapper to fall
+           back to product-spec bullets from the product YAML, which read
+           as brand-marketing copy instead of customer voice.
+
+           Persona-voice means: short, plain, observational, what the
+           customer would actually say. NOT product spec language. NOT
+           feature list. Examples:
+
+             Persona: "Burnout Biohacker" (he's tried probiotics, didn't
+             work, eats clean and is still bloated):
+               benefit_callouts:
+                 - "Bloat finally clears"
+                 - "Steady all day"
+                 - "Eats clean, feels it"
+
+             Persona: "Practitioner Paul" (clinician, recommends supplements,
+             needs evidence to defend his picks):
+               benefit_callouts:
+                 - "14-day RCT data"
+                 - "Cited mechanism"
+                 - "Replicated in trials"
+
+             Persona: "Perimenopause Paula" (hormone changes, gut feels
+             unfamiliar, wants relief without another bottle):
+               benefit_callouts:
+                 - "Gut feels like mine"
+                 - "Less puffy by week 2"
+                 - "Sleeps through the night"
+
+           Forbidden in benefit_callouts (these are PRODUCT-SPEC, not
+           PERSONA-VOICE):
+             - "Reduces bloating and supports digestive comfort"
+             - "Supports gut lining integrity"
+             - "Features patented BiomeBalance™ complex"
+             - Anything starting with "Supports X" or "Helps with Y"
+             - Anything that names a patented ingredient by ®/™ wordmark
+             - Apologetic hedges ("actually", "finally" — these are
+               mapper-side decompressions, not source-side callouts)
+
+           If you cannot write 3 persona-voice callouts because you don't
+           understand the persona well enough, default to symptom-and-relief
+           pairs the persona would observe in their own body or daily life.
+           Always 3. Always non-empty.
 
   B. Where does the hook go? Look at the locked creative_mechanic:
        - "Venn Diagram" / "Whiteboard Venn" / "Split-screen comparison":
