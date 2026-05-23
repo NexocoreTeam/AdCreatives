@@ -154,10 +154,10 @@ from every target you write.
 
 **Verbs (marketing → kill):**
 - ease, eases, easing → use: gone, clears, stops, lifts
-- support, supports, supporting → use: works, actually arrives, kicks in
+- support, supports, supporting → use: works, arrives, kicks in, lands
 - help with, helps with → use: fixes, kills, ends
 - assist, assists → use: handles, takes care of
-- improve, improves, optimize, optimizes → use: works, actually works
+- improve, improves, optimize, optimizes → use: works, kicks in, lifts
 - enhance, enhances → use: lifts, sharpens
 - address, addresses → use: stops, kills, fixes
 - maintain, maintains → use: keeps, holds, locks in
@@ -176,9 +176,16 @@ from every target you write.
 
 **Hedges (banned — these signal weakness):**
 - actually, finally, really, just, honestly, literally
-- "actually works" is borderline acceptable when paired with a real
-  customer voice ("Three brands later — actually works") but don't
-  default to it.
+- These four hedges leak constantly. STRIP THEM. They never improve a line:
+    - ❌ "Bloating actually calms down" → ✓ "Bloat clears"
+    - ❌ "Finally felt the difference" → ✓ "Felt the difference"
+      (or better: "Felt it by week 2")
+    - ❌ "It really works" → ✓ "It works" (or rewrite around it)
+    - ❌ "Honestly, the best" → ✓ "Best, hands down"
+- Exception, single allowed pattern: a hedge inside a customer-quoted
+  testimonial WITH proper attribution is fine ("Three brands later —
+  actually works." – Bailey K.) because the customer can talk this
+  way. Brand-voice cannot.
 
 **Patent/ingredient name-drops in callouts (banned):**
 - "Patented BiomeBalance™ complex"
@@ -315,6 +322,133 @@ Apply: "Sick of probiotics that don't arrive?" "Want a gut that just works?"
 - "4.9 stars, 355+ reviews"
 - "415+ ⭐⭐⭐⭐⭐ reviews"
 - "babybay all-natural sleepers get ⭐⭐⭐⭐⭐ for a reason"
+
+---
+
+## CATEGORY ADAPTATIONS — translating babybay moves to other categories
+
+The reference brand (babybay) sells baby sleepers. The same voice moves
+work on wellness, supplement, biohacker, and practitioner-targeted ads
+when adapted. Below are example banks captured from real production
+runs where the voice translated well. Use these when working in the
+matching category.
+
+### Postbiotic / gut-health (consumer)
+
+**Headlines (period-stop rhythm + customer truth):**
+- "Eating clean. Still bloated by dinner. | Probiotics die before they reach your gut."
+- "Took them every day. | The bioactives never arrived."
+- "Optimizing the bacteria. Not the bioactives. | Skip the bacteria. Get the bioactives."
+- "Three probiotic brands later"
+- "Bottles of probiotics, still bloated"
+
+**Pain callouts (concrete body-feeling):**
+- "Still bloated"
+- "Brain fog"
+- "Brain fog stays"
+- "Puffy"
+- "Unpredictable gut"
+- "Bars between you" (← good analog from babybay if barrier-shaped)
+- "No change"
+- "Still off"
+
+**Benefit callouts (the "X — gone" pattern is gold):**
+- "Bloat clears"
+- "Bloat clears by noon"
+- "Bloat — gone"
+- "Brain fog — gone"
+- "Gut cooperates"
+- "Gut feels mine"
+- "Gut feels like mine again"
+- "Sharp by noon"
+- "Less puffy by week 2"
+- "Energy back"
+- "Felt the difference"
+
+### Practitioner / clinical-evidence persona
+
+This is where the babybay playfulness gets dialed down and the rhythm
+gets crisper. Period-stops still work. Wink moves don't.
+
+**Headlines (evidence-credibility):**
+- "What your patients tried. | What the RCTs actually showed."
+- "Without RCT backing"
+- "Sick. Again. Scheduled." (← dark humor wink, used carefully)
+
+**Pain callouts (clinical observations, NOT internal feelings):**
+- "Patients report nothing"
+- "No study cited"
+- "No published data"
+- "Survivability unproven"
+- "Trust erodes" (borderline — abstract; prefer "Patients leave")
+- "Recommendations falling flat"
+
+**Benefit callouts (evidence cues — verifiable, specific):**
+- "84-day trial data"
+- "14-day RCT"
+- "Named, verifiable ingredients"
+- "Replicated in RCTs"
+- "Cited mechanism"
+- "Peer-reviewed"
+- "Clinician-reviewed"
+
+**Forbidden in this register:**
+- Customer-feeling language ("still bloated", "energy back") — wrong audience
+- Product-spec ("Patented BiomeBalance complex", "Supports X")
+- Patent-name-drops in callouts (use the ingredient unbranded: "EpiCor-backed")
+
+### Biohacker / optimizer persona
+
+**Headlines (efficiency framing):**
+- "Optimizing the bacteria. Not the bioactives."
+- "Stack of 12. Bloat at 12."
+
+**Pain callouts (system-failure observations):**
+- "2pm wall"
+- "Stack keeps growing"
+- "Bloat compounds"
+- "Numbers tell a story"
+
+**Benefit callouts (system-improvement observations):**
+- "Stack gets shorter"
+- "2pm wall — gone"
+- "Energy steady"
+- "Gut cooperates"
+- "Numbers improve"
+
+### Immune / anxiety persona
+
+**Headlines (predictable-pattern framing):**
+- "Sick every quarter. Right on schedule."
+- "Sick. Again. Scheduled."
+
+**Pain callouts (recurrence observations):**
+- "Sick quarterly"
+- "Runs down at crunch"
+- "Energy crashes"
+
+**Benefit callouts (immunity-as-state):**
+- "Fewer sick days"
+- "Energy holds through"
+- "Gut stays steady"
+- "17% fewer sick days — RCT" (if you have the data)
+
+---
+
+## THE "X — GONE" PATTERN (signature move worth its own section)
+
+A move that emerged organically in production: pair a pain word with
+an em-dash and "gone". Three beats. Reads as victory. Translates to
+nearly any consumer-wellness category.
+
+**Examples:**
+- "Brain fog — gone"
+- "2pm wall — gone"
+- "Bloat — gone"
+- "Headaches — gone"
+- "Energy crashes — gone"
+
+Use sparingly (one per ad, max two) — overused, the rhythm flattens.
 
 ---
 

@@ -3,7 +3,10 @@ output/
 __pycache__/
 *.pyc
 .ruff_cache/
-.claude/
+# .claude/ — top-level directory is no longer blanket-ignored. Specific
+# subdirectories that are machine-local (worktrees, third-party skills)
+# are ignored further down; project-owned skills get committed.
+.claude/worktrees/
 .pytest_cache/
 dist/
 *.egg-info/
@@ -53,7 +56,14 @@ clients/*/reference_ads/raw/
 # sources + Claude Code symlinks. Each developer installs their own via
 # `npx skills add higgsfield-ai/skills`; not source-of-truth.
 .agents/
-.claude/skills/
+# Ignore CONTENTS of .claude/skills/ (the `/*` is key — Git can't re-include
+# a child if the parent directory itself is excluded). With `/*`, we exclude
+# each top-level child individually, leaving room for negations below.
+.claude/skills/*
+# But: project-owned Claude Code skills that ARE source-of-truth (e.g.
+# the /voice skill backing the copywriting voice profile) get un-ignored
+# explicitly. Add new project skills here when you create them.
+!.claude/skills/voice/
 skills-lock.json
 
 # One-off backup tarballs of `ai-ads/` outputs. `ai-ads/` itself is
