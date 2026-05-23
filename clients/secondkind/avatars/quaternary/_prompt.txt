@@ -1,0 +1,21 @@
+Headshot portrait, 1:1 aspect ratio, chest-up framing on a light-grey seamless studio background. No clutter, no props, no text overlay, no logos.
+
+SUBJECT:
+lean, moderately athletic — the kind that comes from intentional habits, not a gym obsession male, late 30s to late 40s. Ethnicity register: any. short to medium length, clean cut with slight natural texture, dark brown with early salt at the temples — grown-out professional rather than styled. natural pores, minimal product sheen, faint periocular lines suggesting sustained focus — looks cared-for without looking treated — visible pores, natural skin texture variation across the face, subtle under-eye detail. Hyper-detailed skin — no airbrushing, no plastic smoothness, slight natural asymmetry. Natural eye catchlights, soft realistic gaze slightly off-axis, no doll-like glassy eyes.
+
+WARDROBE: fitted mid-weight slate-grey merino crewneck or a pressed open-collar Oxford in muted white or stone — no logos, no performance fabric, no jewelry shimmer — the kind of piece that reads credentialed without reading corporate. Garmin Fenix or WHOOP band on left wrist, no rings, no visible chain — functional wearable signals self-quantification without ostentation. Realistic fabric folds and shadows on the garment, natural drape, soft texture detail.
+
+EXPRESSION & BODY LANGUAGE: mid-thought, eyes tracking slightly off-camera as if weighing a claim just encountered — mouth in a neutral-to-slight compression, not smiling, not closed off — the face of someone who is genuinely deciding something. weight slightly forward, chin level, shoulders settled and square — one hand near the chin or collarbone in a loose evaluative gesture, suggesting active internal processing rather than performance. Framed chest-up, shoulders relaxed. Overall register: authority-credentialed intellectual peer — calm skeptic in the moment before provisional endorsement.
+
+CAMERA:
+Shot on Hasselblad X2D with 85mm f/2.0, shallow DOF, tack-sharp eyes, creamy bokeh, Kodak Portra 400 emulation, natural warm skin tones, soft pastel palette.
+
+LIGHTING:
+Single soft window light from upper-left at approximately 45°, warm 4500K color temperature, gentle shadow falloff across face, no studio fill, no ring-light catchlights, no even all-around illumination.
+
+REGISTER:
+Documentary editorial portrait — candid moment, real-life imperfections preserved, no Instagram filter look, natural color grading. Reads as a real photograph of a real person, not an AI render.
+
+Negative prompt: plastic skin, smoothed airbrushed skin, waxy face, stock-photo energy, uncanny valley, doll-like glassy eyes, AI-generated face artifacts, oversaturated colors, Instagram filter look, posed/staged feel, celebrity look-alike, gym-model proportions, suit or formal wear (unless specified), text or watermark, hands visible (chest-up framing).
+
+1:1 aspect ratio.
