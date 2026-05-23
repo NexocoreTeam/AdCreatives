@@ -19,9 +19,11 @@ from models.avatar import (
     RecommendedPairing,
     WeakHeuristic,
 )
+from models.brief import MentalStage
 from strategy.angle_multiplier import (
     DIVERSITY_MATRIX,
     SLOT_TO_HEURISTICS,
+    build_mental_stage_block,
     build_psychology_block,
     filter_matrix_by_profile,
 )
@@ -203,3 +205,74 @@ class TestBuildPsychologyBlock:
         """The block must signal hard constraints, not soft suggestions."""
         block = build_psychology_block(_cara_profile())
         assert "HARD CONSTRAINTS" in block or "MUST" in block
+
+
+# ─── build_mental_stage_block ───────────────────────────────────────────────
+
+
+class TestBuildMentalStageBlock:
+    def test_empty_stages_returns_empty_string(self):
+        assert build_mental_stage_block([], ["a trigger"]) == ""
+
+    def test_lists_per_slot_assignment(self):
+        """Each slot must be visibly tagged with its assigned stage."""
+        stages = [
+            MentalStage.TRIGGER,
+            MentalStage.EXPLORATION,
+            MentalStage.EVALUATION,
+            MentalStage.PURCHASE,
+        ]
+        block = build_mental_stage_block(stages, [])
+        assert "Slot 1: trigger" in block
+        assert "Slot 2: exploration" in block
+        assert "Slot 3: evaluation" in block
+        assert "Slot 4: purchase" in block
+
+    def test_only_inlines_strategies_for_present_stages(self):
+        """A batch with only TRIGGER + EXPLORATION shouldn't dump evaluation
+        or purchase rules into the prompt — saves tokens and keeps the brief
+        scoped."""
+        block = build_mental_stage_block(
+            [MentalStage.TRIGGER, MentalStage.EXPLORATION], []
+        )
+        # Stages present
+        assert "TRIGGER:" in block
+        assert "EXPLORATION:" in block
+        # Stages absent — their full strategy blocks should not appear
+        assert "EVALUATION:" not in block
+        assert "PURCHASE:" not in block
+
+    def test_trigger_events_only_render_when_trigger_stage_present(self):
+        """trigger_events block must not appear in a batch that has no
+        trigger-stage slots — it's irrelevant noise to the LLM."""
+        events = ["finishes the bottle and feels the same"]
+        block_no_trigger = build_mental_stage_block(
+            [MentalStage.EVALUATION, MentalStage.PURCHASE], events
+        )
+        assert "TRIGGER EVENTS FROM THIS AVATAR" not in block_no_trigger
+
+        block_with_trigger = build_mental_stage_block(
+            [MentalStage.TRIGGER, MentalStage.EXPLORATION], events
+        )
+        assert "TRIGGER EVENTS FROM THIS AVATAR" in block_with_trigger
+        assert "finishes the bottle and feels the same" in block_with_trigger
+
+    def test_missing_trigger_events_falls_back_to_synthesis_instructions(self):
+        """If the avatar has no trigger_events captured but a trigger slot
+        is in the batch, the prompt must instruct the LLM to synthesize one
+        and stamp it into trigger_moment — otherwise it'll silently emit a
+        generic 'pain-aware' hook with no audit trail."""
+        block = build_mental_stage_block([MentalStage.TRIGGER], [])
+        assert "TRIGGER EVENTS: none captured" in block
+        assert "synthesize" in block.lower()
+        assert "trigger_moment" in block
+
+    def test_trigger_events_truncated_at_six(self):
+        """Long trigger_events lists should be capped to keep the prompt
+        focused on the most-cited recognition moments."""
+        events = [f"event #{i}" for i in range(12)]
+        block = build_mental_stage_block([MentalStage.TRIGGER], events)
+        assert "event #0" in block
+        assert "event #5" in block
+        assert "event #6" not in block
+        assert "event #11" not in block

@@ -9,12 +9,13 @@ from datetime import datetime
 
 from models.avatar import CustomerAvatar
 from models.brand import Brand
-from models.brief import AwarenessLevel, CopyFramework, CreativeBrief
+from models.brief import AwarenessLevel, CopyFramework, CreativeBrief, MentalStage
 from models.product import Product
 from models.result import WinningPatterns
 from strategy.angle_multiplier import generate_angles
 from strategy.awareness_mapper import (
     classify_awareness,
+    distribute_across_stages,
     get_awareness_strategy,
     select_frameworks,
 )
@@ -118,6 +119,7 @@ def generate_briefs(
     competitive_gaps: dict | None = None,
     use_profile: bool = True,
     include_trending: bool = True,
+    mental_stages: list[MentalStage] | None = None,
 ) -> list[CreativeBrief]:
     """Generate a set of creative briefs for a product.
 
@@ -156,6 +158,23 @@ def generate_briefs(
     if competitive_gaps is None:
         competitive_gaps = _load_competitive_gaps(client_slug)
 
+    # Spread the batch across mental stages — biased by the avatar's awareness
+    # center of gravity but always covering all four stages when count >= 4.
+    # Done here (not inside generate_angles) so brief_generator can stamp the
+    # pre-computed stage onto the CreativeBrief as a fallback if the LLM
+    # forgets to echo it back.
+    #
+    # If the caller supplied `mental_stages` explicitly (typical pattern: CLI
+    # computes the full N-stage distribution once and slices per avatar so the
+    # full output covers all four stages across the avatar fan-out), we use
+    # the supplied slice instead. It must be length-matched to `count`.
+    if mental_stages is None:
+        mental_stages = distribute_across_stages(count, awareness)
+    elif len(mental_stages) != count:
+        raise ValueError(
+            f"mental_stages length ({len(mental_stages)}) must match count ({count})."
+        )
+
     angles = generate_angles(
         product=product,
         avatar=avatar,
@@ -165,6 +184,7 @@ def generate_briefs(
         frameworks=[f.value for f in frameworks],
         competitive_gaps=competitive_gaps,
         use_profile=use_profile,
+        mental_stages=mental_stages,
     )
 
     briefs = []
@@ -192,6 +212,24 @@ def generate_briefs(
             alt_raw = [alt_raw]
         alternatives = [a for a in alt_raw if isinstance(a, str) and a.strip()]
 
+        # Mental stage: trust the LLM's echoed value if it parses, otherwise
+        # fall back to the pre-computed assignment for this index. The
+        # pre-computed list is the source of truth in disagreement — the LLM
+        # was told which stage to target for this slot.
+        raw_stage = (angle_data.get("mental_stage") or "").strip().lower()
+        try:
+            mental_stage = MentalStage(raw_stage) if raw_stage else mental_stages[i]
+        except ValueError:
+            mental_stage = mental_stages[i]
+        # trigger_moment is only meaningful for trigger-stage briefs. Strip it
+        # off the others so a stale LLM field doesn't pollute non-trigger
+        # briefs.
+        trigger_moment = (
+            (angle_data.get("trigger_moment") or "").strip()
+            if mental_stage == MentalStage.TRIGGER
+            else ""
+        )
+
         brief = CreativeBrief(
             brief_id=_make_brief_id(
                 client_slug,
@@ -202,6 +240,8 @@ def generate_briefs(
             client=client_slug,
             product=product.name,
             awareness_level=awareness,
+            mental_stage=mental_stage,
+            trigger_moment=trigger_moment,
             framework=framework,
             angle=angle_data.get("angle", ""),
             hook=angle_data.get("hook", ""),

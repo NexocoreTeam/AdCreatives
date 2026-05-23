@@ -1422,8 +1422,23 @@ def brief(
     # avatars (primary first), which is the order load_all_avatars returns.
     per_avatar = math.ceil(angles / len(avatars))
 
+    # Mental-stage distribution: compute ONCE across the full `angles` total
+    # using the primary (first-listed) avatar's awareness as the bias center,
+    # then slice per avatar. This way an --angles 6 run across 6 avatars
+    # produces 6 briefs that span trigger / exploration / evaluation /
+    # purchase, instead of 6 trigger briefs (one per avatar from
+    # distribute_across_stages(count=1, ...)).
+    from strategy.awareness_mapper import (
+        classify_awareness as _classify_awareness,
+        distribute_across_stages as _distribute_across_stages,
+    )
+    full_stage_plan = _distribute_across_stages(
+        per_avatar * len(avatars),
+        _classify_awareness(avatars[0]),
+    )
+
     briefs: list = []
-    for av in avatars:
+    for av_idx, av in enumerate(avatars):
         if av.psychology_profile and use_profile:
             n_dom = len(av.psychology_profile.dominant_heuristics)
             n_pairings = len(av.psychology_profile.recommended_prompt_pairings)
@@ -1441,6 +1456,9 @@ def brief(
                 f"Run `adc profile-psychology --client {client} --avatar {av.name}` for heuristic-aware angles.[/yellow]"
             )
 
+        avatar_stages = full_stage_plan[
+            av_idx * per_avatar : (av_idx + 1) * per_avatar
+        ]
         with console.status(f"Generating {per_avatar} brief(s) for {av.name}..."):
             try:
                 avatar_briefs = generate_briefs(
@@ -1453,6 +1471,7 @@ def brief(
                     winning_patterns=patterns,
                     use_profile=use_profile,
                     include_trending=not no_trending,
+                    mental_stages=avatar_stages,
                 )
             except ValueError as e:
                 console.print(f"[red]{e}[/red]")

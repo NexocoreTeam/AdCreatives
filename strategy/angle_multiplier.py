@@ -33,8 +33,13 @@ import yaml
 
 from models.avatar import CustomerAvatar, PsychologyProfile
 from models.brand import Brand
+from models.brief import MentalStage
 from models.product import Product
 from models.skills import load_skill
+from strategy.awareness_mapper import (
+    distribute_across_stages,
+    get_mental_stage_strategy,
+)
 from strategy.llm import claude_complete
 
 # Diversity matrix — adapted from DV0x/creative-ad-agent's hook-methodology.
@@ -181,6 +186,91 @@ def build_psychology_block(profile: PsychologyProfile | None) -> str:
     return "\n".join(parts)
 
 
+def build_mental_stage_block(
+    mental_stages: list[MentalStage],
+    trigger_events: list[str],
+) -> str:
+    """Inline per-stage briefing rules and the slot→stage assignment for this batch.
+
+    Customer mental states (trigger / exploration / evaluation / purchase) are
+    orthogonal to the diversity matrix hook *types*. Each slot still picks a
+    hook type from the matrix; the mental stage assigned here controls WHAT
+    THE AD IS TRYING TO DO at that moment in the buyer's head.
+
+    Only the stages actually present in `mental_stages` get their full
+    strategy text inlined — no point briefing the LLM on stages it isn't
+    being asked to write for. `trigger_events` are scoped to trigger-stage
+    slots only (the whole point of the trigger frame is to anchor to a
+    specific moment, not to invent one).
+    """
+    if not mental_stages:
+        return ""
+
+    parts: list[str] = [
+        "MENTAL STAGE ASSIGNMENTS (one stage per slot — hard-bound):",
+        "",
+        "Each customer cycles between four mental states during the purchase",
+        "decision. Your batch must cover the stages listed below. Each slot has",
+        "ONE assigned stage — the angle for that slot must match its stage's",
+        "approach, not just its hook_type.",
+        "",
+    ]
+
+    # Inline the strategy text only for the stages this batch actually targets.
+    seen: set[MentalStage] = set()
+    for stage in mental_stages:
+        if stage in seen:
+            continue
+        seen.add(stage)
+        strat = get_mental_stage_strategy(stage)
+        parts.append(f"  {stage.value.upper()}:")
+        parts.append(f"    approach: {strat['approach']}")
+        parts.append(f"    brief on: {strat['brief_on']}")
+        parts.append(f"    avoid: {strat['avoid']}")
+        parts.append("")
+
+    parts.append("Per-slot stage assignment (slot numbers match the diversity matrix above):")
+    for i, stage in enumerate(mental_stages, start=1):
+        parts.append(f"  Slot {i}: {stage.value}")
+    parts.append("")
+
+    has_trigger = MentalStage.TRIGGER in seen
+    if has_trigger and trigger_events:
+        parts.append("TRIGGER EVENTS FROM THIS AVATAR (use ONLY for trigger-stage slots):")
+        for t in trigger_events[:6]:
+            parts.append(f"  - {t}")
+        parts.append("")
+        parts.append(
+            "For every trigger-stage slot above, anchor the hook to ONE specific"
+        )
+        parts.append(
+            "event from this list. Recreate the scene. Echo the chosen event into"
+        )
+        parts.append(
+            "the `trigger_moment` field of that slot's output (verbatim or near-"
+        )
+        parts.append(
+            "verbatim — the field is the audit trail back to the avatar)."
+        )
+        parts.append("")
+    elif has_trigger and not trigger_events:
+        parts.append(
+            "TRIGGER EVENTS: none captured for this avatar. For trigger-stage"
+        )
+        parts.append(
+            "slots, synthesize a plausible recognition moment from the avatar's"
+        )
+        parts.append(
+            "pain_points and customer_language — and stamp it into trigger_moment"
+        )
+        parts.append(
+            "so a strategist can review whether the moment rings true."
+        )
+        parts.append("")
+
+    return "\n".join(parts)
+
+
 ANGLE_SYSTEM = """You are a direct response advertising strategist trained by the best:
 Eugene Schwartz, Gary Halbert, David Ogilvy, and modern performance marketers.
 
@@ -273,6 +363,7 @@ CUSTOMER AVATAR:
 
 {psychology_block}
 
+{mental_stage_block}
 BRAND TONE: {brand_tone}
 MESSAGING APPROACH: {approach}
 {competitive_gaps_section}
@@ -288,6 +379,8 @@ angles:
     pain_addressed: "which pain point this targets"
     persona_traits: "one-sentence buyer thumbnail (e.g. 'health-conscious woman 30-44 who has tried multiple probiotics and felt nothing'). The canonical persona NAME is stamped automatically downstream — describe the buyer, do not invent a different name."
     awareness_stage: "unaware | problem_aware | solution_aware | product_aware | most_aware"
+    mental_stage: "trigger | exploration | evaluation | purchase — MUST match the stage assigned to this slot above. This drives WHAT the ad is trying to do at this moment in the buyer's head, separate from awareness_stage."
+    trigger_moment: "ONLY fill for trigger-stage slots. The specific recognition event this ad recreates — verbatim or near-verbatim from the avatar's trigger_events list. Empty string for all other stages."
     framework: "one of the frameworks above — pick the best fit for this slot"
     creative_mechanic: "name a structural mechanic from Motion's creative-mechanics that fits this angle (e.g. 'Pattern Interrupt with Reveal', 'Before/After Split', 'Talking Head Confession')"
     visual_format: "PRIMARY visual format from Motion's visual-formats library that fits this concept (e.g. 'UGC Static', 'Split-screen video', 'Text-on-product photo')"
@@ -316,6 +409,18 @@ Quality checks before returning:
    exploit a specific gap. Use `source` to reference the gap (e.g.,
    "competitive-gap: probiotic survivability") and incorporate the customer
    evidence quote into the hook construction.
+7. `mental_stage` on every angle MUST match the stage assigned to that slot
+   in the MENTAL STAGE ASSIGNMENTS block above. No silent reassignment.
+8. For TRIGGER slots: `trigger_moment` must be non-empty and the hook must
+   recreate that moment — not describe the resulting pain in the abstract.
+9. For EXPLORATION slots: the angle must work as category education. If you
+   could swap the product for a competitor's and the ad still landed, you
+   nailed it. Product appears as background, never as the hook.
+10. For EVALUATION slots: lead with permission/certainty, not features or
+    urgency. The hook supplies a logical reason to confirm an emotional
+    decision the customer mostly already made.
+11. For PURCHASE slots: friction-removal language only. No heavy discounts
+    as the lead — guarantee, easy return, low-commitment first step.
 
 YAML OUTPUT FORMAT RULES (strict — broken YAML breaks the run):
 - The `source` field MUST be a single-line plain descriptor under 80 chars.
@@ -396,6 +501,7 @@ def generate_angles(
     frameworks: list[str] | None = None,
     use_profile: bool = True,
     competitive_gaps: dict | None = None,
+    mental_stages: list[MentalStage] | None = None,
 ) -> list[dict]:
     """Generate multiple messaging angles for a product/avatar combo.
 
@@ -407,7 +513,7 @@ def generate_angles(
     the model is instructed to vary the framework across slots. Defaults to a
     sensible set covering most awareness levels.
 
-    Two layered constraints:
+    Three layered constraints:
 
     1. When `use_profile=True` (default) and the avatar carries a
        `psychology_profile`, the diversity matrix is filtered to slots that
@@ -420,11 +526,35 @@ def generate_angles(
        clients/<slug>/research/competitive-gaps.yaml by the caller), its
        synthesis block is injected so at least half of generated angles target
        a specific competitor weakness.
+
+    3. `mental_stages` assigns a customer mental state to each slot (trigger /
+       exploration / evaluation / purchase). When omitted, the function
+       distributes stages across the batch using the avatar's awareness level
+       as the bias center. Avatar.trigger_events are scoped to trigger-stage
+       slots so the LLM anchors those hooks to a specific recognition moment
+       instead of synthesizing one.
     """
     profile = avatar.psychology_profile if use_profile else None
 
     matrix = filter_matrix_by_profile(profile, count)
     psychology_block = build_psychology_block(profile)
+
+    if mental_stages is None:
+        from models.brief import AwarenessLevel
+        try:
+            awareness = AwarenessLevel(avatar.awareness_level.lower().strip())
+        except ValueError:
+            awareness = AwarenessLevel.PROBLEM_AWARE
+        mental_stages = distribute_across_stages(count, awareness)
+    elif len(mental_stages) != count:
+        raise ValueError(
+            f"mental_stages length ({len(mental_stages)}) must match count ({count})."
+        )
+
+    mental_stage_block = build_mental_stage_block(
+        mental_stages,
+        list(avatar.trigger_events or []),
+    )
 
     if not frameworks:
         frameworks = ["pas", "aida", "bab", "fab"]
@@ -455,6 +585,7 @@ def generate_angles(
         awareness_level=avatar.awareness_level,
         language_patterns=", ".join(avatar.language_patterns[:3]) or "casual and direct",
         psychology_block=psychology_block,
+        mental_stage_block=mental_stage_block,
         brand_tone=brand.tone,
         approach=awareness_strategy.get("approach", ""),
         competitive_gaps_section=_format_competitive_gaps(competitive_gaps),

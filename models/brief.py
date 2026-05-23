@@ -13,6 +13,32 @@ class AwarenessLevel(str, Enum):
     MOST_AWARE = "most_aware"
 
 
+class MentalStage(str, Enum):
+    """Customer mental state when an ad lands — orthogonal to Schwartz awareness.
+
+    Schwartz puts an *audience* at one awareness level; MentalStage tracks
+    where any one customer's head is in the buying decision *right now*.
+    Customers cycle between these stages, stall, re-enter. A batch of briefs
+    should span all four so the creative reaches the right moment whoever the
+    impression lands on.
+
+    TRIGGER     — a need just became conscious. Lead with the moment, not the
+                  product.
+    EXPLORATION — knows they have a need, exploring the CATEGORY (not your
+                  product yet). Brand sits in the background; the ad teaches
+                  what good looks like.
+    EVALUATION  — shortlist phase. They want PERMISSION to choose, not more
+                  features. Compete on certainty.
+    PURCHASE    — decision already made. Remove friction. Discounts here are
+                  a crutch if the upstream stages didn't do their job.
+    """
+
+    TRIGGER = "trigger"
+    EXPLORATION = "exploration"
+    EVALUATION = "evaluation"
+    PURCHASE = "purchase"
+
+
 class CopyFramework(str, Enum):
     PAS = "pas"               # Problem - Agitation - Solution
     AIDA = "aida"             # Attention - Interest - Desire - Action
@@ -32,6 +58,20 @@ class CreativeBrief(BaseModel):
     product: str = Field(description="Product slug")
     awareness_level: AwarenessLevel = Field(
         description="Target audience awareness level — drives messaging tone"
+    )
+    mental_stage: MentalStage = Field(
+        default=MentalStage.EXPLORATION,
+        description="Customer mental state when this ad lands (trigger / "
+        "exploration / evaluation / purchase). Briefs in a batch should span "
+        "all four so creative meets customers wherever they happen to be in "
+        "their decision journey, not just at the avatar's center of gravity.",
+    )
+    trigger_moment: str = Field(
+        default="",
+        description="For trigger-stage briefs only: the specific recognition "
+        "moment this ad recreates, sourced verbatim or near-verbatim from "
+        "avatar.trigger_events (e.g. 'finishes another probiotic bottle and "
+        "realizes she feels exactly the same'). Empty for non-trigger briefs.",
     )
     framework: CopyFramework = Field(
         description="Copy framework used to structure the message"
