@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 import secrets
 from datetime import datetime
 
@@ -17,6 +18,53 @@ from strategy.awareness_mapper import (
     get_awareness_strategy,
     select_frameworks,
 )
+
+
+_BENEFIT_TAG_RE = re.compile(
+    r"^\s*\[(?:functional|emotional|social|status|trust|safety|"
+    r"convenience|ergonomic|aesthetic)\]\s*",
+    re.IGNORECASE,
+)
+
+
+def _strip_benefit_tag(b: str) -> str:
+    """Remove a leading `[functional]/[emotional]/[social]/...` category tag.
+
+    Product YAMLs prefix benefits with their category for offline filtering;
+    those tags MUST be stripped before they end up in briefs.yaml — otherwise
+    they get drawn onto the rendered ad as literal text.
+    """
+    if not isinstance(b, str):
+        return ""
+    return _BENEFIT_TAG_RE.sub("", b).strip()
+
+
+def _clean_callouts(
+    raw: list | None, *, product: Product, brief_index: int, n: int = 3
+) -> list[str]:
+    """Return up to `n` clean (tag-stripped) benefit callouts for a brief.
+
+    Order of preference:
+      1. Use the LLM-supplied `raw` callouts if non-empty (persona-specific
+         by definition). Always strip the category tag.
+      2. Otherwise rotate a window of `n` over the product's full benefits
+         list, offset by brief_index. Each brief in a batch gets a different
+         3-callout mix, so we don't ship 5 briefs with the same [:3] slice.
+    """
+    cleaned = [_strip_benefit_tag(c) for c in (raw or []) if c]
+    cleaned = [c for c in cleaned if c]
+    if cleaned:
+        return cleaned[:n] if n else cleaned
+
+    all_benefits = [_strip_benefit_tag(b) for b in (product.benefits or []) if b]
+    all_benefits = [b for b in all_benefits if b]
+    if not all_benefits:
+        return []
+    if len(all_benefits) <= n:
+        return all_benefits[:n]
+    start = brief_index % len(all_benefits)
+    rotated = all_benefits[start:] + all_benefits[:start]
+    return rotated[:n]
 
 
 def _make_brief_id(client: str, product: str, index: int, *, avatar: str = "") -> str:
@@ -167,7 +215,11 @@ def generate_briefs(
             visual_format=angle_data.get("visual_format", ""),
             visual_format_alternatives=alternatives,
             pain_point=angle_data.get("pain_addressed", ""),
-            benefit_callouts=angle_data.get("benefit_callouts", product.benefits[:3]),
+            benefit_callouts=_clean_callouts(
+                angle_data.get("benefit_callouts"),
+                product=product,
+                brief_index=i,
+            ),
             cta=angle_data.get("cta", strategy.get("cta", "Shop Now")),
             visual_direction=angle_data.get("visual_direction", ""),
             target_platform=platform,

@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from models.brand import Brand
 from models.brief import AwarenessLevel, CopyFramework, CreativeBrief
 from models.product import Product
+from strategy.brief_generator import _clean_callouts
 
 
 @dataclass
@@ -67,7 +68,9 @@ def matrix_to_briefs(
             framework=framework,
             angle=combo.get("hook", ""),
             hook=combo.get("hook", ""),
-            benefit_callouts=product.benefits[:3],
+            benefit_callouts=_clean_callouts(
+                None, product=product, brief_index=i, n=3,
+            ),
             cta="Shop Now",
             visual_direction=f"Style: {combo.get('style', 'default')}",
             target_platform=combo.get("platform", "meta"),

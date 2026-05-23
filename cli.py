@@ -3783,6 +3783,7 @@ def generate_text_cmd(
     # Stub brief if not provided so the filler has something to work with
     if not brief:
         from models.brief import CreativeBrief, AwarenessLevel, CopyFramework
+        from strategy.brief_generator import _clean_callouts
         brief = CreativeBrief(
             brief_id="stub-text-only",
             client=client,
@@ -3791,7 +3792,9 @@ def generate_text_cmd(
             framework=CopyFramework.AIDA,
             angle=product.unique_mechanism or product.description or product.name,
             hook=(product.benefits[0] if product.benefits else product.name),
-            benefit_callouts=list(product.benefits[:3]) if product.benefits else [],
+            benefit_callouts=_clean_callouts(
+                None, product=product, brief_index=0, n=3,
+            ),
         )
 
     # Load template

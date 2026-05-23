@@ -1258,7 +1258,14 @@ def _angle_to_brief(
         or avatar.demographic[:60]
         or "primary"
     )
-    callouts = angle.get("benefit_callouts") or product.benefits[:3]
+    # Use the shared _clean_callouts helper: strips category tags
+    # (`[functional]` etc.), uses the LLM-supplied list if non-empty, or
+    # falls back to a rotated window of product benefits so each brief in
+    # the batch gets a different 3-callout mix.
+    from strategy.brief_generator import _clean_callouts
+    callouts = _clean_callouts(
+        angle.get("benefit_callouts"), product=product, brief_index=index, n=3,
+    )
     return CreativeBrief(
         brief_id=_make_remix_brief_id(client_slug, product.name, timestamp, index),
         client=client_slug,
@@ -3232,6 +3239,50 @@ RULES (priority order — break ties in favor of the higher rule):
       language outcome phrasing. Both sides should sound like the same
       customer talking, not like a brand pitching.
 
+  R7. REGISTER CONSISTENCY (within a single ad).
+      ALL pain callouts and ALL benefit callouts in ONE ad must share
+      the same register. Mixing registers within an ad reads as broken
+      and confuses the viewer.
+
+      Pick ONE register based on the brief's persona and the source's
+      callout pattern, then stick to it across every ❌ and ✓ target:
+
+        (a) PHYSICAL / SYMPTOMATIC — when the source's pains are observable
+            ("Grass eating", "Yeast growth", "Itching", "Bloated") AND the
+            persona is a consumer. Target should be observable body states:
+              ❌ "Still bloated"   ❌ "Brain fog"   ❌ "Tired by 3pm"
+              ✓ "Bloat gone"       ✓ "Clear head"  ✓ "Steady energy"
+            Forbidden in this register: abstract clinical jargon, internal
+            feelings about credibility/career/identity, product features.
+
+        (b) CLINICAL / EVIDENCE — when the persona is a practitioner or
+            the brief's hook references RCT/studies/data. Target should
+            be evidence-credibility cues:
+              ❌ "No published data"   ❌ "Survivability unproven"
+              ✓ "14-day RCT"           ✓ "Cited in JAMA"
+            Forbidden in this register: customer-feeling language ("still
+            bloated"), abstract emotions ("credibility eroding"), product
+            taglines.
+
+        (c) IDENTITY / STATUS — when the persona's pain is social or
+            self-image driven. Target should be identity cues:
+              ❌ "Falling behind"   ❌ "Tried everything"
+              ✓ "Ahead of curve"    ✓ "Quiet flex"
+            Forbidden in this register: physical symptoms, clinical claims.
+
+      The ❌ and ✓ sides MUST be in the SAME register. If the ❌ side is
+      symptomatic, the ✓ side is symptomatic. If the ❌ side is clinical,
+      the ✓ side is clinical. Never mix.
+
+      EXPLICITLY FORBIDDEN ACROSS ALL REGISTERS:
+        - Abstract internal feelings about the buyer ("credibility eroding",
+          "confidence shaken") — these are emotions ABOUT the situation,
+          not the situation itself. Replace with concrete observables.
+        - Product feature-spec ("Patented BiomeBalance™ complex",
+          "Clinically studied bioactives") in a slot whose source is a
+          symptom or feeling. Features belong in feature slots only.
+        - Apologetic hedging ("actually", "finally", "really") — strip these.
+
 THINK SILENTLY BEFORE WRITING. The reasoning steps below happen IN YOUR
 HEAD ONLY. Your visible output is YAML only — see OUTPUT FORMAT at the
 bottom of these rules. Do NOT print the plan, do not narrate, do not
@@ -3694,6 +3745,66 @@ count within ±1) and R2 (ICP voice, not brand voice). Output YAML only."""
             f"LLM returned source=target for {len(must_replace_identities)} "
             f"must-replace roles"
         )
+
+    # Brand-wordmark leak post-check.
+    # The mapper occasionally translates the brand correctly in the dedicated
+    # "brand" slot but lets the competitor's brand name leak into a NEARBY
+    # callout or badge slot (e.g. "PetLabCo® Reviews Globally" preserved as
+    # the bottom-left badge while the headline correctly says "SecondKind").
+    # That's a shipping-the-competitor's-brand failure.
+    #
+    # Detection: take every source item whose role contains "brand", extract
+    # the brand string + its tokens, then scan every NON-brand target. If a
+    # source-brand string or its dominant token appears in a non-brand
+    # target, swap it to the new brand. Idempotent and safe — we never
+    # change a brand-role slot here, only non-brand slots that accidentally
+    # carry the competitor's name.
+    source_brand_strings: list[str] = []
+    for item in source_items:
+        if "brand" in str(item.get("role") or "").lower():
+            txt = str(item.get("text") or "").strip()
+            if txt:
+                source_brand_strings.append(txt)
+    if source_brand_strings:
+        # Build a list of (variant, replacement) replacements. For each source
+        # brand, include the literal form AND a punctuation-stripped form.
+        # Skip variants that are < 4 chars (too generic) or that look like
+        # plain words (e.g. "The", "Co.") to avoid mauling unrelated text.
+        new_brand = (brand.name or "").strip()
+        replacements: list[tuple[str, str]] = []
+        if new_brand:
+            for sb in source_brand_strings:
+                # Literal form
+                if len(sb) >= 4:
+                    replacements.append((sb, new_brand))
+                # Stripped form (no ®, ™, ., trailing punct)
+                stripped = re.sub(r"[®™.,]", "", sb).strip()
+                if stripped and stripped != sb and len(stripped) >= 4:
+                    replacements.append((stripped, new_brand))
+        # Sort longest-first so "PetLabCo." substitutes before "PetLab"
+        replacements.sort(key=lambda p: -len(p[0]))
+
+        leaks_fixed = 0
+        for r in result:
+            if "brand" in str(r.get("role") or "").lower():
+                continue  # leave dedicated brand slots alone
+            tgt = r.get("target") or ""
+            if not tgt or tgt.startswith("[") and tgt.endswith("]"):
+                continue  # skip [REMOVE], [PRESERVE AS-IS], [MAPPING_FAILED]
+            new_tgt = tgt
+            for old, new in replacements:
+                if old in new_tgt:
+                    new_tgt = new_tgt.replace(old, new)
+            if new_tgt != tgt:
+                r["target"] = new_tgt
+                leaks_fixed += 1
+        if leaks_fixed:
+            print(
+                f"  [mapper] brand-leak post-check: auto-replaced "
+                f"{leaks_fixed} target(s) where '{source_brand_strings[0]}' "
+                f"leaked into non-brand slots. New brand: '{new_brand}'.",
+                flush=True,
+            )
 
     # Second-pass quality gate — fix any out-of-envelope target.
     result = _validate_and_retry_mapping(mapping=result, brief=brief, avatar=avatar)
