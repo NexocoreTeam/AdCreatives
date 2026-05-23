@@ -1,0 +1,117 @@
+brief_id: secondkind-gut-balance-9e9bf8
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+mental_stage: trigger
+trigger_moment: "Reaches the six-month postpartum mark and realizes the bloating and\
+  \ fog have not resolved the way she hoped they would \u2014 accepts this is not\
+  \ just 'new baby tiredness'"
+framework: pas
+angle: "The six-month postpartum realization that the bloating and fog are not going\
+  \ away on their own \u2014 anchored to the probiotic plateau failure mode"
+hook: 'Six months postpartum. Still bloated. Still foggy.
+
+  She kept waiting for her body to go back to normal.
+
+  Then she found out: 91% of your serotonin is made in your gut.
+
+  And the probiotic she''d been faithfully taking for two months?
+
+  The bacteria never survived long enough to do anything.
+
+  '
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: avatar trigger-event six-month postpartum realization plus gut-brain
+  stat and competitive-gap probiotic survivability
+hook_tactic: Statistic reframed as a personal wake-up call
+persona: New-Normal New Mom Natalie
+creative_mechanic: reframing_perception_plus_emotional_trigger
+visual_format: "UGC-style talking head video \u2014 woman seated at kitchen counter,\
+  \ speaking directly to camera in a quiet, candid tone, no b-roll cuts"
+visual_format_alternatives:
+- "Static editorial text card \u2014 muted background, single bold stat ('91% of your\
+  \ serotonin is made in your gut') with one line of quieter body copy below it, no\
+  \ product shown"
+- "Scrolling caption reel \u2014 black text on white, each line of the hook appears\
+  \ as its own frame in sequence, ending on a still of the product with no CTA copy"
+persona_traits: "Woman 6\u201312 months postpartum who has been taking a probiotic\
+  \ dutifully, felt nothing, and is quietly accepting that her body may not return\
+  \ to normal on its own"
+pain_point: Bloating and digestive irregularity that started during or after pregnancy
+  and never fully resolved, compounded by brain fog she suspects is something deeper
+  than sleep deprivation
+benefit_callouts:
+- 91% of your serotonin lives in your gut
+- No live bacteria. No survival problem.
+- "1 trillion bioactive compounds \u2014 already active"
+cta: Find out what postbiotics actually do
+body_copy: ''
+visual_direction: "A woman in casual morning clothes at her kitchen counter \u2014\
+  \ tired but composed, not dramatic. A half-drunk coffee to the side. No baby in\
+  \ frame. The feeling is quiet recognition, not pain. The product appears only as\
+  \ a soft focus object in the background, never the subject of the shot."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Natalie is a millennial new mom who is problem-aware but emotionally\
+    \ exhausted \u2014 the Love Letter format's direct community call-out ('Listen,\
+    \ mamas') and text-monologue structure mirrors the internal voice she's already\
+    \ having about her unresolved bloating and fog, making the PAS framework feel\
+    \ personal rather than salesy. The hook stat about serotonin production drops\
+    \ naturally into a long text overlay without requiring heavy production, keeping\
+    \ the tone raw and relatable."
+  production_notes: "The text overlay must do the heavy lifting \u2014 keep B-roll\
+    \ footage grounded in recognizable postpartum domestic moments (kitchen, mirror,\
+    \ tired morning routines) so Natalie sees herself, not a lifestyle fantasy."
+- format_id: tiktok-short-pov
+  name: TikTok Short / POV
+  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
+    of B-roll. Fastest format to test. Borrows directly from what's trending in the
+    operator's own reels feed at time of creation.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "The hook \u2014 'Six months postpartum. Still bloated. Still foggy.'\
+    \ \u2014 is already written in POV format, making this a near-perfect structural\
+    \ match for Natalie's scroll-fatigued, time-poor mindset where two lines of text\
+    \ on relatable B-roll can stop the thumb cold. Because she is problem-aware, the\
+    \ gut-punch of the stat in a single overlay can agitate the pain efficiently before\
+    \ the CTA without requiring her to commit to longer content."
+  production_notes: "Keep it to one or two text cards maximum \u2014 resist the temptation\
+    \ to overload with information, as the format's power lives entirely in its restraint\
+    \ and the visual authenticity of the B-roll chosen."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 3
+  rationale: "Natalie's postpartum brain fog and probiotic plateau frustration involve\
+    \ a credibility gap \u2014 she's tried things and been disappointed \u2014 and\
+    \ the intentionally-fake animated format disarms that skepticism by leaning into\
+    \ absurdity, letting a character like 'Hi, I'm your gut bacteria' deliver the\
+    \ 91% serotonin stat without triggering her 'another sponsored post' radar. The\
+    \ wellness and supplement persona match is strong, and the format can carry the\
+    \ PAS angle with humor while still landing a serious payoff."
+  production_notes: "The cringe tone must stay controlled enough that the serotonin-gut\
+    \ science stat still lands as genuinely credible \u2014 use the animation for\
+    \ personality and delivery, but treat the stat itself with visual emphasis so\
+    \ it registers as a real data point, not a joke."

@@ -1,0 +1,116 @@
+brief_id: secondkind-gut-balance-5c7d19
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: pastor
+angle: "Category education on why probiotics structurally cannot work the way they\
+  \ claim \u2014 the viability failure rate is the buried headline most buyers never\
+  \ see"
+hook: 'Most probiotic strains never make it to your gut alive.
+
+  Here''s what the research actually says about what happens
+
+  between the capsule and where it needs to work.
+
+  '
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap probiotic survivability and mechanism education
+hook_tactic: "Statistic \u2014 lead with a verifiable, counterintuitive number that\
+  \ reframes the entire category"
+persona: Burnout Biohacker Brandon
+creative_mechanic: counterintuitive_insight_plus_specificity
+visual_format: "Editorial-style text-heavy static \u2014 clean white background, large\
+  \ contrast typography presenting the stat, with a small explanatory paragraph beneath\
+  \ in a restrained sans-serif"
+visual_format_alternatives:
+- "Narrated whiteboard explainer video \u2014 hand draws the probiotic journey from\
+  \ capsule to gut, visually marking where viable bacteria drop off before the stat\
+  \ lands on screen"
+- "Document-style carousel \u2014 slide 1 is the stat, slides 2\u20134 walk through\
+  \ the mechanism (acid exposure, bile exposure, colonization resistance) like a research\
+  \ brief, no product shown until final slide"
+persona_traits: "Self-optimizing professional 38\u201355 who has spent years on refrigerated\
+  \ multi-strain probiotics, tracks their protocol methodically, and quietly suspects\
+  \ the entire category has been oversold"
+pain_point: "Has taken high-quality refrigerated multi-strain probiotics for years\
+  \ and cannot point to a single measurable improvement \u2014 bloating still unpredictable,\
+  \ digestion still inconsistent"
+benefit_callouts:
+- "Viability failure is a structural problem \u2014 not a brand problem"
+- What survives digestion still has to colonize. Most cannot.
+- "The compounds your gut actually uses are made downstream \u2014 not delivered by\
+  \ the bacteria themselves"
+cta: Understand the mechanism before you buy anything
+body_copy: ''
+visual_direction: "No product. No people. A clean cross-section diagram of the GI\
+  \ tract with percentage drop-off labels at each stage \u2014 stomach acid, bile\
+  \ salts, colonization resistance \u2014 rendered in a restrained scientific illustration\
+  \ style that signals education, not advertising"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Brandon is a frustrated researcher who has spent years and money on\
+    \ premium probiotics with zero measurable results \u2014 the David & Goliath format's\
+    \ 'call out the broken status quo first' structure maps perfectly to the PASTOR\
+    \ framework and the angle of exposing the viability failure rate as the industry's\
+    \ buried headline. The enemy here isn't a single brand but the entire probiotic\
+    \ category's structural deception, which gives Brandon the 'I wasn't wrong to\
+    \ care, I was misled' reframe he needs to stay engaged."
+  production_notes: "Anchor the 'Goliath' indictment on a specific, cited viability\
+    \ survival stat early \u2014 if the credibility hook feels vague or unsubstantiated,\
+    \ a biohacker persona will immediately disengage."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "The surprising-stat hook and category education angle pair naturally\
+    \ with a numbered breakdown (e.g. '3 reasons your probiotic is dead before it\
+    \ reaches your gut') \u2014 this format rewards Brandon's methodical, research-oriented\
+    \ mindset by giving him digestible evidence checkpoints rather than one long persuasion\
+    \ arc. The negative framing variant ('3 reasons refrigerated multi-strain probiotics\
+    \ keep failing you') directly mirrors his lived frustration."
+  production_notes: "Each numbered point must carry a distinct mechanistic insight\
+    \ \u2014 avoid restating the same viability problem three ways, or a biohacker\
+    \ audience will feel the list is padded and lose trust."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 3
+  rationale: "A deliberately cringe animated probiotic strain explaining its own death\
+    \ in stomach acid would disarm Brandon's deep skepticism toward supplement advertising\
+    \ precisely because it signals the brand isn't taking itself too seriously \u2014\
+    \ and the self-aware absurdity actually makes the underlying science claim land\
+    \ harder by contrast. The wellness-meets-skeptical persona tag is a strong signal\
+    \ match, and the format's inherent scroll-stop value supports the surprising-stat\
+    \ hook."
+  production_notes: "The joke has to land in the first two seconds or the educational\
+    \ payload gets lost \u2014 write the cringe opener tight and don't let the humor\
+    \ run so long that the actual viability mechanism never gets explained."

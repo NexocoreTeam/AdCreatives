@@ -1,0 +1,100 @@
+brief_id: secondkind-gut-balance-4f8506
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+mental_stage: purchase
+trigger_moment: ''
+framework: fab
+angle: "1 trillion clinically studied bioactive compounds delivered directly \u2014\
+  \ no survival required \u2014 as the final-mile risk-removal close for a practitioner\
+  \ already convinced on mechanism"
+hook: "1 trillion bioactive compounds. Delivered directly. 60-day guarantee \u2014\
+  \ no return shipment needed if you don't feel it.\n"
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap premium pricing with zero results guarantee plus BiomeBalance
+  delivery mechanism
+hook_tactic: "Statistic \u2014 lead with a quantified proof point that reframes the\
+  \ category, then attach the mechanism claim to make it structural, not incidental"
+persona: Functional-Curious Practitioner Paul
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: Text-on-product photo
+visual_format_alternatives:
+- "Minimalist static with clinical ingredient badges (Totipro\xAE, EpiCor\xAE, Bereum\xAE\
+  ) arranged as proof stack beneath the stat"
+- "Short-form video \u2014 15s founder or formulator speaking directly to camera,\
+  \ one line per proof point, ending on guarantee CTA"
+persona_traits: "Licensed integrative practitioner or credentialed health coach, 35\u2013\
+  52, already sold on postbiotic mechanism after evaluating EpiCor and Bereum clinical\
+  \ data, now clearing final friction before first order"
+pain_point: "Premium gut supplement pricing hard to justify when results are uncertain\
+  \ \u2014 the '$50/month and felt nothing' churn pattern"
+benefit_callouts:
+- 1 trillion bioactive compounds per serving
+- 60-day Feel It or It's Free guarantee
+- No return shipment required
+cta: "Try your first bottle for $35 \u2014 60 days to feel the difference."
+body_copy: ''
+visual_direction: "Clean white background. Gut Balance bottle, centered, sharply lit.\
+  \ Three ingredient trademark badges (Totipro\xAE, EpiCor\xAE, Bereum\xAE) arranged\
+  \ vertically to the left as a credentialing column. To the right: the stat '1 trillion\
+  \ bioactive compounds, delivered directly' in restrained serif or mono type. Below\
+  \ the bottle: '60-Day Guarantee. No return shipment.' No lifestyle imagery. No color\
+  \ gradients. The visual reads like a certificate, not an advertisement.\n"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 1
+  rationale: "Paul is solution_aware and already convinced on mechanism \u2014 his\
+    \ final barrier is price-to-certainty ROI, the '$50/month and felt nothing' churn\
+    \ pattern. This format directly confronts that objection head-on by validating\
+    \ the premium price with the 1 trillion bioactive compounds stat and the no-return-needed\
+    \ 60-day guarantee as the risk-removal close, which is exactly the FAB structure\
+    \ the brief demands."
+  production_notes: "The hook must lead with the price objection verbatim before pivoting\
+    \ to the features \u2014 if the benefit payoff arrives before the objection is\
+    \ named, Paul will tune out before the risk-removal guarantee lands."
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 2
+  rationale: "A practitioner persona like Paul respects mechanism and evidence, making\
+    \ the 'broken status quo' enemy angle \u2014 surviving-culture supplements that\
+    \ can't guarantee delivery \u2014 a credible villain; contrasting with direct\
+    \ bioactive delivery and clinical scale (1 trillion compounds) lets the FAB framework\
+    \ shine without feeling like a sales pitch."
+  production_notes: "Avoid vague competitor callouts \u2014 name the specific failure\
+    \ mode (colony-count marketing, survival-rate variance) rather than a named brand\
+    \ to keep clinical credibility intact and stay compliant."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: The FAB framework maps cleanly onto a '3 reasons practitioners are switching
+    to Gut Balance' listicle structure, giving Paul the methodical, scannable evidence
+    he needs to justify the premium purchase to himself; the surprising stat hook
+    on 1 trillion compounds works naturally as the opening list item that reframes
+    what direct delivery actually means.
+  production_notes: "Each list point must carry a concrete proof signal \u2014 a compound\
+    \ count, a clinical reference, or the guarantee detail \u2014 because Paul will\
+    \ disengage immediately if any numbered item reads as marketing fluff without\
+    \ a functional payoff."

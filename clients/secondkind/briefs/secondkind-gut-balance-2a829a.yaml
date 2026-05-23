@@ -1,0 +1,60 @@
+brief_id: secondkind-gut-balance-2a829a
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: pastor
+angle: "Category education: what to actually look for in a gut supplement \u2014 the\
+  \ survival problem most buyers never hear about"
+hook: "Most gut supplements never actually reach your gut.\n\nNot a marketing problem.\
+  \ A biology one.\n\nLive bacteria \u2014 the kind in virtually every probiotic on\
+  \ the market \u2014 have to survive stomach acid, bile, and a gastrointestinal tract\
+  \ designed to destroy foreign organisms before a single one can do anything useful.\
+  \ Studies suggest fewer than 1% of some strains make it through intact.\n\nSo if\
+  \ you've been taking a probiotic for months and wondering why nothing seems different\
+  \ \u2014 that's not you. That's the math.\n\nHere's what's worth understanding before\
+  \ you buy anything in this category: the compound that bacteria produce when they\
+  \ work \u2014 the actual bioactive output your gut lining uses \u2014 can now be\
+  \ delivered directly, without the bacteria. No survival gauntlet. No colonization\
+  \ waiting period. No adjustment phase.\n\nIt's called a postbiotic. And it's the\
+  \ part of the gut health conversation that most brands have a financial reason not\
+  \ to explain clearly.\n\nWhen you're evaluating options, ask one question: are you\
+  \ buying the bacteria, or the result?\n"
+hook_type: Surprising Stat
+slot: 1
+hook_source: competitive-gap probiotic survivability and plateau mechanism
+hook_tactic: "Specific stat with a category reframe \u2014 lead with a clinical number\
+  \ that redefines what 'working' means in this space"
+persona: Immune-Anxious Isaac
+creative_mechanic: counterintuitive_insight_plus_specificity
+visual_format: "Long-form editorial static \u2014 clean typographic layout on white\
+  \ or off-white background, stat rendered large, body copy in readable editorial\
+  \ columns, no product photography"
+visual_format_alternatives:
+- "Whiteboard explainer video \u2014 60 to 90 seconds, hand-drawn diagram of the GI\
+  \ tract showing bacteria dropout rate, voiceover explains the survival math, product\
+  \ never appears on screen"
+- "Scrolling text-on-screen Reel \u2014 black background, white text, each sentence\
+  \ appears as a cut, paced like a slow revelation, ends on the question not a product\
+  \ name"
+persona_traits: "Urban professional, 32\u201348, who has spent real money on gut supplements,\
+  \ noticed no meaningful change, and defaults to skepticism about the entire category\
+  \ \u2014 but is genuinely open if there is a mechanism explanation that holds up"
+pain_point: Persistent low-grade digestive discomfort normalized over time; immune
+  system feels unreliable under stress
+benefit_callouts:
+- Fewer than 1% of some strains survive digestion
+- "The compound matters \u2014 not the bacteria carrying it"
+- Postbiotics skip the survival problem entirely
+cta: "Understand what you're actually buying \u2192"
+body_copy: ''
+visual_direction: Clean, editorial, data-forward. No supplement bottles, no green
+  smoothies, no lifestyle photography. A single diagram or large-type stat treatment
+  that makes this feel like a science brief, not an ad. The visual should communicate
+  'this is information, not a pitch.'
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations: []

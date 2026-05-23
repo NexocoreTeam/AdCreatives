@@ -1,0 +1,117 @@
+brief_id: secondkind-gut-balance-dac2f2
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+mental_stage: trigger
+trigger_moment: A peer practitioner they respect publicly endorses the postbiotic
+  category or SecondKind specifically
+framework: fab
+angle: "A peer practitioner's public endorsement of the postbiotic category triggers\
+  \ a professional audit \u2014 the stat on probiotic viability failure reframes the\
+  \ entire recommendation history"
+hook: "A naturopath I follow posted something last week that I haven't stopped thinking\
+  \ about.\n\nShe said she'd been recommending the same probiotic protocol for three\
+  \ years. Same brands. Same dosing rationale. Then she pulled the viability data.\n\
+  \nUp to 99% of live probiotic bacteria don't survive to reach the colon intact.\n\
+  \nNot 10%. Not 30%. Up to 99%.\n\nShe wasn't angry. She was quiet about it \u2014\
+  \ the way you get when you realize the mechanism you trusted has a structural problem\
+  \ you weren't asking about.\n\nThat's the moment she started looking at postbiotics\
+  \ differently. Not because the marketing said so. Because the delivery problem is\
+  \ real, and postbiotics \u2014 specifically the ones built on independently patented,\
+  \ clinically studied compounds \u2014 don't have it.\n\nGut Balance is built on\
+  \ three of those: Totipro\xAE, EpiCor\xAE, Bereum\xAE. Each with published trials.\
+  \ Not summaries. Trials.\n\nIf you're the kind of practitioner who wants to see\
+  \ the data before you put your name on a recommendation, it's there.\n"
+hook_type: Surprising Stat
+slot: 1
+hook_source: "competitive-gap probiotic survivability \u2014 peer practitioner trigger\
+  \ event from avatar"
+hook_tactic: "Specific stat with a story \u2014 open on a credentialed moment of professional\
+  \ reckoning, let the number land as the reveal"
+persona: Functional-Curious Practitioner Paul
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: "Talking-head editorial video \u2014 practitioner-to-practitioner register,\
+  \ static opening frame with a pull quote from the stat overlaid in clean sans-serif\
+  \ typography, no lifestyle imagery"
+visual_format_alternatives:
+- "Long-form native text ad (Facebook/Instagram) \u2014 full hook as body copy with\
+  \ the 99% stat rendered as a standalone typographic callout mid-scroll, no video\
+  \ required"
+- "Document-style carousel \u2014 Slide 1 is the stat in large type, subsequent slides\
+  \ walk through each patented ingredient with its trial citation, final slide is\
+  \ a clean CTA on white background"
+persona_traits: "Licensed health practitioner 30\u201355 who recommends supplements\
+  \ to clients and needs RCT-level evidence before professional endorsement \u2014\
+  \ currently watching peers in their credentialed network begin to pivot toward the\
+  \ postbiotic category"
+pain_point: "Patients reporting probiotic recommendations did nothing \u2014 eroding\
+  \ professional trust in the category"
+benefit_callouts:
+- "1 trillion stable bioactive compounds \u2014 delivered, not hoped for"
+- "Totipro\xAE, EpiCor\xAE, Bereum\xAE \u2014 three patents, three independent trials"
+- No viability problem. No colonization window. No waiting.
+cta: "Read the ingredient science \u2014 then decide"
+body_copy: ''
+visual_direction: "Open on a clean, editorial still \u2014 a practitioner at a desk,\
+  \ reading. No product shot in frame. The 99% stat appears as a typographic overlay\
+  \ mid-frame, restrained and precise. Product appears as a quiet fade-in on the final\
+  \ frame only, packaging visible but not hero. Tone is documentary, not promotional."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Paul is solution-aware and professionally stung by probiotic category\
+    \ failures \u2014 the David & Goliath format lets us call out the broken status\
+    \ quo (traditional probiotics with poor viability) as the 'Goliath,' which mirrors\
+    \ the peer naturopath's public reckoning that drives the hook. The contrast between\
+    \ the failed incumbent category and Gut Balance's postbiotic science lands perfectly\
+    \ as a FAB reframe for a practitioner audience."
+  production_notes: "Avoid generic 'big pharma bad' framing \u2014 keep the enemy\
+    \ specific and scientific (probiotic viability failure rates, CFU loss in transit)\
+    \ so Paul's practitioner skepticism is validated, not alienated."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "Paul's functional-curious, methodical nature makes him highly receptive\
+    \ to a structured '3 reasons the probiotics you're recommending aren't working'\
+    \ format, which directly weaponizes the surprising stat hook within an educational\
+    \ scaffold he trusts as a practitioner. The FAB framework maps cleanly onto a\
+    \ numbered breakdown \u2014 feature (postbiotic stability), advantage (no viability\
+    \ decay), benefit (patients actually report results)."
+  production_notes: "Script must open with the viability stat in the first 3 seconds\
+    \ to earn Paul's attention before shifting into list mode \u2014 do not bury the\
+    \ hook as a mid-roll reveal or the format loses its professional-audit tension."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 3
+  rationale: "A practitioner recommending supplements to patients is implicitly vouching\
+    \ for quality, so the 'We're Not Cheap' format resonates with Paul's need to defend\
+    \ his professional credibility \u2014 it reframes Gut Balance's premium positioning\
+    \ as a reason to trust rather than a barrier. Pairing this with the manufacturing\
+    \ and ingredient science behind postbiotic stability reinforces the category reframe\
+    \ introduced by the peer endorsement angle."
+  production_notes: "Keep the language clinical and peer-facing rather than consumer-aspirational\
+    \ \u2014 Paul needs to feel he could cite these reasons to a patient, so vague\
+    \ 'premium quality' claims must be replaced with specific production differentiators\
+    \ like fermentation process or stability testing data."

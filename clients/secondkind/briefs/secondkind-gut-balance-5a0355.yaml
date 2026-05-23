@@ -1,0 +1,114 @@
+brief_id: secondkind-gut-balance-5a0355
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+mental_stage: trigger
+trigger_moment: Gets to the end of another probiotic bottle and realizes she feels
+  exactly the same as when she started
+framework: pas
+angle: "Most probiotics never survive the trip to your gut \u2014 the stat that reframes\
+  \ the entire supplement she's been taking faithfully"
+hook: "Most of the probiotics you've been taking are dead before they reach your gut.\n\
+  Not ineffective. Dead. Studies estimate fewer than 1% of live bacteria in most\n\
+  supplements survive the journey through stomach acid. That's not a marketing\nproblem.\
+  \ That's a physics problem \u2014 and it's why the bottle you just finished\nfelt\
+  \ like nothing changed.\n"
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap probiotic survivability and plateau mechanism
+hook_tactic: "Specific stat with a reframe \u2014 lead with a number that breaks the\
+  \ listener's existing mental model, then pivot to the mechanism that explains why\
+  \ the number is true"
+persona: Done-Everything Danielle
+creative_mechanic: counterintuitive_insight_plus_specificity
+visual_format: "Text-on-dark-background editorial static \u2014 the stat appears first\
+  \ in large type, then the reframe below it in smaller body copy, no product visible"
+visual_format_alternatives:
+- "Talking-head video (no UGC energy) \u2014 a calm, direct-to-camera voice delivers\
+  \ the stat as a quiet revelation, not a shout; product appears in the final two\
+  \ seconds only"
+- "Scroll-stopping split layout \u2014 left panel shows an empty probiotic bottle,\
+  \ right panel shows the stat in stark typography with zero lifestyle imagery"
+persona_traits: Health-conscious woman 30-44, suburban or urban, who eats clean, has
+  tried multiple probiotic brands faithfully, finished the bottles, felt exactly the
+  same, and is quietly furious about it
+pain_point: "Probiotic fatigue \u2014 she has spent real money on multiple brands\
+  \ and felt nothing meaningful change"
+benefit_callouts:
+- "1 trillion bioactive compounds \u2014 already active, no survival required"
+- Delivers directly to the gut lining where it acts immediately
+- No live bacteria. No die-off. No waiting.
+cta: See why postbiotics work when probiotics didn't
+body_copy: ''
+visual_direction: "Restraint is the visual language here. No warm lifestyle photography,\
+  \ no\nglowing skin, no woman-laughing-at-salad energy. The visual should feel like\n\
+  a corrective \u2014 an editorial page, not an ad. Dark or neutral background.\n\
+  The stat is the hero. If the product appears at all, it is a quiet presence\nat\
+  \ the bottom right \u2014 never the focal point. The creative should feel like\n\
+  something she stumbled on, not something that was served to her.\n"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Danielle is problem-aware and has already spent real money on multiple\
+    \ probiotic brands with nothing to show for it \u2014 she is primed for a 'broken\
+    \ status quo' narrative that names the industry failure (dead probiotics) as the\
+    \ enemy, then positions Gut Balance as the fix. The PAS framework maps directly\
+    \ onto this format's structure: Problem = the entire supplement category is scamming\
+    \ you, Agitation = that stat about fewer than 1% surviving, Solution = Gut Balance's\
+    \ differentiated delivery mechanism."
+  production_notes: "Lead with the stat as the hook verbatim \u2014 do not soften\
+    \ it \u2014 and resist the urge to name a specific competitor brand early; frame\
+    \ 'Big Probiotic' as the villain to avoid legal risk and keep the focus on the\
+    \ systemic failure she already feels."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 2
+  rationale: "Danielle is supplement-fatigued and skeptical of traditional UGC testimonials\
+    \ precisely because she has tried everything and heard every promise before \u2014\
+    \ the intentionally-fake AI format bypasses that 'is this real?' skepticism and\
+    \ lets the stat land with ironic credibility. Casting the dead probiotics as literally\
+    \ deceased cartoon characters dramatizes the 'fewer than 1% survive' angle in\
+    \ a way that is viscerally memorable without a real spokesperson she can distrust."
+  production_notes: "The cringe must be intentional and self-aware \u2014 if the production\
+    \ quality accidentally crosses into 'trying to look polished,' the format's core\
+    \ trust mechanic collapses; keep characters visibly low-fi and lean into the absurdity\
+    \ of a dead probiotic giving a eulogy."
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "The long text-overlay format gives enough room to walk Danielle through\
+    \ the full PAS arc \u2014 calling her out directly ('POV: you've tried four probiotic\
+    \ brands and felt absolutely nothing') validates her specific pain point before\
+    \ delivering the stat that reframes her experience as not her fault. The low-complexity\
+    \ production keeps the hook as the undeniable hero without a polished presenter\
+    \ she might dismiss as paid."
+  production_notes: "The text monologue must do all the heavy lifting, so every line\
+    \ needs to earn its place \u2014 cut any sentence that does not either deepen\
+    \ her pain or advance toward the stat reveal, or scroll-fatigued viewers will\
+    \ tap out before the agitation lands."

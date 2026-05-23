@@ -1,0 +1,122 @@
+brief_id: secondkind-gut-balance-1a532a
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+mental_stage: trigger
+trigger_moment: "Listens to a gut-brain axis episode on Huberman Lab or a functional\
+  \ medicine podcast and hears postbiotics named as the mechanism underlying probiotic\
+  \ benefit \u2014 realizes he has been supplementing the delivery vehicle, not the\
+  \ active compound"
+framework: pas
+angle: "The podcast moment where he realizes he has been supplementing the delivery\
+  \ vehicle, not the active compound \u2014 12+ months of probiotics, zero results,\
+  \ one sentence to explain why"
+hook: "You've been taking probiotics for over a year. Here's what you were actually\
+  \ getting: a bet that the bacteria would survive your stomach acid, find space to\
+  \ colonize, and then \u2014 eventually \u2014 produce the compounds your gut actually\
+  \ needed. Most don't make it. The ones that do? Still have to earn their place against\
+  \ your existing microbiome. The bioactive compounds your body runs on were always\
+  \ downstream. You were supplementing the process. Not the output.\n"
+hook_type: Surprising Stat
+slot: 1
+hook_source: trigger-event postbiotic podcast moment plus competitive-gap probiotic
+  survivability and viability failure mode
+hook_tactic: "Specific stat with a story \u2014 lead with a precise number that reframes\
+  \ the listener's existing behavior as structurally flawed, then let the story land\
+  \ the knife"
+persona: Burnout Biohacker Brandon
+creative_mechanic: counterintuitive_insight_plus_specificity
+visual_format: "Text-on-dark-background typographic video \u2014 each sentence of\
+  \ the hook appears as a single line, timed to reading pace, no voiceover, no music,\
+  \ ending on a static frame with the BiomeBalance\u2122 complex named and the product\
+  \ fading in quietly"
+visual_format_alternatives:
+- "Podcast-style talking head \u2014 a single speaker (functional medicine physician\
+  \ or registered dietitian voice) delivers the hook to camera in one unbroken take,\
+  \ no cuts, no b-roll, with on-screen text reinforcing the key mechanism phrase:\
+  \ 'You were supplementing the process. Not the output.'"
+- "Whiteboard or diagram animation \u2014 a simple hand-drawn gut pathway shows probiotics\
+  \ entering, survival rate dropping to near zero at the stomach, the few survivors\
+  \ attempting colonization, and then a separate pathway labeled postbiotics delivering\
+  \ compounds directly \u2014 no voiceover, text labels only, product appears in the\
+  \ final frame"
+persona_traits: "Performance-optimized man or woman 38\u201355 who runs a documented\
+  \ supplement stack, listens to mechanism-first health podcasts, and has quietly\
+  \ concluded that the probiotic category does not work \u2014 while still not knowing\
+  \ why"
+pain_point: "Has taken high-quality probiotics for years and cannot point to a single\
+  \ measurable improvement \u2014 bloating still unpredictable, digestion still inconsistent"
+benefit_callouts:
+- 1 trillion bioactive compounds. Already active. No survival required.
+- "BiomeBalance\u2122: the compounds probiotics were always trying to produce"
+- Shelf-stable. Clinically studied. No colonization window.
+cta: "Read the mechanism \u2014 gutbalance.com"
+body_copy: ''
+visual_direction: "Cold, precise, editorial \u2014 dark background, clean sans-serif\
+  \ type, no lifestyle imagery, no smiling faces. The visual register should feel\
+  \ closer to a research brief than a supplement ad. The product appears only at the\
+  \ end, small and unobtrusive, letting the mechanism carry the weight."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Brandon is a frustrated researcher who has spent 12+ months investing\
+    \ in a category that failed him \u2014 the 'enemy' here is the probiotic industry's\
+    \ dirty secret (selling delivery vehicles, not surviving compounds), which maps\
+    \ perfectly to the David & Goliath structure of calling out a broken status quo\
+    \ before introducing Gut Balance as the smarter alternative. The PAS framework\
+    \ and 'surprising stat' hook give the Goliath moment immediate credibility before\
+    \ the contrast lands."
+  production_notes: "Make sure the 'Goliath' callout targets the probiotic category\
+    \ and survival science \u2014 not a named competitor \u2014 to avoid legal exposure\
+    \ while keeping the indictment feel sharp."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 2
+  rationale: "Brandon is supplement-savvy and scroll-fatigued, so a self-aware animated\
+    \ 'probiotic bacteria' character dramatically explaining why it never survived\
+    \ his stomach acid bypasses his UGC skepticism while dramatizing the exact moment-of-realization\
+    \ angle \u2014 the podcast epiphany \u2014 in a format he won't immediately swipe\
+    \ past. The irreverent tone matches a biohacker who has already lost faith in\
+    \ traditional health-brand sincerity."
+  production_notes: "The cringe must be intentional and confident \u2014 if the animation\
+    \ quality or script feels accidentally bad rather than deliberately absurdist,\
+    \ the self-aware humor collapses and the science hook loses credibility."
+- format_id: tiktok-short-pov
+  name: TikTok Short / POV
+  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
+    of B-roll. Fastest format to test. Borrows directly from what's trending in the
+    operator's own reels feed at time of creation.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "A single punchy POV line \u2014 'POV: you've spent $800 on probiotics\
+    \ and your gut still hates you' \u2014 mirrors Brandon's exact pain state and\
+    \ creates a fast, low-cost creative test to validate whether the 'supplementing\
+    \ the delivery vehicle' angle resonates before scaling into heavier production\
+    \ formats. Its problem-aware targeting and low complexity make it the ideal quick-turn\
+    \ complement to the two higher-production picks."
+  production_notes: "The B-roll must feel authentic to a biohacker's world \u2014\
+    \ supplement shelves, morning routines, lab-style aesthetics \u2014 avoid generic\
+    \ stock footage of smiling people holding stomachs, which will immediately signal\
+    \ inauthenticity to this persona."

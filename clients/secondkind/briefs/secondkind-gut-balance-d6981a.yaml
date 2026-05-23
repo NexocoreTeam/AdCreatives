@@ -1,0 +1,102 @@
+brief_id: secondkind-gut-balance-d6981a
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+mental_stage: trigger
+trigger_moment: "Listens to a podcast episode on the gut-brain axis or postbiotics\
+  \ \u2014 EpiCor's 17% reduction in cold and flu symptom days is exactly the kind\
+  \ of RCT data that moves him"
+framework: pas
+angle: 'EpiCor RCT data as a trigger: a podcast stat lands and he realizes his probiotic
+  never had this kind of evidence behind it'
+hook: 'A study found that one specific postbiotic ingredient reduced cold and flu
+  symptom days by 17%. Not ''supports immunity.'' 17%. In a randomized controlled
+  trial. I''m a guy who has taken a probiotic every day for two years and I had never
+  seen a number like that attached to a gut supplement before.
+
+  '
+hook_type: Surprising Stat
+slot: 1
+hook_source: avatar trigger-event podcast gut-brain axis EpiCor 17% RCT data; competitive-gap
+  unverified efficacy mechanism credibility
+hook_tactic: "Specific stat with a story \u2014 lead with a clinically verified number\
+  \ that reframes what the viewer thought they knew"
+persona: Immune-Anxious Isaac
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: "Text-on-dark-background quote card \u2014 the stat '17%' displayed\
+  \ large, with 'randomized controlled trial' in smaller secondary type beneath, no\
+  \ product visible"
+visual_format_alternatives:
+- "Talking head video \u2014 a credible male voice delivers the stat directly to camera\
+  \ in a low-production environment (desk, headphones nearby), no branding until final\
+  \ second"
+- "Scrolling editorial graphic \u2014 mimics the visual language of a research summary\
+  \ or newsletter excerpt, the number anchors the frame before the brand appears"
+persona_traits: Data-receptive male professional 32-48 who has been faithfully taking
+  a probiotic for months and has nothing to point to as proof it ever worked
+pain_point: "Gets sick two or three times a year at exactly the wrong moment \u2014\
+  \ suspects gut and stress are connected"
+benefit_callouts:
+- "17% fewer cold and flu symptom days \u2014 RCT verified"
+- Clinically studied ingredients, not proprietary blend opacity
+- Three patented compounds. Three separate published trials.
+cta: See the study behind the number
+body_copy: ''
+visual_direction: "The frame should feel like something he would stop on in a Substack\
+  \ or research feed \u2014 data-forward, no lifestyle photography, no supplement\
+  \ bottle hero shot. The number does the visual work."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Isaac is problem-aware and already suspects his current probiotic isn't\
+    \ cutting it \u2014 the David & Goliath format weaponizes that doubt by naming\
+    \ the broken status quo ('supports immunity' label claims) as the enemy, then\
+    \ landing the EpiCor RCT stat as the damning contrast. His researcher mindset\
+    \ means he'll lean in when someone calls out the industry's evidence vacuum directly."
+  production_notes: Anchor the 'Goliath' specifically to vague probiotic marketing
+    language, not a named competitor, to avoid legal risk while still triggering Isaac's
+    existing skepticism.
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "The '17% reduction in symptom days' stat is a natural anchor for a structured\
+    \ breakdown (e.g., '3 reasons your probiotic will never have data like this'),\
+    \ which plays directly to Isaac's methodical, evidence-hungry mindset at the problem-aware\
+    \ stage. The PAS framework maps cleanly onto a numbered format \u2014 pain, agitation,\
+    \ solution \u2014 keeping the RCT data as the payoff beat."
+  production_notes: Resist padding to five or more items; three tightly evidenced
+    points lands harder for a skeptical, research-oriented persona who will disengage
+    if the list feels inflated.
+- format_id: tiktok-short-pov
+  name: TikTok Short / POV
+  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
+    of B-roll. Fastest format to test. Borrows directly from what's trending in the
+    operator's own reels feed at time of creation.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: 'A single-line POV hook (''POV: you just heard a podcast stat that made
+    your $40 probiotic feel like a placebo'') recreates the exact trigger moment described
+    in the angle and stops Isaac mid-scroll with a scenario he recognizes from lived
+    experience. The low complexity lets the surprising stat do all the heavy lifting
+    without production distracting from the number.'
+  production_notes: "The stat must appear verbatim on screen within the first two\
+    \ seconds \u2014 do not bury '17%' in voiceover or body copy where it can be skipped\
+    \ before the hook lands."

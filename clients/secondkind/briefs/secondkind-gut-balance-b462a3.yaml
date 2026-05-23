@@ -1,0 +1,103 @@
+brief_id: secondkind-gut-balance-b462a3
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: pastor
+angle: "Category education: what makes a gut supplement actually work \u2014 the survival\
+  \ problem most buyers never hear about"
+hook: 'Most women taking a daily probiotic are paying for bacteria that die before
+  they reach your gut.
+
+  Here''s what to look for instead.
+
+  '
+hook_type: Surprising Stat
+slot: 1
+hook_source: competitive-gap probiotic survivability and colonization failure mode
+hook_tactic: Specific stat with a story
+persona: Perimenopause Paula
+creative_mechanic: Educational Explainer with Reframe
+visual_format: Text-on-clean-background editorial static
+visual_format_alternatives:
+- Talking head video with on-screen text callouts
+- Carousel with one stat per slide building to the mechanism reveal
+persona_traits: "College-educated woman 42\u201354 who has spent real money on premium\
+  \ probiotics for months and felt nothing, and is now quietly questioning whether\
+  \ the entire category is a wash"
+pain_point: "Has tried probiotics \u2014 often premium, refrigerated \u2014 and cannot\
+  \ point to meaningful improvement"
+benefit_callouts:
+- "1 trillion stable bioactive compounds \u2014 already active, no survival required"
+- Three patented ingredients with published clinical studies
+- Shelf-stable. No live bacteria. No adjustment period.
+cta: Learn what to actually look for in a gut supplement
+body_copy: ''
+visual_direction: "Clean, editorial feel \u2014 white or pale warm background, no\
+  \ product in frame.\nLarge typographic treatment of the central stat. The visual\
+  \ should feel like\na trusted health publication, not a supplement ad. No models,\
+  \ no lifestyle\nimagery. The restraint signals credibility to a skeptical reader.\n"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Paula is a frustrated, research-inclined buyer who has already spent\
+    \ money on premium probiotics with no results \u2014 the David & Goliath format's\
+    \ core mechanic of calling out the broken status quo (bacteria dying before reaching\
+    \ the gut) maps perfectly to her lived experience and the category-education angle.\
+    \ The PASTOR framework demands a clear 'enemy' before introducing the solution,\
+    \ and this format is architecturally built around that exact sequence."
+  production_notes: "Avoid naming specific competitor brands to sidestep legal risk\
+    \ \u2014 frame the villain as 'the refrigerated probiotic industry' or 'standard\
+    \ CFU-count marketing' rather than a named product."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: The hook's surprising-stat entry point primes Paula to receive structured
+    education, and a listicle format ('3 things your probiotic label won't tell you')
+    channels her methodical, research-driven nature while delivering the survival-problem
+    angle in a digestible, credible way. Problem-aware buyers at this awareness level
+    respond to numbered frameworks because they feel like due diligence, not advertising.
+  production_notes: "Lead with the hook stat as item one \u2014 do not bury it mid-list\
+    \ \u2014 and ensure each point builds logically toward what makes Gut Balance's\
+    \ mechanism different, otherwise the format feels generic."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 3
+  rationale: Paula's skepticism toward traditional supplement marketing means conventional
+    UGC testimonials will trigger her 'I've heard this before' filter, and the intentionally-fake
+    aesthetic of this format disarms that skepticism while letting a character like
+    a cartoon probiotic bacterium dramatize the 'dying before it reaches your gut'
+    hook in a visually memorable way. The wellness and supplement audience fit also
+    aligns directly with her persona.
+  production_notes: "The cringe must feel deliberate and self-aware \u2014 if the\
+    \ animation quality accidentally looks cheap rather than intentionally absurd,\
+    \ Paula will disengage rather than lean in; brief the animator to exaggerate the\
+    \ character's distress about stomach acid survival."

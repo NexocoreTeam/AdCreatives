@@ -1,0 +1,108 @@
+brief_id: secondkind-gut-balance-20ede5
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+mental_stage: trigger
+trigger_moment: A functional medicine physician, dietitian, or trusted peer mentions
+  the gut-hormone connection and she realizes no one has ever told her that her gut
+  microbiome changes significantly during perimenopause
+framework: pas
+angle: "The gut-hormone connection nobody told her about \u2014 trigger moment when\
+  \ a trusted source reframes her years of failed supplementation as the wrong category\
+  \ entirely"
+hook: "Your gut produces 91% of your serotonin and 50% of your dopamine.\nNot your\
+  \ brain. Your gut.\nAnd perimenopause changes your gut lining \u2014 which means\
+  \ the bloating, the brain fog, the mood swings \u2014 they may not be purely hormonal.\n\
+  They may be gut.\nNobody told me that either.\n"
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: trigger-event gut-hormone connection; avatar pain point hormones didnt
+  fix my stomach; gap 6 gut-brain axis no competitor owns
+hook_tactic: "Statistic with a reframe \u2014 lead with a number that recontextualizes\
+  \ a familiar behavior, then use the contrast to create a moment of recognition"
+persona: Perimenopause Paula
+creative_mechanic: "Talking Head Confession \u2014 creator or voiceover delivers the\
+  \ stat directly to camera as a genuine revelation, no polish, no product shot until\
+  \ the final frame"
+visual_format: "UGC-style talking head video \u2014 phone-quality, natural light,\
+  \ woman in her 40s speaking directly to camera with the stat appearing as a simple\
+  \ text overlay mid-sentence"
+visual_format_alternatives:
+- "Kinetic typography video \u2014 the stat animates on a clean dark background, one\
+  \ phrase at a time, no face, no product, pure text pacing that forces the viewer\
+  \ to read the whole thing"
+- "Editorial static image \u2014 a single still of a woman mid-thought (not smiling,\
+  \ not posed) with the 91% stat as the dominant headline and three lines of body\
+  \ copy below, designed to look like a health magazine spread"
+persona_traits: "Woman 42\u201354 who fixed her hormones, did everything right, and\
+  \ still wakes up every morning feeling puffy and foggy \u2014 quietly certain the\
+  \ answer is somewhere she hasn't looked yet"
+pain_point: "Persistent bloating she was told is hormonal \u2014 but fixing her hormones\
+  \ didn't fix her stomach"
+benefit_callouts:
+- "91% of your serotonin lives in your gut \u2014 not your brain"
+- Perimenopause changes your gut lining. That changes everything.
+- The bloating isn't just hormonal. Your gut is involved.
+cta: "Find out what's actually going on \u2192"
+body_copy: ''
+visual_direction: "No product. No supplement bottle. A woman in her early 50s, alone,\
+  \ looking slightly off-camera as if she just heard something that reframed the last\
+  \ three years. The stat appears as plain white text on a neutral background \u2014\
+  \ the kind of graphic a health journalist would use, not an ad."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Paula is problem_aware and has tried fixing her hormones without results\
+    \ \u2014 the David & Goliath format is built for this exact frustration, positioning\
+    \ the gut-hormone connection as the truth the supplement industry buried while\
+    \ her years of hormone-focused products played the villain. The 'trusted source\
+    \ reframes failed supplementation as the wrong category entirely' angle maps perfectly\
+    \ onto calling out the status quo as the enemy."
+  production_notes: The 'enemy' must be the category (hormone supplements), not a
+    specific competitor brand, to avoid legal risk and keep Paula feeling validated
+    rather than sold to.
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "The hook is a surprising stat that demands text real estate to land\
+    \ with credibility \u2014 the Love Letter format's long text overlay on B-roll\
+    \ is designed exactly for this, letting the gut-serotonin reframe play out line\
+    \ by line in Paula's scroll without requiring high production. The direct call-out\
+    \ vernacular ('Listen, perimenopausal girls who've tried everything') mirrors\
+    \ the 'trigger moment from a trusted source' angle."
+  production_notes: "B-roll must feel intimate and relatable to a 45-55 year old woman\
+    \ \u2014 avoid overly youthful aesthetics; kitchen, bathroom counter, or morning\
+    \ routine footage will keep Paula in the scene."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "Paula is an educational-seeker who has already done her homework on\
+    \ hormones \u2014 a listicle framed as '3 reasons your hormone supplements didn't\
+    \ fix your bloating' speaks directly to her methodical nature and reframes her\
+    \ past failures through the gut-hormone lens with structured credibility. The\
+    \ PAS framework slots cleanly into a numbered reveal format."
+  production_notes: Avoid generic supplement-ad energy; each list point must reference
+    a specific, recognizable Paula experience (e.g., 'You fixed your estrogen but
+    your gut lining was still inflamed') to prevent her from tuning out at point one.

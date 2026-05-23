@@ -1,0 +1,110 @@
+brief_id: secondkind-gut-balance-10a887
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+mental_stage: evaluation
+trigger_moment: ''
+framework: pas
+angle: "1 trillion bioactive compounds delivered directly \u2014 no bacterial survival\
+  \ required \u2014 as the logical reason a postpartum mom who already tried probiotics\
+  \ can stop second-guessing and finally choose this"
+hook: "1 trillion bioactive compounds. Per serving. Already active \u2014 no waiting\
+  \ for bacteria to survive digestion and 'do their job.' If you've been taking a\
+  \ probiotic for two months and still feel off, this is probably why.\n"
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap probiotic plateau plus BiomeBalance 1 trillion compounds
+  mechanism claim
+hook_tactic: "Specific stat with a story \u2014 lead with a clinical number, then\
+  \ anchor it in a real buyer's frustration to make the data feel human"
+persona: New-Normal New Mom Natalie
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: "Text-on-product photo \u2014 clinical stat as large typographic overlay\
+  \ on a clean product shot, no lifestyle noise"
+visual_format_alternatives:
+- "Talking-head UGC video \u2014 a relatable postpartum mom delivers the stat conversationally,\
+  \ then says 'that's when I understood why my probiotic wasn't doing anything'"
+- "Carousel static \u2014 slide 1 is the stat, slide 2 explains the mechanism in plain\
+  \ language (no bacteria survival = no waiting), slide 3 is the ingredient credentials\
+  \ with CTA"
+persona_traits: "Postpartum mom 28\u201338 who spent real money on a probiotic subscription,\
+  \ felt nothing after weeks of use, and is now quietly on a shortlist of alternatives\
+  \ \u2014 she has mostly decided to try something new but needs one credible reason\
+  \ to stop second-guessing"
+pain_point: "Bloating and digestive irregularity that started during or after pregnancy\
+  \ and never fully resolved \u2014 compounded by the silent suspicion that the probiotic\
+  \ she is currently taking is not working"
+benefit_callouts:
+- "1 trillion bioactive compounds \u2014 already active, no digestion gamble"
+- Three patented ingredients with published clinical studies
+- "60-day guarantee \u2014 no return shipment required"
+cta: "See what's actually in it \u2014 and why it's different"
+body_copy: ''
+visual_direction: "Clean, editorially restrained product shot \u2014 the supplement\
+  \ bottle centered on a white or warm-neutral surface. No clutter, no lifestyle props.\
+  \ The stat '1 trillion bioactive compounds per serving' is set in confident, readable\
+  \ type directly over or beside the product. The overall feeling should be: a brand\
+  \ that is certain enough in its ingredients that it does not need to dress them\
+  \ up.\n"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Natalie has already tried probiotics and is frustrated they didn't fully\
+    \ resolve her postpartum bloating \u2014 making her the textbook 'switcher' and\
+    \ 'frustrated' persona this format is built for. The angle of '1 trillion already-active\
+    \ bioactive compounds vs. bacteria that may never survive digestion' is a perfect\
+    \ David vs. Goliath contrast: the broken status quo of traditional probiotics\
+    \ is the Goliath, and Gut Balance wins on the specific scientific differentiator\
+    \ she's been missing."
+  production_notes: "The science contrast must be visually clear and jargon-free \u2014\
+    \ use a simple side-by-side or animated explainer showing 'bacteria hoping to\
+    \ survive' vs. 'already active compounds arriving ready,' or Natalie's skepticism\
+    \ will deepen rather than dissolve."
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "Natalie is problem-aware and emotionally loaded \u2014 she's been silently\
+    \ second-guessing herself since pregnancy, which is exactly the identity-and-community\
+    \ wound a Love Letter format addresses with a direct callout like 'POV: you've\
+    \ tried every probiotic and your gut still isn't right after baby.' The long text\
+    \ overlay lets the hook stat (1 trillion bioactive compounds) land with full PAS\
+    \ momentum before she scrolls away."
+  production_notes: "The text monologue must mirror Natalie's internal voice precisely\
+    \ \u2014 avoid clinical language and lean into the exhaustion and quiet shame\
+    \ of 'I've already tried everything,' otherwise the format's intimacy advantage\
+    \ is wasted."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: Natalie is a researcher-type who has already investigated probiotics,
+    meaning she'll respond to a structured '3 reasons your probiotics aren't working
+    postpartum' framing that methodically validates her suspicion before introducing
+    Gut Balance's bioactive compound differentiation. The negative hook ('3 reasons
+    NOT to trust your probiotic') also aligns tightly with the PAS framework and her
+    existing skepticism.
+  production_notes: "Each numbered point must build toward the bioactive compound\
+    \ angle as the logical payoff \u2014 avoid generic gut health claims or Natalie,\
+    \ who has heard them all before, will dismiss the ad before reaching the product\
+    \ reveal."
