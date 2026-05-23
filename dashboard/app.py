@@ -1351,12 +1351,23 @@ def _render_matrix_row(client: str, row: dict, products: list[str]):
             row_for_brief["tab"] = MatrixTab(row_for_brief["tab"])
             row_obj = MatrixRow(**row_for_brief)
 
-            default_product_idx = 0
+            # Prefer non-placeholder products as the default. The
+            # init-client template ships an `example-product.yaml` with a
+            # placeholder image_path that will crash generate_from_brief —
+            # so if a real product exists, default to that instead.
+            real_products = [p for p in products if not p.startswith("example")]
+            preferred = real_products[0] if real_products else products[0]
+            default_product_idx = products.index(preferred)
             selected_product = st.selectbox(
                 "Product to anchor the ad on",
                 products,
                 index=default_product_idx,
                 key=f"product_pick_{row_id}",
+                help=(
+                    "⚠️ Products starting with `example-` are template "
+                    "placeholders without real images — they'll fail at "
+                    "generation. Use one with a real image_path/image_url."
+                ),
             )
             product = load_product(client, selected_product)
 
