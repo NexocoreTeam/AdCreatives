@@ -1,0 +1,59 @@
+id: testimonial-quote-product-in-use
+name: Testimonial Quote Overlay
+source: client-secondkind reference library
+category: testimonial-review
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- testimonial-quote
+- headline-overlay
+- product-in-use
+- lifestyle-photo
+- pill-button
+- color-gradient
+template_prompt: 'Create an ad with a 1:1 aspect ratio.
+
+
+  The background is a premium, soft-focus lifestyle photograph [BACKGROUND] showing
+  a person using the [PRODUCT] on their body (e.g., an arm, face, or shoulder). The
+  [PRODUCT] itself should be in clear focus and positioned near the vertical center
+  of the image.
+
+
+  Overlay a subtle color gradient on the image, starting with a cool, dark color at
+  the top and transitioning to a warmer, skin-tone-complementing color towards the
+  bottom.
+
+
+  In the top half of the image, place the main [HEADLINE]. The headline should be
+  a large testimonial quote in a bold, white, sans-serif font, enclosed in quotation
+  marks.
+
+
+  Directly below the [HEADLINE], add the testimonial attribution [SUBHEAD] in a smaller,
+  thinner font, using an [ACCENT] color.
+
+
+  Below the central product, create a large, pill-shaped button with heavily rounded
+  corners that spans horizontally across the image. Fill this button with the solid
+  [ACCENT] color. Inside the button, place the [CTA] text in a contrasting dark color,
+  followed by a right-facing arrow.
+
+
+  Below the CTA button, add the "[PRODUCT] by [BRAND]" text in a clean, lowercase,
+  white sans-serif font.
+
+
+  To the right of the brand/product name, add a small, circular graphic element [DETAILS],
+  like a brand icon or a stylized'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\testimonial-review\testimonial-review-Ad-3-hims.png

@@ -1,0 +1,43 @@
+id: before-after-vertical-split-callouts
+name: Before/After Split Callouts
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+tags:
+- before-and-after
+- vertical-split
+- pill-callout
+- problem-solution
+- product-in-situ
+- studio-photography
+- comparison-vertical-split
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad with a clean, vertical split-screen composition.
+
+
+  **Left Half (The "Before" State):**
+
+  - Use a muted [BACKGROUND] color (e.g., desaturated purple).
+
+  - Feature a studio photograph of a subject visually representing the "problem" state
+  (e.g., looking sad, uncomfortable).
+
+  - At the top left, place the [HEADLINE] in a white or light-colored serif font,
+  describing the problem state (e.g., "Without our solution").
+
+  - On this side, place two white, pill-shaped callouts with rounded corners'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\features-benefits\features-and-benefits-Ad-2-PetLab
+  Co..png

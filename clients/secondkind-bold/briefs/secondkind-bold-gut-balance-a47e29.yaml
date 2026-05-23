@@ -1,0 +1,116 @@
+brief_id: secondkind-bold-gut-balance-a47e29
+client: secondkind-bold
+product: Gut Balance
+awareness_level: solution_aware
+framework: quest
+angle: "The practitioner who kept recommending probiotics and kept getting burned\
+  \ \u2014 until the model changed, not the brand"
+hook: 'She''d tried three different probiotic brands. Told her clients each one was
+  different.
+
+  Each time, the feedback came back the same: nothing.
+
+  It wasn''t the brands. It was the model. Live bacteria have a survival problem.
+
+  That''s the problem Gut Balance was built to solve.
+
+  '
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar pain eroding professional trust + competitive-gap probiotic no
+  results + BiomeBalance mechanism explanation
+hook_tactic: "Storytelling \u2014 open mid-experience in the frustration before the\
+  \ pivot, let the mechanism deliver the relief"
+persona: Functional-Curious Practitioner Paul
+creative_mechanic: micro_story_plus_suspense
+visual_format: "Long-form native caption ad \u2014 plain text on white, written in\
+  \ first-person practitioner voice, no headline overlay; looks like an organic post\
+  \ from a trusted colleague, not an ad"
+visual_format_alternatives:
+- "Voiceover video with text burn \u2014 practitioner speaks the story over a slow\
+  \ zoom on the ingredient panel; words appear on screen one phrase at a time with\
+  \ deliberate pacing; ends on a static close-up of Totipro / EpiCor / Bereum with\
+  \ PubMed-style citation text beneath each name"
+- "Three-panel carousel \u2014 Panel 1: the patient feedback moment (text only, dark\
+  \ type on off-white); Panel 2: the mechanism diagnosis (simple diagram of live bacteria\
+  \ die-off vs. bioactive delivery); Panel 3: the clinical backing call-to-action\
+  \ with ingredient names and trial reference"
+persona_traits: "Health coach or registered dietitian, 38\u201350, who has recommended\
+  \ multiple probiotic brands to a client base or social following and absorbed each\
+  \ failure as a credibility hit, now quietly searching for a mechanism-level explanation\
+  \ rather than another product swap"
+pain_point: "Repeated probiotic recommendation failures eroding practitioner trust\
+  \ \u2014 not just in the product but in their own clinical judgment"
+benefit_callouts:
+- The mechanism failure your last recommendation couldn't fix
+- "Already-active compounds \u2014 no colonization required"
+- "Totipro\xAE \u2014 regularity outcomes in 30 days of clinical data"
+cta: "See the mechanism \u2014 then form your own view"
+body_copy: ''
+visual_direction: "The creative should feel like something a respected colleague posted,\
+  \ not something a brand produced. Sparse, text-heavy, no hero imagery. The story\
+  \ does the work. If there is an image, it is the ingredient label or a clean close-up\
+  \ of the capsules against a neutral surface \u2014 evidence, not atmosphere."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Paul is a solution-aware practitioner who has already tried multiple\
+    \ probiotic brands and been burned \u2014 this format's built-in structure of\
+    \ 'calling out the broken status quo first' maps perfectly onto his accumulated\
+    \ frustration with the category, positioning Gut Balance not as another brand\
+    \ but as a fundamentally different model. The angle explicitly frames the failure\
+    \ as a model problem, not a brand problem, which is the exact reframe David &\
+    \ Goliath is built to deliver."
+  production_notes: "The 'enemy' must be framed as the outdated probiotic delivery\
+    \ or formulation model \u2014 not a named competitor \u2014 to avoid alienating\
+    \ practitioners who may still stock those brands and to keep the clinical credibility\
+    \ of the hook intact."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "Paul is a methodical, educational-seeking practitioner who processes\
+    \ clinical decisions through evidence and reasoning \u2014 a structured '3 reasons\
+    \ why every probiotic recommendation failed (and what finally changed)' format\
+    \ speaks directly to his need to understand the mechanism of failure before trusting\
+    \ a new solution. Paired with the quest framework, each list item can serve as\
+    \ a waypoint in the journey from burned-practitioner to confident recommender."
+  production_notes: "Each list point must be clinically grounded and specific \u2014\
+    \ vague benefit language ('supports gut health') will immediately break trust\
+    \ with a practitioner persona who has already been disappointed by marketing claims\
+    \ before."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 3
+  rationale: "Paul's core wound is eroded clinical judgment, which means he is implicitly\
+    \ asking 'why should I trust this one?' \u2014 the objection-handling format preemptively\
+    \ answers the price and quality skepticism that practitioners carry after repeated\
+    \ failures, grounding Gut Balance's premium positioning in supply chain and formulation\
+    \ specifics that signal this is a categorically different product. The directness\
+    \ of this format also mirrors how a practitioner communicates with peers, which\
+    \ builds subconscious rapport."
+  production_notes: "Lead with manufacturing or strain-stability specifics rather\
+    \ than generic 'premium ingredients' language \u2014 Paul's skepticism is sophisticated\
+    \ enough that surface-level premium cues will register as more of the same marketing\
+    \ noise he has already discounted."

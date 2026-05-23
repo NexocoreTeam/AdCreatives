@@ -1,0 +1,54 @@
+id: ugc-price-strike-overlay
+name: UGC Price Drop Overlay
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- ugc-handheld
+- text-overlay
+- price-strike
+- benefit-headline
+- product-in-hand
+- soft-focus-background
+- asymmetrical-layout
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad. The background is a UGC-style lifestyle photograph
+  with a natural, human feel. It features a person''s hand holding the [PRODUCT] on
+  the left side of the frame. The overall photo should have a soft-focus [BACKGROUND],
+  like a blurry garden or park, to make the text and product stand out.
+
+
+  All text is overlaid directly onto the image.
+
+
+  TEXT:
+
+  - In the top-center/right portion of the image, place the main [HEADLINE]. It should
+  be two lines, sentence case, in a friendly, modern sans-serif font. Use an [ACCENT]
+  color that is bright and pops against the background.
+
+  - To the right of the [PRODUCT] and below the vertical midline, display the price
+  discount as "[DETAILS]". This should show the original price with a strikethrough
+  next to the new price (e.g., "$50 $38"). Use the same [ACCENT] color as the headline.
+
+
+  The overall composition should feel authentic, direct, and benefit-driven.
+
+  '
+description: Use this template for a direct, authentic-feeling promotion that pairs
+  a benefit-driven headline with a clear price drop. The UGC-style photo of the product
+  in hand builds trust and makes the offer more tangible.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-4-Seed-2.jpg

@@ -1,0 +1,45 @@
+id: anatomical-illustration-comparison
+name: Anatomical Split Comparison
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- split-screen
+- before-and-after
+- illustration-based
+- anatomical-sketch
+- handwritten-font
+- comparison-vertical-split
+- editorial
+template_prompt: 'Create a 1:1 square ad with a vertical split-screen layout for a
+  side-by-side comparison, presented as two medical-style illustrations on a single
+  continuous background.
+
+
+  The [BACKGROUND] for the entire ad should be a piece of textured, high-quality art
+  paper in a warm off-white or light parchment color. The overall mood should be clinical,
+  informative, and artistic.
+
+
+  On the left half, place a detailed illustration of [BEFORE_ILLUSTRATION_SUBJECT],
+  representing the ''before'' or ''baseline'' state.
+
+  On the right half, place a companion illustration of the exact same subject, [AFTER_ILLUSTRATION_SUBJECT],
+  representing the improved ''after'' state.
+
+
+  Both illustrations must be in a realistic colored pencil sketch style, with visible
+  texture, hatching, and shading as if drawn by hand in'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-3-Kathy
+  Miller.jpg

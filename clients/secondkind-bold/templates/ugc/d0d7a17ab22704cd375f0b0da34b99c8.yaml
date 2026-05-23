@@ -1,0 +1,43 @@
+id: ugc-handheld-assembly-callouts
+name: UGC Assembly Callouts
+source: client-secondkind reference library
+category: ugc
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- ugc-handheld
+- product-assembly
+- benefit-callouts
+- icon-callouts
+- text-overlay
+- headline-pill
+template_prompt: "Image 1 is the actual product — replicate it exactly.\n\nCreate\
+  \ a UGC-style, eye-level, full-shot photograph for a 9:16 aspect ratio. The scene\
+  \ features a pair of hands holding the [PRODUCT] against a plain, neutral [BACKGROUND]\
+  \ wall.\n\nThe [PRODUCT] is the central focus and is shown being assembled or disassembled\
+  \ by the hands to highlight its modularity or a specific feature (e.g., a refill).\n\
+  \nLAYOUT & TEXT:\n- HEADLINE: At the top of the image, centered, place a large headline\
+  \ pill with rounded corners, filled with a soft [ACCENT] color. Inside, the [HEADLINE]\
+  \ is typeset in a bold, white, friendly sans-serif font.\n- FEATURE CALLOUTS: Vertically\
+  \ stack three feature callouts on the left side of the image. Each callout should\
+  \ include:\n  1. A small, simple icon ([DETAILS]) representing the feature/ingredient.\n\
+  \  2. A two-line [BENEFIT] description (e.g., \"Feature Name\" on line one, \"resulting\
+  \ benefit\" on line two) in a clean, sans-serif font.\n  3. A simple, hand-drawn\
+  \ style white arrow curving from the text and pointing to the relevant part of the\
+  \ [PRODUCT].\n- BRANDING: The [BRAND] logo should be clearly visible on the [PRODUCT]\
+  \ itself.\n\nSTYLE:\n- The photo should have a natural, user-generated feel, not\
+  \ an overly polished studio look.\n- The overall mood is informative, clean, and\
+  \ has a 'how-to' or 'unboxing' aesthetic.\n"
+description: Use this template to demonstrate how a product works, highlighting key
+  ingredients or features through simple UGC-style photography and clear text callouts.
+  Ideal for products with a 'how-to' or modular aspect.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\ugc\d0d7a17ab22704cd375f0b0da34b99c8.jpg

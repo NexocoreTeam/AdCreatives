@@ -1,0 +1,42 @@
+{
+  "query": {
+    "label": "reddit-ritual-honest",
+    "query": "Ritual honest review experience worth it",
+    "include_domains": [
+      "reddit.com"
+    ],
+    "exclude_domains": [],
+    "num_results": 10,
+    "category": "reddit"
+  },
+  "fetched_at": "2026-05-13T19:48:44.541156Z",
+  "results": [
+    {
+      "url": "https://www.reddit.com/r/politics/comments/1st66jd/rfk_jr_defends_trumps_mathematically_impossible/",
+      "title": "Reddit - Prove your humanity",
+      "published_date": "2026-04-23T02:39:44.000Z",
+      "author": null,
+      "score": null,
+      "text": "# Reddit - Prove your humanity\n\nPublished: 2026-04-23T02:39:44+00:00\nType: Low Content\n\n## Summary\n\nsubmitted by /u/jpressss [link] [comments]\n\n## Story\n\nWe\u2019re committed to safety and security. But not for bots. Complete the challenge below and let us know you\u2019re a real person.",
+      "domain": "reddit.com"
+    },
+    {
+      "url": "https://www.reddit.com/r/politics/comments/1syum3l/hegseth_will_be_grilled_by_congress_for_the_first/",
+      "title": "Reddit - Prove your humanity",
+      "published_date": "2026-04-29T10:15:05.000Z",
+      "author": null,
+      "score": null,
+      "text": "# Hegseth will be grilled by congress for the first\n\nPublished: 2026-04-29T10:15:05+00:00\nType: Low Content\n\n## Summary\n\nsubmitted by /u/darealunrealspader [link] [comments]\n\n## Story\n\nYou've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. You've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. [File a ticket](https://support.reddithelp.com/hc/en-us/requests/new?ticket_form_id=21879292693140)",
+      "domain": "reddit.com"
+    },
+    {
+      "url": "https://www.reddit.com/r/politics/comments/1t81z2k/this_was_john_roberts_plan_all_along_the_chief/",
+      "title": "Reddit - Please wait for verification",
+      "published_date": "2026-05-09T11:05:58.000Z",
+      "author": null,
+      "score": null,
+      "text": "# This was john roberts plan all along the chief\n\nPublished: 2026-05-09T11:05:58+00:00\nType: Low Content\n\n## Summary\n\nsubmitted by /u/zsreport [link] [comments]\n\n## Story\n\nYou've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. You've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. [File a ticket](https://support.reddithelp.com/hc/en-us/requests/new?ticket_form_id=21879292693140)",
+      "domain": "reddit.com"
+    }
+  ]
+}

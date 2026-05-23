@@ -1,0 +1,48 @@
+id: ugc-handheld-code-sticker
+name: UGC Code Sticker
+source: client-secondkind reference library
+category: ugc
+product_types:
+- any
+audience_fit:
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- ugc-handheld
+- product-in-hand
+- influencer-style
+- social-media-sticker
+- code-callout
+- outdoor-background
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a UGC-style, point-of-view photograph for a 1:1 aspect ratio. The photo features
+  a person''s hand holding the [PRODUCT] up to the camera, centered in the frame.
+  The background is an authentic, slightly out-of-focus outdoor scene, such as a grassy
+  [BACKGROUND] with trees. The hand should appear natural, possibly with a nice manicure,
+  presenting the product to the viewer.
+
+
+  TEXT & GRAPHICS:
+
+  - Overlayed in the center of the image, just below the product, is a short, direct
+  [HEADLINE] in a white, sans-serif font (e.g., "You can use my code here"). The text
+  should have a subtle drop shadow for legibility. It can include a downward-pointing
+  emoji.
+
+  - Directly below the headline, add a simulated social media "Link" or "Promo Code"
+  sticker. This sticker should be a light-colored, rounded rectangle. Inside the sticker,
+  place a small icon (like a link or pin) and the [CTA] text.
+
+  '
+description: Use this template for a direct, authentic UGC-style ad that drives conversions
+  with a discount code. It's ideal for leveraging influencer content or creating an
+  influencer-like feel to build trust and urgency.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\ugc\9fdcde2e5b81a4795553b77ee7c7fe68a155feabb2ce80a243172778a6339d24.jpg

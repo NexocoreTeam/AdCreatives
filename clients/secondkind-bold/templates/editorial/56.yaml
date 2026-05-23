@@ -1,0 +1,43 @@
+id: vertical-text-stack-explainer
+name: Vertical Text Stack Explainer
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- text-overlay
+- headline-stack
+- editorial-serif
+- minimalist
+- dark-mode
+- icon-cta
+- spherical-graphics
+template_prompt: "Create a 1:1 aspect ratio ad with a very dark, solid [BACKGROUND]\
+  \ color. The entire composition should be centered vertically and feel clean, minimalist,\
+  \ and scientific.\n\nThe text and graphic elements should be in a single [ACCENT]\
+  \ color, like white or off-white.\n\nLAYOUT & TYPOGRAPHY:\n1.  **Headline:** In\
+  \ the upper-middle of the frame, place the [HEADLINE] as a vertically stacked list\
+  \ of 3-4 related terms. Use a large, elegant serif font.\n2.  **Subhead:** Directly\
+  \ below the headline, add the [SUBHEAD] in a smaller, clean sans-serif font. This\
+  \ should be 1-2 lines of text that adds context or introduces a problem related\
+  \ to the headline terms.\n\nGRAPHIC ELEMENTS:\n1.  **Top Element:** Near the top\
+  \ edge of the frame, add a small, subtle cluster of dots, like a sparse constellation.\n\
+  2.  **Middle Element:** Behind the [HEADLINE] text, place a slightly larger, faint\
+  \ sphere made of dots.\n3.  **Bottom Element:** In the lower third of the ad, place\
+  \ a large sphere composed of a fine dot-grid pattern.\n    - Inside this sphere,\
+  \ place a simple, centered triangle play icon for the [CTA].\n    - Below the play\
+  \ icon, but still inside the sphere, place the [BRAND] wordmark.\n\nThe overall\
+  \ mood is informative and sophisticated.\n"
+description: Use this template to create an educational hook that introduces a set
+  of related concepts, teases an explanation, and drives to video content. Ideal for
+  minimalist, science-forward brands aiming to establish authority.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\56.png

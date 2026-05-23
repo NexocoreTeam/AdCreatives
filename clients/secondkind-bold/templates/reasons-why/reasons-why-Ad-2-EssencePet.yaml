@@ -1,0 +1,72 @@
+id: notes-app-reasons-why
+name: Notes App Reasons Why
+source: client-secondkind reference library
+category: reasons-why
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- notes-app-ui
+- native-ad
+- reasons-why
+- bullet-list
+- product-photo-overlap
+- emoji-headline
+- checklist-icon
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad that looks like a native screenshot of the Apple Notes app on a smartphone.
+
+
+  LAYOUT:
+
+  - At the very top, include the standard iOS ''Notes'' app UI: a back arrow and the
+  word "Notes" on the left; the share and ''more options'' (ellipsis) icons on the
+  right.
+
+  - Below the UI header, add a subtle grey timestamp like ''[DETAILS]'' (e.g., ''13
+  February 2024 at 11:51pm'').
+
+  - The main headline is left-aligned, positioned below the timestamp.
+
+  - A three-item bulleted list is placed below the headline on the left half of the
+  screen.
+
+  - The [PRODUCT] photo is placed on the right side, anchored to the bottom right,
+  and extends upwards, slightly overlapping the bulleted list.
+
+
+  TEXT:
+
+  - Headline: Use a large, bold, black sans-serif font for the [HEADLINE]. Optionally,
+  include 1-2 relevant emojis at the end.
+
+  - Benefit List: Create a vertical stack of three [BENEFIT]s. Each list item should
+  be preceded by an [ACCENT] color circle icon containing a white checkmark. The benefit
+  text should be a standard-weight black sans-serif font.
+
+
+  PRODUCT & BACKGROUND:
+
+  - Background: The background should be a a very light, slightly textured [BACKGROUND]
+  color (like off-white or pale green) that mimics the Notes app paper. Add a subtle,
+  soft radial gradient of a slightly darker shade behind the [PRODUCT] to make it
+  stand out.
+
+  - Product: Use a clean, cutout studio photograph of the [PRODUCT]. It should have
+  a natural shadow or be seamlessly blended into the background.
+
+  '
+description: Use this template to frame product benefits as a personal 'note-to-self'
+  or list of reasons. The native UI style feels authentic and is effective for problem/solution-aware
+  audiences in the consideration stage.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\reasons-why\reasons-why-Ad-2-EssencePet.jpg

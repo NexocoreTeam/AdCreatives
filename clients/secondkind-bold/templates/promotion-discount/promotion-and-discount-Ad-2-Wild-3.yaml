@@ -1,0 +1,57 @@
+id: ugc-handheld-offer-bubbles
+name: UGC Offer Bubbles
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- ugc
+- handheld-product
+- text-overlay
+- offer-bubble
+- graphic-arrow
+- outdoor-setting
+- product-in-hand
+template_prompt: 'Image 1 is the actual [PRODUCT] — replicate it exactly.
+
+
+  **Photography Style**: Create a UGC-style, point-of-view photo. A woman''s hand
+  is holding the [PRODUCT] in the center of the frame against an out-of-focus [BACKGROUND]
+  of trees and a bright blue sky. The lighting should feel natural and sunny. The
+  product is the clear hero and in sharp focus.
+
+
+  **Layout and Composition**:
+
+  - The [PRODUCT] should be held in the lower-center of the frame, angled slightly
+  to show its form.
+
+  - In the upper-left quadrant, overlay two "pill-shaped" text blocks with rounded
+  corners.
+
+  - The top block is a light [ACCENT] color and contains the [HEADLINE] (the main
+  offer) in a bold, white, all-caps sans-serif font.
+
+  - The block below it is a dark [ACCENT] color and contains the [SUBHEAD] (product
+  details) in a white sans-serif font, with the first word in all caps for emphasis.
+
+  - Add a simple, hand-drawn style white arrow that curves from below the text blocks,
+  pointing down towards the [PRODUCT].
+
+  - The [BRAND] name should be visible on the product itself.
+
+  '
+description: Use this template for a direct, UGC-style promotion. It's perfect for
+  highlighting discounts or new product drops with colorful 'bubble' callouts and
+  a hand-drawn arrow that guides the eye to a hero product held in-hand.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-2-Wild-3.jpg

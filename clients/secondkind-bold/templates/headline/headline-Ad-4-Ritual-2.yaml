@@ -1,0 +1,55 @@
+id: headline-highlighter-handheld
+name: Handheld Product Highlight
+source: client-secondkind reference library
+category: headline
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- headline-overlay
+- product-in-hand
+- highlighter-text
+- pill-callout
+- lifestyle-background
+- problem-solution
+- text-frame
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a lifestyle photo background. The background should
+  be a slightly out-of-focus shot of a [BACKGROUND] scene, like a clean bathroom shelf
+  or vanity with other generic items visible.
+
+
+  The main subject is a person''s hand with well-manicured nails entering the frame
+  from the left, holding the [PRODUCT]. The [PRODUCT] should be the central focal
+  point, held at a slight diagonal angle.
+
+
+  At the top of the image, overlay the [HEADLINE] text in two centered lines. The
+  font should be a bold, dark, modern sans-serif. Behind the text, place a thick,
+  slightly irregular highlighter mark in a bright [ACCENT] color, making it look as
+  if it was hand-drawn.
+
+
+  At the bottom of the image, overlay the [SUBHEAD] in a single line, using the exact
+  same font and [ACCENT] color highlighter treatment as the headline.
+
+
+  Just above and to the right of the [PRODUCT], add a small, white, horizontally-oriented
+  pill-shaped callout with a thin dark border. Inside this pill, place the [BENEFIT]
+  text in a simple, small, all-caps font.
+
+  '
+description: Use this template to frame a common problem and present your product
+  as the simpler solution. The handheld product in a lifestyle setting creates a relatable,
+  modern feel, while the highlighter text grabs attention.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\headline\headline-Ad-4-Ritual-2.jpg

@@ -1,0 +1,53 @@
+id: lifestyle-headline-overlay-badge
+name: Lifestyle Headline Overlay
+source: client-secondkind reference library
+category: headline
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- headline-overlay
+- lifestyle-imagery
+- product-in-use
+- editorial-serif
+- badge-callout
+- soft-lighting
+- aspirational
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad based on a full-bleed, softly lit, warm-toned lifestyle photograph
+  of the [PRODUCT] being used in its intended home environment, like [BACKGROUND].
+  The shot is a medium close-up, focused on a human hand interacting with a key feature
+  of the product (e.g., opening a drawer, turning a dial). The background is slightly
+  out of focus to draw attention to the product action.
+
+
+  TEXT TREATMENT:
+
+  - Overlay a large, multi-line [HEADLINE] in an elegant serif font across the top
+  third of the image. The text should be in a light [ACCENT] color (like off-white)
+  that contrasts with the darker portion of the background image it sits on.
+
+  - Place a thin, horizontal line in the same [ACCENT] color directly below the headline.
+
+  - Below the line, add the [SUBHEAD] (product name or descriptor) in a sans-serif
+  font, also in the [ACCENT] color.
+
+  - To the immediate left of the [SUBHEAD], place a small, rounded rectangular badge.
+  The badge has a solid [ACCENT] color fill, with short, bold text like [DETAILS]
+  (e.g., "NEW", "NOW") inside in a dark, contrasting color.
+
+  '
+description: Use this template for an elegant, aspirational ad that showcases a product's
+  primary function in a beautiful lifestyle context. The large headline makes a bold
+  statement, perfect for grabbing attention in-feed.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\headline\headline-Ad-1-Caraway-2.jpg

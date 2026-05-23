@@ -1,0 +1,107 @@
+brief_id: secondkind-bold-gut-balance-c5d6e5
+client: secondkind-bold
+product: Gut Balance
+awareness_level: problem_aware
+framework: pas
+angle: "The EpiCor RCT data reframes gut health from 'digestion' to 'immune resilience'\
+  \ \u2014 17% fewer sick days is the hook; the probiotic survival failure is the\
+  \ wedge"
+hook: "In a 12-week clinical trial, one of the three ingredients in this formula cut\
+  \ cold and flu symptom days by 17%.\nNot probiotics. Not vitamin C. A postbiotic\
+  \ \u2014 a class of compounds most gut supplements don't actually contain, because\
+  \ they're too busy keeping their bacteria alive long enough to reach your gut.\n"
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap probiotic survivability plus EpiCor 12-week RCT stat
+  from product brief
+hook_tactic: "Statistic with contrarian reframe \u2014 lead with a clinical number,\
+  \ then flip the assumed implication to expose a mechanism failure most buyers don't\
+  \ know about"
+persona: Immune-Anxious Isaac
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: "Text-on-dark-background static with clinical stat as hero typography\
+  \ \u2014 bold percentage in oversized numerals, source citation in small but legible\
+  \ subtext below"
+visual_format_alternatives:
+- "Whiteboard-style explainer video \u2014 hand draws a simple diagram of the probiotic\
+  \ survival gauntlet versus the postbiotic direct-delivery path while the stat appears\
+  \ as a lower-third"
+- "Talking-head UGC video \u2014 a calm, credible male voice reads the stat off screen\
+  \ as if sharing a research find with a colleague, no lifestyle B-roll, no music"
+persona_traits: Research-driven urban professional 32-48 who wants his immune system
+  to hold during crunch periods and will click on a percentage before he clicks on
+  a feeling
+pain_point: "Gets sick two or three times a year at exactly the wrong moment \u2014\
+  \ suspects gut-stress connection is real but has no proof specific to this product"
+benefit_callouts:
+- "17% fewer sick days \u2014 clinical trial, 12 weeks"
+- 1 trillion stable bioactives. No bacteria to kill first.
+- "EpiCor\xAE. Totipro\xAE. Bereum\xAE. Look them up."
+cta: See the mechanism. Read the studies.
+body_copy: ''
+visual_direction: "Clean dark background with the number 17% in large, authoritative\
+  \ white type \u2014 conveys data confidence, not wellness aesthetics. Supporting\
+  \ text identifies the ingredient and trial duration. No stock photography of people\
+  \ or bodies."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Isaac suspects the gut-stress-immune connection but lacks proof, making\
+    \ him primed for a format that calls out the broken status quo (probiotics that\
+    \ don't survive digestion) and then presents EpiCor RCT data as the credible underdog\
+    \ alternative. The wedge angle \u2014 probiotic survival failure vs. clinically\
+    \ validated immune resilience \u2014 maps perfectly to this format's structure\
+    \ of enemy-first, then differentiator."
+  production_notes: Ensure the 17% fewer sick days stat is sourced on-screen with
+    trial details; Isaac is a researcher-adjacent skeptic who will fact-check, so
+    vague credibility claims will backfire.
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "A problem_aware persona like Isaac responds well to structured educational\
+    \ content, and a '3 reasons your probiotics aren't protecting your immune system'\
+    \ frame lets the PAS framework breathe \u2014 agitating the pain of ill-timed\
+    \ sick days before presenting the EpiCor data as the solution. The methodical\
+    \ framing matches Isaac's desire for proof-based reasoning over lifestyle marketing."
+  production_notes: "Avoid making the list feel like a generic supplement ad \u2014\
+    \ each point must tie back to Isaac's specific pain (sick at the worst moments,\
+    \ gut-stress suspicion) rather than generic wellness claims."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 3
+  rationale: "Isaac is skeptical of traditional supplement UGC, and the intentionally\
+    \ fake aesthetic of this format disarms that skepticism while still delivering\
+    \ the surprising stat hook \u2014 an animated 'EpiCor molecule' character dropping\
+    \ the 17% clinical data lands as memorable and shareable without triggering 'is\
+    \ this a paid shill?' doubt. The wellness and supplement persona fit is strong\
+    \ for this audience."
+  production_notes: "Keep the AI-slop tone irreverent but don't let it undermine the\
+    \ clinical credibility of the RCT data \u2014 the humor should be in the character\
+    \ delivery, not in treating the science as a joke."

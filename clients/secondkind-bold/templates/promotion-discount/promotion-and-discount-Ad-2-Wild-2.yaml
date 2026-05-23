@@ -1,0 +1,54 @@
+id: ugc-handheld-promo-overlay
+name: UGC Handheld Promo Overlay
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- 61
+tags:
+- ugc-handheld
+- product-in-hand
+- lifestyle-photo
+- pill-callout
+- text-overlay
+- discount-offer
+- graphic-arrow
+template_prompt: 'Create a UGC-style, first-person photograph with a 1:1 aspect ratio,
+  taken from a low angle looking up.
+
+  The [BACKGROUND] is a bright, natural outdoor scene with significant depth of field,
+  such as a blue sky with out-of-focus tree branches.
+
+
+  In the foreground, a person''s hand enters from the bottom left, holding the [PRODUCT]
+  towards the center of the frame. The [PRODUCT] is the main focal point, and the
+  [BRAND] logo is visible.
+
+
+  In the upper third of the image, stack two text overlays:
+
+  1. A horizontal pill shape with rounded corners, filled with a light [ACCENT] color.
+  Inside, place the [HEADLINE] in a bold, white, all-caps sans-serif font.
+
+  2. Directly below the first pill, place a second horizontal pill with rounded corners,
+  filled with a darker [ACCENT] color. Inside, place the [SUBHEAD] in a white, mostly
+  lowercase sans-serif font.
+
+
+  Add a simple, hand-drawn white arrow graphic that starts near the [SUBHEAD] and
+  curves down to point at the [PRODUCT], visually connecting the offer to the item.
+
+  '
+description: Use this template for a promotion or new product announcement with an
+  authentic, user-generated feel. The handheld product shot against a natural background
+  builds trust, while the bold offer overlays drive immediate action.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-2-Wild-2.jpg

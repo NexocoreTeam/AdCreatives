@@ -1,0 +1,38 @@
+filename: promotion-and-discount-Ad-3-Ritual.jpg
+file_id: 1GvXwUIpjZkflGj47TDUozwyi6Oz8c5BD
+mime_type: image/jpeg
+is_video_frame: false
+analysis:
+  hook_visible: My gut health and glowy skin wellness essentials SAVE UP TO 40% OFF
+    3-in-1 gut and digestion support Reduce wrinkles with proven results in 90 days†
+  hook_type: problem_solution
+  copy_treatment: Text is overlaid in white and yellow rectangular boxes with black
+    font, using arrows to connect benefit callouts to specific products.
+  visual_format: ugc_static
+  creative_mechanic: Benefit-driven product pairing
+  elements_present:
+  - product_shot
+  - text_overlay
+  - lifestyle_imagery
+  - logo_visible
+  - ugc_aesthetic
+  mood:
+  - healthy
+  - natural
+  - sunny
+  - aspirational
+  color_palette_dominant:
+  - '#43790F'
+  - '#2E3A7E'
+  composition_notes: A top-down flat lay composition arranges products and drinks
+    on a grass background, with text overlays directing the eye from the main benefit
+    to the specific products.
+  likely_strengths: The ad effectively bundles two products by clearly communicating
+    their distinct benefits and a strong discount, encouraging a higher average order
+    value. The visual style feels authentic and aspirational.
+  likely_weaknesses: The image is dense with information, containing multiple products,
+    drinks, and text callouts, which could overwhelm the viewer and dilute the primary
+    message. The small disclaimer text is nearly unreadable.
+  extraction_confidence: high
+  confidence_notes: This is a static image, so all creative elements are fully visible
+    and analyzable. No inference is required.

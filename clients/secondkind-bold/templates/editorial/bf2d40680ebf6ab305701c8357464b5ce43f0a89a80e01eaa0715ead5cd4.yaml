@@ -1,0 +1,56 @@
+id: editorial-photo-headline-overlay
+name: Editorial Photo Overlay
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+- most_aware
+funnel_stage: consideration
+aspect_ratios:
+- '9:16'
+tags:
+- editorial-photo
+- headline-overlay
+- moody-lighting
+- product-in-situ
+- serif-headline
+- pill-button-cta
+- minimal-copy
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Generate an ad with a professional, full-bleed, editorial-style lifestyle photograph
+  of the [PRODUCT] in its natural environment ([BACKGROUND]). The lighting should
+  be soft, directional, and slightly moody, creating a sophisticated and premium atmosphere.
+
+
+  The [PRODUCT] should be the hero of the shot, placed centrally and appearing ready
+  for use or display.
+
+
+  Centered in the upper third of the image, overlay the following text:
+
+  1. A large [HEADLINE] in an elegant, light-colored serif font.
+
+  2. Directly below the headline, a smaller, single-line [SUBHEAD] in a simple, light-colored
+  sans-serif font.
+
+  3. Below the subhead, a prominent [CTA] button. The button should be a pill shape
+  with highly rounded corners, a solid light [ACCENT] color fill (like off-white),
+  and dark text inside.
+
+
+  The overall composition should feel like a high-end magazine page, with no visible
+  [BRAND] logo.
+
+  '
+description: Use this template for a premium, editorial feel that heroes the product
+  in a lifestyle setting. The centered, overlayed text creates a classic, magazine-like
+  impression ideal for design-conscious audiences.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\bf2d40680ebf6ab305701c8357464b5ce43f0a89a80e01eaa0715ead5cd4e398.jpg

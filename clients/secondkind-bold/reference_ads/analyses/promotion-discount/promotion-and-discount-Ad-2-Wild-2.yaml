@@ -1,0 +1,36 @@
+filename: promotion-and-discount-Ad-2-Wild-2.jpg
+file_id: 1JyUIXsWJ2D1W5m5ltHJUwUVNeh5qkE23
+mime_type: image/png
+is_video_frame: false
+analysis:
+  hook_visible: 30% OFF! NEW limited edition refillable deodorant
+  hook_type: fomo
+  copy_treatment: Text is presented in multiple colored graphical overlays with rounded
+    corners, placed in the upper portion of the image.
+  visual_format: ugc_static
+  creative_mechanic: Product and refill showcase with offer overlay.
+  elements_present:
+  - product_shot
+  - human_face
+  - text_overlay
+  - lifestyle_imagery
+  - logo_visible
+  - ugc_aesthetic
+  mood:
+  - vibrant
+  - natural
+  - upbeat
+  color_palette_dominant:
+  - '#498CDD'
+  - '#B2245C'
+  composition_notes: The product is held up center-left, creating a strong focal point
+    against the out-of-focus natural background, with text overlays guiding the eye
+    from the offer to the product details.
+  likely_strengths: The combination of a strong discount, scarcity (limited edition),
+    and an aesthetically pleasing, colorful product in a UGC-style context likely
+    creates high purchase intent and authenticity.
+  likely_weaknesses: The multiple text boxes, while informative, add some visual clutter
+    that can slightly compete with the product for attention.
+  extraction_confidence: high
+  confidence_notes: This is a static image analysis. All visual elements are present
+    and clear, though some minor text on the refill packaging is unreadable.

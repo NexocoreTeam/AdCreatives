@@ -1,0 +1,20 @@
+filename: features-and-benefits-Ad-3-Rheal-1.jpg
+file_id: 1ExkJ8mEgupijopoYTl26ueDqlRh-7U_u
+mime_type: image/jpeg
+is_video_frame: false
+analysis:
+  hook_visible: Bloating Unsubscribed. Finally, a probiotic that does the work. 10
+    billion live cultures with Lactospore® - formulated to reach your gut where it
+    matters. 95% noticed improved digestion after 4 weeks*
+  hook_type: pattern_interrupt
+  copy_treatment: The copy is presented as stacked text overlays with a clear visual
+    hierarchy, a UI toggle graphic, a highlighted stat bar, and logos with social
+    proof at the bottom.
+  visual_format: product_hero
+  creative_mechanic: '''Unsubscribe from problem'' UI toggle'
+  elements_present:
+  - product_shot
+  - human_face
+  - text_overlay
+  - logo_visible
+  - studio_aesthetic

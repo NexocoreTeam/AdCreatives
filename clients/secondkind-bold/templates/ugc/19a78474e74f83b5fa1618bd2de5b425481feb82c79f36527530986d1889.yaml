@@ -1,0 +1,55 @@
+id: ugc-selfie-problem-hook
+name: UGC Selfie Problem Hook
+source: client-secondkind reference library
+category: ugc
+product_types:
+- any
+audience_fit:
+- problem_aware
+funnel_stage: awareness
+aspect_ratios:
+- '1:1'
+tags:
+- ugc
+- selfie
+- product-in-hand
+- headline-overlay
+- text-block
+- problem-solution
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Use an authentic, UGC-style selfie photo of a person who represents the target demographic.
+  The person should be looking directly and warmly at the camera. The [BACKGROUND]
+  should be a natural, non-studio setting like a bathroom or living room.
+
+
+  The person holds the [PRODUCT] in one hand, positioning it next to their face on
+  the left or right side of the frame.
+
+
+  In the lower center of the image, create a text overlay consisting of two stacked,
+  solid white rectangular blocks containing text.
+
+  1.  The top, wider block contains the [HEADLINE]. The headline should pose a specific,
+  relatable "If you..." or "When you..." problem.
+
+  2.  The bottom, shorter block contains the [CTA], which acts as a punchline or direct
+  command (e.g., "you NEED to try this"). Emphasize one word in the CTA with ALL CAPS.
+
+
+  All text should be a bold, clean, sans-serif font.
+
+
+  Below the text blocks, place any required fine-print [DETAILS] or disclaimers in
+  a small font size.
+
+  '
+description: Use this template to build trust with a relatable, UGC-style selfie that
+  calls out a specific pain point in the headline, positioning the product as the
+  clear solution.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\ugc\19a78474e74f83b5fa1618bd2de5b425481feb82c79f36527530986d1889b837
+  (1).jpg

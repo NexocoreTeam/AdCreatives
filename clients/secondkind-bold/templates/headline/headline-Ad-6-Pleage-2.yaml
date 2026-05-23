@@ -1,0 +1,52 @@
+id: symbolic-visual-headline-overlay
+name: Symbolic Visual Headline
+source: client-secondkind reference library
+category: headline
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- symbolic-visual
+- text-overlay
+- headline-question
+- graphic-shape-callout
+- lifestyle-photo
+- provocative-copy
+- human-hand
+template_prompt: 'Create a 1:1 square ad with a solid, soft-hued [BACKGROUND] color.
+
+
+  The central focus is a high-quality, vibrant studio photograph of a symbolic object
+  that represents the product''s core benefit (e.g., a juicy fruit representing hydration).
+  The object is placed diagonally, occupying the lower-middle of the frame. A human
+  hand is shown gently interacting with the object, touching or caressing it to add
+  a sensory, human element.
+
+
+  At the top, overlay a large [HEADLINE] in a bold, rounded sans-serif font. The headline
+  should be a direct, provocative question split across two lines. The text color
+  is a strong [ACCENT] color that contrasts with the background.
+
+
+  To the right of the symbolic object and below the headline, place a short block
+  of [BODY] copy. Use a smaller, regular-weight sans-serif font in the same [ACCENT]
+  color. This copy should challenge a common assumption and introduce the [PRODUCT]
+  name.
+
+
+  In the bottom-left corner, place a graphic shape (like a droplet, leaf, or other
+  relevant icon) filled with the [ACCENT] color. Inside this shape, place the [CTA]
+  text in a contrasting white, stacked vertically.
+
+
+  Placeholders'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\headline\headline-Ad-6-Pleage-2.jpg

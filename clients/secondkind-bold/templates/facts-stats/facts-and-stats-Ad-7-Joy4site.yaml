@@ -1,0 +1,24 @@
+id: ugc-benefit-callouts-overlay
+name: UGC Benefit Callouts
+source: client-secondkind reference library
+category: facts-and-stats
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+- '4:5'
+- '9:16'
+tags:
+- ugc
+- text
+template_prompt: ''
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\facts-stats\facts-and-stats-Ad-7-Joy4site.png

@@ -1,0 +1,41 @@
+id: ugc-bundle-benefit-arrows
+name: UGC Bundle Arrows
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+- most_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+- '9:16'
+tags:
+- ugc
+- flat-lay
+- product-pair
+- benefit-callout
+- arrow-pointer
+- text-overlay-box
+- promotion
+template_prompt: 'Image 1 and 2 are the actual products — replicate them exactly as
+  [PRODUCT 1] and [PRODUCT 2].
+
+
+  Create an ad with a bright, sunny, UGC-style flat-lay photograph. The background
+  is a textured, natural surface like [BACKGROUND] (e.g., green grass, a wooden deck,
+  a picnic blanket). The lighting should be direct and create distinct shadows.
+
+
+  LAYOUT:
+
+  - The composition is a top-down view.
+
+  - In the bottom half, place [PRODUCT 1'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-3-Ritual.jpg

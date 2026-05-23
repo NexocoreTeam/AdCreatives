@@ -1,0 +1,57 @@
+id: pov-product-hold-routine-hook
+name: POV Routine Hook
+source: client-secondkind reference library
+category: ugc
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- pov-shot
+- product-in-hand
+- ugc-handheld
+- headline-block
+- pill-button-cta
+- lifestyle-context
+- routine-focused
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a photorealistic, UGC-style image with a 1:1 aspect ratio. The photo is taken
+  from a first-person point-of-view (POV), showing a hand holding the [PRODUCT] in
+  the center of the frame, slightly left-of-center. The product and [BRAND] wordmark
+  should be clearly legible.
+
+
+  The [BACKGROUND] is a bright, naturally lit home interior, slightly out of focus.
+  The setting is a wooden table with a textured neutral-colored rug visible. Place
+  lifestyle props relevant to the product''s use in the background to create context.
+
+
+  Graphic overlays:
+
+  1.  At the top of the image, place a solid rectangular block in an [ACCENT] color
+  that stretches almost edge-to-edge. Inside this block, display the two-line [HEADLINE]
+  in a bold, white, sans-serif font. Center the text within the block.
+
+  2.  At the bottom of the image, centered horizontally, place a white, pill-shaped
+  button with a very subtle drop shadow. The button should contain the [CTA] text
+  in the same [ACCENT] color, with a small right-pointing arrow at the end.
+
+
+  The overall mood is natural, authentic, and suggests the product is part of a healthy
+  daily routine.
+
+  '
+description: This template uses a first-person, handheld POV shot to place the product
+  directly in a lifestyle context. It's ideal for making a product feel like a natural,
+  accessible addition to a user's existing routine, with a direct headline hook.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\facts-stats\facts-and-stats-Ad-6-Rheal-1.jpg

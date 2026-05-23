@@ -1,0 +1,31 @@
+id: split-screen-reasons-bullets
+name: Split Screen Stat Bullets
+source: client-secondkind reference library
+category: facts-and-stats
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- split-screen
+- vertical-split
+- reasons-why-bullets
+- stat-callout
+- product-hero
+- pill-cta
+- serif-headline
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a vertical split-screen layout. The left 40% is
+  a solid off-white text column'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\testimonial-review\testimonial-review-Ad-6-PetLab
+  Co..png

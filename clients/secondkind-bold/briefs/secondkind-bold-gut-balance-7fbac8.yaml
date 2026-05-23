@@ -1,0 +1,99 @@
+brief_id: secondkind-bold-gut-balance-7fbac8
+client: secondkind-bold
+product: Gut Balance
+awareness_level: problem_aware
+framework: pas
+angle: "The 70% transit-death stat reframes probiotic failure as a delivery problem,\
+  \ not a dosing problem \u2014 vindicating her and pivoting to the postbiotic mechanism"
+hook: 'Up to 70% of the bacteria in your probiotic never make it to your gut alive.
+
+  That''s not a brand problem. That''s a biology problem.
+
+  And it''s why two years of "really good" probiotics can leave your stomach exactly
+  where it started.
+
+  '
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: "competitive-gap probiotic survivability \u2014 avatar quote two years\
+  \ same gut"
+hook_tactic: "Statistic \u2014 lead with a counterintuitive clinical number that reframes\
+  \ the mechanism, not the brand"
+persona: Perimenopause Paula
+creative_mechanic: counterintuitive_insight_plus_specificity
+visual_format: "Text-on-dark-background static \u2014 single stark number (70%) in\
+  \ large type, clinical-minimal aesthetic, no product shot in the hook frame"
+visual_format_alternatives:
+- Talking-head video with credentialed narrator (functional medicine or GI researcher
+  framing) delivering the stat to camera, no B-roll
+- "Scrolling-text Reel with each sentence appearing sequentially \u2014 stat, explanation,\
+  \ pivot \u2014 forcing the viewer to read through before the solution lands"
+persona_traits: "Research-literate woman 42\u201354 who has spent real money on premium\
+  \ probiotics, tracked her results honestly, and cannot explain why nothing changed"
+pain_point: Has taken premium probiotics for years with no meaningful improvement
+  in bloating, regularity, or digestive comfort
+benefit_callouts:
+- 1 trillion bioactives. Already active. Already working.
+- No live bacteria. No survival lottery.
+- Clinically studied. Not clinically hoped for.
+cta: "Read the science behind BiomeBalance\u2122 \u2014 then decide"
+body_copy: ''
+visual_direction: "Cold, precise, almost medical \u2014 the aesthetic should feel\
+  \ like a lab report, not a wellness brand. The 70% figure dominates the frame. The\
+  \ product enters only after the mechanism is established."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "The 70% transit-death stat is a perfect 'call out the broken status\
+    \ quo' opener \u2014 it positions the entire probiotic category as the Goliath\
+    \ enemy, vindicating Paula's years of failure and pivoting to postbiotics as the\
+    \ underdog solution. Paula's problem-aware frustration with premium probiotics\
+    \ she trusted makes the switcher/frustrated persona alignment extremely strong\
+    \ here."
+  production_notes: "Avoid naming specific probiotic brands to sidestep legal risk\
+    \ \u2014 frame the enemy as 'the delivery problem biology creates' rather than\
+    \ a competitor, keeping the credibility of the stat front and center."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "A '3 reasons your probiotic isn't working' framing directly meets Paula\
+    \ at her problem-aware stage and gives the PAS framework a natural structure \u2014\
+    \ each item builds agitation before the postbiotic mechanism lands as the resolution.\
+    \ Paula's methodical, research-driven nature after years of trial-and-error makes\
+    \ her highly receptive to numbered, educational breakdowns."
+  production_notes: 'Lead with the 70% stat as reason #1 so the hook lands immediately
+    in-feed before the scroll; don''t bury it as a mid-list reveal or you lose her
+    in the first three seconds.'
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: The direct-address vernacular ('Hey, if you've been taking probiotics
+    for years and still feel bloated...') creates instant parasocial recognition for
+    Paula, who feels unseen by mainstream gut health marketing. The text-overlay format
+    lets the 70% hook and PAS narrative breathe without requiring high production,
+    keeping the tone personal rather than clinical.
+  production_notes: "Keep B-roll grounded and relatable \u2014 kitchen counter, morning\
+    \ routine \u2014 not aspirational wellness aesthetics, which will feel tone-deaf\
+    \ to a woman who has already tried the 'premium' approach and been let down."

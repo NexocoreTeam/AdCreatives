@@ -29,6 +29,7 @@ clients/*/
 !clients/sbg-co/
 !clients/sbg-co-fresh/
 !clients/secondkind/
+!clients/secondkind-bold/
 
 # Cost log per client — append-only, regenerable, not source-of-truth
 clients/*/.cost-log.jsonl

@@ -1,0 +1,84 @@
+client: secondkind-bold
+generated_at: '2026-05-23T11:28:06'
+matrix_version: 1
+trending_source: trending_formats.yaml
+research_sources_used:
+  tier_1:
+  - amazon.com
+  - reddit.com
+  - trustpilot.com
+  tier_2:
+  - abbylangernutrition.com
+  - app.thestorygraph.com
+  - arrae.com
+  - au.trustpilot.com
+  - bbb.org
+  - brianyeungnd.com
+  - ca.trustpilot.com
+  - capitalgazette.com
+  - contactcompany.co.uk
+  - dailyhealthsupplement.com
+  - dotmagazine.co.uk
+  - elainelinle.com
+  - expertbeacon.com
+  - fortune.com
+  - greatist.com
+  - healthline.com
+  - ie.trustpilot.com
+  - imagera.ai
+  - infinitefreetime.com
+  - jonathanszkotak.com
+  - medicalnewstoday.com
+  - medium.com
+  - mirror.co.uk
+  - modesens.com
+  - myistyclan.com
+  - nerdbot.com
+  - nl-be.trustpilot.com
+  - nz.trustpilot.com
+  - oakabode.com
+  - old.reddit.com
+  - onbetterliving.com
+  - queenofcontemporary.com
+  - rileypearce.ca
+  - ritual.pissedconsumer.com
+  - screenrant.com
+  - seed.com
+  - seedancetips.com
+  - shelfinflicted.com
+  - shopping.yahoo.com
+  - tasteslovely.com
+  - thebooksareeverywhere.com
+  - thechutneylife.com
+  - theeverygirl.com
+  - thefilmstage.com
+  - thequalityedit.com
+  - thesignaturejess.com
+  - thespinoff.co.nz
+  - thetennillelife.com
+  - thewellnesspilot.com
+  - thingtesting.com
+  - top10com.com
+  - topstarrated.com
+  - tryandreview.com
+  - tummycure.com
+  - uk.trustpilot.com
+  - us.amazon.com
+  - usefulvitamins.com
+  - voc_corpus
+  - vogue.com
+  - weddingwire.com
+  - whatthefab.com
+  - whimsysoul.com
+  tier_3:
+  - instagram_comments
+  - tiktok.com
+  - tiktok_comments
+  - youtube.com
+  - youtube_comments
+tier: standard
+row_counts:
+  pain_vs_competitor: 15
+  what_they_love: 12
+  wishes_gaps: 10
+  hook_angles: 15

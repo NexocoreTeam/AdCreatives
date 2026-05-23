@@ -1,0 +1,112 @@
+brief_id: secondkind-bold-gut-balance-a48736
+client: secondkind-bold
+product: Gut Balance
+awareness_level: problem_aware
+framework: pastor
+angle: "A peer-voiced account of normalized digestive heaviness and quarterly illness\
+  \ that resolves without drama \u2014 the result is modest, specific, and therefore\
+  \ credible to a skeptic who has been burned by overstatement"
+hook: 'He described it as ''not a big deal, just a thing I''d gotten used to.'' That
+  heaviness after lunch. The predictable sick week every time a deadline stacked on
+  top of a bad sleep run.
+
+  He tried a probiotic for four months. Felt nothing. Assumed he was just wired this
+  way.
+
+  He wasn''t. The probiotic had a survival problem. Most of them do.
+
+  '
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar pain point normalized digestive heaviness plus competitive-gap
+  probiotic no-results consumer evidence plus micro story mechanic
+hook_tactic: "Micro-story with suspense \u2014 open inside a recognizable failure\
+  \ moment, delay the resolution long enough to create identification, then deliver\
+  \ the mechanism as the turn"
+persona: Immune-Anxious Isaac
+creative_mechanic: micro_story_plus_suspense
+visual_format: "Single-column long-form static ad \u2014 plain white background, serif\
+  \ or neutral sans body text, no imagery, structured like a short note someone sent\
+  \ rather than an advertisement"
+visual_format_alternatives:
+- "Split-screen video \u2014 left side shows a man staring at his desk at 2pm, right\
+  \ side shows the same setting with a simple text overlay reading the resolution\
+  \ line; no voiceover, music optional"
+- "Animated text video \u2014 sentences appear one at a time on screen in a clean\
+  \ mobile-native format, paced like a slow read, ending on the mechanism line before\
+  \ the CTA"
+persona_traits: Pragmatic male professional 32-48 who has already tried the obvious
+  solution, written it off as ineffective, and needs a peer-adjacent account before
+  he will reconsider the category
+pain_point: Persistent low-grade digestive discomfort normalized over time, plus recurring
+  illness under stress that he has attributed to his constitution rather than a fixable
+  input
+benefit_callouts:
+- Postbiotics don't need to survive your stomach. They're already active.
+- Gut lining support. Immune resilience. Regularity within 30 days.
+- No bacteria. No disruption phase. No waiting for colonization.
+cta: Find out what your probiotic was supposed to deliver.
+body_copy: ''
+visual_direction: "Typographic and intentionally plain \u2014 the absence of lifestyle\
+  \ imagery is itself a signal of seriousness. If any visual element is used, it is\
+  \ the product capsule on a neutral surface, not a person's torso or a green smoothie."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Isaac is problem-aware and has normalized his discomfort \u2014 the\
+    \ long text overlay format mirrors the intimate, peer-voiced confession the brief\
+    \ demands, letting the 'not a big deal, just a thing I'd gotten used to' hook\
+    \ unspool naturally in his own register. The direct audience callout ('Hey, guy\
+    \ who eats lunch and feels like a lead weight afterward') creates the empathy\
+    \ bridge the PASTOR framework needs before any solution is introduced."
+  production_notes: "Keep the text monologue in the first-person peer voice with deliberately\
+    \ understated language \u2014 avoid any superlative health claims that would trigger\
+    \ Isaac's skepticism and break the credibility of the modest, specific result\
+    \ angle."
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 2
+  rationale: "Isaac has been burned by overstatement, making the 'call out the broken\
+    \ status quo' opener ideal \u2014 framing the enemy as the supplement industry's\
+    \ habit of overpromising aligns with his skeptic persona and earns trust before\
+    \ Gut Balance is ever named. The contrast then lets the modest, specific result\
+    \ land harder because it's positioned against the inflated claims he's already\
+    \ dismissed."
+  production_notes: "The 'enemy' must be the category norm of hype and overstatement,\
+    \ not a specific competitor by name \u2014 keep differentiators grounded in mechanism\
+    \ (e.g., specific strains, digestive timing) rather than outcome superlatives\
+    \ to preserve the credible-skeptic tone."
+- format_id: tiktok-short-pov
+  name: TikTok Short / POV
+  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
+    of B-roll. Fastest format to test. Borrows directly from what's trending in the
+    operator's own reels feed at time of creation.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "A two-line POV overlay \u2014 'POV: you've just accepted that you feel\
+    \ heavy after every meal' \u2014 is a low-friction, fast-to-test format that mirrors\
+    \ the normalized resignation the brief describes, meeting Isaac exactly at the\
+    \ emotional state he's in before he even considers a solution. Its brevity suits\
+    \ the relief-first, drama-free angle and lets the result emerge as an almost accidental\
+    \ discovery rather than a pitch."
+  production_notes: "B-roll must feel mundane and relatable (office lunch, fridge,\
+    \ afternoon slump) \u2014 avoid anything that looks like a health or wellness\
+    \ shoot, as visual polish will undercut the 'this is just a normal person's life'\
+    \ credibility the skeptic persona requires."

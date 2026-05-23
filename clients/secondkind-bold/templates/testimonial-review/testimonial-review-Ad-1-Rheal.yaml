@@ -1,0 +1,55 @@
+id: ugc-testimonial-quote-overlay
+name: UGC Testimonial Quote
+source: client-secondkind reference library
+category: testimonial-review
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- ugc-testimonial
+- text-overlay
+- quote-headline
+- social-proof-logo
+- cta-button
+- lifestyle-photo
+- product-in-use
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a high-quality, authentic-feeling lifestyle photo of a person sitting at
+  a table or counter in their home ([BACKGROUND]). The person should be smiling and
+  making eye contact with the camera. They are presenting the [PRODUCT] in one hand
+  and a glass showing the product in its prepared, ready-to-use state in the other.
+  Both items are clearly visible on the counter in the foreground.
+
+
+  On the bottom half of the image, create a centered text overlay.
+
+  1.  At the top of the overlay, add the [HEADLINE] as a two-line quote in quotation
+  marks. Use a clean, bold, sans-serif font in an [ACCENT] color.
+
+  2.  Directly below the quote, add a [SOCIAL_PROOF_LOGO_AND_RATING] element (e.g.,
+  Trustpilot logo with 5 stars).
+
+  3.  At the very bottom, place a solid, rounded rectangular button filled with a
+  dark [ACCENT] color. The button text should be the [CTA] in an all-caps, contrasting
+  white font, followed by a right-pointing arrow.
+
+
+  The overall aesthetic should be bright, clean, and trustworthy, with a UGC-style
+  authenticity.
+
+  '
+description: Use this template to build trust and overcome skepticism with a relatable
+  UGC-style image and a powerful testimonial quote, reinforced by social proof and
+  a clear call to action.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\testimonial-review\testimonial-review-Ad-1-Rheal.jpg

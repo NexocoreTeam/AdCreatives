@@ -1,0 +1,51 @@
+id: annotated-product-deconstruction
+name: Annotated Product Deconstruction
+source: client-secondkind reference library
+category: facts-and-stats
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- product-deconstruction
+- flat-lay
+- top-down-shot
+- handwritten-text
+- annotated-benefits
+- benefit-callout
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a top-down, flat-lay photograph of the [PRODUCT] on a textured, neutral-colored
+  [BACKGROUND] like off-white paper or light concrete. The lighting should be soft
+  and even.
+
+
+  The [PRODUCT] is the central hero and should be deconstructed. For example, if it''s
+  a capsule, show its two halves separated with the powdered contents lightly spilled
+  out in the middle.
+
+
+  Overlay several text elements in a casual, handwritten marker-style font using a
+  single [ACCENT] color.
+
+
+  The text elements are:
+
+  1.  A [BENEFIT] in the top-left quadrant with a simple, hand-drawn arrow pointing
+  to the product.
+
+  2.  A second [BENEFIT] on the right side, with a hand-drawn arrow pointing to the
+  product.
+
+  3.  A third [BENEF'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\facts-stats\facts-and-stats-Ad-4-Seed-1.png

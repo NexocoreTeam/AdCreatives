@@ -1,0 +1,174 @@
+name: SecondKind (Bold)
+code: SK-BOLD
+colors:
+  primary: '#1c1917'      # Black - signature serif headlines, body text
+  secondary: '#d2d2cd'    # Light Grey - supporting neutral
+  background: '#fefcf6'   # Snow White - warm off-white background
+  text: '#1c1917'         # Black
+  accent: '#fcb348'       # Mood Balance Yellow - sole warm marigold accent
+typography:
+  heading: F37 Caslon Condensed (Regular / Semibold / Bold; italic for emphasis)
+  body: Neue Montreal Medium / Bold
+visual_identity:
+  aesthetic: Science-backed wellness that feels like a Kinfolk magazine spread. It's
+    clinical and sophisticated, but with an organic, human touch.
+  photography_style: Clean, brightly-lit studio product photography on seamless, neutral
+    backgrounds. Every shot is the hero shot.
+  design_language: Editorial Minimalism. It has the structured grid and whitespace
+    of minimalism but the typographic refinement of a luxury magazine.
+  typography_feel: Classic editorial serif. A sophisticated, high-contrast serif (like
+    a Didone or Bodoni) is used for headlines, paired with a simple, supporting geometric
+    sans-serif for body copy.
+  mascot_or_character: none
+  visual_references:
+  - The clean, quasi-scientific aesthetic of Aesop or SEED
+  - Mid-century abstract graphic design (e.g., Alvin Lustig book covers)
+  - The typography and layout of high-end lifestyle magazines like CEREAL or Kinfolk
+  mood:
+  - calm
+  - scientific
+  - considered
+  - sophisticated
+  - premium
+  notable_visual_signatures:
+  - 'The central graphic: an abstract ''cloud'' of overlapping circles representing
+    the biological ''action'' of the product (e.g., the gut biome).'
+  - Using a single, muted accent color within the circle cloud to differentiate product
+    lines.
+  - Pairing a classic, elegant serif for the brand name and product title with a no-frills
+    sans-serif for functional text.
+  - Premium, dark amber glass jars, signaling an apothecary or scientific sensibility.
+  color_mood: Muted stone and charcoal neutrals, accented by a single desaturated
+    pop of color per product.
+tone: Confrontational, declarative, science-armed. Names the probiotic industry directly
+  as a structurally broken delivery model. Sides with the customer against the category,
+  never against the customer. Vindicates ("you weren't wrong, the product was"), diagnoses
+  the mechanism failure, then converts. Wry, not sneering. Receipts always arrive in
+  the next line. Phase 1 scope — paid acquisition and dedicated landing pages only;
+  main site stays measured under the polite voice in ../secondkind/.
+audience:
+  age_range: 28–50
+  gender: 'Skews female but not exclusively — male reviewers present; Instagram hashtags
+    include #WomensWellness but product and brand copy is gender-neutral'
+  interests:
+  - gut health
+  - functional medicine
+  - Huberman Lab / gut-brain content
+  - clean supplements
+  - debloating
+  - premium wellness
+  - apothecary aesthetics
+  - science-backed health
+platforms:
+- meta
+- tiktok
+press_mentions:
+- CBS
+- NBC
+- Silicon Valley Business Journal
+- USA Today
+- Daily Mail
+- Buffalo News
+social_proof:
+- 92% felt calmer in 2 weeks (brand-reported)
+- 89% reported less bloating (brand-reported)
+- 'Dr. Zachary Schwartz, MD (Family Medicine): ''Gut health isn''t a niche topic anymore
+  — it''s whole-body health, rooted in neuroscience and immunology.'''
+- 'Dr. Nancy Lin, PhD (Holistic Nutritionist): ''SecondKind stands apart because it''s
+  postbiotic-first — finally, a solution that aligns with what the science tells us
+  the body truly needs.'''
+- 'Dr. Stuart Weinberger, MD (Gastroenterologist): ''SecondKind is translating the
+  latest gut-brain research into something accessible for consumers.'''
+- 'Dr. Hyun Dong Shin, PhD (Microbiologist): ''Bereum promotes the production of SCFAs
+  to optimize microbiome balance. It''s why I recommend SecondKind.'''
+- 60-day money-back guarantee
+- Verified customer reviews on product pages (quantity not displayed in scraped content)
+founded: unknown
+founder: Remy Reinstein
+mission: To help people feel like themselves again by delivering clinically studied
+  postbiotics that support the gut-brain axis — the root cause of bloating, brain
+  fog, energy crashes, and mood dysregulation that probiotics have failed to solve.
+tagline: We don't sell bacteria.
+prohibited_terms:
+  # FDA structure-function compliance — supplements cannot claim to treat/cure/prevent disease
+  - cure
+  - treats
+  - heals
+  - prevents
+  - reverses
+  - eliminates
+  # Brand voice rules — anti-influencer, anti-hype
+  - miracle
+  - magical
+  - revolutionary
+  - life-changing
+  - game-changer
+  - guaranteed
+  # Tone violations
+  - amazing
+  - incredible
+  - mind-blowing
+  # Bold-voice anti-cheese — wellness fluff that undercuts confrontational posture
+  - journey
+  - ritual
+  - find your best self
+  - transform your
+  - begin your
+  - embrace your
+  - unlock your
+  - wellness lifestyle
+  - holistic
+guidelines_notes: |
+  VISUAL TREATMENT RULES (from style guide v1.1):
+  - Sentence case only, never ALL CAPS for headlines or body
+  - No drop shadows, no outlined text, no effects on text or logo
+  - No expanded type, no loose tracking with sentence case
+  - Tight kerning (-2) on F37 Caslon Condensed headlines
+  - Only brand typefaces: F37 Caslon Condensed (heading) + Neue Montreal (body)
+  - Logo: never outline, stretch, distort, contain in box, or use multi-color
+  - Always give logo breathing room (safe area)
+
+  SIGNATURE VISUAL DEVICE — abstract white dot/circle clusters representing the
+  microbiome. Used 4 ways:
+  1. The signature pattern (specific number + placement of overlapping dots)
+  2. Individual dots or connections as a mask over photography
+  3. Dots in graphics for brand association reinforcement
+  4. Technical point-based spherical graphics
+  A single saturated accent color (e.g., marigold #fcb348) lives WITHIN the
+  cluster on one or two dots to differentiate SKUs.
+
+  PRODUCT PACKAGING REFERENCE — dark amber glass jars with glossy black lids.
+  Stone-grey/papery labels. Logo and product name in F37 Caslon, details in
+  Neue Montreal. Strictly centered text alignment on labels.
+
+  VOICE (BOLD VARIANT) — confrontational, declarative, science-armed. The
+  probiotic-industrial complex is the named enemy at the category level. The
+  customer is the protagonist; the voice always sides with her against the
+  industry. Wry, not sneering. Every claim is backed by a receipt (the 70%
+  transit-death stat, the EpiCor RCT, the Bereum 84-day study, the colonization
+  failure, the plateau effect) in the next line. The four-beat arc on every
+  piece: name the suspicion she already had → diagnose the mechanism →
+  vindicate her → convert with the offer. See positioning.md and
+  brand-context.md for the full spine and operational rules.
+
+  HARD RULES FOR ADS (bold variant):
+  - NEVER name competitors by brand (Seed, Arrae, Ritual). Category-level
+    indictment only ("the probiotics you've tried," "live-culture model,"
+    "billions of CFUs," "proprietary blends nobody can decode").
+  - NEVER mock the customer's past purchases. The cut lands on the industry
+    or the mechanism, never on her.
+  - NEVER bash doctors or the medical establishment. Frame as "literature
+    ahead of practice" — Practitioner Paul is a target persona.
+  - NEVER lead with operational claims (60-day guarantee, refund, subscription
+    flex). Those close, not open. Lead with mechanism.
+  - Body / aesthetic-shame is permitted ONLY when the punch lands on the
+    mechanism, not on her. Off-limits for Natalie (postpartum); fair game
+    for Danielle (owns her bloating language); never for Paul (professional)
+    or Isaac (performance frame only).
+
+  PHASING:
+  - Phase 1 (now): paid acquisition + dedicated bold LPs. Main site stays
+    measured. This is a conversion test of the voice, not a brand-level reset.
+  - Phase 2 (post-validation): manifesto page on site, founder origin video,
+    homepage hero migrates.
+  - Phase 3 (optional): packaging, PR, whole-brand voice unification.

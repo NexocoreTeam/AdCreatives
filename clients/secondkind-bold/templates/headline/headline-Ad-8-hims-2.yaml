@@ -1,0 +1,66 @@
+id: conceptual-benefit-sky-hero
+name: Conceptual Sky Hero
+source: client-secondkind reference library
+category: headline
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- headline-overlay
+- product-hero
+- conceptual-background
+- dreamlike
+- footer-disclaimer-bar
+- text-over-image
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a full-bleed, photo-realistic conceptual [BACKGROUND]
+  that visually represents the product''s ultimate benefit (e.g., in the reference,
+  rumpled blue bedsheets blend into a blue sky to represent ''all night''). The scene
+  should feel clean, bright, and atmospheric.
+
+
+  TEXT:
+
+  - Use a text-on-image treatment for all copy.
+
+  - At the top, place a large, bold, two-line [HEADLINE] in an all-caps, heavy sans-serif
+  font. The text is white for high contrast.
+
+  - Directly below, add a smaller [SUBHEAD] that elaborates on the promise. The subhead
+  should be in a mixed-case font (can be serif or sans-serif).
+
+
+  PRODUCT PLACEMENT:
+
+  - Place a single, clean shot of the [PRODUCT] (e.g., packet, bottle) in the lower-middle
+  of the frame, resting on the background surface. The product should be photographed
+  with soft, natural lighting.
+
+
+  GRAPHIC ELEMENTS:
+
+  - At the very bottom, create a full-width footer bar with rounded top corners. The
+  bar should have a semi-transparent fill using a color from the [BACKGROUND].
+
+  - Inside the footer bar, place the [BRAND] wordmark on the far left. On the right,
+  add any necessary legal disclaimers or [DETAILS] in a small, legible font.
+
+  - Optionally, add two or three subtle, out-of-focus [DETAILS] (e.g., floating pills,
+  ingredients, abstract shapes) in the background to create depth and a dreamlike
+  effect.
+
+  '
+description: Use this template to create an aspirational, benefit-driven ad with a
+  large headline over a conceptual, dream-like visual backdrop. Ideal for products
+  whose benefits are abstract or emotional, like sleep, energy, or wellness.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\headline\headline-Ad-8-hims-2.png

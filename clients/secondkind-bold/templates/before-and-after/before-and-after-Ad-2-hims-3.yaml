@@ -1,0 +1,75 @@
+id: before-after-quadrant-diagonal
+name: Diagonal Quadrant B&A
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- before-and-after
+- ugc-photo
+- diagonal-layout
+- quadrant-grid
+- product-in-layout
+- serif-headline
+- solid-background
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 square ad with a solid [BACKGROUND] color. The layout is divided into
+  a four-quadrant grid.
+
+
+  LAYOUT:
+
+  - Top-Left Quadrant: Place a UGC-style "before" photo ([BEFORE_PHOTO]) of a person''s
+  face showing the problem. The photo should be contained within a large rounded rectangle
+  shape.
+
+  - Bottom-Right Quadrant: Place a UGC-style "after" photo ([AFTER_PHOTO]) of the
+  same person showing the positive result. The photo should also be within a large
+  rounded rectangle, mirroring the one in the top-left.
+
+  - Top-Right Quadrant: This area is for text. At the top, place the [BRAND] wordmark
+  in a small, lowercase, white font. Below it, centered in the quadrant, place the
+  [HEADLINE].
+
+  - Bottom-Left Quadrant: This area contains the product and supporting text. In the
+  upper half of this quadrant, place a studio-quality shot of the [PRODUCT], appearing
+  to float. Below the product, center the [SUBHEAD]. At the very bottom of the quadrant,
+  place any fine-print [DETAILS] in a small font.
+
+
+  TYPOGRAPHY:
+
+  - [HEADLINE]: Use a large, elegant serif font. The headline should be multi-line
+  and centered. Use a mix of white and a lighter [ACCENT] color for different words
+  to create emphasis.
+
+  - [SUBHEAD]: Use a medium-sized, white, serif font.
+
+  - [DETAILS]: Use a very small, thin, white font.
+
+
+  COLOR & STYLE:
+
+  - The overall aesthetic is clean, modern, and hopeful.
+
+  - The two user photos create a strong diagonal visual flow from top-left to bottom-right.
+
+  - The photography style for the "before" and "after" shots should be candid and
+  authentic, like a selfie.
+
+  '
+description: Use this template to showcase a clear transformation with user-generated
+  'before' and 'after' photos, arranged diagonally to imply progression. It's ideal
+  for building trust and proving efficacy during the consideration stage.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-2-hims-3.png

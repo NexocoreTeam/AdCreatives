@@ -1,0 +1,115 @@
+brief_id: secondkind-bold-gut-balance-464d07
+client: secondkind-bold
+product: Gut Balance
+awareness_level: problem_aware
+framework: bab
+angle: "A before/after arc that mirrors her exact internal monologue \u2014 faithful\
+  \ probiotic use, honest self-assessment, no results \u2014 then introduces postbiotics\
+  \ not as a product upgrade but as the answer to a question she has been asking for\
+  \ two years"
+hook: 'She took her probiotic every morning for two years.
+
+  Refrigerated. Expensive. Forty-eight strains.
+
+  Tracked her bloating. Tracked her energy. Tracked her digestion.
+
+  Nothing moved.
+
+
+  She wasn''t doing it wrong. The bacteria just weren''t surviving the trip.
+
+
+  Her gut didn''t need more bacteria.
+
+  It needed what the bacteria were supposed to make.
+
+  '
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar quote two years same gut plus competitive-gap probiotic long-term
+  plateau
+hook_tactic: "Storytelling \u2014 drop mid-moment into the lived experience of probiotic\
+  \ disappointment, then let the mechanism explain the turn"
+persona: Perimenopause Paula
+creative_mechanic: micro_story_plus_suspense
+visual_format: "Split-screen static \u2014 left panel shows an open probiotic bottle\
+  \ with a calendar marked off (two years of effort); right panel is intentionally\
+  \ sparse, just the mechanism line in clean type: 'Her gut needed what the bacteria\
+  \ were supposed to make.'"
+visual_format_alternatives:
+- "UGC-style video monologue \u2014 a real woman, no brand polish, speaking directly\
+  \ to camera about recognizing herself in that story, ending on the mechanism reframe"
+- "Long-form carousel \u2014 each card carries one beat of the story (the routine,\
+  \ the tracking, the nothing, the explanation, the pivot), designed to be read slowly\
+  \ by someone who recognizes every frame"
+persona_traits: "Methodical, self-aware woman 42\u201354 who approached gut health\
+  \ like a project, did everything right by the category's own standards, and is privately\
+  \ furious that it didn't work"
+pain_point: "Persistent bloating and digestive irregularity unresolved after sustained,\
+  \ high-quality probiotic use \u2014 quiet exhaustion of trying correctly and still\
+  \ failing"
+benefit_callouts:
+- 'Postbiotics: the output your gut was waiting for'
+- 84-day clinical study. Real outcomes, not rounding errors.
+- Shelf-stable. No cold chain. No dying on the shelf.
+cta: "Find out what your gut was actually missing \u2014 start here"
+body_copy: ''
+visual_direction: "Quiet, precise, slightly melancholy in the before \u2014 not dramatic\
+  \ suffering, just the quiet tedium of trying faithfully and getting nowhere. The\
+  \ turn should feel like relief, not celebration. Muted palette. The mechanism line\
+  \ should land like a diagnosis, not a sales pitch."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Paula is problem-aware and has been diligently doing everything right\
+    \ for two years \u2014 the long-form text monologue format mirrors her internal\
+    \ voice perfectly, letting the hook's exact language ('Refrigerated. Expensive.\
+    \ Forty-eight strains.') unspool line by line as she reads herself in the copy.\
+    \ The BAB framework lives naturally in the scroll-paced text overlay arc, moving\
+    \ from exhausted compliance to quiet revelation without ever feeling like an ad."
+  production_notes: "The text pacing must feel like internal monologue, not marketing\
+    \ copy \u2014 avoid exclamation points and urgency triggers that break the exhausted-but-hopeful\
+    \ tone Paula would actually have."
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 2
+  rationale: "Paula has already invested heavily in the probiotic category and gotten\
+    \ nothing \u2014 framing probiotics as the broken status quo (the Goliath) and\
+    \ postbiotics as the overlooked answer she never knew to ask for speaks directly\
+    \ to her frustration with a system she trusted. This format gives her intellectual\
+    \ permission to switch without feeling foolish for her past choices."
+  production_notes: "Be careful not to attack probiotic brands by name or make her\
+    \ feel stupid for using them \u2014 the enemy is the category gap and incomplete\
+    \ science, not her past decisions."
+- format_id: tiktok-short-pov
+  name: TikTok Short / POV
+  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
+    of B-roll. Fastest format to test. Borrows directly from what's trending in the
+    operator's own reels feed at time of creation.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: 'A single POV line like ''POV: you did everything right and your gut
+    still hates you'' lands the empathy hook instantly for Paula and can serve as
+    a fast-test entry point into the fuller story told in the Love Letter. Its low
+    complexity makes it ideal for testing which emotional angle of the brief resonates
+    before committing to longer formats.'
+  production_notes: "The B-roll must feel domestic and unglamorous \u2014 a probiotic\
+    \ bottle in a real fridge, a bloated abdomen, a supplement shelf \u2014 not aspirational\
+    \ wellness aesthetics that would feel foreign to Paula's lived experience."

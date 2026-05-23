@@ -1,0 +1,44 @@
+id: natural-hero-left-headline
+name: Natural Hero Headline
+source: client-secondkind reference library
+category: headline
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: conversion
+aspect_ratios:
+- '9:16'
+tags:
+- headline-overlay
+- product-hero
+- natural-background
+- pill-cta
+- accent-color-headline
+- premium
+- soft-light
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a full-screen, 9:16 aspect ratio ad with a [BACKGROUND] that is natural,
+  textural, and slightly out-of-focus (e.g., moss, sand, rich soil). The overall mood
+  should be premium and organic, with soft lighting and a subtle vignette effect darkening
+  the edges.
+
+
+  The [PRODUCT] is the visual hero, placed on the right side of the image, slightly
+  off-center. It should be shot at a gentle high angle, appearing to rest naturally
+  within the [BACKGROUND] scene.
+
+
+  TEXT HIERARCHY:
+
+  1.  **Brand:** Place the [BRAND] wordmark, small and clean, centered in the upper
+  third of'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\headline\headline-Ad-7-Seed.jpg

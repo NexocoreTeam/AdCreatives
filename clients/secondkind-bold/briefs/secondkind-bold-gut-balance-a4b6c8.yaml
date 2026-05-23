@@ -1,0 +1,107 @@
+brief_id: secondkind-bold-gut-balance-a4b6c8
+client: secondkind-bold
+product: Gut Balance
+awareness_level: problem_aware
+framework: pas
+angle: "Most probiotics never survive long enough to reach your gut \u2014 the survival\
+  \ rate stat reframes her failed results as a delivery problem, not a her problem"
+hook: "Most of the probiotics you swallow are dead before they reach your gut.\nNot\
+  \ weakened. Not diminished. Dead.\nThat's not a marketing claim \u2014 that's what\
+  \ happens when you pack live bacteria into a capsule and send it through stomach\
+  \ acid.\nFor the last decade, gut health brands have been selling you the idea of\
+  \ probiotics. The mechanism has been broken the whole time.\nGut Balance doesn't\
+  \ use live bacteria. It delivers the 1 trillion bioactive compounds your gut actually\
+  \ needed from them \u2014 already active, already stable, already working when they\
+  \ arrive.\nYou weren't doing it wrong. The product was.\n"
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap probiotic survivability and avatar pain probiotic fatigue
+hook_tactic: "Statistic with a reframe \u2014 lead with a specific number that indicts\
+  \ the category, then pivot to the mechanism that explains it"
+persona: Done-Everything Danielle
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: Text-on-dark-background static ad with a single stark number ('1 trillion')
+  as the visual anchor, minimal design
+visual_format_alternatives:
+- "Whiteboard-style explainer video showing a capsule dissolving in stomach acid before\
+  \ reaching the gut \u2014 mechanism visualized, no lifestyle imagery"
+- 'Split-screen static: left side shows a probiotic capsule labeled ''what you took,''
+  right side shows a gut diagram labeled ''what arrived'' with the survival stat between
+  them'
+persona_traits: "Research-oriented woman 30\u201344 who has cycled through multiple\
+  \ probiotic brands, spent real money, and quietly concluded that gut supplements\
+  \ just don't work for her"
+pain_point: "Probiotic fatigue \u2014 she has spent real money on multiple brands\
+  \ and felt nothing meaningful change"
+benefit_callouts:
+- "1 trillion bioactives \u2014 delivered, not hoped for"
+- No live bacteria. No survival gamble.
+- Shelf-stable. Third-party tested. Already active.
+cta: See how the delivery actually works
+body_copy: ''
+visual_direction: "Cold, clinical, minimal \u2014 this ad should feel like a lab finding,\
+  \ not a wellness brand. A single stark number dominates. No smiling women. No green\
+  \ juice. The restraint is the signal that this brand is different."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Danielle is probiotic-fatigued and has already spent real money on multiple\
+    \ brands \u2014 the David & Goliath format lets the brief name the real enemy\
+    \ (dead-on-arrival probiotics from big brands) before positioning Gut Balance\
+    \ as the delivery-problem solution, which maps perfectly onto the PAS framework\
+    \ and the survival-rate hook. Her frustration is pre-loaded and this format channels\
+    \ it outward at the industry rather than inward at herself."
+  production_notes: The 'Goliath' must be clearly framed as the entire category flaw
+    (poor survivability), not a single named competitor, to avoid legal exposure while
+    still triggering Danielle's recognition of her past failed purchases.
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 2
+  rationale: "Danielle is skeptical of traditional probiotic marketing after repeated\
+    \ letdowns, so a format that disarms that skepticism by being transparently un-real\
+    \ is strategically smart \u2014 a Pixar-style animated probiotic capsule dramatically\
+    \ 'dying before it reaches the gut' visualizes the surprising stat in a way that\
+    \ feels fresh rather than another brand making claims. The wellness and supplement\
+    \ best-for tags align directly with her category."
+  production_notes: "The animation must visually dramatize the death-before-delivery\
+    \ concept with enough specificity (stomach acid dissolving the capsule, for example)\
+    \ to make the stat tangible \u2014 generic cuteness without that mechanism will\
+    \ waste the hook."
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "The long text-overlay format gives enough room to walk through the full\
+    \ PAS arc \u2014 naming the pain of wasted money, agitating with the dead-probiotic\
+    \ stat, then presenting Gut Balance as the delivery fix \u2014 while the direct\
+    \ 'Listen, girls who have tried everything' opener mirrors Danielle's exact identity\
+    \ as someone who has already done her homework. The low complexity also allows\
+    \ rapid iteration on the stat-led hook."
+  production_notes: The text monologue must front-load the surprising stat in the
+    first line rather than burying it mid-scroll, or Danielle's trained thumb-swipe
+    reflex will kill the view before the PAS agitation lands.

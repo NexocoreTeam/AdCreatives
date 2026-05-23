@@ -1,0 +1,113 @@
+brief_id: secondkind-bold-gut-balance-0c7dc7
+client: secondkind-bold
+product: Gut Balance
+awareness_level: problem_aware
+framework: pastor
+angle: "She ate clean all day, still bloated by dinner \u2014 the story opens in that\
+  \ exact moment, then walks through why the biology was working against her the whole\
+  \ time and what changed when the delivery model changed"
+hook: "She'd done everything right that day.\nOatmeal for breakfast. Salad at lunch.\
+  \ Skipped the wine.\nBy 7pm she looked three months pregnant.\n\nShe wasn't imagining\
+  \ it. She wasn't being dramatic.\nShe was on her third probiotic in two years, taking\
+  \ it faithfully every morning, and her gut was still running its own agenda.\n\n\
+  Here's what nobody told her: those probiotics were probably fine products.\nThe\
+  \ problem is that live bacteria have to survive your stomach acid, survive your\
+  \ small intestine, and somehow establish themselves in an environment that already\
+  \ has a resident population.\nMost don't make it. The ones that do face an uphill\
+  \ colonization battle.\nThat's not a flaw in a specific brand. That's the structural\
+  \ reality of sending live organisms through a digestive system designed to destroy\
+  \ them.\n\nGut Balance doesn't send live bacteria. It sends what your gut actually\
+  \ uses \u2014 1 trillion stable bioactive compounds from three clinically studied\
+  \ postbiotics, already processed, already active the moment they arrive.\n\nShe's\
+  \ been on it for six weeks. The dinner bloat is gone. Her energy doesn't fall off\
+  \ a cliff at 3pm anymore. She said she didn't realize how much she'd just accepted\
+  \ feeling off until she stopped feeling that way.\n\nThat's not a miracle. That's\
+  \ what happens when the delivery model actually works.\n"
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar pain persistent bloating and competitive-gap probiotic results
+  plateau and gap energy brain fog
+hook_tactic: "Micro-story with a suspense pivot \u2014 open mid-experience in her\
+  \ specific moment of frustration, build recognition, then introduce the mechanism\
+  \ as the resolution she didn't expect"
+persona: Done-Everything Danielle
+creative_mechanic: micro_story_plus_suspense
+visual_format: "UGC-style talking head video \u2014 woman speaking directly to camera\
+  \ in natural light, casual setting, no visible branding until the final frames;\
+  \ sounds like a conversation, not an ad"
+visual_format_alternatives:
+- "Scrolling text ad (kinetic typography) \u2014 the story renders as text on screen,\
+  \ one beat at a time, with the mechanism reveal hitting as a full-frame statement"
+- "Documentary-style B-roll video \u2014 dinner table, clean food prep, then a woman\
+  \ quietly looking uncomfortable; voiceover delivers the story without a talking\
+  \ head"
+persona_traits: "Health-conscious woman 30\u201344 who eats clean, has tried multiple\
+  \ probiotics without meaningful results, and has quietly normalized low energy and\
+  \ end-of-day bloat as just how her body is"
+pain_point: "Persistent bloating that shows up even on clean-eating days \u2014 eating\
+  \ clean, working out, and still bloated by dinner"
+benefit_callouts:
+- Postbiotics skip the survival gauntlet entirely
+- Clinically studied. Not clinically hoped.
+- "The bloat that showed up on good days \u2014 gone"
+cta: Read how the mechanism is different
+body_copy: ''
+visual_direction: "The visual tone should feel like a real person's account, not a\
+  \ brand's story. Natural light. Relatable domestic setting. The product appears\
+  \ only after the mechanism is explained \u2014 the science earns the product reveal,\
+  \ not the other way around."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Danielle is problem_aware and emotionally exhausted from doing everything\
+    \ right \u2014 the Love Letter format's direct callout vernacular ('Listen, girls\
+    \ who eat clean all day...') mirrors her inner monologue and creates immediate\
+    \ identity recognition. The long text overlay lets the PASTOR framework breathe,\
+    \ walking her through the biology betrayal and the delivery-model shift without\
+    \ feeling like a sales pitch."
+  production_notes: "The text monologue must earn trust before introducing Gut Balance\
+    \ \u2014 at least 60-70% of the copy should stay in Danielle's emotional experience\
+    \ before pivoting to solution, or the format will feel bait-and-switch."
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 2
+  rationale: "Danielle has already tried clean eating \u2014 which means the enemy\
+    \ isn't junk food, it's the lie that clean eating alone fixes bloating, making\
+    \ the broken-status-quo version of this format a perfect fit for her frustration.\
+    \ Calling out the conventional wisdom that 'just eat better' is enough validates\
+    \ her experience and sets up Gut Balance's delivery model as the genuine differentiator."
+  production_notes: Be precise about naming the 'Goliath' as a broken belief system
+    (not a competitor brand) to avoid legal risk and to keep the emotional resonance
+    on Danielle's side rather than drifting into brand-bashing territory.
+- format_id: tiktok-short-pov
+  name: TikTok Short / POV
+  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
+    of B-roll. Fastest format to test. Borrows directly from what's trending in the
+    operator's own reels feed at time of creation.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: 'A single-line POV like ''POV: you ate perfectly clean today and still
+    look 3 months pregnant by 7pm'' captures Danielle''s exact pain moment instantly
+    and is purpose-built for problem_aware scroll-fatigued audiences. It works as
+    a fast top-of-funnel test to qualify the audience before serving the longer Love
+    Letter or David & Goliath creative.'
+  production_notes: "B-roll must visually reinforce the bloat-by-dinner moment \u2014\
+    \ avoid generic \"wellness\" footage like salads and gym shots, which will feel\
+    \ tone-deaf to the relief-focused angle of this hook."

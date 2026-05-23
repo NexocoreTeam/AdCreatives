@@ -1,0 +1,56 @@
+id: editorial-infographic-explainer
+name: Scientific Explainer Card
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- unaware
+- problem_aware
+- solution_aware
+funnel_stage: awareness
+aspect_ratios:
+- '1:1'
+tags:
+- infographic
+- scientific-illustration
+- editorial-serif
+- minimalist
+- centered-layout
+- text-box
+template_prompt: 'Create a 1:1 square ad with a clean, minimalist, and educational
+  aesthetic, following a vertically stacked, centered composition.
+
+
+  BACKGROUND: Use a solid [BACKGROUND] color, like an off-white or warm cream.
+
+
+  LAYOUT & CONTENT:
+
+  1.  **HEADLINE (Top):** Place a large, two-line [HEADLINE] at the top. The headline
+  should reference a common phrase or surprising fact, with the key concept in quotes.
+  Use a clean, black, sans-serif font.
+
+  2.  **INFOGRAPHIC (Center):** In the middle of the canvas, place a central graphic
+  that visually represents the concept from the headline. This graphic should consist
+  of two objects (e.g., [DETAILS] like ''a wireframe brain and a wireframe stomach'')
+  rendered as black, scientific-style wireframe illustrations. A thin, black, dotted
+  line with small dots along its path should connect the two illustrated objects to
+  show their relationship.
+
+  3.  **BODY COPY (Below Center):** Below the infographic, display the [BODY] copy.
+  This text should explain the scientific principle behind the headline. Place this
+  copy inside a rounded rectangular text box with a subtle drop shadow to lift it
+  off the background. The text itself should be a black serif font.
+
+  4.  **BRAND (Bottom):** At the very bottom of the ad, center the [BRAND] wordmark
+  in a black serif font.
+
+  '
+description: Use this template to explain the science behind a common saying or concept
+  related to your product's category. It's excellent for building authority and educating
+  an audience at the top of the funnel.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\98.png

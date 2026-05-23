@@ -1,0 +1,37 @@
+id: hand-held-hero-arrow-callout
+name: Hand-Held Hero with Arrow
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- product-hand-held
+- hero-shot
+- minimalist-layout
+- arrow-graphic
+- headline-left
+- studio-lighting
+- editorial-sans-serif
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a minimalist and premium aesthetic.
+
+
+  BACKGROUND:
+
+  Use a solid, neutral [BACKGROUND] color, like a warm light gray or off-white. Apply
+  soft, sophisticated studio lighting that creates a subtle vignette effect, making
+  the center slightly brighter'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\92.png

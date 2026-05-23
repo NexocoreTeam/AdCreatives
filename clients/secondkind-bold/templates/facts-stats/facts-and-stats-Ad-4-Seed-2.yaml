@@ -1,0 +1,55 @@
+id: annotated-product-deconstructed
+name: Deconstructed Product Markup
+source: client-secondkind reference library
+category: facts-and-stats
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- handwritten-annotation
+- product-deconstructed
+- top-down-flatlay
+- benefit-callouts
+- offer-callout
+- studio-shot
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 square aspect ratio image with a top-down studio shot of the [PRODUCT]
+  on a [BACKGROUND] like a light-colored, subtly textured paper or concrete surface.
+
+
+  The [PRODUCT] itself should be ''deconstructed'' at the center of the image, showing
+  its core components (e.g., a capsule pulled apart with its powder spilled out, or
+  a food item with its ingredients laid out).
+
+
+  Overlay several annotations around the central product using a handwritten-style
+  script font. The annotations should use a single bold [ACCENT] color, ideally drawn
+  from the product''s packaging or color scheme.
+
+
+  The annotations should be laid out as follows:
+
+  - TOP LEFT: The first benefit, `[BENEFIT]`, with a hand-drawn arrow pointing from
+  the text toward the product.
+
+  - MIDDLE RIGHT: The second benefit, `[BENEFIT]`, written on two lines, with a hand-drawn
+  arrow pointing from the text toward the product.
+
+  - BOTTOM RIGHT: The third benefit, `[BENEFIT]`, written on two lines, with a hand-drawn
+  arrow pointing from the text toward the product.
+
+  - MIDDLE LEFT: A hand-drawn, wobbly circle enclosing a promotional offer. Inside
+  the circle, write the `[HEADLINE]` on two lines (e.g. "Get 25% OFF"), followed by
+  the [PRODUCT] name and [CTA] (e.g. "now!").'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\facts-stats\facts-and-stats-Ad-4-Seed-2.png

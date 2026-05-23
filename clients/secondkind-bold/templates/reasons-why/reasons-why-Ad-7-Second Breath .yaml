@@ -1,0 +1,53 @@
+id: reasons-why-handwritten-list
+name: Handwritten Reasons Why List
+source: client-secondkind reference library
+category: reasons-why
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- reasons-why
+- text-card
+- handwritten-font
+- emoji-list
+- centered-text
+- pain-point-focus
+- listicle
+template_prompt: 'A 1:1 square ad with a plain [BACKGROUND] (e.g., white with a subtle
+  paper texture). The entire ad is composed of center-aligned text styled to look
+  like an informal, handwritten note.
+
+
+  LAYOUT & TYPOGRAPHY:
+
+  All text is center-aligned. Use a mix of informal, hand-written style fonts to create
+  a clear hierarchy.
+
+
+  1.  **Headline:** At the top, the [HEADLINE] (e.g., "3 REASONS TO TRY") is in an
+  all-caps, black, handwritten-style font with a thin, hand-drawn black underline.
+
+
+  2.  **Product Name:** Immediately below, display the [PRODUCT] name. This text is
+  larger and bolder than the headline, using a slightly more rounded but still informal
+  font in a bright [ACCENT] color. It has a thick, rough, hand-drawn underline in
+  the same [ACCENT] color.
+
+
+  3.  **Subhead:** Below the product, add the [SUBHEAD] (e.g., "GET RELIEF FROM...").
+  This is in a smaller, black handwritten font with its own thin, hand-drawn black
+  underline.
+
+
+  4.  **Numbered List:** Below the subhead, create a numbered list of three pain points.'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\reasons-why\reasons-why-Ad-7-Second
+  Breath .jpg

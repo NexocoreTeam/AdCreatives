@@ -1,0 +1,38 @@
+filename: facts-and-stats-Ad-3-Wild.jpg
+file_id: 1R9cz3aQ31wPpkNmXVSb02ynA7ba52Xdt
+mime_type: image/png
+is_video_frame: false
+analysis:
+  hook_visible: Wild x Cath Kidston ROLL-ON DEODORANT fast-drying 95% natural refillable
+    case invisible finish 24-hour protection Wild Cath Kidston
+  hook_type: stat
+  copy_treatment: A main headline is overlaid at the top, with multiple smaller text
+    callouts surrounding the product, each pointing to a specific feature.
+  visual_format: product_hero
+  creative_mechanic: Product feature callouts
+  elements_present:
+  - product_shot
+  - text_overlay
+  - logo_visible
+  - ugc_aesthetic
+  mood:
+  - feminine
+  - clean
+  - stylish
+  color_palette_dominant:
+  - '#242A46'
+  - '#F99EAA'
+  - '#DEDAD3'
+  composition_notes: The product is held diagonally at the center, creating a dynamic
+    focal point, while text callouts with arrows guide the eye around the key features.
+  likely_strengths: This ad quickly communicates multiple value propositions (natural,
+    refillable, 24-hour protection) in a single, scannable image. The Cath Kidston
+    collaboration adds a strong design and brand affinity appeal, making a utility
+    item feel like a fashion accessory.
+  likely_weaknesses: The ad is very feature-dense, which might overwhelm some viewers
+    or feel too much like a traditional ad. It relies heavily on the viewer already
+    having interest in natural or refillable deodorants rather than creating that
+    interest from scratch.
+  extraction_confidence: high
+  confidence_notes: This is a static image, so all creative elements are fully visible
+    and analyzed directly.

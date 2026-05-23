@@ -1,0 +1,20 @@
+id: minimalist-promo-z-pattern
+name: Minimalist Promo Z-Pattern
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: null
+aspect_ratios:
+- '1:1'
+tags: []
+template_prompt: ''
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\headline\headline-Ad-5-Seed-1.jpg

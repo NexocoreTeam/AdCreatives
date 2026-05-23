@@ -1,0 +1,29 @@
+id: lifestyle-headline-overlay-new-tag
+name: Lifestyle Headline Overlay
+source: client-secondkind reference library
+category: headline
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- headline-overlay
+- lifestyle-imagery
+- product-in-use
+- pill-tag
+- sans-serif
+- minimalist
+- dark-top-vignette
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad based on a single, full-bleed, professional lifestyle photograph. The'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\headline\headline-Ad-1-Caraway-1.png

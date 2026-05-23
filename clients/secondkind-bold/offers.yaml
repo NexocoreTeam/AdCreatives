@@ -1,0 +1,492 @@
+existing_offers:
+- name: Subscribe & Save — Monthly (10% off)
+  type: subscription
+  details: Monthly subscription saves 10% off one-time price. Gut Balance drops from
+    $49.99 to $44.99. Mood Balance drops from $49.99 to $44.99. Cancel or pause anytime
+    via account portal or email.
+  where_found: https://secondkind.com (homepage subscribe widget) and https://secondkind.com/policies/refund-policy
+  on_brand: true
+  notes: Core continuity mechanic. Monthly cadence aligns with 30-day bowel regularity
+    claim on Totipro. Framing as 'subscribe' rather than 'auto-ship' is appropriate
+    for a science-credible brand. Cancellation friction appears low.
+- name: Gut & Mood Trial Pack — 15% Off Bundle
+  type: bundle
+  details: Gut Balance + Mood Balance purchased together via discount code 'Gut-MoodBundle'
+    at checkout. One-time price $84.99 (vs $99.98 individual). Discounted via direct
+    cart link https://secondkind.com/cart/47209913909435:1?discount=Gut-MoodBundle.
+    Labeled 'Gut & Mood Trial Pack 15% OFF' in subscribe widget.
+  where_found: https://secondkind.com (homepage subscribe widget and product section)
+  on_brand: true
+  notes: Strong gut-brain axis narrative hook. The 15% off positions the bundle as
+    the rational purchase for someone exploring the full system. The product page
+    also shows a 'Save 15%' badge. Subscription version of this bundle (both products
+    subscribed together) shows as a path option.
+- name: Gut Balance One-Time First Purchase — 30% Off ($35)
+  type: trial
+  details: Referenced in brand context as 'First one-time purchase promoted at 30%
+    off ($35).' Not visibly surfaced in crawled pages as a live sitewide promo, but
+    listed in brand brief as an active promotional mechanism.
+  where_found: Brand context document (not confirmed as live on crawled pages — may
+    be ad/landing-page-specific)
+  on_brand: true
+  notes: 'First-purchase discount at $35 is a meaningful trial price point for a $49.99
+    hero SKU. Positions entry as low-risk without undercutting the science-premium
+    framing. Should be tracked carefully — if visible only in ads, ensure landing
+    page consistency. FLAG: could not confirm on crawled pages; may be paid traffic
+    only.'
+- name: 60-Day Feel It Fast Guarantee
+  type: refund_guarantee
+  details: Try for up to 60 days from delivery. If no meaningful shift felt in gut,
+    mood, energy, or clarity, receive a full refund of purchase price (less shipping,
+    taxes, duties). No return shipment required in most cases. Applies to first single-bottle
+    orders and first subscription single-bottle orders only — does NOT apply to multipacks
+    or multipack subscriptions. Email info@secondkind.com with order number and brief
+    experience note. Approved refunds issued within 3-5 business days.
+  where_found: https://secondkind.com/pages/return-policy and https://secondkind.com/policies/refund-policy
+  on_brand: true
+  notes: Extremely strong risk-reversal for a supplement brand. The naming ('Feel
+    It Fast Guarantee') directly echoes the brand promise and the clinical speed claims
+    (Bereum 84-day study, Totipro 30-day regularity). The 60-day window is best-in-category.
+    Excluding multipacks from the guarantee is a smart abuse-prevention move but creates
+    a potential conversion friction point for multi-month purchasers — worth A/B testing
+    bundle guarantee messaging.
+- name: Free Shipping on Orders $60+ and All Subscriptions
+  type: shipping_threshold
+  details: Standard free shipping on all orders of $60 or more. All qualifying subscription
+    orders also receive free shipping regardless of order value. Standard shipping
+    otherwise calculated at checkout. Processing 1-2 business days; delivery 3-7 business
+    days standard. Expedited 1-3 business days if offered.
+  where_found: https://secondkind.com/policies/shipping-policy and homepage subscribe
+    widget ('Subscriptions & Orders $60+ Free shipping')
+  on_brand: true
+  notes: The $60 threshold is just above the Gut Balance single-unit price ($49.99),
+    creating a natural nudge toward the bundle ($84.99+) or subscription ($44.99 but
+    qualifies). This threshold engineering is sensible. The free shipping on all subscriptions
+    removes a recurring objection for auto-ship hesitancy.
+- name: SMS & Email List — 10% Off Signup
+  type: other
+  details: Footer/homepage email + phone number signup form offering 10% off for joining
+    ('Get 10% off. Get Balanced.'). Collects name, email, and phone number. SMS consent
+    language included (cart reminders, marketing texts).
+  where_found: https://secondkind.com (homepage footer email/SMS signup widget) —
+    present on all crawled pages
+  on_brand: true
+  notes: The 10% offer is a standard acquisition mechanism but slightly undersells
+    the brand's sophistication. The copy 'Get Balanced' is on-brand. Worth testing
+    against a non-discount lead magnet (e.g., the gut-brain quiz or a science explainer
+    PDF) to determine whether educated opt-ins convert better with information vs.
+    savings framing.
+- name: Smile.io Rewards Program — 3 Points per $1 Spent
+  type: other
+  details: Loyalty rewards program (powered by Smile.io). Earn 3 points for every
+    $1 spent. Redeem 100 points for $2 off next purchase (2% back effectively). Sign
+    up or log in to participate.
+  where_found: https://secondkind.com/pages/rewards
+  on_brand: true
+  notes: 2% back is a relatively low-yield loyalty offer for a $50 supplement with
+    a reorder cycle. Competitive brands like Seed offer richer loyalty perks. However,
+    the program exists, which is a retention signal. Consider layering in non-discount
+    reward tiers (early access, science content, community status) to protect premium
+    positioning while incentivizing LTV.
+- name: Cancellation Flexibility — Skip, Pause, or Cancel Anytime
+  type: subscription
+  details: Subscribers can skip, pause, or cancel at any time before next renewal
+    via account portal or by emailing info@secondkind.com. Price change notifications
+    sent in advance. Cancellations effective end of current billing period. Subscription
+    price changes can be cancelled before they take effect.
+  where_found: https://secondkind.com/policies/refund-policy and https://secondkind.com/policies/terms-of-service
+  on_brand: true
+  notes: Explicit low-friction cancellation policy reduces perceived risk for subscription
+    sign-up. Should be made more prominent in the subscribe widget itself — currently
+    buried in policy pages. This is a meaningful offer differentiator versus brands
+    that obscure cancellation paths.
+- name: Exchange Option Within 60 Days
+  type: other
+  details: Customers can request a product exchange (different formula or SKU) instead
+    of a refund within 60 days of delivery. Subject to inventory availability.
+  where_found: https://secondkind.com/pages/return-policy and https://secondkind.com/policies/refund-policy
+  on_brand: true
+  notes: Useful for customers who tried Gut Balance and want to try Mood Balance or
+    the bundle. An underutilized conversion mechanism — not currently merchandised
+    as a benefit on product pages.
+- name: Damaged or Incorrect Items — Replacement or Refund Within 14 Days
+  type: refund_guarantee
+  details: If order arrives damaged, defective, melted, or incorrect, contact within
+    14 days of delivery with photos and order number for replacement or refund.
+  where_found: https://secondkind.com/pages/return-policy and https://secondkind.com/policies/refund-policy
+  on_brand: true
+  notes: Standard DTC policy. Shelf-stable formulation (no refrigeration required)
+    reduces melt/damage claims — worth highlighting as a product differentiator vs.
+    refrigerated probiotic competitors.
+suggested_offers:
+- name: The Postbiotic Switch Protocol — 30-Day Starter Kit
+  type: trial
+  rationale: The ICP's top objection is 'I've already tried probiotics — why would
+    this be different?' This offer reframes the first purchase not as a supplement
+    but as a structured protocol with a defined endpoint, directly addressing the
+    skepticism that prior supplement failures create. The 30-day framing aligns with
+    Totipro's clinical bowel regularity window and Bereum's early GI symptom improvement
+    data. It is a mechanism-first offer, not a discount-first offer.
+  target_persona: primary
+  target_awareness_stage: problem_aware
+  value_equation:
+    dream_outcome: Finish one full bottle and feel noticeably lighter, less bloated,
+      and more mentally clear — with a scientific explanation for why it worked when
+      probiotics didn't
+    perceived_likelihood_lever: Anchored to Totipro 30-day clinical regularity data
+      and Bereum 84-day GI improvement RCT, plus the 60-day money-back guarantee as
+      backstop. On-pack or in-kit include a simple 'Day 1 / Week 2 / Day 30' tracking
+      prompt referencing the specific bioactive mechanisms.
+    time_delay_lever: 30 days to a defined outcome checkpoint rather than open-ended
+      'give it a few months' — postbiotic format bypasses digestion survival delay
+      entirely, so day-one dosing begins immediately acting vs. probiotic colonization
+      waiting period
+    effort_lever: Two capsules daily. No dietary changes required. No refrigeration.
+      Ships in 1-2 days. A brief PDF insert (or email sequence) explains the mechanism
+      so the customer feels educated rather than confused about what is happening
+      inside their body.
+  suggested_structure: 'First single-bottle of Gut Balance at standard price ($49.99)
+    packaged and positioned as ''The 30-Day Postbiotic Switch Protocol.'' Includes
+    a downloadable (email-delivered) 4-page science brief: ''What Probiotics Were
+    Trying to Do — And Why Postbiotics Skip Straight to the Result.'' Backed by existing
+    60-day guarantee. No price discount. The offer is value-added framing, not a monetary
+    concession.'
+  risk_reversal: 60-Day Feel It Fast Guarantee already covers the full first bottle.
+    The protocol framing removes emotional risk by giving the customer a narrative
+    ('I am doing a deliberate protocol') rather than 'trying yet another supplement.'
+  urgency_mechanic: None manufactured. The clinical study timelines (30 days, 84 days)
+    create natural milestone urgency through education rather than artificial countdown
+    timers.
+  pricing_anchor_logic: No discount. Anchor against the cost of continuing to buy
+    probiotics that don't work ($30-60/month for brands like Align, Garden of Life,
+    etc.) plus the compounding cost of bloating, brain fog, and low energy on productivity
+    and quality of life. Frame $49.99 as the price of finally understanding why the
+    others failed.
+  estimated_lift: high
+  creative_angle: You've been trying to fix your gut for years. Every probiotic promises
+    it. None explains why it doesn't work. Here's the science — and the first supplement
+    built around it.
+  notes: 'This offer requires no discounting and no new product SKU. It is entirely
+    a positioning and content overlay on the existing first-purchase flow. The science
+    brief should be developed as a standalone asset usable in ads, email onboarding,
+    and organic content. Regulatory note: all mechanism claims must be accompanied
+    by standard FDA disclaimer. Do not claim the supplement ''treats'' any condition.'
+- name: The Gut-Brain System Bundle — Gut Balance + Mood Balance Starter Pair
+  type: bundle
+  rationale: The ICP persona understands gut-brain axis intuitively (91% serotonin,
+    50% dopamine framing already resonates with them on Instagram). This persona is
+    wellness-curious, likely already spending on multiple supplements, and is a natural
+    candidate for the full system. The existing 15% bundle is already live but is
+    not being sold with a strong mechanism story. This offer layers a richer rationale
+    onto the existing mechanic to increase bundle attach rate.
+  target_persona: primary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Wake up in two weeks lighter in the gut and noticeably calmer in
+      the mind — your digestion running quietly in the background while your mood
+      and focus stabilize, without adding another complex supplement routine
+    perceived_likelihood_lever: Both products share the BiomeBalance complex, creating
+      a compounding story. 89% reported less bloating + 92% felt calmer in 2 weeks
+      (homepage stats) become more credible when presented as a system rather than
+      separate claims. Endorsed by Dr. Zachary Schwartz and Dr. Nancy Lin who speak
+      to both gut and mood axes.
+    time_delay_lever: Gut results begin within the first bottle (many within 2 weeks
+      per homepage stats). Mood Balance adds saffron extract and lemon balm — traditionally
+      fast-acting mood modulators — so complementary effects begin concurrently rather
+      than sequentially.
+    effort_lever: Two jars, same daily routine. Gut Balance AM or PM. Mood Balance
+      PM (melatonin-containing). One checkout. Free shipping already covered by $60+
+      threshold.
+  suggested_structure: 'Existing Gut & Mood Bundle at $84.99 one-time (15% off) or
+    $75.64 on subscribe. Reposition as ''The Gut-Brain System — 30-Day Complete Protocol.''
+    Add a short comparison explainer in bundle PDP: ''Gut Balance addresses the foundation.
+    Mood Balance targets the signal. Together they address the axis.'' Include a mechanism
+    diagram showing gut-brain communication. The existing discount code and cart link
+    are already in place — this is a content and positioning lift.'
+  risk_reversal: 60-day guarantee on first-time single-bottle orders is the backstop.
+    Consider extending first-cycle refund language explicitly to this bundle in the
+    return policy to remove the hesitation a potential customer might feel about committing
+    to two products at once.
+  urgency_mechanic: 'None required. Bundle value is inherent. However: a ''Start the
+    System'' limited-inventory message (''Only X bundles assembled per batch run'')
+    could be tested if brand context supports it. Do not fabricate scarcity.'
+  pricing_anchor_logic: Two individual probiotic subscriptions at brands like Seed
+    ($49.99/mo) + a separate mood supplement ($30-40/mo) = $80-90/month. The full
+    SecondKind system is $75.64/month on subscribe — better value, mechanistically
+    superior, one brand relationship. Frame as the smarter system, not just a savings.
+  estimated_lift: high
+  creative_angle: Most people treat their gut and their mood as two separate problems.
+    They're not. One system. Two capsules. Start here.
+  notes: The existing 'Gut-MoodBundle' discount code is already live. The lift here
+    comes entirely from upgraded positioning and a mechanism story, not from changing
+    the price or structure. A/B test bundle PDP copy (current vs. gut-brain axis system
+    framing) to isolate creative lift.
+- name: The Skeptic's First Bottle — Read the Science First, Pay Later Framing
+  type: lead_magnet
+  rationale: The top objection 'Is this just a marketing term?' (about postbiotics)
+    signals a science-curious, marketing-fatigued audience who will not convert on
+    discount alone. They need to feel like they discovered the science before they
+    feel safe buying. This offer places educational content — specifically, the postbiotic
+    mechanism explained credibly — as the lead entry point before the first purchase
+    ask. It directly addresses the 'why is this different?' objection at the awareness
+    level.
+  target_persona: primary
+  target_awareness_stage: problem_aware
+  value_equation:
+    dream_outcome: Understand exactly what has been happening in their gut all along
+      — and why the postbiotic approach is structurally different — before spending
+      a dollar. Then buy with confidence rather than hope.
+    perceived_likelihood_lever: The lead magnet itself is the proof. A credible, jargon-minimized
+      explanation of short-chain fatty acids, gut lining integrity, and BiomeBalance's
+      patented mechanism — co-attributed to the four doctors on the homepage — creates
+      perceived likelihood before purchase, not after.
+    time_delay_lever: Immediate digital delivery of the science brief. The prospect
+      gets value (education) the moment they opt in, before the product ships.
+    effort_lever: No purchase required to access. Email only opt-in. Mobile-formatted
+      6-panel science brief or a 3-minute animated explainer video hosted on a landing
+      page. Zero supplement fatigue friction — the ask is 'learn,' not 'buy.'
+  suggested_structure: 'Create a standalone asset: ''The Postbiotic Explainer — Why
+    Probiotics Have a Delivery Problem (And What Comes After Them).'' Offer as a free
+    download in exchange for email (and optional SMS). 6-panel PDF or email series:
+    Panel 1 — The gut''s real job. Panel 2 — What probiotics were supposed to do.
+    Panel 3 — The delivery problem (70% never reach the gut). Panel 4 — What postbiotics
+    are (the harvest, not the seed). Panel 5 — What BiomeBalance specifically delivers.
+    Panel 6 — The 60-day protocol and guarantee. Post-opt-in sequence: Day 0 deliver
+    asset; Day 2 send Remy''s founder story + Danielle''s results; Day 4 send Dr.
+    Shin''s SCFA explanation; Day 7 send first-purchase invite with the 30-day starter
+    kit framing. The ''10% off'' email opt-in currently running can A/B test against
+    this science-first version.'
+  risk_reversal: No purchase risk at opt-in stage. The science brief itself functions
+    as proof. Downstream purchase is backed by 60-day guarantee — mentioned in the
+    final panel of the brief.
+  urgency_mechanic: None at opt-in stage. Email sequence naturally creates a 7-day
+    consideration window with escalating social proof (founder story, doctor endorsement,
+    customer stat).
+  pricing_anchor_logic: Not a price offer. Value framing is knowledge — the customer
+    gains an understanding of gut biology that their probiotic brand never gave them.
+    That education has intrinsic perceived value and creates brand preference before
+    a price is ever discussed.
+  estimated_lift: medium
+  creative_angle: Before you buy another gut supplement, read this. It explains why
+    the last one didn't work — and what actually does.
+  notes: 'This is a top-of-funnel list-building offer that feeds into the existing
+    email/SMS infrastructure. Asset creation cost is the main investment. Ensure all
+    mechanism claims are compliant with FDA supplement guidelines — describe how postbiotics
+    function in the gut system, not what they cure. The email sequence should be written
+    in SecondKind''s editorial voice: short declarative sentences, contrast framing
+    (old way vs. new way), no exclamation points, no wellness hype.'
+- name: Probiotic Switcher Win-Back — For Lapsed Customers Who Stopped After Month
+    1
+  type: winback
+  rationale: The brand's ICP is probiotic-fatigued and has abandoned supplements before.
+    A segment of SecondKind's own customers will also lapse after one bottle — not
+    necessarily because the product failed, but because the postbiotic mechanism requires
+    a minimum 30-60 day commitment to produce compounding benefit, and supplement
+    skeptics abandon before results fully materialize. This offer is designed to re-engage
+    lapsed customers at day 45-60 post-purchase with a mechanism-based re-engagement
+    sequence, not a discount.
+  target_persona: primary
+  target_awareness_stage: product_aware
+  value_equation:
+    dream_outcome: Give the postbiotic system the full 60-day runway it needs to produce
+      the compounding gut-brain shifts it's clinically designed to create — rather
+      than quitting at the exact moment results begin accumulating
+    perceived_likelihood_lever: 'Bereum''s 84-day RCT showing improved GI symptoms
+      and quality of life means results build past 30 days. Re-engagement sequence
+      surfaces this data explicitly: ''Here is what is building in your gut right
+      now — even if you can''t feel it yet.'' Founder Remy''s year-without-illness
+      story (personal use data) serves as a long-arc proof point.'
+    time_delay_lever: 'The win-back does not ask them to start over. It reframes:
+      ''You did the hardest part (first 30 days). The next 30 days are when most people
+      report the shift.'' This repositions day 31-60 as the accelerated payoff period
+      rather than a sunk cost.'
+    effort_lever: No new purchase decision friction. Pre-populate their subscription
+      reactivation with a single click. Or offer a second-bottle order at standard
+      price with personalized 'continue your protocol' framing. No new account setup,
+      no new checkout complexity.
+  suggested_structure: 'Automated Klaviyo flow triggered at 45 days post-first-purchase
+    if no second order placed. Email 1 (Day 45): ''A note about where you are in your
+    protocol'' — surfaces the 84-day clinical data, normalizes the ''I haven''t felt
+    it yet'' experience. Email 2 (Day 52): Remy''s founder story — specifically the
+    year without illness and the compounding effect timeline. Email 3 (Day 58): Dr.
+    Hyun Dong Shin quote on SCFA production building over time, with a single CTA:
+    ''Reactivate your subscription and continue the protocol.'' SMS on Day 60 if no
+    conversion: ''Your 60-day guarantee expires today. Still deciding? Reply and a
+    member of our team will help.'' No discount unless the customer has explicitly
+    said price is the barrier.'
+  risk_reversal: 'The 60-day guarantee has not yet been claimed by the customer at
+    this point in the sequence. The win-back message should explicitly surface this:
+    ''You still have full coverage under the guarantee — but the science says the
+    next 30 days may be when you start to feel it.'''
+  urgency_mechanic: The 60-day guarantee expiration window is a genuine, non-manufactured
+    urgency lever. Use it at Day 58-60 only — do not manufacture false urgency earlier
+    in the sequence.
+  pricing_anchor_logic: No discount. The argument is not financial — it is scientific.
+    Frame reactivation against the cost of having invested 30 days and $49.99 into
+    a protocol and stopping at the exact inflection point where compounding benefit
+    begins. Loss aversion ('you've already done the hard part') is more powerful than
+    a coupon for this persona.
+  estimated_lift: medium
+  creative_angle: You tried it for a month. Here's why month two is different — and
+    what the clinical data shows happens next.
+  notes: This flow requires Klaviyo or equivalent ESP with post-purchase behavioral
+    triggers. No new product or pricing change required. The key creative risk is
+    tone — this audience will detect manipulation. The sequence must read as genuinely
+    educational, not pressure-based. All clinical claims must be disclaimed. Do not
+    imply the product is treating any condition.
+- name: Refer a Friend — Give $10, Get $10 (The 'Tell Someone Who's Tried Everything'
+    Program)
+  type: refer_a_friend
+  rationale: SecondKind's ICP is probiotic-fatigued and will not convert on advertising
+    alone — social proof from a trusted peer who 'also tried everything' is the highest-credibility
+    conversion vector available. A friend referring SecondKind carries implicit proof
+    that the product worked for someone in the same situation. The program name specifically
+    targets the 'I've tried everything' identity, making the referral act feel like
+    giving genuine help rather than a sales transaction.
+  target_persona: primary
+  target_awareness_stage: problem_aware
+  value_equation:
+    dream_outcome: 'For the referrer: their friend finally finds something that works,
+      and they feel like the person who gave them the answer. For the referee: a warm
+      introduction to a product that already worked for someone like them, with a
+      financial incentive to try it.'
+    perceived_likelihood_lever: The referral itself is the social proof. A supplement
+      recommendation from a peer who has used it carries more weight than any doctor
+      endorsement for a skeptical audience. The referee receives a personal note (template
+      provided) from the referrer explaining their own experience.
+    time_delay_lever: Referee gets $10 off their first order — immediate financial
+      incentive that removes the trial friction. Referrer gets $10 off next order
+      upon successful purchase.
+    effort_lever: One-click share link from account portal or post-purchase email.
+      Pre-written message template ('Here is why I tried SecondKind and what happened')
+      that the referrer can personalize or send as-is.
+  suggested_structure: 'Standard bilateral referral: referrer gets $10 store credit
+    when referred friend makes first purchase; referee gets $10 off first order. Delivered
+    via post-purchase email (Day 14, after initial product experience window) and
+    account portal. Include a ''Tell your story'' template that prompts the referrer
+    to share 1-2 sentences about their specific experience (e.g., ''Less bloating
+    after week two'') to make the referral message personal rather than generic. Program
+    branded as ''Tell Someone Who''s Tried Everything.'''
+  risk_reversal: Referee's first purchase is backed by the 60-day guarantee — communicate
+    this explicitly in the referral email so the referred friend sees the no-risk
+    entry point immediately.
+  urgency_mechanic: None needed. The $10 credit does not expire quickly — but frame
+    the referral ask at Day 14 post-purchase when product experience is fresh and
+    emotional resonance is highest.
+  pricing_anchor_logic: $10 off for the referee lowers the first-bottle entry to approximately
+    $40 ($49.99 - $10), which is below psychological resistance for a new product.
+    The referrer's $10 credit drives a second-order purchase, directly supporting
+    LTV.
+  estimated_lift: medium
+  creative_angle: You know someone who has tried every probiotic and gut supplement
+    and is still bloated. Now you have something different to share.
+  notes: 'No referral program is currently live (refer-a-friend page returned 404).
+    This is an unbuilt but infrastructure-ready opportunity given Smile.io rewards
+    program is already in place. Smile.io natively supports referral mechanics — implementation
+    cost is low. Regulatory note: user-generated testimonials in referral messages
+    should not make disease treatment claims. Provide template guidance on FTC-compliant
+    experience sharing language.'
+- name: Annual Gut-Brain Commitment Plan — 6-Month Supply with Priority Perks
+  type: subscription
+  rationale: SecondKind's clinical data (Totipro 30-day, Bereum 84-day, EpiCor 12-week
+    immune RCT) collectively suggests best outcomes emerge from 3-6 months of consistent
+    use. The brand's current subscription model offers monthly-only. A 6-month pre-pay
+    or tiered subscription tier rewards high-intent customers, improves cash flow
+    and LTV predictability, reduces churn risk, and gives the brand a mechanism to
+    deliver compounding perceived value through non-discount perks without eroding
+    premium positioning.
+  target_persona: primary
+  target_awareness_stage: most_aware
+  value_equation:
+    dream_outcome: Commit to the full 6-month postbiotic protocol — the timeframe
+      where all three clinical ingredients have been studied — and experience a genuinely
+      transformed gut-brain baseline, not just symptomatic relief, while locking in
+      the lowest price per bottle and getting priority access to new formulas
+    perceived_likelihood_lever: 'The 6-month framing is anchored to real clinical
+      study durations, not arbitrary loyalty theater. Frame as ''the full protocol
+      window'' with specific month-by-month expectation setting: Month 1 — gut comfort;
+      Month 2 — regularity and bloat; Month 3+ — immune and mood compounding. This
+      is a science-justified commitment period.'
+    time_delay_lever: Pre-commitment removes monthly repurchase friction — supplements
+      arrive automatically, no cart-abandonment risk, no 'running out' gap days that
+      break the clinical protocol.
+    effort_lever: One decision, six months of zero effort. No reorder, no re-checkout,
+      no thinking about it. Free shipping included. Pause or cancel policy unchanged.
+  suggested_structure: '6-Month Subscription tier at 20% off (approximately $40/bottle,
+    $240 for 6 months billed in 2 installments of $120 or 1 of $240). Non-discount
+    perks layered on top: early access to new BiomeBalance product launches; a printed
+    ''Protocol Guide'' shipped with first order; priority email support with a named
+    team member. Named ''The Postbiotic Commitment Plan'' or ''The 6-Month Protocol.''
+    Positioned in subscribe widget as a third option alongside current monthly and
+    standard subscribe tiers.'
+  risk_reversal: First-order 60-day guarantee applies. Subsequent orders cancelable
+    with standard subscription cancellation terms. Offer a 30-day satisfaction checkpoint
+    email at Day 30 ('Here is what should be happening in your gut right now') with
+    a direct line to support if expectations are not being met.
+  urgency_mechanic: 'Genuinely justifiable: price per bottle is lowest available at
+    this tier. Frame as the only way to access the 20% rate. Do not manufacture scarcity.'
+  pricing_anchor_logic: At $40/bottle, compare against Seed DS-01 at $49.99/month
+    (a probiotic, not postbiotic, requiring viability survival). The 6-month plan
+    is cheaper per dose, mechanistically superior, and backed by longer clinical data
+    than most probiotics claim. Also frame against the cost of six months of continued
+    symptoms — if bloating, brain fog, and low energy are impacting productivity or
+    quality of life, $240 over six months is a fraction of the cost.
+  estimated_lift: medium
+  creative_angle: The clinical studies ran for 84 days. The full postbiotic protocol
+    runs 6 months. This is the only plan built around the science.
+  notes: 'The existing subscription infrastructure supports this mechanic. Shopify
+    selling plans would need a 6-month tier added. The printed protocol guide is a
+    low-cost but high-perceived-value physical touchpoint — consistent with the brand''s
+    editorial restraint (black and white, science-credible design, short declarative
+    copy). Do not over-design it. Regulatory note: ''protocol'' language must not
+    imply medical treatment.'
+notes:
+  brand_premium_constraints: SecondKind must not use flash sale mechanics, percentage-off
+    sitewide events, coupon stacking, or 'limited time' discount timers without genuine
+    justification — these formats signal commodity pricing and undermine the science-credible,
+    editorial positioning that differentiates the brand from Arrae, Garden of Life,
+    and mainstream probiotic brands. The 30% first-purchase discount should be treated
+    as an acquisition-only lever (paid traffic landing pages) and never normalized
+    as a sitewide price. Rewards program redemption values (currently 2% back) should
+    be enriched with non-monetary perks before monetary perks are increased, to avoid
+    training the audience to expect discounts as a routine. Any discount language
+    should be framed as a 'protocol savings' or 'commitment plan rate,' never as a
+    'sale.'
+  category_dynamics: The supplement category structurally depends on subscription
+    continuity for unit economics — SecondKind's existing monthly subscribe-and-save
+    architecture is correct. The critical category-specific challenge is churn before
+    compounding results are felt, which makes the win-back sequence and the 6-month
+    commitment plan high-priority retention tools. The postbiotic category specifically
+    is still in consumer education mode — most potential buyers do not yet understand
+    the distinction between pre-, pro-, and postbiotics, which makes the lead-magnet
+    education offer a genuine top-of-funnel differentiator unavailable to probiotic
+    brands. Supplement brands with strong guarantees (60-day+) consistently outperform
+    on paid acquisition CPAs because risk removal is the primary conversion barrier
+    for skeptical buyers — the existing 60-day guarantee is a significant competitive
+    asset and should be featured more prominently on the PDP and in ad creative.
+  highest_priority_test: 'The Skeptic''s First Bottle — Postbiotic Explainer lead
+    magnet should be tested first. Rationale: (1) It costs nothing to create versus
+    the existing 10% email opt-in mechanic currently running — it is an A/B test against
+    live infrastructure, not a net new build. (2) It directly addresses the primary
+    conversion barrier for the ICP (mechanism skepticism) without requiring a discount
+    or a new product. (3) The content created for the lead magnet (science brief,
+    email sequence) is reusable as ad creative, organic content, and post-purchase
+    onboarding — making it a compounding content investment rather than a single-use
+    offer. (4) List quality from science-curious opt-ins will likely be higher than
+    discount-motivated opt-ins, improving downstream conversion rates and reducing
+    refund rates. Test metric: email list opt-in rate (science brief vs. 10% off)
+    and downstream 30-day conversion rate to first purchase.'
+  audience_specific_recommendations: 'For the problem-aware ICP (has tried probiotics,
+    doesn''t know about postbiotics): lead with the Postbiotic Explainer lead magnet
+    and the Skeptic''s First Bottle framing — education before purchase. For the solution-aware
+    segment (understands postbiotics are different, evaluating SecondKind specifically):
+    lead with the 30-Day Starter Kit protocol framing backed by the clinical ingredient
+    data and the 60-day guarantee — remove the remaining risk and provide a defined
+    commitment window. For the most-aware / returning customer segment: lead with
+    the 6-Month Commitment Plan and the Gut-Brain System Bundle — reward commitment
+    with the best per-unit rate and the full system narrative. For lapsed customers
+    (bought once, did not resubscribe): the win-back sequence is the only appropriate
+    mechanism — do not re-acquire with discounts; re-engage with compounding-effect
+    science and guarantee-window urgency. The referral program is persona-agnostic
+    but highest-value when triggered after the customer has had a genuine positive
+    experience (target: Day 14 post-first-purchase, before the 30-day mark).'

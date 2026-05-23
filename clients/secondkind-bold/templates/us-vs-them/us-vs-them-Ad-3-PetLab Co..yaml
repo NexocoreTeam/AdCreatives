@@ -1,0 +1,39 @@
+id: us-vs-them-product-explosion
+name: Product Explosion Comparison
+source: client-secondkind reference library
+category: us-vs-them
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- us-vs-them
+- comparison-split
+- product-explosion
+- product-in-hand
+- frosted-glass-effect
+- review-callout
+- benefit-checklist
+template_prompt: "Image 1 is the actual product — replicate it exactly.\n\n**Layout\
+  \ & Photography:**\nCreate a premium, full-bleed studio product shot.\nThe background\
+  \ is a clean, dark [BACKGROUND] with a subtle gradient effect.\nIn the bottom third,\
+  \ a hand holds the [PRODUCT] container, which is angled slightly upwards from the\
+  \ bottom-left corner.\nIndividual pieces of the product (e.g., chews, pills, gummies)\
+  \ should appear to be floating or \"exploding\" out from the container, creating\
+  \ a dynamic diagonal path up towards the top-right.\n\n**Text & Graphics (Top Half):**\n\
+  Create a two-column comparison overlaid on the upper part of the image.\n\n1.  **Left\
+  \ Column (Problem):**\n    -   Headline in a white, elegant serif font: \"Without\
+  \ [SUPPORTING BENEFIT]\"\n    -   Below the headline, create a bulleted list of\
+  \ 3 [PROBLEM]s. Each list item must be preceded by a red 'X' icon.\n\n2.  **Right\
+  \ Column (Solution):**"
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\us-vs-them\us-vs-them-Ad-3-PetLab
+  Co..png

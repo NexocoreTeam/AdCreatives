@@ -1,0 +1,52 @@
+id: ugc-testimonial-story-sticker
+name: UGC Testimonial Sticker
+source: client-secondkind reference library
+category: ugc
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- ugc
+- testimonial-story
+- product-in-hand
+- text-overlay-box
+- promo-sticker
+- natural-light
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a user-generated content (UGC) style image featuring a hand holding the [PRODUCT]
+  against a simple, neutral [BACKGROUND]. The scene should be lit with natural, bright
+  directional light creating strong diagonal shadows across the frame. Include a subtle
+  rainbow light flare near the bottom.
+
+
+  The [PRODUCT] is held by a hand, which should be the central focus, positioned slightly
+  to the right of center.
+
+
+  The ad should emulate a social media story post by using multiple text overlays
+  in white boxes with a serif font:
+
+  1.  **Top Left Quadrant:** A white text box containing the [HEADLINE], a strong
+  testimonial quote introducing the product.
+
+  2.  **Mid-Left:** A second, smaller white text box with the [SUBHEAD] copy, highlighting
+  key benefits.
+
+  3.  **Promo Sticker:** Directly below the [SUBHEAD], add a rounded white pill-shaped
+  sticker emulating an Instagram "Link" sticker. It should feature a link icon and
+  the [CTA] text in an [ACCENT] color.
+
+  4.  **Bottom:** A third white text box stretching across the lower portion of the
+  image, containing the ['
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\ugc\826c2dcf453bfd993e2a739d3ca45287.jpg

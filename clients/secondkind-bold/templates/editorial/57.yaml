@@ -1,0 +1,40 @@
+id: editorial-analogy-breakdown
+name: Editorial Analogy Breakdown
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- text-card
+- editorial-serif
+- minimalist
+- icon-list
+- analogy-copy
+- centered-layout
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  The ad is a minimalist, single-panel text card with a solid, warm off-white [BACKGROUND].
+  All elements are centrally aligned with generous whitespace, creating a distinct
+  top-to-bottom reading flow. The typography is a mix of a classic serif font for
+  emphasis and a clean sans-serif for explanatory text. All text is black unless otherwise
+  specified.
+
+
+  1.  **Headline:** At the top, centered, display the [HEADLINE] in a large serif
+  font. The headline should frame a concept as a simple definition or equation (e.g.,
+  "Term = Simple Explanation").
+
+
+  2.  **Subhead:** Below the headline, add the'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\57.png

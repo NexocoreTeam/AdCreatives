@@ -1,0 +1,58 @@
+id: natural-hero-overhead-dappled-light
+name: Natural Hero Overhead
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- product-hero
+- natural-setting
+- overhead-shot
+- dappled-light
+- editorial-style
+- product-on-label
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a stylized, top-down product hero photograph with an earthy, premium, editorial
+  feel.
+
+
+  LAYOUT:
+
+  The [PRODUCT] container is the central focus, shot from a high angle and placed
+  slightly diagonally in the frame. The background is a rich, dark [BACKGROUND] with
+  natural texture (e.g., dark green moss, damp soil, coarse sand). Scatter two or
+  three individual units of the product (e.g., capsules, gummies, drops) near the
+  bottom of the main container as the [DETAILS].
+
+
+  PHOTOGRAPHY STYLE:
+
+  Use dramatic, dappled natural light that creates strong highlights and deep shadows
+  across the scene, as if sunlight is filtering through tree leaves. The light should
+  specifically catch and illuminate the product''s label, making it the primary focal
+  point. The overall mood should be calm, natural, and sophisticated.
+
+
+  TEXT:
+
+  There is no overlaid text on the image. All copy is integrated into the product''s
+  label design. The label must be clearly readable and feature the [HEADLINE] (as
+  the product name), a [SUBHEAD] (describing benefits or key ingredients), and the
+  [BRAND] wordmark or logo.
+
+  '
+description: Use this template for a premium, editorial-style hero shot that places
+  the product in a natural environment. It's ideal for building brand affinity and
+  showcasing product quality without hard-sell copy.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\39.png

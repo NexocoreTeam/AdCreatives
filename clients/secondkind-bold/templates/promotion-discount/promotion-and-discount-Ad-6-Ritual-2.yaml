@@ -1,0 +1,57 @@
+id: promo-benefit-overlay
+name: Promo Benefit Overlay
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- supplements
+- skincare
+- cosmetics
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- hero-shot
+- human-interaction
+- text-overlay
+- benefit-overlay
+- product-corner-anchor
+- promo-pill-button
+- studio-lighting
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  The background of the ad is a full-bleed, studio-quality, extreme close-up lifestyle
+  photograph of a person''s face. The lighting is soft and clean, and the focus is
+  on their skin. A hand is shown holding a single dose/unit of the product (e.g.,
+  a capsule, a small amount of cream) near their face, visually connecting the product
+  to its area of benefit.
+
+
+  TEXT & LAYOUT:
+
+  - In the top-right corner, place the [BRAND] wordmark in a simple, white, sans-serif
+  font.
+
+  - In the lower half of the image, overlay a large, two-line [HEADLINE] in a clean,
+  white, sans-serif font. The headline is centrally aligned.
+
+  - Directly below the headline, place a [CTA] (like a promotional offer) inside a
+  rounded, pill-shaped button. The button''s color should be a bright [ACCENT] color
+  that contrasts with the photo, and the text inside is darker.
+
+  - In the bottom-right corner, anchored to the edge, place a clean, isolated studio
+  shot of the [PRODUCT] packaging. This product shot should appear on top of all other
+  layers.
+
+  '
+description: This template layers a strong, time-boxed benefit and a promotional offer
+  over an intimate, human-focused background photo. It's highly effective for driving
+  conversions on benefit-driven products like skincare or supplements.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-6-Ritual-2.jpg

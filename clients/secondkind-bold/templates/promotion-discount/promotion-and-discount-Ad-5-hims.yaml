@@ -1,0 +1,28 @@
+id: price-led-lifestyle-hero
+name: Price-Led Lifestyle Hero
+source: client-secondkind reference library
+category: promotion-and-discount
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: conversion
+aspect_ratios:
+- '1:1'
+tags:
+- lifestyle-background
+- price-hero
+- text-overlay
+- pill-cta-button
+- product-cutout
+- accent-color-pop
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create an ad with'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-5-hims.png

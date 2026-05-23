@@ -1,0 +1,16 @@
+filename: promotion-and-discount-Ad-2-Wild-1.jpg
+file_id: 1BfpsnCprpJzdmbup3YrKN6Az0C4KGCEK
+mime_type: image/png
+is_video_frame: false
+analysis:
+  hook_visible: 30% OFF! NEW limited edition refillable deodorant
+  hook_type: fomo
+  copy_treatment: Text is overlaid in colored, rounded blocks, with a hand-drawn arrow
+    pointing to the product.
+  visual_format: ugc_static
+  creative_mechanic: UGC-style product and refill demonstration
+  elements_present:
+  - product_shot
+  - text_overlay
+  - lifestyle_imagery
+  - logo_visible

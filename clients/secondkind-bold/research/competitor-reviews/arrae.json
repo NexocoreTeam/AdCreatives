@@ -1,0 +1,22 @@
+{
+  "competitor": {
+    "name": "Arrae",
+    "slug": "arrae",
+    "url": "https://www.arrae.com/",
+    "type": "direct",
+    "priority": "tier1",
+    "notes": "Women's wellness supplements with the \"Bloat\" capsule as their hero\nacquisition product. Strong DTC presence, female-skewing audience that\noverlaps heavily with SecondKind's primary. Botanical-extract approach\n(dandelion, fennel, ginger) vs SecondKind's postbiotic-mechanism approach.\n\nProduct-level differentiators to attack:\n- Symptom relief vs root-cause: Arrae's Bloat is a fast-acting digestive\n  aid that addresses the bloating moment, not the microbiome imbalance.\n  SecondKind addresses the underlying gut function \u2014 Arrae users still\n  need to take Bloat repeatedly.\n- Mechanism: botanical-extract relief vs clinically-studied postbiotic\n  bioactive compounds.\n- Daily vs as-needed positioning.\n",
+    "amazon_urls": []
+  },
+  "vendor": "junip",
+  "reviews": [],
+  "scraped_pages": [
+    "https://www.arrae.com/products/tone-mixed-berry",
+    "https://www.arrae.com/products/copy-of-l-glutamine",
+    "https://www.arrae.com/products/arrae-gift-card",
+    "https://www.arrae.com/products/mini-bloat-special-offer",
+    "https://www.arrae.com/products/constipation-retail"
+  ],
+  "fetched_at": "2026-05-13T19:47:21.973993Z",
+  "notes": "No reviews extracted from 5 page(s). Detected vendors: junip. Either no supported review widget is present or vendor identifiers could not be parsed."
+}

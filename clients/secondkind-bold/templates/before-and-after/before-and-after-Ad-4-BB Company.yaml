@@ -1,0 +1,49 @@
+id: before-after-vertical-split-selfie-lifestyle
+name: Relatable Selfie vs. Lifestyle
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- before-and-after
+- vertical-split
+- ugc-aesthetic
+- selfie
+- lifestyle-photo
+- no-copy
+template_prompt: 'Create a 1:1 square image split vertically down the middle into
+  two distinct panels.
+
+
+  The left panel is the [BEFORE_PHOTO]. This photo should be a UGC-style, casual selfie
+  portrait of a person. The setting is indoors and mundane (e.g., in a home against
+  a plain wall or door). The lighting is flat and the person''s expression is neutral
+  or mildly content. This photo represents the ''before'' state.
+
+
+  The right panel is an [AFTER_PHOTO]. This photo features the same person but in
+  an aspirational lifestyle context. The setting is outdoors and desirable (e.g.,
+  a sunny beach, a scenic viewpoint). The lighting is bright and vibrant. The person
+  appears confident, happy, and transformed, often in a full-body or medium shot that
+  showcases the result. This photo represents the ''after'' state.
+
+
+  Ensure there is a clean, hard line dividing the two images. Do not add any text,
+  logos, or graphic overlays to the image.
+
+  '
+description: Use this template for a powerful, text-free visual comparison that shows
+  a clear transformation. The contrast between the relatable 'before' selfie and the
+  aspirational 'after' lifestyle shot quickly communicates the product's value and
+  the desired outcome.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-4-BB
+  Company.jpg

@@ -1,0 +1,68 @@
+id: before-after-stacked-images-left-copy
+name: Before & After Stack
+source: client-secondkind reference library
+category: before-and-after
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- before-and-after
+- vertical-split
+- stacked-images
+- pill-button
+- product-hero-left
+- serif-headline
+- rounded-corners
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 aspect ratio ad with a solid off-white [BACKGROUND]. The layout is
+  divided into two vertical columns.
+
+
+  The right column consists of two vertically stacked photographs, each in a container
+  with significantly rounded corners.
+
+  - The top photo is the "after" image ([AFTER_IMAGE]), showing the positive, aspirational
+  outcome.
+
+  - The bottom photo is the "before" image ([BEFORE_IMAGE]), showing the negative
+  problem state.
+
+  - These two image containers should fill the height of the right column with a small
+  gap between them.
+
+
+  The left column contains all the text and the product.
+
+  - In the top-left quadrant, place a large, elegant serif [HEADLINE] in a dark [ACCENT]
+  color.
+
+  - Directly below the headline, add a smaller, simple sans-serif [SUBHEAD] in the
+  same [ACCENT] color.
+
+  - Below the subhead, create a pill-shaped container with a slightly darker beige
+  fill than the main background. Inside, in all-caps sans-serif text, place the [BENEFIT]
+  callout.
+
+  - Centered in the left column, below the text block, place a hero shot of the [PRODUCT]
+  with a soft drop shadow. The [BRAND] logo should be part of the product packaging,
+  not a separate element.
+
+  - At the bottom of the left column, place a large, pill-shaped button in a vibrant
+  [ACCENT] color. Inside the button, add the [CTA] in all-caps white text.
+
+  '
+description: Use this template to contrast a problem and solution with 'before' and
+  'after' images stacked vertically. The left side is reserved for headline copy,
+  product, and a clear call-to-action.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\before-and-after\before-and-after-Ad-6-Free
+  Soul-3.jpg

@@ -1,0 +1,106 @@
+brief_id: secondkind-bold-gut-balance-30113b
+client: secondkind-bold
+product: Gut Balance
+awareness_level: problem_aware
+framework: pas
+angle: "Most probiotics never survive long enough to do anything \u2014 the viability\
+  \ failure rate is the story, not the strain count"
+hook: 'Most of the bacteria in your probiotic are dead before they reach your gut.
+
+  That''s not a brand problem. That''s a physics problem.
+
+  And it''s why you''ve been optimizing the wrong variable.
+
+  '
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap probiotic survivability and viability failure mechanism
+hook_tactic: Statistic with a myth-busting reframe
+persona: Burnout Biohacker Brandon
+creative_mechanic: counterintuitive_insight_plus_specificity
+visual_format: Text-on-dark-background static ad with bold numerical callout
+visual_format_alternatives:
+- Whiteboard-style explainer video with annotated digestion diagram
+- 'Side-by-side comparison carousel: live bacteria survival rate vs. postbiotic stability'
+persona_traits: "Research-driven man or woman 38\u201355 who runs a dialed supplement\
+  \ stack, has spent real money on refrigerated multi-strain probiotics, and has quietly\
+  \ concluded the category doesn't work \u2014 without understanding why"
+pain_point: Has taken high-quality probiotics for years and cannot point to a single
+  measurable improvement
+benefit_callouts:
+- 1 trillion stable bioactive compounds. Already active. No survival lottery.
+- 'Postbiotics: what probiotics were always trying to produce'
+- "Patented BiomeBalance\u2122 complex \u2014 look up Totipro\xAE, EpiCor\xAE, Bereum\xAE"
+cta: "Read the mechanism \u2014 then decide"
+body_copy: ''
+visual_direction: "A stark, data-forward visual showing a single large stat (e.g.\
+  \ the fraction of live bacteria that survive the digestive tract) against a clean\
+  \ dark background \u2014 no product photography, no lifestyle imagery. The number\
+  \ does the work. Small print below anchors it to mechanism language, not marketing\
+  \ language."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Brandon is a frustrated, research-minded biohacker who has spent years\
+    \ and money on probiotics with zero measurable results \u2014 the David & Goliath\
+    \ format is built for exactly this switcher-frustration profile, letting the ad\
+    \ call out the entire probiotic industry's viability failure as the 'Goliath'\
+    \ before positioning Gut Balance as the physics-aware solution. The angle \u2014\
+    \ that viability failure is a systemic, structural problem, not a brand problem\
+    \ \u2014 maps perfectly onto the format's 'broken status quo as enemy' mechanic."
+  production_notes: Avoid naming specific competitor brands directly to stay platform-safe;
+    instead frame the enemy as 'the industry standard' or 'strain-count marketing'
+    to keep the credibility attack broad and legally clean.
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 2
+  rationale: "The 'dead bacteria' hook is inherently visual and slightly gross \u2014\
+    \ an animated probiotic character dramatically dying before reaching the gut would\
+    \ dramatize the physics-of-viability angle in a way that lands as memorable and\
+    \ shareable for a scroll-fatigued, supplement-curious persona like Brandon. Because\
+    \ Brandon is skeptical of traditional UGC and brand claims, the format's built-in\
+    \ 'obviously fake' signal actually disarms his skepticism and keeps him watching."
+  production_notes: "The animated character must visibly 'die' or 'fail to arrive'\
+    \ in a way that makes the viability stat viscerally understood \u2014 don't let\
+    \ the cringe overwhelm the core mechanism explanation or the stat will get lost\
+    \ in the humor."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "Brandon is methodical and has been actively researching probiotics for\
+    \ years, making him receptive to an educational numbered breakdown \u2014 framing\
+    \ it as '3 reasons your probiotic isn't working (it's not what you think)' directly\
+    \ addresses his pain point of no measurable improvement and funnels into the viability-failure\
+    \ angle. The PAS framework maps cleanly onto a listicle structure where each item\
+    \ escalates the problem before the final point pivots to Gut Balance's solution."
+  production_notes: Use a negative framing hook ('3 reasons your probiotic is doing
+    nothing') rather than a benefits list to match the problem-aware awareness stage
+    and avoid sounding like generic supplement marketing that Brandon has already
+    tuned out.

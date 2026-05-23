@@ -1,0 +1,58 @@
+id: media-quote-frame-product-reveal
+name: Media Quote Frame
+source: client-secondkind reference library
+category: media-and-press
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- media-quote
+- text-overlay
+- frame-within-frame
+- product-reveal
+- lifestyle-photo
+- rounded-rectangle
+- editorial-font
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  The ad is a single, full-bleed lifestyle photograph serving as the [BACKGROUND].
+  The photo should have warm, inviting tones and a slightly soft focus, creating an
+  aspirational mood.
+
+
+  Centered in the frame is a large, rounded-corner rectangular text box with an [ACCENT]
+  color fill (e.g., light cream). This box has a subtle drop shadow to give it depth
+  against the background photo.
+
+
+  Inside this box, at the top and centered, are the [DETAILS], which should be the
+  logo of a media publication (e.g., "FAST COMPANY") in a contrasting color and often
+  an elegant, stylized font.
+
+
+  Below the publication logo is the [HEADLINE], centered. The [HEADLINE] is a two-line
+  quote in a clean, bold, black sans-serif font.
+
+
+  The [PRODUCT] is the hero and is placed in the center of the overall composition.
+  It is cleverly layered with the text box to create a "product reveal" effect: the
+  top of the [PRODUCT] is hidden behind the text box, while the bottom of the [PRODUCT]
+  appears in front of the text box, breaking the frame and visually popping out towards
+  the viewer. The [PRODUCT] should be a high-quality studio or lifestyle shot that
+  matches the lighting of the background photo.
+
+  '
+description: Use this template to feature a product within a lifestyle scene, using
+  a prominent media quote in a framed overlay to lend authority and social proof.
+  The product 'breaking' the frame makes it the undeniable hero of the ad.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\media-press\media-and-press-Ad-1-Caraway-1.jpg

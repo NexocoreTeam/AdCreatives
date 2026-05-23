@@ -1,0 +1,71 @@
+id: product-splash-ingredient-float
+name: Product Splash Ingredient Float
+source: client-secondkind reference library
+category: ai-unique
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- product-hero
+- ingredient-callout
+- liquid-splash
+- floating-elements
+- studio-lighting
+- gradient-background
+- headline-overlay
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a photorealistic, studio-lit hero shot of the [PRODUCT].
+
+
+  LAYOUT:
+
+  - The [PRODUCT] should be the central focus, positioned in the lower-middle of the
+  frame.
+
+  - The base of the product is making contact with a shallow pool of clear liquid,
+  creating a dynamic, elegant splash and ripples radiating outwards.
+
+  - Floating around the product in mid-air are deconstructed ingredients ([DETAILS],
+  e.g., fruit pieces) and individual product units (e.g., gummies, capsules). These
+  floating elements should have small, artistic liquid splashes trailing off them,
+  as if frozen in motion.
+
+  - The top third of the ad is reserved for text overlay.
+
+
+  BACKGROUND & LIGHTING:
+
+  - The background is a clean, solid gradient of a single [BACKGROUND] color (e.g.,
+  lavender).
+
+  - The lighting is soft and ethereal. A warm [ACCENT] glow (e.g., soft yellow) illuminates
+  the liquid and the base of the product from below, while the overall scene is lit
+  with a cooler, diffuse light from the top and sides.
+
+
+  TYPOGRAPHY:
+
+  - Top center: The [BRAND] wordmark in a white, slightly glowing, modern sans-serif
+  font.
+
+  - Below the brand: The [HEADLINE] in a large, all-caps, white sans-serif font.
+
+  - Directly below the headline: A [SUBHEAD] in a smaller, white, sentence-case sans-serif
+  font.
+
+  '
+description: Use this template for a premium, dynamic hero shot that visualizes a
+  product's freshness and key ingredients. The liquid splash and floating elements
+  create a sense of elegance and efficacy, making it ideal for supplements, skincare,
+  or beverages.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\ai-unique\32e5ea537e5b80015b9e01f82a636ae572612ef5997398f195e51eb145f0d018.jpg

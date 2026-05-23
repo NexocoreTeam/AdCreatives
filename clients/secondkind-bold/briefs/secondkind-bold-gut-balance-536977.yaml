@@ -1,0 +1,110 @@
+brief_id: secondkind-bold-gut-balance-536977
+client: secondkind-bold
+product: Gut Balance
+awareness_level: problem_aware
+framework: bab
+angle: "The fog lifted and she almost missed it \u2014 a quiet return story from someone\
+  \ who stopped expecting anything to work"
+hook: "I didn't even realize my brain fog had lifted until my husband said something\
+  \ at dinner and I actually tracked the whole conversation. Didn't lose the thread.\
+  \ Didn't smile and nod. I was just \u2014 there. I'd been taking Gut Balance for\
+  \ a few weeks at that point. I wasn't expecting anything. I'd already tried the\
+  \ probiotics everyone recommends. Waited. Canceled. Told myself I was just tired\
+  \ because I have a baby. But something had quietly shifted. My stomach wasn't doing\
+  \ that tight, heavy thing by noon. I was going to the bathroom like a normal person\
+  \ again. And apparently my brain came along for the ride. I just want to feel like\
+  \ me again \u2014 I've been saying that for over a year. I think I'm starting to.\n"
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar pain brain fog and gut irregularity postpartum plus desire to
+  feel like herself again
+hook_tactic: "Mid-story drop with a confession opener \u2014 start at the moment of\
+  \ recognition ('I didn't even realize it had lifted'), not at the beginning of the\
+  \ problem"
+persona: New-Normal New Mom Natalie
+creative_mechanic: micro_story_plus_suspense
+visual_format: "UGC video \u2014 phone-shot, natural home setting, mom speaking directly\
+  \ to camera in a low-key conversational tone, no script energy, feels like a voice\
+  \ note she almost didn't send"
+visual_format_alternatives:
+- "Carousel static \u2014 first card opens with the fog-lifting line in large text,\
+  \ subsequent cards show the specific shifts (digestion, energy, presence), final\
+  \ card shows product with a single clean CTA"
+- "Scripted narrative video with b-roll \u2014 short-form with no talking head, just\
+  \ hands making coffee, morning light, a journal, soft ambient sound, text overlays\
+  \ carrying the story beats"
+persona_traits: "Postpartum mom who has stopped expecting supplements to work, describes\
+  \ her body as 'still off,' and would never lead with excitement \u2014 she'd lead\
+  \ with cautious, almost reluctant relief"
+pain_point: Brain fog and low energy attributed partly to sleep deprivation but suspected
+  to be something deeper, alongside persistent postpartum bloating
+benefit_callouts:
+- Digestive calm without the disruption phase
+- "Gut-brain axis support \u2014 the connection is real"
+- Feel it in weeks, not someday
+cta: "Read how it works \u2014 then decide"
+body_copy: ''
+visual_direction: Real home, real morning, no aspirational staging. The visual should
+  feel like she filmed it because she wanted to tell a friend, not because a brand
+  asked her to. Warm but unglamorous light. Baby items visible in the background are
+  a feature, not a flaw.
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Natalie is problem-aware and emotionally raw \u2014 the long text overlay\
+    \ format mirrors the internal monologue of a new mom who has been quietly suffering\
+    \ and finally has words for her experience. The direct audience callout ('POV:\
+    \ you finally tracked a full conversation') maps perfectly to the empathy-and-relief\
+    \ hook and the BAB arc playing out in text form over relatable B-roll."
+  production_notes: "The text monologue must feel like it was written by a real postpartum\
+    \ mom, not a marketer \u2014 avoid clinical language around 'gut health' and lean\
+    \ into the domestic, dinner-table moment from the hook to keep authenticity intact."
+- format_id: tiktok-short-pov
+  name: TikTok Short / POV
+  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
+    of B-roll. Fastest format to test. Borrows directly from what's trending in the
+    operator's own reels feed at time of creation.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: 'A single POV line like ''POV: you didn''t realize the brain fog lifted
+    until someone else pointed it out'' captures the exact quiet-return angle of this
+    brief and will stop Natalie mid-scroll because she has lived this moment. Its
+    low complexity makes it ideal for rapid testing against the love letter variant
+    to see which emotional entry point resonates more.'
+  production_notes: "B-roll must feel mundane and domestic \u2014 a dinner table,\
+    \ a baby monitor, soft kitchen lighting \u2014 because the power of the POV is\
+    \ in its ordinariness, and anything that looks produced will shatter the moment."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 3
+  rationale: "Natalie's pain point (bloating, fog, postpartum overwhelm) carries a\
+    \ layer of embarrassment that makes her resist traditional UGC testimonials \u2014\
+    \ the intentionally-fake AI format bypasses her 'is this a paid actress?' skepticism\
+    \ while still delivering the product message through a disarming, low-stakes lens.\
+    \ It works here as a third creative direction to test against the more emotionally\
+    \ earnest formats, especially for cold audiences on TikTok."
+  production_notes: "The character and script must lean into gut and brain humor with\
+    \ lightness, never shame \u2014 postpartum women are a sensitive audience and\
+    \ cringe that tips into body-shaming will trigger immediate negative comments\
+    \ and brand association damage."

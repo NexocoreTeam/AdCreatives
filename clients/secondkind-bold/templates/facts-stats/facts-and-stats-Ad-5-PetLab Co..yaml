@@ -1,0 +1,25 @@
+id: pov-product-benefit-callouts
+name: POV Benefit Callouts
+source: client-secondkind reference library
+category: facts-and-stats
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '4:5'
+- '9:16'
+tags:
+- pov-shot
+- product-in-hand
+- pill-callout
+- benefit-callout
+template_prompt: ''
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\facts-stats\facts-and-stats-Ad-5-PetLab
+  Co..png

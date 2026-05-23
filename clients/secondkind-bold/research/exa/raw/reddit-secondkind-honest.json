@@ -1,0 +1,42 @@
+{
+  "query": {
+    "label": "reddit-secondkind-honest",
+    "query": "SecondKind honest review experience worth it",
+    "include_domains": [
+      "reddit.com"
+    ],
+    "exclude_domains": [],
+    "num_results": 10,
+    "category": "reddit"
+  },
+  "fetched_at": "2026-05-13T19:48:22.134497Z",
+  "results": [
+    {
+      "url": "https://www.reddit.com/r/politics/comments/1t4dfum/newly_released_documents_reveal_more_than_300000/",
+      "title": "Reddit - Prove your humanity",
+      "published_date": "2026-05-05T12:03:54.000Z",
+      "author": null,
+      "score": null,
+      "text": "# Newly released documents reveal more than 300000\n\nPublished: 2026-05-05T12:03:54+00:00\nType: Low Content\n\n## Summary\n\nsubmitted by /u/AndyJack86 [link] [comments]\n\n## Story\n\nYou've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. You've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. [File a ticket](https://support.reddithelp.com/hc/en-us/requests/new?ticket_form_id=21879292693140)",
+      "domain": "reddit.com"
+    },
+    {
+      "url": "https://www.reddit.com/r/politics/comments/1swttav/california_billionaire_tax_has_signatures_needed/",
+      "title": "Reddit - Please wait for verification",
+      "published_date": "2026-04-27T04:52:04.000Z",
+      "author": null,
+      "score": null,
+      "text": "# Reddit - Please wait for verification\n\nPublished: 2026-04-27T04:52:04+00:00\nType: Low Content\n\n## Summary\n\nsubmitted by /u/B-Z_B-S [link] [comments]",
+      "domain": "reddit.com"
+    },
+    {
+      "url": "https://www.reddit.com/r/politics/comments/1syum3l/hegseth_will_be_grilled_by_congress_for_the_first/",
+      "title": "Reddit - Prove your humanity",
+      "published_date": "2026-04-29T10:15:05.000Z",
+      "author": null,
+      "score": null,
+      "text": "# Hegseth will be grilled by congress for the first\n\nPublished: 2026-04-29T10:15:05+00:00\nType: Low Content\n\n## Summary\n\nsubmitted by /u/darealunrealspader [link] [comments]\n\n## Story\n\nYou've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. You've been blocked by network security. If you think you've been blocked by mistake, file a ticket below and we'll look into it. [File a ticket](https://support.reddithelp.com/hc/en-us/requests/new?ticket_form_id=21879292693140)",
+      "domain": "reddit.com"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+filename: 7.png
+file_id: 1lnuAqvD1s7xntXkC58wfHv_9O22GS_JM
+mime_type: image/png
+is_video_frame: false
+analysis:
+  hook_visible: 'SecondKind
+
+    A Calmer Mood Starts in Your Gut
+
+    Brain Food
+
+    Mood Balance Postbiotic with BiomeBalance™ Mood, stress support and clarity.
+
+    SecondKind
+
+    Postbiotic Supplement 60 Capsules 30 Day Supply'
+  hook_type: problem_solution
+  copy_treatment: White serif and sans-serif copy is overlaid on a dark, textured
+    background, with additional copy directly on the product label.
+  visual_format: product_hero
+  creative_mechanic: Concept visualization connecting a brain illustration to the
+    product, labeled 'Brain Food'.
+  elements_present:
+  - product_shot
+  - text_overlay
+  - logo_visible
+  - studio_aesthetic
+  mood:
+  - scientific
+  - sophisticated
+  - calm
+  color_palette_dominant:
+  - '#111111'
+  - '#FFFFFF'

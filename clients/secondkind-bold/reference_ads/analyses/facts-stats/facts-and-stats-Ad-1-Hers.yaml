@@ -1,0 +1,24 @@
+filename: facts-and-stats-Ad-1-Hers.png
+file_id: 1i_eTxv9vaWlJkDD4QrkAHhHhpk_9s86h
+mime_type: image/png
+is_video_frame: false
+analysis:
+  hook_visible: 'More ways to Wegovy® this summer
+
+    Lose up to 25% of your body weight*'
+  hook_type: stat
+  copy_treatment: Text is overlaid on a solid color background, arranged in a modular
+    layout with varying font sizes, weights, and colors to create a clear visual hierarchy.
+  visual_format: other
+  creative_mechanic: Multi-panel informational layout combining lifestyle imagery,
+    product shots, and text blocks.
+  elements_present:
+  - product_shot
+  - human_face
+  - text_overlay
+  - lifestyle_imagery
+  - logo_visible
+  - studio_aesthetic
+  mood:
+  - hopeful
+  - aspir

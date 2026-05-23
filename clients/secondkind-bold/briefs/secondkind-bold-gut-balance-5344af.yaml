@@ -1,0 +1,107 @@
+brief_id: secondkind-bold-gut-balance-5344af
+client: secondkind-bold
+product: Gut Balance
+awareness_level: problem_aware
+framework: pas
+angle: "1 trillion bioactives vs. the survival gauntlet \u2014 most of what you swallowed\
+  \ never arrived"
+hook: "Most probiotic capsules deliver somewhere between 0 and a fraction of what's\
+  \ on the label to your gut. Not because the brand lied. Because live bacteria have\
+  \ a survival problem \u2014 stomach acid, bile, body heat \u2014 and most never\
+  \ make it. Gut Balance skips that entirely. 1 trillion clinically studied bioactive\
+  \ compounds, already active, delivered directly. No survival lottery. No waiting\
+  \ to see if they colonize. Just the compounds your gut actually needed from probiotics\
+  \ in the first place.\n"
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap probiotic survivability and delivery failure
+hook_tactic: "Specific stat paired with a mechanism reveal \u2014 lead with a number\
+  \ that reframes the category failure, then explain the structural reason it happens"
+persona: New-Normal New Mom Natalie
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: "Text-on-product static \u2014 clean white product shot with a single\
+  \ large stat overlaid ('1 trillion bioactives. Already active. No survival required.')\
+  \ in high-contrast type"
+visual_format_alternatives:
+- "Animated infographic video \u2014 simple diagram showing probiotic bacteria dying\
+  \ in the digestive tract vs. postbiotic compounds arriving intact, no voiceover,\
+  \ text labels only"
+- "Talking head UGC \u2014 a real postpartum mom at her kitchen counter, no makeup\
+  \ polish, saying the stat in her own words while holding the bottle, shot on phone"
+persona_traits: "Postpartum mom, 28\u201338, who took probiotics faithfully for months,\
+  \ noticed nothing, and quietly concluded her gut is just broken now \u2014 not that\
+  \ the product was"
+pain_point: Bloating and digestive irregularity that started during or after pregnancy
+  and never fully resolved
+benefit_callouts:
+- "1 trillion bioactives per serving \u2014 already active"
+- No survival problem. No colonization wait.
+- Clinically studied. Named ingredients. Look them up.
+cta: See what's actually in it
+body_copy: ''
+visual_direction: "Product in natural light on a counter that reads 'mom's kitchen,'\
+  \ not a supplement studio. The stat should feel like information, not a billboard\
+  \ \u2014 understated type, not a screaming badge."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Natalie is problem-aware and already frustrated by a digestive issue\
+    \ that hasn't resolved \u2014 the 'broken status quo' enemy frame maps perfectly\
+    \ onto the hook's angle that most probiotics fail to survive delivery, not due\
+    \ to brand dishonesty but systemic failure. The contrast structure lets the PAS\
+    \ framework land naturally: agitate the survival gauntlet, then position Gut Balance\
+    \ as the underdog solution that actually arrives."
+  production_notes: Avoid naming specific competitor brands to reduce legal risk;
+    instead name the enemy as 'standard probiotic capsules' or 'the $50 billion probiotic
+    industry' to keep the Goliath abstract but still visceral.
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 2
+  rationale: "A Pixar-style animated probiotic colony dramatizing the '1 trillion\
+    \ bioactives vs. the survival gauntlet' angle is a natural fit \u2014 you can\
+    \ literally show characters getting obliterated by stomach acid before one finally\
+    \ arrives, making the surprising-stat hook visceral without requiring clinical\
+    \ credibility. New moms scrolling with one hand and a baby in the other are scroll-fatigued\
+    \ millennials who respond to content that earns the scroll through absurdity rather\
+    \ than authority."
+  production_notes: "Keep the cringe intentional but not so chaotic that the stat\
+    \ gets lost \u2014 the '0 to a fraction of the label' number must appear as text\
+    \ on screen early, or the creative hook evaporates."
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
+    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
+    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "The 'Listen, new mamas' direct-address style mirrors how Natalie already\
+    \ consumes content in mom communities, and the long text overlay lets the PAS\
+    \ script breathe \u2014 enough space to land the pain (postpartum bloating that\
+    \ never left), agitate (your probiotic never made it), and pivot to Gut Balance.\
+    \ The low complexity also means rapid iteration against the surprising-stat hook\
+    \ to find the right emotional register."
+  production_notes: "B-roll must feel authentically postpartum \u2014 tired kitchen\
+    \ mornings, not polished wellness aesthetics \u2014 or Natalie will mentally check\
+    \ out before the agitation line lands."

@@ -1,0 +1,62 @@
+id: notes-app-listicle
+name: Notes App Listicle
+source: client-secondkind reference library
+category: reasons-why
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- notes-app-screenshot
+- listicle
+- ugc-aesthetic
+- problem-agitation
+- product-bottom-right
+- emoji
+template_prompt: 'Image 1 is the actual product — replicate it exactly.
+
+
+  Create a 1:1 square image that perfectly mimics a screenshot of a smartphone''s
+  notes app (like Apple Notes). The background must be plain white.
+
+
+  COMPOSITION:
+
+  1.  **Phone UI:** At the very top, include a standard smartphone status bar with
+  a time, cell signal, wifi icon, and battery icon. Below this, add notes app UI elements:
+  a back arrow navigation element on the left ("< [DETAILS]"), and share/menu icons
+  on the right.
+
+  2.  **Timestamp:** Below the UI, center-align a faint grey timestamp with a date
+  and time.
+
+  3.  **Headline:** Below the timestamp, place the [HEADLINE] text. It should be large,
+  bold, black, and left-aligned, formatted as a "problem listicle" (e.g., "[STAT]
+  things I hate about [old solution]:").
+
+  4.  **Body List:** Directly under the headline, create a numbered [BODY] list of
+  2-3 pain points. This text should be a standard weight and a lighter grey/black
+  color than the headline.
+
+  5.  **CTA:** In the bottom-left quadrant, place the [CTA] text. It should be a 2-3
+  line statement that introduces the solution, written in a bold [ACCENT] color. End
+  the last line with a pointing emoji (e.g., 👉, 👇).
+
+  6.  **Product:** Place a clean, high-quality photo of the [PRODUCT] in the bottom-right
+  quadrant. The product shot should be rotated slightly counter-clockwise and have
+  a subtle drop shadow, making it look like it''s resting on top of the note. The
+  CTA/emoji should point towards it.
+
+  '
+description: Use this template to present your product as the superior solution by
+  agitating common frustrations with existing alternatives, all within a highly native
+  and relatable 'notes app' screenshot format.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\reasons-why\reasons-why-Ad-1-Dr. Brooke
+  Whitfield, MD.jpg

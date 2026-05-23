@@ -1,0 +1,59 @@
+id: advertorial-problem-image-headline
+name: Article Headline Advertorial
+source: client-secondkind reference library
+category: media-and-press
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- advertorial
+- editorial-serif
+- native-ad
+- headline-driven
+- problem-focused
+- minimalist
+template_prompt: 'Create a 1:1 square ad that mimics a native article from a health
+  or news website. The entire ad has a solid [BACKGROUND] color like off-white or
+  light cream.
+
+
+  LAYOUT:
+
+  1.  At the top, centered, is the [BRAND] name styled as a publication URL (e.g.,
+  "PUBLICATION-NAME.COM") in a simple, all-caps, black sans-serif font. It is underlined
+  by a thin black horizontal rule that spans about 90% of the ad width.
+
+  2.  Below the top rule is a central, wide rectangular photograph. This is a [PROBLEM
+  DEMONSTRATION IMAGE], a clean, stock-photo-style shot of a person''s body part clearly
+  showing the problem the product solves (e.g., pinching belly fat, showing skin texture).
+  The photo has a neutral studio background.
+
+  3.  Below the image is a large, provocative, left-aligned [HEADLINE] in a heavy
+  black serif font. It is typically two lines long and makes a counterintuitive claim
+  about the problem.
+
+  4.  Below the headline is a block of [BODY] text. This paragraph starts with a prominent
+  drop cap. The rest of the text is smaller, in a light gray, all-caps, sans-serif
+  or thin serif font, providing a brief explanation.
+
+  5.  Below the body text is another thin black horizontal rule.
+
+  6.  Below the bottom rule, left-aligned, is a solid black rectangular button with
+  the [CTA] text inside in bold, white, all-caps sans-serif.
+
+  7.  At the very bottom, add optional small, light gray [DETAILS] text like a disclaimer.
+
+  '
+description: Use this template to create an advertorial-style ad that builds intrigue
+  around a problem. The format, which mimics an online article, is perfect for driving
+  clicks to a long-form landing page or blog post by presenting a 'secret' or a surprising
+  new cause for a common ailment.
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\media-press\media-and-press-Ad-4-healthtime_official.jpg

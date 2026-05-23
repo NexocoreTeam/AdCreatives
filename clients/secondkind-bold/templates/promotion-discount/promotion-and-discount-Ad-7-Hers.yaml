@@ -1,0 +1,22 @@
+id: lifestyle-stat-overlay-rounded
+name: Benefit Overlay on Lifestyle
+source: client-secondkind reference library
+category: facts-and-stats
+product_types:
+- any
+audience_fit:
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- text-overlay
+- rounded-box
+- lifestyle
+template_prompt: ''
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\promotion-discount\promotion-and-discount-Ad-7-Hers.png

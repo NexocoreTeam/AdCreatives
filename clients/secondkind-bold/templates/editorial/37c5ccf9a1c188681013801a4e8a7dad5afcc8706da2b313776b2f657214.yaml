@@ -1,0 +1,51 @@
+id: editorial-product-showcase-badge
+name: Editorial Product Showcase
+source: client-secondkind reference library
+category: editorial
+product_types:
+- any
+audience_fit:
+- problem_aware
+- solution_aware
+- product_aware
+funnel_stage: consideration
+aspect_ratios:
+- '1:1'
+tags:
+- product-centric
+- editorial-style
+- text-overlay
+- badge-callout
+- pill-callout
+- warm-lighting
+- question-headline
+template_prompt: 'An ad with a 1:1 aspect ratio featuring a high-end, editorial-style
+  product photograph.
+
+
+  BACKGROUND: The background is a photorealistic, beautifully styled interior scene
+  with soft, warm lighting. The upper part of the background is darker and slightly
+  out of focus, while the lower part shows a floor and wall with natural textures
+  like wood and concrete.
+
+
+  PRODUCT: The [PRODUCT] is the hero, placed centrally in the frame. It''s shot from
+  a straight-on, eye-level perspective.
+
+
+  TEXT:
+
+  1. Centered in the upper third, overlay a large [HEADLINE] in a white, semi-bold
+  sans-serif font. The headline is 3-5 words and formatted in title case, often as
+  a question.
+
+  2. Directly below the headline, add a [SUBHEAD] in a smaller white sans-serif font.
+  To the left of the subhead, include a small, rounded pill-shaped tag with the text
+  "[DETAILS]" (e.g., "NEW").
+
+  3. In'
+description: ''
+platforms:
+- meta
+- tiktok
+source_ad: clients\secondkind\reference_ads\raw\editorial\37c5ccf9a1c188681013801a4e8a7dad5afcc8706da2b313776b2f657214aa94.png
