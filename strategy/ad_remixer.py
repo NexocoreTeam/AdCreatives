@@ -934,6 +934,7 @@ def generate_remix_angles(
     avatar_lever_pairs: list[tuple[CustomerAvatar, str]],
     fidelity_tiers: list[str] | None = None,
     competitive_gaps: dict | None = None,
+    client_slug: str = "",
 ) -> list[dict]:
     """Generate one angle per (avatar, lever) pair. All angles share the
     analysis's locked structural fields. Single Sonnet call.
@@ -1022,7 +1023,14 @@ def generate_remix_angles(
     n = len(avatar_lever_pairs)
     high_count = fidelity_tiers.count("high")
     min_gap_variations = (n // 2) + (n % 2)  # ceil(n/2) — at least half
-    user_prompt = f"""Generate {n} distinct ad variations that REMIX a reference ad for our product.
+
+    # Load the brand voice profile (library/voice.md or per-client override).
+    # Injected at the TOP of the prompt so it's the first thing the LLM reads;
+    # downstream rules about structure/word-count must operate within this
+    # voice, not against it.
+    voice_block = _voice_block_for_prompt(client_slug)
+
+    user_prompt = f"""{voice_block}Generate {n} distinct ad variations that REMIX a reference ad for our product.
 Every variation MUST share the locked structural fields below — same ad_type,
 same creative_mechanic, same visual_format, same framework. What varies across
 variations is the PERSONA and the PRIMARY PSYCHOLOGICAL LEVER (heuristic).
@@ -1737,6 +1745,7 @@ def remix(
         pairs,
         fidelity_tiers=fidelity_tiers,
         competitive_gaps=competitive_gaps,
+        client_slug=client_slug,
     )
     if len(angles) < len(pairs):
         raise RuntimeError(
@@ -2056,6 +2065,7 @@ def remix_continue(
         pairs,
         fidelity_tiers=fidelity_tiers,
         competitive_gaps=competitive_gaps,
+        client_slug=client_slug,
     )
     if len(angles) < len(pairs):
         raise RuntimeError(
@@ -3436,6 +3446,77 @@ def _format_voice_pack(avatar: "CustomerAvatar | None") -> str:
     return format_voice_pack(avatar)
 
 
+# Cache the voice file contents per process — it's a static markdown file
+# read once per `adc remix` invocation, no need to hit disk on every LLM call.
+_VOICE_PROFILE_CACHE: dict[str, str] = {}
+
+
+def _load_copywriting_voice(client_slug: str = "") -> str:
+    """Load the copywriting voice profile for this client (or global default).
+
+    Resolution order:
+      1. `clients/<slug>/voice.md` — per-client override
+      2. `library/voice.md` — global default (extracted from a reference brand)
+      3. empty string if neither exists
+
+    The returned string is injected into:
+      - The angle-generation prompt (so personas-and-callouts are written
+        in this voice from the start)
+      - The source→target mapping prompt (so the rewrite stays in this voice
+        when compressing brief content to fit the source's word envelope)
+
+    Cached per (client_slug) to avoid re-reading on every Claude call within
+    a remix run. To force-reload (e.g. after editing the file mid-session),
+    clear `_VOICE_PROFILE_CACHE`.
+    """
+    cache_key = client_slug or "_global_default"
+    if cache_key in _VOICE_PROFILE_CACHE:
+        return _VOICE_PROFILE_CACHE[cache_key]
+
+    candidates = []
+    if client_slug:
+        candidates.append(Path("clients") / client_slug / "voice.md")
+    candidates.append(Path("library") / "voice.md")
+
+    voice_text = ""
+    for candidate in candidates:
+        if candidate.exists():
+            try:
+                voice_text = candidate.read_text(encoding="utf-8").strip()
+                if voice_text:
+                    break
+            except OSError:
+                continue
+
+    _VOICE_PROFILE_CACHE[cache_key] = voice_text
+    return voice_text
+
+
+def _voice_block_for_prompt(client_slug: str = "") -> str:
+    """Return a header + voice file contents formatted for prompt injection.
+
+    Returns empty string if no voice file exists. Otherwise wraps the file
+    in a clear section header so the LLM knows this is the brand's voice
+    profile (not narrative context).
+    """
+    voice_text = _load_copywriting_voice(client_slug)
+    if not voice_text:
+        return ""
+    return (
+        "═══════════════════════════════════════════════════════════════\n"
+        "BRAND VOICE PROFILE — HIGHEST-PRIORITY STYLE CONSTRAINT.\n"
+        "Every line of copy you write MUST match the patterns, vocabulary,\n"
+        "and forbidden-word list below. Conflicts with the rest of the\n"
+        "system prompt are resolved IN FAVOR of this voice profile.\n"
+        "═══════════════════════════════════════════════════════════════\n\n"
+        + voice_text
+        + "\n\n"
+        "═══════════════════════════════════════════════════════════════\n"
+        "END BRAND VOICE PROFILE. Continue with the task instructions below.\n"
+        "═══════════════════════════════════════════════════════════════\n"
+    )
+
+
 # Roles where [REMOVE] is not an acceptable target — the operator wants
 # their copy in those slots. The mapper sometimes gets cold feet when the
 # source's literal content (e.g. "Probiotic Chew for dogs") doesn't translate
@@ -3666,11 +3747,17 @@ def _generate_source_to_target_mapping(
     ) or "    (none)"
 
     voice_pack = _format_voice_pack(avatar)
-    voice_block = voice_pack + "\n" if voice_pack else (
+    voice_pack_block = voice_pack + "\n" if voice_pack else (
         "(no ICP voice pack available — infer voice from the brief's persona "
         "name and lean toward short, plain, observational customer-style "
         "phrasing rather than brand-marketing language)\n\n"
     )
+
+    # Load the brand voice profile (library/voice.md or per-client override)
+    # — this is the cleverness/wordplay/forbidden-word reference the mapper
+    # uses to make each target sound like the brand's actual voice. Prepended
+    # to the user prompt so it sets the tone before any source/target lists.
+    brand_voice_block = _voice_block_for_prompt(getattr(brief, "client", ""))
 
     # Note: benefit_callouts are pre-trimmed to N=callout_slots. Spell out
     # the count so the mapper doesn't think it can invent slots to fit
@@ -3683,11 +3770,11 @@ def _generate_source_to_target_mapping(
         f"callout text to brand/headline/cta slots.)"
     )
 
-    user_prompt = f"""SOURCE AD TEXT INVENTORY (extracted via vision, top→bottom, with word counts + role + position):
+    user_prompt = f"""{brand_voice_block}SOURCE AD TEXT INVENTORY (extracted via vision, top→bottom, with word counts + role + position):
 
 {inventory_block}
 
-{voice_block}TARGET BRIEF — the new ad's content to map onto the source layout:
+{voice_pack_block}TARGET BRIEF — the new ad's content to map onto the source layout:
 
   brand: {brand.name}
   product: {product.name}
