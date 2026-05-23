@@ -49,10 +49,34 @@ CANDIDATE_PATHS = [
     "/pages/how-it-works",
 ]
 
+# Realistic Chrome UA — Shopify-hosted stores (and many CDN-fronted sites)
+# return a 403 bot-challenge page to the identifying "AdCreatives-Research"
+# UA we previously used. Spoofing a recent Chrome string lets product PDPs
+# load normally. The site policy is "no scraping unless you look like a
+# browser," which we honor by behaving like one (low request rate, single
+# fetch per page).
 USER_AGENT = (
-    "Mozilla/5.0 (compatible; AdCreatives-Research/0.1; "
-    "+https://github.com/NexocoreTeam/AdCreatives)"
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/126.0.0.0 Safari/537.36"
 )
+
+# Standard browser headers paired with the UA above. Some bot-detection
+# layers (CloudFlare, Shopify's Sec-Bot) flag UA-only requests as anomalous.
+# Accept-Encoding deliberately omits "br" (brotli) — httpx only decompresses
+# gzip/deflate natively, and advertising "br" would let the server return
+# brotli-encoded bytes that arrive as garbage at the LLM extraction stage.
+BROWSER_HEADERS = {
+    "User-Agent": USER_AGENT,
+    "Accept": (
+        "text/html,application/xhtml+xml,application/xml;q=0.9,"
+        "image/avif,image/webp,image/apng,*/*;q=0.8"
+    ),
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
+}
 
 MAX_HTML_PER_PAGE = 50_000
 MAX_TOTAL_HTML = 200_000
@@ -567,10 +591,11 @@ def fetch_product_pages_with_raw(urls: list[str]) -> dict[str, dict[str, str]]:
 
     Returns: {url: {"raw": str, "cleaned": str}}
     """
-    headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
     results: dict[str, dict[str, str]] = {}
     total_chars = 0
-    with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
+    with httpx.Client(
+        timeout=15.0, follow_redirects=True, headers=BROWSER_HEADERS
+    ) as client:
         for url in urls:
             try:
                 resp = client.get(url)

@@ -255,7 +255,10 @@ def profile_avatar_file(
         competitive_block=competitive_block,
     )
 
-    response = claude_complete(prompt, system=PROFILER_SYSTEM, max_tokens=4096)
+    # 8192 ceiling — earlier 4096 truncated profiles mid-string for personas
+    # with rich evidence + multiple recommended_prompt_pairings (the full
+    # schema averages ~5-6K tokens for a high-confidence persona).
+    response = claude_complete(prompt, system=PROFILER_SYSTEM, max_tokens=8192)
     profile = parse_profile_yaml(response)
     write_profile_into_avatar(avatar_path, profile, backup=backup)
     return profile
