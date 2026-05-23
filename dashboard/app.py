@@ -444,6 +444,7 @@ def render_client_detail(selected: str):
         "🧠 Psychology",
         "🗺️ Strategy",
         "📝 Briefs",
+        "🧩 Matrix",
         "🖼️ Ads",
         "✨ Remix",
         "📐 Templates",
@@ -472,14 +473,16 @@ def render_client_detail(selected: str):
     with tabs[9]:
         _render_briefs_tab(selected)
     with tabs[10]:
-        _render_ads_tab(selected)
+        _render_matrix_tab(selected)
     with tabs[11]:
-        _render_remix_tab(selected)
+        _render_ads_tab(selected)
     with tabs[12]:
-        _render_templates_tab(selected)
+        _render_remix_tab(selected)
     with tabs[13]:
-        _render_costs_tab(selected)
+        _render_templates_tab(selected)
     with tabs[14]:
+        _render_costs_tab(selected)
+    with tabs[15]:
         _render_actions_tab(selected)
 
 
@@ -1188,6 +1191,368 @@ def _render_briefs_tab(selected):
                         st.caption(f"_{rationale}_")
                     if notes:
                         st.caption(f"⚠️ {notes}")
+
+
+# ─── Matrix tab ─────────────────────────────────────────────────────────────
+
+
+def _matrix_row_anchor(row: dict) -> str:
+    """Pick the single-line summary for a row based on which tab it lives in."""
+    return (
+        row.get("complaint")
+        or row.get("emotional_trigger")
+        or row.get("wished_product")
+        or row.get("hook_angle")
+        or "(unspecified)"
+    )
+
+
+def _render_matrix_row(client: str, row: dict, products: list[str]):
+    """Render one row as an expander with strategy detail + Build button.
+
+    Build flow uses session_state to remember which row the user clicked
+    Build on, so the form persists across the Streamlit re-runs that
+    happen on every interaction.
+    """
+    row_id = row.get("id", "?")
+    anchor = _matrix_row_anchor(row)
+    psych = row.get("psychology_trigger") or "—"
+    formats = row.get("format_fit") or []
+    fmt_str = ", ".join(formats) if formats else "—"
+
+    header = f"**{row_id}**  ·  {anchor[:140]}  ·  `{psych}`  ·  {fmt_str}"
+    with st.expander(header):
+        col_l, col_r = st.columns([2, 1])
+
+        with col_l:
+            # Tab-specific anchor field
+            if row.get("complaint"):
+                st.markdown(f"**Complaint:** {row['complaint']}")
+            if row.get("emotional_trigger"):
+                st.markdown(f"**Emotional trigger:** {row['emotional_trigger']}")
+            if row.get("wished_product"):
+                st.markdown(f"**They wish for:** {row['wished_product']}")
+            if row.get("hook_angle"):
+                st.markdown(f"**Hook:** {row['hook_angle']}")
+
+            # Supporting fields
+            if row.get("what_people_say"):
+                st.caption(f"_What people say: \"{row['what_people_say']}\"_")
+            if row.get("our_advantage"):
+                st.markdown(f"**Our advantage:** {row['our_advantage']}")
+            if row.get("positioning_angle"):
+                st.markdown(f"**Positioning angle:** {row['positioning_angle']}")
+            if row.get("hook_or_angle_to_amplify"):
+                st.markdown(f"**Hook to amplify:** {row['hook_or_angle_to_amplify']}")
+            if row.get("real_frustration"):
+                st.markdown(f"**Real frustration:** {row['real_frustration']}")
+            if row.get("script_or_static_opportunity"):
+                st.markdown(
+                    f"**Script/static opportunity:** {row['script_or_static_opportunity']}"
+                )
+            if row.get("tactic"):
+                st.markdown(f"**Tactic:** `{row['tactic']}`")
+            if row.get("story_setup"):
+                st.markdown(f"**Story setup:** {row['story_setup']}")
+            if row.get("why_it_works"):
+                st.caption(f"_Why it works: {row['why_it_works']}_")
+
+            if row.get("static_treatment"):
+                st.markdown("**Static treatment (shoot direction):**")
+                st.info(row["static_treatment"])
+
+        with col_r:
+            st.markdown(f"**Psychology:** `{psych}`")
+            psych_caption = _glossary_caption(psych, HEURISTIC_GLOSSARY)
+            if psych_caption:
+                st.caption(f"💡 {psych_caption}")
+            st.markdown(f"**Formats:** {fmt_str}")
+            if row.get("source_type"):
+                st.caption(f"Sources: {', '.join(row['source_type'])}")
+
+            # Trending block
+            tm = row.get("trending_match") or {}
+            if tm and tm.get("concept"):
+                st.markdown("---")
+                st.markdown("**🔥 Trending match**")
+                st.markdown(f"`{tm.get('format_id', '—')}` · {tm.get('concept', '—')}")
+                if tm.get("execution"):
+                    st.caption(tm["execution"])
+
+            tn = row.get("trending_next") or {}
+            if tn and tn.get("idea"):
+                st.markdown("**Next-idea variation**")
+                st.markdown(f"`{tn.get('idea', '—')}`")
+                if tn.get("execution"):
+                    st.caption(tn["execution"])
+
+        # ── Build button ────────────────────────────────────────────────
+        st.markdown("---")
+        build_key = f"matrix_build_{client}_{row_id}"
+
+        if not st.session_state.get(build_key):
+            # Disable for video-only rows — the video pipeline isn't wired yet.
+            video_only = formats == ["video-only"]
+            if video_only:
+                st.caption(
+                    "⚠️ This row is `video-only` — the matrix→video pipeline is "
+                    "not yet wired. Build static rows for now."
+                )
+                st.button(
+                    "🎬 Build this as a static ad",
+                    key=f"btn_build_{row_id}",
+                    disabled=True,
+                )
+            else:
+                if st.button(
+                    "🎬 Build this as a static ad",
+                    key=f"btn_build_{row_id}",
+                    type="primary",
+                ):
+                    st.session_state[build_key] = True
+                    st.rerun()
+            return
+
+        # ── Build form (active when build_key is set) ──────────────────
+        st.markdown("**🎬 Build this row as a static ad**")
+
+        if not products:
+            st.error(
+                "No products configured for this client. "
+                "Add a product YAML under `clients/<slug>/products/` first."
+            )
+            if st.button("Cancel", key=f"btn_cancel_{row_id}"):
+                st.session_state[build_key] = False
+                st.rerun()
+            return
+
+        # ── Brief preview (synthesize in-process for instant feedback) ──
+        brief_preview_ok = False
+        try:
+            from models.loader import (
+                load_all_avatars,
+                load_avatar,
+                load_brand,  # noqa: F401 — kept for clarity, used by builders
+                load_product,
+            )
+            from models.matrix import MatrixRow, MatrixTab
+            from strategy.creative_matrix import row_to_brief
+
+            # Hydrate the dict into a typed MatrixRow so row_to_brief sees the
+            # correct Pydantic shape (tab field is an enum).
+            row_for_brief = dict(row)
+            row_for_brief["tab"] = MatrixTab(row_for_brief["tab"])
+            row_obj = MatrixRow(**row_for_brief)
+
+            default_product_idx = 0
+            selected_product = st.selectbox(
+                "Product to anchor the ad on",
+                products,
+                index=default_product_idx,
+                key=f"product_pick_{row_id}",
+            )
+            product = load_product(client, selected_product)
+
+            avatars = load_all_avatars(client)
+            avatar = avatars[0] if avatars else load_avatar(client)
+
+            brief = row_to_brief(
+                row=row_obj,
+                client_slug=client,
+                product=product,
+                avatar=avatar,
+            )
+            brief_preview_ok = True
+
+            with st.container(border=True):
+                st.markdown("**Brief preview** (synthesized from row)")
+                pcol1, pcol2 = st.columns(2)
+                with pcol1:
+                    st.markdown(f"- **brief_id:** `{brief.brief_id}`")
+                    st.markdown(f"- **awareness:** `{brief.awareness_level.value}`")
+                    st.markdown(f"- **framework:** `{brief.framework.value}`")
+                    st.markdown(f"- **visual_format:** `{brief.visual_format or '—'}`")
+                    if brief.visual_format_alternatives:
+                        alts = ", ".join(brief.visual_format_alternatives)
+                        st.caption(f"alternates: {alts}")
+                with pcol2:
+                    st.markdown(f"- **hook:** {brief.hook[:160]}")
+                    st.markdown(f"- **angle:** {brief.angle[:160]}")
+                    if brief.persona:
+                        st.markdown(f"- **persona:** {brief.persona}")
+                if brief.visual_direction:
+                    st.caption(f"_Visual direction: {brief.visual_direction[:400]}_")
+        except Exception as e:
+            st.error(f"Failed to synthesize brief preview: {type(e).__name__}: {e}")
+
+        # ── Generation options ─────────────────────────────────────────
+        opt_col1, opt_col2 = st.columns(2)
+        with opt_col1:
+            num_images = st.number_input(
+                "Images to generate",
+                min_value=1, max_value=4, value=1,
+                key=f"num_images_{row_id}",
+            )
+        with opt_col2:
+            engine = st.selectbox(
+                "Engine",
+                ["nb2", "higgsfield-soul"],
+                index=0,
+                key=f"engine_{row_id}",
+            )
+
+        # ── Generate / Cancel buttons ──────────────────────────────────
+        gen_col, cancel_col = st.columns([1, 1])
+        if gen_col.button(
+            "Generate now",
+            key=f"btn_gen_{row_id}",
+            type="primary",
+            disabled=not brief_preview_ok,
+        ):
+            rc, _output = run_adc_command(
+                [
+                    "creative-matrix",
+                    "--client", client,
+                    "--row", row_id,
+                    "--build", "static",
+                    "--product", selected_product,
+                    "--num-images", str(num_images),
+                    "--engine", engine,
+                ],
+                label=f"Building {row_id} on {selected_product}…",
+            )
+            if rc == 0:
+                # Find the generated image(s). The build command writes to
+                # ai-ads/<client>/images/matrix-<row_id>_<aspect>.png. Show
+                # any variants found.
+                imgs_dir = AI_ADS_DIR / client / "images"
+                pattern = f"matrix-{row_id}_*.png"
+                found = sorted(imgs_dir.glob(pattern))
+                if found:
+                    st.success(f"✨ Generated {len(found)} image(s)")
+                    img_cols = st.columns(min(len(found), 3))
+                    for i, img_path in enumerate(found):
+                        with img_cols[i % len(img_cols)]:
+                            st.image(str(img_path), caption=img_path.name)
+                else:
+                    st.warning(
+                        f"Build returned exit 0 but no images matched "
+                        f"`{pattern}`. Check the Ads tab for the latest output."
+                    )
+            st.session_state[build_key] = False
+        if cancel_col.button("Cancel", key=f"btn_cancel_{row_id}"):
+            st.session_state[build_key] = False
+            st.rerun()
+
+
+def _render_matrix_tab(selected):
+    """The tactical 4-tab creative matrix — strategy → buildable ad seeds.
+
+    Reads clients/<slug>/strategy/creative_matrix.yaml and renders each tab
+    as a list of expanders with a per-row "Build this" button that hands
+    off to the `adc creative-matrix --build static` pipeline.
+    """
+    matrix_yaml = CLIENTS_DIR / selected / "strategy" / "creative_matrix.yaml"
+    if not matrix_yaml.exists():
+        st.info(
+            f"No creative matrix yet. Run: "
+            f"`adc creative-matrix --client {selected}`\n\n"
+            f"Cost: ~$2–4 in Claude. Requires `competitive-gaps.yaml` "
+            f"(`adc analyze-gaps`) and optionally `voc/extracted_pains.yaml` "
+            f"(`adc mine-voc`)."
+        )
+        return
+
+    try:
+        matrix = yaml.safe_load(matrix_yaml.read_text(encoding="utf-8")) or {}
+    except Exception as e:
+        st.error(f"Failed to load matrix YAML: {e}")
+        return
+
+    pain_rows = matrix.get("pain_vs_competitor") or []
+    love_rows = matrix.get("what_they_love") or []
+    wish_rows = matrix.get("wishes_gaps") or []
+    hook_rows = matrix.get("hook_angles") or []
+    all_rows = pain_rows + love_rows + wish_rows + hook_rows
+
+    # ─── Header summary ─────────────────────────────────────────────────
+    c1, c2, c3, c4, c5 = st.columns(5)
+    c1.metric("Pain vs Competitor", len(pain_rows))
+    c2.metric("What They Love", len(love_rows))
+    c3.metric("Wishes & Gaps", len(wish_rows))
+    c4.metric("Hook Angles", len(hook_rows))
+    matched = sum(1 for r in all_rows if r.get("trending_match"))
+    c5.metric("With trending", f"{matched} / {len(all_rows)}")
+
+    # Provenance line — generated when, tier, sources
+    generated_at = matrix.get("generated_at", "—")
+    tier = matrix.get("tier", "—")
+    st.caption(
+        f"Generated `{generated_at}` · tier `{tier}` · "
+        f"XLSX at `clients/{selected}/strategy/creative_matrix.xlsx`"
+    )
+
+    sources = matrix.get("research_sources_used") or {}
+    tier_3 = sources.get("tier_3") or []
+    if tier_3:
+        st.caption(f"**Tier 3 social sources:** {', '.join(tier_3)}")
+
+    # ─── Action: refresh ───────────────────────────────────────────────
+    with st.expander("⚙️ Actions on the whole matrix"):
+        ac1, ac2, ac3 = st.columns(3)
+        if ac1.button("Refresh trending matches", key="matrix_refresh_trending"):
+            run_adc_command(
+                ["creative-matrix", "--client", selected, "--refresh-trending"],
+                label="Refreshing trending matches…",
+            )
+            st.rerun()
+        if ac2.button("Regenerate all (full rebuild)", key="matrix_regen_all"):
+            run_adc_command(
+                ["creative-matrix", "--client", selected, "--tier", "standard"],
+                label="Rebuilding matrix (4 tabs + per-row trending)…",
+            )
+            st.rerun()
+        ac3.markdown(
+            "[Open XLSX](clients/{}/strategy/creative_matrix.xlsx)".format(selected)
+        )
+
+    # ─── Products available for build ──────────────────────────────────
+    products_dir = CLIENTS_DIR / selected / "products"
+    products = sorted(p.stem for p in products_dir.glob("*.yaml")) if products_dir.exists() else []
+
+    st.divider()
+
+    # ─── Per-tab rendering ─────────────────────────────────────────────
+    sub_tabs = st.tabs([
+        f"Pain vs Competitor ({len(pain_rows)})",
+        f"What They Love ({len(love_rows)})",
+        f"Wishes & Gaps ({len(wish_rows)})",
+        f"Hook Angles ({len(hook_rows)})",
+    ])
+
+    with sub_tabs[0]:
+        if not pain_rows:
+            st.info("No rows in this tab yet.")
+        for r in pain_rows:
+            _render_matrix_row(selected, r, products)
+
+    with sub_tabs[1]:
+        if not love_rows:
+            st.info("No rows in this tab yet.")
+        for r in love_rows:
+            _render_matrix_row(selected, r, products)
+
+    with sub_tabs[2]:
+        if not wish_rows:
+            st.info("No rows in this tab yet.")
+        for r in wish_rows:
+            _render_matrix_row(selected, r, products)
+
+    with sub_tabs[3]:
+        if not hook_rows:
+            st.info("No rows in this tab yet.")
+        for r in hook_rows:
+            _render_matrix_row(selected, r, products)
 
 
 def _render_ads_tab(selected):
