@@ -158,7 +158,10 @@ def extract_voc_from_text(
         reviews=reviews_text[:15000],  # Token budget guard
         source=source,
     )
-    result = claude_complete(prompt, system=VOC_SYSTEM)
+    # 8192 ceiling — earlier 4096 truncated rich corpora (e.g. 100+ IG comments)
+    # mid-quoted-string, producing unparseable YAML. The full schema averages
+    # ~4-6K tokens; 8K gives headroom for the largest source dumps.
+    result = claude_complete(prompt, system=VOC_SYSTEM, max_tokens=8192)
     result = result.strip()
     if result.startswith("```"):
         result = result.split("\n", 1)[1]
@@ -168,17 +171,21 @@ def extract_voc_from_text(
 
 
 def load_reviews_from_file(path: Path) -> str:
-    """Load review text from a JSON or text file."""
+    """Load review text from a JSON or text file.
+
+    Explicit UTF-8 — without this, Windows defaults to cp1252 and chokes on
+    emoji-containing dumps like the Tier 3 social-comment files.
+    """
     if path.suffix == ".json":
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             data = json.load(f)
         if isinstance(data, list):
             return "\n\n---\n\n".join(
                 f"Rating: {r.get('rating', 'N/A')}\n{r.get('text', r.get('body', str(r)))}"
                 for r in data
             )
-        return json.dumps(data, indent=2)
-    with open(path) as f:
+        return json.dumps(data, indent=2, ensure_ascii=False)
+    with open(path, encoding="utf-8") as f:
         return f.read()
 
 
