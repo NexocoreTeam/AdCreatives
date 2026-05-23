@@ -1,0 +1,29 @@
+{
+  "platform": "instagram",
+  "competitor_slug": "seed",
+  "competitor_name": "Seed",
+  "post_id": "DYm-gYQh4YR",
+  "post_url": "https://www.instagram.com/p/DYm-gYQh4YR/",
+  "post_caption": "Lightbulb moment: Digestive health isn\u2019t just about what goes into your body. It\u2019s also about the environment that surrounds it.",
+  "post_metrics": {
+    "likes": 95,
+    "comments": 2,
+    "video_views": 664
+  },
+  "comments": [
+    {
+      "platform": "instagram",
+      "text": "\ud83d\udca1\ud83d\udca1\ud83d\udca1",
+      "author": "leahbhabha",
+      "likes": 0,
+      "reply_count": 0,
+      "posted_at": "2026-05-21T17:28:27.000Z",
+      "comment_id": "18377199943202253",
+      "post_id": "DYm-gYQh4YR",
+      "post_url": "https://www.instagram.com/p/DYm-gYQh4YR/",
+      "is_reply": false
+    }
+  ],
+  "fetched_at": "2026-05-22T23:23:00.793691Z",
+  "notes": ""
+}

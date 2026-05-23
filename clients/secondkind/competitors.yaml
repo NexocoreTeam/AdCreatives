@@ -24,6 +24,9 @@ competitors:
       - Mechanism opacity for the audience: "24 strains" is a number, not
         a felt outcome.
     amazon_urls: []
+    # Verified from seed.com footer 2026-05-22. TikTok/YouTube not linked from
+    # homepage — left blank so research-social skips them rather than guessing.
+    instagram_handle: seed
 
   - name: Arrae
     slug: arrae
@@ -45,6 +48,20 @@ competitors:
         bioactive compounds.
       - Daily vs as-needed positioning.
     amazon_urls: []
+    # Verified from arrae.com footer 2026-05-22 — full social trio.
+    instagram_handle: arrae
+    tiktok_handle: "@arrae.co"
+    youtube_channel_id: UCPEnayx6zTWYN7G4nGu6PeA
+    # UGC review videos (third-party creators reviewing Arrae) — sourced via
+    # Google `site:tiktok.com arrae review` on 2026-05-22. Bypasses the
+    # profile-listing step (which TikTok login-walls) by going directly to
+    # comment scraping on these high-engagement UGC posts.
+    tiktok_post_urls:
+      - https://www.tiktok.com/@abbeyskitchen/video/7554098065859218696       # Clear Protein critical review (103.6K views)
+      - https://www.tiktok.com/@hannahaaronbrown/video/7496136958825991454    # MB1 + Tone honest review (29.8K views)
+      - https://www.tiktok.com/@abcanizales/video/7488046482960993578         # MB1: Does It Really Work?
+      - https://www.tiktok.com/@foodiesushiqueen/video/7437232619487726894    # Tribiotic — DIRECT competitor product to Gut Balance
+      - https://www.tiktok.com/@nikkierogers/video/7615769171229510926        # Journey to Better Health Day 1
 
   - name: Ritual
     slug: ritual
@@ -64,3 +81,7 @@ competitors:
       - Ritual's design accessibility may attract less science-literate buyers
         than SecondKind's clinical-apothecary positioning — different segments.
     amazon_urls: []
+    # Verified from ritual.com footer 2026-05-22. TikTok not linked from
+    # homepage — left blank.
+    instagram_handle: ritual
+    youtube_handle: "@ritualvitamins"

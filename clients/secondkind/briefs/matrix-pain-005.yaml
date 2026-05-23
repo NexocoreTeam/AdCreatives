@@ -1,0 +1,46 @@
+brief_id: matrix-pain-005
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+framework: pas
+angle: Billions of CFU. AFU. Proprietary blends with no disclosed amounts. The gut
+  health category has become impossible to decode. SecondKind uses three named, clinically
+  studied postbiotics. Look them up. We'll wait.
+hook: Billions of CFU. AFU. Proprietary blends with no disclosed amounts. The gut
+  health category has become impossible to decode. SecondKind uses three named, clinically
+  studied postbiotics. Look them up. We'll wait.
+hook_type: ''
+slot: null
+hook_source: matrix:pain_vs_competitor:pain-005
+hook_tactic: ''
+persona: Done-Everything Danielle
+creative_mechanic: ''
+visual_format: us-vs-them
+visual_format_alternatives:
+- ingredient-callout
+persona_traits: "Woman, 30\u201344, suburban or urban, household income $90K\u2013\
+  $160K, college-educated, likely married with one or two young children or a demanding\
+  \ career, disposable income allocated toward wellness"
+pain_point: "Seed uses proprietary AFU measurement instead of industry-standard CFU,\
+  \ making independent comparison impossible \u2014 a tactic informed buyers call\
+  \ deliberately opaque"
+benefit_callouts:
+- "SecondKind's three core ingredients \u2014 Totipro\xAE, EpiCor\xAE, Bereum\xAE\
+  \ \u2014 are named, patented, and independently verifiable with published clinical\
+  \ trials consumers can look up"
+- The '1 trillion bioactives' framing sidesteps the CFU/AFU arms race by anchoring
+  to outcomes, not colony counts.
+cta: Shop Now
+body_copy: "SecondKind's three core ingredients \u2014 Totipro\xAE, EpiCor\xAE, Bereum\xAE\
+  \ \u2014 are named, patented, and independently verifiable with published clinical\
+  \ trials consumers can look up. The '1 trillion bioactives' framing sidesteps the\
+  \ CFU/AFU arms race by anchoring to outcomes, not colony counts."
+visual_direction: "Editorial flat-lay: Gut Balance bottle center-frame surrounded\
+  \ by printed research paper thumbnails for Totipro\xAE, EpiCor\xAE, and Bereum\xAE\
+  . Headline: 'Three ingredients. Three clinical studies. Zero proprietary mystery.'\
+  \ Copy below names each compound. Clean white background, no clutter."
+tone_override: ''
+target_platform: meta
+source_insight: creative_matrix:pain_vs_competitor:pain-005
+campaign_name: ''
+trending_format_recommendations: []

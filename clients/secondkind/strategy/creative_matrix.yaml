@@ -1,0 +1,2926 @@
+client: secondkind
+generated_at: '2026-05-22T20:57:28'
+matrix_version: 1
+trending_source: trending_formats.yaml
+research_sources_used:
+  tier_1:
+  - amazon.com
+  - reddit.com
+  - trustpilot.com
+  tier_2:
+  - abbylangernutrition.com
+  - app.thestorygraph.com
+  - arrae.com
+  - au.trustpilot.com
+  - azcentral.com
+  - bbb.org
+  - brianyeungnd.com
+  - ca.trustpilot.com
+  - capitalgazette.com
+  - contactcompany.co.uk
+  - dailyhealthsupplement.com
+  - dotmagazine.co.uk
+  - elainelinle.com
+  - expertbeacon.com
+  - fortune.com
+  - greatist.com
+  - healthline.com
+  - ie.trustpilot.com
+  - imagera.ai
+  - infinitefreetime.com
+  - jonathanszkotak.com
+  - medicalnewstoday.com
+  - medium.com
+  - mirror.co.uk
+  - modesens.com
+  - myistyclan.com
+  - nerdbot.com
+  - nl-be.trustpilot.com
+  - nz.trustpilot.com
+  - oakabode.com
+  - old.reddit.com
+  - onbetterliving.com
+  - openpr.com
+  - pnj.com
+  - queenofcontemporary.com
+  - rileypearce.ca
+  - ritual.pissedconsumer.com
+  - screenrant.com
+  - secondkind.com
+  - seed.com
+  - seedancetips.com
+  - shelfinflicted.com
+  - shopping.yahoo.com
+  - tasteslovely.com
+  - theadvertiser.com
+  - thebooksareeverywhere.com
+  - thechutneylife.com
+  - theeverygirl.com
+  - thefilmstage.com
+  - thequalityedit.com
+  - thesignaturejess.com
+  - thespinoff.co.nz
+  - thetennillelife.com
+  - thewellnesspilot.com
+  - thingtesting.com
+  - top10com.com
+  - topstarrated.com
+  - tryandreview.com
+  - tummycure.com
+  - uk.trustpilot.com
+  - us.amazon.com
+  - usefulvitamins.com
+  - voc_corpus
+  - vogue.com
+  - weddingwire.com
+  - whatthefab.com
+  - whimsysoul.com
+  tier_3:
+  - instagram_comments
+  - tiktok.com
+  - tiktok_comments
+  - youtube.com
+  - youtube_comments
+tier: standard
+pain_vs_competitor:
+- id: pain-001
+  tab: pain_vs_competitor
+  complaint: Zero noticeable results after two months of faithful use — buyers cancel
+    Seed at $50/month having felt nothing change in energy, sleep, or digestion
+  our_advantage: BiomeBalance™ delivers postbiotic compounds directly — the bioactive
+    outputs bacteria produce — bypassing the viability and colonization steps that
+    cause probiotic plateaus. Bereum® showed measurable GI symptom improvement in
+    an 84-day study; Totipro® showed bowel regularity outcomes at 30 days.
+  positioning_angle: Probiotics ask you to wait while bacteria try to survive. Postbiotics
+    skip the line.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  - tiktok_comments
+  what_people_say: Two months on Seed. Nothing I could point at.
+  format_fit:
+  - us-vs-them
+  - facts-stats
+  static_treatment: 'Split-frame: left side shows an empty probiotic bottle with a
+    calendar marked off for 60 days, headline ''Still waiting.'' Right side shows
+    Gut Balance with ''30 days. Bowel regularity. Clinical data.'' Bold contrast typography
+    on white ground. SecondKind wordmark bottom right.'
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a tight shot of a Seed bottle next to a calendar with 60
+      days crossed off and a question mark — voiceover or text overlay: ''Two months.
+      Fifty dollars a month. And nothing you could point at.'' Cut to animated breakdown
+      of Gut Balance''s clinical strain data vs Seed''s CFU count, with a split-screen
+      bar chart animating in. Close on a 30-day bowel regularity stat stamped in bold
+      with the SecondKind wordmark. Static variant mirrors the brief''s split-frame
+      concept with the same before/after framing.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Sorry — a static ad where Gut Balance 'apologizes' to the consumer
+      on behalf of the probiotic industry for two months of their life and $100 wasted
+      feeling nothing
+    principle: Ties back to framing_effect because the apology reframes the consumer's
+      past experience as an industry failure rather than a personal one, shifting
+      blame attribution and making the switch feel rational and overdue rather than
+      impulsive
+    execution: 'Single static card, white background, large serif headline: ''We''re
+      sorry you wasted 60 days and $100 feeling absolutely nothing.'' Sub-copy: ''That''s
+      not your gut. That''s the product.'' Below: a clean CTA line — ''30 days. Real
+      data. Or your money back.'' SecondKind wordmark bottom right. No product shot
+      needed — the restraint amplifies the copy.'
+    generated: eager
+- id: pain-002
+  tab: pain_vs_competitor
+  complaint: Severe adverse GI reactions from Seed's live bacteria — constipation,
+    pain, and prolonged recovery that users describe as 'messing them up so bad'
+  our_advantage: BiomeBalance™ contains no live bacteria — the ingredient class most
+    associated with GI upset, adjustment-period distress, and microbiome disruption.
+    No organisms need to colonize, so there is no adjustment period and no disruption
+    mechanism.
+  positioning_angle: No live bacteria. No adjustment period. No aftermath.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - tiktok_comments
+  what_people_say: Seed messed me up so bad, takes forever to recover.
+  format_fit:
+  - us-vs-them
+  - headline
+  static_treatment: 'Clean white studio shot of Gut Balance capsule beside the headline
+    ''No bacteria. No adjustment period. No aftermath.'' Small subline: ''BiomeBalance™
+    delivers what bacteria would produce — directly.'' Minimal, clinical art direction.
+    No lifestyle props.'
+  psychology_trigger: salience_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a bold, clean title card: ''Seed gave thousands of people
+      constipation, pain, and weeks of recovery.'' Cut to a simple animation showing
+      live bacteria colonizing and causing GI disruption — then a hard contrast cut
+      to Gut Balance capsule on a white surface with the line: ''No bacteria. No adjustment
+      period. No aftermath.'' Close with a brief animated explainer showing BiomeBalance™
+      delivering postbiotics directly, bypassing the chaos entirely. Clinical, confident
+      tone throughout — no fear-mongering, just contrast.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: 'TikTok Short / POV — a single-line POV overlay on B-roll of someone clutching
+      their stomach, then cutting to them going about their day normally: ''POV: you
+      switched to a probiotic that doesn''t wreck you first.'''
+    principle: Ties back to salience_bias because the visceral, instantly recognizable
+      image of GI distress forces the viewer's brain to retrieve their own or others'
+      negative probiotic experiences, making the problem feel disproportionately memorable
+      and urgent — exactly what salience_bias exploits.
+    execution: 'Shoot two short iPhone clips back-to-back: first, a person hunched
+      slightly at a kitchen counter looking uncomfortable; second, the same person
+      energetically going about their morning. Overlay text reads ''POV: you switched
+      to a probiotic that doesn''t wreck you first.'' No voiceover. Gut Balance capsule
+      appears in the final frame with ''No adjustment period.'' in small sans-serif
+      text. Total length: 5–8 seconds.'
+    generated: eager
+- id: pain-003
+  tab: pain_vs_competitor
+  complaint: Arrae MB-1 causes jitteriness and stimulant-like nervous energy — users
+    describe it as feeling like too much coffee, even at reduced doses
+  our_advantage: SecondKind's Gut Balance contains no stimulant compounds. BiomeBalance™
+    works through postbiotic mechanisms — short-chain fatty acids, peptides, enzymes
+    — with no stimulant inputs. EpiCor® and Bereum® are whole-food fermentates studied
+    for GI and immune outcomes, not energy stimulation.
+  positioning_angle: Your gut supplement shouldn't feel like your third espresso.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - trustpilot
+  what_people_say: MB-1 gives me jitters like I've had too much coffee.
+  format_fit:
+  - us-vs-them
+  - meme
+  static_treatment: 'Two-panel image: left shows a jittery illustrated figure holding
+    a supplement bottle with the label obscured, captioned ''That nervous energy isn''t
+    a side effect. It''s the ingredient.'' Right panel shows Gut Balance with ''Zero
+    stimulants. Zero jitters. Just the compounds your gut actually uses.'' Clean sans-serif
+    type.'
+  psychology_trigger: salience_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open on a split-screen animation: left side shows a jittery, over-caffeinated
+      cartoon figure vibrating next to a competitor bottle labeled ''MB-1'' with the
+      tagline ''That nervous energy? It''s the formula.'' Right side cuts to a calm,
+      grounded figure next to Gut Balance with animated callouts highlighting each
+      stimulant-free compound and a brief text card explaining the mechanism — ''No
+      stimulants. Just the compounds your gut actually absorbs.'' Close on the Gut
+      Balance product with the line: ''Built for your gut. Not your adrenal glands.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: Obvious AI Slop — a Pixar-style cartoon stimulant molecule character bursts
+      onto screen saying 'Hi, I'm Caffeine Derivative — I live in your gut supplement
+      and I make your hands shake!' followed by a calm, friendly prebiotic fiber character
+      who says 'And I'm just... fiber. I don't do that.'
+    principle: Ties back to salience_bias because the cartoonish, exaggerated personification
+      of the offending ingredient makes the jitter side-effect viscerally memorable
+      and impossible to unsee — the contrast character then anchors the clean alternative
+      as the obvious, low-drama choice.
+    execution: 'Commission a 15-second Pixar-style animated short: Scene 1 — an anxious,
+      vibrating molecule character introduces itself as the stimulant inside ''other
+      gut supplements,'' hands shaking, eyes wide. Scene 2 — a relaxed, round fiber
+      character waves calmly: ''I just feed your gut bacteria. That''s literally it.''
+      End card: Gut Balance logo with ''Zero stimulants. Zero jitters. Just what your
+      gut uses.'''
+    generated: eager
+- id: pain-004
+  tab: pain_vs_competitor
+  complaint: Arrae makes efficacy claims not supported by peer-reviewed human trials
+    — active ingredients present at subclinical doses that cannot produce the claimed
+    effects
+  our_advantage: BiomeBalance™ is built on three independently patented, third-party-licensed
+    ingredient trademarks — Totipro®, EpiCor®, and Bereum® — each with published clinical
+    studies attached to the ingredient IP, not just brand-level claims. EpiCor® has
+    a 12-week RCT; Bereum® has an 84-day study on GI symptoms, stress, and quality
+    of life.
+  positioning_angle: Three patented ingredients. Three separate clinical trials. Not
+    our words — the science is already published.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  what_people_say: Claims not backed by solid peer-reviewed human trials — unlikely
+    to work.
+  format_fit:
+  - facts-stats
+  - ingredient-callout
+  static_treatment: 'Editorial flat-lay of three ingredient callout cards — one each
+    for Totipro®, EpiCor®, Bereum® — each card showing ingredient name, study type
+    (RCT / 84-day clinical), and one outcome stat. Gut Balance bottle anchors the
+    composition. Headline: ''The clinical evidence is attached to the ingredient,
+    not the marketing.'' Restrained, white background.'
+  psychology_trigger: authority_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a quick scroll of a competitor label (Arrae) zooming into
+      a proprietary blend with no dose transparency, then cut to animated callouts
+      for Totipro®, EpiCor®, and Bereum® with their exact doses, study types (RCT
+      / 84-day clinical), and outcome stats popping on screen. A calm authoritative
+      voiceover states: ''Most gut supplements list ingredients. We list the evidence
+      behind each one.'' Close on the Gut Balance bottle with the line: ''The clinical
+      proof is attached to the ingredient — not the marketing.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: Obvious AI Slop — animated ingredient characters acting as expert witnesses
+    principle: Ties back to authority_bias because each Pixar-style character (Totipro®,
+      EpiCor®, Bereum®) is framed as a scientist or expert testifying about their
+      own clinical data — the cartoon format disarms skepticism while the authority
+      signal (study type, stat, dose) lands unopposed inside the comedic wrapper.
+    execution: 'Render three animated characters — each one ''playing'' a named ingredient
+      — seated at a mock academic panel table. Each stands up in turn and presents
+      one stat (''84-day RCT, bloating reduced by 42%'') in an over-the-top professorial
+      voice. Final frame cuts to the real product bottle with text: ''The science
+      doesn''t need a spokesperson. It has the ingredients themselves.'''
+    generated: eager
+- id: pain-005
+  tab: pain_vs_competitor
+  complaint: Probiotic results plateau or disappear over time — effects that were
+    initially noticeable fade, and long-term users stop feeling any difference
+  our_advantage: The plateau mechanism that kills probiotic efficacy — bacteria failing
+    to re-establish or losing competitive advantage in the microbiome — does not apply
+    to postbiotics. BiomeBalance™ delivers the downstream compounds directly; there
+    is no colonization dependency that degrades over a subscription cycle.
+  positioning_angle: If your probiotic stopped working, it was never really working.
+    It was just surviving.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  - tiktok_comments
+  what_people_say: Effects plateau over time. Stopped noticing a difference.
+  format_fit:
+  - us-vs-them
+  - headline
+  static_treatment: 'Dark-field image of a single capsule dissolving mid-frame with
+    the headline set in white: ''If it stopped working, it was just surviving.'' Subline
+    below: ''BiomeBalance™ delivers what bacteria produce — directly. No colonization
+    dependency. No plateau.'' SecondKind wordmark lower left.'
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split-screen animation: left side shows a standard probiotic
+      capsule dissolving in stomach acid with a flat line graph labeled ''Month 1…
+      Month 3… Nothing.'' Right side reveals BiomeBalance™ with animated postbiotic
+      molecules flowing directly into the gut lining, bypassing colonization entirely.
+      VO or text callout: ''Every other probiotic is betting bacteria survive the
+      trip. We skipped that bet.'' Close with a science-backed differentiator card
+      and the SecondKind wordmark.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Sorry (Apology Format) — 'We're sorry you wasted months waiting for
+      results that were never coming.'
+    principle: Ties back to framing_effect because the apology reframes the user's
+      plateau experience as an industry failure rather than a personal one — shifting
+      attribution from 'probiotics don't work for me' to 'the wrong probiotic category
+      was sold to me,' which primes receptivity to BiomeBalance™ as a categorically
+      different frame.
+    execution: 'Static dark-background image: large white italic text reads ''We''re
+      sorry.'' Below in smaller copy: ''Sorry you were told to wait 90 days for bacteria
+      that never colonized. BiomeBalance™ delivers what bacteria produce — postbiotics,
+      directly. No wait. No plateau.'' SecondKind wordmark bottom-left. Run as a retargeting
+      layer against visitors who browsed the product page but didn''t convert.'
+    generated: eager
+- id: pain-006
+  tab: pain_vs_competitor
+  complaint: Seed's $50/month price point is hard to justify against $15–30 alternatives
+    when results are inconsistent or absent
+  our_advantage: SecondKind's first-bottle pricing is $35 (30% off first one-time
+    purchase) with a 60-day 'Feel It Fast' money-back guarantee requiring no return
+    shipment. The postbiotic mechanism shortens the feedback loop — buyers know within
+    weeks whether it works, not months.
+  positioning_angle: $35 to find out if postbiotics are different. 60 days to feel
+    it. No return shipment needed if you don't.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  what_people_say: Not worth $50 a month when strong alternatives exist.
+  format_fit:
+  - promotion-discount
+  - us-vs-them
+  static_treatment: 'Clean split comparison: left column header ''$50/month. Two months.
+    Nothing to point at.'' Right column header ''$35. 60-day guarantee. No return
+    shipment.'' Gut Balance product shot anchors the right side. Tone is factual,
+    not aggressive — restrained SecondKind typography.'
+  psychology_trigger: temporal_discounting
+  trending_match:
+    concept: We're Not Cheap (Objection Handling)
+    execution: 'Static or short video ad opens with the direct hook: ''We''re not
+      $15. Here''s exactly why.'' Then itemizes the specific cost-of-ownership case:
+      60-day money-back guarantee, no return shipment required, clinically studied
+      strains with transparent CFU counts — all delivered in restrained SecondKind
+      typography over a clean Gut Balance product shot. Close with a single line:
+      ''Pay once. Know what you''re getting. Or don''t pay at all.'''
+    format_id: were-not-cheap
+  trending_next:
+    idea: 'David & Goliath split: Seed''s pricing model vs. the guaranteed-refund
+      model'
+    principle: Ties back to temporal_discounting because the mechanic reframes the
+      mental math — instead of '$50 now vs. $15 now,' it forces the viewer to calculate
+      '$50 with zero recovery path vs. $35 with a 60-day escape hatch,' shifting the
+      perceived cost of the wrong decision into the future and making the cheaper
+      long-term choice feel viscerally obvious.
+    execution: 'Two-panel static (mirroring the row''s static_treatment). Left panel:
+      a muted, slightly cold-toned Seed bottle with the caption ''Month 1. Month 2.
+      Still waiting. No way back.'' Right panel: warm-toned Gut Balance bottle with
+      ''60 days. Full refund. No box to ship back.'' A small footnote line reads:
+      ''The risk isn''t the price. It''s what happens when it doesn''t work.'' SecondKind
+      typography throughout; no logos of competitors named explicitly.'
+    generated: eager
+- id: pain-007
+  tab: pain_vs_competitor
+  complaint: Ritual's Synbiotic+ produces no noticeable results — users describe it
+    as doing 'nothing at all, nothing like advertised'
+  our_advantage: 'SecondKind delivers 1 trillion bioactive postbiotic compounds via
+    BiomeBalance™ — not billions of live bacteria dependent on survival. The mechanism
+    is structurally different: bioactive compounds are already active and usable by
+    the body on arrival, not contingent on bacterial colonization.'
+  positioning_angle: A trillion bioactives that are already active. Not a billion
+    bacteria hoping to arrive.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - trustpilot
+  what_people_say: Nothing like how it's advertised. Does nothing at all.
+  format_fit:
+  - facts-stats
+  - us-vs-them
+  static_treatment: 'Infographic-style static: large numeral ''1 Trillion'' centered
+    with subline ''Bioactive compounds. Already active on arrival.'' Below, smaller
+    text: ''Probiotics deliver billions of bacteria. Most don''t survive digestion.
+    BiomeBalance™ skips that bet.'' Gut Balance product shot right-anchored. White
+    background, black type.'
+  psychology_trigger: processing_fluency
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open on a split-screen animation: left side shows a glowing capsule
+      labeled ''Ritual Synbiotic+'' dissolving into nothing with text overlay ''Billions
+      of bacteria. Most die before they arrive.'' Right side cuts to BiomeBalance™
+      product with bold text ''1 Trillion Bioactive Compounds. Already active. No
+      survival bet.'' A simple animated diagram shows the gut absorption pathway for
+      BiomeBalance™ vs. a flatline for the competitor. Close on product shot with
+      tagline ''Skip the gamble.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: Obvious AI Slop — animated Pixar-style gut bacteria character named 'Tri'
+      who monologues about arriving 'dead on arrival' at the gut party, then gets
+      replaced by a gleaming BiomeBalance™ compound that actually shows up and works.
+    principle: Ties back to processing_fluency because the cartoonish visual metaphor
+      makes a complex bioavailability concept instantly legible — the brain processes
+      'alive vs. dead bacteria at the gut door' in one frame with zero cognitive load,
+      exactly what fluency-based persuasion requires.
+    execution: 'Render a 15-second Pixar-style animation: a sad, wilting bacteria
+      blob labeled ''Ritual'' trudges toward a stomach door and dissolves before entry.
+      Cut to a bright, bouncing compound labeled ''BiomeBalance™ — Already Active''
+      that walks straight through. Text overlay reads: ''1 Trillion bioactive compounds.
+      No survival rate required.'' Intentionally cringe sound effects and a wobbly
+      font reinforce the playful irreverence.'
+    generated: eager
+- id: pain-008
+  tab: pain_vs_competitor
+  complaint: Arrae's product line is inconsistent — Bloat capsules work but Sleep
+    and Calm underperform, and Tribiotic made some users feel worse
+  our_advantage: SecondKind's Gut Balance is built on a single unified BiomeBalance™
+    complex — one mechanism, three patented ingredients, all operating on the same
+    gut-health pathway. There is no inconsistent product line extension problem because
+    the core mechanism is not fragmented across SKUs.
+  positioning_angle: One mechanism. Three clinically studied ingredients. Not a product
+    that works and a line that doesn't.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - trustpilot
+  - vertical_site
+  what_people_say: Bloat works. I've felt worse since taking Tribiotic.
+  format_fit:
+  - us-vs-them
+  - features-benefits
+  static_treatment: 'Side-by-side product shelf image: left side shows multiple unlabeled
+    bottles with inconsistent color coding suggesting a fragmented line, captioned
+    ''When one works and one doesn''t.'' Right side shows Gut Balance alone with ''One
+    product. One mechanism. Three clinical studies.'' Clean studio lighting.'
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split visual of Arrae''s product shelf — multiple bottles
+      with mismatched results, text overlay reading ''Some work. Some make you feel
+      worse. Sound familiar?'' Then hard cut to Gut Balance solo on a clean white
+      surface. VO or text: ''We didn''t build a product line. We solved one problem
+      completely — with three clinical studies backing a single mechanism.'' Animate
+      a simple gut-barrier diagram to lock in the science claim and boost retention.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Sorry (Apology Format) targeting Arrae switchers
+    principle: Ties back to framing_effect because the apology reframes the customer's
+      negative experience — not as their failure or bad luck, but as a predictable
+      outcome of a fragmented product strategy — making Gut Balance feel like the
+      corrective, logical choice rather than just another supplement.
+    execution: 'Static image: clean studio shot of a single Gut Balance bottle centered
+      on white, with bold headline text: ''We''re sorry you bought a ''complete''
+      gut line and only one product worked.'' Sub-copy beneath: ''One targeted formula.
+      One mechanism. No guessing which bottle is the problem.'' Minimal design — let
+      the apology framing carry the contrast.'
+    generated: eager
+- id: pain-009
+  tab: pain_vs_competitor
+  complaint: Seed's AFU measurement is incomparable to industry-standard CFU — creates
+    deliberate confusion that prevents skeptical buyers from validating claims
+  our_advantage: SecondKind doesn't compete in the CFU or AFU arms race at all. BiomeBalance™
+    measures in bioactive compounds delivered — 1 trillion — and each of the three
+    patented ingredients (Totipro®, EpiCor®, Bereum®) has independently published
+    clinical data that buyers can verify by searching the ingredient trademark.
+  positioning_angle: We're not in the CFU arms race. We're in a different category
+    entirely — and here's how to verify it.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  what_people_say: You can't do a clean comparison. Seed knows this.
+  format_fit:
+  - editorial
+  - facts-stats
+  static_treatment: 'Typographic editorial ad: large headline ''Forget CFU vs AFU.
+    Here''s what actually matters.'' Body copy lists three ingredient names with one-line
+    clinical proof points each. No product photography — pure information design in
+    SecondKind''s restrained sans-serif. Quiet authority tone.'
+  psychology_trigger: processing_fluency
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split-screen animation: left side shows a cluttered, confusing
+      CFU vs AFU comparison chart labeled ''What Seed wants you to stare at'' — right
+      side collapses to three clean, bold lines listing SecondKind''s actual active
+      ingredients with one-sentence clinical citations each. Voiceover or text overlay
+      reads: ''When a brand invents its own measurement unit, ask yourself why.''
+      Close on SecondKind''s restrained wordmark with a single CTA: ''Read the actual
+      science.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: A static 'Rosetta Stone' editorial ad that visually decodes the CFU/AFU
+      obfuscation as a deliberate design choice, then presents SecondKind's claims
+      in the plainest possible language — no invented units, no jargon.
+    principle: 'Ties back to processing_fluency because the entire mechanic is built
+      on removing cognitive friction: by making the translation from industry confusion
+      to plain-language proof effortless, the brand signals trustworthiness through
+      radical clarity rather than counter-complexity.'
+    execution: 'Design a typographic static in SecondKind''s restrained sans-serif
+      with two columns: left column header reads ''What the industry says'' with three
+      opaque, jargon-heavy probiotic claims; right column header reads ''What it actually
+      means'' with three blunt, one-line plain-English translations. Footer line:
+      ''We use the same units your doctor does.'' No product shot. Pure information
+      design optimised for screenshot-and-share behaviour among skeptical researchers.'
+    generated: eager
+- id: pain-010
+  tab: pain_vs_competitor
+  complaint: Seed causes nausea when taken on an empty stomach with no upfront guidance
+    — a friction point that undermines trust in the product before results can build
+  our_advantage: BiomeBalance™ contains no live bacteria and no stimulant compounds
+    — the two input categories generating the most severe adverse reaction complaints
+    across Seed, Arrae, and Ritual. The postbiotic format delivers compounds that
+    are already biochemically active; there is no organism-level disruption that triggers
+    GI sensitivity.
+  positioning_angle: The supplement that was supposed to fix your gut shouldn't make
+    it worse on day one.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  what_people_say: Nausea on an empty stomach — no warning upfront at all.
+  format_fit:
+  - us-vs-them
+  - headline
+  static_treatment: 'Stark close-up of a hand holding a single Gut Balance capsule
+    against a white background. Headline: ''No bacteria. No adjustment period. No
+    nausea.'' Subline: ''BiomeBalance™ delivers what bacteria produce — your body
+    recognizes it immediately.'' Minimal props, high contrast.'
+  psychology_trigger: salience_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split-screen static card: LEFT side shows a Seed probiotic
+      packet next to bold red text reading ''No warning. Just nausea.'' RIGHT side
+      shows a BiomeBalance™ capsule on white with green text: ''No bacteria. No adjustment
+      period. No nausea.'' Cut to a 5-second animated explainer showing a live-culture
+      bacteria capsule hitting an empty stomach (red, reactive) versus a postbiotic
+      capsule absorbing cleanly (green, calm). Voiceover: ''Big probiotic brands skip
+      the part where you feel terrible first. We skipped the bacteria entirely.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Sorry (Apology Format) — a static ad where BiomeBalance™ 'apologizes'
+      on behalf of the probiotic industry for never warning customers about nausea
+    principle: ties back to the row's psychology_trigger because salience_bias activates
+      when something surprising or unexpected breaks pattern — an apology from a supplement
+      brand is counterintuitive enough to spike attention, and foregrounding the industry's
+      hidden omission (no upfront warning) makes that friction point impossible to
+      ignore, exactly how salience_bias operates
+    execution: 'Single high-contrast static image: white background, one BiomeBalance™
+      capsule centered. Bold headline at top: ''We''re sorry you had to find out the
+      hard way.'' Subline below: ''Other brands never warned you that live bacteria
+      need an adjustment period. We built a product that doesn''t.'' Small brand lockup
+      bottom-right. No lifestyle imagery — the apology IS the creative.'
+    generated: eager
+- id: pain-011
+  tab: pain_vs_competitor
+  complaint: Women demanding clinical proof from gut health brands — expressing that
+    assumptions rather than data have historically defined women's health products
+  our_advantage: EpiCor® has a 12-week randomized controlled trial showing reduced
+    cold and flu symptom days by 17%. Bereum® has an 84-day study showing improved
+    GI symptoms, perceived stress, and quality of life. Totipro® has clinical data
+    on bowel regularity at 30 days. Each study is attached to the ingredient IP —
+    searchable independently of SecondKind's marketing.
+  positioning_angle: Say yes to evidence. Three ingredients. Three published studies.
+    Search them yourself.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  what_people_say: We deserve proof. Say yes to evidence, not assumptions.
+  format_fit:
+  - facts-stats
+  - editorial
+  static_treatment: 'Editorial two-column layout: left column headline ''What the
+    studies actually show.'' Three rows below, one per ingredient — Totipro® / EpiCor®
+    / Bereum® — each with a one-sentence finding and study duration. Right column:
+    Gut Balance product shot. Tone is journalistic, not promotional. No lifestyle
+    imagery.'
+  psychology_trigger: authority_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a bold on-screen title card: ''The gut health industry has
+      been guessing about women''s bodies for decades.'' Cut to a rapid-fire montage
+      of vague competitor claims (''supports gut health,'' ''all-natural blend'')
+      rendered in washed-out, skeptical typography. Then pivot hard: ''Gut Balance
+      chose differently.'' Animate three ingredient callouts — Totipro®, EpiCor®,
+      Bereum® — each with a specific study finding, sample size, and duration appearing
+      in clinical-report style text. Close on the product shot with the line: ''Evidence,
+      not assumptions.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Not Cheap (Objection Handling) reframed as a credential defense —
+      'Yes, Gut Balance costs more. Here's exactly why.'
+    principle: Ties back to authority_bias because explicitly naming the cost of clinical-grade
+      sourcing, third-party testing, and peer-reviewed ingredient selection converts
+      price into a credibility signal — the higher price becomes the proof of rigor,
+      reinforcing the brand as the authoritative, evidence-led choice.
+    execution: 'Static or video format opening with the direct hook: ''Gut Balance
+      is not the cheapest option on the shelf — and that''s the point.'' Follow with
+      three stacked reasons, each anchored to a specific authority marker: (1) Totipro®
+      — sourced from a patented fermentation process with X published studies; (2)
+      EpiCor® — used in peer-reviewed trials, not proprietary blends; (3) Bereum®
+      — clinically dosed, not label-dusted. End with a single line beneath the product
+      shot: ''Cheap ingredients don''t come with citations.'''
+    generated: eager
+- id: pain-012
+  tab: pain_vs_competitor
+  complaint: Competitors treat gut and mood as separate, inconsistent product lines
+    — buyers address bloating with one brand and anxiety with another and are exhausted
+    by both
+  our_advantage: SecondKind's BiomeBalance™ underpins both Gut Balance and Mood Balance
+    as a unified gut-brain system — not a fragmented line. The brand's core thesis
+    connects gut microbiome function to neurotransmitter production structurally,
+    not as a marketing claim. Gut Balance alone addresses digestion, immunity, and
+    regularity through a single mechanism.
+  positioning_angle: You've been treating the symptoms separately. They're the same
+    system.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  - ig_comments
+  what_people_say: I've been treating them separately. Two products, still exhausted.
+  format_fit:
+  - us-vs-them
+  - editorial
+  static_treatment: 'Split editorial image: left side shows two separate competitor-style
+    bottles labeled ''For Your Gut'' and ''For Your Mood'' with a connecting line
+    crossed out. Right side shows Gut Balance with the headline ''Your gut produces
+    91% of your serotonin. One system. One product.'' Clean, restrained layout.'
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split-screen animation: left side shows two oversized,
+      generic supplement bottles labeled ''For Your Gut'' and ''For Your Mood'' with
+      a red X between them, while a frustrated hand reaches for both. A bold callout
+      text reads ''The supplement industry sold you two problems.'' Cut to the right
+      side: a single clean Gut Balance bottle with an animated diagram showing the
+      gut-brain serotonin axis (91% stat pulsing into view). Close with the line:
+      ''One system. One product. One industry that didn''t want you to know.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: TikTok Love Letter targeting the 'two-product exhausted' buyer directly
+    principle: Ties back to framing_effect because the text monologue reframes the
+      viewer's current reality — 'you're not failing at wellness, you're solving the
+      wrong frame' — shifting their reference point from 'I need two fixes' to 'I
+      was sold a false separation', which is the same cognitive reframe the David
+      & Goliath static achieves but delivered in a first-person, identity-resonant
+      register.
+    execution: 'Low-lift iPhone B-roll of a bathroom shelf crowded with supplement
+      bottles. Long text overlay begins: ''POV: you have a gut supplement AND a mood
+      supplement and you''re still exhausted — because no one told you they''re the
+      same system.'' Text continues scrolling through the gut-serotonin stat and ends
+      with ''One product. Stop splitting yourself in two.'' No voiceover needed; the
+      text monologue carries the entire reframe.'
+    generated: eager
+- id: pain-013
+  tab: pain_vs_competitor
+  complaint: Ritual's GI side effects including diarrhea and digestive upset cause
+    users to abandon the product — a probiotic format problem, not a brand-specific
+    anomaly
+  our_advantage: SecondKind contains no live bacteria and no stimulant inputs — the
+    formulation categories generating adverse GI reactions across Seed, Arrae, and
+    Ritual. BiomeBalance™ is a postbiotic complex of already-active bioactive compounds;
+    there is no organism disruption mechanism that triggers the adverse reactions
+    documented across category competitors.
+  positioning_angle: No live bacteria means no colonization disruption. No disruption
+    means no aftermath.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - amazon
+  what_people_say: Unfortunately this caused incredible issues — diarrhea.
+  format_fit:
+  - us-vs-them
+  - features-benefits
+  static_treatment: 'Clean product shot of Gut Balance capsule on a white surface.
+    Headline: ''Zero live bacteria. Zero colonization disruption.'' Three-item benefit
+    list below: ''No adjustment period / No GI upset / No aftermath.'' Subline: ''BiomeBalance™
+    delivers the compounds — not the organisms.'' Restrained, clinical aesthetic.'
+  psychology_trigger: effect_heuristic
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a static frame of a Ritual bottle beside a stack of printed
+      Reddit/review screenshots showing diarrhea complaints, text overlay reading
+      ''This isn''t a Ritual problem. It''s a live-bacteria problem.'' Cut to a clean
+      animation showing live organisms colonizing a gut vs. BiomeBalance™ delivering
+      compounds only — no organisms, no disruption. Close on product shot with the
+      line: ''The smarter format won.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: Obvious AI Slop — a Pixar-style animated gut bacterium character named 'Larry
+      the Live Culture' cheerfully announces 'I'm here to colonize your intestines!'
+      before causing cartoon chaos (explosions, runs to the bathroom), then a calm,
+      clean BiomeBalance™ capsule character slides in saying 'I just deliver the compounds.
+      No drama.'
+    principle: Ties back to effect_heuristic because the cartoonish cause-and-effect
+      sequence (organism in → GI chaos out; compound in → calm gut out) makes the
+      mechanism viscerally legible and instantly memorable without requiring the viewer
+      to read clinical copy — the visual consequence IS the proof.
+    execution: 'Commission a 15-second Pixar-style animation: Larry the Live Culture
+      bacterium enters a stylized gut, triggers slapstick diarrhea chaos with sound
+      effects, then BiomeBalance™ capsule floats in, gut turns serene, tagline appears:
+      ''Zero organisms. Zero aftermath.'' Run as a video ad with no voiceover — let
+      the visuals and text carry it.'
+    generated: eager
+- id: pain-014
+  tab: pain_vs_competitor
+  complaint: Arrae Bloat delivers fast situational relief but buyers sense that something
+    at the drugstore could achieve the same effect — price-to-mechanism skepticism
+  our_advantage: Bereum® — one of three patented ingredients in BiomeBalance™ — is
+    clinically shown to reduce bloating and improve gut comfort across an 84-day study
+    measuring GI symptoms, perceived stress, and quality of life. It also promotes
+    SCFA (short-chain fatty acid) production — a mechanism no drugstore bloat supplement
+    operates on. This is not a herbal symptomatic relief format.
+  positioning_angle: Drugstore bloat pills treat the feeling. BiomeBalance™ changes
+    the system that's causing it.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - trustpilot
+  - vertical_site
+  what_people_say: Pretty sure something at the drugstore could do the same thing.
+  format_fit:
+  - us-vs-them
+  - ingredient-callout
+  static_treatment: 'Two-panel static: left shows a generic blister pack captioned
+    ''Symptom relief. Repeated.'' Right shows Gut Balance with ''Bereum®. 84-day clinical
+    study. GI symptoms, stress, quality of life — all measured.'' Headline: ''Not
+    the same thing.'' SecondKind wordmark bottom right.'
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a slow zoom on a cluttered drugstore shelf — generic blister
+      packs, familiar logos, price tags front and center — while a VO or text overlay
+      reads: ''You''re right. The drugstore has something for bloat. It just doesn''t
+      have this.'' Cut to a clean product shot of Gut Balance alongside a split-screen
+      breakdown: left column lists the generic mechanism (simethicone, antacids —
+      symptom masking), right column highlights Bereum® with callouts for the 84-day
+      clinical study, GI symptoms measured, stress markers tracked, quality of life
+      scored. Close on the headline: ''Not the same thing.'' with SecondKind wordmark.
+      Animate the clinical data callouts sequentially to drive retention.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Not Cheap (Objection Handling)
+    principle: Ties back to framing_effect because explicitly reframing the price
+      gap — not as a deficit but as a signal of ingredient quality, clinical investment,
+      and supply chain integrity — shifts the reference point the buyer uses to evaluate
+      value, which is the core mechanism of framing.
+    execution: 'Lead static or video hook: ''We''re not the cheapest bloat fix. Here''s
+      exactly why.'' Then walk through three specific cost drivers in plain language:
+      (1) Bereum® is a licensed, clinically studied strain — not a commodity probiotic,
+      (2) the 84-day trial cost real money and produced real data, (3) no filler capsules,
+      no proprietary blend hiding. Close with a side-by-side cost-per-outcome frame:
+      ''$X per pill vs. $X per day of measured GI improvement.'' Headline: ''Cheap
+      fixes fix nothing. We measured the difference.'''
+    generated: eager
+- id: pain-015
+  tab: pain_vs_competitor
+  complaint: Supplement skeptics believe all gut brands make equivalent unverifiable
+    claims — 'all supplements are the same' fatigue driven by consistent disappointment
+    across Arrae, Ritual, and Seed
+  our_advantage: BiomeBalance™'s three ingredients — Totipro®, EpiCor®, Bereum® —
+    are independently patented by third-party ingredient companies, not by SecondKind.
+    Their clinical evidence is attached to the ingredient trademark and accessible
+    outside SecondKind's own marketing. A skeptic can search 'EpiCor clinical study'
+    or 'Bereum gut study' and find the data without trusting the brand at all.
+  positioning_angle: Don't take our word for it. Search 'EpiCor clinical study.' The
+    data isn't ours — it's the ingredient's.
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  - ig_comments
+  what_people_say: It's unlikely to have real impact. Do not let them lie.
+  format_fit:
+  - editorial
+  - facts-stats
+  static_treatment: 'Typography-forward editorial ad with the headline ''We''d prefer
+    you verify this yourself.'' Below: three lines — ''Search: EpiCor® RCT / Search:
+    Bereum® gut study / Search: Totipro® bowel regularity.'' Small subline: ''The
+    clinical evidence belongs to the ingredient, not our marketing.'' Gut Balance
+    product shot bottom-anchored. High-contrast, minimal design.'
+  psychology_trigger: authority_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split-screen animation contrasting generic supplement
+      brands (nameless, blurred-out label) making sweeping claims versus Gut Balance
+      calling out the industry directly: ''Every brand says clinically backed. So
+      we listed the actual studies.'' Cut to animated text sequences showing real
+      RCT search terms — ''EpiCor® RCT,'' ''Bereum® gut study,'' ''Totipro® bowel
+      regularity'' — each resolving into a brief animated science graphic (effect
+      size, sample size, publication). Close on the Gut Balance product with the line:
+      ''The evidence is public. The ingredients are ours. Look it up.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Not Cheap (Objection Handling) adapted as a verification-first authority
+      piece
+    principle: ties back to the row's psychology_trigger because authority_bias is
+      reinforced not just by calling out competitors but by demonstrating transparent
+      cost-justification through named, verifiable ingredients — converting price
+      skepticism into proof of quality by anchoring each premium cost line to a published
+      clinical source, which signals institutional legitimacy rather than marketing
+      spin
+    execution: 'Static or short video ad opens with the hook: ''Yes, we cost more.
+      Here''s exactly why.'' Three itemized lines follow, each pairing an ingredient
+      with its clinical credential — e.g. ''EpiCor® — 7 published RCTs. Not our claim.
+      PubMed''s.'' Ends with a bottom-anchored Gut Balance product shot and the subline:
+      ''Cheaper supplements skip the ingredients that have actual studies. We didn''t.'''
+    generated: eager
+what_they_love:
+- id: love-001
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Visible bloat relief that changes how you look and feel before
+    a big event
+  hook_or_angle_to_amplify: 'Show the same fast-relief trigger but attach the mechanism:
+    ''Arrae''s bloat pill works for the moment. BiomeBalance™ works on the system.''
+    Static split shows event-ready confidence with a single line of copy: ''Not a
+    band-aid. A reset.'''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  what_people_say: They actually work — noticeable difference how I look
+  format_fit:
+  - before-after
+  - editorial
+  static_treatment: 'Split-frame vertical: left side shows a woman mid-bloat discomfort,
+    muted tones, hand on abdomen; right side same woman, bright light, flat stomach,
+    getting dressed. Headline overlaid on right frame: ''The compounds bacteria produce.
+    Delivered directly.'' Small secondary line: ''BiomeBalance™ — postbiotic, not
+    probiotic.'''
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split animation: left side shows a crowded probiotic shelf
+      labeled ''billions of live bacteria — most die before they reach you,'' rendered
+      in flat illustration style with wilting cartoon microbes; right side cuts to
+      a clean, minimal BiomeBalance™ capsule with the line ''Skip the bacteria. Deliver
+      what they actually produce.'' A brief animated diagram shows postbiotic compounds
+      bypassing the gut barrier intact. Close on a before/after dress-fitting moment
+      with the overlay: ''The difference you can see before the event.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: TikTok Love Letter targeting women who've been burned by bloat solutions
+      right before an important occasion
+    principle: Ties back to framing_effect because the text monologue reframes the
+      product not as a supplement but as 'the thing that finally showed up when nothing
+      else did' — shifting the evaluative frame from category skepticism to personal
+      vindication, exactly the same cognitive reframe the David & Goliath mechanic
+      achieves structurally but now delivered through identity-driven first-person
+      vernacular
+    execution: 'iPhone B-roll of a woman zipping up a dress, morning light, no face
+      shown. Long text overlay reads: ''POV: you stopped trusting anything that promised
+      bloat relief. You''ve tried the probiotics. You''ve tried the enzymes. You gave
+      up three days before your sister''s wedding. This one is different because it
+      skips the bacteria entirely — just what they make. BiomeBalance™. Your stomach
+      before the big day.'' No voiceover. Lo-fi ambient audio. End card is the product
+      on a bathroom counter, flat lay.'
+    generated: eager
+- id: love-002
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Discovering a supplement you can finally take without nausea
+    or gut disruption
+  hook_or_angle_to_amplify: 'Lead with the relief of zero adjustment period. Copy:
+    ''No live bacteria. No colonization shock. No adjustment week where your gut gets
+    worse before it gets better.'' Frame SecondKind as the first supplement that doesn''t
+    ask your body to fight its own medicine.'
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  - ig_comments
+  what_people_say: It actually doesn't make me nauseous — everything makes me nauseous
+  format_fit:
+  - ugc-static
+  - before-after
+  static_treatment: 'UGC-style vertical photo: woman holding Gut Balance bottle, relaxed
+    expression, kitchen counter background. Bold text overlay in SecondKind''s editorial
+    typeface: ''No bacteria. No upset. No waiting.'' Sub-caption: ''BiomeBalance™
+    delivers what probiotics are supposed to produce — already active.'''
+  psychology_trigger: effect_heuristic
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split-screen animation: left side shows a crowded probiotic
+      shelf labeled ''The Old Way — live bacteria, bloating, nausea, refrigeration,
+      inconsistency''; right side cuts to a clean BiomeBalance™ bottle on a white
+      counter. A woman picks it up, exhales with visible relief. Bold text overlay:
+      ''Probiotics promised you a healthy gut. Your stomach disagreed. BiomeBalance™
+      skips the bacteria entirely — and delivers what your gut actually needed all
+      along.'' Close with a short animated diagram showing postbiotics already in
+      active form, contrasted against the fragile live-culture supply chain.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: Obvious AI Slop — an intentionally cartoonish Pixar-style animated 'nausea
+      monster' character who boasts about ruining every supplement attempt, only to
+      be visibly deflated and dismissed when BiomeBalance™ appears on screen.
+    principle: Ties back to effect_heuristic because the absurd visual outcome (the
+      nausea monster shrinking and disappearing) encodes the product's benefit as
+      a vivid, memorable result rather than an ingredient claim — the brain evaluates
+      the supplement by the dramatic effect it produces, not by parsing mechanism.
+    execution: 'Render a lumpy green cartoon stomach-monster smugly listing ''pills,
+      powders, probiotics — all mine.'' When a BiomeBalance™ bottle appears, the monster
+      deflates with a sad honk sound. Text overlay: ''Finally — a supplement your
+      gut can''t argue with.'' End card: ''No bacteria. No nausea. Already active.''
+      Keep runtime under 15 seconds; lean into the cringe for shareability.'
+    generated: eager
+- id: love-003
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Accidental proof-of-efficacy — the supply gap that made the benefit
+    undeniable
+  hook_or_angle_to_amplify: 'Mirror the ''gap-as-natural-experiment'' story structure.
+    SecondKind ad shows a woman mid-restock moment — ''She ran out for five days.
+    She noticed immediately.'' The copy earns credibility by not overclaiming: ''When
+    missing a supplement is the proof it was working, that''s the supplement you keep.'''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  what_people_say: The very day I was back, I felt so FANTASTIC
+  format_fit:
+  - ugc-static
+  - quote-pull
+  static_treatment: 'Minimalist editorial layout on off-white background. A single
+    Gut Balance bottle, one hand reaching for it. Large pull quote in serif: ''The
+    very day I was back on the supplements, I felt so FANTASTIC.'' Attribution line:
+    ''Gut Balance customer, month 2.'' No further claims — let the quote carry the
+    frame.'
+  psychology_trigger: social_proof
+  trending_match:
+    concept: We're Sorry (Apology Format)
+    execution: 'Static image on off-white background featuring a single Gut Balance
+      bottle. Large serif headline reads: ''We''re sorry we keep selling out.'' Subtext
+      below: ''Our customers won''t let us stay in stock — and honestly, we get it.''
+      Pull quote beneath in smaller italic type: ''The very day I was back on the
+      supplements, I felt so FANTASTIC.'' — Gut Balance customer, month 2. No price,
+      no claims, no CTA clutter. The supply-gap subtext does the heavy lifting.'
+    format_id: were-sorry
+  trending_next:
+    idea: TikTok Love Letter framed around the 'return moment' — the day someone came
+      back to the product after running out and immediately felt the difference.
+    principle: Ties back to social_proof because the text monologue format invites
+      the viewer to project themselves into a shared, community-validated experience
+      — the 'I thought it wasn't working until I stopped' revelation is a recognisable
+      social signal that many customers have posted about, making it feel like consensus
+      rather than a single testimonial.
+    execution: 'Lo-fi iPhone B-roll of a bathroom shelf, a hand picking up the Gut
+      Balance bottle and opening it. Long text overlay scrolls in TikTok vernacular:
+      ''POV: you ran out of your gut supplement for two weeks and told yourself it
+      probably wasn''t doing anything anyway... then the very first day back you feel
+      FANTASTIC and have to come online to tell everyone.'' No voiceover needed —
+      let the text and ambient sound carry it. End frame holds on the bottle, text
+      fades to: ''Yeah. It was doing something.'''
+    generated: eager
+- id: love-004
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: From 3pm energy crash every day to sustained all-day energy and
+    cutting out coffee
+  hook_or_angle_to_amplify: 'Anchor the gut-brain axis mechanism to this exact transformation.
+    Copy: ''Your gut produces 91% of your serotonin. When it''s balanced, 3pm doesn''t
+    exist anymore.'' Show that what feels like an energy problem is a gut problem
+    — and Gut Balance is the structural fix, not a stimulant.'
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  what_people_say: No 3pm slump, more energy, I even cut out coffee
+  format_fit:
+  - before-after
+  - editorial
+  static_treatment: 'Diptych layout: left panel, dark tone, clock reading 3:04pm,
+    woman slumped at desk, untouched coffee going cold. Right panel, same woman at
+    same desk, bright afternoon light, upright, focused, no coffee in frame. Headline
+    bridges the two: ''Your gut makes 91% of your serotonin. This is what happens
+    when it works.'' Bottom lock-up: SecondKind Gut Balance wordmark.'
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: TikTok Love Letter
+    execution: 'iPhone B-roll of a woman sitting at a bright afternoon desk, coffee
+      cup nowhere in sight, looking focused and calm. Long text overlay monologue
+      reads: ''Listen, if you''re still relying on coffee to survive 3pm — I need
+      you to hear this. I haven''t had a crash since I started fixing the actual problem.
+      Your gut makes 91% of your serotonin. Mine wasn''t working. Now it is. SecondKind
+      Gut Balance.'' Keep video under 20 seconds, static warm afternoon light, no
+      voiceover — the text is the entire story.'
+    format_id: tiktok-love-letter
+  trending_next:
+    idea: 'David & Goliath: Coffee vs. Your Gut'
+    principle: Ties back to framing_effect because reframing coffee as the broken
+      default (the Goliath status quo) and gut health as the overlooked root cause
+      recontextualises the same before/after transformation — the audience's 3pm crash
+      isn't a caffeine deficiency, it's a gut deficiency. Shifting that frame is the
+      entire persuasion mechanic.
+    execution: 'Open on a split graphic: left side shows a towering wall of coffee
+      cups labelled ''The Band-Aid'' with a stat overlay — ''4 billion cups consumed
+      daily, crashes still happening.'' Right side cuts to a clean animation of the
+      gut-serotonin pathway with the line: ''91% of your serotonin lives here. Coffee
+      never touches it.'' Transition to SecondKind product lock-up with the line:
+      ''We stopped masking the crash. We fixed the source.'' Animate the science beat
+      (the gut-serotonin graphic) for 2–3 seconds of hold to drive retention.'
+    generated: eager
+- id: love-005
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Clinical backing as a moral stance — demanding real evidence,
+    not marketing guesswork
+  hook_or_angle_to_amplify: 'Directly honor this demand with named ingredient credentials.
+    Copy: ''Three patented ingredients. Three separate clinical trials. EpiCor®. Bereum®.
+    Totipro®. The science is published — look it up yourself.'' Position SecondKind
+    as the brand that invites verification rather than asking for trust.'
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  what_people_say: Say yes to evidence. We deserve proof.
+  format_fit:
+  - facts-stats
+  - editorial
+  static_treatment: 'Clean white editorial layout, no photography. Three rows of ingredient
+    name + trial summary in a structured grid: ''EpiCor® — 12-week RCT, reduced cold/flu
+    symptom days by 17%'' / ''Bereum® — 84-day study, improved GI symptoms, stress,
+    and quality of life'' / ''Totipro® — clinically studied bowel regularity at 30
+    days.'' Headline above the grid: ''Not our words. The studies are already published.''
+    SecondKind logo bottom right.'
+  psychology_trigger: authority_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a text card: ''The supplement industry ran $50 billion last
+      year. Most of it on vibes.'' Cut to animated side-by-side: left column shows
+      a generic ''immunity blend'' with zero citations, right column shows SecondKind''s
+      three ingredients — EpiCor®, Bereum®, Totipro® — each paired with a floating
+      callout of their specific trial outcome (duration, metric, result). Closing
+      frame: ''We didn''t write those numbers. The researchers did.'' SecondKind logo
+      holds on white.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Not Cheap (Objection Handling)
+    principle: Ties back to authority_bias because it pre-empts the price objection
+      by grounding cost in institutional credibility — named ingredients, published
+      trials, and verifiable supply chain — shifting the audience's reference frame
+      from 'expensive supplement' to 'the price of actual science'.
+    execution: 'Static or video lead: ''Yes, we cost more. Here''s the receipt.''
+      Then a structured breakdown — EpiCor® licensing and RCT cost, Bereum® 84-day
+      study investment, Totipro® clinical verification — presented as a transparent
+      line-item table in the same clean white editorial style. Closing line: ''Cheap
+      supplements skip this part. We didn''t.'' SecondKind logo bottom right.'
+    generated: eager
+- id: love-006
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Brand transparency that earns loyalty — knowing exactly what
+    is in the product and why
+  hook_or_angle_to_amplify: 'Amplify with a harder credential: not just transparency
+    in spirit, but transparency enforced by third-party IP. Copy: ''Every active ingredient
+    in Gut Balance carries its own patent and its own published clinical study. We
+    didn''t write those studies. We just built the formula around them.'''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  what_people_say: Transparent, ethical — so hard to find a brand like this
+  format_fit:
+  - ingredient-callout
+  - editorial
+  static_treatment: 'Overhead flat-lay of Gut Balance bottle open, capsules arranged
+    cleanly beside it, with three small cards labeled with each ingredient trademark
+    name (Totipro®, EpiCor®, Bereum®) and a one-line study callout per card. Headline
+    at top: ''Three ingredients. Three independent patents. Zero proprietary-blend
+    hiding.'' Shot on warm natural surface, editorial light.'
+  psychology_trigger: authority_bias
+  trending_match:
+    concept: We're Not Cheap (Objection Handling)
+    execution: 'Open with bold text: ''Yes, Gut Balance costs more. Here''s exactly
+      why.'' Cut through three quick screens — one per ingredient (Totipro®, EpiCor®,
+      Bereum®) — each showing the trademarked name, a one-line patent callout, and
+      the independent study citation. Close with a final frame: ''Three patented ingredients.
+      Zero proprietary-blend hiding. That''s where your money goes.'' Warm editorial
+      aesthetic throughout, matching the flat-lay static treatment. Works as both
+      static carousel and short video with Ken Burns motion.'
+    format_id: were-not-cheap
+  trending_next:
+    idea: David & Goliath — call out the supplement industry's proprietary-blend hiding
+      tactic before revealing Gut Balance's full-disclosure formula as the direct
+      contrast.
+    principle: Ties back to authority_bias because positioning Gut Balance against
+      a named industry norm (proprietary blends masking underdosed ingredients) immediately
+      frames the brand as the credible, scientifically accountable authority — the
+      expert who has nothing to hide — which deepens trust through contrast rather
+      than self-claim alone.
+    execution: 'Open with a bold stat or industry callout: ''78% of gut supplements
+      use proprietary blends — so you never know the dose.'' Show a blurred-out competitor
+      label with question marks over hidden amounts. Hard cut to the Gut Balance label,
+      fully legible, with each of the three trademarked ingredients and exact milligrams
+      highlighted in sequence. Close with: ''We publish every dose. Every patent.
+      Every study. You deserve to know what you''re swallowing.'' Animated ingredient
+      labels boost retention on the science beat.'
+    generated: eager
+- id: love-007
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Premium packaging that signals quality and earns a permanent
+    spot on your counter
+  hook_or_angle_to_amplify: 'Own the luxury-skincare-adjacent positioning explicitly
+    in creative. Show Gut Balance living among skincare — not in a supplement cabinet.
+    Copy: ''Designed for the counter, not the cabinet. Built for the gut, not the
+    trend cycle.'' Signal that premium aesthetics and clinical substance are the same
+    product.'
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  - ig_comments
+  what_people_say: Branding feels more like luxury skincare than supplements
+  format_fit:
+  - editorial
+  - ugc-static
+  static_treatment: 'Lifestyle still-life: Gut Balance bottle centered on a marble
+    bathroom shelf alongside two to three premium skincare products (no brand logos
+    visible). Soft side lighting, clean shadows. Minimal copy overlay: ''Your second
+    brain deserves the same shelf.'' SecondKind wordmark bottom left.'
+  psychology_trigger: effect_heuristic
+  trending_match:
+    concept: We're Not Cheap (Objection Handling)
+    execution: 'Static image: Gut Balance bottle on the same marble shelf as the lifestyle
+      still-life, with bold serif headline overlay reading ''We''re not cheap. Neither
+      is what you put on your skin.'' followed by three tight bullet points — premium
+      glass bottle, pharmaceutical-grade ingredients, third-party tested — and a closing
+      line: ''Your counter has standards. So do we.'' SecondKind wordmark bottom left,
+      soft side lighting consistent with editorial skincare aesthetic.'
+    format_id: were-not-cheap
+  trending_next:
+    idea: We're Sorry (Apology Format) — retargeting layer targeting visitors who
+      viewed the product page but didn't convert
+    principle: 'Ties back to effect_heuristic because the apology reframes the premium
+      price as a quality signal rather than a barrier — the ''sorry'' device triggers
+      the same cognitive shortcut: expensive = good, and the counterintuitive surprise
+      amplifies that perceived-value association without requiring the reader to process
+      ingredient logic.'
+    execution: 'Single static image: clean white background, Gut Balance bottle slightly
+      off-center, large italic serif text reading ''We''re sorry our packaging looks
+      more expensive than your serum.'' followed by one line of small body copy: ''Turns
+      out what''s inside is too.'' Minimal, no lifestyle props — the stark contrast
+      to the usual warm shelf shot makes it feel like a genuine brand moment. SecondKind
+      wordmark bottom right.'
+    generated: eager
+- id: love-008
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Confirmed product efficacy through competitor switch — symptoms
+    returned, came back to original
+  hook_or_angle_to_amplify: 'Use the competitor-switch-and-return structure as a category
+    argument, not a brand attack. Copy: ''The test that no lab can run: stopping and
+    seeing what happens. Hundreds of customers ran it by accident.'' Position Gut
+    Balance as the product you notice when it''s gone — proof that the mechanism is
+    real, not placebo.'
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  what_people_say: Made a mistake, tried another, came right back
+  format_fit:
+  - before-after
+  - quote-pull
+  static_treatment: 'Two-panel editorial layout. Left panel headline: ''Switched to
+    a different gut supplement.'' Right panel headline: ''Switched back.'' Between
+    panels, a single Gut Balance bottle centered. No customer name needed — the structure
+    tells the story. Bottom copy: ''Postbiotics don''t ask you to believe. They give
+    you something to compare.'''
+  psychology_trigger: social_proof
+  trending_match:
+    concept: David & Goliath
+    execution: 'Two-panel static or animated split: left side shows a generic competitor
+      bottle with copy ''Tried switching. Symptoms came back in two weeks.'' Right
+      side shows Gut Balance with ''Came back. Stayed back.'' Center transition highlights
+      the postbiotic difference — a brief animation overlaying the science (colony
+      counts, postbiotic stability) between the two panels. Closing line: ''Other
+      gut supplements ask you to believe. Postbiotics give you something to compare.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: Aggregated switcher testimony carousel — multiple short quotes from real
+      customers who left, tried a competitor, and returned, stacked as a rapid-fire
+      proof wall.
+    principle: Ties back to social_proof because a single switcher story is compelling,
+      but a pattern of switchers returning independently signals consensus — the most
+      powerful form of social proof, removing the 'maybe it was just one person' objection.
+    execution: 'Static carousel or looping video: each card shows one line — ''Tried
+      [Brand X]. Back in 3 weeks.'' / ''Switched to save money. Paid for it.'' / ''Nothing
+      else worked. Nothing.'' — no names, no photos, just raw text on clean background.
+      Final card: the Gut Balance bottle with ''Some products you only appreciate
+      after you leave.'''
+    generated: eager
+- id: love-009
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Shelf-stable, travel-ready supplement that fits real life without
+    refrigeration anxiety
+  hook_or_angle_to_amplify: 'Reframe shelf-stability as a postbiotic structural advantage,
+    not just a convenience feature. Copy: ''Most probiotics need refrigeration because
+    live bacteria die. Postbiotics are already active — there''s nothing left to kill.''
+    Show the product living in a travel bag, not a fridge door.'
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  what_people_say: Shelf-stable — pack it anywhere without losing effectiveness
+  format_fit:
+  - features-benefits
+  - editorial
+  static_treatment: 'Flat-lay of an open carry-on bag, Gut Balance bottle tucked naturally
+    among travel essentials — passport, headphones, small skincare. Headline overlaid:
+    ''No refrigeration. No viability anxiety. No bacteria to keep alive.'' Sub-line:
+    ''BiomeBalance™ is shelf-stable because it was never fragile.'''
+  psychology_trigger: processing_fluency
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split-screen animation: left side shows a competitor probiotic
+      bottle sweating inside a mini-fridge with a red ''Keep Refrigerated'' warning
+      label, right side shows Gut Balance sitting casually on a sunlit hotel nightstand
+      next to a passport. Animated callouts pop in — ''10B CFU dead on arrival vs.
+      10B CFU shelf-stable, verified'' — with a closing line: ''The supplement industry
+      built its probiotics fragile. We built ours for real life.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: 'Obvious AI Slop — a cheerful Pixar-style animated probiotic capsule character
+      wheels a tiny carry-on suitcase through an airport, waves goodbye to a sad refrigerator
+      character crying at the departure gate, and boards a plane confidently. Text
+      overlay: ''No cold chain. No drama. Just bacteria that survive the journey.'''
+    principle: Ties back to processing_fluency because the cartoonish visual narrative
+      removes all cognitive friction — the stability benefit is communicated as a
+      single, instantly-parsed story beat (capsule travels freely, fridge stays behind)
+      rather than a technical claim the viewer has to decode.
+    execution: 'Render a 15-second looping animation: bubbly capsule character with
+      a tiny backpack navigates airport security (breezes through), sits in a sunny
+      plane seat, arrives at a beach destination — intercut with the weeping fridge
+      waving from a kitchen window. Keep color palette warm and saturated. End card:
+      ''BiomeBalance™ — shelf-stable because it was never fragile.'''
+    generated: eager
+- id: love-010
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Gut-skin connection — feeding the microbiome shows up visibly
+    in skin clarity
+  hook_or_angle_to_amplify: 'Validate the gut-skin desire with mechanism language
+    SecondKind can own. Copy: ''Clear skin starts in the gut — specifically in the
+    lining that 70% of immune function runs through. EpiCor® strengthens that lining.
+    BiomeBalance™ addresses the source.'' Avoid overclaiming; let the mechanism imply
+    the outcome.'
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  - vertical_site
+  what_people_say: Feeding your gut microbiome matters for great skin too
+  format_fit:
+  - editorial
+  - before-after
+  static_treatment: 'Close portrait crop: woman''s face, radiant skin, natural morning
+    light. Gut Balance bottle subtly placed in lower-left foreground, slightly out
+    of focus. Single headline overlaid: ''Your skin reflects your gut. Not the other
+    way around.'' No before shot needed — the glow is the proof. SecondKind logo bottom
+    right.'
+  psychology_trigger: salience_bias
+  trending_match:
+    concept: Obvious AI Slop
+    execution: 'Pixar-style animated gut microbiome character — a cheerful, glowing
+      little bacterium named ''Lacto'' — walks up to a cartoon skin cell and hands
+      it a tiny bottle of Gut Balance. Skin cell immediately lights up, pores visibly
+      shrink, and a radiant glow pulses outward. Text overlay appears: ''Your gut
+      texted your skin. It said you''re welcome.'' SecondKind branding at end card.
+      Intentionally cute and cringe — the charm is the hook.'
+    format_id: obvious-ai-slop
+  trending_next:
+    idea: TikTok Love Letter targeting women who've tried every topical skincare routine
+      without lasting results
+    principle: Ties back to salience_bias because the copy forces the viewer to mentally
+      reframe their entire skincare identity — 'you've been treating the mirror, not
+      the source' — making the gut-skin connection feel suddenly obvious and impossible
+      to unsee, which is the core salience mechanism at work
+    execution: 'Low-lift iPhone B-roll of a bathroom counter cluttered with serums
+      and creams, slowly panning. Long text overlay monologue reads: ''Listen, girls.
+      I spent £400 on my face last year. Retinol. Acids. SPF. The works. My skin was
+      still dull by Thursday. Turns out I was treating the symptom. The gut-skin axis
+      is real and nobody told me. One habit change. Gut Balance, daily. My skin hasn''t
+      looked this good since I was 19. Stop feeding your shelf. Start feeding your
+      gut.'' Creator voiceover optional but not required.'
+    generated: eager
+- id: love-011
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Works even when lifestyle is imperfect — no elimination diet
+    required
+  hook_or_angle_to_amplify: 'Speak to the realistic wellness buyer who is fatigued
+    by restrictive protocols. Copy: ''No elimination diet. No probiotic meal-timing
+    rules. No waiting for bacteria to colonize. BiomeBalance™ delivers the compounds
+    directly — your lifestyle doesn''t have to be perfect for it to work.'' Tone:
+    matter-of-fact, not permissive.'
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  what_people_say: Haven't slowed down on beer and wine and I feel hot
+  format_fit:
+  - ugc-static
+  - editorial
+  static_treatment: 'Relaxed lifestyle UGC-style shot: woman at a dinner table, glass
+    of wine in hand, laughing — Gut Balance bottle visible in the background, not
+    the foreground. Minimal copy overlay: ''Your gut doesn''t need a perfect diet.
+    It needs the right compounds.'' Sub-line: ''Postbiotics. Already active. Already
+    working.'''
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: TikTok Love Letter
+    execution: 'iPhone-shot vertical video of a woman at a candlelit dinner table,
+      glass of wine mid-raise, laughing with friends — Gut Balance bottle subtly in
+      frame near the centerpiece. Long text overlay monologue scrolls: ''POV: you
+      never gave up pasta, never quit wine, never did the elimination thing — and
+      your gut is actually thriving. Hot girls don''t restrict. They support.'' Final
+      frame holds on the bottle with: ''Postbiotics. Already active. Already working.'''
+    format_id: tiktok-love-letter
+  trending_next:
+    idea: Reframe the 'perfect wellness routine' as the scam, positioning Gut Balance
+      as the honest alternative for people living real lives
+    principle: Ties back to framing_effect because it reframes the reference point
+      — shifting the audience's mental anchor from 'I need to fix my lifestyle' to
+      'the wellness industry lied about what your gut actually needs,' making Gut
+      Balance feel like the rational, liberating choice rather than a compromise
+    execution: 'Static split-image editorial: LEFT side shows the stereotypical ''clean
+      girl'' aesthetic — green juice, elimination diet meal prep, joyless salad —
+      labeled ''What the gut health industry tells you.'' RIGHT side shows a real
+      dinner spread, wine glass, pasta, laughter — labeled ''What your gut actually
+      needs: the right compounds, not a perfect diet.'' Gut Balance bottle anchors
+      the bottom right with copy: ''Postbiotics don''t care about your cheat day.'''
+    generated: eager
+- id: love-012
+  tab: what_they_love
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: Supplement that works reliably enough that missing days is immediately
+    noticeable
+  hook_or_angle_to_amplify: 'Reframe dependency as proof. Copy: ''The supplement you
+    notice when you miss it is the one that was actually doing something. That''s
+    not a coincidence — it''s what direct postbiotic delivery produces.'' Run this
+    as a reason-to-subscribe frame: results that are real enough to protect.'
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  what_people_say: Feel so fantastic the very day I get back on it
+  format_fit:
+  - quote-pull
+  - features-benefits
+  static_treatment: 'Editorial typographic layout on SecondKind''s off-white brand
+    background. Large serif quote: ''The very day I was back on the supplements, I
+    felt so FANTASTIC.'' Below the quote, a short declarative line in smaller weight:
+    ''That''s not habit. That''s BiomeBalance™ at work.'' Gut Balance bottle silhouette
+    bottom right, Gut Balance wordmark below.'
+  psychology_trigger: goal_gradient
+  trending_match:
+    concept: TikTok Love Letter
+    execution: 'iPhone B-roll of someone''s morning routine — coffee brewing, sunlight
+      through a window, supplement bottle on a counter — with a long text overlay
+      monologue that reads: ''POV: you skipped your BiomeBalance™ for a week on vacation
+      and felt it by day 3. Then you got back home, took it that same evening, and
+      woke up the next day feeling like yourself again. That''s not placebo. That''s
+      not routine. That''s the supplement actually working.'' Text builds line by
+      line, paced to a calm lo-fi track. Final frame holds on the bottle with the
+      line: ''Feel the difference the very day you''re back.'''
+    format_id: tiktok-love-letter
+  trending_next:
+    idea: Obvious AI Slop — animated BiomeBalance™ bacteria character who dramatically
+      'goes on strike' every time the user skips a dose, visibly sulking, then throws
+      a celebration parade the moment the supplement is taken again
+    principle: Ties back to goal_gradient because the animation dramatizes the shrinking
+      distance to feeling good — the closer you get to taking the supplement, the
+      more intense the payoff signal becomes, mirroring the psychological momentum
+      users feel as they near their wellness goal
+    execution: 'Pixar-style short looping video: a cheerful gut-bacteria character
+      mopes in grayscale when doses are missed, a counter ticks down (''1 day missed…
+      2 days… 3 days…''), then the user takes a capsule and the character explodes
+      into color with a confetti burst and the text ''There you are. BiomeBalance™
+      back in action.'' End card shows the bottle with a CTA: ''Don''t make them wait.'''
+    generated: eager
+wishes_gaps:
+- id: wish-001
+  tab: wishes_gaps
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: a gut supplement that actually keeps working after month two instead
+    of plateauing
+  real_frustration: Buyers who invest in premium probiotics for weeks or months feel
+    cheated when the initial improvement stalls and they have no explanation for why
+    results faded.
+  script_or_static_opportunity: 'Contrast ad: split frame showing ''Month 1 / Month
+    2 / Month 3'' with probiotic side flatlining and SecondKind side holding steady.
+    Headline: ''Probiotics plateau. Postbiotics don''t have to.'' Body explains the
+    viability-and-colonization failure mode that causes the drop-off. Closes on BiomeBalance™
+    direct-delivery mechanism as the structural reason results hold.'
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  - tiktok_comments
+  what_people_say: ''
+  format_fit:
+  - before-after
+  - features-benefits
+  static_treatment: 'Split-panel layout: left side labeled ''Your probiotic'' shows
+    a descending line graph with the copy ''Month 1: better. Month 2: maybe. Month
+    3: nothing.'' Right side labeled ''SecondKind'' shows a stable horizontal line.
+    Headline across the bottom: ''The compounds, not a bet on bacterial survival.''
+    Clean white background, editorial typography.'
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a side-by-side animated comparison: left panel shows a generic
+      probiotic capsule character labeled ''Every other gut supplement'' with an animated
+      line graph nose-diving after month two, speech bubble reading ''Hope your gut
+      remembers me!'' Right panel introduces SecondKind with a clean animated efficacy
+      curve that holds flat and steady through month six, with a callout highlighting
+      the specific compound mechanism (e.g. postbiotic stability vs. live bacterial
+      survival rates). Closing title card: ''The industry bet on bacteria surviving.
+      We engineered around it.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Not Cheap (Objection Handling) applied to the plateau problem
+    principle: Ties back to framing_effect because it reframes the premium price not
+      as a cost but as the explanation for why the product doesn't plateau — shifting
+      the audience's reference point from 'expensive supplement' to 'the only supplement
+      you don't have to replace every two months'
+    execution: 'Static or short video. Lead hook text: ''Yes, SecondKind costs more.
+      Here''s exactly why that''s the point.'' Follow with three punchy reasons in
+      bold type: ingredient stability at month three, postbiotic delivery mechanism
+      that doesn''t rely on live cultures, third-party efficacy testing at the 90-day
+      mark. Close with a reframe line: ''Buying a cheaper probiotic every two months
+      costs more. Do the math.'''
+    generated: eager
+- id: wish-002
+  tab: wishes_gaps
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: a gut supplement that doesn't cause nausea, jitters, or a worse-before-better
+    adjustment period
+  real_frustration: Customers who have experienced GI distress, jitters, or diarrhea
+    from live-bacteria supplements have lost trust in the category and wish a product
+    existed that skipped the painful adjustment phase entirely.
+  script_or_static_opportunity: 'Video testimonial-style hook: ''I thought gut supplements
+    were supposed to help my gut.'' Cut to mechanism explainer: no live bacteria means
+    no colonization disruption, no adjustment period, no jitters. End card: ''No bacteria.
+    No adjustment period. Just the compounds your body already knows how to use.''
+    Run directly against the dropout audience who quit after a bad reaction.'
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - tiktok_comments
+  - trustpilot
+  what_people_say: ''
+  format_fit:
+  - video-only
+  static_treatment: ''
+  psychology_trigger: salience_bias
+  trending_match:
+    concept: Obvious AI Slop
+    execution: 'Animate a Pixar-style cartoon gut (literally a smiling stomach character)
+      dramatically side-eyeing a shelf of supplement bottles labeled ''The Nauseating
+      One,'' ''The Jitter Bomb,'' and ''The Worse-Before-Better Special.'' The cartoon
+      gut then gleefully hugs the product bottle, sighing ''FINALLY.'' On-screen text
+      pops in: ''a gut supplement that just... works. Day one.'' The absurdist visual
+      makes the three specific side-effect failures impossible to ignore — each villain
+      bottle is visually distinct and named, burning the contrast into memory via
+      salience.'
+    format_id: obvious-ai-slop
+  trending_next:
+    idea: David & Goliath — The 'Everyone Else' Callout
+    principle: Ties back to salience_bias because explicitly naming and visually contrasting
+      the three dominant negative experiences (nausea, jitters, adjustment hell) against
+      a clean alternative makes the problem pop out of the noise — salience is engineered
+      by contrast, not by the product itself leading the message.
+    execution: 'Open on a split-screen animation or fast-cut B-roll montage: left
+      side shows dramatized ''before'' clips labeled ''every other gut supplement''
+      with text callouts — ''Day 1: nausea,'' ''Day 3: jitters,'' ''Week 2: somehow
+      worse'' — right side is clean, calm, person going about their morning normally
+      after taking the product on day one. VO or text overlay: ''The gut supplement
+      industry normalized feeling terrible first. We didn''t accept that.'' End on
+      product shot with a single bold claim: ''No adjustment period. No nausea. No
+      jitters. Day one.'''
+    generated: eager
+- id: wish-003
+  tab: wishes_gaps
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: a gut supplement backed by real published clinical trials, not just
+    brand-level marketing claims
+  real_frustration: Wellness-curious buyers are exhausted by supplement brands that
+    cite vague 'clinical backing' without naming the studies, ingredients, or independent
+    sources — they want proof they can verify themselves.
+  script_or_static_opportunity: 'Ingredient-callout carousel: three slides, one per
+    patented ingredient. Each slide names the ingredient (Totipro®, EpiCor®, Bereum®),
+    states the study design (e.g. ''12-week randomized controlled trial''), and names
+    the outcome measured. Final slide: ''Three ingredients. Three separate clinical
+    trials. Not our words — the science is already published.'' Invites the skeptic
+    to look it up.'
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  - vertical_site
+  what_people_say: ''
+  format_fit:
+  - ingredient-callout
+  - carousel
+  static_treatment: 'Three-panel grid laid out as a fact sheet. Each panel: large
+    ingredient trademark name at top (Totipro® / EpiCor® / Bereum®), one-line study
+    credential below (e.g. ''Randomized controlled trial — 12 weeks''), one measurable
+    outcome. Minimal color, no lifestyle photography. Bottom strip: ''Clinical evidence
+    is attached to the ingredient, not just our marketing.'''
+  psychology_trigger: authority_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split screen: left side shows a cluttered supplement label
+      plastered with vague buzzwords like ''gut support blend'' and celebrity endorsement
+      logos — label it ''Most Brands.'' Right side shows a stark, clinical white panel
+      with a single trademarked ingredient name (e.g. Totipro®), a DOI citation, and
+      one measurable outcome from a peer-reviewed RCT. A brief animated sequence zooms
+      into the study credential, then cuts to all three ingredient panels in sequence,
+      each with its trial duration and outcome stat. Closing card: ''They market a
+      brand. We cite the science.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Not Cheap — Ingredient Authority Edition
+    principle: Ties back to authority_bias because the format uses price as a credibility
+      signal, anchoring the premium cost directly to named clinical-grade ingredients
+      and their published evidence, reinforcing that the brand's choices are validated
+      by external scientific institutions rather than internal marketing.
+    execution: 'Lead static or video hook: ''We''re not cheap — and these three peer-reviewed
+      trials explain exactly why.'' Follow with a rapid three-panel carousel: each
+      panel names one trademarked ingredient, its per-serving cost premium versus
+      a commodity equivalent, and the specific RCT result that justifies it. Closing
+      line: ''Cheap ingredients skip the clinical trials. Ours didn''t.'''
+    generated: eager
+- id: wish-004
+  tab: wishes_gaps
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: a supplement that shows results in weeks, not after two or three
+    months of blind faith
+  real_frustration: Buyers who have faithfully taken a probiotic for two months with
+    nothing to show for it feel foolish and abandoned — they wish the category offered
+    a shorter, more legible feedback loop.
+  script_or_static_opportunity: 'Timeline contrast creative: ''Probiotics ask you
+    to wait while bacteria try to survive digestion. PostBiotics skip the line.''
+    Show the probiotic timeline (survive stomach acid → colonize → produce compounds
+    → maybe feel something) as a long winding road versus the postbiotic straight
+    line. Anchor with Totipro® bowel regularity data at 30 days and Bereum® GI symptom
+    improvement at 84 days as credibility markers.'
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  - tiktok_comments
+  what_people_say: ''
+  format_fit:
+  - features-benefits
+  - facts-stats
+  static_treatment: 'Horizontal infographic layout on a clean light background. Left
+    side: ''The probiotic route'' — four sequential steps labeled with failure points,
+    ending in a question mark. Right side: ''The postbiotic route'' — one step, ending
+    in ''Bioactive compounds, delivered.'' Headline above: ''You''ve been waiting.
+    There''s a shorter path.'' No lifestyle imagery — pure editorial information design.'
+  psychology_trigger: temporal_discounting
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a bold title card: ''The probiotic industry has been making
+      you wait 90 days — on purpose.'' Cut to a simple animated split-screen: left
+      side shows a sluggish timeline of traditional probiotics (capsule → gut barrier
+      → colony building → ''maybe results?'') with red X markers at each delay point;
+      right side shows the postbiotic pathway collapsing to a single step with a green
+      checkmark and the line ''Bioactive compounds. Week one.'' Close on product with
+      the line: ''Stop waiting for a supplement to catch up to your body.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: TikTok Love Letter framing the viewer's past supplement experience as a
+      sunk-cost story — then reframing speed of results as the non-negotiable they
+      deserved all along.
+    principle: Ties back to temporal_discounting because it surfaces the emotional
+      pain of delayed gratification (months of 'blind faith') and reframes the immediate
+      payoff of postbiotics as the obvious, overdue choice — making the shorter time
+      horizon feel like a relief, not just a feature.
+    execution: 'iPhone-style vertical video with slow B-roll of a supplement bottle
+      sitting untouched on a shelf. Long text overlay monologue reads: ''Listen —
+      if your supplement has been asking you to wait 90 days to feel anything, that''s
+      not patience, that''s a red flag. You shouldn''t have to set a calendar reminder
+      to find out if something is working. Week one should tell you something. That''s
+      the whole point.'' End card: product name + ''Results you can feel, not wait
+      for.'''
+    generated: eager
+- id: wish-005
+  tab: wishes_gaps
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: full ingredient transparency with no hidden proprietary blend doses
+  real_frustration: Buyers who have been burned by underdosed proprietary blends and
+    ingredient label opacity wish supplement brands would simply show them exactly
+    what is in the product and at what dose — so they can verify the claims are real.
+  script_or_static_opportunity: 'Static ''label explainer'' ad: zoom into the Gut
+    Balance supplement facts panel, callout each of the three named patented ingredients
+    with annotations pointing to the trademark symbol and a one-line clinical credential.
+    Headline: ''Every ingredient named. Every dose visible. Every study published.''
+    Closes with: ''No proprietary blend. No hidden doses. Look it up.'''
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  - vertical_site
+  what_people_say: ''
+  format_fit:
+  - ingredient-callout
+  - editorial
+  static_treatment: 'Close-up flat-lay of the Gut Balance bottle on a white surface
+    with three annotation lines extending from the label to floating text blocks:
+    each block names the ingredient trademark, its clinical study type, and one outcome.
+    Headline at top in clean sans-serif: ''Nothing hidden.'' SubHead: ''Three patented
+    ingredients. Three independent clinical trials.'' Editorial, not promotional.'
+  psychology_trigger: processing_fluency
+  trending_match:
+    concept: We're Not Cheap (Objection Handling)
+    execution: 'Open with a direct-to-camera or bold static headline: ''Yes, Gut Balance
+      costs more. Here''s exactly why.'' Then walk through each of the three patented
+      ingredients — name the trademark, cite the specific clinical trial type (e.g.
+      double-blind, placebo-controlled), and state the measured outcome in plain language.
+      No vague ''proprietary blend'' language anywhere. Close with: ''You''re not
+      paying for mystery. You''re paying for proof.'' Works as a static editorial
+      card series or a slow-scroll video with each ingredient revealed line by line.'
+    format_id: were-not-cheap
+  trending_next:
+    idea: David & Goliath — 'The Industry Hides It. We Print It.'
+    principle: Ties back to processing_fluency because framing competitor opacity
+      as the villain makes Gut Balance's full-dose transparency instantly legible
+      — the brain processes 'clear vs. hidden' as a simple contrast, reducing cognitive
+      load and making the brand's value obvious without effort.
+    execution: 'Split-screen static or video: left side shows a blurred, redacted
+      supplement label with ''Proprietary Blend — 450mg'' and a question mark; right
+      side shows Gut Balance''s clean label with each ingredient, its clinical dose,
+      and its trial outcome annotated in sharp, readable type. Headline: ''Other brands
+      hide behind blends. We hide nothing.'' Subhead names each patented ingredient
+      with its exact milligram dose and one-line study outcome.'
+    generated: eager
+- id: wish-006
+  tab: wishes_gaps
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: a gut health product that addresses energy and brain fog, not just
+    bloating in isolation
+  real_frustration: Buyers who treat bloating with one product and afternoon energy
+    crashes or brain fog with another are tired of managing symptoms separately when
+    they suspect they are connected.
+  script_or_static_opportunity: '''Same system'' contrast creative: show two medicine-cabinet
+    shelves — one crowded with three or four separate products labeled bloat, energy,
+    stress, sleep; one with a single SecondKind bottle. Copy: ''Your gut produces
+    91% of your serotonin. You''ve been treating the symptoms separately. They''re
+    the same system.'' Runs directly at the multi-supplement-fatigue audience.'
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  - tiktok_comments
+  what_people_say: ''
+  format_fit:
+  - before-after
+  - editorial
+  static_treatment: 'Split flat-lay composition on a clean white surface. Left half:
+    four generic amber supplement bottles labeled with symptoms — ''Bloat'', ''Energy'',
+    ''Mood'', ''Focus''. Right half: single Gut Balance bottle. Dividing line between
+    the two halves. Headline across the image: ''One system. One place to start.''
+    Caption space below: ''Your gut produces 91% of your serotonin. Treatment starts
+    there.'''
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open on a chaotic shelf crammed with five separate supplement bottles—each
+      labeled with a single symptom (''Bloat Fix,'' ''Brain Fog Pills,'' ''Energy
+      Boost,'' ''Mood Support,'' ''Focus Formula'')—as a VO calls out: ''The gut health
+      industry sold you five problems with five bottles. Here''s what they''re not
+      telling you.'' Cut to a clean animation showing the gut-brain-serotonin axis,
+      then to a single Gut Balance bottle with the line: ''One system. One starting
+      point. Backed by the science they skipped.'' End card: ''91% of your serotonin
+      is made in your gut — so why are you treating bloating like it''s the whole
+      story?'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: TikTok Love Letter targeting the 'I've tried everything' gut-health sufferer
+    principle: Ties back to framing_effect because the long text overlay reframes
+      the viewer's prior supplement failures — not as personal failure, but as a category
+      failure — shifting the reference point from 'nothing works for me' to 'I was
+      handed the wrong frame entirely,' making Gut Balance feel like the corrected
+      lens rather than just another product.
+    execution: 'Low-lift iPhone B-roll of someone making morning coffee, looking tired.
+      Text overlay monologue scrolls: ''Listen — if you''ve been taking a probiotic
+      for bloating and still feel foggy, exhausted, and emotionally flat… it''s not
+      the probiotic. It''s that nobody told you the gut controls your energy and your
+      mood too. You weren''t treating the wrong thing. You were given the wrong frame.''
+      Final frame: Gut Balance bottle on the counter. Last line of text: ''Start at
+      the system, not the symptom.'''
+    generated: eager
+- id: wish-007
+  tab: wishes_gaps
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: a premium gut supplement with a real money-back guarantee that removes
+    the risk of trying something expensive
+  real_frustration: Buyers who have spent $50 per month on a probiotic and felt nothing
+    want to try the category again but need a credible low-stakes entry point before
+    committing — they wish the trial risk was structurally removed.
+  script_or_static_opportunity: 'Risk-reversal ad anchored on the 60-day Feel It Fast
+    guarantee and first-bottle $35 price. Hook: ''I wasted $100 on two months of [probiotic]
+    and felt nothing.'' Resolution: ''Your first bottle is $35. Sixty days to feel
+    the difference. No return shipment needed if you don''t.'' Pairs the price-drop
+    entry point with the mechanism story — postbiotics work faster so the feedback
+    loop is shorter.'
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  - trustpilot
+  - ig_comments
+  what_people_say: ''
+  format_fit:
+  - headline
+  - promotion-discount
+  static_treatment: 'Bold typographic layout on a deep navy or off-white background.
+    Large headline: ''$35 to find out if postbiotics are different.'' Sub-line: ''60
+    days. No return shipment needed.'' Small body copy: ''Postbiotics skip the survival
+    step probiotics can''t. Feel it, or don''t pay.'' Product bottle visible at right
+    edge, small and elegant. No lifestyle imagery — confidence comes from the offer
+    itself.'
+  psychology_trigger: scarcity
+  trending_match:
+    concept: We're Not Cheap (Objection Handling)
+    execution: 'Static or short video ad opens with bold text: ''Yes, it''s $35. Here''s
+      why that''s the last gut supplement you''ll buy.'' Cut through three rapid-fire
+      reasons — clinical-grade postbiotic strain, no cold-chain survival gamble unlike
+      probiotics, and a 60-day money-back guarantee with zero return shipment required.
+      Close on the bottle against a deep navy background with a single line: ''Feel
+      it or don''t pay. That''s how confident we are.'''
+    format_id: were-not-cheap
+  trending_next:
+    idea: We're Sorry (Apology Format) — retargeting layer aimed at visitors who viewed
+      the product but didn't convert
+    principle: 'Ties back to scarcity because the apology reframes the risk window
+      as closing: the guarantee itself is the scarce asset (''We''re sorry we can''t
+      offer this forever — our 60-day no-return guarantee is not a standard policy
+      and we reserve the right to change it''), making inaction feel costlier than
+      spending $35.'
+    execution: 'Single static image on off-white background. Large serif headline:
+      ''We''re sorry we didn''t say this louder.'' Sub-line: ''60 days. No return
+      shipment. No questions. If you don''t feel a difference, we don''t keep your
+      money.'' Small footnote: ''This guarantee isn''t industry standard — and we
+      know it.'' Product bottle small and centered at bottom. No lifestyle imagery
+      — the copy does all the work.'
+    generated: eager
+- id: wish-008
+  tab: wishes_gaps
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: a gut supplement that works even when diet and lifestyle aren't
+    perfect
+  real_frustration: Buyers are tired of gut health protocols that demand dietary perfection
+    and feel punishing — they wish something worked reliably alongside real, imperfect
+    life.
+  script_or_static_opportunity: 'Meme-adjacent or UGC-tone social creative built around
+    the customer language: ''I have not slowed down on my beer and wine intake and
+    feel hot and I feel like that says something.'' Frame as relatable proof that
+    the mechanism works at the compound level regardless of behavioral perfection.
+    Copy direction: ''Postbiotics work at the compound level — not conditional on
+    a clean diet.'' Authentic, not preachy.'
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - ig_comments
+  what_people_say: ''
+  format_fit:
+  - ugc-static
+  - meme
+  static_treatment: 'Vertical phone-screenshot-style frame with a pulled quote in
+    large display type: ''I haven''t slowed down on my beer and wine intake — and
+    I feel great. That says something.'' Light attribution tag below. SecondKind wordmark
+    bottom-right. Intentionally casual typesetting to mirror the organic comment format.
+    No product shot needed — the quote is the proof.'
+  psychology_trigger: social_proof
+  trending_match:
+    concept: TikTok Love Letter
+    execution: 'Low-lift iPhone B-roll of a crowded bar or backyard BBQ setting —
+      no product in frame. Long text overlay monologue reads: ''Listen, if you''re
+      the type of person who isn''t giving up the weekend wine, the Friday beers,
+      or the late-night snacks — this one''s for you. Real people. Real habits. Still
+      feeling great. That''s what SecondKind is built for.'' Pull in a second screen
+      of stacked social-proof quotes in the same casual font, ending with the hero
+      line: ''I haven''t slowed down on my beer and wine intake — and I feel great.
+      That says something.'''
+    format_id: tiktok-love-letter
+  trending_next:
+    idea: Obvious AI Slop — an intentionally cartoonish Pixar-style gut bacteria character
+      ('Hi, I'm your gut lining') narrating the chaos of a weekend of wine and pizza,
+      then visibly sighing with relief when SecondKind arrives.
+    principle: Ties back to social_proof because the cartoon character speaks in the
+      voice of the collective consumer experience — exaggerating the shared, relatable
+      reality that 'nobody actually eats perfectly' normalises the behaviour and makes
+      the supplement's promise feel validated by a crowd, not just one person.
+    execution: 'Render a round, slightly anxious animated gut cell character reacting
+      in real-time to incoming food items (beer mug, pizza slice, late-night kebab),
+      visibly stressed, until a SecondKind capsule drops in and the character exhales
+      and gives a thumbs up. Text overlay throughout: ''For the people who live their
+      actual life.'' End card pulls the same hero quote used in the static treatment
+      as a frozen frame caption.'
+    generated: eager
+- id: wish-009
+  tab: wishes_gaps
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: a shelf-stable gut supplement that travels without refrigeration
+    or fragile packaging
+  real_frustration: Buyers who rely on refrigerated probiotics or carry fragile glass
+    travel vials feel their gut routine is hostage to logistics — they wish the product
+    simply existed in a format that moved with their life.
+  script_or_static_opportunity: 'Travel lifestyle static or short video: bottle on
+    a nightstand in a hotel room, in an overhead bag, on a desk. No ice pack. No refrigerator.
+    No broken glass. Headline: ''Shelf-stable. No refrigeration. No babysitting.''
+    One line on mechanism: ''PostBiotics are already bioactive — they don''t need
+    to be kept alive.'' Targets the frequent-traveler or on-the-go buyer who has lapsed
+    on refrigerated probiotic routines.'
+  hook_angle: ''
+  tactic: ''
+  story_setup: ''
+  why_it_works: ''
+  source_type:
+  - vertical_site
+  what_people_say: ''
+  format_fit:
+  - features-benefits
+  - editorial
+  static_treatment: 'Clean overhead shot of Gut Balance bottle sitting on a hotel
+    nightstand or open carry-on, surrounded by travel essentials — passport, headphones
+    — but no ice pack and no refrigerator in sight. Headline overlay: ''No refrigeration.
+    No fragile vials. No excuses.'' Sub-copy: ''PostBiotics are already active — they
+    survive because they were never alive to begin with.'' Bright, confident natural
+    lighting.'
+  psychology_trigger: salience_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open on a slow pan of a cluttered hotel mini-fridge stuffed with competing
+      probiotic vials and ice packs labeled ''fragile,'' ''keep cold,'' ''use within
+      24 hrs'' — then cut hard to a single Gut Balance bottle sitting unbothered on
+      a nightstand next to a passport. Animated callout arrows highlight what''s NOT
+      there: no ice pack, no fridge, no expiry clock. VO or text overlay: ''Every
+      other gut supplement asks you to babysit it. Ours doesn''t — because PostBiotics
+      were never alive to begin with.'' Close on the bottle alone, confident lighting,
+      tagline: ''Built for the real world.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: TikTok Short / POV using the traveler's moment of relief
+    principle: ties back to the row's psychology_trigger because salience_bias is
+      activated by making the absence of a pain point suddenly vivid and impossible
+      to unsee — the POV format forces the viewer to mentally place themselves in
+      the scenario, sharpening the contrast between 'old problem' and 'new normal'
+    execution: '5-second B-roll of someone zipping a carry-on bag with the Gut Balance
+      bottle tossed in casually — no ice, no bubble wrap, no second thought. Single
+      POV text overlay: ''POV: you finally have a gut supplement that travels like
+      you do.'' No voiceover, no cuts, just the zip and the bottle.'
+    generated: eager
+hook_angles:
+- id: hook-001
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: Your probiotic is dying before it reaches your gut.
+  tactic: pattern-interrupt
+  story_setup: 'Static bold headline over a clean white background. Cut to a split
+    visual: left side shows a capsule dissolving in stomach acid with a red ''X'';
+    right side shows SecondKind Gut Balance with a green checkmark. Subhead: ''Postbiotics
+    skip the survival problem entirely.'''
+  why_it_works: Activates framing_effect by recontextualizing the entire probiotic
+    category as broken before introducing SecondKind as the fix. Directly targets
+    pain-001 and wish-001 — buyers who have spent months on probiotics with zero results.
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - before-after
+  - us-vs-them
+  static_treatment: 'Split-panel image: left side labels ''Probiotic'' with a capsule
+    dissolving in a red acid wash; right side labels ''Postbiotic'' with a clean Gut
+    Balance bottle and ''Already active. Already working.'' Headline across top: ''Your
+    probiotic is dying before it reaches your gut.'''
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a bold title card: ''The $50 billion probiotic industry
+      has a dirty secret.'' Cut to a simple animation showing a probiotic capsule
+      dissolving in stomach acid before reaching the gut — labeled ''What you paid
+      for.'' Then contrast with Gut Balance: ''Postbiotics are already active. Acid
+      can''t kill what''s already done its job.'' Close on the product with the differentiator
+      callout and a hard CTA. Animate the science sequence (acid environment vs. stable
+      postbiotic) to boost retention.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: Obvious AI Slop — a Pixar-style animated probiotic capsule character dramatically
+      'dies' in a bubbling acid stomach, crying 'I never even made it...' while a
+      cheerful postbiotic character walks past unharmed saying 'Already working. Already
+      there.'
+    principle: Ties back to framing_effect because the cartoonish death-vs-survival
+      visual reframes the same loss (your probiotic never arriving) in an emotionally
+      exaggerated, memorable way — making the negative outcome of the status quo feel
+      viscerally real without a single human face, which sharpens the contrast between
+      the old frame (probiotics work) and the new frame (postbiotics are already active).
+    execution: 'Commission a 15-second Pixar-style animation: a sad, wide-eyed capsule
+      character dissolves in a red bubbly stomach while dramatic music swells. Hard
+      cut to a confident postbiotic character arriving at a glowing gut door, knocking,
+      and walking straight in. Text overlay: ''Your probiotic never made it. Gut Balance
+      already did.'' End card with product shot and URL.'
+    generated: eager
+- id: hook-002
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: I went an entire year without getting sick. This is what changed.
+  tactic: personal-testimony-reveal
+  story_setup: 'Video: Founder Remy Reinstein speaking directly to camera, casual
+    home or office setting. Opens with the line, pauses, then holds up Gut Balance.
+    Cuts to a brief explainer: ''The gut produces compounds your immune system runs
+    on. Most supplements never deliver them.'' Ends on product close-up with ''BiomeBalance™''
+    visible on label.'
+  why_it_works: Social proof anchored in a named, credible founder story converts
+    skeptical probiotic-fatigued buyers (love-003, love-005). The specific claim —
+    one year without illness — is concrete and memorable, triggering salience bias
+    over vague immunity language.
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - video-only
+  static_treatment: ''
+  psychology_trigger: social_proof
+  trending_match:
+    concept: Yapper
+    execution: Single creator speaks directly to camera, casually recounting their
+      'sick-free year' as if venting to a friend — no B-roll, no cuts, just authentic
+      rambling. They name the specific changes they made (sleep, supplement, habit)
+      in a natural, unscripted cadence. The lack of polish signals organic credibility
+      and leans into parasocial trust, reinforcing the social proof that 'someone
+      like me actually did this.'
+    format_id: yapper
+  trending_next:
+    idea: 'Listicle: ''3 things I actually changed that kept me healthy all year'''
+    principle: ties back to the row's psychology_trigger because numbered testimonial
+      lists aggregate implied peer experience — readers mentally picture multiple
+      people validating each point, amplifying social proof beyond a single anecdote
+    execution: Creator walks through three specific habit or product changes on camera,
+      each introduced with a numbered title card. Same core script handed to 2–3 distinct
+      creator personas so the format runs as a social proof cluster across different
+      audience segments simultaneously.
+    generated: eager
+- id: hook-003
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: Two months of Seed. Zero change. Then I found out why.
+  tactic: empathy-callout
+  story_setup: 'Video or carousel: Frame 1 — relatable frustrated face, text overlay
+    ''Month 1. Still bloated.'' Frame 2 — ''Month 2. Still bloated.'' Frame 3 — cut
+    to a simple science graphic: ''Up to 70% of probiotic bacteria never reach your
+    gut.'' Frame 4 — Gut Balance bottle with ''Postbiotics: already active. No survival
+    required.'''
+  why_it_works: Opens directly inside the lived experience captured in pain-001 —
+    buyers who cancelled Seed after faithful use with no results. The 'then I found
+    out why' pivot reframes failure as a category problem, not a personal one, protecting
+    ego and creating curiosity.
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - carousel
+  - before-after
+  static_treatment: 'Four-panel carousel. Panel 1: Bold text on muted background —
+    ''Two months of Seed. Zero change.'' Panel 2: Simple gut-acid diagram with stat
+    overlay: ''Up to 70% of probiotics die before reaching your gut.'' Panel 3: ''The
+    problem isn''t you. It''s the format.'' Panel 4: Gut Balance bottle — ''Postbiotics.
+    Already active. Already there.'''
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a bold callout frame: ''Seed. Billions of probiotics. Most
+      dead on arrival.'' followed by a simple animated cross-section showing probiotics
+      dissolving in stomach acid before reaching the gut, with a stat overlay: ''Up
+      to 70% never make it.'' Cut to a clean contrast panel: ''Gut Balance uses postbiotics
+      — already active, already past the gatekeeping.'' Close on the product with
+      the line: ''We didn''t fight the system. We skipped it.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Sorry (Apology Format) — a static or low-motion ad that opens with
+      'We're sorry we didn't call out the probiotic problem sooner.' and reframes
+      the consumer's past failure as an industry failure, not a personal one.
+    principle: Ties back to framing_effect because it reframes the reference point
+      from 'I failed to see results' to 'the format was always the problem' — shifting
+      blame away from the consumer and toward the category, making the Gut Balance
+      solution feel like the obvious corrective frame rather than just another product
+      claim.
+    execution: 'Single static image or slow Ken Burns card: muted background, bold
+      centred copy reading ''We''re sorry. You didn''t fail your gut health. The format
+      failed you.'' Below it, a one-line product contrast — ''Postbiotics: already
+      active, no survival required.'' — with the Gut Balance bottle anchored bottom-right
+      and a subtle ''Learn why'' CTA.'
+    generated: eager
+- id: hook-004
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: Not another probiotic. Your gut doesn't need more fragile bacteria.
+  tactic: category-rejection
+  story_setup: 'Static editorial image: Gut Balance bottle centered on a clean marble
+    or light-stone surface. Headline runs directly above the bottle. Subhead beneath:
+    ''It needs the beneficial compounds probiotics are meant to produce — delivered
+    directly.'' Brand logo bottom right. Minimal, no clutter.'
+  why_it_works: Processes quickly and requires no education debt — the reader understands
+    the contrast immediately (processing_fluency). Targets wish-001 and pain-005 by
+    implicitly validating the audience's existing frustration with probiotics before
+    the product is even named.
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - headline
+  - editorial
+  static_treatment: 'Clean single-product shot: Gut Balance bottle centered on stone
+    surface, natural side lighting. Headline above: ''Not another probiotic.'' Subhead
+    below bottle: ''Your gut doesn''t need more fragile bacteria hoping to survive
+    digestion. It needs postbiotics — delivered directly.'' Minimal white space framing
+    throughout.'
+  psychology_trigger: processing_fluency
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split-screen static or animated panel: left side shows
+      a crowded probiotic aisle or a generic capsule labeled ''FRAGILE BACTERIA''
+      dissolving in stomach acid with a red X overlay; right side cuts to a clean,
+      centered Gut Balance bottle on stone with natural light and the headline ''Not
+      another probiotic.'' Body copy calls out the broken category logic — billions
+      of CFUs that never survive digestion — then contrasts with the postbiotic mechanism
+      using a simple animated cross-section of the gut showing direct delivery. Minimal
+      typography, deliberate white space, clinical-calm aesthetic throughout.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: We're Sorry (Apology Format) — 'We're sorry we didn't call out the probiotic
+      industry sooner.'
+    principle: Ties back to processing_fluency because the apology format strips the
+      message to its simplest, most scannable structure — one short confession line
+      does the cognitive work instantly, no explanation required, making the category
+      reframe feel obvious rather than argued.
+    execution: 'Single static image: Gut Balance bottle centered on a clean white
+      or warm stone surface, natural side light matching the existing treatment. Headline
+      above in clean serif: ''We''re sorry.'' Subhead below: ''We should have told
+      you sooner — fragile bacteria were never going to survive your stomach. Postbiotics
+      skip the whole problem.'' No clutter, no icons, maximum white space so the two-step
+      message lands in one glance.'
+    generated: eager
+- id: hook-005
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: She tried every probiotic on the market. Still bloated. Still exhausted.
+  tactic: relatable-protagonist
+  story_setup: 'Video: A woman in her 30s going through a familiar morning routine
+    — looking at herself in the mirror, noticeably uncomfortable. Voiceover narrates:
+    ''She tried probiotics, elimination diets, supplement after supplement.'' Cut
+    to Gut Balance. ''Then she switched to postbiotics — the compounds your body actually
+    uses.'' Time-lapse to her looking energized, lighter. Product end card with ''Feel
+    it in weeks, not months.'''
+  why_it_works: Mirrors the founder's own origin story (Danielle's experience) while
+    speaking directly to the probiotic-fatigued female buyer who holds pain-001, pain-005,
+    and wish-004. Protagonist framing creates identification before the product is
+    introduced.
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - video-only
+  static_treatment: ''
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: TikTok Short / POV
+    execution: 'Single line of white bold text over B-roll of a cluttered bathroom
+      shelf overflowing with probiotic bottles: ''POV: you''ve tried every probiotic
+      and you''re still bloated and exhausted.'' Hold for 2 seconds, then cut to the
+      product — no voiceover, no explanation needed. The shelf visual does the framing
+      work by anchoring the viewer in the ''already tried everything, still losing''
+      mental state before the solution appears.'
+    format_id: tiktok-short-pov
+  trending_next:
+    idea: David & Goliath callout ad that reframes why every other probiotic failed
+      her — not her fault, the whole category is broken — before positioning the product
+      as the structural fix.
+    principle: Ties back to framing_effect because it deliberately reframes the viewer's
+      prior failures as an industry-design problem rather than personal inadequacy,
+      shifting the comparison frame from 'this product vs. other products' to 'this
+      product vs. a rigged system' — making the solution feel inevitable rather than
+      just incremental.
+    execution: 'Open with a montage of generic probiotic labels flashing on screen
+      with a red X, voiceover or text: ''The reason you''re still bloated isn''t you
+      — it''s that 90% of probiotics never survive your stomach acid.'' Cut to an
+      animated diagram showing bacteria dying before reaching the gut, then contrast
+      with the product''s specific delivery mechanism. Close on a creator holding
+      the product saying: ''She tried everything. She just hadn''t tried the one that
+      actually works.'''
+    generated: eager
+- id: hook-006
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: 84 days. Clinical trial. Bloating reduced. Stress improved. Quality
+    of life up.
+  tactic: facts-first
+  story_setup: 'Static: Clean data-card layout. Three stat blocks side by side — each
+    citing the Bereum® 84-day study outcome. Below: ''Gut Balance contains Bereum®,
+    Totipro®, and EpiCor® — three patented postbiotic compounds with published clinical
+    research.'' SecondKind logo and ''Not marketing. Evidence.'' as a closing line.'
+  why_it_works: 'Directly serves wish-003 — the buyer demanding peer-reviewed proof,
+    not brand claims. Authority bias is activated by leading with specific study duration
+    and named compound rather than vague category language. Ref: love-005.'
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - facts-stats
+  - ingredient-callout
+  static_treatment: 'Dark or deep navy background for authority contrast. Three white
+    stat cards side by side: ''84-day clinical study,'' ''Bloating reduced,'' ''Quality
+    of life improved.'' Below cards: ''Bereum® — one of three patented postbiotic
+    compounds in Gut Balance.'' SecondKind branding bottom. Tagline: ''Not marketing.
+    Evidence.'''
+  psychology_trigger: authority_bias
+  trending_match:
+    concept: We're Not Cheap (Objection Handling)
+    execution: 'Open with a bold headline card: ''Yes, Gut Balance costs more. Here''s
+      exactly why.'' Cut through a rapid sequence of three authority proof-points
+      — an 84-day clinical trial badge, a ''Bloating Reduced'' stat callout, a ''Quality
+      of Life Improved'' metric — each rendered as a clean white card on deep navy.
+      Close on a Bereum® ingredient spotlight with the line: ''Three patented postbiotic
+      compounds. Peer-reviewed evidence. Not a price you negotiate on.'' SecondKind
+      logo and tagline ''Not marketing. Evidence.'' lock off the frame.'
+    format_id: were-not-cheap
+  trending_next:
+    idea: David & Goliath — Gut Balance vs. the probiotic industry's unproven claims
+    principle: Ties back to authority_bias because positioning SecondKind against
+      a 'broken status quo' of supplement brands with zero clinical backing amplifies
+      the credibility of real peer-reviewed evidence; the contrast makes the 84-day
+      study feel even more authoritative by exposing what the competition lacks.
+    execution: 'Open on a split screen: left side shows a generic probiotic label
+      with vague claims like ''supports gut health'' stamped with a red ''No clinical
+      evidence'' watermark; right side cuts to the Gut Balance packaging with ''84-Day
+      Clinical Study'' and the Bereum® compound name animated in. Voiceover or text
+      overlay: ''Most gut supplements are marketing dressed as science. We ran the
+      trial. Here are the numbers.'' Close on the three stat cards and SecondKind
+      branding with ''Peer-reviewed. Patented. Proven.'''
+    generated: eager
+- id: hook-007
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: The day I ran out was the day I knew it was actually working.
+  tactic: proof-of-absence
+  story_setup: 'Video or quote-pull static: User speaks or text reads: ''I ran out
+    for four days. The bloating came back. The energy dipped. That''s when I knew.''
+    Cut to product. Subhead: ''When missing days is immediately noticeable, you stop
+    questioning whether it works.'' End card with subscription CTA and savings callout.'
+  why_it_works: Mirrors love-012 and love-003 precisely — the supply gap as accidental
+    proof of efficacy. Reversal of expectation (running out = good news) makes the
+    hook memorable and drives subscription conversion by reframing continuity as self-evident
+    logic.
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - quote-pull
+  - ugc-static
+  static_treatment: 'White card with a large pull quote in editorial serif font: ''The
+    day I ran out was the day I knew it was actually working.'' Attribution: SecondKind
+    customer. Below: Product bottle with ''Subscribe & never run out.'' Discount badge
+    overlay: ''Save up to 20%.'''
+  psychology_trigger: goal_gradient
+  trending_match:
+    concept: We're Sorry (Apology Format)
+    execution: 'Single static card with a clean white background. Large headline:
+      ''We''re sorry.'' Subhead: ''We''re sorry we didn''t make it easier to reorder
+      before you ran out.'' Below, a centered quote in editorial serif: ''The day
+      I ran out was the day I knew it was actually working.'' Attribution line: ''—
+      SecondKind customer.'' Product bottle below with a Subscribe & Save badge: ''Save
+      up to 20% — never run out again.'' CTA button: ''Subscribe Now.'''
+    format_id: were-sorry
+  trending_next:
+    idea: 'TikTok Short / POV overlay on a near-empty bottle being picked up and shaken,
+      with the text: ''POV: you''re out of SecondKind and suddenly realize how much
+      it was doing.'''
+    principle: Ties back to goal_gradient because the moment of running out is the
+      peak proof of proximity to the goal — the viewer is shown they are one re-order
+      away from sustaining progress they've already made, amplifying urgency to close
+      that final gap.
+    execution: 'iPhone B-roll close-up of a hand reaching for an almost-empty SecondKind
+      bottle, shaking it, finding it empty. Two-line POV text overlay fades in: ''POV:
+      you ran out'' / ''and you felt the difference immediately.'' Cut to product
+      shot with ''Subscribe so this never happens.'' No voiceover needed — silence
+      or ambient sound only.'
+    generated: eager
+- id: hook-008
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: Billions of live bacteria. Or one trillion bioactive compounds. You
+    do the math.
+  tactic: contrast-comparison
+  story_setup: 'Static us-vs-them panel. Left column header: ''Traditional Probiotic''
+    — bullet: ''Billions of live bacteria,'' bullet: ''Must survive stomach acid,''
+    bullet: ''Results depend on colonization.'' Right column header: ''SecondKind
+    Gut Balance'' — bullet: ''1 trillion bioactive compounds,'' bullet: ''Already
+    active,'' bullet: ''No survival required.'' SecondKind branding below with ''A
+    new standard in gut health.'''
+  why_it_works: Trillion vs. billion framing is a direct brand positioning device
+    that reframes the probiotic CFU arms race as irrelevant (framing_effect). Resolves
+    pain-009 — the deliberate confusion around measurement metrics used by Seed —
+    by making SecondKind's metric instantly legible.
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - us-vs-them
+  - facts-stats
+  static_treatment: 'Two-column comparison card on clean white. Left: ''Probiotic
+    — Billions of live bacteria. Survival-dependent. Results variable.'' Right (highlighted
+    with brand accent color): ''Gut Balance — 1 trillion bioactive compounds. Already
+    active. No survival required.'' Headline above: ''Billions of live bacteria. Or
+    one trillion bioactive compounds. You do the math.'''
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: David & Goliath
+    execution: 'Split-screen animated video: left side shows a cartoon probiotic capsule
+      struggling to ''survive'' stomach acid (animated death sequence, dramatic music
+      sting), labeled ''Traditional Probiotics — billions of bacteria, most die before
+      they do anything.'' Right side reveals Gut Balance with a bold counter animation:
+      ''1 TRILLION bioactive compounds. Already active. No survival required.'' Close
+      on the two-column comparison card from the static treatment with a voiceover:
+      ''Billions of live bacteria sounds impressive — until you learn most don''t
+      make it. We did the math so you don''t have to.'''
+    format_id: david-and-goliath
+  trending_next:
+    idea: 'Obvious AI Slop — a Pixar-style cartoon probiotic bacterium nervously swimming
+      through an animated stomach acid pool, sweating, saying ''I''m just trying to
+      survive down here!'' Cut to a smug bioactive compound floating effortlessly
+      past: ''Already active. No stomach acid drama required.'' End card mirrors the
+      two-column static layout.'
+    principle: Ties back to framing_effect because the cartoonish contrast reframes
+      the same numerical facts (billions vs. one trillion) through survival jeopardy
+      vs. effortless efficacy — the audience reaches the same 'you do the math' conclusion
+      but via visceral visual framing rather than a data table, amplifying the anchoring
+      effect of the higher number.
+    execution: 'Commission a 15-second Pixar-style animation: open on a panicked probiotic
+      bacterium character dissolving in neon-green stomach acid (comedically dramatic),
+      caption: ''Billions of live bacteria. Most don''t survive the trip.'' Hard cut
+      to a sleek bioactive compound character gliding through cleanly, waving: ''1
+      trillion bioactive compounds. Already active.'' Final freeze-frame on the two-column
+      comparison card with the headline ''You do the math.'' overlaid in bold brand
+      typography.'
+    generated: eager
+- id: hook-009
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: No jitters. No adjustment period. No worse before better.
+  tactic: fear-removal
+  story_setup: 'Static or short video. If static: clean product shot with three negative-space
+    callout lines eliminating common probiotic fears. If video: person waking up,
+    taking one capsule, going about their morning unbothered — no grimacing, no rushing
+    to the bathroom. Text overlay: ''Postbiotics are already in their final form.
+    Your body recognizes them immediately.'''
+  why_it_works: 'Directly neutralizes pain-002, pain-003, and wish-002 — the GI disruption
+    and stimulant-like reactions that make buyers hesitant to try new gut supplements.
+    Salience bias: naming the feared outcomes explicitly before dismissing them is
+    more memorable than simply claiming ''gentle formula.'''
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - headline
+  - features-benefits
+  static_treatment: 'Clean product image, Gut Balance bottle in foreground. Three
+    short bold lines stacked vertically beside bottle: ''No jitters.'' ''No adjustment
+    period.'' ''No worse before better.'' Subhead below: ''Postbiotics are already
+    active. Your body knows exactly what to do with them.'''
+  psychology_trigger: salience_bias
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a split-screen animation: left side shows a standard probiotic
+      bottle with animated icons of jitters, a cramp figure, and a warning clock labeled
+      ''adjustment period'' — all crossed out in red. Right side reveals Gut Balance
+      with bold text: ''Postbiotics. Already active. Already done.'' A short animated
+      callout highlights the science: postbiotics skip the live-bacteria guessing
+      game entirely. Close on the three stacked lines — ''No jitters. No adjustment
+      period. No worse before better.'' — with the bottle front and center.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: Obvious AI Slop — an animated postbiotic molecule character (friendly, Pixar-ish)
+      walks into frame saying 'Hi, I'm already active. Your body doesn't need to train
+      me. I'm not a live bacteria with a whole adjustment arc. I just... work.' Cut
+      to the three bold lines stacked on screen.
+    principle: ties back to salience_bias because the cartoonish, unexpected framing
+      forces the viewer's brain to flag the message as novel and attention-worthy
+      — the 'no adjustment period' claim lands as salient precisely because the delivery
+      format is so disarmingly weird, making the contrast with typical supplement
+      marketing impossible to ignore
+    execution: Render a Pixar-style postbiotic molecule character with a calm, confident
+      expression entering a plain white lab set. Character delivers the 'already active'
+      monologue in 10–12 seconds with subtitle text. End card freezes on the three
+      stacked bold lines beside the Gut Balance bottle with a clean white background
+      and no other visual noise.
+    generated: eager
+- id: hook-010
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: Your gut is your second brain. Most supplements never reach it.
+  tactic: education-hook
+  story_setup: 'Video: clean motion-graphic explainer, 15-20 seconds. Animated cross-section
+    of the digestive tract. Voiceover: ''Most probiotic bacteria die in stomach acid
+    before they reach your gut. The ones that survive still have to produce the compounds
+    your body actually needs.'' Animation shows postbiotic compounds arriving directly,
+    already active. Cut to Gut Balance. ''BiomeBalance™ delivers them directly.'''
+  why_it_works: Brand-level education hook that leads with the brand name concept
+    rather than a product claim — builds category understanding before conversion
+    ask. Targets the wellness-curious buyer who wants to understand, not just be sold
+    to (love-005, love-006). Processes easily because the mechanism is visual.
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - video-only
+  static_treatment: ''
+  psychology_trigger: processing_fluency
+  trending_match:
+    concept: Obvious AI Slop
+    execution: 'Render a Pixar-style animated probiotic capsule character named ''Carl
+      the Capsule'' who confidently introduces himself, then dramatically dissolves
+      before reaching a cartoon gut — cut to a second character, your product, who
+      sails through the stomach acid and high-fives the gut lining. Keep dialogue
+      punchy and intentionally cringe: ''Hi, I''m a regular probiotic. I didn''t make
+      it.'' The visual simplicity makes the mechanism of action instantly legible,
+      leveraging processing fluency to make the science feel obvious rather than complex.'
+    format_id: obvious-ai-slop
+  trending_next:
+    idea: David & Goliath
+    principle: ties back to the row's psychology_trigger because contrasting 'most
+      supplements' (the Goliath villain) against your product using a simple, clean
+      visual metaphor — e.g. a side-by-side animated journey through the digestive
+      tract — reduces cognitive load and makes the differentiator feel self-evident,
+      which is the core of processing fluency
+    execution: 'Open with a split-screen animation: left side shows a generic capsule
+      labeled ''Other Brands'' disintegrating in stomach acid, right side shows your
+      product''s delivery mechanism arriving intact at the gut. Voiceover says: ''Your
+      gut is your second brain. So why are 90% of probiotics dead before they get
+      there?'' End with a static product close-up and a single bold claim. Keep color
+      palette minimal — two tones max — so the contrast does the cognitive work instantly.'
+    generated: eager
+- id: hook-011
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: Seed is $50 a month. And it never made it past your stomach acid.
+  tactic: competitor-reframe
+  story_setup: 'Static editorial: Bold headline over a clean background. No competitor
+    logo shown — name only in the headline. Subhead: ''Most probiotic bacteria die
+    in stomach acid. The science isn''t debated. The marketing just doesn''t mention
+    it.'' Below: Gut Balance bottle with ''Postbiotics. No survival required. First
+    order from $35.'''
+  why_it_works: Targets the high-intent competitor-aware buyer surfaced in pain-001
+    and pain-006 — someone who has already spent significantly on Seed and felt nothing.
+    Temporal discounting is activated by quantifying the sunk cost while introducing
+    a lower first-order price point.
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - us-vs-them
+  - headline
+  static_treatment: 'Dark editorial background. Headline in large clean type: ''Seed
+    is $50 a month. And it never made it past your stomach acid.'' Subhead: ''Up to
+    70% of live probiotic bacteria die before reaching your gut. Postbiotics don''t
+    have that problem.'' Gut Balance bottle bottom right. Badge: ''First order from
+    $35.'''
+  psychology_trigger: temporal_discounting
+  trending_match:
+    concept: David & Goliath
+    execution: 'Open with a bold title card: ''Seed. $50/month. Here''s the problem.''
+      Cut to a simple animated cross-section of the stomach showing probiotic capsules
+      dissolving and dying in acid — visually dramatic, clean scientific style. Then
+      contrast cut: ''Postbiotics are already the end product. No survival required.''
+      Close on Gut Balance bottle with badge: ''First order from $35.'' The ''enemy''
+      is the broken probiotic category logic, not just one brand.'
+    format_id: david-and-goliath
+  trending_next:
+    idea: Obvious AI Slop — animated probiotic bacteria characters dramatically 'dying'
+      in stomach acid, played for absurdist humor, before a postbiotic character walks
+      in unscathed
+    principle: ties back to temporal_discounting because the cartoon format compresses
+      the cost-vs-benefit timeline into a single visceral scene — viewers instantly
+      feel the waste of paying $50/month for bacteria that never arrive, making the
+      switch to postbiotics feel urgent and obvious rather than abstract
+    execution: 'Pixar-style short: three jelly-bean bacteria characters in lab coats
+      cheer ''We''re alive!'' then immediately melt dramatically in a pool of stomach
+      acid with a SPLAT sound. Cut to a single calm postbiotic character walking through
+      untouched: ''I don''t have that problem.'' Text overlay: ''Stop paying $50/month
+      for bacteria that don''t survive. Gut Balance from $35.'' Intentionally cringe
+      voiceover and sound design.'
+    generated: eager
+- id: hook-012
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: 3pm used to mean a crash. Now it just means 3pm.
+  tactic: before-after-moment
+  story_setup: 'Video: Quick lifestyle cut. Shot 1 — desk, midafternoon, person slumped,
+    coffee cup. Text overlay: ''Before.'' Shot 2 — same desk, same time, same person,
+    upright, engaged, no coffee. Text overlay: ''After.'' Voiceover: ''When your gut
+    is in balance, your energy follows. No stimulants. No crash cycle.'' Product end
+    card.'
+  why_it_works: 'Love-004 is the direct source: ''From 3pm energy crash every day
+    to sustained all-day energy and cutting out coffee.'' Specific time-of-day framing
+    creates instant recognition for the audience who lives this pattern. Framing_effect:
+    the ''after'' isn''t energy — it''s just a normal afternoon, which makes the claim
+    feel attainable rather than aspirational.'
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - before-after
+  - video-only
+  static_treatment: ''
+  psychology_trigger: framing_effect
+  trending_match:
+    concept: TikTok Short / POV
+    execution: 'Single line of POV text overlaid on slow B-roll of a clock hitting
+      3:00 PM at a bright, calm desk: ''POV: 3pm used to destroy you. Now it''s just
+      3pm.'' No narration. Let the contrast land in silence. Cut to product on desk,
+      no hard sell.'
+    format_id: tiktok-short-pov
+  trending_next:
+    idea: Before-After Split Screen with Identical Timestamp
+    principle: Ties back to framing_effect because the same moment in time (3pm) is
+      reframed entirely by context — the clock never changes, only the person's experience
+      does, making the contrast visceral and undeniable rather than abstract.
+    execution: 'Side-by-side vertical split: left panel shows someone slumped, unfocused,
+      reaching for coffee at 3:02pm (labeled ''Before''); right panel shows the same
+      actor alert, typing, calm at 3:02pm (labeled ''Now''). Same clock on both sides
+      is the visual anchor. Text at bottom: ''3pm hits different.'' Product shown
+      briefly in the ''Now'' panel only.'
+    generated: eager
+- id: hook-013
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: Clinical studies. Published. Named ingredients. Full doses. No proprietary
+    blend hiding.
+  tactic: transparency-signal
+  story_setup: 'Static ingredient-callout layout. Three ingredient cards — Totipro®,
+    EpiCor®, Bereum® — each with a one-line study summary and the name of the clinical
+    outcome measured. Bottom line: ''Every ingredient. Named. Studied. Dosed.'' SecondKind
+    logo. Clean, editorial grid layout.'
+  why_it_works: 'Addresses wish-003 and wish-005 simultaneously — the demand for clinical
+    proof and full ingredient transparency. Authority bias is activated by specificity:
+    named patented compounds with study references outperform generic ''clinically
+    studied'' claims. Counteracts pain-004 (Arrae''s subclinical dosing issue).'
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - ingredient-callout
+  - facts-stats
+  static_treatment: 'Three-card grid on off-white background. Each card: ingredient
+    name (Totipro®, EpiCor®, Bereum®), one clinical outcome line, small ''clinically
+    studied'' badge. Headline above grid: ''Named ingredients. Published studies.
+    Full doses.'' SecondKind branding below. No stock photography — type and data
+    only.'
+  psychology_trigger: authority_bias
+  trending_match:
+    concept: We're Not Cheap (Objection Handling)
+    execution: 'Static or short-video execution opening with bold headline: ''We''re
+      not cheap — and here''s exactly why.'' Cut to a three-panel breakdown: each
+      panel isolates one named ingredient (Totipro®, EpiCor®, Bereum®), its clinical
+      outcome in one line, and a ''published study'' badge. Close with copy: ''No
+      proprietary blends. No hidden doses. Just the ingredients that earned their
+      price.'' SecondKind logo lockup on clean off-white. Type-and-data only — no
+      lifestyle imagery.'
+    format_id: were-not-cheap
+  trending_next:
+    idea: David & Goliath — Industry Transparency Call-Out
+    principle: Ties back to authority_bias because it weaponizes the brand's cited,
+      named, dosed evidence as the credible authority contrasted against an industry
+      'enemy' (proprietary blends, unnamed ingredient stacks) — making SecondKind
+      the trusted expert by comparison, not just self-declaration.
+    execution: 'Open with a split-screen or animated sequence: left side shows a generic
+      competitor label with ''Proprietary Blend — 450mg'' in red, right side shows
+      SecondKind''s label with each named ingredient and exact dose highlighted in
+      green. Voiceover or text overlay: ''Most supplement brands hide their doses.
+      We publish ours — with the clinical studies to back every ingredient.'' End
+      card: ingredient names, study citations, brand logo. Animated callout rings
+      on the science data points to hold attention.'
+    generated: eager
+- id: hook-014
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: It travels in your carry-on. It doesn't need your fridge. It still works.
+  tactic: lifestyle-fit
+  story_setup: 'Static or short video. If static: Gut Balance bottle next to a passport,
+    sunglasses, and carry-on — no refrigerator in sight. Headline above. If video:
+    quick cuts of travel contexts — airport, hotel room, hiking daypack — person takes
+    one capsule without fanfare. Text: ''Shelf-stable. No refrigeration. Clinically
+    studied.'''
+  why_it_works: 'Wish-009 and love-009 both surface the shelf-stable, travel-ready
+    benefit as a genuine differentiator — not a nice-to-have but a reason to switch.
+    Salience bias: refrigeration anxiety is a real friction point the audience has
+    experienced; naming it makes the ad feel understood rather than generic.'
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - features-benefits
+  - ugc-static
+  static_treatment: 'Flat-lay: Gut Balance bottle alongside passport, folded travel
+    clothes, and small toiletry bag on a neutral linen surface. Headline: ''It travels
+    in your carry-on. It doesn''t need your fridge. It still works.'' Subhead: ''Shelf-stable
+    postbiotics for a life that doesn''t pause for supplements.'''
+  psychology_trigger: salience_bias
+  trending_match:
+    concept: TikTok Short / POV
+    execution: 'Quick 3-5 second B-roll of hands zipping a carry-on bag shut, passport
+      visible, with a single POV text overlay: ''POV: your probiotic doesn''t need
+      a hotel fridge.'' Cut to a close-up of the Gut Balance bottle dropping into
+      a toiletry bag. No voiceover — let the visual and text do the work.'
+    format_id: tiktok-short-pov
+  trending_next:
+    idea: David & Goliath static or short video calling out the refrigerated probiotic
+      industry as the broken status quo — position Gut Balance as the smarter, shelf-stable
+      alternative built for real life.
+    principle: Ties back to salience_bias because explicitly naming 'the old way'
+      (bulky, fridge-dependent probiotics that die in your checked luggage) makes
+      the contrast hyper-visible and memorable — the audience's attention is forced
+      onto the single differentiating detail that matters most.
+    execution: 'Split-frame static or 15-second video: left side shows a refrigerated
+      probiotic bottle with a red X and copy ''Dies in your checked bag. Useless by
+      arrival.'' Right side shows the Gut Balance bottle on a flat-lay with passport
+      and boarding pass, copy ''Shelf-stable. Carry-on ready. Still working when you
+      land.'' End card: ''We built this for people who actually leave the house.'''
+    generated: eager
+- id: hook-015
+  tab: hook_angles
+  complaint: ''
+  our_advantage: ''
+  positioning_angle: ''
+  emotional_trigger: ''
+  hook_or_angle_to_amplify: ''
+  wished_product: ''
+  real_frustration: ''
+  script_or_static_opportunity: ''
+  hook_angle: Try it for 30 days. If your gut doesn't change, we'll refund you. Simple.
+  tactic: risk-reversal
+  story_setup: 'Static promotion card. Clean, direct, no lifestyle imagery. Headline
+    large and confident. Below: three short reassurance lines — ''Clinically studied
+    ingredients,'' ''Ships to your door,'' ''Full refund if you don''t feel a difference.''
+    Gut Balance bottle beside copy. Subscription savings badge: ''Subscribe from $44.99/month.'''
+  why_it_works: 'Wish-007 identified explicitly: buyers want a money-back guarantee
+    that removes the psychological cost of trying something expensive. Scarcity framing
+    is applied through time specificity — ''30 days'' creates a defined window that
+    makes the trial feel bounded and safe rather than open-ended.'
+  source_type: []
+  what_people_say: ''
+  format_fit:
+  - promotion-discount
+  - headline
+  static_treatment: 'Clean white card layout, no photography. Large headline: ''Try
+    it for 30 days. If your gut doesn''t change, we''ll refund you.'' Three icon-line
+    reassurances below. Right side: Gut Balance bottle. Bottom: ''First order from
+    $35 — Subscribe & save up to 20%.'' SecondKind logo bottom left.'
+  psychology_trigger: scarcity
+  trending_match:
+    concept: We're Sorry (Apology Format)
+    execution: 'Clean white static card mimicking the existing layout treatment. Large
+      headline reads: ''We''re sorry — but if your gut hasn''t changed in 30 days,
+      we''ll refund every cent. No questions.'' Below, three reassurance icon-lines
+      (e.g. ''No hoops to jump through'', ''No awkward emails'', ''Just a full refund'').
+      Gut Balance bottle anchored right. Bottom strip: ''First order from $35 — Subscribe
+      & save up to 20%.'' SecondKind logo bottom left. The apology framing creates
+      a pattern interrupt on the guarantee, amplifying urgency by making the risk-reversal
+      feel almost too generous to ignore.'
+    format_id: were-sorry
+  trending_next:
+    idea: Limited-Window Countdown Guarantee Banner
+    principle: Ties back to the row's psychology_trigger (scarcity) because a time-bounded
+      offer compresses decision-making — the refund guarantee already removes risk,
+      but adding a visible deadline ('30-day trial window closes the moment you stop')
+      makes the safety net feel finite and exclusive rather than always-available,
+      driving faster commitment.
+    execution: 'Static or short looping video: bold countdown timer graphic (e.g.
+      ''Your 30-day clock starts at checkout'') overlaid on the clean white card layout.
+      Copy reads: ''Once your trial window opens, the clock is yours — and so is the
+      refund if it doesn''t work.'' Gut Balance bottle on right, ticking clock icon
+      replacing one reassurance line. CTA: ''Start your 30 days — from $35.'' Reinforces
+      that the guarantee is real but not infinite, nudging immediate action.'
+    generated: eager

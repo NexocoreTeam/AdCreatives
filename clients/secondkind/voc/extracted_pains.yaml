@@ -1,0 +1,711 @@
+jobs_to_be_done:
+- job: "Relieve bloating without committing to a subscription \u2014 want one-time\
+    \ purchase access"
+  type: functional
+  customer_language:
+  - Trying to purchase the bloat gummies but I only want to buy one not a monthly
+    subscription? Anyway of doing that? I don't see that option on your website?
+  confidence: low
+- job: Support gut health as a core pillar of overall wellness including skin health
+  type: functional
+  customer_language:
+  - Feeding your gut microbiome is so important for great health - and great skin
+    too!
+  confidence: low
+- job: Find supplements backed by clinical evidence rather than marketing claims
+  type: functional
+  customer_language:
+  - Love a clinically studied vitamin!
+  - Clinically backed is the future.
+  - Say yes to clinical trials. Say yes to evidence. Say yes to a future where women's
+    health is written in data, not in assumptions.
+  confidence: medium
+- job: Continue a daily supplement routine reliably without supply disruption
+  type: functional
+  customer_language:
+  - I was with out the products for a few days. The very day I was back on the supplements,
+    I felt so FANTASTIC and love these products
+  confidence: low
+- job: Find supplements that fit a flexible lifestyle rather than a rigid routine
+  type: emotional
+  customer_language:
+  - Gut health routines should evolve with lifestyle shifts instead of staying rigid
+    and unrealistic
+  confidence: low
+- job: Increase daily energy and eliminate the afternoon energy crash
+  type: functional
+  customer_language:
+  - I've had so much energy without the 3 pm slump I always used to have
+  - I feel like I can do so much more through out my day
+  - My workouts are so much better
+  confidence: low
+- job: Find a protein source that doesn't cause digestive discomfort
+  type: functional
+  customer_language:
+  - I hate whey, my family loves it but I always feel bloated and constipated whenever
+    they add it to food
+  - I dislike most of the milky ones and those are mostly collagen and whey
+  confidence: medium
+- job: Validate that a supplement is worth the cost before committing to a subscription
+  type: functional
+  customer_language:
+  - I was hoping on getting the tone and MB1 duo subscription, but of course want
+    to know it's worth it bc it isn't cheap!
+  - Are you still taking them, and are they worth it!!
+  confidence: low
+- job: Support gut health without side effects that feel worse than the problem
+  type: functional
+  customer_language:
+  - I think these are making me shaky and weak feeling? Idk I'm only on day two
+  - Did you get the water weight? I just started a few days ago and feel gross on
+    them
+  confidence: low
+- job: Feel confident consuming supplements from a brand that is transparent and honest
+  type: social
+  customer_language:
+  - Really want to like tone but it has natural flavors and colors which isn't 'natural'.
+    They don't have it on their site so wish they were more transparent
+  - It's false advertising and it starts here with 'small things' then it gets worse
+    do not let these companies get away with anyyyyy false advertisement
+  - I work in health supplements branding and packaging and some jobs I say no to
+    cause I can't support how they want me to sneaky LIE within the design
+  confidence: medium
+pain_points:
+- pain: Customer support is slow, unresponsive, and fails to answer questions directly
+  intensity: high
+  confidence: medium
+  customer_language:
+  - Is anyone else struggling to contact support? It takes them days to email back
+    and when they do they don't answer the question asked. How can you get someone
+    on the phone? I'd hate to cancel my subscription but their customer service and
+    online platform need serious help!
+  - It would be nice if you responded to emails regarding support
+  - hi, I also need help in support for an order. I have tried emailing. Thanks for
+    your reply.
+  source: instagram-comments
+- pain: "No single-purchase option \u2014 forced subscription is a barrier to first-time\
+    \ buyers"
+  intensity: high
+  confidence: low
+  customer_language:
+  - Trying to purchase the bloat gummies but I only want to buy one not a monthly
+    subscription? Anyway of doing that? I don't see that option on your website?
+  source: instagram-comments
+- pain: "Cannot close or delete account online \u2014 only option is pausing auto-refill"
+  intensity: medium
+  confidence: low
+  customer_language:
+  - Why can't we cancel our account or close it out online? There is only an option
+    to stop the automatic refill, but nothing to close out one's account.
+  source: instagram-comments
+- pain: "Product availability limited to certain regions \u2014 not on Amazon Canada\
+    \ or available in Europe"
+  intensity: medium
+  confidence: low
+  customer_language:
+  - Please add this product on amazon Canada!
+  - I love that! Do we have @seed in Germany or Europe?
+  source: instagram-comments
+- pain: Shipment delays cause noticeable gap in results and highlight dependency on
+    the product
+  intensity: medium
+  confidence: low
+  customer_language:
+  - I had a slight problem w my shipment which was quickly addressed. I was with out
+    the products for a few days. The very day I was back on the supplements, I felt
+    so FANTASTIC
+  source: instagram-comments
+- pain: "Uncertainty about safety during breastfeeding or nursing \u2014 no clear\
+    \ guidance visible"
+  intensity: medium
+  confidence: low
+  customer_language:
+  - Can you take this while breastfeeding? Or best to avoid?
+  - Can I take it while nursing?
+  source: instagram-comments
+- pain: Women's health research historically grounded in assumptions rather than clinical
+    data
+  intensity: high
+  confidence: low
+  customer_language:
+  - Say yes to a future where women's health is written in data, not in assumptions.
+  - We deserve proof!!
+  source: instagram-comments
+- pain: Menopausal night flashes severely disrupting quality of life for extended
+    period
+  intensity: high
+  confidence: low
+  customer_language:
+  - 2 1/3 months in my murderous hot night flashes stopped
+  source: instagram-comments
+- pain: "Creatine supplementation causes water retention that reads as weight gain\
+    \ \u2014 confusing for users"
+  intensity: medium
+  confidence: low
+  customer_language:
+  - How about water retention? Creatine causes that and makes it appear like we gain
+    weight
+  source: instagram-comments
+- pain: Gut health routines feel rigid and unsustainable alongside real lifestyle
+    demands
+  intensity: medium
+  confidence: low
+  customer_language:
+  - Gut health routines should evolve with lifestyle shifts instead of staying rigid
+    and unrealistic
+  source: instagram-comments
+- pain: Whey and dairy protein causes bloating and constipation
+  intensity: high
+  confidence: medium
+  customer_language:
+  - I hate whey, my family loves it but I always feel bloated and constipated whenever
+    they add it to food
+  - I dislike most of the milky ones and those are mostly collagen and whey
+  source: tiktok-comments
+- pain: Supplement brands use misleading or opaque labeling
+  intensity: high
+  confidence: medium
+  customer_language:
+  - Really want to like tone but it has natural flavors and colors which isn't 'natural'.
+    They don't have it on their site so wish they were more transparent
+  - It's false advertising and it starts here with 'small things' then it gets worse
+  - I work in health supplements branding and packaging and some jobs I say no to
+    cause I can't support how they want me to sneaky LIE within the design
+  source: tiktok-comments
+- pain: High price point creates hesitation and demands proof before subscription
+    commitment
+  intensity: high
+  confidence: low
+  customer_language:
+  - of course want to know it's worth it bc it isn't cheap!
+  source: tiktok-comments
+- pain: Chronic afternoon energy slump that disrupts productivity
+  intensity: high
+  confidence: low
+  customer_language:
+  - I've had so much energy without the 3 pm slump I always used to have
+  - I feel like I can do so much more through out my day
+  source: tiktok-comments
+- pain: Nausea is a barrier to taking supplements consistently
+  intensity: medium
+  confidence: low
+  customer_language:
+  - It actually doesn't make me nauseous and EVERYTHING makes me nauseated
+  source: tiktok-comments
+- pain: "Early days of a new supplement feel uncomfortable \u2014 water retention,\
+    \ shakiness, weakness"
+  intensity: medium
+  confidence: low
+  customer_language:
+  - I think these are making me shaky and weak feeling? Idk I'm only on day two
+  - Did you get the water weight? I just started a few days ago and feel gross on
+    them
+  source: tiktok-comments
+- pain: Difficulty finding a protein supplement that isn't milky, chalky, or whey-based
+  intensity: medium
+  confidence: medium
+  customer_language:
+  - I dislike most of the milky ones and those are mostly collagen and whey
+  - I hate whey
+  source: tiktok-comments
+- pain: Acid reflux or heartburn is a chronic, medically managed condition that limits
+    supplement options
+  intensity: medium
+  confidence: low
+  customer_language:
+  - I need to try the heartburn stuff, although I'm prescribed daily for acid reflux
+  source: tiktok-comments
+- pain: General confusion about which supplements to take and how to combine them
+  intensity: low
+  confidence: low
+  customer_language:
+  - You are taking all 3 @the same time?
+  - what do you think about their MB-1?
+  source: tiktok-comments
+- pain: Skepticism that gut health supplements can coexist with imperfect lifestyle
+    habits
+  intensity: low
+  confidence: low
+  customer_language:
+  - I should have mentioned I have not slowed down on my beer and wine intake and
+    feel hot and I feel like that says something
+  source: tiktok-comments
+trigger_moments:
+- trigger: "Symptoms stopped after 2+ months on product \u2014 noticed when they switched\
+    \ brands and symptoms returned"
+  customer_language:
+  - 2 1/3 months in my murderous hot night flashes stopped. Made a mistake and tried
+    primal queen and came back to arrae.
+  confidence: low
+- trigger: Supply disruption broke routine and return to supplements made benefit
+    impossible to ignore
+  customer_language:
+  - The very day I was back on the supplements, I felt so FANTASTIC and love these
+    products
+  confidence: low
+- trigger: Seeing clinical trial commitment from a brand prompted immediate positive
+    response
+  customer_language:
+  - Clinically backed is the future.
+  - Love a clinically studied vitamin!
+  confidence: low
+- trigger: Researching a specific brand (Arrae) and seeking peer validation before
+    purchasing
+  customer_language:
+  - This came on my feed when I was researching arrae products
+  - I was hoping on getting the tone and MB1 duo subscription, but of course want
+    to know it's worth it bc it isn't cheap! Are you still taking them, and are they
+    worth it!!
+  confidence: low
+- trigger: Positive experience with one Arrae product creating curiosity about others
+    in the line
+  customer_language:
+  - Okay yes I'm on month 3 of the mb-1 and it's been great! I was interested in the
+    tone ones next
+  - Loving the arrae tribiotics! I need to try the heartburn stuff
+  confidence: medium
+- trigger: Searching for a protein source after losing confidence in standard options
+    (whey, collagen)
+  customer_language:
+  - I found you cause I was looking to protein up. Now I don't want it but need more
+    protein in my life what do you recommend?
+  - I was just googling protein water cause i dislike most of the milky ones
+  confidence: medium
+desires:
+- desire: "Supplements backed by real clinical evidence \u2014 not marketing guesswork"
+  confidence: medium
+  customer_language:
+  - Say yes to clinical trials. Say yes to evidence.
+  - Love a clinically studied vitamin!
+  - Clinically backed is the future.
+  - We deserve proof!!
+- desire: Flexibility to buy once before committing to a subscription
+  confidence: low
+  customer_language:
+  - I only want to buy one not a monthly subscription? Anyway of doing that? I don't
+    see that option on your website?
+- desire: "Products that feel premium \u2014 luxury-level branding that signals quality"
+  confidence: low
+  customer_language:
+  - "The branding + packaging feels more like luxury skincare than supplements \u2014\
+    \ really clean and premium aesthetic."
+- desire: Supplements that work reliably enough that missing a few days is noticeably
+    felt
+  confidence: low
+  customer_language:
+  - The very day I was back on the supplements, I felt so FANTASTIC and love these
+    products
+- desire: Gut health support that also delivers visible skin benefits
+  confidence: low
+  customer_language:
+  - Feeding your gut microbiome is so important for great health - and great skin
+    too!
+- desire: Sustained all-day energy without relying on caffeine or experiencing crashes
+  confidence: low
+  customer_language:
+  - I've had so much energy without the 3 pm slump I always used to have
+  - I even cut out coffee
+- desire: A supplement that works even with an imperfect diet and lifestyle
+  confidence: low
+  customer_language:
+  - I should have mentioned I have not slowed down on my beer and wine intake and
+    feel hot and I feel like that says something
+- desire: "Full ingredient transparency from supplement brands \u2014 no hidden or\
+    \ vague components"
+  confidence: medium
+  customer_language:
+  - wish they were more transparent and come out with another version without it
+  - do not let these companies get away with anyyyyy false advertisement
+- desire: A protein or supplement that doesn't cause bloating, constipation, or nausea
+  confidence: medium
+  customer_language:
+  - I hate whey, my family loves it but I always feel bloated and constipated whenever
+    they add it to food
+  - It actually doesn't make me nauseous and EVERYTHING makes me nauseated
+- desire: Social proof from real users before committing to an expensive subscription
+  confidence: low
+  customer_language:
+  - Are you still taking them, and are they worth it!!
+  - this was so helpful ty queen!! I trust you with my life
+objections:
+- objection: Skepticism about whether a celebrity endorsement signals real product
+    quality or is just marketing
+  confidence: low
+  customer_language:
+  - Someone try this and let me know if it works because getting Pamela Anderson on
+    board is like a genius move so I'm hopeful
+- objection: Uncertainty about subscription lock-in before experiencing the product
+  confidence: low
+  customer_language:
+  - I only want to buy one not a monthly subscription? Anyway of doing that? I don't
+    see that option on your website?
+- objection: Concern about product safety during breastfeeding or nursing
+  confidence: low
+  customer_language:
+  - Can you take this while breastfeeding? Or best to avoid?
+  - Can I take it while nursing?
+- objection: Distrust of supplement brands making claims without clinical evidence
+  confidence: low
+  customer_language:
+  - Say yes to evidence. Say yes to a future where women's health is written in data,
+    not in assumptions.
+  - We deserve proof!!
+- objection: The price is high and the value is unproven before trying
+  confidence: low
+  customer_language:
+  - of course want to know it's worth it bc it isn't cheap!
+- objection: Ingredient labels include 'natural flavors and colors' which aren't actually
+    natural
+  confidence: low
+  customer_language:
+  - Really want to like tone but it has natural flavors and colors which isn't 'natural'.
+    They don't have it on their site so wish they were more transparent
+- objection: Early side effects (shakiness, bloating, water weight) make it hard to
+    stay the course
+  confidence: low
+  customer_language:
+  - I think these are making me shaky and weak feeling? Idk I'm only on day two
+  - Did you get the water weight? I just started a few days ago and feel gross on
+    them
+- objection: General skepticism that supplement brands engage in misleading claims
+  confidence: medium
+  customer_language:
+  - It's false advertising and it starts here with 'small things' then it gets worse
+  - I work in health supplements branding and packaging and some jobs I say no to
+    cause I can't support how they want me to sneaky LIE within the design
+transformations:
+- transformation: Debilitating nightly hot flashes resolved after approximately 10
+    weeks of consistent use
+  customer_language:
+  - 2 1/3 months in my murderous hot night flashes stopped
+  confidence: low
+- transformation: "Returned to product after failed switch to competitor \u2014 confirmed\
+    \ that original product was responsible for symptom relief"
+  customer_language:
+  - Made a mistake and tried primal queen and came back to arrae.
+  confidence: low
+- transformation: Felt dramatically better the day supplement routine resumed after
+    unplanned supply gap
+  customer_language:
+  - The very day I was back on the supplements, I felt so FANTASTIC and love these
+    products
+  confidence: low
+- transformation: From constant afternoon energy crash to sustained all-day energy
+    and reduced coffee dependence
+  customer_language:
+  - I've had so much energy without the 3 pm slump I always used to have. I feel like
+    I can do so much more through out my day! My workouts are so much better. I even
+    cut out coffee.
+  confidence: low
+- transformation: From nausea with every supplement to finally finding one that doesn't
+    cause it
+  customer_language:
+  - It actually doesn't make me nauseous and EVERYTHING makes me nauseated
+  confidence: low
+- transformation: From first product working well to becoming a multi-product brand
+    loyalist
+  customer_language:
+  - Okay yes I'm on month 3 of the mb-1 and it's been great! I was interested in the
+    tone ones next
+  - Loving the arrae tribiotics! I need to try the heartburn stuff
+  confidence: medium
+trigger_events:
+- event: Nightly hot flashes became severe enough to prompt supplement experimentation
+  confidence: low
+- event: "Switching to a competitor brand caused symptom recurrence \u2014 drove return\
+    \ to original product"
+  confidence: low
+- event: Seeing a brand commit to clinical research and female-specific data motivated
+    engagement
+  confidence: low
+- event: Shipment disruption created an accidental A/B test that confirmed supplement
+    efficacy
+  confidence: low
+- event: Existing supplement creating digestive side effects (bloating, constipation,
+    nausea)
+  confidence: medium
+- event: Discovering a video review of a brand while actively researching it
+  confidence: low
+- event: Positive results from one product in a brand's line prompting exploration
+    of other SKUs
+  confidence: medium
+- event: General search for protein alternatives after frustration with whey or collagen
+    options
+  confidence: medium
+alternatives_considered:
+- alternative: Primal Queen (competing supplement brand)
+  why_rejected: "Hot night flashes returned after switching \u2014 customer came back\
+    \ to arrae"
+- alternative: Whey protein
+  why_rejected: Causes bloating, constipation, and a texture/taste that many dislike
+- alternative: Collagen supplements
+  why_rejected: Incomplete protein profile; seen as inadequate standalone protein
+    source
+- alternative: Protein water / protein drinks
+  why_rejected: Most are milky or collagen/whey based; hard to find a clean alternative
+- alternative: Doing nothing (no supplement)
+  why_rejected: "Not rejected \u2014 still the default for most commenters who are\
+    \ in research/consideration phase"
+- alternative: Prescription medication (for acid reflux)
+  why_rejected: "Not rejected \u2014 coexists with supplement interest; condition\
+    \ is managed medically but buyer is curious about natural support"
+language_patterns:
+- 'Emotional amplification through repetition and spelling: ''neeeee,'' ''yesss,''
+  ''gooooo,'' ''AMAZING,'' ''FANTASTIC'''
+- "Heavy emoji use as emotional shorthand \u2014 love, fire, applause, and heart emojis\
+  \ dominate positive sentiment"
+- 'Medical/functional language appears only when genuinely frustrated: ''murderous
+  hot night flashes,'' ''water retention,'' ''breastfeeding'''
+- 'Clinical credibility is expressed as a values statement, not a feature: ''Clinically
+  backed is the future,'' ''We deserve proof'''
+- "Urgency language without context: 'I need this bad,' 'I need these,' 'Immediately\
+  \ yes' \u2014 desire without articulated reason"
+- Community tagging behavior suggests social sharing intent is high but content depth
+  is low
+- "Gut-skin connection mentioned naturally and unprompted \u2014 treated as assumed\
+  \ common knowledge"
+- "Subscription friction expressed as a direct support question, not a complaint \u2014\
+  \ suggests confusion rather than hostility"
+- Customer service frustration is the most emotionally detailed and longest-form negative
+  content in the set
+- "Casual, TikTok-native register \u2014 informal, fast, emoji-heavy, sentence fragments"
+- Self-deprecating humor used to normalize digestive complaints (bloating, constipation)
+- 'Strong parasocial trust language directed at creators: ''I trust you with my life,''
+  ''ty queen'''
+- 'Skepticism expressed bluntly and publicly with no softening: ''false advertising,''
+  ''sneaky LIE'''
+- 'Outcome language is specific and physical: ''3 pm slump,'' ''shaky and weak,''
+  ''feel gross,'' ''bloated and constipated'''
+- 'Product curiosity expressed as desire loops: ''I need to try,'' ''interested in...
+  next,'' ''would love to hear'''
+- 'Month-tracking indicates buyers are measuring time-to-result: ''month 3,'' ''day
+  two,'' ''a few days ago'''
+- Price sensitivity surfaced indirectly through validation-seeking, not direct complaint
+- Both reviews use casual, enthusiastic social media vernacular (emoji, 'yall', 'BTS')
+  consistent with YouTube comment sections rather than product review platforms
+- "Neither review references a product, ingredient, health outcome, or purchase \u2014\
+  \ zero signal for gut health positioning or VOC mining"
+money_quotes:
+- quote: 2 1/3 months in my murderous hot night flashes stopped. Made a mistake and
+    tried primal queen and came back to arrae.
+  theme: transformation
+  why_it_matters: "Only review with a measurable timeframe, a visceral symptom description,\
+    \ a competitor comparison, and an implicit product validation \u2014 packs a complete\
+    \ before/after/proof story into two sentences"
+- quote: The very day I was back on the supplements, I felt so FANTASTIC and love
+    these products
+  theme: transformation
+  why_it_matters: "Captures accidental proof-of-efficacy \u2014 the supply gap became\
+    \ a natural experiment, making the benefit feel undeniable rather than claimed"
+- quote: Say yes to clinical trials. Say yes to evidence. Say yes to a future where
+    women's health is written in data, not in assumptions.
+  theme: pain
+  why_it_matters: "Frames the historical lack of women's health research as the villain\
+    \ \u2014 powerful brand alignment language that positions clinical backing as\
+    \ a moral stance, not just a feature"
+- quote: Is anyone else struggling to contact support? It takes them days to email
+    back and when they do they don't answer the question asked. How can you get someone
+    on the phone? I'd hate to cancel my subscription but their customer service and
+    online platform need serious help!
+  theme: pain
+  why_it_matters: "Most emotionally complete negative review in the set \u2014 reveals\
+    \ a loyal customer being pushed toward churn by operational failure, not product\
+    \ dissatisfaction"
+- quote: Gut health routines should evolve with lifestyle shifts instead of staying
+    rigid and unrealistic
+  theme: standout
+  why_it_matters: "Ad-ready positioning language about product flexibility \u2014\
+    \ could anchor messaging around a 'meets you where you are' brand angle"
+- quote: Feeding your gut microbiome is so important for great health - and great
+    skin too!
+  theme: standout
+  why_it_matters: "Unprompted gut-skin connection from a customer \u2014 validates\
+    \ a two-benefit messaging angle without the brand having to make the claim itself"
+- quote: "The branding + packaging feels more like luxury skincare than supplements\
+    \ \u2014 really clean and premium aesthetic."
+  theme: standout
+  why_it_matters: "Spontaneous repositioning by a customer \u2014 luxury skincare\
+    \ comparison is exactly the category perception a premium supplement brand wants\
+    \ to own"
+- quote: We deserve proof!!
+  theme: pain
+  why_it_matters: "Two words that communicate an entire market frustration \u2014\
+    \ women demanding clinical evidence rather than accepting assumption-based health\
+    \ products"
+- quote: I was with out the products for a few days. The very day I was back on the
+    supplements, I felt so FANTASTIC
+  theme: transformation
+  why_it_matters: "Accidental withdrawal test as social proof \u2014 more credible\
+    \ than a standard before/after because the customer didn't set out to prove anything"
+- quote: Trying to purchase the bloat gummies but I only want to buy one not a monthly
+    subscription? Anyway of doing that? I don't see that option on your website?
+  theme: objection
+  why_it_matters: "Reveals a conversion leak \u2014 a willing buyer blocked by UX\
+    \ and subscription structure, not by doubt about the product itself"
+- quote: I've had so much energy without the 3 pm slump I always used to have. I feel
+    like I can do so much more through out my day! My workouts are so much better.
+    I even cut out coffee. It actually doesn't make me nauseous and EVERYTHING makes
+    me nauseated.
+  theme: transformation
+  why_it_matters: Most complete before/after in the dataset. Stacks multiple outcomes
+    (energy, productivity, fitness, nausea) in one quote. 'EVERYTHING makes me nauseated'
+    creates instant relatability with a sensitive-stomach audience. Hook-ready with
+    minimal editing.
+- quote: I hate whey, my family loves it but I always feel bloated and constipated
+    whenever they add it to food
+  theme: pain
+  why_it_matters: Names the most common competitor ingredient (whey), names the exact
+    symptoms, and adds social contrast ('my family loves it') that normalizes the
+    buyer's outlier experience. Useful for targeting whey-intolerant or dairy-sensitive
+    shoppers.
+- quote: of course want to know it's worth it bc it isn't cheap!
+  theme: objection
+  why_it_matters: "Concise price-anchored objection with no fluff. 'Of course' signals\
+    \ this is an expected, rational hesitation \u2014 not an edge case. Useful for\
+    \ subscription conversion copy and money-back guarantee framing."
+- quote: I should have mentioned I have not slowed down on my beer and wine intake
+    and feel hot and I feel like that says something
+  theme: transformation
+  why_it_matters: "Rare and honest. The buyer is signaling the product worked despite\
+    \ imperfect habits \u2014 one of the most powerful proof points for a lifestyle-agnostic\
+    \ positioning. Could anchor a 'works with your real life' creative angle."
+- quote: Really want to like tone but it has natural flavors and colors which isn't
+    'natural'. They don't have it on their site so wish they were more transparent
+    and come out with another version without it.
+  theme: objection
+  why_it_matters: 'Almost-buyer who self-eliminated due to label trust. Signals an
+    actionable product and copy gap: proactive transparency could recover this segment.
+    Useful for ingredient-callout ads or landing page trust sections.'
+- quote: It's false advertising and it starts here with 'small things' then it gets
+    worse do not let these companies get away with anyyyyy false advertisement
+  theme: objection
+  why_it_matters: Emotionally charged category-level distrust. This commenter represents
+    a skeptical audience that has been burned before. Useful as the negative foil
+    in ads that lead with brand honesty as a differentiator.
+- quote: I work in health supplements branding and packaging and some jobs I say no
+    to cause I can't support how they want me to sneaky LIE within the design
+  theme: pain
+  why_it_matters: "Industry-insider validation of buyer skepticism. Rare credibility\
+    \ signal that confirms the labeling distrust is not paranoia \u2014 it's systemic.\
+    \ Could anchor a brand transparency campaign if used carefully (with permission)."
+- quote: I dislike most of the milky ones and those are mostly collagen and whey so
+    does that mean there aren't good either?
+  theme: pain
+  why_it_matters: "Captures the confused, underserved buyer who is actively searching\
+    \ for an alternative but doesn't know where to turn. The question format is a\
+    \ gift \u2014 it mirrors how people search and how they'd respond to a direct-answer\
+    \ ad hook."
+- quote: Okay yes I'm on month 3 of the mb-1 and it's been great! I was interested
+    in the tone ones next
+  theme: transformation
+  why_it_matters: Shows product stickiness at 3 months and natural cross-sell behavior.
+    'Month 3' is a time-anchor that tells prospects when results compound. Useful
+    for retention copy and product ecosystem advertising.
+- quote: Did you get the water weight? I just started a few days ago and feel gross
+    on them
+  theme: objection
+  why_it_matters: "Captures the critical early dropout moment \u2014 the 'feel gross'\
+    \ window in the first few days. Ad copy that preemptively names and normalizes\
+    \ this experience could significantly reduce early churn."
+sample_notes:
+- total_reviews: 181
+  bias_warnings:
+  - "These are social media comments, not verified purchase reviews \u2014 the vast\
+    \ majority (approx 74%) scored 1 and were discarded as zero-signal emoji reactions,\
+    \ username tags, or single-word responses"
+  - "Only 4 reviews scored 4 or 5 \u2014 the entire insight set rests on an extremely\
+    \ thin base of substantive commentary; no pattern can be called statistically\
+    \ meaningful"
+  - "Social media commenters skew toward fans and brand followers, not average or\
+    \ dissatisfied customers \u2014 negative sentiment is likely underrepresented"
+  - "Multiple comments appear to be contest-entry tags (username @ username format)\
+    \ with no product insight \u2014 these inflate total count without adding signal"
+  - "The one score-5 review (hot night flashes/arrae) is the only review with a measurable\
+    \ outcome, a timeframe, and a competitor comparison \u2014 it carries outsized\
+    \ analytical weight by default"
+  - "Customer service complaints represent 3 independent comments and are the single\
+    \ most consistent substantive theme \u2014 this is likely underrepresented given\
+    \ social media comment filters"
+  - "Brand identity is split across at least three products or companies mentioned\
+    \ (arrae, Ritual, Seed, MB-1) \u2014 insights cannot be cleanly attributed to\
+    \ a single product without clearer sourcing metadata"
+  - "Breastfeeding and vegan questions appear twice each \u2014 could represent a\
+    \ meaningful audience segment or could be coincidence given sample size; needs\
+    \ validation against actual customer data"
+  - TYB (Try Your Best) referral tags suggest some commenters arrived via a loyalty/referral
+    program, which may inflate enthusiasm and skew sentiment positive
+  recency: "Not determinable \u2014 no timestamps provided with any review"
+- total_reviews: 54
+  bias_warnings:
+  - "Source is TikTok comment sections, not a structured review platform. Comments\
+    \ are reactions to a creator's video, not independent product evaluations \u2014\
+    \ context shapes what people say."
+  - Zero verified purchasers confirmed except 3 commenters who mention month-count
+    or specific products. The majority are observers, skeptics, or bystanders.
+  - Debate about protein completeness (collagen amino acid profiles) dominates a large
+    portion of comments and reflects the video topic, not organic buyer sentiment.
+  - "Audience skews toward health-aware, supplement-literate women based on language\
+    \ register and platform context \u2014 may not represent the full buyer spectrum."
+  - "No negative reviews from verified purchasers \u2014 absence of satisfaction/dissatisfaction\
+    \ signal makes this dataset incomplete for VOC use."
+  - Sample size of 26 usable comments (after discarding score-1s) is below the minimum
+    20 quality reviews recommended by the review-audit methodology for pattern confidence.
+  - "All comments appear to originate from a single TikTok post or creator thread\
+    \ \u2014 not independent sources. This significantly limits pattern confidence\
+    \ for every insight above."
+  recency: Undetermined. No timestamps provided. TikTok comment threads can span days
+    to months depending on video virality.
+  methodology_note: "Given dataset quality, treat all insights as hypotheses to validate\
+    \ \u2014 not confirmed VOC. Recommended next steps: (1) mine Arrae's G2/Trustpilot/app\
+    \ store reviews if available, (2) search r/Supplements and r/GutHealth on Reddit\
+    \ for independent language, (3) pull 3-star reviews on competitor products for\
+    \ high-signal dissatisfaction language."
+- total_reviews: 2
+  bias_warnings:
+  - "CRITICAL \u2014 Neither review is a product review. Both appear to be YouTube\
+    \ channel comments reacting to brand content ('BTS of all of Arrae's big moments',\
+    \ 'Underrated channel'). They contain zero purchase intent, product experience,\
+    \ health outcome, or consumer pain signal."
+  - "Both reviews scored 1 under Motion's rubric and were discarded per methodology\
+    \ \u2014 gibberish or zero-signal content not tied to a product experience."
+  - Sample size of 2 is far below the minimum viable threshold of 5-10 independent
+    data points required to draw any conclusion under the customer-research framework.
+  - "Reviewer audience appears to be brand fans or social followers, not necessarily\
+    \ buyers or users of the supplement products \u2014 a distinct and non-representative\
+    \ segment for VOC purposes."
+  - No gut health language, symptom language, ingredient language, or before/after
+    framing appears anywhere in the provided text.
+  recency: "Not discernible \u2014 no dates provided."
+  analyst_note: 'No YAML fields could be populated with real customer language because
+    no usable review content exists in this dataset. Fabricating quotes or themes
+    would violate the core methodology constraint: use ONLY language that actually
+    appears in the reviews. To conduct a valid VOC analysis for Arrae gut health supplements,
+    provide reviews from sources such as the Arrae website product pages, Amazon listings,
+    Trustpilot, Google Reviews, Reddit threads referencing the brand, or App Store
+    reviews if applicable. A minimum of 20 quality reviews (score 2 or above) is recommended
+    before drawing messaging conclusions.'
+review_quality_scores:
+- total: 181
+  by_score:
+    1: 134
+    2: 35
+    3: 8
+    4: 3
+    5: 1
+  discarded: 134
+- total: 54
+  by_score:
+    1: 28
+    2: 18
+    3: 6
+    4: 2
+    5: 0
+  discarded: 28
+- total: 2
+  by_score:
+    1: 2
+    2: 0
+    3: 0
+    4: 0
+    5: 0
+  discarded: 2
