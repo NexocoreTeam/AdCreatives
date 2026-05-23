@@ -23,7 +23,7 @@ from pathlib import Path
 import yaml
 
 from strategy.firecrawl_client import firecrawl_map_urls, firecrawl_scrape_html
-from strategy.reviews import Review, VendorSignal, detect_review_vendor, fetch_product_reviews
+from strategy.reviews import Review, detect_review_vendor, fetch_product_reviews
 
 CLIENTS_DIR = Path("clients")
 MAX_PRODUCT_PAGES_TO_TRY = 5
@@ -39,6 +39,29 @@ class Competitor:
     priority: str = "tier1"        # tier1 | tier2 | tier3
     notes: str = ""
     amazon_urls: list[str] = field(default_factory=list)  # Amazon product URLs for review scraping
+    # ─── Tier 3 social handles (optional) ──────────────────────────────────
+    # All optional — `adc research-social` skips per-competitor for any handle
+    # that's empty. Backwards compatible with existing competitors.yaml files.
+    # tiktok_handle:        "@secondkind" or "secondkind"
+    # tiktok_post_urls:     specific posts to pull comments from
+    # instagram_handle:     "secondkind"
+    # instagram_post_urls:  specific posts to pull comments from
+    # youtube_channel_id:   canonical UCxxxx channel ID
+    # youtube_handle:       "@secondkind" — resolved to channel_id at fetch time
+    # youtube_video_ids:    specific videos to pull comments from
+    tiktok_handle: str = ""
+    tiktok_post_urls: list[str] = field(default_factory=list)
+    # UGC-search queries — when set (and post_urls is empty), the scraper runs
+    # an Apify search-actor to auto-discover user-generated review videos
+    # matching these queries. Higher signal per dollar than brand-owned posts
+    # for most categories.
+    tiktok_search_queries: list[str] = field(default_factory=list)
+    instagram_handle: str = ""
+    instagram_post_urls: list[str] = field(default_factory=list)
+    instagram_hashtags: list[str] = field(default_factory=list)
+    youtube_channel_id: str = ""
+    youtube_handle: str = ""
+    youtube_video_ids: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -79,6 +102,15 @@ def load_competitors(client_slug: str) -> list[Competitor]:
             priority=item.get("priority", "tier1"),
             notes=item.get("notes", ""),
             amazon_urls=item.get("amazon_urls", []) or [],
+            tiktok_handle=item.get("tiktok_handle", "") or "",
+            tiktok_post_urls=item.get("tiktok_post_urls", []) or [],
+            tiktok_search_queries=item.get("tiktok_search_queries", []) or [],
+            instagram_handle=item.get("instagram_handle", "") or "",
+            instagram_post_urls=item.get("instagram_post_urls", []) or [],
+            instagram_hashtags=item.get("instagram_hashtags", []) or [],
+            youtube_channel_id=item.get("youtube_channel_id", "") or "",
+            youtube_handle=item.get("youtube_handle", "") or "",
+            youtube_video_ids=item.get("youtube_video_ids", []) or [],
         ))
     return competitors
 
