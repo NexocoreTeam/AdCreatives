@@ -21,7 +21,10 @@ dependencies = [
     "json-repair>=0.30",   # Tolerant parsing of LLM JSON output
     # Session 3 additions
     "exa-py>=1.0",         # Neural web search for unfiltered VoC
-    "apify-client>=1.6",   # Amazon Reviews scraping
+    "apify-client>=2.5,<3",   # Amazon + Tier 3 social scraping.
+    # Pinned to 2.x: the 3.x SDK ships strict Pydantic models for actor
+    # responses that reject valid Apify API payloads (pricingInfos schema
+    # mismatch). Revisit when apify-client 3.x stabilizes.
     "streamlit>=1.30",     # Interactive web dashboard
     "openpyxl>=3.1",       # Creative matrix XLSX output
 ]
