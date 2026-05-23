@@ -1290,9 +1290,10 @@ def _render_matrix_row(client: str, row: dict, products: list[str]):
         st.markdown("---")
         build_key = f"matrix_build_{client}_{row_id}"
 
+        # Disable for video-only rows — the video pipeline isn't wired yet.
+        video_only = formats == ["video-only"]
+
         if not st.session_state.get(build_key):
-            # Disable for video-only rows — the video pipeline isn't wired yet.
-            video_only = formats == ["video-only"]
             if video_only:
                 st.caption(
                     "⚠️ This row is `video-only` — the matrix→video pipeline is "
@@ -1303,14 +1304,18 @@ def _render_matrix_row(client: str, row: dict, products: list[str]):
                     key=f"btn_build_{row_id}",
                     disabled=True,
                 )
-            else:
-                if st.button(
-                    "🎬 Build this as a static ad",
-                    key=f"btn_build_{row_id}",
-                    type="primary",
-                ):
-                    st.session_state[build_key] = True
-                    st.rerun()
+                return
+            # Streamlit's button widget triggers an automatic rerun on click —
+            # we set session_state and let the rerun naturally re-evaluate the
+            # conditional below. Explicit st.rerun() inside an expander was
+            # racing with the auto-rerun and dropping the state transition.
+            if st.button(
+                "🎬 Build this as a static ad",
+                key=f"btn_build_{row_id}",
+                type="primary",
+                on_click=lambda k=build_key: st.session_state.update({k: True}),
+            ):
+                pass  # state set via on_click callback above
             return
 
         # ── Build form (active when build_key is set) ──────────────────
@@ -1321,9 +1326,11 @@ def _render_matrix_row(client: str, row: dict, products: list[str]):
                 "No products configured for this client. "
                 "Add a product YAML under `clients/<slug>/products/` first."
             )
-            if st.button("Cancel", key=f"btn_cancel_{row_id}"):
-                st.session_state[build_key] = False
-                st.rerun()
+            st.button(
+                "Cancel",
+                key=f"btn_cancel_noprod_{row_id}",
+                on_click=lambda k=build_key: st.session_state.update({k: False}),
+            )
             return
 
         # ── Brief preview (synthesize in-process for instant feedback) ──
@@ -1440,9 +1447,11 @@ def _render_matrix_row(client: str, row: dict, products: list[str]):
                         f"`{pattern}`. Check the Ads tab for the latest output."
                     )
             st.session_state[build_key] = False
-        if cancel_col.button("Cancel", key=f"btn_cancel_{row_id}"):
-            st.session_state[build_key] = False
-            st.rerun()
+        cancel_col.button(
+            "Cancel",
+            key=f"btn_cancel_{row_id}",
+            on_click=lambda k=build_key: st.session_state.update({k: False}),
+        )
 
 
 def _render_matrix_tab(selected):
