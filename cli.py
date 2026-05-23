@@ -2270,6 +2270,422 @@ def matrix(client: str, product: str, hooks: str, styles: str, platforms: str):
     console.print("\nTo generate all, run each combination with 'adc generate'")
 
 
+# ─── Creative Matrix (Phase 1 — tactical 4-tab synthesis) ───────────────────
+
+
+@cli.command(name="creative-matrix")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--tier",
+    type=click.Choice(["lean", "standard", "wide"]),
+    default="standard",
+    help="Cost tier: lean (trending_match only), standard (match + next), "
+    "wide (match + alternates — currently same as standard).",
+)
+@click.option(
+    "--tab",
+    type=click.Choice(["pain", "love", "wish", "hook", "all"]),
+    default="all",
+    help="Which tab to (re)generate. 'all' = full rebuild.",
+)
+@click.option(
+    "--row",
+    default=None,
+    help="Operate on a single row by ID (e.g. pain-001). Used with --next or "
+    "for inspecting/refreshing a single row's trending match.",
+)
+@click.option(
+    "--next",
+    "next_idea",
+    is_flag=True,
+    help="With --row: lazily generate trending_next for the row. With no --row: "
+    "fill trending_next for every row missing one (post-lean upgrade).",
+)
+@click.option(
+    "--refresh-trending",
+    is_flag=True,
+    help="Re-run only the trending-match step for every row, keep strategic "
+    "columns intact. Cheap way to refresh after editing trending_formats.yaml.",
+)
+@click.option(
+    "--no-xlsx",
+    is_flag=True,
+    help="Skip writing the XLSX workbook (YAML still written).",
+)
+@click.option(
+    "--build",
+    "build_mode",
+    type=click.Choice(["static", "video", "dry"]),
+    default=None,
+    help="With --row: synthesize a CreativeBrief from the row and hand off to "
+    "the image-gen pipeline. 'static' = generate the ad. 'dry' = show what "
+    "would be generated without spending. 'video' = not yet wired.",
+)
+@click.option(
+    "--product",
+    "build_product",
+    default=None,
+    help="Product slug to anchor the generated ad on. Required with --build "
+    "static when the client has more than one product.",
+)
+@click.option(
+    "--num-images",
+    "build_num_images",
+    default=1,
+    type=int,
+    help="With --build static: how many image variants to generate. Default 1.",
+)
+@click.option(
+    "--engine",
+    "build_engine",
+    type=click.Choice(["nb2", "higgsfield-soul"]),
+    default="nb2",
+    help="With --build static: which image-gen engine to use. Default nb2.",
+)
+def creative_matrix_cmd(
+    client: str,
+    tier: str,
+    tab: str,
+    row: str | None,
+    next_idea: bool,
+    refresh_trending: bool,
+    no_xlsx: bool,
+    build_mode: str | None,
+    build_product: str | None,
+    build_num_images: int,
+    build_engine: str,
+):
+    """Build the tactical creative matrix — 4 tabs of combinatorial ad seeds.
+
+    Outputs:
+      clients/<slug>/strategy/creative_matrix.yaml   (machine-readable)
+      clients/<slug>/strategy/creative_matrix.xlsx   (human-facing)
+      clients/<slug>/strategy/matrix_meta.yaml       (provenance)
+
+    Typical workflow:
+      adc creative-matrix --client secondkind                       # full build
+      adc creative-matrix --client secondkind --tab pain            # regen tab 1
+      adc creative-matrix --client secondkind --row pain-001 --next # lazy next
+      adc creative-matrix --client secondkind --refresh-trending    # re-match
+    """
+    from models.matrix import MatrixTab
+    from strategy.creative_matrix import (
+        fill_trending_next_for_row,
+        generate_matrix,
+        load_matrix,
+        matrix_paths,
+        refresh_all_trending,
+        regenerate_tab,
+        save_matrix,
+    )
+    from strategy.matrix_xlsx import write_matrix_xlsx
+    from strategy.trending import load_trending_formats
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    tab_enum_map = {
+        "pain": MatrixTab.PAIN_VS_COMPETITOR,
+        "love": MatrixTab.WHAT_THEY_LOVE,
+        "wish": MatrixTab.WISHES_GAPS,
+        "hook": MatrixTab.HOOK_ANGLES,
+    }
+
+    # ─── Single-row operations ─────────────────────────────────────────────
+    if row is not None:
+        matrix = load_matrix(client)
+        target = matrix.find_row(row)
+        if target is None:
+            console.print(f"[red]Row '{row}' not found in matrix.[/red]")
+            raise SystemExit(1)
+
+        # --build: synthesize a brief and (optionally) generate the image.
+        # This is the bridge between strategy (the matrix) and execution
+        # (existing image-gen pipeline).
+        if build_mode:
+            _handle_matrix_build(
+                client=client,
+                row_target=target,
+                build_mode=build_mode,
+                build_product=build_product,
+                build_num_images=build_num_images,
+                build_engine=build_engine,
+            )
+            return
+
+        if next_idea:
+            with console.status(f"Generating trending_next for {row}..."):
+                next_obj = fill_trending_next_for_row(target)
+            if next_obj is None:
+                console.print(f"[yellow]Could not generate trending_next for {row}.[/yellow]")
+                raise SystemExit(1)
+            target.trending_next = next_obj
+            matrix.replace_row(target)
+            save_matrix(matrix, client)
+            console.print(f"[green]Filled trending_next for {row}.[/green]")
+            console.print(f"  idea: {next_obj.idea}")
+            console.print(f"  principle: {next_obj.principle}")
+            console.print(f"  execution: {next_obj.execution[:120]}...")
+        else:
+            console.print(f"[cyan]Row {row}:[/cyan]")
+            console.print(target.model_dump_json(indent=2))
+        return
+
+    # ─── Refresh trending only ─────────────────────────────────────────────
+    if refresh_trending:
+        matrix = load_matrix(client)
+        with console.status("Refreshing trending matches for every row..."):
+            refresh_all_trending(matrix)
+        save_matrix(matrix, client)
+        if not no_xlsx:
+            write_matrix_xlsx(matrix, matrix_paths(client)["xlsx"])
+        console.print(
+            f"[green]Refreshed trending matches across "
+            f"{len(matrix.all_rows())} rows.[/green]"
+        )
+        return
+
+    # ─── Bulk fill missing trending_next (post-lean upgrade) ───────────────
+    if next_idea and tab == "all":
+        matrix = load_matrix(client)
+        formats = load_trending_formats()
+        filled = 0
+        for r in matrix.all_rows():
+            if r.trending_next is not None:
+                continue
+            next_obj = fill_trending_next_for_row(r, formats=formats)
+            if next_obj is not None:
+                r.trending_next = next_obj
+                filled += 1
+        save_matrix(matrix, client)
+        if not no_xlsx:
+            write_matrix_xlsx(matrix, matrix_paths(client)["xlsx"])
+        console.print(f"[green]Filled trending_next on {filled} row(s).[/green]")
+        return
+
+    # ─── Single tab regenerate ─────────────────────────────────────────────
+    if tab != "all":
+        matrix = load_matrix(client)
+        tab_enum = tab_enum_map[tab]
+        with console.status(f"Regenerating tab {tab_enum.value}..."):
+            regenerate_tab(matrix, tab_enum, client)
+        save_matrix(matrix, client)
+        if not no_xlsx:
+            write_matrix_xlsx(matrix, matrix_paths(client)["xlsx"])
+        new_rows = getattr(matrix, tab_enum.value)
+        console.print(
+            f"[green]Regenerated {tab_enum.value} ({len(new_rows)} rows).[/green]"
+        )
+        return
+
+    # ─── Full build ────────────────────────────────────────────────────────
+    console.print(
+        f"\n[bold cyan]Building creative matrix for {client}[/bold cyan] (tier={tier})"
+    )
+    with console.status("Synthesizing 4 tabs + trending matches with Claude..."):
+        matrix = generate_matrix(client, tier=tier)
+    save_matrix(matrix, client)
+
+    if not no_xlsx:
+        xlsx_path = write_matrix_xlsx(matrix, matrix_paths(client)["xlsx"])
+        console.print(f"[green]XLSX:[/green] {xlsx_path}")
+
+    paths = matrix_paths(client)
+    console.print(f"[green]YAML:[/green] {paths['yaml']}")
+    console.print(f"[green]Meta:[/green] {paths['meta']}")
+
+    table = Table(title=f"Creative Matrix — {client}")
+    table.add_column("Tab", style="cyan")
+    table.add_column("Rows", style="green")
+    table.add_column("With trending_match", style="yellow")
+    table.add_column("With trending_next", style="dim")
+    for tab_enum in [
+        MatrixTab.PAIN_VS_COMPETITOR,
+        MatrixTab.WHAT_THEY_LOVE,
+        MatrixTab.WISHES_GAPS,
+        MatrixTab.HOOK_ANGLES,
+    ]:
+        rows = getattr(matrix, tab_enum.value)
+        with_match = sum(1 for r in rows if r.trending_match)
+        with_next = sum(1 for r in rows if r.trending_next)
+        table.add_row(
+            tab_enum.value,
+            str(len(rows)),
+            str(with_match),
+            str(with_next),
+        )
+    console.print(table)
+    console.print(
+        f"\n[dim]Tier: {tier} — "
+        f"{'standard (match + next)' if tier == 'standard' else tier}.[/dim]"
+    )
+
+
+def _handle_matrix_build(
+    *,
+    client: str,
+    row_target,
+    build_mode: str,
+    build_product: str | None,
+    build_num_images: int,
+    build_engine: str,
+):
+    """Synthesize a CreativeBrief from a matrix row + hand off to image gen.
+
+    Modes:
+      dry    Print the synthesized brief, no save, no generation.
+      video  Stub — print 'not yet wired' and exit with non-zero (so scripts
+             can detect the unsupported path).
+      static Save the brief to clients/<slug>/briefs/, then call the existing
+             `generate_from_brief` pipeline to produce N variants.
+    """
+    from models.loader import (
+        list_products,
+        load_all_avatars,
+        load_avatar,
+        load_brand,
+        load_product,
+        save_brief,
+    )
+    from strategy.creative_matrix import row_to_brief
+
+    if build_mode == "video":
+        console.print(
+            "[red]--build video is not yet wired.[/red] The video pipeline "
+            "is a downstream component that hasn't been integrated with the "
+            "matrix yet. For now, use --build static or run the row's "
+            "static_treatment manually."
+        )
+        raise SystemExit(2)
+
+    # ─── Resolve product ──────────────────────────────────────────────────
+    products = list_products(client)
+    if not products:
+        console.print(
+            f"[red]No products found at clients/{client}/products/. "
+            f"Add a product YAML before building.[/red]"
+        )
+        raise SystemExit(1)
+
+    if build_product:
+        if build_product not in products:
+            console.print(
+                f"[red]Product '{build_product}' not found. "
+                f"Available: {', '.join(products)}[/red]"
+            )
+            raise SystemExit(1)
+        product_slug = build_product
+    elif len(products) == 1:
+        product_slug = products[0]
+        console.print(f"[dim]Auto-selected only product: {product_slug}[/dim]")
+    else:
+        console.print(
+            f"[red]Client has multiple products: {', '.join(products)}. "
+            f"Pass --product <slug>.[/red]"
+        )
+        raise SystemExit(1)
+
+    product = load_product(client, product_slug)
+    brand = load_brand(client)
+
+    # ─── Resolve avatar ───────────────────────────────────────────────────
+    # Prefer the first avatar in avatars/ (multi-persona world). Fall back
+    # to the legacy single avatar.yaml. Matrix rows are persona-agnostic, so
+    # any avatar yields a usable brief — the operator can re-target later by
+    # editing the saved brief.
+    avatar = None
+    all_avatars = load_all_avatars(client)
+    if all_avatars:
+        avatar = all_avatars[0]
+    else:
+        avatar = load_avatar(client)
+
+    # ─── Synthesize the brief ─────────────────────────────────────────────
+    brief = row_to_brief(
+        row=row_target,
+        client_slug=client,
+        product=product,
+        avatar=avatar,
+    )
+
+    # ─── Dry mode: show + exit ────────────────────────────────────────────
+    if build_mode == "dry":
+        console.print(
+            f"\n[bold cyan]Dry-build of row {row_target.id} "
+            f"({row_target.tab.value})[/bold cyan]"
+        )
+        console.print(f"  product:    {product.name}")
+        console.print(f"  avatar:     {avatar.name if avatar else '(none)'}")
+        console.print(f"  brief_id:   {brief.brief_id}")
+        console.print(f"  awareness:  {brief.awareness_level.value}")
+        console.print(f"  framework:  {brief.framework.value}")
+        console.print(f"  angle:      {brief.angle[:160]}")
+        console.print(f"  hook:       {brief.hook[:160]}")
+        console.print(f"  hook_tactic: {brief.hook_tactic or '(none)'}")
+        console.print(f"  visual_format: {brief.visual_format or '(none)'}")
+        if brief.visual_format_alternatives:
+            console.print(
+                f"  visual_format_alternatives: {', '.join(brief.visual_format_alternatives)}"
+            )
+        console.print(f"  visual_direction: {brief.visual_direction[:300]}")
+        console.print(f"  pain_point: {brief.pain_point[:200]}")
+        if brief.benefit_callouts:
+            console.print(f"  benefit_callouts: {brief.benefit_callouts}")
+        console.print(
+            "\n[dim]Dry mode — no brief saved, no image generated. "
+            "Re-run with --build static to actually generate.[/dim]"
+        )
+        return
+
+    # ─── Static mode: save + generate ─────────────────────────────────────
+    if build_mode == "static":
+        from generators.image_generator import generate_from_brief
+
+        brief_path = save_brief(client, brief)
+        console.print(
+            f"\n[green]Saved brief:[/green] {brief_path}\n"
+            f"[dim]This brief is now visible to `adc generate` and `adc menu`.[/dim]"
+        )
+
+        console.print(
+            f"\n[bold cyan]Generating {build_num_images} image(s) for "
+            f"{brief.brief_id} on {product.name}[/bold cyan]\n"
+            f"[dim]Engine: {build_engine}[/dim]"
+        )
+        try:
+            prompt_used, results = generate_from_brief(
+                brief=brief,
+                brand=brand,
+                product=product,
+                avatar=avatar,
+                client_slug=client,
+                num_images=build_num_images,
+                engine=build_engine,
+            )
+        except Exception as e:
+            console.print(
+                f"[red]Image generation failed: {type(e).__name__}: {e}[/red]\n"
+                f"[dim]The brief was still saved at {brief_path} — "
+                f"you can retry via `adc generate` later.[/dim]"
+            )
+            raise SystemExit(1)
+
+        console.print(f"\n[green]Generated {len(results)} image(s):[/green]")
+        for r in results:
+            local_path = getattr(r, "local_path", None) or "(no local path)"
+            console.print(f"  {local_path}")
+
+        from strategy.cost_tracker import log_cost
+        log_cost(
+            client,
+            "adc creative-matrix --build static",
+            multiplier=build_num_images,
+            note=f"row {row_target.id} → brief {brief.brief_id}",
+        )
+
+
 # ─── Compliance Check ────────────────────────────────────────────────────────
 
 
@@ -2847,6 +3263,241 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
     from strategy.cost_tracker import log_cost
     log_cost(client, "adc research-amazon", multiplier=call_num,
              note=f"{call_num} call(s), {total_all} review(s)")
+
+
+# ─── Tier 3 social-comment research ──────────────────────────────────────────
+
+
+@cli.command(name="research-social")
+@click.option("--client", required=True, help="Client slug")
+@click.option("--skip-tiktok", is_flag=True, help="Skip TikTok scraping")
+@click.option("--skip-instagram", is_flag=True, help="Skip Instagram scraping")
+@click.option("--skip-youtube", is_flag=True, help="Skip YouTube scraping")
+@click.option(
+    "--max-comments",
+    default=100,
+    type=int,
+    help="Max comments per post/video. Default 100.",
+)
+@click.option(
+    "--max-posts",
+    default=8,
+    type=int,
+    help="Max recent posts/videos per profile (only used when no explicit URLs/IDs "
+    "are set on the competitor). Default 8.",
+)
+@click.option(
+    "--force-refresh",
+    is_flag=True,
+    help="Re-scrape even when cached bundles exist for a (competitor, post) pair.",
+)
+def research_social(
+    client: str,
+    skip_tiktok: bool,
+    skip_instagram: bool,
+    skip_youtube: bool,
+    max_comments: int,
+    max_posts: int,
+    force_refresh: bool,
+):
+    """Pull TikTok / Instagram / YouTube comments for every configured competitor.
+
+    Reads social handles from clients/<slug>/competitors.yaml. Each competitor
+    can specify any subset of:
+      tiktok_handle      / tiktok_post_urls
+      instagram_handle   / instagram_post_urls
+      youtube_handle     / youtube_channel_id / youtube_video_ids
+
+    Outputs:
+      clients/<slug>/research/{tiktok,instagram,youtube}-comments/*.json   raw
+      clients/<slug>/voc/{tiktok,instagram,youtube}-comments.json          voc-miner ready
+
+    Cost ballpark for 3 competitors × 8 posts × 100 comments:
+      TikTok    ~$2.40 + ~$1 video listing  (~$3.40)
+      Instagram ~$2.40 + ~$2 post listing   (~$4.40)
+      YouTube   $0 (well under free quota)
+
+    Recommended next step after running this:
+      adc mine-voc --client <slug> --category <category>
+      adc analyze-gaps --client <slug>
+    """
+    from strategy.competitor_research import load_competitors
+    from strategy.social_comments import (
+        SocialCommentBundle,
+        _research_dir,
+        cache_bundle,
+        write_voc_dump,
+    )
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    competitors = load_competitors(client)
+    if not competitors:
+        console.print(f"[red]No competitors found at clients/{client}/competitors.yaml[/red]")
+        raise SystemExit(1)
+
+    console.print(
+        f"\n[bold cyan]Tier 3 social research for {client}[/bold cyan] "
+        f"({len(competitors)} competitor(s))"
+    )
+
+    # Build a per-(platform, competitor) plan first so we can show cost intent
+    # before any network call.
+    plan: list[tuple[str, object, str]] = []  # (platform, competitor, reason)
+    for c in competitors:
+        if not skip_tiktok and (
+            c.tiktok_handle or c.tiktok_post_urls or c.tiktok_search_queries
+        ):
+            if c.tiktok_post_urls:
+                source = f"{len(c.tiktok_post_urls)} explicit URL(s)"
+            elif c.tiktok_search_queries:
+                qs = ", ".join(c.tiktok_search_queries[:2])
+                more = (
+                    f" +{len(c.tiktok_search_queries) - 2}"
+                    if len(c.tiktok_search_queries) > 2
+                    else ""
+                )
+                source = f"search: {qs}{more}"
+            else:
+                source = c.tiktok_handle
+            plan.append(("tiktok", c, source))
+        if not skip_instagram and (c.instagram_handle or c.instagram_post_urls):
+            plan.append(("instagram", c, c.instagram_handle or "explicit posts"))
+        if not skip_youtube and (
+            c.youtube_handle or c.youtube_channel_id or c.youtube_video_ids
+        ):
+            plan.append((
+                "youtube",
+                c,
+                c.youtube_handle or c.youtube_channel_id or "explicit videos",
+            ))
+
+    if not plan:
+        console.print(
+            "[yellow]No competitors have social handles configured. Add "
+            "tiktok_handle / instagram_handle / youtube_handle (or *_urls / *_ids) "
+            "to competitors.yaml.[/yellow]"
+        )
+        return
+
+    plan_table = Table(title="Scrape plan")
+    plan_table.add_column("Platform", style="cyan")
+    plan_table.add_column("Competitor", style="green")
+    plan_table.add_column("Source", style="dim")
+    for platform, c, source in plan:
+        plan_table.add_row(platform, c.name, str(source))
+    console.print(plan_table)
+
+    # ─── Execute ─────────────────────────────────────────────────────────
+    results_table = Table(title="Results")
+    results_table.add_column("Platform", style="cyan")
+    results_table.add_column("Competitor", style="green")
+    results_table.add_column("Posts", justify="right", style="yellow")
+    results_table.add_column("Comments", justify="right", style="yellow")
+    results_table.add_column("Status", style="dim")
+
+    platforms_touched: set[str] = set()
+    total_comments = 0
+
+    for platform, competitor, _source in plan:
+        cache_dir = _research_dir(client, platform)
+        already_cached = (
+            any(cache_dir.glob(f"{competitor.slug}-*.json"))
+            if cache_dir.exists()
+            else False
+        )
+        if already_cached and not force_refresh:
+            results_table.add_row(
+                platform, competitor.name, "—", "—",
+                "cached (use --force-refresh)",
+            )
+            platforms_touched.add(platform)
+            # Count cached comments for the summary
+            from strategy.social_comments import load_cached_bundles
+            for b in load_cached_bundles(client, platform):
+                if b.competitor_slug == competitor.slug:
+                    total_comments += len(b.comments)
+            continue
+
+        bundles: list[SocialCommentBundle] = []
+        status = "ok"
+        try:
+            if platform == "tiktok":
+                from strategy.apify_tiktok import scrape_tiktok_for_competitor
+                with console.status(f"TikTok: {competitor.name}..."):
+                    bundles = scrape_tiktok_for_competitor(
+                        competitor,
+                        max_videos_per_profile=max_posts,
+                        max_comments_per_video=max_comments,
+                    )
+            elif platform == "instagram":
+                from strategy.apify_instagram import scrape_instagram_for_competitor
+                with console.status(f"Instagram: {competitor.name}..."):
+                    bundles = scrape_instagram_for_competitor(
+                        competitor,
+                        max_posts_per_profile=max_posts,
+                        max_comments_per_post=max_comments,
+                    )
+            elif platform == "youtube":
+                from strategy.youtube_comments import fetch_youtube_for_competitor
+                with console.status(f"YouTube: {competitor.name}..."):
+                    bundles = fetch_youtube_for_competitor(
+                        competitor,
+                        max_videos_per_channel=max_posts,
+                        max_comments_per_video=max_comments,
+                    )
+        except EnvironmentError as e:
+            status = f"auth error: {e}"
+        except Exception as e:  # noqa: BLE001 — surface any scraper failure to the table
+            status = f"{type(e).__name__}: {str(e)[:60]}"
+
+        comment_count = 0
+        for b in bundles:
+            cache_bundle(client, b)
+            comment_count += len(b.comments)
+        total_comments += comment_count
+        platforms_touched.add(platform)
+
+        results_table.add_row(
+            platform,
+            competitor.name,
+            str(len(bundles)),
+            str(comment_count),
+            status,
+        )
+
+    console.print(results_table)
+
+    # ─── Refresh the voc dumps for every touched platform ─────────────────
+    voc_paths: list[Path] = []
+    for platform in sorted(platforms_touched):
+        path = write_voc_dump(client, platform)
+        if path is not None:
+            voc_paths.append(path)
+
+    if voc_paths:
+        console.print("\n[green]VOC dumps written:[/green]")
+        for p in voc_paths:
+            console.print(f"  {p}")
+
+    console.print(
+        f"\n[bold]Total comments cached:[/bold] {total_comments}\n\n"
+        f"[bold]Recommended next steps:[/bold]\n"
+        f"  - [cyan]adc mine-voc --client {client} --category <category>[/cyan]  "
+        f"(extract pains from new comments)\n"
+        f"  - [cyan]adc analyze-gaps --client {client}[/cyan]  "
+        f"(re-synthesize gap map with social signal)"
+    )
+
+    from strategy.cost_tracker import log_cost
+    log_cost(
+        client,
+        "adc research-social",
+        note=f"{len(plan)} (platform, competitor) pull(s), {total_comments} comment(s)",
+    )
 
 
 @cli.command(name="analyze-gaps")
