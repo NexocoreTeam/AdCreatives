@@ -1030,6 +1030,23 @@ def generate_remix_angles(
     # voice, not against it.
     voice_block = _voice_block_for_prompt(client_slug)
 
+    # Pre-compute the gap-rule block as a plain string. Originally this was an
+    # inline `{... if not has_gaps else f"""..."""}` expression inside the main
+    # f-string, but nested f"""...""" inside another f"""...""" is a Python
+    # 3.11 SyntaxError (PEP 701 only lifted that in 3.12). Extracted out.
+    if has_gaps:
+        gap_rule_block = f"""
+  7. COMPETITIVE GAPS — at least {min_gap_variations} of the {n} variations MUST
+     exploit one of the EXPLOITABLE GAPS above. When you use a gap:
+       - Cite it in `source` (e.g. "competitive-gap: <competitor>'s claim X is
+         legally discredited").
+       - Use the customer evidence quote as scaffolding for the hook.
+       - Make sure the persona's `wired_for` heuristic aligns with the gap's lever
+         (e.g. authority_bias persona → gaps about lab data; social_proof persona →
+         gaps where competitors lack customer trust)."""
+    else:
+        gap_rule_block = "  "
+
     user_prompt = f"""{voice_block}Generate {n} distinct ad variations that REMIX a reference ad for our product.
 Every variation MUST share the locked structural fields below — same ad_type,
 same creative_mechanic, same visual_format, same framework. What varies across
@@ -1095,15 +1112,7 @@ Each variation must:
   5. Stop the scroll in under 2 seconds. Use the customer's actual phrasing from `top_pains`.
   6. Be genuinely different from the other variations — different angle, different
      hook, different callouts. Even variations sharing a persona must hit a
-     different cognitive lever.{"  " if not has_gaps else f"""
-  7. COMPETITIVE GAPS — at least {min_gap_variations} of the {n} variations MUST
-     exploit one of the EXPLOITABLE GAPS above. When you use a gap:
-       - Cite it in `source` (e.g. "competitive-gap: <competitor>'s claim X is
-         legally discredited").
-       - Use the customer evidence quote as scaffolding for the hook.
-       - Make sure the persona's `wired_for` heuristic aligns with the gap's lever
-         (e.g. authority_bias persona → gaps about lab data; social_proof persona →
-         gaps where competitors lack customer trust)."""}
+     different cognitive lever.{gap_rule_block}
 
 STRATEGIC ANGLE FRAMING — read this BEFORE writing any hook:
 
