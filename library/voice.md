@@ -153,10 +153,15 @@ The brand identifies itself by what it ISN'T, then redirects to what it IS.
 - "All wood, never plastic"
 - "100% beechwood (never plastic or mesh)"
 - "Toxic chemicals are out ❌ All-natural is in ✅"
-- "No bars to reach over / No getting out of bed"
+- "No bars to reach over. No getting out of bed."
 
-Apply to any category: "Not a probiotic. Postbiotics that actually arrive."
+Apply to any category: "Not a probiotic. Postbiotics that arrive."
 "Never live bacteria. Always 1 trillion bioactives."
+
+Construction rule: use periods, colons, or line breaks between the
+negation half and the affirmation half. **Never use em-dashes** (see
+the forbidden-punctuation rule below). Period stops carry the same
+rhythm without the dash.
 
 ### Move 2: Three-beat rhythm (period stops)
 Three short fragments separated by periods. The rhythm IS the persuasion.
@@ -219,10 +224,11 @@ Expand the value beyond the obvious category.
 
 Apply: "Gut Balance isn't just bloating. It's energy, sleep, clarity."
 
-### Move 8: Emoji + 2–3 word benefit
-Emoji functions as the icon (the "feature visual"). The phrase is 2–4
-words MAX. Never use full sentences here.
+### Move 8: Emoji — two specific use cases
+Emoji has exactly two legitimate uses in this voice. Anything else is
+decoration and gets stripped.
 
+**Use 1 — Callout / feature icon (short slot, 2–4 words max):**
 - 😴 Better sleep
 - 🤱 Closer sleep
 - ❤️ Safer sleep
@@ -231,6 +237,30 @@ words MAX. Never use full sentences here.
 - ⭐ 4.9 stars
 
 Apply: 🌱 1T bioactives / 😌 Bloat gone / 💪 Steady energy
+
+**Use 2 — Bullet markers in long-form (Meta primary text):**
+
+Meta's ad text field does not render real bullet points. Emoji are
+the only way to create visual list structure inside long-form primary
+text. Use a single consistent marker per list — never mix.
+
+Approved markers:
+- ✅ — what we do / our advantages / wins (most common in long-form)
+- ❌ — what they (competitors/category) don't do / failure modes
+- 🚫 — banned / not for sale / what we refuse
+- 🧪 — clinical trial / scientific evidence
+- ↓ — soft CTA arrow at end of UGC primary text ("trust me on this ↓")
+
+Banned markers (too cute, too hype, or generic-marketing-coded):
+- 💪 🔥 ⚡ 🎉 ✨ 🌟 — hype emoji
+- 🙏 🥰 😍 — over-emotional
+- 💯 🚀 — bro-voice / growth-hacker
+- 👇 — too pushy in CTA position (use ↓ instead — cleaner)
+
+Use sparingly. A long-form ad should have one bullet-list section
+max. If two lists in one ad, use different markers (e.g. ❌ for the
+failure list, ✅ for the advantage list). Never emoji-decorate mid-
+sentence prose — emoji are bullet/icon punctuation, not adjectives.
 
 ### Move 9: Concrete sensory verb
 Always physical, observable, immediate.
@@ -329,6 +359,21 @@ ingredient name without the wordmark ("EpiCor-backed").
 - Anything starting with "Our [adjective] formula..."
 - Disclaimers in callout slots ("These statements have not been
   evaluated by the FDA" — never include unless explicitly required.)
+
+**Forbidden PUNCTUATION:**
+- **Em-dash (—) is banned in all copy.** Banked from production
+  feedback (2026-05-24): the X-gone pattern and the negation-as-identity
+  move both relied on em-dashes; they were rewritten to period-stop
+  and colon forms. Use one of these instead:
+    - Period stop: "Bloat. Gone." (preferred — period-stop rhythm)
+    - Colon: "Bloat: gone." (alt for variety)
+    - Comma: "Bloat, gone." (softest — use rarely)
+    - Line break: when the break is visual / multi-line
+  En-dash (–) inside a customer-quote attribution credit
+  ("Hooray for no plastics" – Alivia F.) is the one acceptable
+  dash form — that's standard typography for a citation, not body
+  copy. Hyphens (-) inside compound words (12-week, 84-day) are
+  fine.
 
 ---
 
@@ -477,11 +522,11 @@ matching category.
 - "No change"
 - "Still off"
 
-**Benefit callouts (the "X — gone" pattern is gold):**
+**Benefit callouts (the "X. Gone." pattern is gold):**
 - "Bloat clears"
 - "Bloat clears by noon"
-- "Bloat — gone"
-- "Brain fog — gone"
+- "Bloat. Gone."
+- "Brain fog. Gone."
 - "Gut cooperates"
 - "Gut feels mine"
 - "Gut feels like mine again"
@@ -536,7 +581,7 @@ gets crisper. Period-stops still work. Wink moves don't.
 
 **Benefit callouts (system-improvement observations):**
 - "Stack gets shorter"
-- "2pm wall — gone"
+- "2pm wall. Gone."
 - "Energy steady"
 - "Gut cooperates"
 - "Numbers improve"
@@ -556,24 +601,136 @@ gets crisper. Period-stops still work. Wink moves don't.
 - "Fewer sick days"
 - "Energy holds through"
 - "Gut stays steady"
-- "17% fewer sick days — RCT" (if you have the data)
+- "17% fewer sick days. RCT-backed." (if you have the data)
 
 ---
 
-## THE "X — GONE" PATTERN (signature move worth its own section)
+## META PRIMARY TEXT (long-form ad body copy)
+
+**Critical distinction:** every other slot in this voice (headlines,
+callouts, CTAs, customer quotes) is SHORT-FORM compression. Meta
+**primary text** is the opposite — it is the **body copy of the ad**,
+not a callout. It's the multi-paragraph caption that sits ABOVE the
+image in a Meta feed placement.
+
+Banked from production feedback (2026-05-24): when the voice's
+compression rules get applied to primary text, the output reads
+lacklustre — single sentences where competitors are running 100–300
+word narratives. The compression rules apply to every other slot,
+NOT to primary text.
+
+### Length and shape
+
+- **100–300 words is normal.** Competitor performers run anywhere
+  from 80 to 400 words in primary text.
+- **Multiple paragraphs encouraged.** Break with double line breaks
+  every 2–3 sentences. Each paragraph should land one beat.
+- **Truncation point on Meta is ~125 chars in the feed preview** —
+  the FIRST 125 chars must hook hard enough to earn the "See More"
+  expand. Everything after that is for the readers who already
+  clicked to expand.
+- **No headlines or callouts inside primary text** — it's prose, not
+  a stack of fragments. Save the punchy short forms for the headline
+  slot under the image.
+
+### Structure — the 4-beat arc
+
+Every primary text should walk through:
+
+1. **Name the suspicion.** Lead with the felt failure or the recognized
+   moment. "You took the probiotic. Every morning. For months." —
+   the reader has done this; they recognize themselves.
+2. **Diagnose the mechanism.** Explain *why* the failure happens in
+   structural terms. "Roughly 70% of live bacteria die in stomach acid
+   before reaching your gut." Receipt-grade specificity required here.
+3. **Vindicate.** Lift the blame off the customer. "You weren't lazy.
+   The delivery model was broken." This is where the bold-voice
+   indictment lands on the category, not on her.
+4. **Convert.** Introduce the alternative with a short ingredient/
+   trial proof. Soft CTA OR end on a brand statement; never "Shop now."
+
+### Permitted formatting moves inside primary text
+
+- **Period-stop fragments** still work — they punch the rhythm even
+  in long-form. "You weren't lazy. Your probiotic was dead. Now you know."
+- **Emoji bullet markers** for any list of 3+ items: use ✅ for
+  advantages, ❌ for failure modes, 🧪 for trial citations. ONE list
+  max per ad (or one ❌ list and one ✅ list). See Move 8.
+- **Customer-voice opener** is gold — first-person testimonial register
+  with lowercase friend-text tone for UGC concepts.
+- **Soft CTA in UGC primary text:** `trust me on this ↓` at the bottom.
+  Editorial primary text ends on the brand statement, no CTA.
+
+### Forbidden inside primary text
+
+- **No "Shop now" / "Buy now" / "Learn more" / "Click here" CTAs.**
+  Those are platform button slots. Primary text closes on a brand
+  truth or a soft `trust me on this ↓`, not a sales imperative.
+- **No mid-sentence emoji decoration.** Emoji are bullet markers or
+  feature icons (per Move 8) — not adjectives. "Bloat clears 💪" is
+  wrong; "✅ Bloat clears" is right.
+- **No em-dashes.** See forbidden-punctuation rule.
+- **No long subordinate clauses.** Short declarative sentences win
+  even in long-form. The rhythm is what carries the body.
+
+### Worked example — bold-variant primary text in voice
+
+For a SecondKind Bold vindication ad ("You weren't lazy. Your probiotic
+was dead."):
+
+> You took the probiotic. Every morning. For months.
+>
+> You did everything right. Picked the brand with the highest CFU
+> count, stuck to the routine, checked the labels. And still: bloated
+> by 7pm. Brain fog by 3pm. Energy crashes. Nothing changed.
+>
+> Here's what nobody puts on the bottle. Roughly 70% of the live
+> bacteria in commercial probiotics die in stomach acid before
+> reaching your gut. You weren't paying for what works. You were
+> paying for what dissolves in transit.
+>
+> Postbiotics are the bioactive compounds bacteria are supposed to
+> produce inside your gut. SecondKind Gut Balance skips the delivery
+> problem entirely.
+>
+> ✅ Three patented postbiotic ingredients
+> ✅ Three published clinical trials
+> ✅ Already active. Already absorbable.
+>
+> You weren't lazy. Your probiotic was dead. Now you know.
+
+Note: 175 words. 6 paragraphs (with the bullet block counting as one).
+Opens with customer-truth recognition. Mechanism diagnosis with the
+70% receipt. Vindication ("you weren't paying for what works"). Brand
+intro with trial proof. Closes on the period-stop signature without
+any sales imperative. Zero em-dashes. One ✅ list, no other emoji.
+
+This is the shape. Apply per concept.
+
+---
+
+## THE "X. GONE." PATTERN (signature move worth its own section)
 
 A move that emerged organically in production: pair a pain word with
-an em-dash and "gone". Three beats. Reads as victory. Translates to
+a period-stop and "Gone." Two beats. Reads as victory. Translates to
 nearly any consumer-wellness category.
 
-**Examples:**
-- "Brain fog — gone"
-- "2pm wall — gone"
-- "Bloat — gone"
-- "Headaches — gone"
-- "Energy crashes — gone"
+This pattern originally used em-dashes ("X — gone") but em-dashes are
+now banned across this voice (see forbidden-punctuation rule below).
+Period-stop carries the same rhythm. Colon is the alt form.
 
-Use sparingly (one per ad, max two) — overused, the rhythm flattens.
+**Examples (period-stop, primary form):**
+- "Brain fog. Gone."
+- "2pm wall. Gone."
+- "Bloat. Gone."
+- "Headaches. Gone."
+- "Energy crashes. Gone."
+
+**Examples (colon, alt form for variety):**
+- "Brain fog: gone."
+- "Bloat: gone by week 2."
+
+Use sparingly (one per ad, max two). Overused, the rhythm flattens.
 
 ---
 
