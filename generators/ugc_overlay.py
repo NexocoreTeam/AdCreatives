@@ -203,11 +203,15 @@ LAYOUTS: dict[str, list[LayoutTuple]] = {
     ],
 
     # native-pain-010 — vindication-first UGC version of Concept 1
+    # Bottom headline uses generic self-blame frame ("it's not you") rather
+    # than naming a specific word (e.g. "lazy") that doesn't fit the actual
+    # personas — Danielle/Brandon/Paula/Isaac are all stack-disciplined and
+    # would reject "lazy" as a misread of their lived experience.
     "native-pain-010": [
         ("if your probiotic did nothing,",           0.060, 2.3, "box", None),
         ("you weren't the problem.",                 0.122, 2.3, "box", None),
         ("70% die before reaching your gut",         0.184, 2.3, "pill", "💀"),
-        ("you weren't lazy.\nyour probiotic was dead.", 0.770, 2.6, "box", None),
+        ("it's not you.\nit's your probiotic.",      0.770, 2.6, "box", None),
         ("trust me on this ↓",                       0.910, 2.0, "box", None),
     ],
 }
