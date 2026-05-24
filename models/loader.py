@@ -240,6 +240,33 @@ def save_brief(client_slug: str, brief: CreativeBrief) -> Path:
         # Validator must never break the save path.
         pass
 
+    # Soft headline-vs-body premise check. Catches bait-and-switch briefs
+    # the leakage validator can't (e.g. headline promises 'X hides 3 things'
+    # but the body delivers 'our 3 trial results'). Single cheap Claude
+    # call; bypass with ADC_SKIP_PREMISE_CHECK=1.
+    try:
+        from validators.brief_text_validator import (
+            should_warn_on_premise,
+            validate_headline_body_premise,
+        )
+
+        premise = validate_headline_body_premise(brief)
+        if should_warn_on_premise(premise):
+            import sys
+            print(
+                f"[premise_validator] possible headline/body mismatch for "
+                f"brief {safe_id} (confidence={premise.confidence:.2f}):",
+                file=sys.stderr,
+            )
+            print(f"  reasoning: {premise.reasoning}", file=sys.stderr)
+            print(
+                "  bypass with ADC_SKIP_PREMISE_CHECK=1 if the brief is "
+                "intentionally provocative.",
+                file=sys.stderr,
+            )
+    except Exception:
+        pass
+
     return path
 
 

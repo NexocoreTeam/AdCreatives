@@ -23,10 +23,17 @@ Matching strategy:
   - Lowercase + whitespace-normalize both sides
   - Substring match on 5+ word phrases extracted from the brief
   - Skip generic CTA-style phrases (whitelisted)
+
+This module also exposes `validate_headline_body_premise` — a tiny Claude
+call that catches bait-and-switch briefs (e.g. headline promises "3 things
+X hides" but the body delivers Y). See that function's docstring for the
+prompt + cost notes.
 """
 
 from __future__ import annotations
 
+import json
+import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -223,3 +230,200 @@ def validate_brief_text(
                 ))
                 break  # one warning per matched row is enough
     return warnings
+
+
+# ────────────────────────────────────────────────────────────────────────────
+# Headline-vs-body premise validator
+# ────────────────────────────────────────────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class PremiseValidationResult:
+    """Outcome of a `validate_headline_body_premise` call.
+
+    `aligned=True` means the body fulfills the headline's promise. False
+    means the validator detected a bait-and-switch (e.g. headline
+    promises "3 things X hides" but body delivers "our trial results").
+
+    `confidence` is the model's own 0.0-1.0 self-rating. Callers should
+    typically only act on `aligned=False` when `confidence >= 0.7` —
+    lower confidence usually means the headline was ambiguous enough
+    that flagging it would just create noise.
+
+    `reasoning` is a one-sentence explanation from the model.
+
+    `skipped` is True when the validator chose not to call the model
+    (no headline, no body, missing API key, env-var bypass, etc.); in
+    that case `aligned` defaults to True so callers don't warn on it.
+    """
+
+    aligned: bool
+    confidence: float
+    reasoning: str
+    skipped: bool = False
+
+
+# Confidence threshold for emitting a warning. Below this, the model
+# isn't sure enough to be worth waking the operator up. Tuned at 0.7
+# based on the pain-006 v2 case (which a smart human rates ~0.85
+# confident as bait-and-switch).
+_PREMISE_WARN_MIN_CONFIDENCE = 0.7
+
+# Env-var bypass — when set to a truthy value, the validator returns
+# `skipped=True` immediately. Use this when a brief is intentionally
+# provocative (headline frames Y, body proves it via X).
+_PREMISE_SKIP_ENV = "ADC_SKIP_PREMISE_CHECK"
+
+
+def _split_headline_and_body(brief: CreativeBrief) -> tuple[str, str]:
+    """Return (headline, body) for premise validation.
+
+    Heuristic:
+      - If `body_copy` is non-empty, headline = hook, body = body_copy.
+      - Else split `hook` on the first newline: line 0 = headline, the
+        rest = body.
+      - If hook has no newlines and body_copy is empty, return
+        (hook, "") and the caller will skip the check.
+    """
+    headline = (brief.hook or "").strip()
+    body = (brief.body_copy or "").strip()
+
+    if not body and "\n" in headline:
+        first, _, rest = headline.partition("\n")
+        return first.strip(), rest.strip()
+
+    return headline, body
+
+
+_PREMISE_SYSTEM = (
+    "You are a strict ad-copy editor checking whether a brief's BODY "
+    "delivers on the promise its HEADLINE makes.\n\n"
+    "Critical rule: 'aligned' is NOT 'talks about the same topic'. It "
+    "means the body fulfills the SPECIFIC promise the headline makes.\n\n"
+    "Examples:\n"
+    "  - Headline: '3 things the probiotic industry hides'. "
+    "Aligned body: 3 anti-industry facts. Misaligned body: our trial "
+    "results (which are pro-us, not anti-them).\n"
+    "  - Headline: 'I quit after 14 days. Here's why.' "
+    "Aligned body: 14-day quit story. Misaligned body: a 6-week "
+    "transformation story.\n"
+    "  - Headline: 'The 5 supplements I take daily'. Aligned body: "
+    "list of 5 supplements. Misaligned body: a single product pitch.\n\n"
+    "Return strictly: {\"aligned\": bool, \"confidence\": float (0.0-1.0), "
+    "\"reasoning\": str (one short sentence)}. No prose outside JSON."
+)
+
+
+def _build_premise_prompt(headline: str, body: str) -> str:
+    """Compact user prompt — kept short to hold the per-call cost <$0.001."""
+    return (
+        f"HEADLINE:\n{headline}\n\n"
+        f"BODY:\n{body}\n\n"
+        "Does the body deliver on the specific promise the headline makes? "
+        "Reply with JSON only."
+    )
+
+
+def _parse_premise_response(raw: str) -> PremiseValidationResult:
+    """Parse the Claude response into a PremiseValidationResult.
+
+    Best-effort — if the model returns malformed JSON or unexpected
+    fields, returns `skipped=True` with the raw text in `reasoning` so
+    the operator can investigate but the brief save still succeeds.
+    """
+    text = (raw or "").strip()
+    # Strip markdown fences if present
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```$", "", text)
+    try:
+        data = json.loads(text)
+    except (json.JSONDecodeError, TypeError):
+        return PremiseValidationResult(
+            aligned=True,
+            confidence=0.0,
+            reasoning=f"premise model returned non-JSON: {text[:160]}",
+            skipped=True,
+        )
+    aligned = bool(data.get("aligned", True))
+    try:
+        confidence = float(data.get("confidence", 0.0))
+    except (TypeError, ValueError):
+        confidence = 0.0
+    confidence = max(0.0, min(1.0, confidence))
+    reasoning = str(data.get("reasoning", "")).strip()
+    return PremiseValidationResult(
+        aligned=aligned, confidence=confidence, reasoning=reasoning
+    )
+
+
+def validate_headline_body_premise(
+    brief: CreativeBrief,
+) -> PremiseValidationResult:
+    """Check whether the brief's body fulfills the headline's promise.
+
+    Catches bait-and-switch briefs the cross-concept leakage validator
+    misses — e.g. pain-006 v2 (headline: "3 receipts the probiotic
+    industry hides", body: our trial results). The body's text DID come
+    from the source row, so leakage validation passed; the premise
+    DIDN'T match the headline's claim, which only this check catches.
+
+    Returns a PremiseValidationResult. Callers should warn when
+    `aligned=False AND confidence >= 0.7 AND not skipped`. Below 0.7 the
+    model isn't sure enough to be worth a warning.
+
+    The check is skipped (returns `skipped=True`, `aligned=True`) when:
+      - the brief has no usable headline or body
+      - the `ADC_SKIP_PREMISE_CHECK` env var is truthy
+      - the `claude_complete` call raises (network, auth, parse, etc.)
+
+    Cost target: <$0.001 per save (~150 input tokens, ~80 output, single
+    shot on claude-sonnet-4-6).
+    """
+    if os.environ.get(_PREMISE_SKIP_ENV, "").lower() in {"1", "true", "yes", "on"}:
+        return PremiseValidationResult(
+            aligned=True,
+            confidence=0.0,
+            reasoning=f"skipped via {_PREMISE_SKIP_ENV}",
+            skipped=True,
+        )
+
+    headline, body = _split_headline_and_body(brief)
+    if not headline or not body:
+        return PremiseValidationResult(
+            aligned=True,
+            confidence=0.0,
+            reasoning="no separable headline + body to compare",
+            skipped=True,
+        )
+
+    try:
+        # Local import so the rest of this module stays importable in
+        # environments without the anthropic SDK on the path (tests that
+        # only exercise the leakage validator, for example).
+        from strategy.llm import claude_complete
+
+        prompt = _build_premise_prompt(headline, body)
+        raw = claude_complete(prompt, system=_PREMISE_SYSTEM, max_tokens=120)
+    except Exception as e:
+        return PremiseValidationResult(
+            aligned=True,
+            confidence=0.0,
+            reasoning=f"premise check raised {type(e).__name__}: {str(e)[:120]}",
+            skipped=True,
+        )
+
+    return _parse_premise_response(raw)
+
+
+def should_warn_on_premise(result: PremiseValidationResult) -> bool:
+    """Return True iff the result is a confident misalignment.
+
+    Pulled out so the threshold lives in one place and the save-path
+    hook stays a one-liner.
+    """
+    return (
+        not result.skipped
+        and not result.aligned
+        and result.confidence >= _PREMISE_WARN_MIN_CONFIDENCE
+    )

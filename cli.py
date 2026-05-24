@@ -5389,6 +5389,49 @@ def edit_cmd(
         f"(aspect {aspect_ratio}, {resolution}, engine={engine})"
     )
 
+    # Pre-generation: warn about any known issues on the input refs AND
+    # auto-append any registered prompt fixes. We try to infer the client
+    # slug from the output path if it's nested under clients/<slug>/...;
+    # otherwise skip silently.
+    effective_prompt = prompt
+    try:
+        import sys
+        from validators.validated_assets import (
+            find_issues_for_paths,
+            get_auto_fix_additions,
+        )
+
+        inferred_slug = ""
+        out_parts = output.resolve().parts
+        if "clients" in out_parts:
+            idx = out_parts.index("clients")
+            if idx + 1 < len(out_parts):
+                inferred_slug = out_parts[idx + 1]
+        if inferred_slug:
+            warns = find_issues_for_paths(inferred_slug, list(paths))
+            for asset, iss in warns:
+                console.print(
+                    f"[yellow]⚠ source asset has known issue:[/yellow] {asset}\n"
+                    f"  {iss.issue} (severity={iss.severity})"
+                )
+                if iss.workaround:
+                    console.print(f"  workaround: {iss.workaround}")
+
+            additions = get_auto_fix_additions(list(paths), inferred_slug)
+            if additions:
+                effective_prompt = (
+                    prompt
+                    + "\n\n[AUTO-FIX FROM VALIDATED ASSETS]:\n"
+                    + "\n".join(additions)
+                )
+                print(
+                    f"[validated_assets] Auto-appended {len(additions)} fix(es) "
+                    f"from validated_assets.yaml.",
+                    file=sys.stderr,
+                )
+    except Exception:
+        pass
+
     # Upload each input to fnf.higgsfield.ai/media and collect (id, url) pairs.
     input_media: list[tuple[str, str]] = []
     try:
@@ -5406,7 +5449,7 @@ def edit_cmd(
     console.print("  Submitting nano_banana_flash edit job...")
     try:
         result_url = submit_and_wait(
-            prompt=prompt,
+            prompt=effective_prompt,
             input_media=input_media,
             aspect_ratio=aspect_ratio,
             resolution=resolution,
@@ -5431,30 +5474,6 @@ def edit_cmd(
     except Exception:
         pass
 
-    # Pre-generation: warn about any known issues on the input refs.
-    # We try to infer the client slug from the output path if it's nested
-    # under clients/<slug>/...; otherwise skip silently.
-    try:
-        from validators.validated_assets import find_issues_for_paths
-
-        inferred_slug = ""
-        out_parts = output.resolve().parts
-        if "clients" in out_parts:
-            idx = out_parts.index("clients")
-            if idx + 1 < len(out_parts):
-                inferred_slug = out_parts[idx + 1]
-        if inferred_slug:
-            warns = find_issues_for_paths(inferred_slug, list(paths))
-            for asset, iss in warns:
-                console.print(
-                    f"[yellow]⚠ source asset has known issue:[/yellow] {asset}\n"
-                    f"  {iss.issue} (severity={iss.severity})"
-                )
-                if iss.workaround:
-                    console.print(f"  workaround: {iss.workaround}")
-    except Exception:
-        pass
-
     # Write sidecar metadata so this edit is traceable.
     try:
         from generators.ad_metadata import write_ad_metadata
@@ -5462,7 +5481,7 @@ def edit_cmd(
         write_ad_metadata(
             output,
             engine="hf-web",
-            prompt_or_layout=prompt,
+            prompt_or_layout=effective_prompt,
             references_used=[str(p) for p in paths],
             ship_status="alt",
             notes=f"adc edit: aspect={aspect_ratio}, resolution={resolution}",
@@ -5663,8 +5682,20 @@ def ugc_ad_cmd(
         )
 
     # ─── Pre-generation: known asset issues ──────────────────────────────
+    # NOTE: `adc ugc-ad` is the PIL-overlay pipeline — it composites text on
+    # the base photo but never sends a prompt to an image-edit engine. The
+    # auto_fix_prompt_addition is therefore surfaced as an advisory: if the
+    # base image carries a known label-typo or similar source defect, the
+    # operator should regenerate via `adc edit` with the auto-fix
+    # additions BEFORE running ugc-ad. There's no prompt here to inject
+    # into.
     try:
-        from validators.validated_assets import find_issues_for_paths
+        import sys
+        from validators.validated_assets import (
+            find_issues_for_paths,
+            get_auto_fix_additions,
+        )
+
         warns = find_issues_for_paths(effective_brand_slug, [base])
         for asset, iss in warns:
             console.print(
@@ -5673,6 +5704,22 @@ def ugc_ad_cmd(
             )
             if iss.workaround:
                 console.print(f"  workaround: {iss.workaround}")
+
+        additions = get_auto_fix_additions([base], effective_brand_slug)
+        if additions:
+            console.print(
+                "[yellow]  auto_fix_prompt_addition is registered for this "
+                "asset — re-run the base image via `adc edit` with these "
+                "additions before composing:[/yellow]"
+            )
+            for add in additions:
+                console.print(f"  [dim]{add}[/dim]")
+            print(
+                f"[validated_assets] {len(additions)} registered fix(es) "
+                f"available for the base asset (advisory only; "
+                f"adc ugc-ad does not call an image-edit engine).",
+                file=sys.stderr,
+            )
     except Exception:
         pass
 

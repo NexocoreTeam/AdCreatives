@@ -13,10 +13,18 @@ Schema (YAML at `clients/<slug>/validated_assets.yaml`):
       issue: "label reads 'Posthiotic' instead of 'Postbiotic'"
       severity: "warning"   # "warning" | "block" (currently not enforced)
       workaround: "fix at brand level — label print run"
+      auto_fix_prompt_addition: |              # optional
+        IMPORTANT: change the label text on the product to read
+        'Postbiotic' (not 'Posthiotic').
 
 `file` is matched as a *suffix* against the provided asset path so the
 caller doesn't have to know whether the path is absolute, relative to
 cwd, or relative to the client root.
+
+When `auto_fix_prompt_addition` is set, the `adc edit` / `adc ugc-ad`
+commands will append it to the operator's prompt automatically — turning
+a warning into self-healing behaviour for source-asset defects that can't
+be corrected at the source (e.g. a product label print-run typo).
 """
 
 from __future__ import annotations
@@ -29,12 +37,21 @@ import yaml
 
 @dataclass(frozen=True)
 class AssetIssue:
-    """One known issue with a source asset."""
+    """One known issue with a source asset.
+
+    `auto_fix_prompt_addition` is text that will be automatically appended
+    to any hf-web edit prompt that uses this asset. Used to self-heal
+    known asset issues that can't be fixed at the source. E.g. for a
+    product image with a label typo, this would be 'IMPORTANT: change the
+    label text on the product to read X (not Y).' Empty string = no
+    auto-fix; caller's prompt is sent unchanged.
+    """
 
     file: str
     issue: str
     severity: str = "warning"   # "warning" | "block"
     workaround: str = ""
+    auto_fix_prompt_addition: str = ""
 
 
 def _path_for(client_slug: str) -> Path:
@@ -60,6 +77,9 @@ def load_issues(client_slug: str) -> list[AssetIssue]:
             issue=str(entry.get("issue", "")),
             severity=str(entry.get("severity", "warning")),
             workaround=str(entry.get("workaround", "")),
+            auto_fix_prompt_addition=str(
+                entry.get("auto_fix_prompt_addition", "") or ""
+            ).strip(),
         ))
     return out
 
@@ -87,3 +107,34 @@ def find_issues_for_paths(
             if path_str.endswith(needle):
                 matches.append((p, iss))
     return matches
+
+
+def get_auto_fix_additions(
+    asset_paths: list[Path | str],
+    client_slug: str,
+) -> list[str]:
+    """Return all auto-fix prompt additions for the given asset paths.
+
+    For every asset path that matches a known issue with a non-empty
+    `auto_fix_prompt_addition` field, the addition is included in the
+    return list. Duplicate strings are de-duped (so listing the same
+    asset twice doesn't double-append the fix).
+
+    Empty list if no client slug, no registry, or no matching assets.
+    Order is preserved on first-seen.
+
+    Used by `adc edit` and `adc ugc-ad` to self-heal known asset defects
+    that can't be fixed at the source — see module docstring.
+    """
+    if not client_slug:
+        return []
+    matches = find_issues_for_paths(client_slug, asset_paths)
+    out: list[str] = []
+    seen: set[str] = set()
+    for _, iss in matches:
+        addition = iss.auto_fix_prompt_addition.strip()
+        if not addition or addition in seen:
+            continue
+        seen.add(addition)
+        out.append(addition)
+    return out

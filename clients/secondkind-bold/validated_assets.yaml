@@ -11,9 +11,17 @@
 #       issue: <plain-English description of the problem>
 #       severity: warning | block      (block is not enforced yet)
 #       workaround: <how to recover from it>
+#       auto_fix_prompt_addition: |   # optional
+#         <text appended to any hf-web edit prompt using this asset, so the
+#         model corrects the defect inline. Use for self-healing of source
+#         issues that can't be fixed upstream (e.g. label print runs).>
 
 known_issues:
   - file: "_refs/gut-balance-product.png"
     issue: "label reads 'Posthiotic' instead of 'Postbiotic'"
     severity: warning
     workaround: "fix at brand level — label print run. Until then, hf-web edit prompt should include 'change the label text to read Postbiotic'."
+    auto_fix_prompt_addition: |
+      IMPORTANT: change the label text on the SecondKind product jar to
+      read 'Postbiotic' (with a 'b', not 'h'). The source image has a
+      typo — render the corrected label in the output.

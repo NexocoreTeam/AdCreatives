@@ -36,7 +36,11 @@ from generators.ugc_overlay import (
 from models.brand import Brand, UgcVoice
 from models.brief import AwarenessLevel, CopyFramework, CreativeBrief, TextOverlay
 from validators.brief_text_validator import validate_brief_text
-from validators.validated_assets import find_issues_for_paths, load_issues
+from validators.validated_assets import (
+    find_issues_for_paths,
+    get_auto_fix_additions,
+    load_issues,
+)
 
 
 # ─── Fixtures ───────────────────────────────────────────────────────────────
@@ -365,6 +369,144 @@ def test_secondkind_bold_validated_assets_has_postbiotic_issue():
     assert any("Posthiotic" in i.issue or "Postbiotic" in i.issue for i in issues), (
         f"expected Postbiotic-typo issue, got: {[i.issue for i in issues]}"
     )
+
+
+def test_validated_assets_loads_auto_fix_prompt_addition(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    """The new optional `auto_fix_prompt_addition` field round-trips cleanly."""
+    monkeypatch.chdir(tmp_path)
+    client_dir = tmp_path / "clients" / "demo"
+    client_dir.mkdir(parents=True)
+    (client_dir / "validated_assets.yaml").write_text(yaml.safe_dump({
+        "known_issues": [
+            {
+                "file": "_refs/product.png",
+                "issue": "label typo",
+                "severity": "warning",
+                "auto_fix_prompt_addition": (
+                    "IMPORTANT: change the label to read 'Postbiotic'."
+                ),
+            },
+        ],
+    }), encoding="utf-8")
+    issues = load_issues("demo")
+    assert len(issues) == 1
+    assert "Postbiotic" in issues[0].auto_fix_prompt_addition
+
+
+def test_validated_assets_auto_fix_defaults_to_empty():
+    """Issues without the new field still load and report empty auto_fix."""
+    issues = load_issues("secondkind-bold")
+    # Real entries are fine — just ensure the attribute exists on every one.
+    for iss in issues:
+        assert hasattr(iss, "auto_fix_prompt_addition")
+        assert isinstance(iss.auto_fix_prompt_addition, str)
+
+
+def test_secondkind_bold_postbiotic_has_auto_fix():
+    """Confirm the seeded Postbiotic-typo entry got the auto-fix wired in."""
+    issues = load_issues("secondkind-bold")
+    postbiotic = [
+        i for i in issues if "Posthiotic" in i.issue or "Postbiotic" in i.issue
+    ]
+    assert postbiotic, "expected at least one Postbiotic issue in seed"
+    assert any("Postbiotic" in i.auto_fix_prompt_addition for i in postbiotic), (
+        f"expected auto_fix to mention Postbiotic; got: "
+        f"{[i.auto_fix_prompt_addition for i in postbiotic]}"
+    )
+
+
+def test_get_auto_fix_additions_returns_for_known_asset(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.chdir(tmp_path)
+    client_dir = tmp_path / "clients" / "demo"
+    client_dir.mkdir(parents=True)
+    (client_dir / "validated_assets.yaml").write_text(yaml.safe_dump({
+        "known_issues": [
+            {
+                "file": "_refs/product.png",
+                "issue": "label typo",
+                "auto_fix_prompt_addition": "Fix the label to read X.",
+            },
+        ],
+    }), encoding="utf-8")
+    additions = get_auto_fix_additions(
+        [Path("clients/demo/some/sub/_refs/product.png")], "demo"
+    )
+    assert additions == ["Fix the label to read X."]
+
+
+def test_get_auto_fix_additions_dedupes_repeated_asset(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.chdir(tmp_path)
+    client_dir = tmp_path / "clients" / "demo"
+    client_dir.mkdir(parents=True)
+    (client_dir / "validated_assets.yaml").write_text(yaml.safe_dump({
+        "known_issues": [
+            {
+                "file": "_refs/product.png",
+                "issue": "label typo",
+                "auto_fix_prompt_addition": "Fix the label to read X.",
+            },
+        ],
+    }), encoding="utf-8")
+    additions = get_auto_fix_additions(
+        [
+            Path("clients/demo/a/_refs/product.png"),
+            Path("clients/demo/b/_refs/product.png"),  # same asset twice
+        ],
+        "demo",
+    )
+    assert additions == ["Fix the label to read X."]
+
+
+def test_get_auto_fix_additions_empty_for_unknown_asset(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.chdir(tmp_path)
+    client_dir = tmp_path / "clients" / "demo"
+    client_dir.mkdir(parents=True)
+    (client_dir / "validated_assets.yaml").write_text(yaml.safe_dump({
+        "known_issues": [
+            {
+                "file": "_refs/product.png",
+                "issue": "label typo",
+                "auto_fix_prompt_addition": "Fix the label.",
+            },
+        ],
+    }), encoding="utf-8")
+    assert get_auto_fix_additions(
+        [Path("clients/demo/random-other-thing.png")], "demo"
+    ) == []
+
+
+def test_get_auto_fix_additions_skips_issues_without_addition(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    """Issues without auto_fix_prompt_addition should not generate additions."""
+    monkeypatch.chdir(tmp_path)
+    client_dir = tmp_path / "clients" / "demo"
+    client_dir.mkdir(parents=True)
+    (client_dir / "validated_assets.yaml").write_text(yaml.safe_dump({
+        "known_issues": [
+            {
+                "file": "_refs/product.png",
+                "issue": "label typo",
+                # no auto_fix_prompt_addition
+            },
+        ],
+    }), encoding="utf-8")
+    assert get_auto_fix_additions(
+        [Path("clients/demo/_refs/product.png")], "demo"
+    ) == []
+
+
+def test_get_auto_fix_additions_empty_for_no_client_slug():
+    """Empty client slug short-circuits."""
+    assert get_auto_fix_additions([Path("anything.png")], "") == []
 
 
 # ─── Ad metadata + set ship ─────────────────────────────────────────────────
