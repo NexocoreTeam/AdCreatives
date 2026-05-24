@@ -1,6 +1,157 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
+
+
+class UgcVoice(BaseModel):
+    """Brand-level UGC overlay voice spec.
+
+    Drives the `adc ugc-ad` command — provides the register, approved CTAs,
+    pill / box colors, and cross-platform font paths used by the PIL overlay
+    renderer. All fields optional so existing brands without a `ugc_voice`
+    block continue to load. The CLI falls back to a hardcoded SecondKind
+    preset when a brand defines no UGC voice.
+
+    `font_fallback` / `emoji_font_fallback` are platform-keyed maps so the
+    same brand.yaml works on Windows / macOS / Linux dev machines without
+    edits.
+
+    Note on the `register` YAML key: Pydantic v2's BaseModel already has a
+    classmethod named `register`, so the Python attribute is `voice_register`
+    while the on-disk YAML key stays `register` (via the field alias).
+    `populate_by_name=True` keeps both name and alias accepted on load.
+    """
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    voice_register: str = Field(
+        default="",
+        alias="register",
+        description="One-line description of the UGC voice register, e.g. "
+        "'friend-to-friend, not influencer-cheese. wry, confident, "
+        "peer-recommendation.'",
+    )
+    approved_ctas: list[str] = Field(
+        default_factory=list,
+        description="Whitelist of CTA phrases that fit the UGC voice. Used to "
+        "auto-suggest the right CTA when a brief doesn't specify one.",
+    )
+    do_not_use_ctas: list[str] = Field(
+        default_factory=list,
+        description="Phrases that violate the UGC register. The CLI warns when "
+        "a brief text contains any of these.",
+    )
+    pill_highlight_color: str = Field(
+        default="",
+        description="Hex color for the marigold/coral highlight pill, e.g. '#fcb348'",
+    )
+    pill_text_color: str = Field(
+        default="",
+        description="Hex color for text inside the highlight pill",
+    )
+    box_bg_color: str = Field(
+        default="",
+        description="Hex color for the solid white-style caption box background",
+    )
+    box_text_color: str = Field(
+        default="",
+        description="Hex color for text inside the caption box",
+    )
+    font_preference: str = Field(
+        default="",
+        description="Symbolic font name (e.g. 'segoe_ui_bold'). Informational — "
+        "resolution happens via `font_fallback` per platform.",
+    )
+    font_fallback: dict[str, str] = Field(
+        default_factory=dict,
+        description="Platform-keyed font paths. Keys: 'windows', 'macos', "
+        "'linux'. Values are absolute paths to .ttf / .otf files.",
+    )
+    emoji_font_fallback: dict[str, str] = Field(
+        default_factory=dict,
+        description="Platform-keyed paths to the color emoji font (e.g. Segoe "
+        "UI Emoji, Apple Color Emoji, Noto Color Emoji).",
+    )
+
+
+class EditorialExample(BaseModel):
+    """A concrete example of a background/visual treatment that has worked
+    in past editorial ads for this brand. Used as a starter palette — NOT
+    as the exclusive list of allowed treatments. See `EditorialDesign`."""
+
+    name: str = Field(description="Short identifier, e.g. 'apothecary_amber_gradient'")
+    where: str = Field(
+        default="",
+        description="Brief note on where this treatment shipped, e.g. "
+        "'pain-010 v2 — deep amber → dark brown'",
+    )
+    why: str = Field(
+        default="",
+        description="One-sentence reason it worked for this brand",
+    )
+
+
+class EditorialDesign(BaseModel):
+    """Brand-level design principles for editorial-format ads.
+
+    Captures lessons-learned about what makes editorial ads work for this
+    brand without prescribing exact aesthetics — the model is given firm
+    principles + a starter palette of proven examples + explicit don'ts +
+    explicit permission to invent within those bounds.
+
+    Hooked into `strategy/creative_matrix.py`'s static-treatment prompt so
+    every editorial brief auto-includes these rules at generation time. The
+    AI sees principles to honor and policy don'ts to avoid, plus license
+    to propose novel treatments that satisfy both.
+
+    All fields optional so brands without an `editorial_design` block load
+    cleanly and the prompt builder gracefully skips the injection.
+    """
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    principles: list[str] = Field(
+        default_factory=list,
+        description="Firm constraints the model must honor on every editorial "
+        "ad — e.g. 'Background must have atmospheric depth.' These are the "
+        "non-negotiable lessons.",
+    )
+    examples_that_worked: list[EditorialExample] = Field(
+        default_factory=list,
+        description="Starter palette of proven treatments. NOT exhaustive — "
+        "the model should treat these as proof-of-concept and feel free to "
+        "propose variations.",
+    )
+    do_not_use: list[str] = Field(
+        default_factory=list,
+        description="Hard-policy violations — these are brand-voice or "
+        "category-positioning conflicts, not just style preferences. E.g. "
+        "'lifestyle_imagery (grass/moss/nature) — pattern-matches wellness "
+        "fluff which we explicitly indict.'",
+    )
+    freedom_to_explore: str = Field(
+        default="",
+        description="Explicit permission for the model to invent novel "
+        "treatments. Without this, the model tends to pick the first example "
+        "verbatim and never deviate. Phrase as license, not as instruction "
+        "to be wild.",
+    )
+
+
+class ReferencesConfig(BaseModel):
+    """Brand-level reference-asset config for the `adc fetch-references` cache.
+
+    `swipe_folder_id` lets the operator run `adc fetch-references --client X`
+    without re-typing the folder ID every time.
+    """
+
+    swipe_folder_id: str = Field(
+        default="",
+        description="Default Google Drive folder ID for the brand's swipe / "
+        "reference-ads gallery. When set, `adc fetch-references --client X` "
+        "uses it without needing --folder. Separate from `drive_folder_id` "
+        "(the top-level brand assets folder).",
+    )
 
 
 class ColorPalette(BaseModel):
@@ -86,4 +237,20 @@ class Brand(BaseModel):
     prohibited_terms: list[str] = Field(
         default_factory=list,
         description="Words/phrases that must never appear in ads for this brand",
+    )
+    ugc_voice: UgcVoice = Field(
+        default_factory=UgcVoice,
+        description="Brand-level UGC overlay voice spec — drives the `adc "
+        "ugc-ad` command (CTA whitelist, pill colors, font fallbacks).",
+    )
+    references: ReferencesConfig = Field(
+        default_factory=ReferencesConfig,
+        description="Brand-level reference-asset config (Drive swipe folder, etc.)",
+    )
+    editorial_design: EditorialDesign = Field(
+        default_factory=EditorialDesign,
+        description="Brand-level design principles for editorial-format ads — "
+        "injected into the `creative_matrix` static_treatment prompt so the "
+        "AI sees principles + proven examples + don'ts + permission-to-invent "
+        "every time it generates an editorial brief.",
     )

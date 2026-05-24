@@ -1,8 +1,46 @@
 from __future__ import annotations
 
 from enum import Enum
+from typing import Literal
 
 from pydantic import BaseModel, Field
+
+
+class TextOverlay(BaseModel):
+    """One overlay entry for the brief-driven UGC layout pipeline.
+
+    Used by `adc ugc-ad --brief <path>` (or `--layout` registry entries) to
+    drive the PIL renderer. Coordinates are expressed as fractions of frame
+    dimensions so layouts work across any aspect ratio.
+
+    `text` may include `\\n` for multi-line caption boxes.
+    `emoji` is optional and renders to the right of the text via the
+    brand's `ugc_voice.emoji_font_fallback` font.
+    """
+
+    text: str = Field(description="Caption text. Use \\n for line breaks.")
+    y_pct: float = Field(
+        ge=0.0,
+        le=1.0,
+        description="Vertical position of the box's top edge as fraction of "
+        "frame height (0.0 = top, 1.0 = bottom)",
+    )
+    font_size_pct: float = Field(
+        gt=0.0,
+        le=20.0,
+        description="Text height as percent of frame height (~2.0-3.0 is "
+        "native social-feed scale).",
+    )
+    kind: Literal["box", "pill"] = Field(
+        default="box",
+        description="'box' = solid caption rectangle. 'pill' = fully-rounded "
+        "highlight pill in the brand's marigold/coral accent.",
+    )
+    emoji: str | None = Field(
+        default=None,
+        description="Optional emoji glyph to render to the right of the text "
+        "(e.g. '💀', '✅').",
+    )
 
 
 class AwarenessLevel(str, Enum):
@@ -181,4 +219,19 @@ class CreativeBrief(BaseModel):
         "rank, rationale, production_notes}. Informational only — "
         "suggests alternative video/static executions to try alongside the "
         "primary ad. Empty if recommendation was skipped or unavailable.",
+    )
+    text_layout: list[TextOverlay] | None = Field(
+        default=None,
+        description="Optional PIL overlay layout for the hybrid UGC pipeline "
+        "(hf-web base photo + PIL caption overlay). When set, `adc ugc-ad "
+        "--brief <path>` uses this instead of a layout-registry key. Each "
+        "entry positions a caption box or pill at a fractional y position "
+        "with a font size relative to frame height.",
+    )
+    source_matrix_row: str | None = Field(
+        default=None,
+        description="ID of the creative-matrix row this brief was derived from "
+        "(e.g. 'pain-010'). Used by validators/brief_text_validator.py to "
+        "detect cross-concept text leakage. Set to None or 'new' for briefs "
+        "with no matrix lineage.",
     )

@@ -2696,6 +2696,25 @@ def _handle_matrix_build(
             local_path = getattr(r, "local_path", None) or "(no local path)"
             console.print(f"  {local_path}")
 
+        # Sidecar metadata so every generated ad is traceable back to the row.
+        try:
+            from generators.ad_metadata import write_ad_metadata
+            for r in results:
+                local_path = getattr(r, "local_path", None)
+                if not local_path:
+                    continue
+                write_ad_metadata(
+                    Path(local_path),
+                    engine=build_engine,
+                    prompt_or_layout=prompt_used or "",
+                    ship_status="alt",
+                    brief_id=brief.brief_id,
+                    notes=f"adc creative-matrix --build: row {row_target.id}",
+                    extra={"source_matrix_row": row_target.id},
+                )
+        except Exception:
+            pass
+
         from strategy.cost_tracker import log_cost
         log_cost(
             client,
@@ -5411,6 +5430,440 @@ def edit_cmd(
         )
     except Exception:
         pass
+
+    # Pre-generation: warn about any known issues on the input refs.
+    # We try to infer the client slug from the output path if it's nested
+    # under clients/<slug>/...; otherwise skip silently.
+    try:
+        from validators.validated_assets import find_issues_for_paths
+
+        inferred_slug = ""
+        out_parts = output.resolve().parts
+        if "clients" in out_parts:
+            idx = out_parts.index("clients")
+            if idx + 1 < len(out_parts):
+                inferred_slug = out_parts[idx + 1]
+        if inferred_slug:
+            warns = find_issues_for_paths(inferred_slug, list(paths))
+            for asset, iss in warns:
+                console.print(
+                    f"[yellow]⚠ source asset has known issue:[/yellow] {asset}\n"
+                    f"  {iss.issue} (severity={iss.severity})"
+                )
+                if iss.workaround:
+                    console.print(f"  workaround: {iss.workaround}")
+    except Exception:
+        pass
+
+    # Write sidecar metadata so this edit is traceable.
+    try:
+        from generators.ad_metadata import write_ad_metadata
+
+        write_ad_metadata(
+            output,
+            engine="hf-web",
+            prompt_or_layout=prompt,
+            references_used=[str(p) for p in paths],
+            ship_status="alt",
+            notes=f"adc edit: aspect={aspect_ratio}, resolution={resolution}",
+        )
+    except Exception:
+        pass
+
+
+@cli.command(name="ugc-ad")
+@click.option(
+    "--base",
+    "base_path",
+    default=None,
+    type=click.Path(dir_okay=False),
+    help="Path to the clean base photo (no text). Required unless --brief "
+    "is provided and the brief carries a base_image reference.",
+)
+@click.option(
+    "--layout",
+    default=None,
+    help="Layout name from the registry (e.g. social-mirror, native-reel-woman, "
+    "native-reel-man, native-pain-010). Either --layout or --brief is required. "
+    "Run `adc ugc-ad --list-layouts` to see registry options.",
+)
+@click.option(
+    "--brief",
+    "brief_path",
+    default=None,
+    type=click.Path(dir_okay=False, exists=True),
+    help="Path to a brief YAML. When the brief has a text_layout block, it is "
+    "used as the layout (overrides --layout).",
+)
+@click.option(
+    "--output",
+    "-o",
+    "out_path",
+    default=None,
+    type=click.Path(dir_okay=False),
+    help="Where to write the composite PNG. Required unless --list-layouts.",
+)
+@click.option(
+    "--brand",
+    "brand_slug",
+    default=None,
+    help="Brand slug — sets fonts, pill color, and CTAs from the brand's "
+    "ugc_voice block. Inferred from --brief.client if absent; falls back "
+    "to the hardcoded SecondKind-Bold preset.",
+)
+@click.option(
+    "--list-layouts",
+    is_flag=True,
+    help="Print the available registry layout names and exit.",
+)
+def ugc_ad_cmd(
+    base_path: str | None,
+    layout: str | None,
+    brief_path: str | None,
+    out_path: str | None,
+    brand_slug: str | None,
+    list_layouts: bool,
+):
+    """First-class hybrid UGC pipeline — caption boxes + pills on a clean photo.
+
+    The pattern: an AI engine (hf-web, NB2, etc.) generates a photo with NO
+    text. Then this command composites Instagram-style caption boxes +
+    brand-colored highlight pills on top via PIL. Deterministic, pixel-
+    perfect, ~$0 cost on the overlay pass.
+
+    Two ways to specify the layout:
+
+      1. --layout <name>  Uses a layout from the registry (see --list-layouts).
+
+      2. --brief <path>   If the brief has a `text_layout` block, that is
+                          used as the layout. Otherwise --layout is required
+                          as a fallback. Brand inference also flows from the
+                          brief's client field.
+
+    Examples:
+
+      \b
+      # Use a registry layout
+      adc ugc-ad --base hero.png --layout social-mirror \\
+                 --brand secondkind-bold --output final.png
+
+      \b
+      # Use a brief-driven layout
+      adc ugc-ad --base hero.png --brief clients/secondkind-bold/briefs/x.yaml \\
+                 --output final.png
+
+      \b
+      # Discover layouts
+      adc ugc-ad --list-layouts
+    """
+    from generators.ugc_overlay import (
+        DEFAULT_UGC_STYLE,
+        UgcStyle,
+        find_disallowed_ctas,
+        list_layouts as _list_layouts,
+        render_native_ugc_ad,
+        text_overlays_from_layout,
+    )
+
+    if list_layouts:
+        console.print("[bold]Available registry layouts:[/bold]")
+        for name in _list_layouts():
+            console.print(f"  - {name}")
+        return
+
+    # ─── Validate inputs ──────────────────────────────────────────────────
+    if not out_path:
+        console.print("[red]--output is required (unless --list-layouts).[/red]")
+        raise SystemExit(1)
+    if not brief_path and not layout:
+        console.print("[red]Either --layout or --brief is required.[/red]")
+        raise SystemExit(1)
+
+    # ─── Load brief if provided ───────────────────────────────────────────
+    brief = None
+    brief_text_layout: list | None = None
+    brief_client_slug = ""
+    if brief_path:
+        import yaml as _yaml
+        from models.brief import CreativeBrief
+
+        with open(brief_path, encoding="utf-8") as f:
+            brief_data = _yaml.safe_load(f) or {}
+        try:
+            brief = CreativeBrief(**brief_data)
+        except Exception as e:
+            console.print(f"[red]Failed to parse brief at {brief_path}: {e}[/red]")
+            raise SystemExit(1)
+
+        brief_client_slug = brief.client or ""
+        if brief.text_layout:
+            brief_text_layout = brief.text_layout
+
+    # ─── Resolve base path ────────────────────────────────────────────────
+    if not base_path:
+        console.print(
+            "[red]--base is required.[/red] (Brief-embedded base inference "
+            "is not yet implemented; pass --base explicitly.)"
+        )
+        raise SystemExit(1)
+
+    base = Path(base_path)
+    if not base.exists():
+        console.print(f"[red]Base image not found: {base}[/red]")
+        raise SystemExit(1)
+
+    output = Path(out_path)
+
+    # ─── Resolve brand / style ────────────────────────────────────────────
+    effective_brand_slug = brand_slug or brief_client_slug or "secondkind-bold"
+    style = DEFAULT_UGC_STYLE
+    brand_voice = None
+    try:
+        from models.loader import load_brand
+        brand_obj = load_brand(effective_brand_slug)
+        brand_voice = brand_obj.ugc_voice
+        style = UgcStyle.from_brand_voice(brand_voice)
+        console.print(f"[dim]Loaded ugc_voice from brand: {effective_brand_slug}[/dim]")
+    except FileNotFoundError:
+        console.print(
+            f"[yellow]Brand '{effective_brand_slug}' not found — "
+            f"using built-in SecondKind preset.[/yellow]"
+        )
+    except Exception as e:
+        console.print(
+            f"[yellow]Could not load brand '{effective_brand_slug}': {e}. "
+            f"Using built-in preset.[/yellow]"
+        )
+
+    # ─── Resolve layout ──────────────────────────────────────────────────
+    if brief_text_layout:
+        layout_payload = brief_text_layout
+        layout_label = f"brief:{brief.brief_id}"
+    elif layout:
+        try:
+            layout_payload = text_overlays_from_layout(layout)
+            layout_label = layout
+        except KeyError as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+    else:
+        # Brief had no text_layout AND no --layout fallback
+        console.print(
+            "[red]Brief has no text_layout block. Pass --layout <name> as a "
+            "fallback or add a text_layout to the brief.[/red]"
+        )
+        raise SystemExit(1)
+
+    # ─── CTA validation against brand voice ───────────────────────────────
+    bad_ctas = find_disallowed_ctas(layout_payload, brand_voice)
+    for overlay_text, phrase in bad_ctas:
+        console.print(
+            f"[yellow]⚠ Disallowed CTA phrase found:[/yellow] "
+            f"'{phrase}' in overlay '{overlay_text[:60]}'"
+        )
+
+    # ─── Pre-generation: known asset issues ──────────────────────────────
+    try:
+        from validators.validated_assets import find_issues_for_paths
+        warns = find_issues_for_paths(effective_brand_slug, [base])
+        for asset, iss in warns:
+            console.print(
+                f"[yellow]⚠ source asset has known issue:[/yellow] {asset}\n"
+                f"  {iss.issue} (severity={iss.severity})"
+            )
+            if iss.workaround:
+                console.print(f"  workaround: {iss.workaround}")
+    except Exception:
+        pass
+
+    # ─── Render ──────────────────────────────────────────────────────────
+    console.print(
+        f"[cyan]adc ugc-ad[/cyan]: {base.name} + layout={layout_label} → {output}"
+    )
+    try:
+        render_native_ugc_ad(base, output, layout=layout_payload, style=style)
+    except Exception as e:
+        console.print(f"[red]Render failed: {type(e).__name__}: {e}[/red]")
+        raise SystemExit(1)
+
+    size_kb = output.stat().st_size / 1024
+    console.print(
+        f"[green]✓ Saved {output} ({size_kb:.1f} KB) — layout: {layout_label}[/green]"
+    )
+
+    # ─── Sidecar metadata ────────────────────────────────────────────────
+    try:
+        from generators.ad_metadata import write_ad_metadata
+        write_ad_metadata(
+            output,
+            engine="pil-overlay",
+            prompt_or_layout=layout_label,
+            references_used=[str(base)],
+            ship_status="alt",
+            brief_id=(brief.brief_id if brief else ""),
+            notes=f"adc ugc-ad on brand={effective_brand_slug}",
+        )
+    except Exception:
+        pass
+
+
+@cli.command(name="fetch-references")
+@click.option("--client", "client_slug", required=True, help="Client slug")
+@click.option(
+    "--folder",
+    "folder_id",
+    default=None,
+    help="Google Drive folder ID. If omitted, falls back to "
+    "brand.references.swipe_folder_id from brand.yaml.",
+)
+@click.option(
+    "--force",
+    is_flag=True,
+    help="Re-download even files that are cached unchanged.",
+)
+def fetch_references_cmd(client_slug: str, folder_id: str | None, force: bool):
+    """Mirror a Drive folder of reference ads to clients/<slug>/reference_ads/raw/.
+
+    Walks the folder + any immediate subfolders. Caches by Drive
+    file_id + modifiedTime so subsequent runs skip unchanged files.
+    Prints a summary table at the end.
+
+    Defaults the folder to brand.references.swipe_folder_id when --folder
+    is omitted — set it once in brand.yaml and just run `adc fetch-references
+    --client <slug>` from then on.
+    """
+    from models.loader import load_brand
+    from strategy.drive_cache import DriveCache
+    from strategy.drive_client import DriveAccessError, DriveClient
+
+    try:
+        brand = load_brand(client_slug)
+    except FileNotFoundError as e:
+        console.print(f"[red]{e}[/red]")
+        raise SystemExit(1)
+
+    effective_folder = folder_id or (
+        brand.references.swipe_folder_id if brand.references else ""
+    )
+    if not effective_folder:
+        console.print(
+            "[red]No folder ID provided and brand.references.swipe_folder_id "
+            "is empty. Pass --folder <id> or set the brand default.[/red]"
+        )
+        raise SystemExit(1)
+
+    try:
+        drive = DriveClient()
+    except (EnvironmentError, FileNotFoundError) as e:
+        console.print(f"[red]Drive auth failed:[/red] {e}")
+        raise SystemExit(1)
+
+    cache = DriveCache(client_slug)
+    raw_root = Path("clients") / client_slug / "reference_ads" / "raw"
+    raw_root.mkdir(parents=True, exist_ok=True)
+
+    downloaded = 0
+    cached = 0
+    skipped: list[tuple[str, str]] = []
+    total_bytes = 0
+
+    def _ingest_folder(parent_id: str, subfolder_name: str | None) -> None:
+        nonlocal downloaded, cached, total_bytes
+        try:
+            items = drive.list_folder(parent_id)
+        except DriveAccessError as e:
+            console.print(f"[red]Drive listing failed for {parent_id}: {e}[/red]")
+            return
+        for item in items:
+            if item.is_folder:
+                _ingest_folder(item.id, item.name)
+                continue
+            if not (item.is_image or item.is_video):
+                skipped.append((item.name, f"unsupported mime: {item.mime_type}"))
+                continue
+
+            sub = subfolder_name.lower().strip().replace(" ", "-") if subfolder_name else "_root"
+            dest_dir = raw_root / sub
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            dest = dest_dir / item.name
+
+            cache_entry = None if force else cache.get(item)
+            already_local = dest.exists()
+            if cache_entry and cache_entry.analyzer == "fetched_raw" and already_local:
+                cached += 1
+                continue
+
+            try:
+                drive.download_to(item.id, dest)
+            except DriveAccessError as e:
+                skipped.append((item.name, f"download failed: {e}"))
+                continue
+
+            total_bytes += dest.stat().st_size
+            downloaded += 1
+            # Re-use the drive cache to record that we've fetched this file.
+            cache.put(item, "fetched_raw", {"local_path": str(dest)})
+
+    console.print(
+        f"[cyan]Fetching Drive folder {effective_folder} → "
+        f"{raw_root}[/cyan] (force={force})"
+    )
+    _ingest_folder(effective_folder, None)
+
+    # Summary
+    table = Table(title=f"fetch-references: {client_slug}")
+    table.add_column("Metric", style="cyan")
+    table.add_column("Value", style="green")
+    table.add_row("downloaded", str(downloaded))
+    table.add_row("cached (skipped)", str(cached))
+    table.add_row("skipped (unsupported / failed)", str(len(skipped)))
+    table.add_row("total bytes downloaded", f"{total_bytes:,}")
+    console.print(table)
+    if skipped:
+        console.print("[dim]Skipped files:[/dim]")
+        for name, reason in skipped[:20]:
+            console.print(f"  - {name}: {reason}")
+        if len(skipped) > 20:
+            console.print(f"  ... and {len(skipped) - 20} more")
+
+
+@cli.command(name="set-ship")
+@click.option(
+    "--concept",
+    "concept_dir",
+    required=True,
+    type=click.Path(exists=True, file_okay=False),
+    help="Concept folder (e.g. clients/secondkind-bold/ai-ads/phase-1/social-mirror)",
+)
+@click.option(
+    "--version",
+    "version_filename",
+    required=True,
+    help="Filename of the ship version (e.g. v13-pil-brand-marigold.png)",
+)
+def set_ship_cmd(concept_dir: str, version_filename: str):
+    """Promote one file in a concept folder to ship status.
+
+    Effects:
+      - Updates the chosen file's .meta.yaml: ship_status='ship'.
+      - Demotes any other file previously marked 'ship' to 'superseded'.
+      - Creates / refreshes current.png in the folder (symlink, or copy
+        when symlinks aren't available — Windows requires Dev Mode).
+      - Writes current.png.meta.yaml as a pointer.
+    """
+    from generators.ad_metadata import set_ship_version
+
+    try:
+        current = set_ship_version(concept_dir, version_filename)
+    except (FileNotFoundError, NotADirectoryError) as e:
+        console.print(f"[red]{e}[/red]")
+        raise SystemExit(1)
+
+    console.print(
+        f"[green]Set ship version[/green]: "
+        f"{Path(concept_dir).name}/{version_filename}\n"
+        f"  current pointer: {current}"
+    )
 
 
 @cli.command(name="remix-rebuild-prompts")

@@ -1,0 +1,19 @@
+# Source-asset known-issues registry for secondkind-bold.
+#
+# Before any `adc edit` or `adc ugc-ad` consumes one of these files as a
+# reference, the CLI prints a warning so the operator can decide whether
+# to proceed. Paths are matched as suffixes against the asset path passed
+# to the command.
+#
+# Schema:
+#   known_issues:
+#     - file: <path relative to client root or as referenced in a brief>
+#       issue: <plain-English description of the problem>
+#       severity: warning | block      (block is not enforced yet)
+#       workaround: <how to recover from it>
+
+known_issues:
+  - file: "_refs/gut-balance-product.png"
+    issue: "label reads 'Posthiotic' instead of 'Postbiotic'"
+    severity: warning
+    workaround: "fix at brand level — label print run. Until then, hf-web edit prompt should include 'change the label text to read Postbiotic'."

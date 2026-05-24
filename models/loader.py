@@ -217,6 +217,29 @@ def save_brief(client_slug: str, brief: CreativeBrief) -> Path:
             default_flow_style=False,
             sort_keys=False,
         )
+
+    # Soft cross-concept text leakage check. Non-blocking — prints warnings.
+    # Wrapped in a wide try so a malformed matrix never breaks brief saves.
+    try:
+        from validators.brief_text_validator import validate_brief_text
+
+        matrix_path = CLIENTS_DIR / client_slug / "strategy" / "creative_matrix.yaml"
+        warnings = validate_brief_text(brief, matrix_path)
+        if warnings:
+            import sys
+            print(
+                f"[brief_text_validator] {len(warnings)} warning(s) for "
+                f"brief {safe_id}:",
+                file=sys.stderr,
+            )
+            for w in warnings:
+                print(f"  - {w.kind}: {w.message}", file=sys.stderr)
+                if w.phrase:
+                    print(f"      phrase: '{w.phrase}'", file=sys.stderr)
+    except Exception:
+        # Validator must never break the save path.
+        pass
+
     return path
 
 

@@ -293,6 +293,62 @@ def _brand_summary_block(brand: Brand) -> str:
     return yaml.safe_dump(interesting, sort_keys=False, allow_unicode=True)
 
 
+def _editorial_design_block(brand: Brand) -> str:
+    """Render the brand's editorial_design rules as prompt-injected guidance.
+
+    Returns empty string if no editorial_design defined — brands that want
+    enforcement populate this section in brand.yaml. Applied to the
+    `static_treatment` field across all 4 tabs because static_treatment is
+    where background/visual direction is captured.
+
+    The block is principles-first (firm constraints), examples second
+    (starter palette, explicitly not exhaustive), don'ts third (brand
+    violations), freedom-to-explore last (explicit license to invent
+    within the constraints).
+    """
+    ed = brand.editorial_design
+    if not (ed.principles or ed.examples_that_worked
+            or ed.do_not_use or ed.freedom_to_explore):
+        return ""
+
+    parts = [
+        "# EDITORIAL VISUAL RULES",
+        "(Apply to every `static_treatment` field unless format_fit is video-only.",
+        " These rules are brand-banked lessons — honor the principles, treat the",
+        " examples as a starter palette, avoid the don'ts, and feel free to invent.)",
+        "",
+    ]
+
+    if ed.principles:
+        parts.append("PRINCIPLES (firm — must be honored):")
+        for p in ed.principles:
+            parts.append(f"  - {p}")
+        parts.append("")
+
+    if ed.examples_that_worked:
+        parts.append("EXAMPLES THAT WORKED (starter palette, NOT the only valid forms):")
+        for ex in ed.examples_that_worked:
+            line = f"  - {ex.name}"
+            if ex.where:
+                line += f" — {ex.where}"
+            if ex.why:
+                line += f" — why it worked: {ex.why}"
+            parts.append(line)
+        parts.append("")
+
+    if ed.do_not_use:
+        parts.append("DO NOT USE (brand-policy violations):")
+        for d in ed.do_not_use:
+            parts.append(f"  - {d}")
+        parts.append("")
+
+    if ed.freedom_to_explore:
+        parts.append("FREEDOM TO EXPLORE:")
+        parts.append(f"  {ed.freedom_to_explore.strip()}")
+
+    return "\n".join(parts)
+
+
 _TAB_1_USER_TEMPLATE = """Build TAB 1 of the creative matrix: pain_vs_competitor.
 
 This tab mines NEGATIVE competitor signal — complaints, gaps, and dealbreakers
@@ -303,6 +359,8 @@ where our brand has a credible product-level advantage.
 
 # BRAND CONTEXT (excerpt)
 {brand_context}
+
+{editorial_design_block}
 
 # COMPETITIVE RESEARCH
 {gaps_block}
@@ -347,6 +405,8 @@ category to amplify the same trigger with our product.
 # BRAND CONTEXT (excerpt)
 {brand_context}
 
+{editorial_design_block}
+
 # COMPETITIVE RESEARCH (focus on LOVES buckets per competitor)
 {gaps_block}
 
@@ -390,6 +450,8 @@ because it surfaces unmet needs nobody has addressed yet.
 # BRAND CONTEXT (excerpt)
 {brand_context}
 
+{editorial_design_block}
+
 # COMPETITIVE RESEARCH (focus on GAPS buckets per competitor + synthesis exploitable_gaps)
 {gaps_block}
 
@@ -430,6 +492,8 @@ the brand context.
 
 # BRAND CONTEXT (excerpt)
 {brand_context}
+
+{editorial_design_block}
 
 # UPSTREAM TAB SEEDS (use as raw material)
 {prior_tabs_block}
@@ -479,6 +543,7 @@ def _generate_tab(
     user_prompt = template.format(
         brand_block=_brand_summary_block(brand),
         brand_context=brand_context or "(brand-context.md missing)",
+        editorial_design_block=_editorial_design_block(brand),
         gaps_block=gaps_block,
         voc_block=voc_block,
         prior_tabs_block=prior_tabs_block,

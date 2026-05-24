@@ -89,6 +89,69 @@ mission: To help people feel like themselves again by delivering clinically stud
   postbiotics that support the gut-brain axis — the root cause of bloating, brain
   fog, energy crashes, and mood dysregulation that probiotics have failed to solve.
 tagline: We don't sell bacteria.
+ugc_voice:
+  register: "friend-to-friend, not influencer-cheese. wry, confident, peer-recommendation."
+  approved_ctas:
+    - "trust me on this ↓"
+    - "you're welcome ↓"
+    - "ok hear me out ↓"
+    - "i'll save you the year of trial and error ↓"
+  do_not_use_ctas:
+    - "see the mechanism →"   # too clinical
+    - "shop now →"            # too transactional
+    - "learn more →"          # too generic
+    - "swipe up →"            # dated
+  pill_highlight_color: "#fcb348"   # brand marigold
+  pill_text_color: "#1c1917"        # brand black
+  box_bg_color: "#ffffff"           # solid white
+  box_text_color: "#000000"         # bold black
+  font_preference: "segoe_ui_bold"
+  font_fallback:
+    windows: "C:/Windows/Fonts/segoeuib.ttf"
+    macos: "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
+    linux: "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+  emoji_font_fallback:
+    windows: "C:/Windows/Fonts/seguiemj.ttf"
+    macos: "/System/Library/Fonts/Apple Color Emoji.ttc"
+    linux: "/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf"
+references:
+  swipe_folder_id: ""   # set this to the Drive folder ID for your swipe gallery
+editorial_design:
+  # Design principles for EDITORIAL-format ads (the typographic / product-hero
+  # / non-UGC concepts). Auto-injected into the matrix static_treatment prompt
+  # so every editorial brief sees these rules at generation time. UGC ads use
+  # the separate `ugc_voice` block above.
+  #
+  # Lessons banked from Phase 1: pain-010 v1 (pure flat black bg) read dead
+  # in the scroll. v2-amber (apothecary amber gradient) brought the jar to
+  # life via warm atmosphere. v3-dots (signature microbiome cluster) worked
+  # as an alternative. The PRINCIPLE is "always atmospheric depth, never
+  # flat color"; the EXAMPLES are starting points, not a fence.
+  principles:
+    - "Background must have atmospheric depth — gradients, environmental lighting, texture, or a signature device. Pure flat color reads dead in a feed scroll."
+    - "Product must appear lit by an implied or explicit light source. Cutout-on-flat reads as commerce, not editorial."
+    - "Headlines must trigger recognition in ≤1.5 seconds. Specific suspicion + specific mechanism wins (e.g. 'You weren't lazy. / Your probiotic was dead.' beats 'You weren't wrong. / The product was.')."
+  examples_that_worked:
+    - name: apothecary_amber_gradient
+      where: "pain-010 v2 — deep amber → dark brown gradient"
+      why: "Warm gradient harmonized with the amber Gut Balance jar; jar appeared naturally lit by an off-frame source"
+    - name: microbiome_dot_cluster
+      where: "pain-010 v3 — black canvas with signature white-dot-cluster device"
+      why: "Brand-native visual; added texture and depth without lifestyle imagery"
+  do_not_use:
+    - "lifestyle_imagery (grass, moss, nature, kitchen scenes) — pattern-matches the wellness category we explicitly indict"
+    - "stock_photography_humans — off-register for editorial concepts (UGC concepts handle real-feeling people separately)"
+    - "flat_pure_color_no_atmosphere — the v1 problem; flat = dead"
+    - "hype_visual_effects (glows, sparkles, lens-flares, light streaks) — undercut the clinical credibility the bold voice depends on"
+  freedom_to_explore: |
+    The examples_that_worked list is a starter palette of treatments that have
+    shipped successfully — NOT the only valid options. The model should feel
+    free to propose novel atmospheric treatments that honor the principles
+    and avoid the do_not_use list: paper textures, monochrome studio
+    lighting, color washes, microscope-imagery overlays, debossed/embossed
+    effects, abstract pattern interrupts, gradient combinations the brand
+    hasn't tried yet, etc. Treat the examples as proof that atmosphere works,
+    not as the only allowed forms. Novel is welcome — flat and lifestyle are not.
 prohibited_terms:
   # FDA structure-function compliance — supplements cannot claim to treat/cure/prevent disease
   - cure
