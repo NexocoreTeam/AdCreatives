@@ -65,6 +65,7 @@ clients/*/reference_ads/raw/
 # the /voice skill backing the copywriting voice profile) get un-ignored
 # explicitly. Add new project skills here when you create them.
 !.claude/skills/voice/
+!.claude/skills/creative-variant-explorer/
 skills-lock.json
 
 # One-off backup tarballs of `ai-ads/` outputs. `ai-ads/` itself is
