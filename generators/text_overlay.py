@@ -62,6 +62,16 @@ SECONDKIND_PRESET = BrandPreset(
 )
 
 
+# Saved by Grace Co. — modern Christian farmhouse, warm-red accent on cream wash
+SAVEDBYGRACE_PRESET = BrandPreset(
+    name="savedbygrace",
+    accent_color=(178, 58, 72),        # #B23A48 washed warm brand red
+    text_color=(50, 35, 22),           # #322316 warm dark brown
+    wash_color=(245, 240, 230),        # #F5F0E6 cream linen
+    wash_alpha=235,
+)
+
+
 # ─── Public API ─────────────────────────────────────────────────────────────
 
 
@@ -209,6 +219,296 @@ def _normalize_quote(text: str) -> str:
             s = s[len(open_q):-len(close_q)].strip()
             break
     return f"“{s}”"
+
+
+def render_mixed_caption_overlay(
+    base_image: Path,
+    *,
+    items: list[dict],
+    out_path: Path,
+    preset: BrandPreset = SECONDKIND_PRESET,
+    position: float = 0.5,
+    line_gap: int | None = None,
+    font_size_frac: float = 0.034,
+    handwritten_font_path: Path | None = None,
+    handwritten_size_frac: float = 0.052,
+) -> Path:
+    """Mixed caption overlay — each item is a pill or handwritten line.
+
+    items: list of dicts. Each dict has type "pill" or "handwritten":
+        {"type": "pill",       "text": str,
+         "pill_color": (r,g,b)|None,  # None = preset.wash_color
+         "text_color": (r,g,b)|None}  # None = preset.text_color
+        {"type": "handwritten","text": str,
+         "color": (r,g,b)|None,
+         "size_frac": float|None}     # optional override
+
+    Lines stacked vertically, centered on canvas around `position` (0..1).
+    No drop shadows — flat native style.
+    """
+    base_image = Path(base_image)
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    img = Image.open(base_image).convert("RGB")
+    W, H = img.size
+
+    canvas = img.convert("RGBA")
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+
+    pill_font_size = _scale(W, font_size_frac)
+    hw_font_size_default = _scale(W, handwritten_size_frac)
+
+    bold_candidates = [
+        Path(r"C:/Windows/Fonts/seguisb.ttf"),
+        Path(r"C:/Windows/Fonts/segoeuib.ttf"),
+        preset.font_bold,
+    ]
+    pill_font_path = next((p for p in bold_candidates if Path(p).exists()), preset.font_bold)
+    pill_font = _load_font(pill_font_path, pill_font_size)
+
+    # Handwritten font: caller-supplied or fallback to brand regular
+    hw_font_path = handwritten_font_path or preset.font_regular
+    hw_font = _load_font(hw_font_path, hw_font_size_default)
+
+    pad_x = int(pill_font_size * 0.7)
+    pad_y = int(pill_font_size * 0.32)
+    gap = line_gap if line_gap is not None else int(pill_font_size * 0.45)
+
+    # Pre-measure all items
+    prepped = []
+    for it in items:
+        if it["type"] == "pill":
+            bbox = draw.textbbox((0, 0), it["text"], font=pill_font)
+            text_w = bbox[2] - bbox[0]
+            text_h = bbox[3] - bbox[1]
+            pill_w = text_w + 2 * pad_x
+            pill_h = text_h + 2 * pad_y
+            prepped.append({**it, "font": pill_font, "bbox": bbox,
+                            "box_w": pill_w, "box_h": pill_h})
+        elif it["type"] == "handwritten":
+            font = hw_font
+            if it.get("size_frac"):
+                font = _load_font(hw_font_path, _scale(W, it["size_frac"]))
+            bbox = draw.textbbox((0, 0), it["text"], font=font)
+            text_w = bbox[2] - bbox[0]
+            text_h = bbox[3] - bbox[1]
+            prepped.append({**it, "font": font, "bbox": bbox,
+                            "box_w": text_w, "box_h": text_h})
+
+    total_h = sum(p["box_h"] for p in prepped) + gap * (len(prepped) - 1)
+    stack_top = int(H * position) - total_h // 2
+
+    y = stack_top
+    for p in prepped:
+        bbox = p["bbox"]
+        box_w, box_h = p["box_w"], p["box_h"]
+        x_left = (W - box_w) // 2
+
+        if p["type"] == "pill":
+            pill_color = p.get("pill_color") or preset.wash_color
+            text_color = p.get("text_color") or preset.text_color
+            draw.rounded_rectangle(
+                (x_left, y, x_left + box_w, y + box_h),
+                radius=box_h // 2,
+                fill=(*pill_color, 255),
+            )
+            text_x = x_left + pad_x - bbox[0]
+            text_y = y + pad_y - bbox[1]
+            draw.text((text_x, text_y), p["text"], font=p["font"], fill=(*text_color, 255))
+        else:  # handwritten
+            text_color = p.get("color") or preset.text_color
+            text_x = x_left - bbox[0]
+            text_y = y - bbox[1]
+            draw.text((text_x, text_y), p["text"], font=p["font"], fill=(*text_color, 255))
+
+        y += box_h + gap
+
+    final = Image.alpha_composite(canvas, overlay).convert("RGB")
+    final.save(out_path, format="PNG", optimize=True)
+    return out_path
+
+
+def render_tiktok_caption_overlay(
+    base_image: Path,
+    *,
+    lines: list[str],
+    out_path: Path,
+    preset: BrandPreset = SECONDKIND_PRESET,
+    position: float = 0.5,
+    pill_color: tuple[int, int, int] | None = None,
+    text_color: tuple[int, int, int] | None = None,
+    line_gap: int | None = None,
+    font_size_frac: float = 0.034,
+) -> Path:
+    """Native TikTok-style caption overlay — one auto-width pill per line.
+
+    Unlike a single multi-line pill, TikTok captions render each line of
+    text in its own background pill, stacked vertically. No drop shadow,
+    bold sans typography, tight padding, optical-baseline-correct vertical
+    centering.
+
+    Per-line pills auto-fit to their text width. Vertical stack is centered
+    horizontally on the image and centered vertically around `position`.
+    """
+    base_image = Path(base_image)
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    img = Image.open(base_image).convert("RGB")
+    W, H = img.size
+
+    canvas = img.convert("RGBA")
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+
+    pill_fill = (*(pill_color or preset.wash_color), 255)
+    txt_fill = (*(text_color or preset.text_color), 255)
+
+    # Bold sans for TikTok-native feel — fall back to brand bold font
+    font_size = _scale(W, font_size_frac)
+    bold_candidates = [
+        Path(r"C:/Windows/Fonts/seguisb.ttf"),  # Segoe UI Semibold
+        Path(r"C:/Windows/Fonts/segoeuib.ttf"), # Segoe UI Bold
+        preset.font_bold,
+    ]
+    font_path = next((p for p in bold_candidates if Path(p).exists()), preset.font_bold)
+    font = _load_font(font_path, font_size)
+
+    pad_x = int(font_size * 0.7)
+    pad_y = int(font_size * 0.32)
+    gap = line_gap if line_gap is not None else int(font_size * 0.30)
+
+    # Pre-measure each line's pill dimensions using the actual rendered bbox
+    items = []
+    for ln in lines:
+        bbox = draw.textbbox((0, 0), ln, font=font)
+        text_w = bbox[2] - bbox[0]
+        text_h = bbox[3] - bbox[1]
+        pill_w = text_w + 2 * pad_x
+        pill_h = text_h + 2 * pad_y
+        items.append({
+            "text": ln,
+            "bbox": bbox,
+            "pill_w": pill_w,
+            "pill_h": pill_h,
+        })
+
+    total_h = sum(it["pill_h"] for it in items) + gap * (len(items) - 1)
+    stack_top = int(H * position) - total_h // 2
+
+    y = stack_top
+    for it in items:
+        bbox = it["bbox"]
+        pill_w, pill_h = it["pill_w"], it["pill_h"]
+        pill_x = (W - pill_w) // 2
+
+        # Pill body (NO shadow — flat TikTok style)
+        draw.rounded_rectangle(
+            (pill_x, y, pill_x + pill_w, y + pill_h),
+            radius=pill_h // 2,
+            fill=pill_fill,
+        )
+
+        # Optically centered text inside pill
+        # Subtract bbox[0] for x to compensate for left-side glyph offset
+        # Subtract bbox[1] for y to align top of rendered glyph
+        text_x = pill_x + pad_x - bbox[0]
+        text_y = y + pad_y - bbox[1]
+        draw.text((text_x, text_y), it["text"], font=font, fill=txt_fill)
+
+        y += pill_h + gap
+
+    final = Image.alpha_composite(canvas, overlay).convert("RGB")
+    final.save(out_path, format="PNG", optimize=True)
+    return out_path
+
+
+def render_centered_pill_overlay(
+    base_image: Path,
+    *,
+    quote: str,
+    out_path: Path,
+    preset: BrandPreset = SECONDKIND_PRESET,
+    position: float = 0.5,
+    use_quotes: bool = False,
+) -> Path:
+    """Composite a centered rounded-pill quote onto a base image.
+
+    Alternative to `render_ad_overlay()` for collage / Oddbird-style layouts
+    where the text floats in the middle of the image rather than sitting in
+    a bottom wash. Pill background uses `preset.wash_color` (cream), text
+    uses `preset.text_color`. No CTA pill — caller composes the conversion
+    layer separately if needed.
+
+    `position` is the vertical center of the pill as a fraction of image
+    height (0.5 = middle, 0.4 = upper-middle, 0.6 = lower-middle).
+    """
+    base_image = Path(base_image)
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    img = Image.open(base_image).convert("RGB")
+    W, H = img.size
+
+    canvas = img.convert("RGBA")
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+
+    text = _normalize_quote(quote) if use_quotes else quote.strip()
+    quote_size = _scale(W, 0.032)
+    quote_font = _load_font(preset.font_regular, quote_size)
+
+    max_text_width = int(W * 0.74)
+    lines = _wrap_text(text, quote_font, max_text_width, draw)
+    line_height = int(quote_size * 1.32)
+
+    # Measure widest line for pill width
+    widest = 0
+    for ln in lines:
+        bbox = draw.textbbox((0, 0), ln, font=quote_font)
+        widest = max(widest, bbox[2] - bbox[0])
+
+    pad_x = int(quote_size * 1.1)
+    pad_y = int(quote_size * 0.8)
+    pill_w = widest + 2 * pad_x
+    pill_h = line_height * len(lines) + 2 * pad_y
+    pill_x = (W - pill_w) // 2
+    pill_y = int(H * position) - pill_h // 2
+
+    # Soft drop shadow
+    shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(shadow)
+    sd.rounded_rectangle(
+        (pill_x + 3, pill_y + 6, pill_x + pill_w + 3, pill_y + pill_h + 6),
+        radius=pill_h // 2,
+        fill=(0, 0, 0, 80),
+    )
+    from PIL import ImageFilter as _IF
+    shadow = shadow.filter(_IF.GaussianBlur(radius=8))
+    overlay.alpha_composite(shadow)
+
+    # Pill body
+    draw = ImageDraw.Draw(overlay)
+    draw.rounded_rectangle(
+        (pill_x, pill_y, pill_x + pill_w, pill_y + pill_h),
+        radius=pill_h // 2,
+        fill=(*preset.wash_color, 255),
+    )
+
+    # Text lines, centered horizontally per line
+    ty = pill_y + pad_y
+    for ln in lines:
+        bbox = draw.textbbox((0, 0), ln, font=quote_font)
+        lw = bbox[2] - bbox[0]
+        lx = (W - lw) // 2 - bbox[0]
+        draw.text((lx, ty - bbox[1]), ln, font=quote_font, fill=(*preset.text_color, 255))
+        ty += line_height
+
+    final = Image.alpha_composite(canvas, overlay).convert("RGB")
+    final.save(out_path, format="PNG", optimize=True)
+    return out_path
 
 
 def _wrap_text(

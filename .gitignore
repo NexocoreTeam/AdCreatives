@@ -28,6 +28,7 @@ clients/*/
 !clients/olipop/
 !clients/sbg-co/
 !clients/sbg-co-fresh/
+!clients/savedbygrace/
 !clients/secondkind/
 !clients/secondkind-bold/
 
@@ -66,6 +67,7 @@ clients/*/reference_ads/raw/
 # explicitly. Add new project skills here when you create them.
 !.claude/skills/voice/
 !.claude/skills/creative-variant-explorer/
+!.claude/skills/higgsfield-ad-production/
 skills-lock.json
 
 # One-off backup tarballs of `ai-ads/` outputs. `ai-ads/` itself is
