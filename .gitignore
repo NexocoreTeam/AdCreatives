@@ -68,6 +68,7 @@ clients/*/reference_ads/raw/
 !.claude/skills/voice/
 !.claude/skills/creative-variant-explorer/
 !.claude/skills/higgsfield-ad-production/
+!.claude/skills/ai-video-ad/
 skills-lock.json
 
 # One-off backup tarballs of `ai-ads/` outputs. `ai-ads/` itself is
