@@ -53,6 +53,31 @@
 - **Graduation:** a winning line becomes (a) the opener of a love letter, (b) a creator brief one-pager, and/or (c) a paid hook iteration with a new face/background.
 - Kill stale lines without ceremony; harvest fresh constructions from the feed each batch.
 
+## Batch 2 (2026-06-11)
+
+### Single candid clip
+
+15. **"Booked the window seat. On purpose."** Danielle / Paula. Airplane window or packing a carry-on. (Aisle seat = bathroom access; the window seat is the flex.)
+16. **"Picked the restaurant for the menu. Not the exits."** Danielle. Walking in, scanning the menu happily.
+17. **"Three courses. Zero contingency plans."** Danielle / Paula. Mid-dinner candid, relaxed.
+18. **"RSVP'd yes. Didn't even ask what's being served."** Danielle / Paula. Wedding invite in hand or getting ready. Seasonal: June wedding season.
+19. **"Second coffee. Zero negotiations."** Danielle. Desk, pouring or sipping.
+20. **"Out of office: vacation. Not the other thing."** Isaac. Typing an OOO message, dry expression.
+21. **"My supplement drawer closes now."** Brandon. Literally closing an overstuffed drawer; the motion is the joke.
+22. **"Finished a sentence today. The same one I started."** Natalie-safe (cognition only, zero body). Kitchen or desk, small private smile.
+23. **"Survived June without a single ginger shot."** Second-enemy flavor (bold bet 2). Walking past the juice counter or closing the fridge.
+
+### Anchor + variation
+
+24. **"Wore the linen pants to dinner. The ones with the zipper."** Paula. Two cuts: zipper pants on, elastic-waist pair left on the bed.
+25. **"January: emergency kit. June: forgot it exists."** Danielle. Same tote bag, two date-stamped cuts: kit packed, then bag without it.
+
+### POV register (problem-side, valence test)
+
+26. **"POV: it's 7:02pm and you already know."** Danielle / Paula. Glancing at the time mid-dinner. Pair against a flex line in the same week to test which valence pulls harder.
+
+Bonus micro-line for the restaurant shoot (16/17): **"Allergies? No. It's complicated."** over the ordering moment.
+
 ## Results log
 
 (empty; first batch pending operator pick)
