@@ -1,0 +1,40 @@
+brief_id: matrix-pain-002
+client: secondkind
+product: Gut Balance
+awareness_level: problem_aware
+framework: pas
+angle: No live bacteria. No adjustment period. No aftermath.
+hook: No live bacteria. No adjustment period. No aftermath.
+hook_type: ''
+slot: null
+hook_source: matrix:pain_vs_competitor:pain-002
+hook_tactic: ''
+persona: Done-Everything Danielle
+creative_mechanic: ''
+visual_format: us-vs-them
+visual_format_alternatives:
+- headline
+persona_traits: "Woman, 30\u201344, suburban or urban, household income $90K\u2013\
+  $160K, college-educated, likely married with one or two young children or a demanding\
+  \ career, disposable income allocated toward wellness"
+pain_point: "Severe adverse GI reactions from Seed's live bacteria \u2014 constipation,\
+  \ pain, and prolonged recovery that users describe as 'messing them up so bad'"
+benefit_callouts:
+- "BiomeBalance\u2122 contains no live bacteria \u2014 the ingredient class most associated\
+  \ with GI upset, adjustment-period distress, and microbiome disruption"
+- No organisms need to colonize, so there is no adjustment period and no disruption
+  mechanism.
+cta: Shop Now
+body_copy: "BiomeBalance\u2122 contains no live bacteria \u2014 the ingredient class\
+  \ most associated with GI upset, adjustment-period distress, and microbiome disruption.\
+  \ No organisms need to colonize, so there is no adjustment period and no disruption\
+  \ mechanism."
+visual_direction: "Clean white studio shot of Gut Balance capsule beside the headline\
+  \ 'No bacteria. No adjustment period. No aftermath.' Small subline: 'BiomeBalance\u2122\
+  \ delivers what bacteria would produce \u2014 directly.' Minimal, clinical art direction.\
+  \ No lifestyle props."
+tone_override: ''
+target_platform: meta
+source_insight: creative_matrix:pain_vs_competitor:pain-002
+campaign_name: ''
+trending_format_recommendations: []

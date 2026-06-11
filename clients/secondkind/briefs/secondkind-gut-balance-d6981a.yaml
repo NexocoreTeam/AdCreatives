@@ -86,9 +86,9 @@ trending_format_recommendations:
     if the list feels inflated.
 - format_id: tiktok-short-pov
   name: TikTok Short / POV
-  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
-    of B-roll. Fastest format to test. Borrows directly from what's trending in the
-    operator's own reels feed at time of creation.
+  summary: '(Updated 2026-06-11) 1-2 line meme-native identity flex or POV over a candid
+    clip of a real person in a mundane moment. Messaging test bed; winners graduate.
+    Spec: trending_formats.yaml; line bank: clients/secondkind-bold/copy/tiktok-pov-shorts.md.'
   format_type: video
   production_complexity: low
   rank: 3

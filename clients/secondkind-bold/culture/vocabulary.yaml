@@ -1,0 +1,147 @@
+# Living lexicon for SecondKind Bold. Layer 3 artifact.
+# Rules:
+#   - Every entry has added / expires / confidence / source. No undated entries.
+#   - Entries auto-expire: do not use past `expires` unless re-observed (then bump dates).
+#   - Surface tiers: T1 comments, T2 organic, T3 paid organic-style, T4 paid hooks/statics.
+#   - This file wins register conflicts on T1-T2. It never overrides Layer 0 (legal) or Layer 1 (identity).
+# Maintained by the culture-pulse skill. Manual adds welcome: copy an entry shape.
+
+meta:
+  client: secondkind-bold
+  updated: 2026-06-10
+  default_ttl_days: 60
+  review_cadence: biweekly
+
+constructions:  # sentence shapes; durable, borrow freely
+  - phrase: "this is a love letter to [the girls who...]"
+    use: opener callout, T2-T3
+    confidence: high
+    source: love-letter format native phrasing, validated in repo worked example
+    added: 2026-06-10
+    expires: 2026-10-10
+  - phrase: "POV: [scenario]"
+    use: short-form opener, T2
+    confidence: high
+    source: trending format library (tiktok-short-pov), still live
+    added: 2026-06-10
+    expires: 2026-10-10
+  - phrase: "be honest: [confession question]"
+    use: comment-bait captions, T1-T2 only (questions banned on T4)
+    confidence: medium
+    source: comment-density mechanics research 2026-06
+    added: 2026-06-10
+    expires: 2026-08-10
+  - phrase: "the math isn't mathing"
+    use: receipts register bridge ("you did the math on your probiotic. it wasn't mathing.") T1-T2
+    confidence: medium
+    source: durable millennial/gen-z phrase; fits brand's "here's the math" doctrine
+    added: 2026-06-10
+    expires: 2026-08-10
+  - phrase: "you know the one"
+    use: knowing-fragment punch line after a specific detail, T1-T3
+    confidence: high
+    source: group-chat register, repo love letters
+    added: 2026-06-10
+    expires: 2026-12-10
+  - phrase: "nobody talks about [the specific thing]"
+    use: confession opener, T2; pairs with unspoken-truths bank
+    confidence: high
+    source: guttok confession-content convention
+    added: 2026-06-10
+    expires: 2026-10-10
+
+identity_badges:  # in-group phrases; pride frame, never shame
+  - phrase: "hot girls [have stomach issues / know which bathrooms to trust]"
+    use: T1-T2, Danielle + Paula only; NEVER Natalie
+    confidence: high
+    source: "#hotgirlswithIBS 110M+ views; durable lineage since 2022, still live"
+    added: 2026-06-10
+    expires: 2026-12-10
+  - phrase: "the girlies"
+    use: T1 comment replies, light
+    confidence: medium
+    source: VoC + comment-register research
+    added: 2026-06-10
+    expires: 2026-09-10
+  - phrase: "in shambles"
+    use: T1-T2 ("gut in shambles szn"), self-deprecating
+    confidence: medium
+    source: own VoC corpus ("szn 1 of bloated in shambles")
+    added: 2026-06-10
+    expires: 2026-09-10
+  - phrase: "heavy on the [X]"
+    use: T1-T2 emphasis ("heavy on the not being bloated")
+    confidence: medium
+    source: own VoC corpus, verbatim customer line
+    added: 2026-06-10
+    expires: 2026-09-10
+
+enemy_props:  # category props the culture already mocks; quote the prop, never a brand name
+  - phrase: "internal shower"
+    use: second-enemy indictment, T1-T2 ("no internal shower is coming to save you")
+    confidence: high
+    source: guttok debunk-era research; widely mocked hack
+    added: 2026-06-10
+    expires: 2026-10-10
+  - phrase: "ginger shots / olive oil shots"
+    use: hack-economy mockery, T1-T2
+    confidence: high
+    source: guttok debunk content
+    added: 2026-06-10
+    expires: 2026-10-10
+  - phrase: "53 billion CFUs"
+    use: CFU-theater mockery, all tiers (already core doctrine)
+    confidence: high
+    source: existing brand receipts + culture fluency
+    added: 2026-06-10
+    expires: 2026-12-10
+
+emoji:  # T1-T2 TikTok surfaces only; Meta caption palette unchanged in ad-copy skill
+  - emoji: "💀"
+    meaning: too real / dying laughing
+    use: T1 replies, T2 captions, never T4
+    confidence: high
+    added: 2026-06-10
+    expires: 2026-12-10
+  - emoji: "😭"
+    meaning: dramatic relatable
+    use: T1-T2
+    confidence: high
+    added: 2026-06-10
+    expires: 2026-12-10
+  - emoji: "🙏"
+    meaning: please / mercy
+    use: T1 sparingly
+    confidence: medium
+    added: 2026-06-10
+    expires: 2026-09-10
+
+moods:  # ambient energies to ride; check pulse for freshness
+  - mood: resignation-core ("oh well, whatever, nevermind")
+    vehicle: Nirvana-resurgence carousels + sounds
+    sk_fit: 1:1 with LV/LI personas; open in resignation, land the vindication turn
+    confidence: high
+    added: 2026-06-10
+    expires: 2026-07-01   # sound-dependent, dies fast
+  - mood: debunk-era skepticism (audit the hacks)
+    vehicle: dietitian-style "what's hype vs what's real" content
+    sk_fit: our receipts ARE the audit; durable register, not a trend
+    confidence: high
+    added: 2026-06-10
+    expires: 2026-12-10
+  - mood: anti-ad self-awareness ("this is an ad, the number is still true")
+    vehicle: honesty-as-format
+    sk_fit: high for skeptic cohort
+    confidence: medium
+    added: 2026-06-10
+    expires: 2026-10-10
+
+do_not_borrow:  # culture that exists but is wrong for a 28-50 buyer or for us
+  - phrase: "skibidi / brainrot vocabulary"
+    why: gen-alpha register; reads as costume on a 28-50 brand
+  - phrase: "delulu"
+    why: expiring + teen-coded; specificity beats slang for this buyer
+  - phrase: mainstream trend sounds older than 48h
+    why: a third of users find late brand trend-jumping embarrassing; brat-summer lesson
+  - phrase: sincere wellness-speak (journey, healing era, gut reset)
+    why: Layer 2 ban holds; ironic quotation only

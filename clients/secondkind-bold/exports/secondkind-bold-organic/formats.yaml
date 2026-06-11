@@ -1,0 +1,871 @@
+# Organic Formats Catalog
+# 80 organic content frames from Sarah Levinger's TV-show-style framework.
+#
+# Scope: ORGANIC ONLY. Paid ad formats (Dara Denny's 8) are handled by the
+# creative-matrix pipeline, NOT here. Do not add paid-execution formats to
+# this file.
+#
+# Schema per entry:
+# id kebab-case unique identifier
+# name display name
+# category one of 8: game-competition, mystery-investigation, comedy-sitcom,
+# interview-talk-show, educational-how-to, reality-social-experiment,
+# lifestyle-documentary, character-story-driven
+# source sarah_levinger (sole source for now)
+# description one-line description of the format
+# funnel_stages list of: trigger, exploration, consideration
+# (Levinger's organic axis. Purchase is paid-only and lives outside this skill.)
+# production_lift low | medium | high
+# episodic is this a recurring-series format?
+# cast_required does this need recurring on-screen characters?
+# notes optional execution caveats
+
+formats:
+
+ # ==========================================================================
+ # GAME & COMPETITION SHOWS (10 formats)
+ # ==========================================================================
+
+ - id: price-is-right
+ name: Price is Right
+ category: game-competition
+ source: sarah_levinger
+ description: Guess the value of things in your niche. Host asks, audience plays.
+ funnel_stages: [trigger, exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+ notes: Works best when price perception in the niche is non-obvious.
+
+ - id: blind-taste-test
+ name: Blind taste test / product ranking
+ category: game-competition
+ source: sarah_levinger
+ description: Rate competitors head-to-head on neutral criteria.
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+ notes: Check brand voice rules before naming competitors.
+
+ - id: trivia-challenge
+ name: Trivia challenge
+ category: game-competition
+ source: sarah_levinger
+ description: How much do you really know about [topic]?
+ funnel_stages: [trigger, exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: beat-the-clock
+ name: Beat the clock
+ category: game-competition
+ source: sarah_levinger
+ description: Can you do X in 60 seconds?
+ funnel_stages: [trigger]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: hot-or-not
+ name: Hot or Not
+ category: game-competition
+ source: sarah_levinger
+ description: Rapid-fire rating of products, trends, or ideas.
+ funnel_stages: [exploration, consideration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: the-challenge
+ name: The challenge
+ category: game-competition
+ source: sarah_levinger
+ description: Extreme version of something in your niche.
+ funnel_stages: [trigger]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: bracket-tournament
+ name: Bracket tournament
+ category: game-competition
+ source: sarah_levinger
+ description: Community votes to crown a winner.
+ funnel_stages: [trigger, exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+ notes: Multi-week arc builds tune-in habit.
+
+ - id: myth-vs-fact
+ name: Myth vs. fact
+ category: game-competition
+ source: sarah_levinger
+ description: Rapid-fire true/false on industry beliefs.
+ funnel_stages: [exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: would-you-rather
+ name: Would you rather
+ category: game-competition
+ source: sarah_levinger
+ description: Two options, one winner, audience decides.
+ funnel_stages: [trigger]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: leaderboard
+ name: Leaderboard
+ category: game-competition
+ source: sarah_levinger
+ description: Weekly rankings of something trackable.
+ funnel_stages: [exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+ notes: Strong for niches with quantifiable metrics. Builds investment.
+
+ # ==========================================================================
+ # MYSTERY & INVESTIGATION SHOWS (10 formats)
+ # ==========================================================================
+
+ - id: cold-case
+ name: Cold case
+ category: mystery-investigation
+ source: sarah_levinger
+ description: Why did this brand / trend / product die?
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: ingredient-detective
+ name: Ingredient detective
+ category: mystery-investigation
+ source: sarah_levinger
+ description: What's actually in this product?
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+ notes: Premium fit for consumables, supplements, food, skincare.
+
+ - id: the-expose
+ name: The expose
+ category: mystery-investigation
+ source: sarah_levinger
+ description: We tested the claims on the label.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: myth-busting
+ name: Myth busting
+ category: mystery-investigation
+ source: sarah_levinger
+ description: Does this really work?
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: where-does-it-come-from
+ name: Where does it come from?
+ category: mystery-investigation
+ source: sarah_levinger
+ description: Origin story of your ingredient / craft.
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: the-audit
+ name: The audit
+ category: mystery-investigation
+ source: sarah_levinger
+ description: Grading a brand's claims against the evidence.
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: who-made-this
+ name: Who made this?
+ category: mystery-investigation
+ source: sarah_levinger
+ description: Behind the scenes of how a product gets made.
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: the-investigation
+ name: The investigation
+ category: mystery-investigation
+ source: sarah_levinger
+ description: Why is everyone obsessed with X right now?
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: fact-check
+ name: Fact check
+ category: mystery-investigation
+ source: sarah_levinger
+ description: Influencer claims vs. reality.
+ funnel_stages: [exploration, consideration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: the-breakdown
+ name: The breakdown
+ category: mystery-investigation
+ source: sarah_levinger
+ description: We read the fine print so you don't have to.
+ funnel_stages: [exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ # ==========================================================================
+ # COMEDY & SITCOM FORMATS (10 formats)
+ # ==========================================================================
+
+ - id: two-friends-argue
+ name: Two friends argue about [topic]
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Recurring debate format with two characters who have opposing takes.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+ notes: Strong recall through recurring duo. Best for niches with internal debates.
+
+ - id: things-only-niche-people-understand
+ name: Things only [niche] people understand
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Relatable list comedy, niche-identity humor.
+ funnel_stages: [trigger]
+ production_lift: low
+ episodic: true
+ cast_required: false
+ notes: Triggers strong "this is me" reactions. Hyper-targeted identity content.
+
+ - id: when-you-try-to-explain
+ name: When you try to explain [hobby] to your family
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Fish-out-of-water family comedy.
+ funnel_stages: [trigger]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: pov-just-got-into
+ name: POV, you just got into [niche]
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Fish-out-of-water comedy from a beginner's perspective.
+ funnel_stages: [trigger, exploration]
+ production_lift: low
+ episodic: true
+ cast_required: true
+ notes: Lowers barrier to entry. Very relatable for new audiences.
+
+ - id: the-type-of-person-who
+ name: The type of person who
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Character archetypes in your niche.
+ funnel_stages: [trigger]
+ production_lift: low
+ episodic: true
+ cast_required: true
+
+ - id: red-flags
+ name: Red flags in [your industry]
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Comedy roast of bad habits in your space.
+ funnel_stages: [trigger, exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: honest-review
+ name: Honest review
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Brutally real take with zero filter.
+ funnel_stages: [consideration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: wrong-way-vs-right-way
+ name: The wrong way vs. the right way
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Tutorial flipped into comedy.
+ funnel_stages: [exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: things-i-wish-i-knew
+ name: Things I wish I knew before I started
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Regret comedy from someone with experience.
+ funnel_stages: [exploration]
+ production_lift: low
+ episodic: true
+ cast_required: true
+
+ - id: expectations-vs-reality
+ name: Expectations vs. reality
+ category: comedy-sitcom
+ source: sarah_levinger
+ description: Classic format, niche-specific.
+ funnel_stages: [trigger, exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ # ==========================================================================
+ # INTERVIEW & TALK SHOW FORMATS (10 formats)
+ # ==========================================================================
+
+ - id: street-interview
+ name: Street interview
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Asking strangers one question about your niche.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+ notes: Pairs the question (frame) with public reactions (recall).
+
+ - id: hot-takes
+ name: Hot takes
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Guests share one unpopular opinion, you react.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: ten-questions
+ name: 10 questions
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Same format, different guest every time.
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+ notes: Host is the recurring cast; guests rotate.
+
+ - id: the-debrief
+ name: The debrief
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Breaking down a recent event or trend live.
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: expert-vs-amateur
+ name: Expert vs. amateur
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Same question, two very different answers.
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: roundtable
+ name: Roundtable
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Three people, one topic, no wrong answers.
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: the-confession
+ name: The confession
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Guests admit something embarrassing about their habits.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: rate-my-x
+ name: Rate my [X]
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Audience submits, panel judges.
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: change-my-mind
+ name: Change my mind
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Host holds a position, guests try to shift it.
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: where-are-they-now
+ name: Where are they now?
+ category: interview-talk-show
+ source: sarah_levinger
+ description: Revisiting a past trend, product, or moment.
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ # ==========================================================================
+ # EDUCATIONAL & HOW-TO SERIES (10 formats)
+ # ==========================================================================
+
+ - id: 101-series
+ name: 101 series
+ category: educational-how-to
+ source: sarah_levinger
+ description: The absolute beginner's guide to [topic].
+ funnel_stages: [exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: advanced-class
+ name: Advanced class
+ category: educational-how-to
+ source: sarah_levinger
+ description: What the pros know that beginners don't.
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: the-glossary
+ name: The glossary
+ category: educational-how-to
+ source: sarah_levinger
+ description: One term explained per episode.
+ funnel_stages: [exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: tier-list
+ name: Tier list
+ category: educational-how-to
+ source: sarah_levinger
+ description: Ranking everything in your niche from worst to best.
+ funnel_stages: [exploration, consideration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: the-checklist
+ name: The checklist
+ category: educational-how-to
+ source: sarah_levinger
+ description: X things you need before you do Y.
+ funnel_stages: [exploration, consideration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: side-by-side
+ name: Side by side comparison
+ category: educational-how-to
+ source: sarah_levinger
+ description: Product A vs. product B, honestly.
+ funnel_stages: [consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: step-by-step-build
+ name: Step-by-step build
+ category: educational-how-to
+ source: sarah_levinger
+ description: Watch me do this from scratch.
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: the-mistake-series
+ name: The mistake series
+ category: educational-how-to
+ source: sarah_levinger
+ description: One common mistake per episode, how to fix it.
+ funnel_stages: [exploration]
+ production_lift: low
+ episodic: true
+ cast_required: false
+
+ - id: ask-the-expert
+ name: Ask the expert
+ category: educational-how-to
+ source: sarah_levinger
+ description: Recurring Q&A with a different guest each time.
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: behind-the-science
+ name: Behind the science
+ category: educational-how-to
+ source: sarah_levinger
+ description: Why does this actually work?
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+ notes: Strong for science-backed brands, supplements, skincare, postbiotics.
+
+ # ==========================================================================
+ # REALITY & SOCIAL EXPERIMENT (10 formats)
+ # ==========================================================================
+
+ - id: the-swap
+ name: The swap
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: Two people from opposite ends of a niche trade lives.
+ funnel_stages: [trigger, exploration]
+ production_lift: high
+ episodic: true
+ cast_required: true
+
+ - id: the-budget-challenge
+ name: The budget challenge
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: Achieve X with only $Y.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: stranger-picks-my-x
+ name: Stranger picks my [product / outfit / meal]
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: Social randomness experiment.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: i-tried-x
+ name: I tried X so you don't have to
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: Sacrifice content, one person tests something hard.
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: living-by-the-rules
+ name: Living by the rules of [niche] for one week
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: Immersion experiment.
+ funnel_stages: [trigger, exploration]
+ production_lift: high
+ episodic: true
+ cast_required: true
+
+ - id: we-asked-100-people
+ name: We asked 100 people
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: Survey + reaction content.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: the-makeover
+ name: The makeover
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: Before/after transformation in your niche.
+ funnel_stages: [trigger, exploration]
+ production_lift: high
+ episodic: true
+ cast_required: true
+
+ - id: the-test-drive
+ name: The test drive
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: First-timer tries the thing for the first time.
+ funnel_stages: [consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: hidden-camera
+ name: Hidden camera style
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: Catching real reactions to your product.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: the-dropout
+ name: The dropout
+ category: reality-social-experiment
+ source: sarah_levinger
+ description: What happens when I quit [habit] cold turkey.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ # ==========================================================================
+ # LIFESTYLE & DOCUMENTARY (10 formats)
+ # ==========================================================================
+
+ - id: day-in-the-life
+ name: A day in the life
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: Follow a character through their full routine.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+ notes: Strong lifestyle-coding. Product is a prop, not the point.
+
+ - id: the-commute
+ name: The commute
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: What [type of person] thinks about on the way to work.
+ funnel_stages: [trigger]
+ production_lift: low
+ episodic: true
+ cast_required: true
+
+ - id: morning-ritual-series
+ name: Morning ritual series
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: How [persona] starts every single day.
+ funnel_stages: [trigger]
+ production_lift: low
+ episodic: true
+ cast_required: true
+ notes: Strongest format for consumable products that fit a daily ritual.
+
+ - id: travel-with-me
+ name: Travel with me
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: Experiencing your niche in a new city/country.
+ funnel_stages: [trigger]
+ production_lift: high
+ episodic: true
+ cast_required: true
+
+ - id: vlog-style-diary
+ name: Vlog-style diary
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: Real, unpolished, weekly check-in.
+ funnel_stages: [trigger]
+ production_lift: low
+ episodic: true
+ cast_required: true
+
+ - id: thirty-day-experiment
+ name: The 30-day experiment
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: What happens when I do X every day?
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: seasonal-guide
+ name: Seasonal guide
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: How [lifestyle] changes with the season.
+ funnel_stages: [exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: setup-tour
+ name: The setup tour
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: How [type of person] builds their perfect [space].
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ - id: meet-the-maker
+ name: Meet the maker
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: Mini-doc on the person behind the product.
+ funnel_stages: [exploration, consideration]
+ production_lift: high
+ episodic: false
+ cast_required: true
+
+ - id: this-is-what-x-people-do
+ name: This is what [X] people actually do
+ category: lifestyle-documentary
+ source: sarah_levinger
+ description: Demystifying a lifestyle.
+ funnel_stages: [trigger]
+ production_lift: medium
+ episodic: true
+ cast_required: false
+
+ # ==========================================================================
+ # CHARACTER & STORY-DRIVEN (10 formats)
+ # ==========================================================================
+
+ - id: two-recurring-characters
+ name: Two recurring characters navigating life together
+ category: character-story-driven
+ source: sarah_levinger
+ description: Sitcom-style duo, niche-specific scenarios.
+ funnel_stages: [trigger]
+ production_lift: high
+ episodic: true
+ cast_required: true
+ notes: Strongest recall format. Best for brands with budget to commit to a long arc.
+
+ - id: founder-diary
+ name: Founder diary
+ category: character-story-driven
+ source: sarah_levinger
+ description: The real, honest build of a brand in public.
+ funnel_stages: [trigger, exploration]
+ production_lift: low
+ episodic: true
+ cast_required: true
+ notes: Founder is the cast. Builds trust + recall. Heavy ROI for founder-led brands.
+
+ - id: the-underdog
+ name: The underdog
+ category: character-story-driven
+ source: sarah_levinger
+ description: Following someone's journey from zero.
+ funnel_stages: [trigger]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: character-in-a-situation
+ name: Character in a situation
+ category: character-story-driven
+ source: sarah_levinger
+ description: Same person, new scenario each week.
+ funnel_stages: [trigger]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: mentor-and-student
+ name: The mentor & the student
+ category: character-story-driven
+ source: sarah_levinger
+ description: Experience gap creates tension.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: the-convert
+ name: The convert
+ category: character-story-driven
+ source: sarah_levinger
+ description: Someone discovering your niche for the first time.
+ funnel_stages: [trigger, exploration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: he-said-she-said
+ name: He said / she said
+ category: character-story-driven
+ source: sarah_levinger
+ description: Two perspectives on the same topic.
+ funnel_stages: [trigger]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: the-skeptic
+ name: The skeptic
+ category: character-story-driven
+ source: sarah_levinger
+ description: Someone who doesn't believe, slowly being convinced.
+ funnel_stages: [exploration, consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+ notes: Built-in objection handling through character arc.
+
+ - id: before-and-after
+ name: Before & after
+ category: character-story-driven
+ source: sarah_levinger
+ description: Transformation arc with a recurring subject.
+ funnel_stages: [consideration]
+ production_lift: medium
+ episodic: true
+ cast_required: true
+
+ - id: the-community
+ name: The community
+ category: character-story-driven
+ source: sarah_levinger
+ description: Rotating cast all connected by one shared interest.
+ funnel_stages: [trigger]
+ production_lift: high
+ episodic: true
+ cast_required: true

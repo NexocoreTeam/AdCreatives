@@ -1,0 +1,282 @@
+# Production Recipes Catalog
+# 8 AI/asset-only production methods for organic content, no human shoot required.
+#
+# Scope: ORGANIC ONLY. Designed for the social-media person operating standalone with
+# AI tools + existing UGC library + matrix briefs. Paired with Sarah's 80 frames
+# (formats.yaml) via the frame × recipe model, see SKILL.md.
+#
+# Schema per entry:
+# id kebab-case unique id
+# name display name
+# source dara_denny | adapted_from_dara | original
+# description one-line description
+# output_format video | image | carousel | slideshow | video_or_image | image_or_carousel
+# platforms list of: tiktok, instagram, instagram_reels, instagram_carousel,
+# instagram_single, tiktok_slideshow
+# production_lift very_low | low | medium
+# brand_intro_delay none | mid | mid_to_late | late | late_or_none
+# copy_length constraint description
+# assets_primary ideal asset source
+# assets_fallback backup plan if primary unavailable (option-A conditional fallback)
+# skill_level vanilla | special_vfx
+# best_for matrix-position conditions where this recipe shines
+# pairs_with_frames frame IDs from formats.yaml that this recipe executes well
+# notes execution caveats and brand-intro rules
+
+recipes:
+
+ - id: text-overlay-monologue
+ name: TikTok Love Letter (organic)
+ source: operator_examples_2026-06-11 (redefined; was dara_denny long-monologue version)
+ description: Short, warm, educational direct-address piece. Callout + one hedged surprising fact, 2-3 emoji-led "X supports Y" lines, product named once + effortless close. Product lands in the final beat (~60-75% in).
+ output_format: video
+ platforms: [tiktok, instagram_reels]
+ production_lift: low
+ brand_intro_delay: late
+ copy_length: 35-75 words (3 beats, 20-40 seconds)
+ assets_primary: AI B-roll or existing UGC lifestyle footage (no creator audio, runs silent under text); also works as VO via the AI UGC avatar
+ assets_fallback: stock footage (Storyblocks, Pexels) of morning routine / domestic moments
+ skill_level: vanilla
+ best_for:
+ - unaware / problem_aware personas who respond to a surprising fact
+ - identity-badge opens ("hot girls...") for Danielle and Paula
+ - angles with a clean ingredient-to-function education beat (the three compounds)
+ pairs_with_frames: [the-expose, the-confession, the-skeptic, things-i-wish-i-knew, the-investigation]
+ notes: |
+ REDEFINED 2026-06-11 from operator-approved examples (see clients/secondkind-bold/copy/tiktok-love-letters-v3.md
+ for the spec, the reference examples, and 8 worked scripts). Tone is light, warm, educational:
+ no pain dwelling, no enemy prosecution, no guarantee, no hard CTA, at most one wry aside.
+ Hedge the science ("around 70%", "studied over 84 days"); structure-function phrasing only.
+ The text is the hero; footage stays quiet and domestic, never dramatic wellness B-roll.
+ The OLD long-monologue form (150-300 word confessional) is NOT this recipe anymore.
+
+ - id: text-overlay-pov
+ name: TikTok POV Short (organic)
+ source: operator_examples_2026-06-11 (refined; dara_denny lineage)
+ description: 1-2 lines TOPS over a candid clip of a real person in a mundane moment (desk, Zoom call). Line is a meme-native identity flex / after-state joke borrowed from live feed formats, or a POV open. Fastest format to ship; the messaging test bed.
+ output_format: video
+ platforms: [tiktok, instagram_reels]
+ production_lift: very_low
+ brand_intro_delay: none
+ copy_length: 1-2 lines (roughly 12 words max)
+ assets_primary: candid clip of a real person with natural motion (UGC, AI UGC avatar) or anchor + variation cuts
+ assets_fallback: stock footage of desk work / getting ready / morning routine (must have human motion)
+ skill_level: vanilla
+ best_for:
+ - rapid line/messaging testing before investing in creator content (winners graduate)
+ - after-state identity flexes (the thriving version of the persona)
+ - POV pain opens that compress into one sentence
+ - daily-cadence fill
+ pairs_with_frames: [things-only-niche-people-understand, pov-just-got-into, expectations-vs-reality, red-flags, the-confession]
+ notes: |
+ REFINED 2026-06-11 from operator source examples ("Healed so hard I'm almost as weird
+ as I was in middle school", "Serving looks and spreadsheets"). Harvest step: before
+ writing new lines, borrow caption formats currently surfacing in the operator's own
+ feed. The line NEVER makes a product or health claim; it carries a vibe, the person is
+ thriving. Visual: single candid clip with natural motion OR locked-camera anchor +
+ variation (two outfits = two days). Never a dead static clip. SK Bold line bank:
+ clients/secondkind-bold/copy/tiktok-pov-shorts.md. Avoid "healed" in our lines
+ (FDA-adjacent for a supplement advertiser); use "Growth." / "Plot twist:" /
+ "Character development:" constructions instead.
+
+ - id: david-goliath-no-intro
+ name: David & Goliath (organic, brand-late)
+ source: dara_denny
+ description: Call out an enemy (industry, scam, broken belief) and contrast with the differentiator. Brand stays invisible until ~70% in.
+ output_format: video_or_image
+ platforms: [tiktok, instagram_reels, instagram_carousel]
+ production_lift: medium
+ brand_intro_delay: late
+ copy_length: 60-90s VO script OR 5-7 carousel slides
+ assets_primary: existing founder / anti-category footage already in the agency library
+ assets_fallback: static image carousel with editorial type treatment, no footage required
+ skill_level: vanilla
+ best_for:
+ - solution_aware or product_aware personas (they need to understand what they're rejecting)
+ - matrix positions with explicit competitive-pain or category-failure framing
+ - briefs where competitive-gaps.md documents category problems
+ pairs_with_frames: [the-expose, the-audit, the-breakdown, myth-busting, the-investigation, fact-check]
+ notes: |
+ The Goliath must be a BROKEN BELIEF or CATEGORY PROBLEM, never a named competitor
+ (legal risk + drifts into brand-bashing). Brand stays invisible until the new model
+ is the only remaining option. Conditional output: if founder footage exists, video.
+ If not, default to static carousel.
+
+ - id: pixar-ai-slop
+ name: Pixar AI Slop (organic)
+ source: dara_denny
+ description: Outrageous AI-animated character ad. Visibly AI, never trying to look real. Maximum cringe permitted because audience knows it's not a person.
+ output_format: video_or_image
+ platforms: [tiktok, instagram_reels]
+ production_lift: medium
+ brand_intro_delay: mid
+ copy_length: 30-90s VO OR 4-6 slide static set
+ assets_primary: AI animation (Higgsfield, Runway, Pika), VA must have video skills
+ assets_fallback: AI image series (claymation-style stills via Midjourney/Higgsfield) for slideshow
+ skill_level: special_vfx
+ best_for:
+ - personification of body parts, conditions, or category villains (the gut, the bloat, the probiotic that didn't survive)
+ - high-emotion pain points where literal UGC would feel preachy
+ - moments where humor unlocks an objection earnest copy can't
+ pairs_with_frames: [character-in-a-situation, two-recurring-characters, the-type-of-person-who, expectations-vs-reality]
+ notes: |
+ Permission granted to be cringe because the audience can see it's AI. Outrageous beats
+ subtle. VA learns this once, then reuses the character set for an ongoing series.
+ Flag the special_vfx requirement when recommending, don't recommend if VA can't make it yet.
+
+ - id: not-x-objection
+ name: We're not [X]
+ source: adapted_from_dara
+ description: Brand-positioning objection-handling. Lead with what the brand is NOT, justify with proof.
+ output_format: image_or_short_video
+ platforms: [instagram, tiktok]
+ production_lift: very_low
+ brand_intro_delay: none
+ copy_length: 1 headline + 2-3 proof lines (≤30 words total)
+ assets_primary: single editorial product image (AI-generated or existing) with brand-aligned type treatment
+ assets_fallback: text-only image card if no product photo available
+ skill_level: vanilla
+ best_for:
+ - solution_aware or product_aware personas
+ - brands with a clear category they're rejecting (e.g. postbiotics vs probiotics)
+ - matrix positions where the differentiator IS the entire pitch
+ pairs_with_frames: [the-expose, honest-review, side-by-side]
+ notes: |
+ The X must be a CATEGORY, not a competitor. SecondKind canonical: "We're not probiotics."
+ Not "We're not Seed." Lead with the rejection, justify with mechanism in ≤3 lines.
+ Bottom-right brand mark, no CTA.
+
+ - id: ugc-cutup-voiceover
+ name: UGC Cut-up + AI Voiceover
+ source: original
+ description: Existing UGC footage stripped of audio, recut as B-roll, layered with AI voiceover delivering a new pain-point monologue.
+ output_format: video
+ platforms: [tiktok, instagram_reels]
+ production_lift: low
+ brand_intro_delay: mid_to_late
+ copy_length: 60-90s VO script
+ assets_primary: existing UGC library (the agency's licensed creator footage from prior campaigns)
+ assets_fallback: none, recipe requires existing UGC. If no UGC available, use text-overlay-monologue instead.
+ skill_level: vanilla
+ best_for:
+ - clients with a backlog of UGC from prior campaigns
+ - matrix positions different from what the UGC was originally produced for
+ - high-volume weekly cadence (recombines existing assets, infinite remix potential)
+ pairs_with_frames: [day-in-the-life, morning-ritual-series, this-is-what-x-people-do, the-confession, things-i-wish-i-knew]
+ notes: |
+ The creator becomes anonymous lifestyle B-roll. Voiceover delivers the new pain-point
+ monologue. Brand voice must match the AI VO tone. Stay away from the creator's face
+ for emotional beats, use hands/body/setting shots so the AI voice is uncontested
+ by the original talent's visible mouth movement.
+
+ - id: static-educational-card
+ name: Static Educational Card
+ source: original
+ description: Single image or carousel slides, text-on-image, educational/mythbusting tone. No CTA.
+ output_format: image_or_carousel
+ platforms: [instagram_carousel, instagram_single, tiktok_slideshow]
+ production_lift: very_low
+ brand_intro_delay: late_or_none
+ copy_length: per-slide headline ≤8 words, body 1-2 lines per slide
+ assets_primary: brand-aligned type treatment over solid background or editorial product image
+ assets_fallback: pure text cards (no imagery needed) with strong typography
+ skill_level: vanilla
+ best_for:
+ - problem_aware or unaware personas (educational entry point)
+ - mythbusting matrix positions
+ - science-backed brands with explicit mechanism claims
+ - building Sarah's rule 8 quality (this content also works as static paid ads)
+ pairs_with_frames: [myth-vs-fact, the-glossary, the-checklist, behind-the-science, 101-series, the-breakdown, fact-check, the-mistake-series, red-flags]
+ notes: |
+ Each slide makes ONE point. Carousel builds a narrative arc (problem → why → mechanism
+ → result → brand reveal on slide 5-6). Educational tone, not sales. Hits Sarah's rule 4
+ naturally because the format itself can't sell.
+
+ - id: native-ai-product-shot
+ name: Native AI Product Shot
+ source: original
+ description: AI-generated product photo styled as a phone snap in a real setting + native-looking caption.
+ output_format: image_or_carousel
+ platforms: [instagram, tiktok_slideshow]
+ production_lift: very_low
+ brand_intro_delay: none
+ copy_length: 1-line caption ≤15 words in native voice
+ assets_primary: AI image gen (Higgsfield Product Photoshoot, Nano Banana, Midjourney) with product reference
+ assets_fallback: existing product photography reshot in native settings via AI inpainting
+ skill_level: vanilla
+ best_for:
+ - product_aware personas who already know the brand
+ - matrix positions where lifestyle context sells the product
+ - feed-fill content between bigger campaign pieces
+ - building brand recall through visual repetition
+ pairs_with_frames: [day-in-the-life, morning-ritual-series, setup-tour, this-is-what-x-people-do]
+ notes: |
+ Image must look "found" not "art-directed." Lean into imperfection, natural light,
+ casual angle, real-world clutter at the edges. Caption should sound like a friend's
+ post, not a brand. No product hashtags, no CTA.
+
+ - id: ai-ugc-influencer
+ name: AI UGC Influencer
+ source: original
+ description: Hyperrealistic AI-generated UGC video. One canonical AI avatar speaks a script across multiple scenes with character consistency. Replaces hiring UGC creators.
+ output_format: video
+ platforms: [tiktok, instagram_reels]
+ production_lift: medium
+ brand_intro_delay: late
+ copy_length: 30-60 second script across 4-6 scenes
+ assets_primary: SK-Bold Canonical Avatar Soul ID (created once in Higgsfield) + Higgsfield Create Image + Higgsfield Supercomputer + ElevenLabs (voice) + CapCut (edit)
+ assets_fallback: None, recipe requires the 4-tool chain. If unavailable, use text-overlay-monologue (same script, no AI face).
+ skill_level: special_vfx
+ best_for:
+ - personas where UGC voice/style is the right register but existing UGC doesn't fit the new pain
+ - replacing hiring UGC creators when the matrix has many pain variants
+ - high-volume content cadence (once avatar is set, 1-2 videos/week sustainable)
+ - building brand recall through a consistent recurring "character"
+ pairs_with_frames: [the-confession, things-i-wish-i-knew, the-skeptic, the-convert, day-in-the-life, morning-ritual-series]
+ notes: |
+ Use the canonical avatar across ALL episodes for built-in recall (Sarah's rule 1).
+ Don't generate new avatars per video. Avatar lives at avatars/<brand>-canonical-avatar.png
+ in the preset folder.
+
+ Apply brand-intro-delay rule (~70% in), even though the recipe can produce paid ads,
+ the organic version requires the late brand reveal and no CTA.
+
+ Workflow: Higgsfield Soul ID (avatar, one-time) → Claude (script) → Higgsfield Create Image
+ (scenes via Soul ID) → Higgsfield Supercomputer (video with mouth sync) → ElevenLabs (voice)
+ → CapCut (edit + captions).
+
+ - id: engagement-prompt
+ name: Engagement Prompt
+ source: original
+ description: Image, carousel, or platform-native poll designed to drive comments, replies, or taps. Answer must be a number, single word, binary choice, or quick rank, never reflection or vulnerability.
+ output_format: image_or_carousel_or_native_poll
+ platforms: [instagram, instagram_story, tiktok, tiktok_story]
+ production_lift: very_low
+ brand_intro_delay: none
+ copy_length: 1-line prompt (≤15 words) OR multi-slide quiz (3-6 slides, ≤8 words per slide)
+ assets_primary: simple text-on-image with brand typography (IG) OR system font (TikTok native variant) OR platform-native poll sticker
+ assets_fallback: pure text card with brand typography (no imagery required)
+ skill_level: vanilla
+ best_for:
+ - weekly feed-rhythm break between value-delivery content
+ - activating dormant followers and surfacing VOC (comments ARE research)
+ - building social-proof momentum before a campaign push
+ - when engagement metrics are lagging
+ pairs_with_frames: [would-you-rather, hot-takes, the-confession, myth-vs-fact, tier-list, we-asked-100-people, rate-my-x]
+ notes: |
+ LOW-FRICTION RULE: every prompt must be answerable in <3 seconds with a number,
+ single word, this-or-that pick, or tap. If the answer requires reflection or
+ typing 10+ words, it's a journaling prompt, re-pick.
+
+ VOICE RULE: the brand voice lives in the ASSUMPTION baked into the question,
+ not in the difficulty. "How many probiotics have you tried?" assumes she's
+ tried multiple, that's SK-Bold edge at low friction.
+
+ PROHIBITED: never ask audiences to "name a brand", calling out competitors
+ is legal risk and drifts into brand-bashing. Stay on categories and behaviors.
+
+ CADENCE: 1× per week MAX as feed posts. 2-3× per week as stories. Too many
+ feed posts and the account starts feeling thirsty.
+
+ Brand-intro-delay rule doesn't apply because the brand voice IS the brand signal.
+ A small SK wordmark in the corner is enough.

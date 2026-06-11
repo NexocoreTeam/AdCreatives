@@ -1,0 +1,43 @@
+brief_id: matrix-pain-001
+client: secondkind
+product: Gut Balance
+awareness_level: solution_aware
+framework: pas
+angle: Probiotics ask you to wait while bacteria try to survive. Postbiotics skip
+  the line.
+hook: Probiotics ask you to wait while bacteria try to survive. Postbiotics skip the
+  line.
+hook_type: ''
+slot: null
+hook_source: matrix:pain_vs_competitor:pain-001
+hook_tactic: ''
+persona: Done-Everything Danielle
+creative_mechanic: ''
+visual_format: us-vs-them
+visual_format_alternatives:
+- facts-stats
+persona_traits: "Woman, 30\u201344, suburban or urban, household income $90K\u2013\
+  $160K, college-educated, likely married with one or two young children or a demanding\
+  \ career, disposable income allocated toward wellness"
+pain_point: "Zero noticeable results after two months of faithful use \u2014 buyers\
+  \ cancel Seed at $50/month having felt nothing change in energy, sleep, or digestion"
+benefit_callouts:
+- "BiomeBalance\u2122 delivers postbiotic compounds directly \u2014 the bioactive\
+  \ outputs bacteria produce \u2014 bypassing the viability and colonization steps\
+  \ that cause probiotic plateaus"
+- "Bereum\xAE showed measurable GI symptom improvement in an 84-day study; Totipro\xAE\
+  \ showed bowel regularity outcomes at 30 days."
+cta: Shop Now
+body_copy: "BiomeBalance\u2122 delivers postbiotic compounds directly \u2014 the bioactive\
+  \ outputs bacteria produce \u2014 bypassing the viability and colonization steps\
+  \ that cause probiotic plateaus. Bereum\xAE showed measurable GI symptom improvement\
+  \ in an 84-day study; Totipro\xAE showed bowel regularity outcomes at 30 days."
+visual_direction: 'Split-frame: left side shows an empty probiotic bottle with a calendar
+  marked off for 60 days, headline ''Still waiting.'' Right side shows Gut Balance
+  with ''30 days. Bowel regularity. Clinical data.'' Bold contrast typography on white
+  ground. SecondKind wordmark bottom right.'
+tone_override: ''
+target_platform: meta
+source_insight: creative_matrix:pain_vs_competitor:pain-001
+campaign_name: ''
+trending_format_recommendations: []

@@ -86,16 +86,28 @@ trending_formats:
   - id: tiktok-love-letter
     name: TikTok Love Letter
     summary: >-
-      Long text overlay on a short, low-lift video. Calls out the target
-      audience directly ("Listen, girls", "Hot girls", "POV: you"). Borrows
-      vernacular from viral TikTok comments. Creator content or iPhone
-      B-roll. The text monologue is the hero.
+      Short, warm, educational direct-address piece: 35-75 words, 3 beats,
+      20-40 seconds, delivered as text overlay or VO over simple B-roll /
+      creator content / AI UGC. Beat 1: affectionate audience callout plus
+      one surprising HEDGED fact or identity behavior ("guys, sperm
+      production takes around 74 days", "hot girls put collagen in their
+      morning coffee"). Beat 2: 2-3 emoji-led ingredient-level lines in
+      structure-function language ("X supports Y"), receipts said casually
+      ("studied over 84 days"). Beat 3: product named once plus an
+      effortless close ("easy add", "one pack a day") and an optional smart
+      kicker reframe ("the upgrade, but the foundation goes first"). Light,
+      positive energy: no pain dwelling, no enemy prosecution, no guarantee,
+      no hard CTA, at most one wry aside. REDEFINED 2026-06-11 from
+      operator-approved examples; previously misdocumented here as a long
+      150-300 word confessional monologue (that long form is a different
+      recipe, not this format).
     core_components:
-      - Audience callout opener (Listen, girls / POV / Hey)
-      - Long monologue-style text overlay
-      - Simple B-roll or creator content
-      - Match-the-feed visual aesthetic
-    hook_pattern: "Listen, [audience]: [insight that follows]..."
+      - Warm audience callout + one hedged surprising fact or identity behavior
+      - 2-3 emoji-led "[ingredient/mechanism] supports [function]" lines
+      - Product named once + effortless close ("easy add" / "two capsules a day")
+      - Optional kicker reframe (upgrade vs foundation)
+      - Match-the-feed visual aesthetic (B-roll, creator, or AI UGC VO)
+    hook_pattern: "[Girls/Guys/Hot girls/Ladies], [surprising hedged fact or identity behavior]."
     best_when:
       awareness_levels: [unaware, problem_aware]
       persona_types: [community-driven, identity-focused, gen-z, millennial]
@@ -103,21 +115,36 @@ trending_formats:
     format_type: video
     production_complexity: low
     example_brand: DTC brands testing rapid messaging variants
-    source: External trending performance video, 2026
+    source: Operator-approved examples 2026-06-11 (supersedes external trending-video description)
     status: Active
     date_added: 2026-05-15
 
   - id: tiktok-short-pov
     name: TikTok Short / POV
     summary: >-
-      Shorter cousin of the Love Letter. One or two lines of POV text on
-      top of B-roll. Fastest format to test. Borrows directly from what's
-      trending in the operator's own reels feed at time of creation.
+      One or two lines TOPS over a candid clip of a real person in a
+      mundane real moment (at a desk, on a Zoom call). Two line registers:
+      (a) a meme-native identity flex / after-state self-aware joke borrowed
+      from caption formats live in the operator's own feed right now
+      ("Healed so hard I'm almost as weird as I was in middle school",
+      "Serving looks and spreadsheets"), or (b) a POV scenario open
+      ("POV: ..."). The line never makes a product claim; the person is
+      thriving and the line carries the vibe. Brand presence stays minimal
+      (account, caption, product casually in frame). Visual: a single candid
+      clip with natural motion, or the stronger locked-camera variation cut
+      (same seat, two outfits = two days). Never a dead static clip.
+      Primary job: the rapid, cheap messaging TEST BED; winning lines
+      graduate into love letters, creator briefs, and paid hooks. Also the
+      easiest iteration on an existing winner: keep the line, swap the
+      background and the face. Spec refined 2026-06-11 from
+      operator-provided source examples.
     core_components:
-      - 1-2 line POV opener
-      - Mid-action visual / B-roll
-      - Quick punchline or call-to-action
-    hook_pattern: "POV: [scenario]"
+      - 1-2 line overlay, borrowed from formats live in the operator's own feed
+      - Identity flex / after-state joke or POV open; never a product claim
+      - Real person, mundane setting, natural motion (or locked-camera variation cuts)
+      - Minimal brand presence; the line is the test variable
+      - Winners graduate to bigger formats or iterate with new visuals and faces
+    hook_pattern: "[Meme-native identity one-liner]  OR  POV: [scenario]"
     best_when:
       awareness_levels: [unaware, problem_aware]
       persona_types: [gen-z, casual-scrollers, scroll-fatigued]
@@ -125,7 +152,7 @@ trending_formats:
     format_type: video
     production_complexity: low
     example_brand: Rapid-test creative across niches
-    source: External trending performance video, 2026
+    source: Operator-approved examples 2026-06-11 (supersedes external trending-video description)
     status: Active
     date_added: 2026-05-15
 

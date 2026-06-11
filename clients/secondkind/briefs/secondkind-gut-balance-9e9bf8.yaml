@@ -58,9 +58,10 @@ campaign_name: ''
 trending_format_recommendations:
 - format_id: tiktok-love-letter
   name: TikTok Love Letter
-  summary: 'Long text overlay on a short, low-lift video. Calls out the target audience
-    directly ("Listen, girls", "Hot girls", "POV: you"). Borrows vernacular from viral
-    TikTok comments. Creator content or iPhone B-roll. The text monologue is the hero.'
+  summary: '(Updated 2026-06-11) Short, warm, educational direct-address piece. 35-75
+    words, 3 beats. Callout + hedged surprising fact, then emoji-led supports lines, then
+    product named once + effortless close. Spec: trending_formats.yaml; worked scripts:
+    clients/secondkind-bold/copy/tiktok-love-letters-v3.md.'
   format_type: video
   production_complexity: low
   rank: 1
@@ -76,9 +77,9 @@ trending_format_recommendations:
     \ tired morning routines) so Natalie sees herself, not a lifestyle fantasy."
 - format_id: tiktok-short-pov
   name: TikTok Short / POV
-  summary: Shorter cousin of the Love Letter. One or two lines of POV text on top
-    of B-roll. Fastest format to test. Borrows directly from what's trending in the
-    operator's own reels feed at time of creation.
+  summary: '(Updated 2026-06-11) 1-2 line meme-native identity flex or POV over a candid
+    clip of a real person in a mundane moment. Messaging test bed; winners graduate.
+    Spec: trending_formats.yaml; line bank: clients/secondkind-bold/copy/tiktok-pov-shorts.md.'
   format_type: video
   production_complexity: low
   rank: 2
