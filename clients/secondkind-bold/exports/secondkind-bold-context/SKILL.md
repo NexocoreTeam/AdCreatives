@@ -5426,6 +5426,20 @@ These are not required, the methodology above stands on its own. But if availabl
 
 ---
 
+## The restoration platform: "Meet the second kind of you" (added 2026-06-11, operator-approved)
+
+The brand's SECOND first-class messaging platform, alongside the vindication arc. Full doc: `clients/secondkind-bold/platform-second-kind-of-you.md`.
+
+**Premise:** every persona says "I just want to feel like myself again," and the mission statement already promises it. So the lifestyle/premium messaging is delivered as RESTORATION, never transformation (those words stay banned): the person she was ten years ago is not gone, she is under-supplied. The brand name carries it: two kinds of you, the one managing a body and the one who never had to. We make the second kind possible again.
+
+**The receipt that licenses it:** the Bereum 84-day study measured GI symptoms, perceived stress, AND quality of life. Lifestyle claims ride on that citation.
+
+**The arc:** name the dimming (specific shrunk moments: the safe order, the early exit, the 2pm fade) → the mechanism (your gut makes the compounds that run digestion, energy, calm; when it makes less, everything dims) → the return (compounds delivered directly + the 84-day receipt) → the Full 90 ask (three months; "the longest trial ran 84 days, we round up"; 60-day guarantee covers the first two).
+
+**Canonical lines:** "Meet the second kind of you." / "You don't miss being 28. You miss a body that didn't need managing." / "She's not gone. She's under-supplied." / "It was never just your gut. That's the point." / "Three months. Then judge." / "Finished the coffee. Took the meeting. Forgot to worry." / "The cheap option is only cheap if it works." (premium counter)
+
+**Placement:** restoration owns the main site (positive-valence, so it deploys there NOW despite the Phase 1 bold-voice restriction), warm audiences, and retargeting; it runs cold only in specific-moment executions. Vindication remains the cold workhorse. Sequence: vindication cold → restoration retarget → Full 90 close. Merchandising catch: the guarantee covers first SINGLE bottles only, so the Full 90 sells as a subscription, not a 3-pack.
+
 ## The culture layer and surface tiers (added 2026-06-10)
 
 The operating rules below were originally written as one rulebook for every surface. That over-restricts. The system now runs on four layers and four surface tiers: the rules below apply at full strength to paid surfaces, while organic and comment surfaces carry sanctioned flexes defined here.
