@@ -44,8 +44,12 @@ The brand name carries it: there are two kinds of you. The one who plans around 
 
 **The hero stack (operator-approved 2026-07-02; supersedes earlier hero options):**
 - H1: Your comeback runs through your gut.
-- Sub: You don't need the bacteria. You need what they make. So we made it.
+- Sub cell A (control): Everyone else sells what's supposed to make the compounds. We sell the compounds.
+- Sub cell B: A real rebuild needs the real compounds. We're the ones actually selling them.
+- Sub bench: You don't need the bacteria. You need what they make. So we made it.
 - CTA: Take the 90-Day Challenge · If we're wrong, it's free. 60-day money-back guarantee.
+
+**The confidence doctrine (operator, 2026-07-02):** confident exclusivity is the register. We say what only we can say, anchored to what no one can copy: the output-not-input mechanism, the patented trio, a human trial per ingredient, the 90-day dare with money-back. Different, not better: never compete on adjectives (great, best, premium); compete on category facts. Test for every line: "Is this a claim only we can make?" If any brand could say it, cut it. Only-claims stay defensible: anchor "only" to the patented trio, or carry the exclusivity through structure ("We're the ones actually selling them" / "Everyone else sells what's supposed to make them").
 - Companion approved lines: "Probiotics try to make the good stuff. Postbiotics ARE the good stuff." (ads, body) / "You wanted honey. They kept selling you bees." (statics) / "You didn't get old. Your gut got under-supplied." (whole-being pillar, wording still open)
 
 **The return register:**

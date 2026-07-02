@@ -22,7 +22,7 @@
 |---|---|---|---|
 | 2026-07-01 | **"Your comeback runs through your gut."** | APPROVED | "I like this kind of empowering message." The hero H1 |
 | 2026-07-02 | **"Everyone else sells what's supposed to make the compounds. We sell the compounds."** | APPROVED | "I do like this." Hero sub CONTROL (cell A) under the comeback H1 |
-| 2026-07-02 | **"A real rebuild needs the real compounds. We're the ones actually selling them."** | APPROVED-REWORD | Operator wants the rebuild/real-compounds/only version tested; "only" swapped to "actually" (or anchored to the patented trio) for defensibility. Hero cell B |
+| 2026-07-02 | **"A real rebuild needs the real compounds. We're the ones actually selling them."** | APPROVED | "Yeah, I like number one, too." Hero cell B, wording final |
 | 2026-07-02 | **"You don't need the bacteria. You need what they make. So we made it."** | APPROVED | "I like B." Earlier hero sub; now bench strength behind cells A/B (still strong for ads/body) |
 | 2026-07-02 | **The assembled hero stack** (comeback H1 + so-we-made-it sub + "Take the 90-Day Challenge" CTA + "If we're wrong, it's free." microcopy) | APPROVED | Locked into LP Section 1 and platform doc |
 | 2026-07-01 | **"Probiotics try to make the good stuff. Postbiotics ARE the good stuff."** | APPROVED | The aha/clarity line; hero slot taken by "So we made it," so this deploys in ads, love letters, and body copy |
@@ -55,6 +55,7 @@
 | 2026-07-01 | **Punchy and instantly clear.** Short lines; the aha must not require category knowledge ("a lot of people don't even understand that probiotics die in the gut") | Header iterations |
 | 2026-07-01 | **Not gender-locked.** "You're saying things like 'she'" flagged as too specific for the header | Header iterations |
 | 2026-07-02 | **Big transformation energy, anti-dabbler.** Whole-being outcome, not symptom relief; 90-day commitment framing; guarantee pushed hard as confidence | Pillars brief |
+| 2026-07-02 | **The confidence doctrine.** "People sit up when we say we're the only ones. No one else says it because no one else can. We are different, not just saying we're great." Test every line: is this a claim ONLY we can make (mechanism, patented trio, per-ingredient trials, the dare)? If any brand could say it, cut it | Hero iterations |
 | ongoing | Sentence case; no em-dashes; no all-lowercase prose (overlay lowercase = A/B only) | Standing rules |
 
 ## Rejected (anti-patterns, keep visible)

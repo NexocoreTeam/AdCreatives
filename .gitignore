@@ -74,3 +74,6 @@ skills-lock.json
 # One-off backup tarballs of `ai-ads/` outputs. `ai-ads/` itself is
 # already gitignored — these are operator snapshots, not source-of-truth.
 migration_assets*.tar.gz
+
+# AI-generated media intermediates (Higgsfield/Kling outputs) stay out of git
+**/animated-ads/**/generated/
