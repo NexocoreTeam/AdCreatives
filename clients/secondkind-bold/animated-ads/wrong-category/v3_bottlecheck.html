@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SK Bold — bottle check</title>
+<style>
+  :root{--bg:#fefcf6;--ink:#1c1917;--marigold:#fcb348}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Neue Montreal",-apple-system,Segoe UI,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1000px;margin:0 auto;padding:36px 26px 70px}
+  h1{font-family:Georgia,serif;font-weight:600;letter-spacing:-.5px;font-size:26px;margin:0 0 4px}
+  .sub{color:#6b6862;font-size:14.5px;margin:0 0 24px}
+  .grid{display:grid;grid-template-columns:0.8fr 1fr 1fr;gap:16px;align-items:start}
+  @media (max-width:740px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid #ece9e2;border-radius:14px;overflow:hidden}
+  .card.rec{border-color:var(--marigold);box-shadow:0 0 0 2px #fcb34833}
+  img{width:100%;display:block}
+  .cap{padding:10px 13px}
+  .cap b{font-size:14.5px}
+  .cap.rec b::after{content:" — pick";color:#a9772b;font-weight:600;font-size:12px}
+  .cap span{display:block;font-size:12px;color:#7a776f;margin-top:2px}
+  .q{margin-top:20px;font-size:13.5px;color:#44413c}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Is the bottle right now?</h1>
+  <p class="sub">Short squat jar + full accurate label, beside the gold postbiotic capsule.</p>
+  <div class="grid">
+    <div class="card">
+      <img src="generated/v3_stills/real_gutbalance.png" alt="real product">
+      <div class="cap"><b>Real product</b><span>The reference.</span></div>
+    </div>
+    <div class="card rec">
+      <img src="generated/v3_stills/S08pb2-a.png" alt="corrected a">
+      <div class="cap rec"><b>A</b><span>Clean, big legible label, plain background.</span></div>
+    </div>
+    <div class="card">
+      <img src="generated/v3_stills/S08pb2-b.png" alt="corrected b">
+      <div class="cap"><b>B</b><span>On a podium / studio-shoot staging.</span></div>
+    </div>
+  </div>
+  <p class="q">Is the bottle right now? If yes, pick A or B and I'll build scene 8 around it + rebuild scene 7's pivot with the gold capsule. If still off, I'll composite the real photo directly.</p>
+</div>
+</body>
+</html>

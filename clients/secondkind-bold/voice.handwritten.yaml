@@ -1,0 +1,75 @@
+territory: The bathroom-and-bedroom logistics of a bad gut, said in the language you'd
+  only use with your closest friend. The specific, slightly mortifying, true stuff
+  that is too much for a premium wellness brand.
+why_open: The category treats bloating as a tasteful abstract noun. The human, confessional
+  register is empty, so it is ours to claim. Internal only, never name a competitor
+  in customer-facing copy.
+voice_register: The friend opens, the scientist closes. Confessional in the customer's
+  own words first, then the clinical receipt.
+structural_move: Open in the customer's register (the unspoken truth, beat 1), then
+  close in the brand's proof register (the mechanism and the receipt). Friend opens,
+  scientist closes.
+guardrail_test: Would she say this about herself, to a friend? If yes it is confessional
+  and on-side. If we are saying it at her, it is shaming and out. The cut lands on
+  the category or the mechanism, never the customer.
+hard_rules_retained:
+- No competitor names
+- No scarcity or urgency
+- FDA structure-function language stays in fine print, never in headlines
+- Sentence case
+- Natalie's body stays sacred ground (function and identity only, never appearance)
+personas:
+- persona_id: danielle
+  persona_name: Done-Everything Danielle
+  register_note: Full confessional. Bathroom and body. She owns this language.
+  unspoken_truths:
+  - You know which bathrooms on your commute you trust. By name.
+  - You've left a dinner early and blamed an early morning.
+  - You eat the same six safe foods because everything else is a gamble.
+  - You've skipped the outfit you actually wanted to wear.
+  - You unbuttoned your jeans in the car before you even got home.
+- persona_id: paula
+  persona_name: Perimenopause Paula
+  register_note: Confessional, body permitted. Lead on the medical dismissal.
+  unspoken_truths:
+  - You ate a salad. By 7pm you looked four months pregnant.
+  - Your doctor ran the labs and said everything's fine. You left knowing it wasn't.
+  - You dread dinners out. Not the food. What your body does after.
+  - You used to be regular. Now you have no idea what your body will do on any given day.
+- persona_id: isaac
+  persona_name: Immune-Anxious Isaac
+  register_note: Confessional but performance-coded. Logistics and reliability, never the body.
+  unspoken_truths:
+  - You get sick at the worst possible time. Third year running.
+  - You've built your calendar around an immune system you can't count on and called it bad luck.
+  - You hit a wall at 2pm you can't think your way through.
+  - You want things that actually do something, not another box to check.
+- persona_id: natalie
+  persona_name: New-Normal New Mom Natalie
+  register_note: Emotional and identity only. Never her body, never her weight. Sacred ground.
+  unspoken_truths:
+  - Nobody warned you about the part where you don't feel like yourself.
+  - The fog you can't blame on the baby anymore.
+  - Everyone said it gets better. No one said you'd feel like a stranger to your own life.
+  - You're exhausted, but you know it's more than the sleep.
+- persona_id: brandon
+  persona_name: Burnout Biohacker Brandon
+  register_note: Confessional in a dry, analytical key. The quiet disillusionment of the optimizer.
+  unspoken_truths:
+  - You optimized everything. The one thing that never moved was your gut.
+  - Twelve months of a premium probiotic. Nothing you track ever changed.
+  - At some point you just decided this is how your gut works.
+  - You don't want another product. You want to know why none of them worked.
+- persona_id: paul
+  persona_name: Functional-Curious Practitioner Paul
+  register_note: No confessional. Stays clinical, peer to peer. His unspoken truth is professional, not bodily.
+  unspoken_truths:
+  - Your patients came back and told you the probiotic did nothing. The category never gave you the explanation.
+founder_voice: Remy can go further than the brand, more raw and first-person, willing
+  to confess. Example, "My wife had a mental map of every bathroom between our apartment
+  and her office. She didn't tell me for a year, because it's not exactly first-date
+  conversation."
+changes_vs_existing:
+- Lead with the confessional truth, not the mechanism stat. The mechanism becomes beat 2.
+- Add a confessional register alongside the existing prosecutorial one.
+source: handwritten_validated_bank

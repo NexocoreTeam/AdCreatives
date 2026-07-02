@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SK Bold — pace fix (before / after)</title>
+<style>
+  :root{--bg:#fefcf6;--ink:#1c1917;--stone:#d2d2cd;--marigold:#fcb348}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Neue Montreal",-apple-system,Segoe UI,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 26px 80px}
+  h1{font-family:Georgia,serif;font-weight:600;letter-spacing:-.5px;font-size:28px;margin:0 0 4px}
+  .sub{color:#6b6862;font-size:15px;margin:0 0 26px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  @media (max-width:760px){.grid{grid-template-columns:1fr}}
+  .col h2{font-family:Georgia,serif;font-weight:600;font-size:19px;margin:0 0 3px}
+  .col .tag{font-size:12px;color:#8a8782;margin-bottom:10px}
+  .after h2{color:#3f6b46}
+  video{width:100%;border-radius:12px;background:#000;box-shadow:0 10px 30px rgba(0,0,0,.16)}
+  .note{margin-top:26px;padding:15px 18px;background:#fff;border:1px solid #ece9e2;border-radius:12px;font-size:13.5px;color:#44413c}
+  .note b{color:#1c1917}
+  .warn{margin-top:12px;padding:13px 16px;background:#fff8ec;border:1px solid #f0e3c6;border-radius:11px;font-size:13px;color:#5b4a28}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pace fix — before / after</h1>
+  <p class="sub">Same clips, same voice. The only change is timing: dead air stripped off the head of every clip and the lead-in off every line.</p>
+
+  <div class="grid">
+    <div class="col before">
+      <h2>Before</h2>
+      <div class="tag">v3 · 38.7s · lag before each line</div>
+      <video src="generated/final_v3.mp4" controls loop playsinline></video>
+    </div>
+    <div class="col after">
+      <h2>After</h2>
+      <div class="tag">v4 · 37.5s · voice lands on the cut</div>
+      <video src="generated/final_v4.mp4" controls loop playsinline></video>
+    </div>
+  </div>
+
+  <div class="warn">
+    <b>Ignore the voice.</b> It's still the ElevenLabs stand-in (the deep male you didn't like) — it's only here so there's something to time against. The real voice is the Higgsfield one you'll generate. Just judge whether the <b>pace</b> feels right now.
+  </div>
+
+  <div class="note">
+    <b>What changed:</b> every line now starts the instant its scene cuts in — no more waiting for the character to "get going" before it speaks. Total dropped 1.2s purely from removing dead space, and the rhythm should feel less draggy on each transition. Next is the facial-expression pass (your second note).
+  </div>
+</div>
+</body>
+</html>

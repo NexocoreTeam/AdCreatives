@@ -1,0 +1,50 @@
+ad_id: '1606969083927950'
+foreplay_id: af6t768dTQyhLOl8ozHc
+brand: Seed
+brand_id: ka8cG10RRS5kPUzHs4dt
+competitor_slug: seed
+bucket: fresh
+days_running: 46
+fetched_at: '2026-05-29T21:43:44Z'
+source:
+  type: foreplay-brand-ads
+  filters:
+    display_format:
+    - image
+    live: true
+    order: longest_running
+    running_duration_max_days: 14
+display_format: image
+live: true
+started_running: 1776063600000
+headline: Get 25% OFF DS-01®
+description: 'The all-in-one daily synbiotic that’s clinically shown to support your gut.
+
+
+  🦠 Clinically tested pre- and probiotic with 24 diverse strains
+
+  🐡 Clinically validated to reduce gas and bloating
+
+  🚽 Contains strains that help you stay regular and have easy bowel movements'
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://seed.com/is-ds01-right-for-you
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+niches:
+- Medical
+languages:
+- English
+market_target: ''
+product_category: ''
+persona: {}
+emotional_drivers: {}
+ai_keywords: []
+assets:
+  primary: 1606969083927950.png
+  source_image_url: https://r2.foreplay.co/5bf84959c0522e7f2c82220299690fcff7c35fa335812a4c80a201c00009e225.png
+  source_thumbnail_url: ''

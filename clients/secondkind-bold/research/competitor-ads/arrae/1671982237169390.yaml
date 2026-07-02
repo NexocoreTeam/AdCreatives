@@ -1,0 +1,72 @@
+ad_id: '1671982237169390'
+foreplay_id: k0t3dAlrAZbySow5mNsf
+brand: Arrae
+brand_id: fFfr3cK16ssmZeQax7Kp
+competitor_slug: arrae
+bucket: fresh
+days_running: 51
+fetched_at: '2026-05-29T21:47:17Z'
+source:
+  type: foreplay-brand-ads
+  filters:
+    display_format:
+    - image
+    live: true
+    order: longest_running
+    running_duration_max_days: 14
+display_format: image
+live: true
+started_running: 1775631600000
+headline: This Launch Will SELL OUT!
+description: 'Clear Protein+ supports everything your old protein didn’t:
+
+
+  - ✅ 15g of light, clear, hydrolyzed protein
+
+  - ✅ Collagen for glow, strength & recovery
+
+  - ✅ Electrolytes that actually hydrate
+
+  - ✅ No bloating, no digestive discomfort
+
+  - ✅ Clean, high-quality ingredients only'
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.arrae.com/pages/clear-protein
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+- threads
+niches:
+- Health/Wellness
+languages:
+- English
+market_target: b2c
+product_category: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 3
+  anger: 1
+  authority: 3
+  belonging: 1
+  competence: 4
+  curiosity: 5
+  empowerment: 5
+  engagement: 2
+  esteem: 6
+  fear: 2
+  guilt: 1
+  nostalgia: 1
+  nurturance: 7
+  security: 4
+  urgency: 3
+ai_keywords: []
+assets:
+  primary: 1671982237169390.png
+  source_image_url: https://r2.foreplay.co/e9928920b109d40d63568115183bbe9d5b0bff7f7e119d7eac474f0fa791e519.png
+  source_thumbnail_url: ''

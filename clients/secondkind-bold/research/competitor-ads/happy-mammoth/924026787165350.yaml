@@ -1,0 +1,74 @@
+ad_id: '924026787165350'
+foreplay_id: nCJu45jea1jsn01aVXaJ
+brand: Happy Mammoth
+brand_id: BHCokodNyCNqBMfDM8dB
+competitor_slug: happy-mammoth
+bucket: fresh
+days_running: 52
+fetched_at: '2026-05-29T21:47:31Z'
+source:
+  type: foreplay-brand-ads
+  filters:
+    display_format:
+    - image
+    live: true
+    order: longest_running
+    running_duration_max_days: 14
+display_format: image
+live: true
+started_running: 1775545200000
+headline: Turns out it wasn’t ME
+description: "I really thought I needed more discipline… turns out I needed something else entirely…\n\
+  \nAnd for YEARS… I was told the same things…\n\nTry harder… Do better… Push through it…\n\nSo I did.\n\
+  \nI ate less… worked out more… stayed consistent…\n\nAnd for a while… yeah, it worked… \n\nUntil it\
+  \ didn’t.\n\nAnd suddenly, no matter how much effort I put in…\n\nMy body was like ✨ absolutely not\
+  \ ✨\n\n\U0001F61E I was feeling off for no reason….\n\U0001F61E Tired when I should’ve felt energized…\n\
+  \U0001F61E Reactive when I should’ve felt calm…\n\U0001F61E Stuck… even though I was doing everything\
+  \ “right.”\n\nAnd obviously… I blamed myself.\n\nBut here’s what I didn’t get back then…\n\nEven though\
+  \ my body had changed, I was still treating it like it hadn’t….\n\nAnd I was using the SAME old approach\
+  \ expecting new results \U0001F921\n\nThat’s why I started taking Hormone Harmony \U0001F447\nhttps://store.happymammoth.com/pages/hormonal-weight-assist\n\
+  \nIt’s a plant-based formula made by nutritional scientists…\n\nDesigned to meet your body where it\
+  \ is now…\n\nAnd support it from there.\n\nAnd WOW…\n\n✨ My energy is more stable\n✨ I’m calmer and\
+  \ way more focused\n✨ Less angry, less “ugh what is happening”\n✨ And I feel GOOD in my body… like actually\
+  \ good\n\nSo if you’re doing everything and getting nowhere…\n\nTry Hormone Harmony and feel the difference\
+  \ for yourself \U0001F447\n\nhttps://store.happymammoth.com/pages/hormonal-weight-assist\n\n\U0001F970\
+  \ 2.8M women agree it works"
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://happymammoth.com/pages/hormonal-weight-assist
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Food/Drink
+languages:
+- English
+market_target: b2c
+product_category: ''
+persona:
+  age: unknown
+  gender: woman
+emotional_drivers:
+  achievement: 3
+  anger: 3
+  authority: 5
+  belonging: 8
+  competence: 4
+  curiosity: 6
+  empowerment: 9
+  engagement: 6
+  esteem: 7
+  fear: 2
+  guilt: 7
+  nostalgia: 2
+  nurturance: 9
+  security: 4
+  urgency: 5
+ai_keywords: []
+assets:
+  primary: 924026787165350.jpg
+  source_image_url: https://r2.foreplay.co/33bb6cd93008187b132b77b51923e5dc0db24535e143ee3bc720513038611180.jpg
+  source_thumbnail_url: ''

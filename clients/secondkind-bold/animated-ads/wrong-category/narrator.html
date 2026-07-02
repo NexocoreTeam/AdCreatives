@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SK Bold — narrator-led cut (v3)</title>
+<style>
+  :root { --bg:#fefcf6; --ink:#1c1917; --stone:#d2d2cd; --marigold:#fcb348; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Neue Montreal",-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:40px 28px 80px; }
+  h1 { font-family:Georgia,"Times New Roman",serif; font-weight:600; letter-spacing:-0.5px;
+    font-size:30px; margin:0 0 6px; }
+  .sub { color:#6b6862; font-size:15px; margin:0 0 28px; }
+  .grid { display:grid; grid-template-columns: 360px 1fr; gap:36px; align-items:start; }
+  @media (max-width:820px){ .grid{ grid-template-columns:1fr; } }
+  video { width:100%; border-radius:14px; background:#000; box-shadow:0 12px 40px rgba(0,0,0,.18); }
+  .panel { font-size:14px; }
+  .tag { display:inline-block; font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:#8a8782; border:1px solid var(--stone); border-radius:100px; padding:3px 10px; margin:0 6px 8px 0; }
+  .tag.on { color:#1c1917; border-color:var(--marigold); background:#fff8ec; }
+  table { width:100%; border-collapse:collapse; margin-top:10px; font-size:13.5px; }
+  td { padding:9px 8px; border-bottom:1px solid #eceae3; vertical-align:top; }
+  td.n { width:26px; color:var(--marigold); font-weight:700; font-family:Georgia,serif; }
+  td.src { width:64px; }
+  .pill { font-size:10.5px; letter-spacing:.04em; text-transform:uppercase; padding:2px 7px;
+    border-radius:100px; white-space:nowrap; }
+  .silent { background:#eef4ee; color:#3f6b46; }
+  .reuse { background:#f3f0e8; color:#8a7a52; }
+  .line { color:#1c1917; }
+  .note { margin-top:30px; padding:16px 18px; background:#fff; border:1px solid #eceae3;
+    border-radius:12px; font-size:13.5px; color:#44413c; }
+  .note b { color:#1c1917; }
+  .changed li { margin:4px 0; }
+  code { background:#f3f0e8; padding:1px 5px; border-radius:4px; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>SecondKind Bold — narrator-led cut</h1>
+  <p class="sub">v3 · one clean brand voice · silent clips · 38.7s · 9:16 · the audio architecture is fixed</p>
+
+  <div class="grid">
+    <div>
+      <video src="generated/final_v3.mp4" controls autoplay muted loop playsinline></video>
+      <p style="font-size:12px;color:#8a8782;margin:10px 2px 0">Starts muted so it autoplays — hit unmute / raise volume to hear the voice.</p>
+      <div style="margin-top:14px">
+        <span class="tag on">audio: narrator-led</span>
+        <span class="tag on">1 voice, all 10 lines</span>
+        <span class="tag">clips audio OFF</span>
+        <span class="tag">speed ≤1.5x</span>
+        <span class="tag">warm grade + light grain</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <table>
+        <tr><td class="n">1</td><td class="src"><span class="pill silent">silent</span></td><td class="line">"I'm the probiotic you take every morning. Time for the truth."</td></tr>
+        <tr><td class="n">2</td><td class="src"><span class="pill silent">silent</span></td><td class="line">"About seventy percent of me dies in your stomach before I reach your gut."</td></tr>
+        <tr><td class="n">3</td><td class="src"><span class="pill silent">silent</span></td><td class="line">"The few that survive are supposed to move in and stay. We don't."</td></tr>
+        <tr><td class="n">4</td><td class="src"><span class="pill reuse">reuse</span></td><td class="line">"You eat clean. You train. You're still bloated by seven. And you blame yourself."</td></tr>
+        <tr><td class="n">5</td><td class="src"><span class="pill silent">silent</span></td><td class="line">"It was never you. It was the delivery."</td></tr>
+        <tr><td class="n">6</td><td class="src"><span class="pill silent">silent</span></td><td class="line">"I'm a postbiotic. What those bacteria were supposed to make."</td></tr>
+        <tr><td class="n">7</td><td class="src"><span class="pill reuse">reuse</span></td><td class="line">"Already made. Already active. Nothing to survive, nothing to move into."</td></tr>
+        <tr><td class="n">8</td><td class="src"><span class="pill reuse">reuse</span></td><td class="line">"Your gut finally gets what it's been waiting for."</td></tr>
+        <tr><td class="n">9</td><td class="src"><span class="pill reuse">reuse</span></td><td class="line">"Eighty-four day study. Less bloating. Less stress."</td></tr>
+        <tr><td class="n">10</td><td class="src"><span class="pill reuse">reuse</span></td><td class="line">"Gut Balance. Sixty days. Feel the difference, or you don't pay."</td></tr>
+      </table>
+      <p style="font-size:12px;color:#8a8782;margin-top:10px">
+        <span class="pill silent">silent</span> = re-rendered audio-off, mouth closed &nbsp;·&nbsp;
+        <span class="pill reuse">reuse</span> = existing clip, muted under the voice
+      </p>
+    </div>
+  </div>
+
+  <div class="note changed">
+    <b>What changed vs the last cut</b>
+    <ul>
+      <li><b>One voice, start to finish.</b> All 10 lines are the same narrator (no more clip-to-clip voice jumps, no baked Kling music bleeding through).</li>
+      <li><b>Clips are silent.</b> The 5 old "talking" beats were re-rendered with mouths closed, audio off — so nothing fights the voice and there are no dead gaps between lines.</li>
+      <li><b>No fast-forward.</b> Motion is capped at 1.5x; clips play as calm living images under the voice and trim to each line.</li>
+      <li><b>Stats spoken correctly</b> — "seventy percent," "eighty-four day," "sixty days."</li>
+      <li><b>Light editorial grade + grain</b> to take the plastic AI sheen off.</li>
+    </ul>
+    <b>Still open (the last two post steps):</b>
+    <ul>
+      <li><b>Music bed</b> — there's no Suno integration wired up, so this cut is voice-only. Suno prompt is ready below for you to drop a bed under it (or hand me a track and I'll mix it ~-25dB under the voice).</li>
+      <li><b>Captions</b> — burned-in captions are the final pass; say the word and I'll add them.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

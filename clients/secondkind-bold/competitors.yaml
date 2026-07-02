@@ -9,6 +9,7 @@ competitors:
   - name: Seed
     slug: seed
     url: https://seed.com
+    foreplay_brand_id: ka8cG10RRS5kPUzHs4dt
     type: direct
     priority: tier1
     notes: |
@@ -31,6 +32,7 @@ competitors:
   - name: Arrae
     slug: arrae
     url: https://www.arrae.com/
+    foreplay_brand_id: fFfr3cK16ssmZeQax7Kp
     type: direct
     priority: tier1
     notes: |
@@ -85,3 +87,29 @@ competitors:
     # homepage — left blank.
     instagram_handle: ritual
     youtube_handle: "@ritualvitamins"
+
+  - name: Happy Mammoth
+    slug: happy-mammoth
+    url: https://happymammoth.com
+    foreplay_brand_id: BHCokodNyCNqBMfDM8dB
+    type: direct
+    priority: tier1
+    notes: |
+      Hormone Harmony is the hero acquisition product. Women 35+ peri/menopausal
+      positioning — fatigue, bloating, mood, weight, sleep. Adaptogen + herb stack
+      (chasteberry, rhodiola, ashwagandha) framed as a hormonal-symptom fix.
+      Heavy DTC scaling, female-skewing audience that overlaps directly with
+      SecondKind's primary persona.
+
+      Product-level differentiators to attack:
+      - Mechanism: Hormone Harmony works on hormone-axis symptoms with adaptogens;
+        SecondKind addresses the gut-microbiome layer underneath, which modulates
+        estrogen metabolism and inflammation (gut-hormone axis). Root-cause vs
+        symptom relief.
+      - Daily symptom-management framing: HH users keep taking it to manage
+        symptoms; SecondKind's postbiotic story is about restoring baseline gut
+        function so the body's hormonal regulation works on its own.
+      - "Hormone whisperer" authority vs clinically-studied postbiotic
+        bioactive — credibility frame is testimonial-led vs trial-led.
+    amazon_urls: []
+    instagram_handle: happymammoth

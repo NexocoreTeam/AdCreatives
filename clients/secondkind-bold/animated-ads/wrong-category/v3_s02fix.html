@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SK Bold — scene 2 survivor fix</title>
+<style>
+  :root{--bg:#fefcf6;--ink:#1c1917;--marigold:#fcb348}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Neue Montreal",-apple-system,Segoe UI,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto;padding:36px 26px 70px}
+  h1{font-family:Georgia,serif;font-weight:600;letter-spacing:-.5px;font-size:26px;margin:0 0 4px}
+  .sub{color:#6b6862;font-size:14.5px;margin:0 0 22px}
+  .flex{display:flex;gap:24px;align-items:flex-start}
+  @media (max-width:640px){.flex{flex-direction:column;align-items:center}}
+  video{width:260px;border-radius:13px;background:#000;box-shadow:0 10px 28px rgba(0,0,0,.16);flex:none}
+  .fix{font-size:13.5px;color:#3f6b46;background:#fff;border:1px solid #ece9e2;border-radius:11px;padding:12px 15px}
+  .full{margin-top:26px}
+  .tag{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#8a8782;margin-bottom:8px}
+  .full video{width:300px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Scene 2 — survivor fix</h1>
+  <p class="sub">Re-animated start-only so one soldier is present the whole time instead of popping in at the end.</p>
+  <div class="flex">
+    <video src="generated/v3_clips/S02.mp4" controls autoplay loop muted playsinline></video>
+    <div class="fix">Back to the original dissolve look. The lone survivor (marigold helmet band) hangs at the ledge and reads concerned, a worried face watching the acid where his squad went, no anger.</div>
+  </div>
+  <div class="full">
+    <div class="tag">Act one with the fix (scenes 1–4)</div>
+    <video src="generated/v3_clips/rough_1to4.mp4" controls loop muted playsinline></video>
+  </div>
+</div>
+</body>
+</html>

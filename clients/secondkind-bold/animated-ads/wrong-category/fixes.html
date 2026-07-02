@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero jar — refined, correct size</title>
+<style>
+  :root { --bg:#1c1917; --card:#fefcf6; --ink:#1c1917; --accent:#fcb348; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--card);
+         font-family:"Neue Montreal", -apple-system, Segoe UI, Helvetica, Arial, sans-serif; }
+  header { padding:30px 28px 6px; }
+  h1 { font-weight:600; font-size:24px; margin:0 0 6px; letter-spacing:-0.5px; }
+  .sub { color:#bdb8b0; font-size:14px; max-width:800px; line-height:1.5; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+          gap:22px; padding:22px 28px 60px; }
+  .card { background:var(--card); color:var(--ink); border-radius:10px; overflow:hidden;
+          box-shadow:0 6px 24px rgba(0,0,0,0.35); display:flex; flex-direction:column; }
+  .card img { width:100%; display:block; background:#eee; }
+  .meta { padding:12px 14px 16px; }
+  .badge { display:inline-block; background:var(--ink); color:var(--accent);
+           font-weight:700; font-size:12px; letter-spacing:0.5px; padding:3px 8px;
+           border-radius:5px; margin-bottom:8px; }
+  .beat { font-weight:600; font-size:15px; margin:0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Gut Balance hero &middot; refined (real height, small face on lid, small arms)</h1>
+  <div class="sub">Label sits right under the lid (no glass above it), small eyes on the cap, small arms at the sides, jar small in the frame. Pick A, B, or C and I'll re-render P10 and P14 to match, then animate.</div>
+</header>
+<div class="grid">
+  <div class="card"><img src="generated/P09-v5a.png"><div class="meta"><span class="badge">HERO A</span><p class="beat">Smallest in frame, most negative space</p></div></div>
+  <div class="card"><img src="generated/P09-v5b.png"><div class="meta"><span class="badge">HERO B</span><p class="beat">Slightly more centered, marigold bloom</p></div></div>
+  <div class="card"><img src="generated/P09-v5c.png"><div class="meta"><span class="badge">HERO C</span><p class="beat">Offset right, marigold accent</p></div></div>
+</div>
+</body>
+</html>

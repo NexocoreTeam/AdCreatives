@@ -1,0 +1,71 @@
+ad_id: '1941952910016764'
+foreplay_id: T7UMtD33wb7gAM051h7k
+brand: Happy Mammoth
+brand_id: BHCokodNyCNqBMfDM8dB
+competitor_slug: happy-mammoth
+bucket: fresh
+days_running: 52
+fetched_at: '2026-05-29T21:47:27Z'
+source:
+  type: foreplay-brand-ads
+  filters:
+    display_format:
+    - image
+    live: true
+    order: longest_running
+    running_duration_max_days: 14
+display_format: image
+live: true
+started_running: 1775545200000
+headline: This changed my priorities FAST
+description: "I kept saying I’ll check Hormone Harmony later… until my body forced me to…\n\nLow energy…\
+  \ poor sleep… brain fog… mood all over the place… \n\nFeeling heavier, angrier, not like myself…\n\n\
+  Suddenly NOTHING else mattered.\n\nNot the emails. Not the to-do list. Not the morning kids drama.\n\
+  \nThat’s when it hit me…\n\nWhy did I wait until I felt completely off…\n\nTo finally do something about\
+  \ it?\n\nSo, I decided it was time to put MYSELF first…\n\nAnd started taking Hormone Harmony every\
+  \ morning \U0001F447\nhttps://store.happymammoth.com/pages/hormonal-weight-assist\n\nIt’s designed by\
+  \ nutritional scientists and women’s health specialists…\n\nTo help women feel more balanced, more in\
+  \ control, more like YOU again.\n\nAnd honestly… I didn’t expect how much this would change my life…\n\
+  \n✨ My energy feels steady again \n✨ My moods are fantastic\n✨ I feel more comfortable in my body\n\
+  ✨ And I’m showing up differently in my life because of it\n\nSo if you’ve been putting yourself, your\
+  \ health, your hormones… on the back burner…\n\nTry Hormone Harmony TODAY \U0001F447\n\nhttps://store.happymammoth.com/pages/hormonal-weight-assist\n\
+  \n\U0001F970 2.8M women agree it works\n\U0001F4B8 60-day money-back guarantee"
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://happymammoth.com/pages/hormonal-weight-assist
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Food/Drink
+languages:
+- English
+market_target: b2c
+product_category: ''
+persona:
+  age: 35 to 55
+  gender: woman
+emotional_drivers:
+  achievement: 4
+  anger: 2
+  authority: 5
+  belonging: 2
+  competence: 3
+  curiosity: 5
+  empowerment: 9
+  engagement: 6
+  esteem: 8
+  fear: 3
+  guilt: 8
+  nostalgia: 2
+  nurturance: 7
+  security: 4
+  urgency: 7
+ai_keywords: []
+assets:
+  primary: 1941952910016764.jpg
+  source_image_url: https://r2.foreplay.co/c47d1372c0da25d2a2bcfc26a90bdc9a48b0270831449d45bae2a283632ca40b.jpg
+  source_thumbnail_url: ''

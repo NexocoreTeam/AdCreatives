@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SK Bold — scenes 1–4</title>
+<style>
+  :root{--bg:#fefcf6;--ink:#1c1917;--marigold:#fcb348}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Neue Montreal",-apple-system,Segoe UI,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:820px;margin:0 auto;padding:36px 26px 70px}
+  h1{font-family:Georgia,serif;font-weight:600;letter-spacing:-.5px;font-size:26px;margin:0 0 4px}
+  .sub{color:#6b6862;font-size:14.5px;margin:0 0 22px}
+  .flex{display:flex;gap:28px;align-items:flex-start}
+  @media (max-width:700px){.flex{flex-direction:column;align-items:center}}
+  video{width:300px;border-radius:13px;background:#000;box-shadow:0 12px 32px rgba(0,0,0,.18);flex:none}
+  .side{flex:1;min-width:240px}
+  h2{font-family:Georgia,serif;font-weight:600;font-size:18px;margin:2px 0 10px}
+  .b{display:flex;gap:10px;font-size:13.5px;padding:6px 0;border-bottom:1px solid #f1efe8}
+  .b .n{color:var(--marigold);font-weight:700;font-family:Georgia,serif;width:16px;flex:none}
+  .b .army{color:#a9772b;font-weight:600}
+  .b.now{background:#fff8ec;border-radius:7px;padding:7px 8px}
+  .s4{margin-top:28px}
+  .s4 .tag{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#8a8782;margin-bottom:8px}
+  .s4 video{width:230px}
+  .prog{margin-top:8px;font-size:12.5px;color:#8a8782}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Scenes 1–4 — rough cut</h1>
+  <p class="sub">Silent, untimed, no narration or music yet. The first four beats end to end (~19s raw).</p>
+
+  <div class="flex">
+    <video src="generated/v3_clips/rough_1to4.mp4" controls autoplay loop muted playsinline></video>
+    <div class="side">
+      <h2>The lines over it</h2>
+      <div class="b"><span class="n">1</span><span>"these are your probiotics. every morning, you take them, and they march off to work."</span></div>
+      <div class="b"><span class="n">2</span><span><span class="army">"we've got it this time, boys!"</span> "they did not have it this time… seventy percent dissolve in stomach acid before they ever reach your gut."</span></div>
+      <div class="b"><span class="n">3</span><span>"the handful that make it are supposed to move in and stay. instead, they ghost you."</span></div>
+      <div class="b now"><span class="n">4</span><span>"meanwhile your gut's been standing here for years, kicking rocks, waiting for backup that never comes."</span></div>
+      <div class="prog">4 of 10 scenes built. Next: scene 5, the salad-vs-pizza "blah."</div>
+    </div>
+  </div>
+
+  <div class="s4">
+    <div class="tag">Scene 4 on its own</div>
+    <video src="generated/v3_clips/S04.mp4" controls loop muted playsinline></video>
+  </div>
+</div>
+</body>
+</html>

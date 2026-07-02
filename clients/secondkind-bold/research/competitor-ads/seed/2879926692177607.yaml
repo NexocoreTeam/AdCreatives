@@ -1,0 +1,64 @@
+ad_id: '2879926692177607'
+foreplay_id: PegosIDMGAhWecHLZOmr
+brand: Seed
+brand_id: ka8cG10RRS5kPUzHs4dt
+competitor_slug: seed
+bucket: fresh
+days_running: 49
+fetched_at: '2026-05-29T21:43:38Z'
+source:
+  type: foreplay-brand-ads
+  filters:
+    display_format:
+    - image
+    live: true
+    order: longest_running
+    running_duration_max_days: 14
+display_format: image
+live: true
+started_running: 1775804400000
+headline: Bloat Less, Feel Better with DS-01®
+description: "Get 25% off DS-01® Daily Synbiotic, the 2-in-1 probiotic that supports: \n\n\U0001F6BDReduced\
+  \ Bloating + Gas \n\U0001F4A9Improved Regularity \n\U0001F9A0Ease of Intermittent Constipation° \n\n\
+  °These statements have not been evaluated by the Food and Drug Administration. This product is not intended\
+  \ to diagnose, treat, cure or prevent any disease."
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://seed.com/is-ds01-right-for-you
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+- threads
+niches:
+- Medical
+languages:
+- English
+market_target: b2c
+product_category: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 2
+  anger: 1
+  authority: 6
+  belonging: 1
+  competence: 2
+  curiosity: 3
+  empowerment: 3
+  engagement: 2
+  esteem: 2
+  fear: 2
+  guilt: 1
+  nostalgia: 1
+  nurturance: 5
+  security: 4
+  urgency: 8
+ai_keywords: []
+assets:
+  primary: 2879926692177607.jpg
+  source_image_url: https://r2.foreplay.co/862f12bfbaa46f7f77b112c6b8d7ebb1baae8aed2c720431e455900eb7cc7ca0.jpg
+  source_thumbnail_url: ''

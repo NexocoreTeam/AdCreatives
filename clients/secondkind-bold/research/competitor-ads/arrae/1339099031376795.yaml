@@ -1,0 +1,63 @@
+ad_id: '1339099031376795'
+foreplay_id: Cy3fnQ1DtAWzdOBEs8UG
+brand: Arrae
+brand_id: fFfr3cK16ssmZeQax7Kp
+competitor_slug: arrae
+bucket: fresh
+days_running: 24
+fetched_at: '2026-05-29T21:47:15Z'
+source:
+  type: foreplay-brand-ads
+  filters:
+    display_format:
+    - image
+    live: true
+    order: longest_running
+    running_duration_max_days: 14
+display_format: image
+live: true
+started_running: 1777964400000
+headline: MB-1 Is Finally Back in Stock
+description: "Our best-seller is BACK (just in time for the New Year)\n\nFeel your best with natural,\
+  \ science-backed support for energy metabolism and daily wellness. \n\nAdd MB-1 to your routine today\
+  \ and thank yourself later!"
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://www.arrae.com/products/mb-1
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+- threads
+niches:
+- Health/Wellness
+languages:
+- English
+market_target: b2c
+product_category: ''
+persona:
+  age: unknown
+  gender: both
+emotional_drivers:
+  achievement: 3
+  anger: 1
+  authority: 4
+  belonging: 2
+  competence: 5
+  curiosity: 5
+  empowerment: 8
+  engagement: 6
+  esteem: 7
+  fear: 1
+  guilt: 2
+  nostalgia: 2
+  nurturance: 9
+  security: 4
+  urgency: 7
+ai_keywords: []
+assets:
+  primary: 1339099031376795.png
+  source_image_url: https://r2.foreplay.co/24aee5f72feb1765f9cb1da984c9388ba1518997b8e21d4a9cfb73709451a0bc.png
+  source_thumbnail_url: ''

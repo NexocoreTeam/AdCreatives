@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SecondKind — Creative Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fefcf6;
+    --ink: #1c1917;
+    --grey: #d2d2cd;
+    --grey-soft: #e6e3dc;
+    --accent: #fcb348;
+    --muted: #5a564f;
+  }
+  @page {
+    size: Letter portrait;
+    margin: 0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 9pt;
+    line-height: 1.42;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .page {
+    width: 8.5in;
+    height: 10.25in;
+    padding: 0.4in 0.6in 0.55in 0.6in;
+    page-break-after: always;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* Top header bar */
+  .topbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: baseline;
+    font-size: 8pt;
+    letter-spacing: 0.04em;
+    padding-bottom: 0.12in;
+    border-bottom: 0.5pt solid var(--ink);
+    margin-bottom: 0.4in;
+  }
+  .topbar .brand { font-family: 'Fraunces', serif; font-weight: 500; font-size: 11pt; letter-spacing: -0.01em; }
+  .topbar .center { text-align: center; color: var(--ink); }
+  .topbar .right { text-align: right; }
+
+  /* Footer */
+  .footer {
+    margin-top: auto;
+    padding-top: 0.18in;
+    border-top: 0.5pt solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    align-items: baseline;
+    font-size: 8pt;
+    letter-spacing: 0.04em;
+  }
+  .footer .brand { font-family: 'Fraunces', serif; font-weight: 500; font-size: 10pt; letter-spacing: -0.01em; }
+  .footer .center { text-align: center; font-style: italic; font-family: 'Fraunces', serif; font-size: 9pt; }
+  .footer .vol { text-align: right; }
+  .footer .copy { text-align: right; }
+
+  /* Section labels */
+  .label-row {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: baseline;
+    border-top: 0.5pt solid var(--ink);
+    padding-top: 0.12in;
+    margin-top: 0.32in;
+    margin-bottom: 0.22in;
+  }
+  .section-label {
+    font-size: 8pt;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .section-label::before { content: "— "; }
+  .section-helper {
+    font-size: 8pt;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+
+  /* Editorial serif headlines */
+  h1, h2, h3, h4 { font-family: 'Fraunces', serif; font-weight: 500; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
+  h1 {
+    font-size: 56pt;
+    line-height: 0.95;
+    font-weight: 500;
+    font-variation-settings: "opsz" 144, "SOFT" 0;
+    margin-bottom: 0.22in;
+  }
+  h1 em, h2 em, h3 em { font-style: italic; font-weight: 500; }
+  h2 {
+    font-size: 30pt;
+    line-height: 1.02;
+    font-weight: 500;
+    font-variation-settings: "opsz" 96, "SOFT" 0;
+    margin-bottom: 0.16in;
+  }
+  h3 {
+    font-size: 16pt;
+    line-height: 1.1;
+    font-weight: 500;
+    font-variation-settings: "opsz" 36;
+    margin-bottom: 0.08in;
+  }
+  h4 {
+    font-size: 12pt;
+    line-height: 1.15;
+    font-weight: 500;
+    font-variation-settings: "opsz" 24;
+    margin-bottom: 0.06in;
+  }
+
+  /* Lead paragraph */
+  .lead {
+    font-size: 10pt;
+    line-height: 1.55;
+    max-width: 6in;
+    color: var(--ink);
+  }
+  .lead-wide { max-width: 100%; }
+
+  p { margin: 0 0 0.1in 0; }
+  p + p { margin-top: 0.1in; }
+
+  /* Top kicker */
+  .kicker {
+    font-size: 8.5pt;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    margin-bottom: 0.2in;
+  }
+
+  /* Dark callout box */
+  .dark {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 0.45in 0.5in;
+    margin: 0.32in 0;
+    position: relative;
+  }
+  .dark .qmark {
+    font-family: 'Fraunces', serif;
+    font-size: 28pt;
+    font-style: italic;
+    line-height: 1;
+    color: var(--accent);
+    position: absolute;
+    top: 0.32in;
+    left: 0.5in;
+  }
+  .dark blockquote {
+    font-family: 'Fraunces', serif;
+    font-size: 17pt;
+    line-height: 1.25;
+    margin: 0;
+    padding-left: 0.45in;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .dark blockquote em { font-style: italic; }
+  .dark .small { font-size: 9pt; font-family: 'Inter', sans-serif; line-height: 1.5; padding-left: 0.45in; margin-top: 0.16in; color: var(--grey); }
+
+  /* Two-col / three-col / four-col grids */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35in; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.28in; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.22in; }
+  .grid-2 > div, .grid-3 > div, .grid-4 > div { min-width: 0; }
+
+  /* Item with leading number */
+  .item-num { font-size: 8.5pt; letter-spacing: 0.02em; color: var(--muted); margin-bottom: 0.06in; }
+  .item-num::after { content: " ·"; }
+  .item-num + h3, .item-num + h4 { margin-top: 0; }
+
+  /* Concept card (N° 01 style) */
+  .concept-num { font-family: 'Inter', sans-serif; font-size: 8.5pt; letter-spacing: 0.02em; color: var(--muted); margin-bottom: 0.08in; }
+  .concept-num::before { content: "N° "; }
+
+  /* Lists */
+  ul.bullet { list-style: none; padding: 0; margin: 0; }
+  ul.bullet li {
+    position: relative;
+    padding-left: 0.18in;
+    margin-bottom: 0.08in;
+    font-size: 9pt;
+    line-height: 1.45;
+  }
+  ul.bullet li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.07in;
+    width: 4pt; height: 4pt;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  ul.bullet.ink li::before { background: var(--ink); }
+  ul.bullet.grey li::before { background: var(--accent); }
+
+  /* Side-by-side rules pattern */
+  .rule-card {
+    border-top: 0.5pt solid var(--ink);
+    padding-top: 0.12in;
+  }
+
+  /* Tables */
+  table.brief {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    margin: 0.15in 0;
+  }
+  table.brief th, table.brief td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.09in 0.12in 0.09in 0;
+    border-bottom: 0.5pt solid var(--grey);
+  }
+  table.brief th {
+    font-family: 'Inter', sans-serif;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    border-bottom: 0.5pt solid var(--ink);
+  }
+  table.brief td.persona-name { font-family: 'Fraunces', serif; font-size: 10pt; font-weight: 500; }
+  table.brief tr:last-child td { border-bottom: none; }
+
+  /* Pull quote inline */
+  blockquote.pull {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 11pt;
+    line-height: 1.4;
+    margin: 0.1in 0 0.12in 0;
+    padding-left: 0.14in;
+    border-left: 1.5pt solid var(--accent);
+    color: var(--ink);
+  }
+
+  /* ICP card */
+  .icp {
+    border-top: 0.5pt solid var(--ink);
+    padding-top: 0.16in;
+    margin-bottom: 0.18in;
+  }
+  .icp .num {
+    font-size: 8pt;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-bottom: 0.06in;
+  }
+  .icp .num::before { content: "N° "; }
+  .icp h3 { margin-bottom: 0.08in; }
+  .icp .tag {
+    display: inline-block;
+    font-size: 7.5pt;
+    letter-spacing: 0.06em;
+    border: 0.5pt solid var(--ink);
+    padding: 1pt 6pt;
+    margin-left: 0.08in;
+    vertical-align: middle;
+    color: var(--ink);
+  }
+  .icp .snap {
+    font-size: 9pt;
+    line-height: 1.45;
+    margin-bottom: 0.1in;
+  }
+  .icp .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3in;
+  }
+  .icp .triggers {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 10pt;
+    color: var(--ink);
+    margin-bottom: 0.08in;
+  }
+  .icp .hook-list {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 10pt;
+    line-height: 1.35;
+    margin: 0.06in 0;
+  }
+  .icp .hook-list .h { margin-bottom: 0.06in; padding-left: 0.1in; border-left: 1pt solid var(--accent); }
+  .do-dont .label {
+    font-size: 7.5pt;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 0.04in;
+  }
+  .do-dont ul.bullet li { font-size: 8.5pt; line-height: 1.4; }
+
+  /* SVG dot cluster */
+  .cluster {
+    position: absolute;
+    top: 0.55in;
+    right: 0.6in;
+    width: 0.85in;
+    height: 0.85in;
+  }
+
+  /* Misc */
+  .accent { color: var(--accent); }
+  em.italic { font-style: italic; }
+  .small-caps { font-size: 8pt; letter-spacing: 0.04em; color: var(--muted); }
+
+  /* Spec for first page: tighter margins on cluster */
+  .cover h1 { font-size: 68pt; }
+  .cover .kicker { margin-bottom: 0.4in; }
+
+  /* Compliance / two-pane dark+light */
+  .pane-light, .pane-dark {
+    padding: 0.32in 0.36in;
+  }
+  .pane-light { border-top: 0.5pt solid var(--ink); }
+  .pane-dark { background: var(--ink); color: var(--bg); }
+  .pane-dark .label { color: var(--accent); }
+  .pane-dark h3 em { color: var(--bg); }
+  .pane-dark ul.bullet li::before { background: var(--accent); }
+  .pane-dark .footer-rule {
+    margin-top: 0.18in;
+    padding-top: 0.14in;
+    border-top: 0.5pt solid var(--accent);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  /* Stage card (N° 01 / Trigger style) */
+  .stage {
+    border-top: 0.5pt solid var(--ink);
+    padding-top: 0.14in;
+  }
+  .stage .stage-num { font-size: 8pt; letter-spacing: 0.04em; color: var(--muted); }
+  .stage .stage-num::before { content: "N° "; }
+  .stage h3 { margin-top: 0.04in; margin-bottom: 0.08in; }
+  .stage .job {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 10pt;
+    line-height: 1.35;
+    margin-bottom: 0.1in;
+  }
+
+  /* Hook list big */
+  .hook-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3in 0.4in;
+    margin-top: 0.18in;
+  }
+  .hook-grid .h {
+    border-top: 0.5pt solid var(--ink);
+    padding-top: 0.12in;
+  }
+  .hook-grid .h .num { font-size: 8pt; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 0.04in; }
+  .hook-grid .h .num::before { content: "N° "; }
+  .hook-grid .h .line {
+    font-family: 'Fraunces', serif;
+    font-size: 13pt;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.06in;
+  }
+  .hook-grid .h .line em { font-style: italic; }
+  .hook-grid .h .why { font-size: 8.5pt; line-height: 1.4; color: var(--muted); }
+
+  /* Path card */
+  .path {
+    border-top: 0.5pt solid var(--ink);
+    padding-top: 0.14in;
+  }
+  .path .approach { font-size: 8pt; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 0.04in; }
+  .path h3 { margin-bottom: 0.1in; }
+
+  /* Centered hero in section */
+  .centered { text-align: center; }
+  .centered h2 { max-width: 6.5in; margin-left: auto; margin-right: auto; }
+  .centered .lead { margin-left: auto; margin-right: auto; }
+
+  /* Spacing util */
+  .mt-s { margin-top: 0.12in; }
+  .mt-m { margin-top: 0.22in; }
+  .mb-s { margin-bottom: 0.1in; }
+  .mb-m { margin-bottom: 0.22in; }
+
+  /* Stage table block for "what we say / what to leave out" */
+  .leave-out {
+    margin-top: 0.1in;
+    padding-top: 0.08in;
+    border-top: 0.5pt solid var(--grey);
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+  .leave-out b { color: var(--ink); font-weight: 600; font-size: 7.5pt; letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PAGE 1 — Cover -->
+<!-- ============================================================ -->
+<section class="page cover">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">May 2026</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <svg class="cluster" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="30" r="8" fill="#1c1917"/>
+    <circle cx="58" cy="22" r="5" fill="#1c1917"/>
+    <circle cx="72" cy="32" r="6.5" fill="#1c1917"/>
+    <circle cx="30" cy="48" r="7" fill="#1c1917"/>
+    <circle cx="50" cy="46" r="9" fill="#1c1917"/>
+    <circle cx="68" cy="50" r="5.5" fill="#1c1917"/>
+    <circle cx="82" cy="46" r="4" fill="#fcb348"/>
+    <circle cx="40" cy="64" r="6" fill="#1c1917"/>
+    <circle cx="58" cy="68" r="7" fill="#1c1917"/>
+    <circle cx="72" cy="66" r="4.5" fill="#1c1917"/>
+    <circle cx="50" cy="80" r="5" fill="#1c1917"/>
+    <circle cx="32" cy="78" r="3.5" fill="#fcb348"/>
+    <circle cx="22" cy="62" r="3" fill="#1c1917"/>
+    <circle cx="86" cy="62" r="3" fill="#1c1917"/>
+  </svg>
+
+  <div class="kicker">Strategy brief &nbsp;·&nbsp; 4 mental stages &nbsp;·&nbsp; 6 ICPs &nbsp;·&nbsp; Gut Balance</div>
+
+  <h1>Refuse the<br><em>probiotic frame.</em></h1>
+
+  <p class="lead">SecondKind Bold sits in the single best position in this category — not as a better probiotic, but as a categorical indictment of the probiotic model itself. Every major complaint across the live-bacteria competitive set — the plateau effect, the GI side effects, the "felt nothing" cancellations, the hype-versus-reality credibility collapse — traces back to the same delivery-mechanism failure that postbiotics bypass entirely. The work ahead is to build creative around that argument, persona by persona, mental stage by mental stage.</p>
+
+  <div class="dark">
+    <div class="qmark">"</div>
+    <blockquote>The four-beat arc, on every piece: name the suspicion she already had &rarr; diagnose the mechanism &rarr; <em>vindicate her</em> &rarr; convert with the offer.</blockquote>
+    <div class="small">The structural spine under every ad. Indict the category — the architecture is the antagonist, never the customer. Every persona's hook is a variation on this same arc.</div>
+  </div>
+
+  <div class="label-row">
+    <div class="section-label">The Three Foundations</div>
+    <div class="section-helper">What this document is built on</div>
+  </div>
+
+  <div class="grid-3">
+    <div>
+      <div class="item-num">01 · Positioning</div>
+      <h4>Category indictment</h4>
+      <p>We don't compete with probiotics — we diagnose them. Every ad performs two jobs at once: indict the live-bacteria delivery model, and validate the postbiotic mechanism. The vindication arc — <em>"you weren't wrong, the product was"</em> — is the structural argument, not a tagline.</p>
+    </div>
+    <div>
+      <div class="item-num">02 · Method</div>
+      <h4>Psychology-first creative</h4>
+      <p>We've abandoned the traditional TOFU / MOFU / BOFU funnel. That framework is media-buying logic, not customer psychology. Instead we organize creative around four mental stages: Trigger → Exploration → Evaluation → Purchase.</p>
+    </div>
+    <div>
+      <div class="item-num">03 · Audience</div>
+      <h4>Six ICPs, one core argument</h4>
+      <p>We don't write one ad for "the gut-health audience." We write specifically for six personas, each with their own dominant psychological heuristics, their own do's and don'ts, their own register of the same vindication arc.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 2 — Why we abandoned the funnel -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 1 · The Framework</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— Why TOFU / MOFU / BOFU stopped working</div>
+
+  <h2>The traditional funnel tells you where someone is in your media system. It tells you almost <em>nothing</em> about where they are inside their own head.</h2>
+
+  <div class="grid-2 mt-m">
+    <div>
+      <p class="lead">The TOFU / MOFU / BOFU framework was built around media-buying logic, not customer psychology. It describes where someone sits in your ad system — not what's actually happening inside their head while they're making the buying decision. That framework worked for a while. It doesn't anymore.</p>
+      <p class="lead mt-s">Three things have changed:</p>
+      <ul class="bullet mt-s">
+        <li><b>Meta's algorithm runs on broad targeting now.</b> You don't control who sees what. The platform optimizes against signals you can't see and audiences you can't define. The traditional funnel assumes you can — and that assumption costs brands money.</li>
+        <li><b>Creative diversity is the new lever.</b> With targeting flattened, the creative itself does the work the audience selection used to do.</li>
+        <li><b>Performance language has decoupled from creative logic.</b> "Top of funnel" tells you nothing about what to put inside the frame. A Trigger-stage buyer and an Evaluation-stage buyer might both be "cold" — they need completely different messages.</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="dark" style="margin-top:0;">
+        <div class="qmark">"</div>
+        <blockquote>If you're constantly discounting to close the sale, the problem is that your Trigger, Exploration, and Evaluation creative didn't do its job. The discount becomes <em>a crutch</em> — and an expensive one.</blockquote>
+        <div class="small">Discounts wallpaper over the gap. They don't close it. The 60-day money-back guarantee removes financial risk for someone who's already made the psychological decision — it's a Purchase-stage tool, not a substitute for the work the earlier stages need to do.</div>
+      </div>
+      <p class="lead mt-s">This framework is baked into how we generate every brief — each one tagged to one of the four mental stages.</p>
+    </div>
+  </div>
+
+  <p style="font-family:'Fraunces',serif;font-style:italic;font-size:14pt;line-height:1.35;color:var(--ink);max-width:6.2in;margin-top:0.35in;letter-spacing:-0.01em;">What replaces it — a framework built on how the buyer's brain actually decides, not where they sit in your ad system — is what the rest of this document is about.</p>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 3 — The psychology layer -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 2 · The Psychology Layer</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— Underneath the mental stages</div>
+
+  <h2>How the buyer's brain actually <em>decides.</em></h2>
+
+  <p class="lead mt-s" style="max-width:6.5in;">Creative built around how the buyer's brain decides outperforms creative built around where the buyer sits in your ad system. The psychology layer below is the <em>how.</em> The <em>where</em> — the four mental stages that map the buyer's journey — comes later, in Part 5.</p>
+
+  <div class="label-row">
+    <div class="section-label">The Nine Decision Heuristics</div>
+    <div class="section-helper">Which fire for this cohort &nbsp;·&nbsp; Which to avoid</div>
+  </div>
+
+  <table class="brief">
+    <thead><tr><th style="width:22%;">Heuristic</th><th style="width:38%;">What it does</th><th style="width:40%;">For this cohort</th></tr></thead>
+    <tbody>
+      <tr><td class="persona-name">Authority bias</td><td>Trust expert, credential, or data</td><td>Dominant across all 6 personas. Universal.</td></tr>
+      <tr><td class="persona-name">Framing effect</td><td>How information is presented changes the decision</td><td>Dominant across all 6. Universal.</td></tr>
+      <tr><td class="persona-name">Social proof</td><td>"Others like me already do this"</td><td>Strong for Natalie, Paul, Brandon — peer-mediated only.</td></tr>
+      <tr><td class="persona-name">Effect heuristic</td><td>Gut feel, aesthetics, "feels right"</td><td>Secondary for Danielle, Natalie, Paula. Pair with framing.</td></tr>
+      <tr><td class="persona-name">Processing fluency</td><td>Easy-to-understand reads as trustworthy</td><td>Natalie. Others want depth.</td></tr>
+      <tr><td class="persona-name">Salience bias</td><td>Attention grabbed by what stands out</td><td>Universal — execution-layer only.</td></tr>
+      <tr><td class="persona-name">Goal gradient</td><td>Accelerate as the finish line nears</td><td>Weak — cohort isn't on a program.</td></tr>
+      <tr><td class="persona-name">Scarcity</td><td>Limited time or quantity drives action</td><td><b>Avoid</b> — weak across all 6.</td></tr>
+      <tr><td class="persona-name">Temporal discounting</td><td>Immediate over long-term</td><td><b>Avoid</b> — weak across all 6.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2 mt-s">
+    <div>
+      <p style="font-size:9pt;line-height:1.5;"><b>The headline.</b> Authority bias and framing effect are universal across this cohort. Every ad must do both — present a specific receipt (authority) AND reframe what the buyer already believed (framing). Ads that lean on aesthetics alone work for Danielle, Natalie, and Paula but underperform on the analytical half of the cohort.</p>
+    </div>
+    <div>
+      <p style="font-size:9pt;line-height:1.5;"><b>The categorical no.</b> Scarcity and temporal discounting are weak across all six personas. Countdown timers, "feel better today," limited-time framing — all violate the cohort. These buyers have been burned by manufactured urgency in this category; reusing the gimmick erodes trust faster than it converts.</p>
+    </div>
+  </div>
+
+  <div class="label-row">
+    <div class="section-label">Emotional Quadrants</div>
+    <div class="section-helper">Valence × Intensity &nbsp;·&nbsp; Where each persona sits, what to lead with</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="stage">
+      <div class="stage-num" style="text-transform:uppercase;letter-spacing:0.08em;">HV / HI</div>
+      <h3>Breakthrough.</h3>
+      <p class="job">Transformation, "stop swallowing corpses."</p>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Not a primary entry point.</b> Only at solution-aware retargeting. Never lead with HV/HI hype — every persona in this cohort has been burned by the hype move already.</p>
+    </div>
+    <div class="stage">
+      <div class="stage-num" style="text-transform:uppercase;letter-spacing:0.08em;">HV / LI</div>
+      <h3>Relief, recognition.</h3>
+      <p class="job">"You can stop fighting this." Permission, return.</p>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Personas:</b> Natalie. <b>Tone:</b> warm, quiet, calm. Empathy plus clinical grounding. The frame is return to a prior self, never reinvention.</p>
+    </div>
+    <div class="stage">
+      <div class="stage-num" style="text-transform:uppercase;letter-spacing:0.08em;">LV / HI</div>
+      <h3>Stop the bleeding.</h3>
+      <p class="job">Active frustration, fear of mistake, professional exposure.</p>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Personas:</b> Danielle, Paul. <b>Lead frame:</b> "you've been paying for the wrong category." Indict sharply, expose the mechanism cost, vindicate early.</p>
+    </div>
+    <div class="stage">
+      <div class="stage-num" style="text-transform:uppercase;letter-spacing:0.08em;">LV / LI</div>
+      <h3>Quiet compromise.</h3>
+      <p class="job">Dull dissatisfaction, accepted as "just how it is."</p>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Personas:</b> Isaac, Paula, Brandon. <b>Lead frame:</b> "this used to mean more than this." Downshift intensity — name the quiet compromise before indicting. Let the data do the prosecuting.</p>
+    </div>
+  </div>
+
+  <div class="dark mt-s">
+    <div class="qmark">"</div>
+    <blockquote>Five of six personas sit in LV territory. The variant's natural register is LV/HI — but for the LV/LI majority, the indictment must be quieter. <em>Name the compromise first.</em> Let the receipts do the prosecuting.</blockquote>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 4 — Psychology Layer (cont.) — Paired mechanisms -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 2 · The Psychology Layer</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— The four paired-mechanism patterns</div>
+
+  <h2>For this cohort, four pairings repeat. <em>Use these.</em> Avoid the rest.</h2>
+
+  <p class="lead mt-s" style="max-width:6.5in;">Across the six personas, four mechanism pairings keep surfacing as the recommended creative architecture. Each pairs an analytical lever (the proof, the data, the mechanism) with an emotional or framing lever (the reframe, the trigger, the felt experience). The cohort's authority + framing dominance shows up in every one.</p>
+
+  <div class="grid-2 mt-m">
+    <div class="stage">
+      <div class="stage-num">01</div>
+      <h3>First-principles + Loss aversion</h3>
+      <p class="job">Mechanism reveal plus framing as cost of inaction.</p>
+      <p style="font-size:8.5pt;line-height:1.45;">The category-indictment pairing. Authority + framing — the cohort's exact heuristic stack. The buyer sees the structural failure mechanism and the cost of staying with what's failing in the same beat.</p>
+      <p style="font-size:8.5pt;line-height:1.45;margin-top:0.06in;"><b>Recommended for:</b> Danielle, Paul, Paula, Brandon.</p>
+    </div>
+    <div class="stage">
+      <div class="stage-num">02</div>
+      <h3>Reframing + Emotional trigger</h3>
+      <p class="job">Frame flip plus the felt experience.</p>
+      <p style="font-size:8.5pt;line-height:1.45;">The "you can stop fighting this" pairing. The buyer sees her own experience mirrored back, then receives the reframe as relief — not as a sales pitch, as recognition.</p>
+      <p style="font-size:8.5pt;line-height:1.45;margin-top:0.06in;"><b>Recommended for:</b> Isaac, Natalie.</p>
+    </div>
+    <div class="stage">
+      <div class="stage-num">03</div>
+      <h3>Authority borrowing + Data insight</h3>
+      <p class="job">Credentialed third-party voice plus a specific stat.</p>
+      <p style="font-size:8.5pt;line-height:1.45;">The analytical-persona pairing. A practitioner, researcher, or peer of credibility delivers the receipt — the trial number, the duration, the named outcome. The brand recedes; the evidence leads.</p>
+      <p style="font-size:8.5pt;line-height:1.45;margin-top:0.06in;"><b>Recommended for:</b> Isaac, Paul, Brandon.</p>
+    </div>
+    <div class="stage">
+      <div class="stage-num">04</div>
+      <h3>Counterintuitive insight + Specificity</h3>
+      <p class="job">Pattern break plus the receipt.</p>
+      <p style="font-size:8.5pt;line-height:1.45;">The "literature ahead of practice" pairing. The opening line subverts a category assumption ("your doctor hasn't mentioned this yet, and there's a reason"), then the next line delivers the specific evidence that makes the subversion defensible.</p>
+      <p style="font-size:8.5pt;line-height:1.45;margin-top:0.06in;"><b>Recommended for:</b> Paula, Brandon.</p>
+    </div>
+  </div>
+
+  <div class="label-row">
+    <div class="section-label">Patterns we never use</div>
+    <div class="section-helper">These violate the cohort's heuristic profile</div>
+  </div>
+
+  <div class="grid-3">
+    <div>
+      <h4>Gamification + time-sensitive offer</h4>
+      <p style="font-size:8.5pt;line-height:1.45;">Urgency theater violates the cohort. Countdown timers, "today only," scarcity gates — every persona reads them as manipulation, not motivation. These buyers have already been burned by exactly this move in the probiotic category.</p>
+    </div>
+    <div>
+      <h4>Shock factor + transformation shortcut</h4>
+      <p style="font-size:8.5pt;line-height:1.45;">"Miracle," "revolutionary," "life-changing" — all on the brand's prohibited-terms list for a reason. The cohort is allergic to hype. Every claim that promises a transformation without naming the mechanism gets discounted as marketing theater.</p>
+    </div>
+    <div>
+      <h4>Curiosity + reverse psychology</h4>
+      <p style="font-size:8.5pt;line-height:1.45;">Cleverness violates the brand's directness. The bold voice is wry, not coy. "You'll never guess what's actually in your probiotic" loses to "~70% died before they reached your gut" every time.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 5 — The category opportunity -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 3 · The Opportunity</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— The category position</div>
+
+  <h2>The single best position in this category is <em>not</em> "a better probiotic."</h2>
+
+  <p class="lead mt-s" style="max-width:6.5in;">Every burned probiotic customer is a warm audience for the explanation we own. The bold voice exists specifically to convert that customer. The vindication arc — <em>"you weren't wrong, the product was"</em> — is the brand's structural argument, not just a stylistic choice.</p>
+
+  <blockquote class="pull mt-s" style="max-width:6.5in;font-size:13pt;">The architecture is the antagonist. Every category complaint — the plateau, the side effects, the cancellations, the credibility collapse — traces back to the same live-bacteria delivery mechanism. We never name a competitor. We indict the structural mechanism they all share.</blockquote>
+
+  <div class="label-row">
+    <div class="section-label">The Five Dealbreakers</div>
+    <div class="section-helper">Universal complaints across the live-bacteria competitive set</div>
+  </div>
+
+  <table class="brief">
+    <thead>
+      <tr>
+        <th style="width:25%;">Pain</th>
+        <th style="width:25%;">Why it happens</th>
+        <th style="width:50%;">What we say</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="persona-name">The plateau effect</td>
+        <td>Live bacteria die in transit or fail to colonize. Effect attrition over months.</td>
+        <td><em>"Month one worked. Month three didn't. That's not your gut changing — that's the delivery model failing again."</em></td>
+      </tr>
+      <tr>
+        <td class="persona-name">GI side effects</td>
+        <td>Die-off byproducts and colonization competition cause nausea, diarrhea, worsening bloat.</td>
+        <td><em>"You stopped because it made things worse before it made things better — and then it just kept making things worse."</em></td>
+      </tr>
+      <tr>
+        <td class="persona-name">"Felt nothing"</td>
+        <td>Bacteria die in transit before producing the bioactive compounds that drive outcomes.</td>
+        <td><em>"You took the 53 billion. You felt nothing. Roughly 70% died before they reached your gut."</em></td>
+      </tr>
+      <tr>
+        <td class="persona-name">Hype-vs-reality collapse</td>
+        <td>Vague claims, proprietary blends, in-vitro evidence dressed as clinical.</td>
+        <td><em>"Three separate human clinical trials. Not a proprietary blend. Not a hope."</em></td>
+      </tr>
+      <tr>
+        <td class="persona-name">Worst for SIBO / IBS</td>
+        <td>The people who need it most have compromised gut environments that reject colonization.</td>
+        <td><em>"Sending live bacteria into a dysregulated gut is like sending a rescue team into a burning building and hoping they survive."</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="label-row">
+    <div class="section-label">Table Stakes</div>
+    <div class="section-helper">The price of admission &nbsp;·&nbsp; Match, don't compete</div>
+  </div>
+
+  <div class="grid-3">
+    <div>
+      <h4>Science-forward credibility</h4>
+      <p style="font-size:8.5pt;line-height:1.45;">"Clinically studied," traceable sourcing, named studies somewhere on the page. The category baseline.</p>
+    </div>
+    <div>
+      <h4>Clean label</h4>
+      <p style="font-size:8.5pt;line-height:1.45;">Vegan, non-GMO, no artificial fillers. A filter, not a differentiator — competitors already own this lane.</p>
+    </div>
+    <div>
+      <h4>Premium packaging</h4>
+      <p style="font-size:8.5pt;line-height:1.45;">Buyers describe top competitors as "luxury skincare, not supplements." Shelf-presence matters at this tier.</p>
+    </div>
+    <div>
+      <h4>Simple daily dosing</h4>
+      <p style="font-size:8.5pt;line-height:1.45;">One to two capsules. Anything more loses compliance and churns customers.</p>
+    </div>
+    <div>
+      <h4>Visible gut results</h4>
+      <p style="font-size:8.5pt;line-height:1.45;">Bloating relief, regularity, no nausea. The only thing that retains customers past month two.</p>
+    </div>
+    <div>
+      <h4>Brand transparency</h4>
+      <p style="font-size:8.5pt;line-height:1.45;">Ingredient names, dose disclosure, "evidence that can be traced." Anything less reads as marketing theater.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 4 — Wishes & Gaps -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 3 · The Opportunity</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— Where the category is leaving money on the table</div>
+
+  <h2>What the buyer keeps asking for. What the category <em>still</em> hasn't delivered.</h2>
+
+  <p class="lead mt-s" style="max-width:6.5in;">These are unmet asks from real customer reviews and voice-of-customer research across the major live-bacteria brands. Each one is a tactical opening for SecondKind.</p>
+
+  <table class="brief mt-m">
+    <thead>
+      <tr>
+        <th style="width:25%;">The wish</th>
+        <th style="width:30%;">The gap in the category</th>
+        <th style="width:45%;">Our move</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="persona-name">Keep working past month 3</td>
+        <td>Probiotic colonization attrition. Effects fade as live bacteria die out.</td>
+        <td>The 84-day human clinical study — a sustained-outcomes receipt, not a marketing claim.</td>
+      </tr>
+      <tr>
+        <td class="persona-name">Science I can verify</td>
+        <td>Strain amounts undisclosed. Non-standard measurements (e.g. AFU theater).</td>
+        <td>Lead with study design (RCT, 12-week, 84-day) — not just "clinically studied."</td>
+      </tr>
+      <tr>
+        <td class="persona-name">Heal my gut without wrecking my gut</td>
+        <td>Live cultures cause die-off side effects by nature. The category's structural irony.</td>
+        <td>"No die-off, no competition, no drama." Structural side-effect-free, not a safety claim.</td>
+      </tr>
+      <tr>
+        <td class="persona-name">One bottle, not a stack</td>
+        <td>Competitor users still need to supplement Vit C, fiber, immune. The "comprehensive" promise isn't.</td>
+        <td>One formula covers immune + GI + regularity. The breadth is the product.</td>
+      </tr>
+      <tr>
+        <td class="persona-name">Women's-data-backed proof</td>
+        <td>Category mostly tested on men. Studies don't represent the buyer.</td>
+        <td>Lead with the human clinical study that measured women's outcomes. Founder origin story for postpartum and perimenopause.</td>
+      </tr>
+      <tr>
+        <td class="persona-name">My doctor would have told me</td>
+        <td>Postbiotics are ahead of clinical practice. Knowledge gap, not category illegitimacy.</td>
+        <td>"Literature ahead of practice." Frame as a knowledge gap. Never bash doctors — Practitioner Paul is a target persona.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="dark mt-m">
+    <div class="qmark">"</div>
+    <blockquote>The buyer is already disappointed, already skeptical, and already ready for an explanation. The brand that explains the <em>failure mechanism</em> first and offers the structural alternative second is the brand that converts.</blockquote>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 5 — ICPs (1 & 2) -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 4 · The Six ICPs</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— Six personas, one core argument, six registers</div>
+
+  <h2>Same bottle. Same brand. Six entirely <em>different</em> hooks.</h2>
+
+  <p class="lead mt-s" style="max-width:6.5in;">Writing one ad for "the gut-health audience" is the most common failure mode in this space. The buyer who responds to "you optimized everything" is a different person from the buyer who responds to "six months postpartum and your gut still doesn't feel like yours." Below: snapshot, what they want and fear, psychology triggers, hooks that land, and the do's and don'ts that govern each one.</p>
+
+  <!-- ICP 1: Brandon -->
+  <div class="icp">
+    <div class="num">01</div>
+    <h3>Burnout Biohacker Brandon <span class="tag">Primary</span></h3>
+    <p class="snap"><b>Snapshot.</b> 30–45, performance-coded, tracks HRV, runs a disciplined supplement stack. Already takes a refrigerated multi-strain probiotic. Accepts inconsistent digestion and afternoon cognitive dips as "unsolved variables" — probably stress, probably sleep debt, probably aging. <b>Wants:</b> measurable improvement, stack simplification, evidence he can google later. <b>Fears:</b> adding another supplement that doesn't earn its place; being seen as naive.</p>
+    <p style="font-size:9pt;line-height:1.45;margin-top:0.06in;"><b>Quadrant.</b> LV/LI — quiet dissatisfaction with a stack that hasn't moved his metrics. <b>Key move:</b> completion, not replacement. "You bought wrong" kills the sale. "You were missing the active compound the bacteria were supposed to produce" earns it.</p>
+    <p class="triggers"><em>Triggers: authority bias · framing effect · first-principles thinking</em></p>
+    <div class="hook-list">
+      <div class="h">"You optimized everything. Except the part where ~70% of your probiotic never reached your gut."</div>
+      <div class="h">"Twelve months of a premium probiotic. Zero change in HRV. Zero change in digestion. You weren't doing it wrong. The product was."</div>
+      <div class="h">"Your probiotic didn't earn its place in your stack. Give Gut Balance 60 days. It will."</div>
+    </div>
+    <div class="row do-dont mt-s">
+      <div>
+        <div class="label">Do</div>
+        <ul class="bullet">
+          <li>Lead with mechanism, not outcome promise</li>
+          <li>First-principles language ("delivery model failure," "stacked failure points")</li>
+          <li>Frame as stack rationalization, not stack addition</li>
+          <li>Cite study design (12-week RCT, 84-day clinical) when proof is the job</li>
+        </ul>
+      </div>
+      <div>
+        <div class="label">Don't</div>
+        <ul class="bullet ink">
+          <li>Suggest he was naive — frame his probiotic use as "incomplete data," not "you fell for it"</li>
+          <li>Use scarcity or urgency. Reads as manipulation.</li>
+          <li>Use transformation language ("the new you")</li>
+          <li>Rely on aspirational testimonials. Peer-coded only.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ICP 2: Paula -->
+  <div class="icp">
+    <div class="num">02</div>
+    <h3>Perimenopause Paula <span class="tag">Secondary</span></h3>
+    <p class="snap"><b>Snapshot.</b> 42–55. Bloating, brain fog, digestive irregularity that worsened around perimenopause. Has been told her labs are fine. Has tried premium probiotics; nothing changed. Quietly skeptical of the medical system that hasn't given her an explanation. <b>Wants:</b> a real explanation; gut-hormone mechanism; quality of life. <b>Fears:</b> another supplement that disappoints; being told her symptoms aren't real.</p>
+    <p style="font-size:9pt;line-height:1.45;margin-top:0.06in;"><b>Quadrant.</b> LV/LI baseline, spiking to LV/HI before vacations, professional photos, or social events. <b>Key move:</b> her structural objection is "if it's hormonal, gut products can't fix it." The mechanism reframe — perimenopause depletes postbiotic output independent of probiotic input — is mandatory <em>before</em> any product mention.</p>
+    <p class="triggers"><em>Triggers: authority bias · framing effect</em></p>
+    <div class="hook-list">
+      <div class="h">"Nobody told you that estrogen decline reshapes your gut microbiome. Your bloating isn't just hormonal. It's structural."</div>
+      <div class="h">"You eat clean. You take the refrigerated probiotic. You still feel bloated by dinner and foggy by 10 AM. The problem isn't you."</div>
+      <div class="h">"The last three supplements that promised to fix this cost you real money and nothing changed. Here's what's different."</div>
+    </div>
+    <div class="row do-dont mt-s">
+      <div>
+        <div class="label">Do</div>
+        <ul class="bullet">
+          <li>Acknowledge the institutional trust gap without bashing doctors</li>
+          <li>Use "literature ahead of practice" framing</li>
+          <li>Validate her years of disappointment as rational</li>
+          <li>Lead with the gut-hormone mechanism</li>
+        </ul>
+      </div>
+      <div>
+        <div class="label">Don't</div>
+        <ul class="bullet ink">
+          <li>Use aesthetic or body-appearance framing</li>
+          <li>Use scarcity or urgency</li>
+          <li>Manufacture excitement. Her position is cautious, not enthusiastic.</li>
+          <li>Lean on social proof from younger women. Peer-coded only.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 6 — ICPs (3 & 4) -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 4 · The Six ICPs</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <!-- ICP 3: Danielle -->
+  <div class="icp" style="margin-top:0.2in;">
+    <div class="num">03</div>
+    <h3>Done-Everything Danielle <span class="tag">Tertiary</span></h3>
+    <p class="snap"><b>Snapshot.</b> 30–44. Clean eater, takes wellness seriously, has tried multiple probiotic brands. Has accepted that bloating and afternoon fog are "just part of her life." High emotional fatigue with the supplement industry. <b>Wants:</b> vindication; to stop blaming herself for the failure; an honest argument she can verify. <b>Fears:</b> being sold to; being patronized; spending money on another disappointment.</p>
+    <p style="font-size:9pt;line-height:1.45;margin-top:0.06in;"><b>Quadrant.</b> LV/HI — active frustration after multiple bottles. <b>Key move:</b> the center-of-mass persona for the bold variant. Lead vindication in the first line. "I know, I know, another supplement" is her own self-effacing register — side with her, not against her.</p>
+    <p class="triggers"><em>Triggers: authority bias · framing effect · effect heuristic ("will this actually do something?")</em></p>
+    <div class="hook-list">
+      <div class="h">"You eat clean. You still look three months pregnant by 7 PM. Stop blaming dinner."</div>
+      <div class="h">"You've finished three probiotic bottles. You feel exactly the same as when you started. You weren't doing it wrong."</div>
+      <div class="h">"You've given bad products every benefit of the doubt. Give this one 60 days. If it doesn't work, we'll give you your money back."</div>
+    </div>
+    <div class="row do-dont mt-s">
+      <div>
+        <div class="label">Do</div>
+        <ul class="bullet">
+          <li>Lead the vindication early — first line if possible</li>
+          <li>Use concrete imagery if and only if blame lands on the delivery model, not on her</li>
+          <li>Direct, short, no qualifying language</li>
+          <li>Frame the 60-day money-back guarantee as designed for someone with her exact history</li>
+        </ul>
+      </div>
+      <div>
+        <div class="label">Don't</div>
+        <ul class="bullet ink">
+          <li>Frame as "a better probiotic" — she files it with everything that failed her</li>
+          <li>Scarcity, time pressure, manufactured urgency</li>
+          <li>Lean on social proof as primary driver. Weak heuristic for her.</li>
+          <li>Soft-pedal. Her bullshit detector is on.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ICP 4: Paul -->
+  <div class="icp">
+    <div class="num">04</div>
+    <h3>Functional-Curious Practitioner Paul <span class="tag">Quaternary</span></h3>
+    <p class="snap"><b>Snapshot.</b> Practitioner, dietitian, naturopath, or wellness influencer who recommends probiotics to clients or followers. Up-to-date on gut science. Has had patients report that probiotic recommendations didn't work. Feels the credibility erosion. <b>Wants:</b> a formulation he can professionally defend; primary-source literature; a product his peers won't roll their eyes at. <b>Fears:</b> recommending something that damages his credibility.</p>
+    <p style="font-size:9pt;line-height:1.45;margin-top:0.06in;"><b>Quadrant.</b> LV/HI — professional credibility exposure. <b>Key move:</b> treat him as a separate channel, not just a persona. Practitioner-to-practitioner content only — trade-publication aesthetic, never lifestyle imagery. One Paul conversion = 50–500 downstream patient or follower entries. Strategically the cheapest scale lever in the brief.</p>
+    <p class="triggers"><em>Triggers: authority bias · social proof (peer-coded only)</em></p>
+    <div class="hook-list">
+      <div class="h">"Your patients came back and said the probiotic didn't work. Here's the explanation the category never gave you."</div>
+      <div class="h">"Three ingredients. Three separate clinical trials. This is what a formulation with receipts looks like."</div>
+      <div class="h">"You want the actual trials, not the summary. Full citations available."</div>
+    </div>
+    <div class="row do-dont mt-s">
+      <div>
+        <div class="label">Do</div>
+        <ul class="bullet">
+          <li>Peer-coded language — like a colleague sharing a primary source, not a brand pitching</li>
+          <li>Cite study design explicitly (RCT, n, weeks)</li>
+          <li>Frame recommending the brand as professionally defensible</li>
+          <li>Professional on-ramp at conversion, not a consumer CTA</li>
+        </ul>
+      </div>
+      <div>
+        <div class="label">Don't</div>
+        <ul class="bullet ink">
+          <li>Consumer-coded sales language or outcome promises in the hook</li>
+          <li>Bash practitioners or doctors</li>
+          <li>Aesthetic framing, body language, transformation language</li>
+          <li>Urgency, scarcity, or discount language</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 7 — ICPs (5 & 6) -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 4 · The Six ICPs</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <!-- ICP 5: Isaac -->
+  <div class="icp" style="margin-top:0.2in;">
+    <div class="num">05</div>
+    <h3>Immune-Anxious Isaac <span class="tag">Quinary</span></h3>
+    <p class="snap"><b>Snapshot.</b> Gets sick two or three times a year at inconvenient moments — end of quarter, before a trip, before a wedding. Performance-coded, analytical, a first-principles thinker when given the right entry point. <b>Wants:</b> fewer sick weeks; measurable performance; self-experiment data. <b>Fears:</b> adding a supplement that doesn't measurably matter.</p>
+    <p style="font-size:9pt;line-height:1.45;margin-top:0.06in;"><b>Quadrant.</b> LV/LI — normalized compromise. "Third year in a row" energy. <b>Key move:</b> male peer voice, not influencer. Podcast-clip register. Never smiling stock people. The 17% sick-day RCT is his conversion stat — lead with the number, attach the trial design as the receipt.</p>
+    <p class="triggers"><em>Triggers: authority bias · framing effect · data-as-proof</em></p>
+    <div class="hook-list">
+      <div class="h">"End of quarter. Before the trip. Third year in a row. The timing isn't bad luck."</div>
+      <div class="h">"17% fewer cold and flu symptom days. That's not a brand claim. That's a 12-week RCT."</div>
+      <div class="h">"Run the experiment. 60 days. One variable. See your own data."</div>
+    </div>
+    <div class="row do-dont mt-s">
+      <div>
+        <div class="label">Do</div>
+        <ul class="bullet">
+          <li>Lead with the number when proof is the job ("17% fewer sick days")</li>
+          <li>Frame the trial as a self-experiment, not a consumer guarantee</li>
+          <li>Specific, measurable outcomes (sick days, regularity, stress index)</li>
+          <li>Cite the RCT structure</li>
+        </ul>
+      </div>
+      <div>
+        <div class="label">Don't</div>
+        <ul class="bullet ink">
+          <li>Emotional distress amplification</li>
+          <li>Body or aesthetic framing</li>
+          <li>Urgency or scarcity</li>
+          <li>Lean on testimonial as primary proof. Data leads.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ICP 6: Natalie -->
+  <div class="icp">
+    <div class="num">06</div>
+    <h3>New-Normal New Mom Natalie <span class="tag">Senary</span></h3>
+    <p class="snap"><b>Snapshot.</b> Six to twenty-four months postpartum. Bloating, fog, low energy that hasn't resolved with time. Attributes it to "new baby tiredness." Trusts her body will return to normal eventually. Limited mental bandwidth. <b>Wants:</b> to feel like herself again; a safe, simple solution; recognition that her experience is real. <b>Fears:</b> anything that isn't safe while breastfeeding; adding another mental load to her day.</p>
+    <p style="font-size:9pt;line-height:1.45;margin-top:0.06in;"><b>Quadrant.</b> HV/LI — quietly persistent, looking for permission. <b>Key move:</b> the frame is return to a prior self, never reinvention. Body shame off-limits entirely. Mom-to-mom voice, phone-shot intimate aesthetic. The founder mirror is the strongest available social proof for her.</p>
+    <p class="triggers"><em>Triggers: framing effect · social proof (founder-coded) · tribal belonging</em></p>
+    <div class="hook-list">
+      <div class="h">"Six months postpartum and your gut still doesn't feel like yours. That's not just the sleep."</div>
+      <div class="h">"Danielle, the founder, went through exactly what you're describing. She built Gut Balance because nothing she tried was addressing the actual mechanism."</div>
+      <div class="h">"You've done the research. You know what's in it. Try it for 60 days. If your gut doesn't feel different, we'll give you your money back. That's it."</div>
+    </div>
+    <div class="row do-dont mt-s">
+      <div>
+        <div class="label">Do</div>
+        <ul class="bullet">
+          <li>Open with empathy plus clinical grounding</li>
+          <li>Address the safety question with "not live bacteria" early</li>
+          <li>Use the founder origin story heavily — it functions as peer proof</li>
+          <li>Keep close-stage creative the shortest in the sequence</li>
+        </ul>
+      </div>
+      <div>
+        <div class="label">Don't</div>
+        <ul class="bullet ink">
+          <li><b>Critical:</b> Use aesthetic or body-appearance language. Body is sacred ground.</li>
+          <li>Urgency, scarcity, or goal-gradient nudges</li>
+          <li>Manufacture energy. Her tone is quietly persistent, not excited.</li>
+          <li>Ask her to research more at the close. Bandwidth is her constraint.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 8 — Mental stages applied -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 5 · The Mental Stages, Applied</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker centered" style="text-align:center;">— Four stages. Four jobs.</div>
+
+  <div class="centered">
+    <h2>Each stage has a job. The job determines the <em>message</em>, the <em>hook</em>, the <em>proof points</em>, and what to leave out.</h2>
+  </div>
+
+  <div class="grid-2 mt-m">
+    <div class="stage">
+      <div class="stage-num">01</div>
+      <h3>Trigger</h3>
+      <p class="job">The customer wasn't looking for a supplement. Now they're looking for an <em>explanation.</em></p>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Job:</b> surface the mechanism failure as a hidden variable behind a felt experience. Name the experience first ("clean eating all day, bloated by dinner"). Reveal the structural failure (the 70% transit-mortality stat). Do not mention the product. CTA: "see why."</p>
+      <blockquote class="pull">"You eat clean. You still look three months pregnant by 7 PM. Stop blaming dinner."</blockquote>
+      <div class="leave-out"><b>Leave out:</b> &nbsp; product, ingredients, brand promise, trial offer.</div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-num">02</div>
+      <h3>Exploration</h3>
+      <p class="job">They know they have a problem. They're learning the <em>category.</em></p>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Job:</b> establish postbiotics as a structurally distinct mechanism — not a rebrand, not a marketing pivot, an actual different thing. Lead with the mechanism distinction. First-principles framing. Brand visible, product secondary. CTA: "see how this works."</p>
+      <blockquote class="pull">"Probiotics send live bacteria and hope they arrive. Postbiotics send what those bacteria were supposed to make."</blockquote>
+      <div class="leave-out"><b>Leave out:</b> &nbsp; discount, scarcity, testimonial-led proof, body claims.</div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-num">03</div>
+      <h3>Evaluation</h3>
+      <p class="job">They have a short list. They're looking for permission to <em>choose.</em></p>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Job:</b> give the buyer decision confidence. Lead with proof points — study designs, durations, named outcomes. Peer-coded social proof. Address the persona's specific objection. CTA: "see the trials."</p>
+      <blockquote class="pull">"Three separate human clinical trials. 17% fewer sick days. 84-day improvement in GI and quality of life. 30-day regularity outcomes."</blockquote>
+      <div class="leave-out"><b>Leave out:</b> &nbsp; heavy product hero shots without claims attached, generic aspirational testimonials.</div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-num">04</div>
+      <h3>Purchase</h3>
+      <p class="job">The decision is made. They're scanning for reasons <em>not</em> to act.</p>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Job:</b> remove the last friction. Lead with the 60-day money-back guarantee. Acknowledge the buyer's exhaustion. Short, calm, declarative — no urgency theater. CTA: "Start your 60-day risk-free trial."</p>
+      <blockquote class="pull">"Try Gut Balance for 60 days. If your gut doesn't feel different, we'll give you your money back."</blockquote>
+      <div class="leave-out"><b>Leave out:</b> &nbsp; mechanism explanations (job is done), new claims, manufactured urgency.</div>
+    </div>
+  </div>
+
+  <div class="dark mt-s">
+    <div class="qmark">"</div>
+    <blockquote>Even within a single problem-aware persona, briefs should span all four mental stages. The buyer cycles. Done-Everything Danielle is in <em>Trigger</em> mode at 7 PM after dinner — and in <em>Evaluation</em> mode the next morning scrolling LinkedIn. Same persona, different head.</blockquote>
+  </div>
+
+  <div class="label-row">
+    <div class="section-label">Allocation</div>
+    <div class="section-helper">Where the budget goes &nbsp;·&nbsp; The single most important tactical recommendation</div>
+  </div>
+
+  <table class="brief">
+    <thead>
+      <tr><th>Stage</th><th>Share of creative volume</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="persona-name">Trigger</td><td>10–15%</td><td>Highest cost per impression. Iterative creative testing required.</td></tr>
+      <tr><td class="persona-name">Exploration</td><td>25–30%</td><td>The category-education engine. Underweighted at most DTC brands.</td></tr>
+      <tr><td class="persona-name">Evaluation</td><td>25–30%</td><td>Where mechanism + receipts do the conversion work.</td></tr>
+      <tr><td class="persona-name">Purchase</td><td>20–25%</td><td>Retargeting + trial CTA. Short, cheap creative.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 9 — Hook library -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 6 · The Hook Library</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— Six universal hooks</div>
+
+  <h2>Work cross-persona. Adjust the <em>register</em>, not the spine.</h2>
+
+  <div class="hook-grid">
+    <div class="h">
+      <div class="num">01</div>
+      <div class="line">"~70% die before they reach your gut."</div>
+      <div class="why">The brand's most powerful stat. Mechanism reveal, not a scare. Verifiable, defensible, uniquely owned by the postbiotic positioning.</div>
+    </div>
+    <div class="h">
+      <div class="num">02</div>
+      <div class="line">"You weren't wrong. <em>The product was.</em>"</div>
+      <div class="why">The vindication arc. The structural argument that makes the category switch feel rational rather than risky. Not a tagline.</div>
+    </div>
+    <div class="h">
+      <div class="num">03</div>
+      <div class="line">"Probiotics count live bacteria. We count <em>what they were supposed to make.</em>"</div>
+      <div class="why">CFU theater takedown in one sentence. Reframes the entire category measurement war.</div>
+    </div>
+    <div class="h">
+      <div class="num">04</div>
+      <div class="line">Three failure points. <em>Postbiotics skip all three.</em></div>
+      <div class="why">First-principles language for analytical buyers. Step 1: ~70% die in transit. Step 2: survivors must colonize, most don't. Step 3: those that do must produce bioactives.</div>
+    </div>
+    <div class="h">
+      <div class="num">05</div>
+      <div class="line">"Three separate <em>human</em> clinical trials."</div>
+      <div class="why">The receipts framing. Trial outcomes lead — ingredient names are footnotes. (Exception: Brandon and Paul pattern-match on patented compound names as authority signals.)</div>
+    </div>
+    <div class="h">
+      <div class="num">06</div>
+      <div class="line">"60 days. If your gut doesn't feel different, <em>we'll give you your money back.</em>"</div>
+      <div class="why">Purchase-stage conversion lever. Removes financial risk for a buyer who's already made the psychological decision.</div>
+    </div>
+  </div>
+
+  <div class="label-row">
+    <div class="section-label">A note on ingredient names</div>
+    <div class="section-helper">EpiCor · Bereum · Totipro</div>
+  </div>
+
+  <p class="lead" style="max-width:6.5in;">Avoid leading hooks with patented compound names. For four of the six personas (Danielle, Natalie, Paula, and most of Isaac's surface area), they read as marketing jargon and trigger the exact skepticism we're working to disarm. Across hundreds of customer reviews and comments, real buyers reach for the meta-signal of evidence ("clinically studied," "publication," "data") — not specific compound names. The patented names work as <em>trust receipts in body copy, on landing pages, and as on-package badges</em>. The hook should be the outcome (<em>"17% fewer sick days in a 12-week RCT"</em>); the ingredient name belongs in the footnote.</p>
+
+  <p class="lead mt-s" style="max-width:6.5in;"><b>The exceptions:</b> Brandon and Paul both pattern-match positively on patented compound names as authority signals, even when they don't immediately recognize them. For those two personas specifically, naming Bereum or EpiCor in body copy strengthens the case.</p>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 10 — Rules of engagement -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 7 · Rules of Engagement</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— The non-negotiables</div>
+
+  <h2>What every piece of creative <em>needs</em>. What every piece of creative <em>refuses</em>.</h2>
+
+  <div class="grid-2 mt-m">
+    <div class="pane-light">
+      <div class="kicker">— Always</div>
+      <h3>What every ad needs.</h3>
+      <ul class="bullet mt-s">
+        <li>Validate her experience before pitching</li>
+        <li>Lead with the mechanism failure (the 70% stat)</li>
+        <li>Pair every claim with a receipt — study, duration, named outcome</li>
+        <li>Include the 60-day money-back guarantee at Purchase</li>
+        <li>Match register to persona</li>
+        <li>Lead with outcome — ingredient names are the receipt, not the headline</li>
+      </ul>
+    </div>
+
+    <div class="pane-dark">
+      <div class="kicker label" style="color:var(--accent);">— Never</div>
+      <h3 style="color:var(--bg);">The category, <em>plainly.</em></h3>
+      <ul class="bullet mt-s">
+        <li>Frame as "a better probiotic"</li>
+        <li>Use scarcity, urgency, or countdown timers</li>
+        <li>Use aesthetic framing for Natalie</li>
+        <li>Compete on price</li>
+        <li>Name competitors — indict the category</li>
+        <li>Use puffery ("best in class," "industry-leading")</li>
+        <li>Lead a hook with patented ingredient names</li>
+      </ul>
+      <div class="footer-rule">
+        Keep claims personal. Keep the cut on the category, not the customer. That's the <em>safe zone</em>, and it converts better anyway.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 11 — The four biggest levers -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 8 · The Four Biggest Levers</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— If we strip everything down</div>
+
+  <h2>Four levers carry the <em>most weight.</em></h2>
+
+  <p class="lead mt-s" style="max-width:6.5in;">If we reduce the entire strategy to the moves most likely to produce conversions in Phase 1, four show up. Each is structural — competitors cannot easily retrofit any of them without abandoning their existing claims — and each converts more than one persona simultaneously.</p>
+
+  <div class="grid-2 mt-m">
+    <div class="stage">
+      <div class="stage-num">01</div>
+      <h3>Vindication before conversion</h3>
+      <p class="job">The single biggest lever.</p>
+      <p style="font-size:8.5pt;line-height:1.45;">Every persona except Natalie sits at the intersection of frustration plus identity-threat about "being the kind of person who falls for marketing." The bold variant exonerates them before selling — <em>"you weren't wrong, the product was."</em> That move satisfies the analytical personas (framing effect) AND the affective personas (effect heuristic via felt validation). One arc, two cohorts.</p>
+    </div>
+    <div class="stage">
+      <div class="stage-num">02</div>
+      <h3>Mechanism reframe with a receipt in the next line</h3>
+      <p class="job">The category's failure mode is hype without receipts.</p>
+      <p style="font-size:8.5pt;line-height:1.45;">The bold voice rule is "every claim is backed by a receipt in the next line." This is the strongest structural differentiator from the competitive set because it cannot be retrofitted — competitors would have to abandon their existing claims to adopt it. Mechanism leads. Outcome follows. Named trial closes.</p>
+    </div>
+    <div class="stage">
+      <div class="stage-num">03</div>
+      <h3>Body indictment that lands on the mechanism, not the body</h3>
+      <p class="job">Bloating is the cohort's number-one pain.</p>
+      <p style="font-size:8.5pt;line-height:1.45;">The bold variant has unique permission to attack it because the mechanism reframe redirects causality from her body to the product — <em>"that's not you, that's the die-off."</em> A measured variant can't do this; it would read as body-shaming. The bold variant can — because the cut lands on the mechanism. <b>Off-limits for Natalie.</b></p>
+    </div>
+    <div class="stage">
+      <div class="stage-num">04</div>
+      <h3>Practitioner-channel expansion (Paul)</h3>
+      <p class="job">The highest-trust-bridge persona.</p>
+      <p style="font-size:8.5pt;line-height:1.45;">Paul is the only solution-aware persona — ready for receipts-first ads, no vindication-first needed. He's also the highest-leverage referral source: one Paul conversion reaches 50–500 downstream patients or followers. Phase 1 should include at least one practitioner-to-practitioner long-form. Strategically the cheapest scale lever in the brief.</p>
+    </div>
+  </div>
+
+  <div class="dark mt-s">
+    <div class="qmark">"</div>
+    <blockquote>One shared mechanism wedge converts five of six personas: probiotics-as-delivery-vehicle versus postbiotics-as-active-compound. The conceptual hinge is <em>structural, not preferential.</em> Natalie is the only persona where mechanism is secondary — for her, safety and transparency framing lead.</blockquote>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 12 — Where we start -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="topbar">
+    <div class="brand">SecondKind</div>
+    <div class="center">Creative Strategy</div>
+    <div class="center">Part 9 · Where We Start</div>
+    <div class="right">Vol. 01</div>
+  </div>
+
+  <div class="kicker">— First moves</div>
+
+  <h2>Three paths give us the highest <em>leverage</em> out of the gate.</h2>
+
+  <p class="lead mt-s" style="max-width:6.5in;">Each one tests a different load-bearing claim of the bold variant. Combined, they cover the four mental stages and the cohort's two dominant emotional quadrants.</p>
+
+  <div class="grid-3 mt-m">
+    <div class="path">
+      <div class="approach">Path A · Ground truth</div>
+      <h3>The vindication static.</h3>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Stage:</b> Exploration. <b>Persona:</b> Danielle. <b>Format:</b> typography-only static.</p>
+      <blockquote class="pull">"You weren't wrong. The product was."</blockquote>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Why it leads.</b> The bold thesis compressed into eight words. Runs the entire four-beat arc in a single line. Lowest possible production cost — three font-and-color variants, no shoot. The cleanest test of the brand voice's load-bearing claim: that buyers respond to category-indictment plus exoneration faster than they respond to product benefits.</p>
+    </div>
+
+    <div class="path">
+      <div class="approach">Path B · Mechanism</div>
+      <h3>The 70% reveal.</h3>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Stage:</b> Exploration. <b>Persona:</b> Brandon or Danielle. <b>Format:</b> short-form video, mechanism walkthrough or visual literalization (capsule dissolving in acid).</p>
+      <blockquote class="pull">"~70% of your probiotic never reached your gut. Here's the math."</blockquote>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Why it leads.</b> The brand's most underweighted stage and its most defensible message. Performs the category-indictment job without naming the product. Works as cold creative without sounding like an ad.</p>
+    </div>
+
+    <div class="path">
+      <div class="approach">Path C · Receipts</div>
+      <h3>The evaluation card.</h3>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Stage:</b> Evaluation. <b>Persona:</b> Danielle or Paula. <b>Format:</b> UGC-style testimonial-review hybrid with mechanism overlay, or clinical-summary card.</p>
+      <blockquote class="pull">"Three probiotic bottles. Felt nothing. You weren't doing it wrong."</blockquote>
+      <p style="font-size:8.5pt;line-height:1.45;"><b>Why it leads.</b> Cuts to the receipts in line two — 17% fewer sick days (12-week RCT), 84-day human clinical study, 30-day regularity outcomes. Where most personas currently sit, and where the brand has the strongest evidence stack in the category.</p>
+    </div>
+  </div>
+
+  <div class="label-row">
+    <div class="section-label">The First 90 Days</div>
+    <div class="section-helper">Directional schedule &nbsp;·&nbsp; Iterate on signal</div>
+  </div>
+
+  <table class="brief">
+    <thead><tr><th>Weeks</th><th>Focus</th><th>Volume</th></tr></thead>
+    <tbody>
+      <tr><td class="persona-name">1–2</td><td>Ship 5–8 Trigger + Exploration ads across multiple personas</td><td>High</td></tr>
+      <tr><td class="persona-name">3–4</td><td>Ship 5–6 Evaluation ads, lead with proof points</td><td>Medium</td></tr>
+      <tr><td class="persona-name">5–6</td><td>Ship 3–4 Purchase ads, 60-day money-back CTA</td><td>Medium</td></tr>
+      <tr><td class="persona-name">7–8</td><td>Audit performance by mental stage, not by funnel position</td><td>—</td></tr>
+      <tr><td class="persona-name">9–12</td><td>Iterate on winning angles, ship persona-specific variations</td><td>High</td></tr>
+    </tbody>
+  </table>
+
+  <div class="dark mt-m">
+    <div class="qmark">"</div>
+    <blockquote>SecondKind Bold is the only brand in this category positioned to make this argument credibly. The work ahead is to translate that position into <em>50 to 100 pieces</em> of creative across all four mental stages — each one tuned to a persona, each one performing two jobs at once: indict the probiotic delivery model, validate the postbiotic mechanism.</blockquote>
+    <div class="small">This document is the foundation. The creative is built on it.</div>
+  </div>
+
+  <div class="footer">
+    <div class="brand">SecondKind</div>
+    <div class="center">The postbiotic era is here.</div>
+    <div class="vol">Creative Strategy · Vol. 01</div>
+    <div class="copy">© 2026</div>
+  </div>
+</section>
+
+</body>
+</html>

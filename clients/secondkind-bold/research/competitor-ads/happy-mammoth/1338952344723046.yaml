@@ -1,0 +1,144 @@
+ad_id: '1338952344723046'
+foreplay_id: jqbAXOqKqQjk1h5EcBAK
+brand: Happy Mammoth
+brand_id: BHCokodNyCNqBMfDM8dB
+competitor_slug: happy-mammoth
+bucket: fresh
+days_running: 52
+fetched_at: '2026-05-29T21:47:26Z'
+source:
+  type: foreplay-brand-ads
+  filters:
+    display_format:
+    - image
+    live: true
+    order: longest_running
+    running_duration_max_days: 14
+display_format: image
+live: true
+started_running: 1775545200000
+headline: I wish I knew sooner
+description: 'Here’s something that nobody tells you about your 40s…
+
+
+  For most of my life… my body was… easy to deal with.
+
+
+  I could eat normally…
+
+
+  Get away with 5h of sleep…
+
+
+  Handle stress…
+
+
+  And still bounce back.
+
+
+  Then something shifted…
+
+
+  🫥 My sleep got lighter
+
+  🫥 I would wake up tired
+
+  🫥 Forget words mid sentence
+
+  🫥 Get angry more easily
+
+
+  And just feeling off without a clear reason why.
+
+
+  And the most frustrating part was that no matter what I did…
+
+
+  Nothing seemed to work…
+
+
+  AND IT DROVE ME CRAZY!
+
+
+  But… what I didn’t understand back then was that…
+
+
+  My body was going through a shift…
+
+
+  And it was begging for a different kind of support.
+
+
+  That’s why I started taking Hormone Harmony 👇
+
+
+  https://store.happymammoth.com/pages/hormonal-weight-assist
+
+
+  It’s a plant-based formula with adaptogens studied for their role in supporting hormones and overall
+  balance…
+
+
+  And meeting your body where it is NOW.
+
+
+  And honestly… I’m OBSESSED with it!
+
+
+  ♥️ I feel more steady, less all over the place.
+
+  ♥️ My sleep and focus improved
+
+  ♥️ My energy is through the roof
+
+  ♥️ And I just feel like MYSELF again
+
+
+  So if you feel like your body has stopped ‘responding’...
+
+
+  Try Hormone Harmony for yourself 👇
+
+  https://store.happymammoth.com/pages/hormonal-weight-assist
+
+
+  🥰 2.8M women agree it works'
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://happymammoth.com/pages/hormonal-weight-assist
+publisher_platform:
+- facebook
+- instagram
+- messenger
+- threads
+niches:
+- Food/Drink
+languages:
+- English
+market_target: b2c
+product_category: ''
+persona:
+  age: 40 to 50
+  gender: woman
+emotional_drivers:
+  achievement: 3
+  anger: 7
+  authority: 2
+  belonging: 8
+  competence: 4
+  curiosity: 6
+  empowerment: 7
+  engagement: 5
+  esteem: 6
+  fear: 3
+  guilt: 4
+  nostalgia: 5
+  nurturance: 9
+  security: 8
+  urgency: 5
+ai_keywords: []
+assets:
+  primary: 1338952344723046.jpg
+  source_image_url: https://r2.foreplay.co/c47d1372c0da25d2a2bcfc26a90bdc9a48b0270831449d45bae2a283632ca40b.jpg
+  source_thumbnail_url: ''

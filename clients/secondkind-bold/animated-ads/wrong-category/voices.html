@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SK Bold — voice casting + revised script</title>
+<style>
+  :root { --bg:#fefcf6; --ink:#1c1917; --stone:#d2d2cd; --marigold:#fcb348; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Neue Montreal",-apple-system,Segoe UI,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1000px;margin:0 auto;padding:40px 28px 90px}
+  h1{font-family:Georgia,serif;font-weight:600;letter-spacing:-.5px;font-size:30px;margin:0 0 4px}
+  .sub{color:#6b6862;font-size:15px;margin:0 0 30px}
+  h2{font-family:Georgia,serif;font-weight:600;font-size:21px;margin:34px 0 4px}
+  .who{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a8782;margin-bottom:14px}
+  .card{background:#fff;border:1px solid #ece9e2;border-radius:14px;padding:6px 20px 16px;margin-bottom:10px}
+  .row{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid #f1efe8}
+  .row:last-child{border-bottom:none}
+  .name{width:230px;flex:none}
+  .name b{display:block;font-size:14.5px}
+  .name span{font-size:12px;color:#8a8782}
+  audio{height:34px}
+  .orig .name b{color:#a9772b}
+  .script{background:#fff;border:1px solid #ece9e2;border-radius:14px;padding:18px 22px;margin:8px 0 10px}
+  .beat{display:flex;gap:12px;padding:6px 0;font-size:14.5px}
+  .beat .lab{width:96px;flex:none;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#8a8782;padding-top:3px}
+  .beat.p .lab{color:#3f6b46}
+  .beat.w .lab{color:#9a5a3c}
+  .beat.b .lab{color:#a9772b}
+  .beat.reveal{background:#fff8ec;border-radius:8px;padding:8px 10px;margin:4px 0;font-style:italic;color:#6b6862}
+  .changed{margin-top:8px;padding:14px 18px;background:#fff;border:1px solid #ece9e2;border-radius:12px;font-size:13.5px;color:#44413c}
+  .changed b{color:#1c1917}
+  .changed li{margin:4px 0}
+  .pick{font-size:12px;color:#8a8782;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Voice casting + revised script</h1>
+  <p class="sub">Three characters, three voices. It's a voiceover, so nobody lip-syncs on camera. Listen, then send me your 3 picks + any script edits.</p>
+
+  <h2>The revised script</h2>
+  <div class="script">
+    <div class="beat p"><span class="lab">Probiotic</span><span>"I'm the probiotic you take every morning. Can I be honest with you?"</span></div>
+    <div class="beat p"><span class="lab"></span><span>"About seventy percent of me dies in your stomach before I reach your gut."</span></div>
+    <div class="beat p"><span class="lab"></span><span>"The few that survive are supposed to move in and stay. We don't."</span></div>
+    <div class="beat w"><span class="lab">Woman</span><span>"I eat clean. I train. And I'm still bloated by dinner."</span></div>
+    <div class="beat w"><span class="lab"></span><span>"I started to think it was me."</span></div>
+    <div class="beat reveal">The Gut Balance jar appears on camera. Calm, a soft marigold glow. No line yet, we see it first.</div>
+    <div class="beat b"><span class="lab">Postbiotic</span><span>"You were never the problem. The delivery was."</span></div>
+    <div class="beat b"><span class="lab"></span><span>"I'm a postbiotic. What those bacteria were supposed to make."</span></div>
+    <div class="beat b"><span class="lab"></span><span>"Already made. Already active. Nothing to survive. Nothing to move into."</span></div>
+    <div class="beat b"><span class="lab"></span><span>"Your gut finally gets what it's been waiting for."</span></div>
+    <div class="beat b"><span class="lab"></span><span>"In an eighty-four day study: less bloating, less stress."</span></div>
+    <div class="beat b"><span class="lab"></span><span>"Gut Balance. Sixty days. Feel the difference, or you don't pay."</span></div>
+  </div>
+  <div class="changed">
+    <b>What I changed from the cut you just watched</b>
+    <ul>
+      <li><b>3 voices, not 1.</b> Probiotic confesses, the woman speaks her own frustration (first person, she replaces the old gut character), the postbiotic closes.</li>
+      <li><b>Therapist line gone.</b> "It was never you" is cut. The vindication ("You were never the problem. The delivery was.") now rides in on the postbiotic's confident entrance.</li>
+      <li><b>Product revealed before it speaks.</b> We see the jar on camera first, then it says "I'm a postbiotic."</li>
+      <li><b>Every clip will be re-rendered non-talking</b> (mouths closed) so nobody lip-syncs, the girl and the jar included.</li>
+    </ul>
+  </div>
+
+  <h2>Probiotic <span style="font-weight:400;color:#8a8782;font-size:15px">— sheepish, confessing, a little rueful</span></h2>
+  <div class="who">"I'm the probiotic you take every morning. Can I be honest with you?"</div>
+  <div class="card">
+    <div class="row"><div class="name"><b>Will</b><span>Relaxed Optimist</span></div><audio controls preload="none" src="generated/vo_samples/probiotic__will.mp3"></audio></div>
+    <div class="row"><div class="name"><b>Liam</b><span>Energetic, social-media</span></div><audio controls preload="none" src="generated/vo_samples/probiotic__liam.mp3"></audio></div>
+    <div class="row"><div class="name"><b>Callum</b><span>Husky trickster</span></div><audio controls preload="none" src="generated/vo_samples/probiotic__callum.mp3"></audio></div>
+    <div class="row orig"><div class="name"><b>Will (your v1)</b><span>original, full line</span></div><audio controls preload="none" src="generated/vo/V01.mp3"></audio></div>
+  </div>
+
+  <h2>Woman <span style="font-weight:400;color:#8a8782;font-size:15px">— the customer, weary, real, first person</span></h2>
+  <div class="who">"I eat clean. I train. And I'm still bloated by dinner. I started to think it was me."</div>
+  <div class="card">
+    <div class="row"><div class="name"><b>Matilda</b><span>Knowledgable, warm</span></div><audio controls preload="none" src="generated/vo_samples/woman__matilda.mp3"></audio></div>
+    <div class="row"><div class="name"><b>Sarah</b><span>Mature, reassuring</span></div><audio controls preload="none" src="generated/vo_samples/woman__sarah.mp3"></audio></div>
+    <div class="row"><div class="name"><b>Alice</b><span>Clear, engaging</span></div><audio controls preload="none" src="generated/vo_samples/woman__alice.mp3"></audio></div>
+  </div>
+
+  <h2>Postbiotic <span style="font-weight:400;color:#8a8782;font-size:15px">— the hero, warm + confident, NOT a deep male</span></h2>
+  <div class="who">"You were never the problem. The delivery was. I'm a postbiotic."</div>
+  <div class="card">
+    <div class="row"><div class="name"><b>Sarah</b><span>Mature, reassuring, confident</span></div><audio controls preload="none" src="generated/vo_samples/postbiotic__sarah.mp3"></audio></div>
+    <div class="row"><div class="name"><b>Eric</b><span>Smooth, trustworthy (lighter male)</span></div><audio controls preload="none" src="generated/vo_samples/postbiotic__eric.mp3"></audio></div>
+    <div class="row"><div class="name"><b>River</b><span>Relaxed, neutral</span></div><audio controls preload="none" src="generated/vo_samples/postbiotic__river.mp3"></audio></div>
+    <div class="row orig"><div class="name"><b>Brian (your v1 hero)</b><span>the deep male you said is wrong</span></div><audio controls preload="none" src="generated/vo/V10.mp3"></audio></div>
+  </div>
+
+  <p class="pick">Reply with one pick per row (e.g. "probiotic: Will, woman: Matilda, postbiotic: Sarah") and a yes/edits on the script. Then I re-render every clip non-talking, voice each character, and recut.</p>
+</div>
+</body>
+</html>

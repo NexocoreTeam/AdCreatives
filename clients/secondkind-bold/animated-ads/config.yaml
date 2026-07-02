@@ -1,0 +1,57 @@
+# SecondKind Bold — animated ads config
+client: "SecondKind (Bold)"
+slug: secondkind-bold
+
+palette:
+  background: "#fefcf6"          # warm snow-white
+  neutrals: "#d2d2cd / #1c1917"  # light grey, charcoal/black
+  accent: "#fcb348"              # marigold (single accent; lives within the microbiome dot cluster)
+  notes: "Editorial minimalism, Kinfolk-meets-apothecary; clinical but warm; premium and restrained"
+fonts:
+  display: "F37 Caslon Condensed"
+  body: "Neue Montreal"
+product:
+  name: "Gut Balance"
+  appearance: "dark amber glass apothecary jar, glossy black lid, stone-grey papery label, product name in a condensed classic serif"
+  signature_motif: "abstract white microbiome dot-cluster with a single marigold dot"
+
+style: pixar
+variant: talking-cast
+
+voice:
+  posture: "confrontational, declarative, science-armed, wry (not sneering)"
+  arc: "name the suspicion she already had -> diagnose the mechanism -> vindicate her -> convert with the offer"
+  always:
+    - "lead with the mechanism failure (the ~70% transit-death stat)"
+    - "back every claim with a receipt in the next line"
+    - "the punch lands on the delivery model or the category, never the customer"
+    - "vindicate: you weren't wrong, the product was"
+    - "close with mechanism + offer; never lead with operational claims"
+  never:
+    - "frame as 'a better probiotic' (we reject the category)"
+    - "name a competitor brand (Seed, Arrae, Ritual)"
+    - "bash doctors (frame as 'literature ahead of practice')"
+    - "scarcity, urgency, countdown timers"
+    - "aesthetic/body framing for Natalie (sacred ground); allowed for Danielle only when blame lands on the mechanism"
+prohibited_terms: [cure, treats, heals, prevents, reverses, eliminates, miracle, revolutionary,
+  life-changing, game-changer, guaranteed, amazing, incredible, "transform your", journey, ritual]
+typography_rules:
+  - "sentence case only, no ALL CAPS"
+  - "no em-dashes or en-dashes"
+  - "F37 Caslon Condensed headlines, Neue Montreal body"
+
+generation:
+  image_model: nano_banana_pro
+  video_model: kling
+  aspect_ratio: "9:16"
+  resolution: "2k"
+  variations_per_still: 3
+
+# Trained Higgsfield Soul Characters (for human scenes / character-follow)
+persona_soul_ids:
+  done_everything_danielle: 64cbc304-e9ea-4654-b98e-07047643d797
+  immune_anxious_isaac: 39417d29-8f04-410a-8a34-4cb5ec6dd5f4
+  new_mom_natalie: a0ff3069-7549-4648-a240-2765c7616d0a
+  practitioner_paul: a94e8321-c10e-434e-8eca-d745698836fd
+  burnout_brandon: f2e0adf3-d531-4336-a4c3-bc9841eba056
+  perimenopause_paula: 34252be3-2522-4d29-bdd7-3bb5b34262e4

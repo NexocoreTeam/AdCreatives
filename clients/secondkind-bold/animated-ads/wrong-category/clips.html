@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>"The Wrong Category" — 15-clip rough cut</title>
+<style>
+  :root { --bg:#1c1917; --card:#fefcf6; --ink:#1c1917; --accent:#fcb348; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--card);
+         font-family:"Neue Montreal", -apple-system, Segoe UI, Helvetica, Arial, sans-serif; }
+  header { padding:26px 28px 8px; }
+  h1 { font-weight:600; font-size:23px; margin:0 0 6px; letter-spacing:-0.5px; }
+  .sub { color:#bdb8b0; font-size:14px; max-width:860px; line-height:1.5; }
+  .stage { display:flex; gap:20px; align-items:flex-start; padding:16px 28px 8px; flex-wrap:wrap; }
+  #stage { width:300px; background:#000; border-radius:10px; }
+  .stagebox { display:flex; flex-direction:column; gap:10px; }
+  button { background:var(--accent); color:#1c1917; border:0; font-weight:700; font-size:15px;
+           padding:12px 18px; border-radius:8px; cursor:pointer; }
+  #now { color:#bdb8b0; font-size:14px; min-height:20px; max-width:360px; }
+  .row { display:flex; flex-wrap:wrap; gap:18px; padding:18px 28px 60px; }
+  .clip { background:var(--card); color:var(--ink); border-radius:10px; overflow:hidden;
+          box-shadow:0 6px 24px rgba(0,0,0,0.35); width:230px; }
+  .clip video { width:100%; display:block; background:#000; }
+  .meta { padding:10px 12px 12px; }
+  .badge { display:inline-block; background:var(--ink); color:var(--accent);
+           font-weight:700; font-size:11px; padding:2px 7px; border-radius:5px; margin-bottom:6px; }
+  .vo { font-size:12.5px; line-height:1.4; color:#3a352f; font-style:italic; }
+</style>
+</head>
+<body>
+<header>
+  <h1>"The Wrong Category" &middot; 15-clip rough cut</h1>
+  <div class="sub">All 15 animated clips, scene order. Hit "Play full ad" to watch them back-to-back with sound (Kling's placeholder audio — the real ElevenLabs VO and Suno music get layered at assembly). Or scrub any single clip below. I'm looking for: continuity, motion quality, lip-sync, and anything that broke.</div>
+</header>
+
+<div class="stage">
+  <video id="stage" controls playsinline></video>
+  <div class="stagebox">
+    <button id="playall">&#9658; Play full ad (rough cut, in order)</button>
+    <div id="now">Press play to run all 15 in sequence.</div>
+  </div>
+</div>
+
+<div class="row" id="grid"></div>
+
+<script>
+  const clips = [
+    ["V1","Probiotic: “I'm the probiotic you've taken every morning for two years.”"],
+    ["V2","Probiotic: “...roughly 70% of me dies in your stomach before I reach your gut.”"],
+    ["V3","Probiotic: “The trip is brutal. Most of us don't survive it.”"],
+    ["V4","Probiotic: “The few who make it are supposed to move in and stay. We almost never do.”"],
+    ["V5","Gut: “I'm her gut. I've been waiting years for these guys to make something.”"],
+    ["V6","Gut: “Still waiting.”"],
+    ["V7","Gut (VO): “She eats clean. She trains. She still feels bloated by dinner.”"],
+    ["V8","Gut (VO): “And she's started to think it's her fault.”"],
+    ["V9","Gut Balance: “It was never her fault. It was the delivery.”"],
+    ["V10","Gut Balance: “I'm a postbiotic. I'm what those bacteria were supposed to make.”"],
+    ["V11","(VO) “Already made. Already active. Nothing to survive.”"],
+    ["V12","(VO) “Your gut finally gets what it was waiting for.”"],
+    ["V13","(VO) “In an 84-day study, people reported less bloating, less stress.”"],
+    ["V14","Gut Balance: “You weren't wrong to keep trying. You were just handed the wrong category.”"],
+    ["V15","(VO) “Try Gut Balance for 60 days. If your gut doesn't feel different, you don't pay.”"]
+  ];
+  const src = n => `generated/clips/V${String(n+1).padStart(2,'0')}.mp4`;
+  const grid = document.getElementById('grid');
+  clips.forEach((c,idx)=>{
+    const d=document.createElement('div'); d.className='clip';
+    d.innerHTML=`<video src="${src(idx)}" controls loop muted playsinline preload="metadata"></video>
+      <div class="meta"><span class="badge">${c[0]}</span><div class="vo">${c[1]}</div></div>`;
+    grid.appendChild(d);
+  });
+  const stage=document.getElementById('stage'), now=document.getElementById('now');
+  let i=0;
+  function playFrom(n){ i=n; stage.src=src(i); now.textContent=`${clips[i][0]} — ${clips[i][1]}`; stage.muted=false; stage.play().catch(()=>{}); }
+  document.getElementById('playall').onclick=()=>playFrom(0);
+  stage.addEventListener('ended',()=>{ if(i<clips.length-1) playFrom(i+1); else now.textContent='— end of rough cut —'; });
+</script>
+</body>
+</html>

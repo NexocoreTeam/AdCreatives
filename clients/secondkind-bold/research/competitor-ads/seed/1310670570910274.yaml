@@ -1,0 +1,45 @@
+ad_id: '1310670570910274'
+foreplay_id: PwF14vsPGAHzldEoT8B9
+brand: Seed
+brand_id: ka8cG10RRS5kPUzHs4dt
+competitor_slug: seed
+bucket: fresh
+days_running: 46
+fetched_at: '2026-05-29T21:43:43Z'
+source:
+  type: foreplay-brand-ads
+  filters:
+    display_format:
+    - image
+    live: true
+    order: longest_running
+    running_duration_max_days: 14
+display_format: image
+live: true
+started_running: 1776063600000
+headline: Upgrade Your Toilet Time With DS-01®
+description: "Bloated? Not pooping every day? Try DS-01® risk-free today and get 25% off.\n\n2️⃣2 daily\
+  \ capsules \n\U0001F52C24 clinically studied strains\n\U0001F50DEngineered to survive digestion"
+cta:
+  type: SHOP_NOW
+  title: ''
+link_url: https://seed.com/is-ds01-right-for-you
+publisher_platform:
+- facebook
+- instagram
+- audience_network
+- messenger
+- threads
+niches:
+- Medical
+languages:
+- English
+market_target: ''
+product_category: ''
+persona: {}
+emotional_drivers: {}
+ai_keywords: []
+assets:
+  primary: 1310670570910274.jpg
+  source_image_url: https://r2.foreplay.co/c0ec1e967d4df8dc1575e9fb43b75b25610dd4e4c85212171a4b09f5a6a2bd16.jpg
+  source_thumbnail_url: ''
