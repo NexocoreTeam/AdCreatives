@@ -15,7 +15,9 @@
 
 **H1:** Your comeback runs through your gut.
 
-**Sub:** You don't need the bacteria. You need what they make. So we made it.
+**Sub (cell A, control):** Everyone else sells what's supposed to make the compounds. We sell the compounds.
+**Sub (cell B):** A real rebuild needs the real compounds. We're the ones actually selling them.
+**Sub (bench):** You don't need the bacteria. You need what they make. So we made it.
 
 **CTA button:** Take the 90-Day Challenge
 **Microcopy under CTA:** If we're wrong, it's free. 60-day money-back guarantee on your first bottle.

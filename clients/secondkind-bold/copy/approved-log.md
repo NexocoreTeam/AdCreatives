@@ -21,7 +21,9 @@
 | Date | Line | Status | Notes |
 |---|---|---|---|
 | 2026-07-01 | **"Your comeback runs through your gut."** | APPROVED | "I like this kind of empowering message." The hero H1 |
-| 2026-07-02 | **"You don't need the bacteria. You need what they make. So we made it."** | APPROVED | "I like B." THE hero sub; supersedes good-stuff line in that slot |
+| 2026-07-02 | **"Everyone else sells what's supposed to make the compounds. We sell the compounds."** | APPROVED | "I do like this." Hero sub CONTROL (cell A) under the comeback H1 |
+| 2026-07-02 | **"A real rebuild needs the real compounds. We're the ones actually selling them."** | APPROVED-REWORD | Operator wants the rebuild/real-compounds/only version tested; "only" swapped to "actually" (or anchored to the patented trio) for defensibility. Hero cell B |
+| 2026-07-02 | **"You don't need the bacteria. You need what they make. So we made it."** | APPROVED | "I like B." Earlier hero sub; now bench strength behind cells A/B (still strong for ads/body) |
 | 2026-07-02 | **The assembled hero stack** (comeback H1 + so-we-made-it sub + "Take the 90-Day Challenge" CTA + "If we're wrong, it's free." microcopy) | APPROVED | Locked into LP Section 1 and platform doc |
 | 2026-07-01 | **"Probiotics try to make the good stuff. Postbiotics ARE the good stuff."** | APPROVED | The aha/clarity line; hero slot taken by "So we made it," so this deploys in ads, love letters, and body copy |
 | 2026-07-01 | **"You wanted honey. They kept selling you bees."** | APPROVED | "I like the honey line as well." Best slot: statics/ads |
