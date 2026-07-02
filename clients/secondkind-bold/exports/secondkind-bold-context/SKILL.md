@@ -5438,6 +5438,8 @@ The brand's SECOND first-class messaging platform, alongside the vindication arc
 
 **Canonical lines:** "Meet the second kind of you." / "You don't miss being 28. You miss a body that didn't need managing." / "She's not gone. She's under-supplied." / "It was never just your gut. That's the point." / "Three months. Then judge." / "Finished the coffee. Took the meeting. Forgot to worry." / "The cheap option is only cheap if it works." (premium counter)
 
+**THE HERO STACK (operator-approved 2026-07-02, supersedes hero options above):** H1 "Your comeback runs through your gut." + sub "You don't need the bacteria. You need what they make. So we made it." + CTA "Take the 90-Day Challenge" + microcopy "If we're wrong, it's free. 60-day money-back guarantee." Companion approved lines: "Probiotics try to make the good stuff. Postbiotics ARE the good stuff." (ads/body) and "You wanted honey. They kept selling you bees." (statics). Whole-being pillar angle approved, wording open: "You didn't get old. Your gut got under-supplied." Check clients/secondkind-bold/copy/approved-log.md (the operator taste record) before writing new copy.
+
 **Placement:** restoration owns the main site (positive-valence, so it deploys there NOW despite the Phase 1 bold-voice restriction), warm audiences, and retargeting; it runs cold only in specific-moment executions. Vindication remains the cold workhorse. Sequence: vindication cold → restoration retarget → Full 90 close. Merchandising catch: the guarantee covers first SINGLE bottles only, so the Full 90 sells as a subscription, not a 3-pack.
 
 ## The culture layer and surface tiers (added 2026-06-10)

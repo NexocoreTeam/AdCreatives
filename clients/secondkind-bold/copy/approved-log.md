@@ -21,7 +21,9 @@
 | Date | Line | Status | Notes |
 |---|---|---|---|
 | 2026-07-01 | **"Your comeback runs through your gut."** | APPROVED | "I like this kind of empowering message." The hero H1 |
-| 2026-07-01 | **"Probiotics try to make the good stuff. Postbiotics ARE the good stuff."** | APPROVED | The aha/clarity sub for the hero (approved as the pairing under comeback) |
+| 2026-07-02 | **"You don't need the bacteria. You need what they make. So we made it."** | APPROVED | "I like B." THE hero sub; supersedes good-stuff line in that slot |
+| 2026-07-02 | **The assembled hero stack** (comeback H1 + so-we-made-it sub + "Take the 90-Day Challenge" CTA + "If we're wrong, it's free." microcopy) | APPROVED | Locked into LP Section 1 and platform doc |
+| 2026-07-01 | **"Probiotics try to make the good stuff. Postbiotics ARE the good stuff."** | APPROVED | The aha/clarity line; hero slot taken by "So we made it," so this deploys in ads, love letters, and body copy |
 | 2026-07-01 | **"You wanted honey. They kept selling you bees."** | APPROVED | "I like the honey line as well." Best slot: statics/ads |
 | 2026-07-01 | Bold register direction (the "We don't sell bacteria." batch) | APPROVED-DIRECTION | "I like this, but we need to incorporate the transformational component" → led to the comeback fusion |
 | 2026-07-01 | "$10 off. It was never you." | USED | Final form of the offer headline after shortening iterations |

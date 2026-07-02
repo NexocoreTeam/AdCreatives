@@ -11,18 +11,18 @@
 
 ## Section 1: Hero
 
-**Eyebrow:** Gut Balance · Postbiotic, clinically studied
+**Eyebrow:** Gut Balance · Postbiotic
 
-**H1:** Meet the second kind of you.
+**H1:** Your comeback runs through your gut.
 
-**Sub:** The one from before the bloat, the safe orders, and the 2pm fade. Your gut makes the compounds that run digestion, energy, and calm. Gut Balance delivers them directly, already active.
+**Sub:** You don't need the bacteria. You need what they make. So we made it.
 
-**CTA button:** Start your 90 days
-**Microcopy under CTA:** 60-day money-back guarantee on your first bottle. Skip, pause, or cancel anytime.
+**CTA button:** Take the 90-Day Challenge
+**Microcopy under CTA:** If we're wrong, it's free. 60-day money-back guarantee on your first bottle.
 
 **Trust strip (under fold line):** Three patented compounds · Three human clinical trials · Third-party tested · Vegan, non-GMO · No refrigeration
 
-*Design note: jar hero right, dot cluster behind, single marigold dot. A/B cells for H1: (B) "Feel like yourself again. That was always the point." (C) "She's not gone. She's under-supplied."*
+*Design note: jar hero right, dot cluster behind, single marigold dot. Mobile: H1 breaks as "Your comeback / runs through your gut."; trust strip collapses to "3 compounds · 3 human trials." OPERATOR-APPROVED STACK 2026-07-02 (see copy/approved-log.md). A/B cells for H1 if testing: (B) "Meet the second kind of you." (C) "You're not getting old. You're running low." Optional reframe line above sub for whole-being cells: "You're not getting old. You're running low."*
 
 ---
 

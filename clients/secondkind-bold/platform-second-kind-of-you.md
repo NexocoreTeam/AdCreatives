@@ -42,6 +42,12 @@ The brand name carries it: there are two kinds of you. The one who plans around 
 
 ## The line banks
 
+**The hero stack (operator-approved 2026-07-02; supersedes earlier hero options):**
+- H1: Your comeback runs through your gut.
+- Sub: You don't need the bacteria. You need what they make. So we made it.
+- CTA: Take the 90-Day Challenge · If we're wrong, it's free. 60-day money-back guarantee.
+- Companion approved lines: "Probiotics try to make the good stuff. Postbiotics ARE the good stuff." (ads, body) / "You wanted honey. They kept selling you bees." (statics) / "You didn't get old. Your gut got under-supplied." (whole-being pillar, wording still open)
+
 **The return register:**
 - Meet the second kind of you.
 - You don't miss being 28. You miss a body that didn't need managing.
