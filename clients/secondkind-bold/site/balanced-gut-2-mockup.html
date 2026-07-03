@@ -1,0 +1,282 @@
+<title>Balanced Gut 2 · Rewrite Mockup</title>
+<style>
+  :root{
+    --snow:#fefcf6; --ink:#1c1917; --line:#d2d2cd; --muted:#7a746a; --gold:#fcb348;
+    --serif:"Big Caslon","Playfair Display",Georgia,"Times New Roman",serif;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{background:var(--snow);color:var(--ink);font-family:var(--sans);margin:0;line-height:1.5}
+  .note{background:#efece3;color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:8px 16px}
+  .bar{background:var(--ink);color:var(--snow);text-align:center;font-size:13px;padding:10px 16px;letter-spacing:.02em}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+  section{padding:56px 0;border-bottom:1px solid var(--line);position:relative}
+  .idx{font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:18px}
+  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+  h1,h2{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;text-wrap:balance;margin:0 0 14px;line-height:1.08}
+  h1{font-size:clamp(38px,6vw,58px)}
+  h2{font-size:clamp(26px,4vw,36px)}
+  .sub{font-size:18px;max-width:34em;margin:0 0 22px}
+  .body{font-size:15px;color:#3d3a34;max-width:40em;margin:0 0 8px}
+  .mutedline{font-size:13px;color:var(--muted)}
+  .cta{display:inline-block;background:var(--ink);color:var(--snow);text-decoration:none;font-size:14px;letter-spacing:.04em;padding:14px 26px;border-radius:2px}
+  .cta:hover{background:#000}
+  .cta:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+  .stars{color:var(--gold);letter-spacing:.1em;font-size:14px}
+  .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+  @media(max-width:720px){.hero{grid-template-columns:1fr}}
+  .jarzone{position:relative;min-height:300px;display:flex;align-items:center;justify-content:center}
+  .dot{position:absolute;border-radius:50%;background:#fff;border:1px solid var(--line)}
+  .jar{width:150px;height:210px;background:linear-gradient(160deg,#5a3213,#3a1e0a);border-radius:14px;position:relative;box-shadow:0 18px 40px rgba(28,25,23,.18)}
+  .jar:before{content:"";position:absolute;top:-16px;left:14px;right:14px;height:26px;background:#141110;border-radius:8px}
+  .jarlabel{position:absolute;left:16px;right:16px;top:56px;bottom:34px;background:#efece3;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+  .jarlabel b{font-family:var(--serif);font-weight:600;font-size:15px}
+  .jarlabel span{font-size:8.5px;color:var(--muted);letter-spacing:.06em;text-align:center;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:8px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:20px}
+  .card .who{font-size:12px;color:var(--muted);margin-top:10px}
+  .price{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:20px 0}
+  .plan{border:1px solid var(--line);border-radius:4px;padding:24px;background:#fff;position:relative}
+  .plan.pop{border-color:var(--ink)}
+  .tag{position:absolute;top:-11px;left:20px;background:var(--gold);color:var(--ink);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:2px}
+  .plan h3{font-family:var(--serif);font-size:21px;margin:4px 0 6px}
+  .amount{font-size:26px;font-variant-numeric:tabular-nums}
+  .save{color:var(--muted);font-size:13px}
+  ul.tight{list-style:none;padding:0;margin:18px 0 0;max-width:44em}
+  ul.tight li{padding:7px 0 7px 22px;position:relative;font-size:14.5px;border-top:1px dotted var(--line)}
+  ul.tight li:before{content:"";position:absolute;left:2px;top:14px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:12.5px;color:#3d3a34;background:#fff}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:20px}
+  .step{border:1px solid var(--line);background:#fff;border-radius:4px;padding:16px;font-size:13.5px}
+  .step b{font-family:var(--serif);font-size:16px;display:block;margin-bottom:4px}
+  .step.hl{border-color:var(--gold);background:#fffaf0}
+  .dark{background:var(--ink);color:var(--snow);border-bottom:none}
+  .dark .idx{color:#8f897f}
+  .dark h2{color:var(--snow)}
+  .bigstats{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0 30px}
+  .bigstats b{font-family:var(--serif);font-size:44px;color:var(--gold);display:block;line-height:1;font-variant-numeric:tabular-nums}
+  .bigstats span{font-size:13px;color:#cfc9bd;max-width:16em;display:block;margin-top:6px}
+  .trials{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .trial{border:1px solid #3a3631;border-radius:4px;padding:18px;font-size:13.5px;color:#e8e3d8}
+  .trial b{font-family:var(--serif);font-size:24px;color:var(--gold);display:block;margin-bottom:6px}
+  .phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:20px}
+  .phase{border-top:3px solid var(--ink);padding:14px 4px 0;font-size:14px}
+  .phase b{font-family:var(--serif);font-size:18px;display:block;margin-bottom:4px}
+  .phase.g1,.phase.g2{border-top-color:var(--gold)}
+  .bracket{font-size:11.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:10px}
+  .bracket i{color:var(--gold);font-style:normal}
+  table{border-collapse:collapse;width:100%;margin-top:18px;background:#fff;font-size:14px}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+  th{font-family:var(--serif);font-size:15.5px;font-weight:600}
+  td.yes{color:#1c1917;font-weight:600}
+  td.yes:before{content:"● ";color:var(--gold)}
+  td.no{color:var(--muted)}
+  .docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:18px}
+  .doc{border:1px solid var(--line);background:#fff;border-radius:4px;padding:16px;font-size:13px}
+  .doc b{display:block;font-size:13.5px}
+  .doc span{color:var(--muted);font-size:12px}
+  details{border-top:1px solid var(--line);padding:14px 0;max-width:46em}
+  summary{font-family:var(--serif);font-size:18px;cursor:pointer;list-style:none}
+  summary:before{content:"+ ";color:var(--gold)}
+  details[open] summary:before{content:"– "}
+  details p{font-size:14.5px;color:#3d3a34;margin:10px 0 0}
+  .closing{text-align:center;padding:80px 0}
+  .closing .cta{margin-top:8px}
+  footer{padding:28px 0 60px;font-size:11.5px;color:var(--muted);max-width:52em}
+</style>
+
+<div class="note">Rewrite mockup · 2026-07-02 · type shown in stand-ins for F37 Caslon Condensed + Neue Montreal</div>
+<div class="bar">Save $10 on your first order · Free shipping · 60-day money-back guarantee</div>
+
+<div class="wrap">
+
+<section>
+  <div class="idx">01 · Hero</div>
+  <div class="hero">
+    <div>
+      <p class="eyebrow">Gut Balance · Postbiotic</p>
+      <h1>Your comeback runs through your gut.</h1>
+      <p class="sub">Everyone else sells what's supposed to make the compounds. We sell the compounds.</p>
+      <p><a class="cta" href="#offer">Take the 90-Day Challenge</a></p>
+      <p class="mutedline">If we're wrong, it's free. 60-day money-back guarantee on your first bottle.</p>
+      <p class="stars">★★★★★ <span style="color:var(--ink)">4.8/5 from verified customers</span></p>
+    </div>
+    <div class="jarzone">
+      <span class="dot" style="width:90px;height:90px;top:8%;left:6%"></span>
+      <span class="dot" style="width:52px;height:52px;top:64%;left:12%"></span>
+      <span class="dot" style="width:70px;height:70px;top:16%;right:4%"></span>
+      <span class="dot" style="width:40px;height:40px;bottom:6%;right:16%;background:var(--gold);border-color:var(--gold)"></span>
+      <div class="jar"><div class="jarlabel"><b>Gut Balance</b><span>Postbiotic with BiomeBalance™<br>Debloat, immunity, digestion</span><b style="font-size:10px">SecondKind</b></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="idx">02 · Proof strip</div>
+  <h2>4.8★ from people who tried everything else first.</h2>
+  <div class="cards">
+    <div class="card"><span class="stars">★★★★★</span><p class="body">"I've struggled with bloating and digestive issues for as long as I can remember..."</p><div class="who">Shaked M. · Verified</div></div>
+    <div class="card"><span class="stars">★★★★★</span><p class="body">"I have IBS and my gut is always bothering me. Since I started this..."</p><div class="who">Kristen F. · Verified</div></div>
+    <div class="card"><span class="stars">★★★★★</span><p class="body">"After about a week... bloating felt noticeably reduced..."</p><div class="who">T. Heath · Verified</div></div>
+  </div>
+</section>
+
+<section id="offer">
+  <div class="idx">03 · Offer</div>
+  <h2>The 90-Day Challenge starts here.</h2>
+  <div class="price">
+    <div class="plan pop"><span class="tag">Most popular</span>
+      <h3>The 90-Day Challenge Plan</h3>
+      <div class="amount">$34.99<span style="font-size:14px;color:var(--muted)">/month</span></div>
+      <div class="save">Save $15 · ships monthly · skip, pause, or cancel anytime</div>
+      <p style="margin-top:14px"><a class="cta" href="#offer">Take the 90-Day Challenge →</a></p>
+    </div>
+    <div class="plan">
+      <h3>First Bottle</h3>
+      <div class="amount">$39.99</div>
+      <div class="save">Save $10 · one-time purchase</div>
+      <p style="margin-top:14px"><a class="cta" href="#offer">Take the 90-Day Challenge →</a></p>
+    </div>
+  </div>
+  <ul class="tight">
+    <li>1 trillion bioactive compounds per serving</li>
+    <li>Three patented postbiotics, each with its own human clinical study</li>
+    <li>2 capsules daily. No powders, no live bacteria, no refrigeration, no diet rules</li>
+    <li>60 days risk-free: feel the difference or get a full refund</li>
+  </ul>
+  <div class="chips"><span class="chip">Vegan</span><span class="chip">No artificial fillers</span><span class="chip">Gluten-free</span></div>
+</section>
+
+<section>
+  <div class="idx">04 · The aha</div>
+  <h2>Probiotics try to make the good stuff. Postbiotics ARE the good stuff.</h2>
+  <p class="body">About 70% of probiotic bacteria die before they ever reach your gut. Postbiotics skip the trip: the finished compounds, active on arrival.</p>
+  <div class="steps">
+    <div class="step"><b>Step 1 · Prebiotics</b>The fertilizer</div>
+    <div class="step"><b>Step 2 · Probiotics</b>The seed</div>
+    <div class="step hl"><b>Step 3 · Postbiotics</b>The harvest. That's Gut Balance.</div>
+  </div>
+</section>
+
+<section>
+  <div class="idx">05 · Direct support</div>
+  <h2>The most direct support your gut can get.</h2>
+  <div class="cards">
+    <div class="card"><b>Debloat &amp; regular digestion</b></div>
+    <div class="card"><b>Steady energy</b></div>
+    <div class="card"><b>Gut &amp; immune support</b></div>
+    <div class="card"><b>Whole-body comfort &amp; confidence</b></div>
+  </div>
+</section>
+
+<section>
+  <div class="idx">06 · Whole-being</div>
+  <h2>You didn't get old. Your gut got under-supplied.</h2>
+  <p class="sub" style="font-style:italic">Stop letting your gut decide what kind of day you'll have.</p>
+  <p class="body">The 2pm crash, the sore mornings, the cold you catch every season, the moods that aren't you: one root. Your gut runs digestion, most of your immune system, and about 90% of your serotonin.</p>
+</section>
+
+</div>
+<section class="dark"><div class="wrap">
+  <div class="idx">07 · Receipts</div>
+  <h2>Receipts, not promises.</h2>
+  <div class="bigstats">
+    <div><b>92%</b><span>felt the difference in 2 weeks*</span></div>
+    <div><b>89%</b><span>reported less bloating in 2 weeks*</span></div>
+  </div>
+  <div class="trials">
+    <div class="trial"><b>30 days</b>Totipro®: bowel regularity in a 30-day clinical study</div>
+    <div class="trial"><b>84 days</b>Bereum®: improved GI symptoms, perceived stress, and quality of life</div>
+    <div class="trial"><b>12 weeks</b>EpiCor®: 17% fewer cold and flu symptom days in a randomized controlled trial</div>
+  </div>
+  <p style="font-size:11px;color:#8f897f;margin-top:16px">*30-day consumer usage study</p>
+</div></section>
+<div class="wrap">
+
+<section>
+  <div class="idx">08 · The timeline</div>
+  <h2>The longest trial behind Gut Balance ran 84 days. We round up.</h2>
+  <div class="phases">
+    <div class="phase g1"><b>Days 1-30 · The settling</b>Your gut stops surprising you. Regularity was studied right here.</div>
+    <div class="phase g2"><b>Days 31-60 · The compounding</b>Still fully inside your money-back window.</div>
+    <div class="phase"><b>Days 61-90 · The forgetting</b>The 84-day marks: GI comfort, stress, quality of life.</div>
+  </div>
+  <p class="bracket"><i>▔▔▔▔▔▔▔▔▔▔▔▔</i> days 1-60: the money-back window</p>
+  <p class="body" style="margin-top:16px">The ask is 90 days. Days 1 through 60 are on us.</p>
+  <p><a class="cta" href="#offer">Take the 90-Day Challenge →</a></p>
+</section>
+
+<section>
+  <div class="idx">09 · The comparison</div>
+  <h2>We're not a better probiotic. We're not a probiotic at all.</h2>
+  <div style="overflow-x:auto"><table>
+    <tr><th></th><th>Gut Balance</th><th>Generic probiotic</th></tr>
+    <tr><td>Works in 1-2 weeks</td><td class="yes">Yes</td><td class="no">Weeks to months, if at all</td></tr>
+    <tr><td>Survives stomach acid</td><td class="yes">Nothing has to survive</td><td class="no">~70% die in transit</td></tr>
+    <tr><td>Diet or lifestyle changes</td><td class="yes">None</td><td class="no">Often required</td></tr>
+    <tr><td>Refrigeration</td><td class="yes">Shelf-stable</td><td class="no">Often required</td></tr>
+    <tr><td>Clinically studied ingredients</td><td class="yes">Three, each with a human trial</td><td class="no">Rarely disclosed</td></tr>
+    <tr><td>Gut-brain-immune axis</td><td class="yes">Supported</td><td class="no">Digestion only</td></tr>
+    <tr><td>Adjustment phase</td><td class="yes">None</td><td class="no">Bloating common</td></tr>
+    <tr><td>Money-back guarantee</td><td class="yes">60 days</td><td class="no">Varies</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <div class="idx">10 · Doctors</div>
+  <h2>Doctors are saying yes.</h2>
+  <div class="docs">
+    <div class="doc"><b>Dr. Stuart Weinberger, MD</b><span>Gastroenterologist</span><p class="body" style="font-size:12.5px;margin-top:8px">"By centering postbiotics, SecondKind is translating the latest gut-brain research..."</p></div>
+    <div class="doc"><b>Dr. Nancy Lin, PhD</b><span>Holistic Nutritionist</span><p class="body" style="font-size:12.5px;margin-top:8px">"SecondKind stands apart because it's postbiotic-first..."</p></div>
+    <div class="doc"><b>Dr. Zachary Schwartz, MD</b><span>Family Medicine</span><p class="body" style="font-size:12.5px;margin-top:8px">"Gut health is whole-body health, rooted in neuroscience and immunology."</p></div>
+    <div class="doc"><b>Dr. Hyun Dong Shin, PhD</b><span>Microbiologist</span><p class="body" style="font-size:12.5px;margin-top:8px">"Bereum promotes SCFA production to optimize microbiome balance."</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="idx">11 · Premium</div>
+  <h2>The cheap option is only cheap if it works.</h2>
+  <p class="body">You've probably run the cheap experiment: fifty dollars a bottle, times however many bottles, for nothing you could feel. We're priced like the receipts are real. Because they are.</p>
+</section>
+
+<section>
+  <div class="idx">12 · What's inside</div>
+  <h2>Three patented compounds. Nothing you'd have to google nervously.</h2>
+  <div class="chips"><span class="chip">Vegan</span><span class="chip">Non-GMO</span><span class="chip">Gluten-free</span><span class="chip">Kosher</span><span class="chip">Third-party tested</span><span class="chip">Made in USA</span><span class="chip">Shelf-stable</span><span class="chip">2 capsules daily</span></div>
+</section>
+
+<section>
+  <div class="idx">13 · Reviews wall</div>
+  <h2>5,000+ people. Same story.</h2>
+  <div class="cards">
+    <div class="card"><span class="stars">★★★★★</span><p class="body">"Really helped with my bloating..."</p><div class="who">Susie F.</div></div>
+    <div class="card"><span class="stars">★★★★★</span><p class="body">"Using SecondKind for a month..."</p><div class="who">Stephanie B.</div></div>
+    <div class="card"><span class="stars">★★★★★</span><p class="body">"I had tummy issues..."</p><div class="who">Keren L.</div></div>
+    <div class="card" style="display:flex;align-items:center;justify-content:center"><b style="font-family:var(--serif);font-size:20px">+ 5,000 more →</b></div>
+  </div>
+</section>
+
+<section>
+  <div class="idx">14 · FAQ</div>
+  <h2>Your questions, answered.</h2>
+  <details open><summary>Does this actually work?</summary><p>In a 30-day consumer study, 92% felt the difference within two weeks and 89% reported less bloating. Each of the three compounds inside carries its own human clinical trial. And if it doesn't work for you, the 60-day guarantee means you don't pay.</p></details>
+  <details><summary>Who is Gut Balance for?</summary><p>Adults who eat reasonably well and still deal with bloating, irregularity, or the afternoon fade. If you've tried probiotics and felt nothing, you're exactly who this was built for.</p></details>
+  <details><summary>How long until I see results?</summary><p>Digestion typically settles in the first weeks; regularity was studied at 30 days. The stress and quality-of-life outcomes were measured at 84 days. That's why the ask is 90.</p></details>
+  <details><summary>Is it safe and clean?</summary><p>Vegan, non-GMO, gluten-free, kosher, third-party tested, made in the USA. No live bacteria, so no refrigeration. One ingredient is processed from a soy derivative; check with your doctor if you have allergies.</p></details>
+  <details><summary>Can I cancel my subscription?</summary><p>Anytime, in one click: skip, pause, or cancel from your account. No calls, no hoops.</p></details>
+  <details><summary>Any side effects?</summary><p>No live bacteria means no die-off adjustment phase. The formula is gentle and third-party tested; most people notice nothing but the difference.</p></details>
+</section>
+
+<section class="closing" style="border-bottom:none">
+  <div class="idx" style="text-align:center">15 · Final CTA</div>
+  <h2 style="font-size:clamp(30px,5vw,44px)">Give it 90 days. Then judge.</h2>
+  <p class="sub" style="margin:0 auto 20px;max-width:24em">Stop planning your day around your gut.</p>
+  <a class="cta" href="#offer">Take the 90-Day Challenge</a>
+  <p class="mutedline" style="margin-top:14px">60-day money-back guarantee · Free shipping</p>
+</section>
+
+<footer>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Gut Balance supports digestive comfort, regularity, and gut-brain health as part of a healthy lifestyle. Clinical results describe studied ingredients at studied durations; individual experiences vary. Guarantee applies to first single-bottle orders within 60 days of delivery; see refund policy for full terms. © 2026 SecondKind.</footer>
+
+</div>
