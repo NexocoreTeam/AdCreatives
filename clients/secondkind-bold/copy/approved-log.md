@@ -29,6 +29,8 @@
 | 2026-07-01 | **"You wanted honey. They kept selling you bees."** | APPROVED | "I like the honey line as well." Best slot: statics/ads |
 | 2026-07-01 | Bold register direction (the "We don't sell bacteria." batch) | APPROVED-DIRECTION | "I like this, but we need to incorporate the transformational component" → led to the comeback fusion |
 | 2026-07-01 | "$10 off. It was never you." | USED | Final form of the offer headline after shortening iterations |
+| 2026-07-02 | **"The most direct support your gut can get."** | APPROVED | Operator liked the construction on the partner LP (secondkind.us); adopted into our language (benefits header, balanced-gut-2 rewrite) |
+| 2026-07-02 | **Headers carry the argument** | APPROVED-PRINCIPLE | "People typically don't read the text... jump from header to header without going into the text to get the picture." LP headers must pass the skim test; body capped at 2 lines |
 
 ## Formats & structure
 

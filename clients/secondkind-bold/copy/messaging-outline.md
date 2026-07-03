@@ -31,6 +31,7 @@ Bench sub (approved, use in ads/body): "You don't need the bacteria. You need wh
 - **"You wanted honey. They kept selling you bees."** (the static; payoff: "Postbiotics are the honey. We skip the bees.")
 - **"You don't need the bacteria. You need what they make. So we made it."**
 - **"Everyone else sells what's supposed to make the compounds. We sell the compounds."**
+- **"The most direct support your gut can get."** (benefits header; adopted from the partner LP, operator-approved)
 - Support family (same idea, any surface): "What probiotics were trying to make. Bottled." / "They send the workers. We send the work." / "Probiotics arrive hoping. Postbiotics arrive finished."
 
 ## 4. The whole-being pillar (angle approved; wording open)
