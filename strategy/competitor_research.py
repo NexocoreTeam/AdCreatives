@@ -39,6 +39,10 @@ class Competitor:
     priority: str = "tier1"        # tier1 | tier2 | tier3
     notes: str = ""
     amazon_urls: list[str] = field(default_factory=list)  # Amazon product URLs for review scraping
+    # Foreplay brand identifier (20-char alphanumeric) — drives `adc competitor-ads`.
+    # Grab from app.foreplay.co's brand-page URL. Optional; competitors without an
+    # id are skipped by competitor-ads but still used by review/research flows.
+    foreplay_brand_id: str = ""
     # ─── Tier 3 social handles (optional) ──────────────────────────────────
     # All optional — `adc research-social` skips per-competitor for any handle
     # that's empty. Backwards compatible with existing competitors.yaml files.
@@ -102,6 +106,7 @@ def load_competitors(client_slug: str) -> list[Competitor]:
             priority=item.get("priority", "tier1"),
             notes=item.get("notes", ""),
             amazon_urls=item.get("amazon_urls", []) or [],
+            foreplay_brand_id=item.get("foreplay_brand_id", "") or "",
             tiktok_handle=item.get("tiktok_handle", "") or "",
             tiktok_post_urls=item.get("tiktok_post_urls", []) or [],
             tiktok_search_queries=item.get("tiktok_search_queries", []) or [],

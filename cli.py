@@ -837,6 +837,115 @@ def strategy_matrix(client: str, max_products: int):
         console.print(f"[bold]Recommended distribution:[/bold] {obs['ad_distribution_recommendation']}")
 
 
+# ─── Voice (Stage 11 — sender-side voice layer) ─────────────────────────────
+
+
+@cli.command(name="voice")
+@click.option("--client", required=True, help="Client slug")
+def voice(client: str):
+    """Find the brand's ownable voice — the unspoken-truths hook bank.
+
+    Reads the personas' verbatim language, the VoC corpus, and the competitive
+    context, then defines how the brand should SOUND in the gap between how
+    customers actually talk and how the category sounds. Writes voice.md
+    (human-readable) + voice.yaml (structured) under clients/<slug>/.
+
+    The heavy-lifting output is a persona-tagged bank of unspoken truths —
+    specific lived-experience lines that are already hooks. Downstream brief +
+    copy generation pulls from this bank.
+
+    Run AFTER personas (and ideally `adc mine-voc` + `adc analyze-gaps`) for the
+    richest grounding. Sender-side twin of `adc profile-psychology`.
+    """
+    from rich.markup import escape
+
+    from models.loader import load_all_avatars, load_avatar, load_brand
+    from strategy.brand_voice import build_voice, save_voice
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    brand = load_brand(client)
+
+    avatars = load_all_avatars(client)
+    if not avatars:
+        legacy = load_avatar(client)
+        if legacy:
+            avatars = [legacy]
+    if not avatars:
+        console.print(
+            f"[red]No personas for '{client}'. Run `adc personas --client {client}` "
+            f"(or `adc research`) first — the voice is mined from verbatim persona "
+            f"language.[/red]"
+        )
+        raise SystemExit(1)
+
+    brand_context_md = ""
+    context_path = client_dir / "brand-context.md"
+    if context_path.exists():
+        brand_context_md = context_path.read_text(encoding="utf-8")
+
+    console.print(
+        f"\n[bold cyan]Finding the ownable voice for {brand.name}[/bold cyan] "
+        f"— {len(avatars)} persona(s)"
+    )
+    console.print(
+        "[dim]Mining the gap between how customers talk and how the category sounds...[/dim]"
+    )
+
+    with console.status("Building brand voice with Claude Sonnet 4.6 (brand-voice skill)..."):
+        try:
+            result = build_voice(
+                brand=brand,
+                avatars=avatars,
+                brand_context_md=brand_context_md,
+                client_slug=client,
+            )
+        except ValueError as e:
+            console.print(f"[red]{e}[/red]")
+            raise SystemExit(1)
+
+    md_path, yaml_path = save_voice(client, result)
+    voice_obj = result.voice
+
+    console.print(f"\n[green]Wrote {md_path}[/green]")
+    console.print(f"[green]Wrote {yaml_path}[/green]\n")
+
+    if voice_obj.territory:
+        console.print(f"[bold]Territory:[/bold] {escape(voice_obj.territory)}\n")
+
+    total_truths = sum(len(p.unspoken_truths) for p in voice_obj.personas)
+    table = Table(title=f"Unspoken-truths bank ({total_truths} lines)")
+    table.add_column("Persona", style="cyan")
+    table.add_column("Truths", style="green", justify="right")
+    table.add_column("Sample line", style="dim")
+    for pv in voice_obj.personas:
+        sample = pv.unspoken_truths[0] if pv.unspoken_truths else ""
+        sample = (sample[:70] + "…") if len(sample) > 70 else sample
+        table.add_row(
+            escape(pv.persona_name or pv.persona_id or "?"),
+            str(len(pv.unspoken_truths)),
+            escape(sample),
+        )
+    console.print(table)
+
+    console.print(
+        f"\n[bold]Checkpoint:[/bold] read the bank in {md_path} and spot-check it — "
+        f"is this the brand, or too far? At least one line should be something the "
+        f"brand would never currently say (that's the point)."
+    )
+    console.print(
+        f"\n[bold]Next:[/bold] adc brief --client {client} --product <id> --angles 6 "
+        f"[dim](briefs + copy pull hooks from the voice bank)[/dim]"
+    )
+
+    from strategy.cost_tracker import log_cost
+
+    log_cost(client, "adc voice", note=f"{len(avatars)} persona(s), {total_truths} truths")
+
+
 # ─── Brand Research (auto + interactive) ────────────────────────────────────
 
 
@@ -1339,6 +1448,14 @@ def research(client: str, url: str, max_products: int, auto: bool):
     "Useful for before/after comparison.",
 )
 @click.option(
+    "--ignore-voice",
+    is_flag=True,
+    default=False,
+    help="Skip the brand voice bank. Hooks then come from raw avatar language "
+    "instead of the unspoken-truths bank in voice.yaml. Useful for before/after "
+    "comparison.",
+)
+@click.option(
     "--no-trending",
     "no_trending",
     is_flag=True,
@@ -1353,6 +1470,7 @@ def brief(
     platform: str,
     avatar_name: str | None,
     ignore_psychology: bool,
+    ignore_voice: bool,
     no_trending: bool,
 ):
     """Generate creative briefs with messaging angles for a product.
@@ -1360,6 +1478,7 @@ def brief(
     Layers automatically applied when present:
       - Psychology profile (if avatar has one) -> filters slots + injects guardrails
       - Competitive gap map (if competitive-gaps.yaml exists) -> biases angles to exploit gaps
+      - Brand voice bank (if voice.yaml exists) -> hooks drawn from the unspoken-truths bank (--ignore-voice to skip)
     """
     import math
     import yaml as _yaml
@@ -1470,6 +1589,7 @@ def brief(
                     platform=platform,
                     winning_patterns=patterns,
                     use_profile=use_profile,
+                    use_voice=not ignore_voice,
                     include_trending=not no_trending,
                     mental_stages=avatar_stages,
                 )
@@ -3785,6 +3905,63 @@ def swipe_sync(library: str, category: str | None, max_per_category: int,
     for s in results:
         table.add_row(s.category, str(s.fetched), str(s.downloaded),
                       str(s.skipped), str(s.errors))
+    console.print(table)
+
+
+@cli.command(name="competitor-ads")
+@click.option("--client", required=True,
+              help="Client slug (must have a competitors.yaml).")
+@click.option("--competitor", default=None,
+              help="Optional: pull one competitor slug only. Omit to pull "
+                   "every competitor with a foreplay_brand_id.")
+@click.option("--force/--no-force", default=False,
+              help="Re-download ads that already exist on disk.")
+def competitor_ads_cmd(client: str, competitor: str | None, force: bool):
+    """Pull live image ads from Foreplay for a client's competitors.
+
+    Reads `clients/<client>/competitors.yaml`. For each competitor that has a
+    `foreplay_brand_id`, fetches two buckets — proven (>=14d, longest-running)
+    and fresh (<14d, recent tests) — dedups by ad_id, downloads statics +
+    rich sidecars to `clients/<client>/research/competitor-ads/<competitor>/`,
+    and regenerates an `_index.md` ranked by days_running.
+
+    Designed for a weekly cron: idempotent (only net-new ads downloaded).
+    """
+    from strategy.competitor_ads import pull_all_competitors_for_client
+
+    def progress(stats, ad, msg):
+        prefix = f"[{stats.competitor}]"
+        console.print(f"[dim]{prefix}[/dim] {msg}")
+
+    only = [competitor] if competitor else None
+    results = pull_all_competitors_for_client(
+        client, only=only, force=force, on_progress=progress,
+    )
+
+    if not results:
+        if competitor:
+            console.print(
+                f"[yellow]No competitor '{competitor}' in "
+                f"clients/{client}/competitors.yaml[/yellow]"
+            )
+        else:
+            console.print(
+                f"[yellow]No competitors found in clients/{client}/competitors.yaml. "
+                f"Add competitors with a `foreplay_brand_id:` field.[/yellow]"
+            )
+        return
+
+    table = Table(title=f"competitor-ads: {client}")
+    table.add_column("Competitor", style="cyan")
+    table.add_column("Proven", justify="right")
+    table.add_column("Fresh", justify="right")
+    table.add_column("Downloaded", justify="right", style="green")
+    table.add_column("Skipped", justify="right", style="yellow")
+    table.add_column("Errors", justify="right", style="red")
+    table.add_column("Note", style="dim")
+    for s in results:
+        table.add_row(s.competitor, str(s.proven_fetched), str(s.fresh_fetched),
+                      str(s.downloaded), str(s.skipped), str(s.errors), s.note)
     console.print(table)
 
 

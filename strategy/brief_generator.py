@@ -117,7 +117,9 @@ def generate_briefs(
     platform: str = "meta",
     winning_patterns: WinningPatterns | None = None,
     competitive_gaps: dict | None = None,
+    voice: dict | None = None,
     use_profile: bool = True,
+    use_voice: bool = True,
     include_trending: bool = True,
     mental_stages: list[MentalStage] | None = None,
 ) -> list[CreativeBrief]:
@@ -158,6 +160,11 @@ def generate_briefs(
     if competitive_gaps is None:
         competitive_gaps = _load_competitive_gaps(client_slug)
 
+    # Auto-load the brand voice (unspoken-truths bank) if not passed in
+    if voice is None:
+        from strategy.competitive_context import load_voice
+        voice = load_voice(client_slug)
+
     # Spread the batch across mental stages — biased by the avatar's awareness
     # center of gravity but always covering all four stages when count >= 4.
     # Done here (not inside generate_angles) so brief_generator can stamp the
@@ -185,6 +192,8 @@ def generate_briefs(
         competitive_gaps=competitive_gaps,
         use_profile=use_profile,
         mental_stages=mental_stages,
+        voice=voice,
+        use_voice=use_voice,
     )
 
     briefs = []

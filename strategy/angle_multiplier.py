@@ -40,6 +40,7 @@ from strategy.awareness_mapper import (
     distribute_across_stages,
     get_mental_stage_strategy,
 )
+from strategy.competitive_context import format_voice_block
 from strategy.llm import claude_complete
 
 # Diversity matrix — adapted from DV0x/creative-ad-agent's hook-methodology.
@@ -361,6 +362,7 @@ CUSTOMER AVATAR:
   Awareness Level: {awareness_level}
   How They Talk: {language_patterns}
 
+{voice_block}
 {psychology_block}
 
 {mental_stage_block}
@@ -421,6 +423,14 @@ Quality checks before returning:
     decision the customer mostly already made.
 11. For PURCHASE slots: friction-removal language only. No heavy discounts
     as the lead — guarantee, easy return, low-commitment first step.
+12. When a BRAND VOICE block with an UNSPOKEN-TRUTHS BANK is provided above, it
+    is your PREFERRED hook source. For each slot, draw the hook from a bank line
+    that fits the slot's pain and stage, adapting only lightly to the hook_type,
+    and follow the voice's register and structural move. Set `source` to the
+    plain label `voice-bank` (no colon, no quotes) when you used a bank line —
+    the hook itself should clearly echo it. Only when no bank line fits a slot,
+    write from avatar language and set `source` to `no-bank-fit` so the bypass
+    is visible.
 
 YAML OUTPUT FORMAT RULES (strict — broken YAML breaks the run):
 - The `source` field MUST be a single-line plain descriptor under 80 chars.
@@ -502,6 +512,8 @@ def generate_angles(
     use_profile: bool = True,
     competitive_gaps: dict | None = None,
     mental_stages: list[MentalStage] | None = None,
+    voice: dict | None = None,
+    use_voice: bool = True,
 ) -> list[dict]:
     """Generate multiple messaging angles for a product/avatar combo.
 
@@ -569,6 +581,8 @@ def generate_angles(
     )
     frameworks_text = "\n".join(f"  - {f}" for f in frameworks)
 
+    voice_block = format_voice_block(voice, avatar.name) if (use_voice and voice) else ""
+
     prompt = ANGLE_PROMPT.format(
         count=count,
         diversity_matrix=_diversity_matrix_text(matrix),
@@ -589,6 +603,7 @@ def generate_angles(
         brand_tone=brand.tone,
         approach=awareness_strategy.get("approach", ""),
         competitive_gaps_section=_format_competitive_gaps(competitive_gaps),
+        voice_block=voice_block,
     )
 
     # Each angle has ~15 fields; 9 angles + cross-stage observations easily blow

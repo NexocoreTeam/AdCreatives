@@ -207,3 +207,78 @@ def format_psychology_summary(avatars: Iterable) -> str:
     if not blocks:
         return NO_PSYCH_PLACEHOLDER
     return "\n\n".join(blocks)
+
+
+# ─── Brand voice ────────────────────────────────────────────────────────────
+
+
+def load_voice(client_slug: str) -> dict | None:
+    """Return parsed voice.yaml or None if missing/empty."""
+    path = CLIENTS_DIR / client_slug / "voice.yaml"
+    if not path.exists():
+        return None
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except yaml.YAMLError:
+        return None
+    if isinstance(data, dict) and data:
+        return data
+    return None
+
+
+def _match_persona_voice(voice: dict, avatar_name: str) -> dict | None:
+    """Find the persona voice block whose name/id matches the avatar.
+
+    Matches case-insensitively and tolerates the voice using a short id
+    ('primary') or the full display name, in either direction (substring).
+    """
+    name = (avatar_name or "").strip().lower()
+    if not name:
+        return None
+    for p in voice.get("personas") or []:
+        if not isinstance(p, dict):
+            continue
+        pname = (p.get("persona_name") or "").strip().lower()
+        pid = (p.get("persona_id") or "").strip().lower()
+        if name in (pname, pid):
+            return p
+        if pname and (pname in name or name in pname):
+            return p
+    return None
+
+
+def format_voice_block(voice: dict | None, avatar_name: str) -> str:
+    """Format the brand voice + this persona's unspoken-truths bank for a prompt.
+
+    Returns "" when there is no usable voice — callers embed this inline and a
+    missing voice should add nothing to the prompt (not a placeholder).
+    """
+    if not voice or not isinstance(voice, dict):
+        return ""
+
+    lines: list[str] = []
+    if voice.get("territory"):
+        lines.append(f"Voice territory we own: {voice['territory']}")
+    if voice.get("voice_register"):
+        lines.append(f"How we sound: {voice['voice_register']}")
+    if voice.get("structural_move"):
+        lines.append(f"Structural move: {voice['structural_move']}")
+    if voice.get("guardrail_test"):
+        lines.append(f"Guardrail every hook must pass: {voice['guardrail_test']}")
+
+    pv = _match_persona_voice(voice, avatar_name) or {}
+    if pv.get("register_note"):
+        lines.append(f"Register for this persona: {pv['register_note']}")
+    truths = pv.get("unspoken_truths") or []
+    if truths:
+        lines.append("")
+        lines.append(
+            "UNSPOKEN-TRUTHS BANK for this persona — your PREFERRED hook source. "
+            "Each line is already a hook; adapt one to each slot where it fits:"
+        )
+        for t in truths:
+            lines.append(f"  - {t}")
+
+    if not lines:
+        return ""
+    return "BRAND VOICE\n" + "\n".join(lines)

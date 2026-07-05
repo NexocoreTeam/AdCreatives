@@ -108,6 +108,7 @@ class ForeplayAd:
     ai_keywords: list[str] = field(default_factory=list)
     video_duration: str = ""
     transcription: list[dict] = field(default_factory=list)
+    full_transcription: str = ""    # plain-text transcript (single-ad endpoint only)
     image_url: str = ""          # primary asset for image ads
     video_url: str = ""          # primary asset for video ads
     thumbnail_url: str = ""      # always present for video ads
@@ -145,7 +146,16 @@ class ForeplayAd:
             keywords=raw.get("keywords") or [],
             ai_keywords=raw.get("aiKeywords") or [],
             video_duration=str(raw.get("video_duration") or ""),
-            transcription=raw.get("timestampedTranscription") or [],
+            # The single-ad endpoint returns snake_case `timestamped_transcription`
+            # (list of {startTime, endTime, sentence}) plus a `full_transcription`
+            # string. camelCase kept as a fallback. NOTE: the brand/discovery LIST
+            # endpoints omit transcription entirely — fetch by id to get it.
+            transcription=(
+                raw.get("timestamped_transcription")
+                or raw.get("timestampedTranscription")
+                or []
+            ),
+            full_transcription=raw.get("full_transcription") or "",
             image_url=raw.get("image") or raw.get("backupUrl") or "",
             video_url=raw.get("video") or raw.get("backupVideoUrl") or "",
             thumbnail_url=raw.get("thumbnail") or "",
@@ -186,6 +196,18 @@ class ForeplayAd:
                 return cards[0]
             return self.mobile_screenshot or self.thumbnail_url or self.image_url
         return self.image_url or self.thumbnail_url or self.mobile_screenshot
+
+    @property
+    def transcript_text(self) -> str:
+        """Plain-text transcript. Prefers the API's `full_transcription` string;
+        falls back to joining timestamped segments ('sentence', then 'text')."""
+        if self.full_transcription:
+            return self.full_transcription
+        parts = []
+        for seg in self.transcription:
+            if isinstance(seg, dict):
+                parts.append(str(seg.get("sentence") or seg.get("text") or "").strip())
+        return " ".join(p for p in parts if p)
 
 
 def fetch_expert_board(

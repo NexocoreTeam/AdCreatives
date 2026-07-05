@@ -442,6 +442,7 @@ def render_client_detail(selected: str):
         "🥊 Competitors",
         "🎯 Gap Map",
         "🧠 Psychology",
+        "🗣️ Voice",
         "🗺️ Strategy",
         "📝 Briefs",
         "🧩 Matrix",
@@ -469,20 +470,22 @@ def render_client_detail(selected: str):
     with tabs[7]:
         _render_psychology_tab(selected)
     with tabs[8]:
-        _render_strategy_tab(selected)
+        _render_voice_tab(selected)
     with tabs[9]:
-        _render_briefs_tab(selected)
+        _render_strategy_tab(selected)
     with tabs[10]:
-        _render_matrix_tab(selected)
+        _render_briefs_tab(selected)
     with tabs[11]:
-        _render_ads_tab(selected)
+        _render_matrix_tab(selected)
     with tabs[12]:
-        _render_remix_tab(selected)
+        _render_ads_tab(selected)
     with tabs[13]:
-        _render_templates_tab(selected)
+        _render_remix_tab(selected)
     with tabs[14]:
-        _render_costs_tab(selected)
+        _render_templates_tab(selected)
     with tabs[15]:
+        _render_costs_tab(selected)
+    with tabs[16]:
         _render_actions_tab(selected)
 
 
@@ -966,6 +969,96 @@ def _render_competitors_tab(selected):
                     st.markdown("**Amazon URLs:**")
                     for au in c["amazon_urls"]:
                         st.markdown(f"- {au}")
+
+
+def _render_voice_tab(selected):
+    """Brand voice — the ownable register + the persona-tagged unspoken-truths bank.
+
+    Sender-side twin of the Psychology tab. Reads voice.yaml (from `adc voice`)
+    and renders the territory, register, guardrail, and the per-persona bank.
+    Each line is already a hook; the usage audit shows how often briefs drew on it.
+    """
+    voice_yaml = CLIENTS_DIR / selected / "voice.yaml"
+    if not voice_yaml.exists():
+        st.info(
+            f"No brand voice yet. Run `adc voice --client {selected}` to mine the "
+            f"unspoken-truths bank from this client's personas + VoC."
+        )
+        return
+    try:
+        data = yaml.safe_load(voice_yaml.read_text(encoding="utf-8")) or {}
+    except Exception:
+        st.error(f"Could not parse {voice_yaml}")
+        return
+
+    personas = data.get("personas") or []
+    total_truths = sum(len(p.get("unspoken_truths") or []) for p in personas)
+
+    if data.get("territory"):
+        st.success(f"**Territory we own:** {data['territory']}")
+
+    m1, m2 = st.columns(2)
+    m1.metric("Personas", len(personas))
+    m2.metric("Unspoken truths (hook bank)", total_truths)
+
+    # ── Bank-usage audit: how many briefs actually opened with a bank line.
+    briefs_dir = CLIENTS_DIR / selected / "briefs"
+    if briefs_dir.exists():
+        n_total = n_from_bank = 0
+        for bf in briefs_dir.glob("*.yaml"):
+            try:
+                b = yaml.safe_load(bf.read_text(encoding="utf-8")) or {}
+            except Exception:
+                continue
+            n_total += 1
+            if "voice-bank" in str(b.get("hook_source") or "").lower():
+                n_from_bank += 1
+        if n_total:
+            pct = round(100 * n_from_bank / n_total)
+            st.caption(
+                f"🎯 Bank usage: {n_from_bank} of {n_total} briefs ({pct}%) opened with "
+                f"a voice-bank line. The rest used avatar language for slots where a "
+                f"confessional line doesn't fit (e.g. stat or contrast hooks)."
+            )
+
+    if data.get("voice_register"):
+        st.markdown(f"**How we sound:** {data['voice_register']}")
+    if data.get("structural_move"):
+        st.markdown(f"**Structural move:** {data['structural_move']}")
+    if data.get("guardrail_test"):
+        st.markdown(f"**The line we won't cross:** {data['guardrail_test']}")
+
+    if data.get("why_open"):
+        with st.expander("🔍 Why this register is open (internal — competitor-voice whitespace)"):
+            st.markdown(data["why_open"])
+    if data.get("hard_rules_retained"):
+        with st.expander("🛡️ Hard rules retained"):
+            for r in data["hard_rules_retained"]:
+                st.markdown(f"- {r}")
+    if data.get("changes_vs_existing"):
+        with st.expander("🔀 What this changes vs the brand's current rules"):
+            for c in data["changes_vs_existing"]:
+                st.markdown(f"- {c}")
+    if data.get("founder_voice"):
+        with st.expander("🎙️ Founder voice (goes further than the brand voice)"):
+            st.markdown(data["founder_voice"])
+
+    st.divider()
+    st.subheader("Unspoken-truths bank")
+    st.caption(
+        "Each line is already a hook. The brief generator pulls from here before "
+        "inventing anything (source: voice-bank)."
+    )
+    if not personas:
+        st.warning("No persona banks in this voice file.")
+    for p in personas:
+        name = p.get("persona_name") or p.get("persona_id") or "Persona"
+        truths = p.get("unspoken_truths") or []
+        with st.expander(f"{name}  —  {len(truths)} line(s)"):
+            if p.get("register_note"):
+                st.caption(p["register_note"])
+            for t in truths:
+                st.markdown(f"- {t}")
 
 
 def _render_strategy_tab(selected):
