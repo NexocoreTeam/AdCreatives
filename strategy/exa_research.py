@@ -112,12 +112,31 @@ def run_query(
     if query.exclude_domains:
         kwargs["exclude_domains"] = query.exclude_domains
     # Use livecrawl for Reddit (cache often returns "blocked by network security")
-    if livecrawl is None and "reddit.com" in (query.include_domains or []):
+    reddit_scoped = "reddit.com" in (query.include_domains or [])
+    if livecrawl is None and reddit_scoped:
         livecrawl = "always"
     if livecrawl:
         kwargs["livecrawl"] = livecrawl
 
-    response = exa.search_and_contents(query.query, **kwargs)
+    try:
+        response = exa.search_and_contents(query.query, **kwargs)
+    except Exception as e:
+        message = str(e)
+        if reddit_scoped and (
+            "SOURCE_NOT_AVAILABLE" in message or "domains are not available" in message
+        ):
+            # Exa dropped reddit.com from its index (Reddit licensing lockdown).
+            # Fall back to the official Reddit API — same result shape, same cache.
+            from strategy.reddit_research import RedditAuthError, run_reddit_query
+
+            try:
+                return run_reddit_query(query, content_chars=content_chars)
+            except RedditAuthError as reddit_err:
+                raise RuntimeError(
+                    "Exa no longer serves reddit.com and the Reddit API fallback "
+                    f"is not usable: {reddit_err}"
+                ) from e
+        raise
 
     hits: list[ExaHit] = []
     for r in response.results:

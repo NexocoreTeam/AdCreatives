@@ -24,7 +24,9 @@ explicit user discussion.
 - Python **3.11+**.
 - `pip install -e .` from the repo root (or `pip install -e ".[dev]"` for tests).
 - `.env` at repo root supplies API keys (fal, OpenAI, Anthropic, Exa, Apify, Google,
-  `HF_CREDENTIALS`). Not committed. The CLI auto-loads it via `_bootstrap_env_from_dotenv`.
+  `HF_CREDENTIALS`, `REDDIT_CLIENT_ID`/`REDDIT_CLIENT_SECRET` for the Reddit VOC
+  layer — Exa cannot serve reddit.com anymore). Not committed. The CLI auto-loads
+  it via `_bootstrap_env_from_dotenv`.
 - CLI entry: `adc --help` (defined in `cli.py`).
 - Dashboard: `adc dashboard` (Streamlit, reads local files only, no API calls).
 
