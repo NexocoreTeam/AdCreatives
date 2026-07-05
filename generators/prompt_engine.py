@@ -223,6 +223,11 @@ real-photograph quality, you MUST specify:
     on Hasselblad" or "soft film grain" to anchor NB2 in real-photo space
   - Hands: natural relaxed positioning. NEVER perfectly arranged fingers.
     Hide hands partially if you're not confident NB2 will get them right.
+  - For UGC and mirror-selfie scenes: preserve normal real-life mess —
+    uneven room lighting, faint mirror smudges, minor background clutter,
+    tiny flyaway hairs, natural skin marks, phone sensor noise, imperfect
+    crop, and a slightly awkward human grip. The scene should feel casually
+    captured, not art-directed.
 
 EXPLICIT ANTI-PATTERNS to write into the prompt:
   - "AVOID overly smooth skin, poreless airbrushed quality"

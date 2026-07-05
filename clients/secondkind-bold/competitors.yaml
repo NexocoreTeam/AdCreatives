@@ -27,12 +27,14 @@ competitors:
     amazon_urls: []
     # Verified from seed.com footer 2026-05-22. TikTok/YouTube not linked from
     # homepage — left blank so research-social skips them rather than guessing.
+    facebook_url: https://www.facebook.com/seedmicrobiome
     instagram_handle: seed
 
   - name: Arrae
     slug: arrae
     url: https://www.arrae.com/
     foreplay_brand_id: fFfr3cK16ssmZeQax7Kp
+    facebook_url: https://www.facebook.com/arrae.co
     type: direct
     priority: tier1
     notes: |
@@ -85,6 +87,7 @@ competitors:
     amazon_urls: []
     # Verified from ritual.com footer 2026-05-22. TikTok not linked from
     # homepage — left blank.
+    facebook_url: https://www.facebook.com/ritual
     instagram_handle: ritual
     youtube_handle: "@ritualvitamins"
 
@@ -92,6 +95,7 @@ competitors:
     slug: happy-mammoth
     url: https://happymammoth.com
     foreplay_brand_id: BHCokodNyCNqBMfDM8dB
+    facebook_url: https://www.facebook.com/thehappymammoth
     type: direct
     priority: tier1
     notes: |

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import time
 
@@ -141,6 +142,51 @@ def gpt4o_complete(prompt: str, system: str = "", max_tokens: int = 4096) -> str
         max_tokens=max_tokens,
     )
     return response.choices[0].message.content or ""
+
+
+def openai_structured_json(
+    prompt: str,
+    *,
+    system: str = "",
+    schema: dict,
+    schema_name: str = "structured_output",
+    max_tokens: int = 3000,
+    model: str | None = None,
+) -> dict:
+    """Return JSON from an OpenAI model, using JSON schema when available.
+
+    The default model can be overridden with OPENAI_PROMPT_WRITER_MODEL. A
+    JSON-object fallback keeps older SDK/model combos usable if strict schema
+    mode is rejected by the API.
+    """
+    client = get_openai_client()
+    chosen_model = model or os.environ.get("OPENAI_PROMPT_WRITER_MODEL") or "gpt-4o"
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
+
+    kwargs = {
+        "model": chosen_model,
+        "messages": messages,
+        "max_tokens": max_tokens,
+        "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+                "name": schema_name,
+                "schema": schema,
+                "strict": True,
+            },
+        },
+    }
+    try:
+        response = client.chat.completions.create(**kwargs)
+    except Exception:
+        kwargs["response_format"] = {"type": "json_object"}
+        response = client.chat.completions.create(**kwargs)
+
+    text = response.choices[0].message.content or "{}"
+    return json.loads(text)
 
 
 def gpt4o_vision(prompt: str, image_url: str, system: str = "") -> str:

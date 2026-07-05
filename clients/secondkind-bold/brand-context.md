@@ -167,6 +167,69 @@ Don't write:
 
 ---
 
+## Human/native static copy lane
+
+Use this lane for UGC-style statics, competitor-inspired image ads, low-production
+creator formats, whiteboards, comparison statics, and any cold-scroll concept
+where the viewer may not know what a postbiotic is yet.
+
+This lane softens the entry without softening the position. It should feel like
+a real person explaining what finally clicked, not a strategist trying to prove
+the whole category in one image.
+
+### Structure
+
+1. **Top line:** lived problem, simple curiosity, or human realization.
+2. **Support line:** plain postbiotic explanation.
+3. **Image:** one clear idea. Do not cram the category thesis, clinical proof,
+   and offer into the same frame.
+
+### Approved entry lines
+
+- *"Still bloated after taking probiotics?"*
+- *"Are your probiotics actually doing anything?"*
+- *"I thought probiotics were supposed to help."*
+- *"Maybe probiotics weren't the answer."*
+- *"I just learned why probiotics didn't work for me."*
+- *"Probiotics didn't help."* / *"Postbiotics finally clicked."*
+
+### Approved support lines
+
+- *"Gut support that doesn't need live bacteria to survive digestion."*
+- *"Postbiotics skip the live-bacteria problem."*
+- *"Postbiotics made gut support simple."*
+- *"Turns out, live bacteria aren't the only way to support your gut."*
+- *"No fridge needed. Not live bacteria. Daily gut support."*
+
+### Avoid in this lane
+
+- *"Mechanism failure"*
+- *"84-day RCT"* as the first read
+- *"Bioactive compounds. Already active."*
+- *"Colonization"*
+- *"Viability"*
+- *"Gut lining"*
+- *"Stack got shorter"*
+- *"Why you should swap probiotics for postbiotics"* as the main hook
+
+Those lines may still belong in science/proof or challenger-manifesto formats.
+They do not belong in a native creator overlay or a cold static where the viewer
+has not opted into education.
+
+### Reference adaptation rules
+
+Use competitor ads for format logic, not surface copying. Change enough of the
+visual language that the result feels like Second Kind, not a re-skinned ad:
+
+- Change background colors, marker colors, and accent colors.
+- Change font treatment and layout rhythm.
+- Change product staging and prop choices.
+- Keep the hook logic, but rewrite the words into Second Kind's lane.
+- In comparison formats, show a generic probiotic product on the probiotic side.
+  Show Second Kind only on the postbiotic/Gut Balance side.
+
+---
+
 ## Sample copy — three registers
 
 ### Cold scroll-stop (Danielle, Problem Aware)
