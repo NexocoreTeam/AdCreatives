@@ -15,13 +15,14 @@ No API calls. No LLM. Runs in under a second.
 from __future__ import annotations
 
 import json
-import re
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
 
 import yaml
+
+from strategy.exa_queries import cache_stem, competitive_queries_for_brand
 
 CLIENTS_DIR = Path("clients")
 AI_ADS_DIR = Path("ai-ads")
@@ -37,6 +38,7 @@ class StageStatus:
     summary: str = ""           # e.g., "3 personas", "12 briefs"
     last_modified: Optional[datetime] = None
     notes: list[str] = field(default_factory=list)
+    counts: dict = field(default_factory=dict)  # structured numbers for the recommendation engine
 
     @property
     def age_days(self) -> Optional[int]:
@@ -75,10 +77,6 @@ def _safe_json_load(path: Path) -> Optional[dict]:
         return None
 
 
-def _slugify(text: str) -> str:
-    return re.sub(r"[^a-zA-Z0-9]+", "-", text.lower()).strip("-")[:60]
-
-
 def _cost_log_entries(client: str) -> list[dict]:
     path = CLIENTS_DIR / client / ".cost-log.jsonl"
     if not path.exists():
@@ -97,11 +95,12 @@ def _last_cost_log_entry(client: str, command: str) -> Optional[dict]:
     return matches[-1] if matches else None
 
 
-def _expected_competitive_exa_labels(client: str) -> list[str]:
-    """Expected cache labels for `adc research-competitors`.
+def _expected_competitive_exa_stems(client: str) -> list[str]:
+    """Expected cache-file stems for `adc research-competitors`.
 
-    Keep local to the dashboard so status remains pure filesystem inspection
-    and does not import the Exa client.
+    Computed from the SAME planning code the research command runs
+    (strategy.exa_queries — pure, no SDK import), so the plan and the
+    dashboard can never drift.
     """
     brand_path = CLIENTS_DIR / client / "brand.yaml"
     competitors_path = CLIENTS_DIR / client / "competitors.yaml"
@@ -113,17 +112,10 @@ def _expected_competitive_exa_labels(client: str) -> list[str]:
         for c in (competitor_data.get("competitors") or [])
         if c.get("name")
     ]
-    labels: list[str] = []
-    for name in [brand_name] + competitor_names:
-        slug = _slugify(name)
-        labels.extend([
-            f"web-{slug}-love",
-            f"web-{slug}-mixed",
-            f"web-{slug}-complaints",
-            f"reddit-{slug}-honest",
-            f"trustpilot-{slug}",
-        ])
-    return labels
+    queries = competitive_queries_for_brand(
+        own_brand=brand_name, competitor_names=competitor_names
+    )
+    return [cache_stem(q.label) for q in queries]
 
 
 # ─── Section 1: Strategy stages ──────────────────────────────────────────────
@@ -188,6 +180,7 @@ def strategy_status(client: str) -> list[StageStatus]:
             + (f", {enriched_count} enriched" if pcount else "")
         ),
         last_modified=_newest_mtime(product_files),
+        counts={"products": pcount, "enriched": enriched_count},
     ))
 
     # Offers
@@ -258,6 +251,7 @@ def competitive_research_status(client: str) -> list[StageStatus]:
             + (" (with Amazon URLs)" if has_amazon_urls else " (no Amazon URLs)")
         ) if comp_count else "",
         last_modified=_mtime(competitors_path),
+        counts={"competitors": comp_count, "with_amazon_urls": int(has_amazon_urls)},
     ))
 
     # Exa research
@@ -268,33 +262,45 @@ def competitive_research_status(client: str) -> list[StageStatus]:
         data = _safe_json_load(f)
         if data:
             total_hits += len(data.get("results", []) or [])
-    expected_exa_labels = _expected_competitive_exa_labels(client)
-    existing_exa_labels = {p.stem for p in exa_files}
-    missing_exa_labels = [
-        label for label in expected_exa_labels
-        if label not in existing_exa_labels
+    expected_exa_stems = _expected_competitive_exa_stems(client)
+    existing_exa_stems = {p.stem for p in exa_files}
+    missing_exa_stems = [
+        stem for stem in expected_exa_stems
+        if stem not in existing_exa_stems
     ]
+    error_dir = base / "exa" / "errors"
+    error_files = sorted(error_dir.glob("*.json")) if error_dir.exists() else []
     exa_notes: list[str] = []
-    if expected_exa_labels and missing_exa_labels:
-        missing_reddit = [m for m in missing_exa_labels if m.startswith("reddit-")]
-        if len(missing_reddit) == len(missing_exa_labels):
+    if expected_exa_stems and missing_exa_stems:
+        missing_reddit = [m for m in missing_exa_stems if m.startswith("reddit-")]
+        if len(missing_reddit) == len(missing_exa_stems):
             exa_notes.append(
                 "Reddit Exa query caches are missing; the web sentiment run is partial"
             )
         else:
-            preview = ", ".join(missing_exa_labels[:3])
-            more = f" (+{len(missing_exa_labels) - 3} more)" if len(missing_exa_labels) > 3 else ""
+            preview = ", ".join(missing_exa_stems[:3])
+            more = f" (+{len(missing_exa_stems) - 3} more)" if len(missing_exa_stems) > 3 else ""
             exa_notes.append(f"missing expected Exa cache(s): {preview}{more}")
+    if error_files:
+        exa_notes.append(
+            f"{len(error_files)} failed query record(s) under research/exa/errors/"
+        )
     stages.append(StageStatus(
         name="Exa web sentiment",
         done=len(exa_files) > 0,
         summary=(
-            f"{len(exa_files)}/{len(expected_exa_labels)} queries, {total_hits} hits"
-            if exa_files and expected_exa_labels
+            f"{len(exa_files)}/{len(expected_exa_stems)} queries, {total_hits} hits"
+            if exa_files and expected_exa_stems
             else (f"{len(exa_files)} queries, {total_hits} hits" if exa_files else "")
         ),
         last_modified=_newest_mtime(exa_files),
         notes=exa_notes,
+        counts={
+            "queries_cached": len(exa_files),
+            "queries_expected": len(expected_exa_stems),
+            "queries_failed": len(error_files),
+            "hits": total_hits,
+        },
     ))
 
     # On-site competitor reviews
@@ -353,6 +359,7 @@ def competitive_research_status(client: str) -> list[StageStatus]:
     social_files: list[Path] = []
     social_comment_count = 0
     social_platform_counts: dict[str, int] = {}
+    diagnostic_lines: list[str] = []
     for platform in ("tiktok", "instagram", "youtube"):
         social_dir = base / f"{platform}-comments"
         files = sorted(social_dir.glob("*.json")) if social_dir.exists() else []
@@ -366,16 +373,30 @@ def competitive_research_status(client: str) -> list[StageStatus]:
         if platform_count:
             social_platform_counts[platform] = platform_count
         social_comment_count += platform_count
+
+        diag_dir = base / f"{platform}-diagnostics"
+        diag_files = sorted(diag_dir.glob("*.json")) if diag_dir.exists() else []
+        for f in diag_files:
+            d = _safe_json_load(f) or {}
+            status_txt = d.get("status") or "0 comments"
+            diagnostic_lines.append(
+                f"{platform}/{d.get('competitor_slug', f.stem)}: {status_txt}"
+            )
+
     last_social = _last_cost_log_entry(client, "adc research-social")
     social_notes: list[str] = []
-    if last_social and social_comment_count == 0:
+    if social_comment_count == 0 and (last_social or diagnostic_lines):
         social_notes.append(
             "last social run produced 0 comments; use explicit high-signal post/video URLs or search queries"
         )
+        if diagnostic_lines:
+            shown = "; ".join(diagnostic_lines[:3])
+            more = f" (+{len(diagnostic_lines) - 3} more)" if len(diagnostic_lines) > 3 else ""
+            social_notes.append(f"per-source diagnostics: {shown}{more}")
     social_summary = ""
     if social_comment_count:
-        counts = " / ".join(f"{k}:{v}" for k, v in social_platform_counts.items())
-        social_summary = f"{social_comment_count} comment(s) ({counts})"
+        platform_summary = " / ".join(f"{k}:{v}" for k, v in social_platform_counts.items())
+        social_summary = f"{social_comment_count} comment(s) ({platform_summary})"
     elif last_social:
         social_summary = f"0 comment(s) ({last_social.get('note', 'last run')})"
     stages.append(StageStatus(
@@ -384,6 +405,7 @@ def competitive_research_status(client: str) -> list[StageStatus]:
         summary=social_summary,
         last_modified=_newest_mtime(social_files) or _mtime(CLIENTS_DIR / client / ".cost-log.jsonl"),
         notes=social_notes,
+        counts={"comments": social_comment_count, "diagnostics": len(diagnostic_lines)},
     ))
 
     # Gap map
@@ -460,9 +482,10 @@ def build_recommendations(
 
     if not by_name["Personas"].done:
         recs.append(f"Generate personas: adc personas --client {client}")
-    if not by_name["Products"].done:
+    products_stage = by_name["Products"]
+    if not products_stage.done:
         recs.append(f"No products yet; re-run research or create products manually")
-    elif "0 enriched" in (by_name["Products"].summary or ""):
+    elif products_stage.counts.get("products") and not products_stage.counts.get("enriched"):
         recs.append(
             f"Enrich product files before briefs: "
             f"adc product-deep-dive --client {client} --product <id>"
@@ -500,21 +523,28 @@ def build_recommendations(
                 f"or run Amazon/social review pulls before relying on the gap map."
             )
         if not by_name["Amazon reviews (stratified)"].done:
-            if "amazon_urls" in (competitors.summary or "") and "no Amazon URLs" not in (competitors.summary or ""):
+            if competitors.counts.get("with_amazon_urls"):
                 recs.append(
                     f"Pull Amazon reviews: adc research-amazon --client {client}"
                 )
-            elif "no Amazon URLs" in (competitors.summary or ""):
+            else:
                 recs.append(
                     f"Add amazon_urls to clients/{client}/competitors.yaml if marketplace "
-                    f"review mining matters for this client."
+                    f"review mining matters for this client (the pipeline does NOT "
+                    f"auto-discover Amazon product URLs)."
                 )
-        if "Social comments" in by_name and not by_name["Social comments"].done:
-            if by_name["Social comments"].summary:
+        social_stage = by_name.get("Social comments")
+        if social_stage and not social_stage.done:
+            if social_stage.summary or social_stage.counts.get("diagnostics"):
                 recs.append(
-                    f"Social research has no usable comments. Add explicit YouTube video IDs, "
-                    f"TikTok/Instagram post URLs, or TikTok search queries before rerunning: "
-                    f"adc research-social --client {client} --force-refresh"
+                    f"Social research has no usable comments. Add explicit YouTube video IDs "
+                    f"(or youtube_search_queries), TikTok/Instagram post URLs, or TikTok search "
+                    f"queries before rerunning: adc research-social --client {client} --force-refresh"
+                )
+            else:
+                recs.append(
+                    f"Pull social comments: adc research-social --client {client} "
+                    f"(configure handles / post URLs / search queries in competitors.yaml first)"
                 )
         if not by_name["Competitive gap map"].done and by_name["Exa web sentiment"].done:
             recs.append(

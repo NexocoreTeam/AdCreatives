@@ -130,6 +130,15 @@ def cache_diagnostic(
     return path
 
 
+def clear_diagnostic(client_slug: str, platform: str, competitor_slug: str) -> None:
+    """Remove a stale zero-result diagnostic once a source produces comments."""
+    path = (
+        CLIENTS_DIR / client_slug / "research" / f"{platform}-diagnostics"
+        / f"{competitor_slug}.json"
+    )
+    path.unlink(missing_ok=True)
+
+
 def load_cached_bundles(client_slug: str, platform: str) -> list[SocialCommentBundle]:
     """Reload every cached bundle for one platform. Used by future
     gap_analyzer integration and by the voc-dump refresh path."""

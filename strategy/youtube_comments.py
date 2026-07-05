@@ -81,24 +81,8 @@ def resolve_handle_to_channel_id(handle: str) -> str:
     return items[0]["id"] if items and "id" in items[0] else ""
 
 
-def list_recent_videos(
-    channel_id: str,
-    max_videos: int = DEFAULT_VIDEOS_PER_CHANNEL,
-) -> list[dict]:
-    """List recent video IDs + titles for a channel via search.list.
-
-    Costs 100 quota units per call. Returns up to `max_videos` items.
-    """
-    if not channel_id:
-        return []
-    params = {
-        "part": "snippet",
-        "channelId": channel_id,
-        "order": "date",
-        "type": "video",
-        "maxResults": min(max_videos, 50),
-        "key": _api_key(),
-    }
+def _run_video_search(params: dict, max_videos: int) -> list[dict]:
+    """Shared search.list call + item parsing. Returns [] on any HTTP error."""
     try:
         with httpx.Client(timeout=DEFAULT_TIMEOUT) as client:
             r = client.get(f"{API_BASE}/search", params=params)
@@ -120,6 +104,51 @@ def list_recent_videos(
             "published_at": str(snippet.get("publishedAt") or ""),
         })
     return videos
+
+
+def list_recent_videos(
+    channel_id: str,
+    max_videos: int = DEFAULT_VIDEOS_PER_CHANNEL,
+) -> list[dict]:
+    """List recent video IDs + titles for a channel via search.list.
+
+    Costs 100 quota units per call. Returns up to `max_videos` items.
+    """
+    if not channel_id:
+        return []
+    params = {
+        "part": "snippet",
+        "channelId": channel_id,
+        "order": "date",
+        "type": "video",
+        "maxResults": min(max_videos, 50),
+        "key": _api_key(),
+    }
+    return _run_video_search(params, max_videos)
+
+
+def search_videos(
+    query: str,
+    max_videos: int = DEFAULT_VIDEOS_PER_CHANNEL,
+) -> list[dict]:
+    """Find videos matching a search query via search.list?q= (100 quota units).
+
+    This is the high-signal VOC path: third-party review/comparison videos
+    ("<brand> review", "<brand> vs <competitor>") carry far more customer
+    language in their comments than a brand's own uploads, which are often
+    low-volume, generic, or have comments disabled.
+    """
+    if not query:
+        return []
+    params = {
+        "part": "snippet",
+        "q": query,
+        "order": "relevance",
+        "type": "video",
+        "maxResults": min(max_videos, 50),
+        "key": _api_key(),
+    }
+    return _run_video_search(params, max_videos)
 
 
 def fetch_comments_for_video(
@@ -222,8 +251,13 @@ def fetch_youtube_for_competitor(
 
     Priority order:
       1. Specific `youtube_video_ids` → comment-only fetch, cheapest path.
-      2. `youtube_channel_id` → list recent videos + comments.
-      3. `youtube_handle` → resolve → channel_id → list videos + comments.
+      2. `youtube_search_queries` → search for review/comparison videos
+         (third-party VOC — much higher signal than brand-owned uploads).
+      3. `youtube_channel_id` → list recent videos + comments.
+      4. `youtube_handle` → resolve → channel_id → list videos + comments.
+
+    With search queries, `max_videos_per_channel` caps the TOTAL videos
+    across all queries for this competitor.
     """
     video_metas: list[dict] = []
 
@@ -232,6 +266,18 @@ def fetch_youtube_for_competitor(
             {"video_id": vid, "title": "", "url": f"https://www.youtube.com/watch?v={vid}"}
             for vid in competitor.youtube_video_ids
         ]
+    elif getattr(competitor, "youtube_search_queries", None):
+        seen_ids: set[str] = set()
+        for query in competitor.youtube_search_queries:
+            if len(video_metas) >= max_videos_per_channel:
+                break
+            for v in search_videos(query, max_videos=max_videos_per_channel):
+                if v["video_id"] in seen_ids:
+                    continue
+                seen_ids.add(v["video_id"])
+                video_metas.append(v)
+                if len(video_metas) >= max_videos_per_channel:
+                    break
     else:
         channel_id = competitor.youtube_channel_id
         if not channel_id and competitor.youtube_handle:
