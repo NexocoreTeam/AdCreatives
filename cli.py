@@ -3032,6 +3032,7 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
         pull_competitor_reviews,
     )
     from strategy.exa_research import (
+        cache_error,
         cache_result,
         competitive_queries_for_brand,
         run_query,
@@ -3129,6 +3130,7 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
                 str(i), q.label, q.category, str(len(result.results)), top_domain
             )
         except Exception as e:
+            cache_error(client, q, e)
             exa_table.add_row(
                 str(i), q.label, q.category, "ERROR", str(e)[:40]
             )
@@ -3364,6 +3366,7 @@ def research_social(
         SocialCommentBundle,
         _research_dir,
         cache_bundle,
+        cache_diagnostic,
         write_voc_dump,
     )
 
@@ -3440,7 +3443,7 @@ def research_social(
     platforms_touched: set[str] = set()
     total_comments = 0
 
-    for platform, competitor, _source in plan:
+    for platform, competitor, source in plan:
         cache_dir = _research_dir(client, platform)
         already_cached = (
             any(cache_dir.glob(f"{competitor.slug}-*.json"))
@@ -3498,6 +3501,21 @@ def research_social(
             comment_count += len(b.comments)
         total_comments += comment_count
         platforms_touched.add(platform)
+        if comment_count == 0:
+            notes = "; ".join(
+                b.notes for b in bundles if getattr(b, "notes", "")
+            )
+            cache_diagnostic(
+                client,
+                platform,
+                competitor.slug,
+                competitor.name,
+                str(source),
+                status,
+                bundles=len(bundles),
+                comments=comment_count,
+                notes=notes,
+            )
 
         results_table.add_row(
             platform,

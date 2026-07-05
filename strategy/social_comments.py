@@ -100,6 +100,36 @@ def cache_bundle(client_slug: str, bundle: SocialCommentBundle) -> Path:
     return path
 
 
+def cache_diagnostic(
+    client_slug: str,
+    platform: str,
+    competitor_slug: str,
+    competitor_name: str,
+    source: str,
+    status: str,
+    *,
+    bundles: int = 0,
+    comments: int = 0,
+    notes: str = "",
+) -> Path:
+    """Persist a zero-result/social failure diagnostic for later status checks."""
+    out_dir = CLIENTS_DIR / client_slug / "research" / f"{platform}-diagnostics"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / f"{competitor_slug}.json"
+    payload = {
+        "platform": platform,
+        "competitor_slug": competitor_slug,
+        "competitor_name": competitor_name,
+        "source": source,
+        "status": status,
+        "bundles": bundles,
+        "comments": comments,
+        "notes": notes,
+    }
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    return path
+
+
 def load_cached_bundles(client_slug: str, platform: str) -> list[SocialCommentBundle]:
     """Reload every cached bundle for one platform. Used by future
     gap_analyzer integration and by the voc-dump refresh path."""

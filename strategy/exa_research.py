@@ -136,6 +136,21 @@ def cache_result(client_slug: str, result: ExaQueryResult) -> Path:
     return path
 
 
+def cache_error(client_slug: str, query: ExaQuery, error: Exception) -> Path:
+    """Persist failed query metadata so partial Exa runs are diagnosable."""
+    out_dir = CLIENTS_DIR / client_slug / "research" / "exa" / "errors"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / f"{_slugify(query.label)}.json"
+    payload = {
+        "query": query.to_json(),
+        "fetched_at": datetime.utcnow().isoformat() + "Z",
+        "error_type": type(error).__name__,
+        "error": str(error),
+    }
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    return path
+
+
 def load_cached(client_slug: str) -> list[ExaQueryResult]:
     """Reload all cached results for downstream consumers."""
     raw_dir = CLIENTS_DIR / client_slug / "research" / "exa" / "raw"
