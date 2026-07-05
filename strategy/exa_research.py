@@ -33,7 +33,6 @@ from strategy.exa_queries import (
     cache_stem,
     competitive_queries_for_brand,
     default_queries_for_brand,
-    slugify as _slugify,
 )
 
 __all__ = [

@@ -1301,8 +1301,9 @@ def research(client: str, url: str, max_products: int, auto: bool):
     from models.brand import Brand, VisualIdentity
 
     try:
+        raw_vi = brand_yaml.get("visual_identity")
         brand_yaml["visual_identity"] = VisualIdentity(
-            **(brand_yaml.get("visual_identity") or {})
+            **(raw_vi if isinstance(raw_vi, dict) else {})
         ).model_dump()
         Brand(**brand_yaml)
     except ValidationError as e:

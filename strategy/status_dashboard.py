@@ -271,7 +271,9 @@ def competitive_research_status(client: str) -> list[StageStatus]:
     error_dir = base / "exa" / "errors"
     error_files = sorted(error_dir.glob("*.json")) if error_dir.exists() else []
     exa_notes: list[str] = []
-    if expected_exa_stems and missing_exa_stems:
+    # Only flag missing caches for PARTIAL runs — a never-run stage is already
+    # communicated by done=False, and "missing 30 caches" there is just noise.
+    if exa_files and expected_exa_stems and missing_exa_stems:
         missing_reddit = [m for m in missing_exa_stems if m.startswith("reddit-")]
         if len(missing_reddit) == len(missing_exa_stems):
             exa_notes.append(
