@@ -9,7 +9,8 @@ Same product. Same mechanism. Same audience. Different posture.
 | File | Purpose |
 |---|---|
 | `positioning.md` | Strategic spine. Thesis, enemy, indictment, rallying claim, the rails we hold. Read once. |
-| `brand-context.md` | Operational reference. Product facts, voice rules, prohibited terms, sample copy. Read every time you write. |
+| `brand-context.md` | Operational reference. Product facts, voice rules, prohibited terms, sample copy, and the human/native static copy lane. Read every time you write. |
+| `../../docs/secondkind-native-static-qa-checklist.md` | QA checklist for native statics, before/after concepts, and TikTok/CapCut-style overlays. |
 | `strategy-matrix.md` | 4 personas × 5 awareness stages, regenerated against the bold spine. *(Pending — generated after positioning + voice are locked.)* |
 | `briefs/` | Ad-level briefs generated from the strategy matrix. *(Pending.)* |
 

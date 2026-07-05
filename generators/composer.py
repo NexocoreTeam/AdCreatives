@@ -121,6 +121,7 @@ def compose_prompt(
 
     # Clean up any unfilled placeholders
     prompt = re.sub(r"\{[a-z_]+\}", "", prompt)
+    prompt = _apply_ugc_static_guardrails(prompt, style, brief)
 
     # Remove empty lines and extra whitespace
     lines = [line.strip() for line in prompt.split("\n") if line.strip()]
@@ -137,6 +138,56 @@ def _infer_setting(avatar: CustomerAvatar) -> str:
     if any(w in psychographic for w in ["outdoor", "active", "fitness"]):
         return "outdoor lifestyle"
     return "casual everyday"
+
+
+def _apply_ugc_static_guardrails(
+    prompt: str,
+    style: Style,
+    brief: CreativeBrief | None,
+) -> str:
+    """Add native-photo realism and local-overlay separation to UGC prompts."""
+    haystack = " ".join(
+        part.lower()
+        for part in [
+            prompt,
+            style.name,
+            style.description,
+            " ".join(style.tags),
+            brief.creative_mechanic if brief else "",
+            brief.visual_format if brief else "",
+            brief.visual_direction if brief else "",
+        ]
+        if part
+    )
+    if not any(
+        cue in haystack
+        for cue in (
+            "ugc",
+            "creator",
+            "mirror selfie",
+            "mirror-selfie",
+            "native tiktok",
+            "native story",
+            "story ramble",
+            "iphone",
+        )
+    ):
+        return prompt
+
+    guardrail = (
+        " Real-camera UGC constraints: shot like a casual iPhone 15 Pro "
+        "creator photo with concrete imperfections, not generic "
+        "photorealism; preserve uneven room lighting, subtle phone sensor "
+        "noise, imperfect crop, natural asymmetry, small skin marks, fabric "
+        "wrinkles, relaxed posture, and non-art-directed background details. "
+        "Generate a clean base image only: no hook text, no captions, no "
+        "stickers, no arrows, no offer badges, no blank text pills. Leave "
+        "usable negative space for local text overlays and keep the product "
+        "area readable."
+    )
+    if "Generate a clean base image only" in prompt:
+        return prompt
+    return prompt.rstrip() + guardrail
 
 
 def get_negative_prompt(style: Style) -> str:

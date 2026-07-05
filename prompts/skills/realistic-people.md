@@ -133,6 +133,34 @@ The model must do something specific — name a pose, expression, AND
 action. Generic phrasing like "looking happy" or "standing naturally"
 produces posed-mannequin output. Mid-action beats held-pose every time.
 
+## Block 5A — UGC imperfection stack (required for native UGC / mirror selfie)
+
+When the image should feel like a real creator photo, include a short
+imperfection block. This is especially important for mirror selfies,
+bathroom/bedroom photos, and product-in-hand UGC where a too-clean room
+or too-perfect model reads as AI.
+
+Use camera/source context and concrete flaws instead of relying on generic
+words like "photorealistic." Use this wording for native UGC:
+
+`Real camera mess preserved: shot like a casual iPhone 15 Pro creator
+photo, slightly uneven bathroom/bedroom lighting, minor background
+clutter, faint mirror smudges or dust, subtle phone sensor noise, mild
+motion softness at frame edges, imperfect crop, tiny flyaway hairs,
+natural skin marks, relaxed posture, not retouched.`
+
+For mirror selfies, add:
+
+`Mirror selfie imperfections: phone partly covering face, small angle
+misalignment, realistic reflection geometry, fingerprints on mirror,
+slightly awkward human hand grip, background objects not art-directed.`
+
+Do not overdo the mess. The goal is believable native content, not a
+dirty or distracting scene. Keep the product and main action readable.
+For static UGC ads, generate the clean base photo first. Keep hook text,
+stickers, arrows, caption pills, and offer badges out of the image model
+prompt unless the operator explicitly asks for baked-in text.
+
 ## Block 6 — Negative cues (required, at end of prompt — verbatim)
 
 Always append this exact block as the last line of the prompt:

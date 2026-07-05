@@ -207,3 +207,51 @@ Per-source expectations:
 After any research command reports 0 items, check the diagnostics before
 moving on: `research/exa/errors/`, `research/<platform>-diagnostics/`, and
 the `notes` field in `research/competitor-reviews/*.json`.
+
+---
+
+## 7. Static ad copy should sound like a person, not a strategy doc
+
+**Rule:** For cold social statics, UGC-style ads, and competitor-inspired
+formats, the top line must use plain customer language before any mechanism
+or proof point appears.
+
+**Why:** People do not stop scrolling for category education. They stop when
+the ad sounds like a thought they already had, a question they would actually
+ask, or a problem they can recognize without learning brand vocabulary first.
+
+The default formula:
+
+1. Top line = lived problem, simple curiosity, or human realization.
+2. Support line = plain mechanism or product explanation.
+3. One ad = one point.
+
+Good cold-static patterns:
+
+- "Still bloated after taking probiotics?"
+- "Are your probiotics actually doing anything?"
+- "I thought probiotics were supposed to help."
+- "Maybe probiotics weren't the answer."
+- "Postbiotics made gut support simple."
+- "Gut support that doesn't need live bacteria to survive digestion."
+
+Avoid using internal strategy language as the main hook:
+
+- "Mechanism failure"
+- "84-day RCT" unless the format is explicitly science/proof-led
+- "Bioactive compounds. Already active."
+- "Colonization"
+- "Viability"
+- "Gut lining"
+- "Stack got shorter"
+- "Why you should swap probiotics for postbiotics" as the top-line hook
+
+Science, statistics, and mechanism still matter, but they must earn their way
+into the second line or body copy. If the viewer needs category knowledge to
+understand the hook, rewrite it.
+
+When adapting competitor or reference ads, use the structure and persuasion
+logic without cloning the surface. Change obvious visual identifiers: color,
+font treatment, layout rhythm, marker color, product placement, and copy
+cadence. In comparison ads, use a generic category product on the competitor
+side and the client product only on the client/postbiotic side.
