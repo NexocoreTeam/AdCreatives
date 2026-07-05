@@ -77,3 +77,8 @@ migration_assets*.tar.gz
 
 # AI-generated media intermediates (Higgsfield/Kling outputs) stay out of git
 **/animated-ads/**/generated/
+
+# Python virtualenvs + local service logs (any machine)
+.venv/
+venv/
+dashboard-service*.log
