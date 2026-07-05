@@ -160,6 +160,39 @@ def detect_review_vendor(html: str) -> VendorSignal:
     return VendorSignal(vendor="none", confidence="high")
 
 
+def _extract_okendo_product_id(html: str) -> str:
+    """Pull the Shopify product ID Okendo's widget markup carries on a PDP."""
+    for pat in (
+        r'data-oke-reviews-product-id=["\']shopify-(\d+)',
+        r'"productId"\s*:\s*"shopify-(\d+)',
+        r'oke-reviews-product-id="shopify-(\d+)',
+    ):
+        m = re.search(pat, html)
+        if m:
+            return m.group(1)
+    return ""
+
+
+def fetch_okendo_product_reviews(
+    subscriber_id: str,
+    shopify_product_id: str,
+    limit: int = 200,
+) -> list[Review]:
+    """Fetch reviews scoped to ONE product from Okendo's public API.
+
+    The store-level feed only returns the most recent reviews across every
+    SKU, which starves popular products (Zoka's Espresso Paladino has 158
+    reviews; the store feed surfaced 5 of them). Product scoping fixes that.
+    """
+    if not subscriber_id or not shopify_product_id:
+        return []
+    start = (
+        f"https://api.okendo.io/v1/stores/{subscriber_id}"
+        f"/products/shopify-{shopify_product_id}/reviews?limit=20"
+    )
+    return _paginate_okendo_reviews(start, limit)
+
+
 def fetch_okendo_store_reviews(subscriber_id: str, limit: int = 100) -> list[Review]:
     """Fetch reviews from Okendo's public store-level endpoint.
 
@@ -168,9 +201,12 @@ def fetch_okendo_store_reviews(subscriber_id: str, limit: int = 100) -> list[Rev
     """
     if not subscriber_id:
         return []
-
-    headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
     url = f"https://api.okendo.io/v1/stores/{subscriber_id}/reviews?limit=20"
+    return _paginate_okendo_reviews(url, limit)
+
+
+def _paginate_okendo_reviews(url: str, limit: int) -> list[Review]:
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
     reviews: list[Review] = []
     pages = 0
 
@@ -307,25 +343,132 @@ def fetch_judgeme_reviews(shop_domain: str, product_handle: str, limit: int = 10
     return reviews
 
 
+def _iter_jsonld_nodes(data):
+    """Yield dict nodes from a JSON-LD document (handles lists and @graph)."""
+    stack = [data]
+    while stack:
+        node = stack.pop()
+        if isinstance(node, list):
+            stack.extend(node)
+        elif isinstance(node, dict):
+            yield node
+            graph = node.get("@graph")
+            if isinstance(graph, list):
+                stack.extend(graph)
+
+
+def _jsonld_reviews_of(node: dict) -> list[dict]:
+    """Review dicts carried by one JSON-LD node (itself, or its review field)."""
+    node_type = node.get("@type", "")
+    types = node_type if isinstance(node_type, list) else [node_type]
+    if "Review" in types:
+        return [node]
+    reviews = node.get("review") or node.get("reviews") or []
+    if isinstance(reviews, dict):
+        reviews = [reviews]
+    return [r for r in reviews if isinstance(r, dict)]
+
+
+def _review_from_jsonld(raw: dict, product_name: str = "") -> Review:
+    body = str(raw.get("reviewBody") or raw.get("description") or "").strip()
+    rating_node = raw.get("reviewRating") or {}
+    rating_raw = rating_node.get("ratingValue") if isinstance(rating_node, dict) else rating_node
+    try:
+        rating = int(round(float(rating_raw))) if rating_raw is not None else 0
+    except (TypeError, ValueError):
+        rating = 0
+    author = raw.get("author")
+    if isinstance(author, list):
+        author = author[0] if author else ""
+    if isinstance(author, dict):
+        author = author.get("name", "")
+    item = raw.get("itemReviewed")
+    if isinstance(item, dict) and item.get("name"):
+        product_name = str(item["name"])
+    return Review(
+        title=str(raw.get("name") or raw.get("headline") or "").strip(),
+        body=body,
+        rating=rating,
+        reviewer=str(author or "").strip(),
+        date=str(raw.get("datePublished") or "")[:25],
+        product_name=product_name,
+    )
+
+
+def extract_jsonld_reviews(html: str, limit: int = 100) -> list[Review]:
+    """Vendor-independent fallback: parse schema.org Review objects from
+    JSON-LD blocks in the page HTML.
+
+    Many review apps (Junip, Stamped, Loox, Reviews.io) and custom
+    storefronts render reviews server-side for SEO even when their widget
+    API isn't public — this recovers those with zero extra network calls.
+    Aggregate-only markup (AggregateRating without review bodies) yields
+    nothing, by design.
+    """
+    if not html:
+        return []
+    blocks = re.findall(
+        r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+        html,
+        re.DOTALL | re.IGNORECASE,
+    )
+    reviews: list[Review] = []
+    seen: set[tuple[str, str]] = set()
+    for raw_block in blocks:
+        try:
+            data = json.loads(raw_block.strip())
+        except json.JSONDecodeError:
+            continue  # some themes emit broken JSON-LD; skip that block
+        for node in _iter_jsonld_nodes(data):
+            node_name = str(node.get("name", "") or "")
+            for raw_review in _jsonld_reviews_of(node):
+                review = _review_from_jsonld(raw_review, product_name=node_name)
+                if not review.body:
+                    continue
+                key = (review.body[:80], review.reviewer)
+                if key in seen:
+                    continue
+                seen.add(key)
+                reviews.append(review)
+                if len(reviews) >= limit:
+                    return reviews
+    return reviews
+
+
 def fetch_product_reviews(
     html: str,
     product_url: str = "",
     base_url: str = "",
     limit: int = 100,
 ) -> tuple[list[Review], VendorSignal]:
-    """Detect vendor and fetch reviews. Returns (reviews, vendor_signal)."""
+    """Detect vendor and fetch reviews. Returns (reviews, vendor_signal).
+
+    Vendor API first (Okendo / Yotpo / Judge.me), then JSON-LD markup as a
+    vendor-independent fallback — covers widgets without a public fetcher
+    (Stamped, Junip, Loox, Reviews.io, ...) and custom review systems. When
+    JSON-LD supplies the reviews on a page with no detected widget, the
+    returned signal has vendor="jsonld".
+    """
     signal = detect_review_vendor(html)
+    reviews: list[Review] = []
 
     if signal.vendor == "okendo" and signal.identifiers.get("subscriber_id"):
-        return fetch_okendo_store_reviews(signal.identifiers["subscriber_id"], limit=limit), signal
+        subscriber_id = signal.identifiers["subscriber_id"]
+        okendo_product_id = _extract_okendo_product_id(html)
+        if okendo_product_id:
+            reviews = fetch_okendo_product_reviews(
+                subscriber_id, okendo_product_id, limit=limit
+            )
+        if not reviews:
+            reviews = fetch_okendo_store_reviews(subscriber_id, limit=limit)
 
-    if signal.vendor == "yotpo":
+    elif signal.vendor == "yotpo":
         app_key = signal.identifiers.get("app_key")
         product_id = signal.identifiers.get("product_id")
         if app_key and product_id:
-            return fetch_yotpo_product_reviews(app_key, product_id, limit=limit), signal
+            reviews = fetch_yotpo_product_reviews(app_key, product_id, limit=limit)
 
-    if signal.vendor == "judgeme":
+    elif signal.vendor == "judgeme":
         shop_domain = signal.identifiers.get("shop_domain")
         if not shop_domain and base_url:
             from urllib.parse import urlparse
@@ -336,7 +479,16 @@ def fetch_product_reviews(
             if m:
                 handle = m.group(1)
         if shop_domain and handle:
-            return fetch_judgeme_reviews(shop_domain, handle, limit=limit), signal
+            reviews = fetch_judgeme_reviews(shop_domain, handle, limit=limit)
+
+    if reviews:
+        return reviews, signal
+
+    jsonld_reviews = extract_jsonld_reviews(html, limit=limit)
+    if jsonld_reviews:
+        if signal.vendor == "none":
+            signal = VendorSignal(vendor="jsonld", identifiers={}, confidence="medium")
+        return jsonld_reviews, signal
 
     return [], signal
 

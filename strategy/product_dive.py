@@ -317,7 +317,13 @@ def deep_dive_products(
             from strategy.reviews import detect_review_vendor
             preliminary_signal = detect_review_vendor(raw_html)  # raw — has scripts
             if preliminary_signal.vendor == "okendo":
-                cache_key = f"okendo:{preliminary_signal.identifiers.get('subscriber_id', '')}"
+                # Key includes the product URL: Okendo fetches are product-scoped
+                # when the PDP carries a product ID, so results must never be
+                # reused across products.
+                cache_key = (
+                    f"okendo:{preliminary_signal.identifiers.get('subscriber_id', '')}"
+                    f":{product.url}"
+                )
             if cache_key and cache_key in cached_reviews_by_vendor:
                 all_reviews = cached_reviews_by_vendor[cache_key]
                 signal = cached_signal_by_vendor[cache_key]
@@ -326,6 +332,7 @@ def deep_dive_products(
                     html=raw_html,  # raw HTML so identifiers in <script> survive
                     product_url=product.url,
                     base_url=base_url,
+                    limit=200,
                 )
                 if cache_key:
                     cached_reviews_by_vendor[cache_key] = all_reviews

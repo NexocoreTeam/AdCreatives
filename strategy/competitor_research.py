@@ -20,10 +20,12 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
 
+import httpx
 import yaml
 
 from strategy.firecrawl_client import firecrawl_map_urls, firecrawl_scrape_html
-from strategy.reviews import Review, detect_review_vendor, fetch_product_reviews
+from strategy.researcher import USER_AGENT
+from strategy.reviews import Review, fetch_product_reviews
 
 CLIENTS_DIR = Path("clients")
 MAX_PRODUCT_PAGES_TO_TRY = 5
@@ -49,6 +51,8 @@ class Competitor:
     # youtube_channel_id:   canonical UCxxxx channel ID
     # youtube_handle:       "@secondkind" — resolved to channel_id at fetch time
     # youtube_video_ids:    specific videos to pull comments from
+    # youtube_search_queries: review/comparison searches ("<brand> review") —
+    #                       auto-discovers third-party videos with real VOC
     tiktok_handle: str = ""
     tiktok_post_urls: list[str] = field(default_factory=list)
     # UGC-search queries — when set (and post_urls is empty), the scraper runs
@@ -62,6 +66,7 @@ class Competitor:
     youtube_channel_id: str = ""
     youtube_handle: str = ""
     youtube_video_ids: list[str] = field(default_factory=list)
+    youtube_search_queries: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -111,6 +116,7 @@ def load_competitors(client_slug: str) -> list[Competitor]:
             youtube_channel_id=item.get("youtube_channel_id", "") or "",
             youtube_handle=item.get("youtube_handle", "") or "",
             youtube_video_ids=item.get("youtube_video_ids", []) or [],
+            youtube_search_queries=item.get("youtube_search_queries", []) or [],
         ))
     return competitors
 
@@ -131,6 +137,50 @@ def _extract_product_urls_from_html(html: str, base_url: str) -> list[str]:
     return out
 
 
+def _fetch_html(url: str) -> str:
+    """Firecrawl when configured, plain httpx otherwise. Empty string on failure.
+
+    The Firecrawl module returns None whenever FIRECRAWL_API_KEY is unset, so
+    without this fallback the on-site review layer silently collects nothing.
+    Static HTML is enough here: vendor widget signatures and JSON-LD review
+    blocks are server-rendered on most storefronts.
+    """
+    html = firecrawl_scrape_html(url)
+    if html:
+        return html
+    try:
+        with httpx.Client(
+            timeout=20.0, follow_redirects=True,
+            headers={"User-Agent": USER_AGENT},
+        ) as client:
+            resp = client.get(url)
+        if resp.status_code == 200:
+            return resp.text
+    except httpx.HTTPError:
+        pass
+    return ""
+
+
+def _shopify_products_json_urls(base_url: str, limit: int = 25) -> list[str]:
+    """PDP discovery via Shopify's public /products.json listing.
+
+    Works without Firecrawl or a sitemap. Returns [] for non-Shopify sites.
+    """
+    base = base_url.rstrip("/")
+    try:
+        with httpx.Client(
+            timeout=20.0, follow_redirects=True,
+            headers={"User-Agent": USER_AGENT},
+        ) as client:
+            resp = client.get(f"{base}/products.json", params={"limit": limit})
+        if resp.status_code != 200:
+            return []
+        products = resp.json().get("products", []) or []
+    except (httpx.HTTPError, ValueError):
+        return []
+    return [f"{base}/products/{p['handle']}" for p in products if p.get("handle")]
+
+
 def pull_competitor_reviews(
     competitor: Competitor,
     review_limit: int = DEFAULT_REVIEW_LIMIT,
@@ -149,7 +199,8 @@ def pull_competitor_reviews(
         fetched_at=datetime.utcnow().isoformat() + "Z",
     )
 
-    # 1. Find product pages first (where reviews actually live)
+    # 1. Find product pages first (where reviews actually live).
+    #    Discovery chain: Firecrawl /map → Shopify /products.json → homepage links.
     product_urls: list[str] = []
     try:
         mapped = firecrawl_map_urls(competitor.url, limit=80) or []
@@ -157,52 +208,52 @@ def pull_competitor_reviews(
     except Exception:
         product_urls = []
 
-    # If no product URLs from sitemap, fall back to homepage + product-link extraction
     if not product_urls:
-        homepage_html = firecrawl_scrape_html(competitor.url)
+        product_urls = _shopify_products_json_urls(competitor.url)
+
+    if not product_urls:
+        homepage_html = _fetch_html(competitor.url)
         if homepage_html:
             bundle.scraped_pages.append(competitor.url)
             product_urls = _extract_product_urls_from_html(homepage_html, competitor.url)
             # Try the homepage too in case reviews live there (rare)
-            signal = detect_review_vendor(homepage_html)
+            reviews, signal = fetch_product_reviews(
+                html=homepage_html,
+                product_url=competitor.url,
+                base_url=competitor.url,
+                limit=review_limit,
+            )
             if signal.vendor != "none":
                 bundle.vendor = signal.vendor
-                reviews, _ = fetch_product_reviews(
-                    html=homepage_html,
-                    product_url=competitor.url,
-                    base_url=competitor.url,
-                    limit=review_limit,
-                )
-                if reviews:
-                    bundle.reviews = reviews
-                    return bundle
+            if reviews:
+                bundle.reviews = reviews
+                return bundle
 
     if not product_urls:
         bundle.notes = (
             f"No product pages found for {competitor.url}. "
-            f"Site may not be Shopify or sitemap is unavailable."
+            f"Site may not be Shopify, or sitemap//products.json is unavailable."
         )
         return bundle
 
     # 2. Try product pages, one at a time, until we get reviews
     detected_vendors: list[str] = []
     for product_url in product_urls[:MAX_PRODUCT_PAGES_TO_TRY]:
-        product_html = firecrawl_scrape_html(product_url)
+        product_html = _fetch_html(product_url)
         if not product_html:
             continue
         bundle.scraped_pages.append(product_url)
 
-        page_signal = detect_review_vendor(product_html)
-        if page_signal.vendor != "none":
-            detected_vendors.append(page_signal.vendor)
-            bundle.vendor = page_signal.vendor
-
-        reviews, _ = fetch_product_reviews(
+        reviews, page_signal = fetch_product_reviews(
             html=product_html,
             product_url=product_url,
             base_url=competitor.url,
             limit=review_limit,
         )
+        if page_signal.vendor != "none":
+            detected_vendors.append(page_signal.vendor)
+            bundle.vendor = page_signal.vendor
+
         if reviews:
             bundle.reviews = reviews
             return bundle
@@ -212,8 +263,8 @@ def pull_competitor_reviews(
         bundle.notes = (
             f"No reviews extracted from {len(bundle.scraped_pages)} page(s). "
             f"Detected vendors: {', '.join(unique_vendors)}. "
-            f"Either no supported review widget is present or vendor identifiers "
-            f"could not be parsed."
+            f"No supported widget API and no JSON-LD review markup — for this "
+            f"competitor, rely on Exa/Reddit/Amazon/social sources instead."
         )
     return bundle
 

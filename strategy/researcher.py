@@ -16,6 +16,7 @@ extraction, and structured-data parsing are original to AdCreatives.
 from __future__ import annotations
 
 import re
+import time
 from dataclasses import dataclass, field
 from urllib.parse import urljoin, urlparse
 
@@ -597,13 +598,22 @@ def fetch_product_pages_with_raw(urls: list[str]) -> dict[str, dict[str, str]]:
         timeout=15.0, follow_redirects=True, headers=BROWSER_HEADERS
     ) as client:
         for url in urls:
-            try:
-                resp = client.get(url)
-            except (httpx.RequestError, httpx.TimeoutException):
+            # One retry with a short backoff — a single transient failure here
+            # silently skips the product's entire enrichment (and its review
+            # pull), which is far more expensive than 1.5 seconds.
+            raw = None
+            for attempt in (1, 2):
+                try:
+                    resp = client.get(url)
+                except (httpx.RequestError, httpx.TimeoutException):
+                    resp = None
+                if resp is not None and resp.status_code == 200:
+                    raw = resp.text
+                    break
+                if attempt == 1:
+                    time.sleep(1.5)
+            if raw is None:
                 continue
-            if resp.status_code != 200:
-                continue
-            raw = resp.text
             cleaned = clean_html(raw)[:MAX_HTML_PER_PAGE]
             if cleaned:
                 results[url] = {"raw": raw, "cleaned": cleaned}
