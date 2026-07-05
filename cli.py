@@ -3503,6 +3503,44 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
 # ─── Tier 3 social-comment research ──────────────────────────────────────────
 
 
+@cli.command(name="check-env")
+def check_env_cmd():
+    """Which API keys are present on THIS machine (names only, never values).
+
+    Presence does not prove validity — a stale key still shows present.
+    Per-layer failures surface in run output and adc status diagnostics.
+    Free, local. Exits 1 when a required key is missing.
+    """
+    from strategy.env_check import check_env, missing_required
+
+    statuses = check_env()
+    table = Table(title="API key presence (values never shown)")
+    table.add_column(" ", justify="center", width=4)
+    table.add_column("Key", style="cyan")
+    table.add_column("Tier", style="yellow")
+    table.add_column("Unlocks", style="dim", max_width=52)
+    for s in statuses:
+        mark = "[green]OK[/green]" if s.present else "[red]--[/red]"
+        table.add_row(mark, s.name, s.tier, s.unlocks)
+    console.print(table)
+
+    missing = missing_required(statuses)
+    if missing:
+        console.print(
+            f"[bold red]Missing required key(s): {', '.join(missing)} — "
+            f"the strategy pipeline cannot run without them.[/bold red]"
+        )
+        raise SystemExit(1)
+    absent = [s.name for s in statuses if not s.present and s.tier != "phase-2"]
+    if absent:
+        console.print(
+            f"[yellow]Absent (layers silently thinner without them): "
+            f"{', '.join(absent)}[/yellow]"
+        )
+    else:
+        console.print("[green]All Phase 1 keys present.[/green]")
+
+
 @cli.command(name="scaffold-competitors")
 @click.option("--client", required=True, help="Client slug")
 @click.option(
