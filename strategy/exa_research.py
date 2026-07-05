@@ -126,16 +126,27 @@ def run_query(
             "SOURCE_NOT_AVAILABLE" in message or "domains are not available" in message
         ):
             # Exa dropped reddit.com from its index (Reddit licensing lockdown).
-            # Fall back to the official Reddit API — same result shape, same cache.
+            # Chain: official Reddit API -> Apify actor bridge -> persisted error.
             from strategy.reddit_research import RedditAuthError, run_reddit_query
 
             try:
                 return run_reddit_query(query, content_chars=content_chars)
             except RedditAuthError as reddit_err:
-                raise RuntimeError(
-                    "Exa no longer serves reddit.com and the Reddit API fallback "
-                    f"is not usable: {reddit_err}"
-                ) from e
+                from strategy.apify_reddit import (
+                    ApifyRedditError,
+                    run_reddit_query_via_apify,
+                )
+
+                try:
+                    return run_reddit_query_via_apify(
+                        query, content_chars=content_chars
+                    )
+                except ApifyRedditError as apify_err:
+                    raise RuntimeError(
+                        "Exa no longer serves reddit.com; Reddit API fallback "
+                        f"unusable ({reddit_err}); Apify bridge unusable "
+                        f"({apify_err})"
+                    ) from e
         raise
 
     hits: list[ExaHit] = []

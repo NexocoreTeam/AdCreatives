@@ -25,6 +25,11 @@ class ExaQuery:
     exclude_domains: list[str] = field(default_factory=list)
     num_results: int = DEFAULT_NUM_RESULTS
     category: str = "general"             # general | reddit | comparison | reviews | category-discussion
+    # Keyword-engine variant of `query`. Exa's neural phrasing ("X honest
+    # review experience worth it") returns junk on keyword engines like
+    # Reddit search — set this to a sharp form ('"X" review') for the
+    # Reddit API / Apify fallback paths. Empty = fall back to `query`.
+    keyword_query: str = ""
 
 
 def slugify(text: str) -> str:
@@ -35,6 +40,18 @@ def slugify(text: str) -> str:
 def cache_stem(label: str) -> str:
     """Filename stem for a query's cache file (raw/ and errors/)."""
     return slugify(label)
+
+
+def reddit_search_terms(query: ExaQuery) -> tuple[str, str]:
+    """(search string, must-contain filter) for keyword search engines.
+
+    The filter is the first quoted phrase in the keyword query — results
+    that never mention it are junk (Reddit search pads weak matches with
+    trending content) and callers should drop them. Empty filter = keep all.
+    """
+    search = query.keyword_query or query.query
+    m = re.search(r'"([^"]+)"', search)
+    return search, (m.group(1) if m else "")
 
 
 def default_queries_for_brand(
@@ -52,12 +69,14 @@ def default_queries_for_brand(
             query=f"{brand_name} honest review experience",
             include_domains=["reddit.com"],
             category="reddit",
+            keyword_query=f'"{brand_name}" review',
         ),
         ExaQuery(
             label=f"reddit-{brand_name}-worth-it",
             query=f"is {brand_name} worth it",
             include_domains=["reddit.com"],
             category="reddit",
+            keyword_query=f'"{brand_name}" worth it',
         ),
         ExaQuery(
             label=f"web-{brand_name}-concerns",
@@ -84,6 +103,7 @@ def default_queries_for_brand(
                 query=f"{brand_name} vs {comp}",
                 include_domains=["reddit.com"],
                 category="comparison",
+                keyword_query=f'"{brand_name}" vs "{comp}"',
             ))
             queries.append(ExaQuery(
                 label=f"web-{comp}-honest",
@@ -143,6 +163,7 @@ def competitive_queries_for_brand(
                 query=f"{brand} honest review experience worth it",
                 include_domains=["reddit.com"],
                 category="reddit",
+                keyword_query=f'"{brand}" review',
             ),
             ExaQuery(
                 label=f"trustpilot-{b_slug}",

@@ -44,3 +44,24 @@ def test_cache_stem_matches_label_slug():
         stem = cache_stem(q.label)
         assert stem  # never empty
         assert stem == slugify(q.label)
+
+
+def test_reddit_queries_carry_keyword_variant():
+    queries = competitive_queries_for_brand("Zoka Coffee", ["Stumptown Coffee Roasters"])
+    reddit = [q for q in queries if q.category == "reddit"]
+    assert all(q.keyword_query for q in reddit)
+    assert reddit[0].keyword_query == '"Zoka Coffee" review'
+
+
+def test_reddit_search_terms_extraction():
+    from strategy.exa_queries import ExaQuery, reddit_search_terms
+
+    q = ExaQuery(label="x", query="neural phrasing", keyword_query='"Zoka Coffee" review')
+    search, must_contain = reddit_search_terms(q)
+    assert search == '"Zoka Coffee" review'
+    assert must_contain == "Zoka Coffee"
+
+    plain = ExaQuery(label="y", query="best espresso beans reddit")
+    search, must_contain = reddit_search_terms(plain)
+    assert search == "best espresso beans reddit"
+    assert must_contain == ""
