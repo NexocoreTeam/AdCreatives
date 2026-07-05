@@ -142,8 +142,13 @@ def cache_result(client_slug: str, result: ExaQueryResult) -> Path:
     """Persist a query result so we never re-pay for the same search."""
     out_dir = CLIENTS_DIR / client_slug / "research" / "exa" / "raw"
     out_dir.mkdir(parents=True, exist_ok=True)
-    path = out_dir / f"{cache_stem(result.query.label)}.json"
+    stem = cache_stem(result.query.label)
+    path = out_dir / f"{stem}.json"
     path.write_text(json.dumps(result.to_json(), indent=2), encoding="utf-8")
+    # A successful run supersedes any persisted failure for this query —
+    # without this, status keeps reporting failed-query ghosts forever.
+    error_path = CLIENTS_DIR / client_slug / "research" / "exa" / "errors" / f"{stem}.json"
+    error_path.unlink(missing_ok=True)
     return path
 
 

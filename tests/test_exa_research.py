@@ -27,6 +27,21 @@ def test_cache_error_persists_failure(tmp_path, monkeypatch):
     assert payload["query"]["label"] == "reddit-zoka-coffee-honest"
 
 
+def test_cache_result_clears_stale_error_record(tmp_path, monkeypatch):
+    """A query that failed once and later succeeded must not keep reporting
+    a failure ghost in status."""
+    monkeypatch.setattr(exa_research, "CLIENTS_DIR", tmp_path / "clients")
+
+    query = ExaQuery(label="reddit-zoka-coffee-honest", query="zoka honest review")
+    error_path = cache_error("zoka-coffee", query, ValueError("boom"))
+    assert error_path.exists()
+
+    cache_result("zoka-coffee", ExaQueryResult(
+        query=query, fetched_at="2026-07-05T00:00:00Z", results=[],
+    ))
+    assert not error_path.exists()
+
+
 def test_cache_result_roundtrip(tmp_path, monkeypatch):
     monkeypatch.setattr(exa_research, "CLIENTS_DIR", tmp_path / "clients")
 
