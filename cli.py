@@ -494,8 +494,9 @@ def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, sk
     console.print("[bold]Remaining Phase 1 steps (in order):[/bold]")
     console.print(f"  1. adc profile-psychology --client {client}")
     console.print(
-        f"  2. Create clients/{client}/competitors.yaml "
-        "[dim](3-5 competitors; add amazon_urls + social handles/post URLs/search queries)[/dim]"
+        f"  2. adc scaffold-competitors --client {client} --names \"A, B, C\" "
+        "[dim](writes competitors.yaml with search queries pre-filled; then add "
+        "urls/notes and amazon_urls if genuinely sold there)[/dim]"
     )
     console.print(f"  3. adc research-competitors --client {client}")
     console.print(
@@ -3238,6 +3239,9 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
     for c in competitors:
         console.print(f"  - {c.name} ({c.priority}, {c.type}) -> {c.url}")
 
+    from strategy.research_preflight import amazon_preflight_line
+    console.print(f"[dim]{amazon_preflight_line(competitors, client)}[/dim]")
+
     console.print(
         f"\n[yellow]This run includes:[/yellow] Exa web sentiment (Reddit, Trustpilot, news) "
         f"+ on-site reviews via Firecrawl.\n"
@@ -3499,6 +3503,133 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
 # ─── Tier 3 social-comment research ──────────────────────────────────────────
 
 
+@cli.command(name="scaffold-competitors")
+@click.option("--client", required=True, help="Client slug")
+@click.option(
+    "--names", default=None,
+    help='Comma-separated competitor names — only used when creating a NEW '
+    'file (e.g. "Stumptown Coffee Roasters, Onyx Coffee Lab")',
+)
+@click.option(
+    "--apply", "apply_changes", is_flag=True, default=False,
+    help="Write enrichment changes. Without it, enrichment is a dry run.",
+)
+def scaffold_competitors_cmd(client: str, names: str | None, apply_changes: bool):
+    """Create or enrich competitors.yaml with high-yield research defaults.
+
+    New file (--names given): full template per competitor with
+    youtube_search_queries + tiktok_search_queries pre-filled — search
+    queries beat brand handles ~17x on comment yield (Zoka: 16 vs 268).
+
+    Existing file: adds ONLY missing *_search_queries; never touches
+    handles, notes, or anything hand-written. Free, local, no API calls.
+    """
+    from strategy.competitor_scaffold import enrich_competitors, scaffold_competitors
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    brand_name = client
+    brand_path = client_dir / "brand.yaml"
+    if brand_path.exists():
+        import yaml as _yaml
+        brand_data = _yaml.safe_load(brand_path.read_text(encoding="utf-8")) or {}
+        brand_name = brand_data.get("name") or client
+
+    comp_path = client_dir / "competitors.yaml"
+    if not comp_path.exists():
+        if not names:
+            console.print(
+                f"[red]No competitors.yaml yet — pass --names \"A, B, C\" to "
+                f"scaffold one.[/red]"
+            )
+            raise SystemExit(1)
+        path = scaffold_competitors(
+            client, brand_name,
+            [n.strip() for n in names.split(",") if n.strip()],
+        )
+        console.print(f"[green]Scaffolded {path}[/green]")
+        console.print(
+            "[dim]Fill in url per competitor, adjust type/priority/notes, "
+            "then run research.[/dim]"
+        )
+        return
+
+    changes = enrich_competitors(client, brand_name, apply=apply_changes)
+    if not changes:
+        console.print(
+            "[green]competitors.yaml already has search queries everywhere — "
+            "nothing to add.[/green]"
+        )
+        return
+    for change in changes:
+        console.print(f"  + {change}")
+    if apply_changes:
+        console.print(f"[green]Applied {len(changes)} addition(s) to {comp_path}[/green]")
+    else:
+        console.print(
+            f"[yellow]Dry run — re-run with --apply to write "
+            f"{len(changes)} addition(s).[/yellow]"
+        )
+
+
+@cli.command(name="suggest-amazon")
+@click.option("--client", required=True, help="Client slug")
+def suggest_amazon_cmd(client: str):
+    """Suggest Amazon listing candidates per competitor (never auto-adds).
+
+    One Exa query per competitor that has no amazon_urls (~$0.01 each).
+    Confirm a candidate is the competitor's OWN listing before adding it —
+    reseller lookalikes poison review mining (pipeline-rules rule 6).
+    """
+    from strategy.amazon_suggest import suggest_amazon_candidates
+    from strategy.competitor_research import load_competitors
+
+    competitors = load_competitors(client)
+    if not competitors:
+        console.print(f"[red]No competitors.yaml found for {client}.[/red]")
+        raise SystemExit(1)
+
+    missing = [c for c in competitors if not c.amazon_urls]
+    if not missing:
+        console.print("[green]Every competitor already has amazon_urls configured.[/green]")
+        return
+
+    table = Table(title="Amazon listing candidates — confirm before adding")
+    table.add_column("Competitor", style="cyan")
+    table.add_column("ASIN", style="yellow")
+    table.add_column("Found via", style="dim", max_width=40)
+    table.add_column("URL", style="green")
+
+    for competitor in missing:
+        with console.status(f"Searching listings for {competitor.name}..."):
+            try:
+                candidates = suggest_amazon_candidates(competitor.name)
+            except Exception as e:
+                console.print(
+                    f"[yellow]{competitor.name}: search failed "
+                    f"({type(e).__name__}: {str(e)[:60]})[/yellow]"
+                )
+                continue
+        if not candidates:
+            table.add_row(competitor.name, "-", "no product listings surfaced", "-")
+            continue
+        for candidate in candidates[:3]:
+            table.add_row(
+                competitor.name, candidate["asin"], candidate["context"], candidate["url"]
+            )
+
+    console.print(table)
+    console.print(
+        f"\n[bold]Next:[/bold] verify each candidate is the competitor's OWN listing "
+        f"(their brand on the listing, not a reseller), add confirmed URLs under "
+        f"`amazon_urls:` in clients/{client}/competitors.yaml, then run "
+        f"[cyan]adc research-amazon --client {client}[/cyan]."
+    )
+
+
 @cli.command(name="research-social")
 @click.option("--client", required=True, help="Client slug")
 @click.option("--skip-tiktok", is_flag=True, help="Skip TikTok scraping")
@@ -3632,6 +3763,15 @@ def research_social(
     for platform, c, source in plan:
         plan_table.add_row(platform, c.name, str(source))
     console.print(plan_table)
+
+    from strategy.research_preflight import social_preflight_lines
+    for line in social_preflight_lines(competitors, client):
+        if line.startswith("VERDICT") and ("LOW" in line or "nothing configured" in line):
+            console.print(f"[bold yellow]{line}[/bold yellow]")
+        elif line.startswith("  weak"):
+            console.print(f"[dim]{line}[/dim]")
+        else:
+            console.print(line)
 
     # ─── Execute ─────────────────────────────────────────────────────────
     results_table = Table(title="Results")

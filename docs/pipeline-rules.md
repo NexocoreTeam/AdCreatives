@@ -177,10 +177,14 @@ Trustpilot).
 
 Per-source expectations:
 
-- **On-site reviews** — vendor APIs (Okendo / Yotpo / Judge.me) plus a
-  JSON-LD fallback. Some premium brands publish no on-site reviews at all;
-  the bundle `notes` and `adc status` will say so. That's a finding, not a
-  failure — lean on the other layers.
+- **On-site reviews** — fallback chain: vendor APIs (Okendo / Yotpo /
+  Judge.me — deep, hundreds of reviews) → JSON-LD markup → schema.org
+  microdata in the rendered page (with FIRECRAWL_API_KEY set, competitor
+  pages are fetched JS-rendered, so widget output without a public API is
+  still visible — expect the visible 5-10 reviews, not the archive). Some
+  premium brands publish no on-site reviews at all; the bundle `notes` and
+  `adc status` will say so. That's a finding, not a failure — lean on the
+  other layers.
 - **Amazon** — `amazon_urls` must be explicit; the pipeline does NOT
   auto-discover Amazon listings. Only add URLs when the exact competitor
   product is genuinely sold (and reviewed) on Amazon; otherwise skip the

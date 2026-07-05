@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, field
+from html.parser import HTMLParser
 from pathlib import Path
 
 import httpx
@@ -449,6 +450,148 @@ def extract_jsonld_reviews(html: str, limit: int = 100) -> list[Review]:
     return reviews
 
 
+class _MicrodataReviewParser(HTMLParser):
+    """Collect schema.org microdata reviews (itemprop markup) from HTML.
+
+    Complements the JSON-LD extractor: some themes and widgets annotate the
+    rendered DOM (`itemprop="review"` / `reviewBody` / `ratingValue`)
+    without emitting a JSON-LD block. Especially relevant now that
+    competitor pages are fetched JS-rendered via Firecrawl — widget output
+    exists in the DOM even when the vendor has no public API.
+    """
+
+    VOID_TAGS = frozenset(
+        {"meta", "br", "img", "input", "hr", "link", "source", "wbr", "area", "col", "embed", "track"}
+    )
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.reviews: list[dict] = []
+        self._depth = 0
+        self._review_depth: int | None = None
+        self._current: dict | None = None
+        self._capture_key: str | None = None
+        self._capture_depth: int | None = None
+        self._author_depth: int | None = None
+
+    def handle_startendtag(self, tag, attrs):
+        # Self-closing tags carry attrs but no scope — treat like voids.
+        self._handle_void(dict(attrs))
+
+    def _handle_void(self, attrs_dict: dict) -> None:
+        if self._current is None:
+            return
+        itemprop = attrs_dict.get("itemprop", "")
+        content = attrs_dict.get("content", "")
+        if not itemprop or not content:
+            return
+        if itemprop == "ratingValue":
+            self._current.setdefault("ratingValue", content)
+        elif itemprop == "datePublished":
+            self._current.setdefault("datePublished", content)
+        elif itemprop == "author":
+            self._current.setdefault("reviewer", content)
+        elif itemprop == "name" and self._author_depth is not None:
+            self._current.setdefault("reviewer", content)
+
+    def handle_starttag(self, tag, attrs):
+        attrs_dict = dict(attrs)
+        if tag in self.VOID_TAGS:
+            self._handle_void(attrs_dict)
+            return
+        self._depth += 1
+        itemprop = attrs_dict.get("itemprop", "")
+
+        if self._current is None:
+            if itemprop == "review":
+                self._review_depth = self._depth
+                self._current = {}
+            return
+
+        if itemprop == "author":
+            self._author_depth = self._depth
+        elif itemprop in ("reviewBody", "description"):
+            self._capture_key = "body"
+            self._capture_depth = self._depth
+            self._current.setdefault("body", "")
+        elif itemprop == "name":
+            self._capture_key = (
+                "reviewer" if self._author_depth is not None else "title"
+            )
+            self._capture_depth = self._depth
+            self._current.setdefault(self._capture_key, "")
+        elif itemprop == "ratingValue":
+            self._capture_key = "ratingValue"
+            self._capture_depth = self._depth
+            self._current.setdefault("ratingValue", "")
+
+    def handle_data(self, data):
+        if self._current is not None and self._capture_key:
+            self._current[self._capture_key] = (
+                self._current.get(self._capture_key, "") + data
+            )
+
+    def handle_endtag(self, tag):
+        if tag in self.VOID_TAGS:
+            return
+        if self._capture_depth is not None and self._depth == self._capture_depth:
+            self._capture_key = None
+            self._capture_depth = None
+        if self._author_depth is not None and self._depth == self._author_depth:
+            self._author_depth = None
+        if self._review_depth is not None and self._depth == self._review_depth:
+            if self._current is not None:
+                self.reviews.append(self._current)
+            self._current = None
+            self._review_depth = None
+        self._depth -= 1
+
+    def close(self):
+        super().close()
+        # Sloppy HTML (unclosed tags) can leave the last review dangling.
+        if self._current is not None:
+            self.reviews.append(self._current)
+            self._current = None
+
+
+def extract_microdata_reviews(html: str, limit: int = 100) -> list[Review]:
+    """Parse schema.org microdata (itemprop) reviews out of page HTML."""
+    if not html or "itemprop" not in html:
+        return []
+    parser = _MicrodataReviewParser()
+    try:
+        parser.feed(html)
+        parser.close()
+    except Exception:
+        return []
+
+    reviews: list[Review] = []
+    seen: set[tuple[str, str]] = set()
+    for raw in parser.reviews:
+        body = (raw.get("body") or "").strip()
+        if not body:
+            continue
+        try:
+            rating = int(round(float(raw.get("ratingValue", "") or 0)))
+        except (TypeError, ValueError):
+            rating = 0
+        reviewer = (raw.get("reviewer") or "").strip()
+        key = (body[:80], reviewer)
+        if key in seen:
+            continue
+        seen.add(key)
+        reviews.append(Review(
+            title=(raw.get("title") or "").strip(),
+            body=body,
+            rating=rating,
+            reviewer=reviewer,
+            date=(raw.get("datePublished") or "").strip()[:25],
+        ))
+        if len(reviews) >= limit:
+            break
+    return reviews
+
+
 def fetch_product_reviews(
     html: str,
     product_url: str = "",
@@ -503,6 +646,12 @@ def fetch_product_reviews(
         if signal.vendor == "none":
             signal = VendorSignal(vendor="jsonld", identifiers={}, confidence="medium")
         return jsonld_reviews, signal
+
+    microdata_reviews = extract_microdata_reviews(html, limit=limit)
+    if microdata_reviews:
+        if signal.vendor == "none":
+            signal = VendorSignal(vendor="microdata", identifiers={}, confidence="medium")
+        return microdata_reviews, signal
 
     return [], signal
 
