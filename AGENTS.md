@@ -122,20 +122,38 @@ Full design philosophy and template work belongs in the relevant style files und
 
 ## Common commands
 
-Phase 1 (strategy):
+Phase 1 (strategy). `adc onboard` covers ONLY the first five stages — never
+report "full process complete" after it:
 ```
-adc init-client --name <slug>
-adc research --client <slug> --url <homepage>
-adc personas --client <slug>
-adc product-deep-dive --client <slug>
-adc offers --client <slug>
-adc strategy-matrix --client <slug>
+adc onboard --client <slug> --url <homepage>
+#   = research → product-deep-dive → personas → offers → strategy-matrix
+#     (stages 1-5; each also runnable individually)
+
 adc profile-psychology --client <slug>
-adc research-competitors --client <slug>
-adc research-amazon --client <slug>
+# hand-write clients/<slug>/competitors.yaml: 3-5 competitors, plus
+#   amazon_urls (explicit — NOT auto-discovered) and social sources
+#   (youtube_search_queries / youtube_video_ids / tiktok_search_queries /
+#    post URLs — prefer these over brand-owned handles)
+adc research-competitors --client <slug>     # Exa sentiment + on-site reviews
+adc research-amazon --client <slug>          # needs amazon_urls
+adc research-social --client <slug>          # TikTok / Instagram / YouTube comments
+adc mine-voc --client <slug> --category <c>
 adc analyze-gaps --client <slug>
 adc brief --client <slug> --product <id> --angles 6
 ```
+
+Verify completeness with `adc status --client <slug>` before calling Phase 1
+done — it now checks expected-vs-actual Exa query counts, review COUNTS (not
+just file existence), social comment counts, and briefs/prompts/images.
+
+Research diagnostics — check these whenever a layer reports 0 items:
+```
+clients/<slug>/research/exa/errors/              # failed Exa queries, persisted per label
+clients/<slug>/research/<platform>-diagnostics/  # social pulls that returned 0 comments
+clients/<slug>/research/competitor-reviews/*.json  # `notes` explains vendor detection
+```
+Source-mismatch rules (Amazon / Trustpilot / YouTube expectations) live in
+`docs/pipeline-rules.md` rule 6.
 
 Phase 2 (image gen):
 ```

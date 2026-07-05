@@ -160,3 +160,43 @@ These rules compound. The pipeline's job is to produce briefs that:
 
 When a brief violates any of these, treat it as a bug — fix the upstream
 prompt, don't band-aid the output.
+
+---
+
+## 6. Match research sources to where the category's VOC actually lives
+
+**Rule:** Before running the research layers, decide per category which
+sources will carry the VOC load — and configure competitors.yaml
+accordingly. Do not treat an empty layer as "research done".
+
+**Why:** The Zoka Coffee run produced 0 competitor reviews, 0 social
+comments, and no Amazon data — not because commands crashed, but because
+the sources were mismatched to the category (specialty coffee VOC lives on
+Reddit, YouTube reviews, and brand-owned review widgets, not Amazon or
+Trustpilot).
+
+Per-source expectations:
+
+- **On-site reviews** — vendor APIs (Okendo / Yotpo / Judge.me) plus a
+  JSON-LD fallback. Some premium brands publish no on-site reviews at all;
+  the bundle `notes` and `adc status` will say so. That's a finding, not a
+  failure — lean on the other layers.
+- **Amazon** — `amazon_urls` must be explicit; the pipeline does NOT
+  auto-discover Amazon listings. Only add URLs when the exact competitor
+  product is genuinely sold (and reviewed) on Amazon; otherwise skip the
+  layer.
+- **YouTube** — prefer `youtube_search_queries` ("<brand> review",
+  "<brand> vs <competitor>") or explicit `youtube_video_ids` over
+  brand-owned handles. Brand uploads are weak VOC: low comment volume,
+  disabled comments, or fan noise.
+- **TikTok / Instagram** — same logic: `tiktok_search_queries` or explicit
+  post URLs beat brand handles.
+- **Trustpilot** — the `trustpilot-*` Exa queries return page-level search
+  snippets (sentiment), NOT parsed review objects with star ratings. Treat
+  them as directional, and don't count them as structured review mining.
+- **Reddit** — runs through Exa with livecrawl; failures are persisted to
+  `research/exa/errors/` so a partial run is visible in `adc status`.
+
+After any research command reports 0 items, check the diagnostics before
+moving on: `research/exa/errors/`, `research/<platform>-diagnostics/`, and
+the `notes` field in `research/competitor-reviews/*.json`.

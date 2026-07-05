@@ -476,7 +476,13 @@ def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, sk
         ctx.invoke(strategy_matrix, client=client, max_products=max_products)
 
     console.print()
-    console.print(f"[bold green]✓ Onboarding complete for '{client}'[/bold green]")
+    console.print(f"[bold green]✓ Onboarding stages 1-5 complete for '{client}'[/bold green]")
+    console.print(
+        "[yellow]This is NOT the full Phase 1 pipeline — onboard covers research, "
+        "product deep-dive, personas, offers, and the strategy matrix only. "
+        "Psychology, competitive/review/social research, gap analysis, and briefs "
+        "still remain.[/yellow]"
+    )
     console.print()
     console.print("[bold]Files now under clients/{}/:[/bold]".format(client))
     console.print("  - brand.yaml, brand-context.md")
@@ -485,17 +491,27 @@ def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, sk
     console.print("  - offers.yaml")
     console.print("  - strategy-matrix.md, strategy-matrix.yaml")
     console.print()
-    console.print("[bold]Next:[/bold]")
+    console.print("[bold]Remaining Phase 1 steps (in order):[/bold]")
+    console.print(f"  1. adc profile-psychology --client {client}")
     console.print(
-        f"  1. adc mine-voc --client {client} --category <category>  "
-        "[dim](optional but recommended)[/dim]"
+        f"  2. Create clients/{client}/competitors.yaml "
+        "[dim](3-5 competitors; add amazon_urls + social handles/post URLs/search queries)[/dim]"
+    )
+    console.print(f"  3. adc research-competitors --client {client}")
+    console.print(
+        f"  4. adc research-amazon --client {client}  "
+        "[dim](needs amazon_urls in competitors.yaml)[/dim]"
     )
     console.print(
-        f"  2. adc profile-psychology --client {client}  "
-        "[dim](diagnose buyer heuristics + pairings)[/dim]"
+        f"  5. adc research-social --client {client}  "
+        "[dim](needs handles / post URLs / search queries in competitors.yaml)[/dim]"
     )
+    console.print(f"  6. adc mine-voc --client {client} --category <category>")
+    console.print(f"  7. adc analyze-gaps --client {client}")
+    console.print(f"  8. adc brief --client {client} --product <id> --angles 6")
+    console.print()
     console.print(
-        f"  3. adc brief --client {client} --product <id> --angles 6"
+        f"[bold]Verify every layer before Phase 2:[/bold] adc status --client {client}"
     )
 
 
@@ -576,9 +592,12 @@ def product_deep_dive(client: str, product: str | None):
     table.add_column("Reviews API", style="magenta")
     table.add_column("Confidence", style="dim")
     for name, info in summary.items():
+        status_text = info.get("status", "?")
+        if info.get("reason"):
+            status_text += f" ({info['reason']})"
         table.add_row(
             name[:40],
-            info.get("status", "?"),
+            status_text,
             str(info.get("price", ""))[:30],
             str(info.get("benefit_count", "")),
             str(info.get("social_proof_count", "")),
@@ -1274,16 +1293,54 @@ def research(client: str, url: str, max_products: int, auto: bool):
         console.print("[yellow]Aborted, no files written.[/yellow]")
         raise SystemExit(0)
 
+    # Normalize LLM-shaped fields to the Brand schema BEFORE writing — a
+    # mistyped field (e.g. visual_identity.mood as prose instead of a list)
+    # otherwise bricks every downstream load_brand() call.
+    from pydantic import ValidationError
+
+    from models.brand import Brand, VisualIdentity
+
+    try:
+        brand_yaml["visual_identity"] = VisualIdentity(
+            **(brand_yaml.get("visual_identity") or {})
+        ).model_dump()
+        Brand(**brand_yaml)
+    except ValidationError as e:
+        console.print(
+            "[red]Extracted brand data failed schema validation — "
+            "not writing brand.yaml (a bad write breaks every later stage).[/red]"
+        )
+        console.print(f"[red]{e}[/red]")
+        raise SystemExit(1)
+
     (client_dir / "brand.yaml").write_text(
         _yaml.dump(brand_yaml, sort_keys=False, allow_unicode=True), encoding="utf-8"
     )
 
     products_dir = client_dir / "products"
     products_dir.mkdir(exist_ok=True)
+
+    from strategy.product_dedup import find_near_duplicate
+
+    # Site-extracted products (with URLs) are richer than interview-only
+    # mentions — write them first so a bare near-duplicate mention loses.
+    ordered_products = sorted(
+        chosen_products,
+        key=lambda p: bool(_flatten(p.get("url", {"value": ""}))),
+        reverse=True,
+    )
+    preexisting = [
+        p.stem for p in products_dir.glob("*.yaml") if not p.stem.startswith("example")
+    ]
     written_products = []
-    for product in chosen_products:
+    skipped_dups: list[tuple[str, str]] = []
+    for product in ordered_products:
         pname = _flatten(product.get("name", "untitled"))
         slug = _slugify(pname)
+        dup_of = find_near_duplicate(slug, written_products + preexisting)
+        if dup_of:
+            skipped_dups.append((slug, dup_of))
+            continue
         prod_yaml = {
             "name": pname,
             "description": _flatten(product.get("description", {"value": ""})),
@@ -1300,6 +1357,13 @@ def research(client: str, url: str, max_products: int, auto: bool):
         path = products_dir / f"{slug}.yaml"
         path.write_text(_yaml.dump(prod_yaml, sort_keys=False, allow_unicode=True), encoding="utf-8")
         written_products.append(slug)
+
+    for slug, dup_of in skipped_dups:
+        console.print(
+            f"[yellow]Skipped product '{slug}' — looks like a near-duplicate of "
+            f"'{dup_of}'. If it really is a different product, create "
+            f"products/{slug}.yaml manually.[/yellow]"
+        )
 
     (client_dir / "avatar.yaml").write_text(
         _yaml.dump(avatar_yaml, sort_keys=False, allow_unicode=True), encoding="utf-8"
@@ -3034,6 +3098,7 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
     from strategy.exa_research import (
         cache_error,
         cache_result,
+        cache_stem,
         competitive_queries_for_brand,
         run_query,
     )
@@ -3110,8 +3175,7 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
 
     exa_cache = Path("clients") / client / "research" / "exa" / "raw"
     for i, q in enumerate(queries, 1):
-        from strategy.exa_research import _slugify
-        cache_path = exa_cache / f"{_slugify(q.label)}.json"
+        cache_path = exa_cache / f"{cache_stem(q.label)}.json"
         if cache_path.exists() and not force_refresh:
             import json as _json
             data = _json.loads(cache_path.read_text(encoding="utf-8"))
@@ -3208,8 +3272,14 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
     targets = [(c, url) for c in competitors for url in (c.amazon_urls or [])]
     if not targets:
         console.print(
-            f"[yellow]No amazon_urls set in clients/{client}/competitors.yaml.[/yellow]\n"
-            f"[dim]Add an `amazon_urls:` list to each competitor with 1-3 product URLs, then re-run.[/dim]"
+            f"[yellow]No amazon_urls set in clients/{client}/competitors.yaml — "
+            f"nothing to scrape.[/yellow]\n"
+            f"[dim]Amazon product URLs are NOT auto-discovered from competitor "
+            f"homepages. To use this layer: search amazon.com for each "
+            f"competitor's hero product, confirm it's actually sold by that brand "
+            f"(not a lookalike/reseller), and add 1-3 URLs under `amazon_urls:` "
+            f"per competitor. If the category isn't really bought on Amazon, "
+            f"skip this layer — Exa/Reddit/social carry the VOC load instead.[/dim]"
         )
         raise SystemExit(1)
 
@@ -3367,6 +3437,7 @@ def research_social(
         _research_dir,
         cache_bundle,
         cache_diagnostic,
+        clear_diagnostic,
         write_voc_dump,
     )
 
@@ -3409,12 +3480,21 @@ def research_social(
             plan.append(("instagram", c, c.instagram_handle or "explicit posts"))
         if not skip_youtube and (
             c.youtube_handle or c.youtube_channel_id or c.youtube_video_ids
+            or c.youtube_search_queries
         ):
-            plan.append((
-                "youtube",
-                c,
-                c.youtube_handle or c.youtube_channel_id or "explicit videos",
-            ))
+            if c.youtube_video_ids:
+                yt_source = f"{len(c.youtube_video_ids)} explicit video ID(s)"
+            elif c.youtube_search_queries:
+                yt_qs = ", ".join(c.youtube_search_queries[:2])
+                yt_more = (
+                    f" +{len(c.youtube_search_queries) - 2}"
+                    if len(c.youtube_search_queries) > 2
+                    else ""
+                )
+                yt_source = f"search: {yt_qs}{yt_more}"
+            else:
+                yt_source = c.youtube_handle or c.youtube_channel_id
+            plan.append(("youtube", c, yt_source))
 
     if not plan:
         console.print(
@@ -3516,6 +3596,8 @@ def research_social(
                 comments=comment_count,
                 notes=notes,
             )
+        else:
+            clear_diagnostic(client, platform, competitor.slug)
 
         results_table.add_row(
             platform,
