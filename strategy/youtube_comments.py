@@ -41,6 +41,14 @@ class YouTubeAuthError(RuntimeError):
     pass
 
 
+class YouTubeSourceEmpty(RuntimeError):
+    """The configured YouTube source yielded no videos to pull comments from.
+
+    Raised with a precise reason (unresolved handle / empty channel / dry
+    search) so zero-comment runs are diagnosable — 'status: ok, 0 comments'
+    told the Zoka run nothing."""
+
+
 def _api_key() -> str:
     key = os.environ.get("YOUTUBE_API_KEY")
     if not key:
@@ -278,13 +286,27 @@ def fetch_youtube_for_competitor(
                 video_metas.append(v)
                 if len(video_metas) >= max_videos_per_channel:
                     break
+        if not video_metas:
+            raise YouTubeSourceEmpty(
+                f"search queries {competitor.youtube_search_queries!r} matched no videos"
+            )
     else:
         channel_id = competitor.youtube_channel_id
         if not channel_id and competitor.youtube_handle:
             channel_id = resolve_handle_to_channel_id(competitor.youtube_handle)
+            if not channel_id:
+                raise YouTubeSourceEmpty(
+                    f"handle '{competitor.youtube_handle}' did not resolve to a "
+                    f"channel — fix the handle or switch to youtube_search_queries"
+                )
         if not channel_id:
             return []
         video_metas = list_recent_videos(channel_id, max_videos=max_videos_per_channel)
+        if not video_metas:
+            raise YouTubeSourceEmpty(
+                f"channel {channel_id} returned no videos "
+                f"(brand uploads are weak VOC — prefer youtube_search_queries)"
+            )
 
     bundles: list[SocialCommentBundle] = []
     for v in video_metas:

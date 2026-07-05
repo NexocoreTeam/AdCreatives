@@ -35,6 +35,21 @@ def test_okendo_prefers_product_scoped_endpoint(monkeypatch):
     assert len(reviews) == 1
 
 
+def test_okendo_next_url_resolution():
+    from strategy.reviews import _resolve_okendo_next_url
+
+    assert _resolve_okendo_next_url(None) is None
+    assert _resolve_okendo_next_url("") is None
+    assert (
+        _resolve_okendo_next_url("/stores/abc/reviews?limit=20")
+        == "https://api.okendo.io/v1/stores/abc/reviews?limit=20"
+    )
+    assert (
+        _resolve_okendo_next_url("https://api.okendo.io/v1/stores/abc/reviews")
+        == "https://api.okendo.io/v1/stores/abc/reviews"
+    )
+
+
 def test_okendo_falls_back_to_store_level(monkeypatch):
     monkeypatch.setattr(reviews_mod, "fetch_okendo_product_reviews", lambda *a, **k: [])
     monkeypatch.setattr(

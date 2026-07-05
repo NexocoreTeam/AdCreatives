@@ -160,6 +160,20 @@ def detect_review_vendor(html: str) -> VendorSignal:
     return VendorSignal(vendor="none", confidence="high")
 
 
+OKENDO_API_BASE = "https://api.okendo.io/v1"
+
+
+def _resolve_okendo_next_url(next_url: str | None) -> str | None:
+    """Okendo's nextUrl is host-relative ('/stores/...') — without resolving
+    it, pagination silently stops after page 1 (why Zoka's store feed only
+    ever surfaced 20 reviews)."""
+    if not next_url:
+        return None
+    if next_url.startswith("http"):
+        return next_url
+    return OKENDO_API_BASE + next_url
+
+
 def _extract_okendo_product_id(html: str) -> str:
     """Pull the Shopify product ID Okendo's widget markup carries on a PDP."""
     for pat in (
@@ -247,7 +261,7 @@ def _paginate_okendo_reviews(url: str, limit: int) -> list[Review]:
                     )
                 )
 
-            url = data.get("nextUrl") or None
+            url = _resolve_okendo_next_url(data.get("nextUrl"))
             pages += 1
 
     return reviews[:limit]

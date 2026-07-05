@@ -83,3 +83,25 @@ def test_explicit_video_ids_win_over_search(monkeypatch):
 
 def test_no_sources_returns_empty():
     assert yt.fetch_youtube_for_competitor(_competitor()) == []
+
+
+def test_unresolved_handle_raises_diagnosable_error(monkeypatch):
+    """'status: ok, 0 comments' told the Zoka run nothing — a dead handle
+    must say so."""
+    monkeypatch.setattr(yt, "resolve_handle_to_channel_id", lambda h: "")
+    competitor = _competitor(youtube_handle="@doesnotexist")
+    try:
+        yt.fetch_youtube_for_competitor(competitor)
+        raise AssertionError("expected YouTubeSourceEmpty")
+    except yt.YouTubeSourceEmpty as e:
+        assert "@doesnotexist" in str(e)
+
+
+def test_dry_search_raises_diagnosable_error(monkeypatch):
+    monkeypatch.setattr(yt, "search_videos", lambda q, max_videos: [])
+    competitor = _competitor(youtube_search_queries=["obscure query"])
+    try:
+        yt.fetch_youtube_for_competitor(competitor)
+        raise AssertionError("expected YouTubeSourceEmpty")
+    except yt.YouTubeSourceEmpty as e:
+        assert "obscure query" in str(e)
