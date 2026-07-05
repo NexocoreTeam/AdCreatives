@@ -132,13 +132,20 @@ adc onboard --client <slug> --url <homepage>
 #     (stages 1-5; each also runnable individually)
 
 adc profile-psychology --client <slug>
-# hand-write clients/<slug>/competitors.yaml: 3-5 competitors, plus
-#   amazon_urls (explicit — NOT auto-discovered) and social sources
-#   (youtube_search_queries / youtube_video_ids / tiktok_search_queries /
-#    post URLs — prefer these over brand-owned handles)
+adc scaffold-competitors --client <slug> --names "A, B, C"
+#   creates competitors.yaml with *_search_queries pre-filled (search queries
+#   beat brand handles ~17x on comment yield). If the file exists, it enriches
+#   in place: adds ONLY missing search queries, never touches hand-written
+#   fields. Then fill url/notes per competitor.
+adc suggest-amazon --client <slug>
+#   Exa-suggested Amazon listing candidates per competitor — human confirms
+#   and adds to amazon_urls (never auto-added; reseller lookalikes poison
+#   review mining)
 adc research-competitors --client <slug>     # Exa sentiment + on-site reviews
 adc research-amazon --client <slug>          # needs amazon_urls
 adc research-social --client <slug>          # TikTok / Instagram / YouTube comments
+#   both research commands print a source-quality preflight BEFORE spending;
+#   heed a LOW verdict — fix competitors.yaml instead of running anyway
 adc mine-voc --client <slug> --category <c>
 adc analyze-gaps --client <slug>
 adc brief --client <slug> --product <id> --angles 6
