@@ -195,11 +195,14 @@ Per-source expectations:
   snippets (sentiment), NOT parsed review objects with star ratings. Treat
   them as directional, and don't count them as structured review mining.
 - **Reddit** — Exa no longer serves reddit.com (403 SOURCE_NOT_AVAILABLE);
-  the pipeline automatically falls back to the official Reddit API, which
-  requires valid `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` (script app at
-  reddit.com/prefs/apps). Without working creds the reddit-* layer stays
-  empty and the failure records under `research/exa/errors/` say exactly
-  why.
+  the pipeline falls back automatically, in order: official Reddit API
+  (needs valid `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET`; new apps go
+  through Reddit's Responsible Builder review) → Apify actor bridge
+  (`trudax/reddit-scraper-lite`, needs `APIFY_API_TOKEN`, pay-per-result).
+  Prefer landing the official creds — that path is sanctioned and free; the
+  Apify bridge is public-page scraping, same posture as the TikTok/IG
+  layers. If both are unusable the reddit-* layer stays empty and the
+  failure records under `research/exa/errors/` say exactly why.
 
 After any research command reports 0 items, check the diagnostics before
 moving on: `research/exa/errors/`, `research/<platform>-diagnostics/`, and

@@ -23,7 +23,7 @@ from datetime import datetime, timezone
 import httpx
 
 from strategy.exa_research import ExaHit, ExaQueryResult
-from strategy.exa_queries import ExaQuery
+from strategy.exa_queries import ExaQuery, reddit_search_terms
 
 TOKEN_URL = "https://www.reddit.com/api/v1/access_token"
 API_BASE = "https://oauth.reddit.com"
@@ -144,8 +144,17 @@ def run_reddit_query(query: ExaQuery, content_chars: int = 3000) -> ExaQueryResu
 
     Drop-in replacement for exa_research.run_query when Exa refuses
     reddit.com — same ExaQueryResult shape, same cache compatibility.
+    Searches with the keyword form of the query and drops posts that never
+    mention the brand term (Reddit search pads weak matches with junk).
     """
-    posts = search_posts(query.query, limit=query.num_results)
+    search, must_contain = reddit_search_terms(query)
+    posts = search_posts(search, limit=query.num_results)
+    if must_contain:
+        needle = must_contain.lower()
+        posts = [
+            p for p in posts
+            if needle in f"{p.get('title', '')} {p.get('selftext', '')}".lower()
+        ]
 
     hits: list[ExaHit] = []
     for i, post in enumerate(posts):
