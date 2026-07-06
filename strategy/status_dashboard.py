@@ -77,6 +77,15 @@ def _safe_json_load(path: Path) -> Optional[dict]:
         return None
 
 
+def _is_unmodified_template_copy(path: Path) -> bool:
+    """True when a client file is byte-identical to its _template original."""
+    template = CLIENTS_DIR / "_template" / path.name
+    try:
+        return template.exists() and path.read_bytes() == template.read_bytes()
+    except OSError:
+        return False
+
+
 def _cost_log_entries(client: str) -> list[dict]:
     path = CLIENTS_DIR / client / ".cost-log.jsonl"
     if not path.exists():
@@ -142,7 +151,15 @@ def strategy_status(client: str) -> list[StageStatus]:
     persona_files = [p for p in persona_files if p.name != "_index.yaml"]
     legacy_avatar = base / "avatar.yaml"
     persona_count = len(persona_files)
-    has_legacy = legacy_avatar.exists() and persona_count == 0
+    # init-client copies the template wholesale, so a byte-identical
+    # avatar.yaml is the shipped EXAMPLE, not a persona — counting it made a
+    # freshly-initialized client show "Personas OK" (found live on the
+    # expand-furniture kickoff).
+    has_legacy = (
+        legacy_avatar.exists()
+        and persona_count == 0
+        and not _is_unmodified_template_copy(legacy_avatar)
+    )
     stages.append(StageStatus(
         name="Personas",
         done=persona_count > 0 or has_legacy,

@@ -183,3 +183,26 @@ def test_social_zero_comment_run_gets_force_refresh_rec(tmp_path, monkeypatch):
     )
     recs = _recommendations(tmp_path, monkeypatch, clients)
     assert any("--force-refresh" in r and "research-social" in r for r in recs)
+
+
+def test_template_avatar_copy_is_not_a_persona(tmp_path, monkeypatch):
+    """init-client copies _template wholesale; the example avatar.yaml must
+    not make a fresh client show 'Personas OK' (found live on the
+    expand-furniture kickoff)."""
+    clients = tmp_path / "clients"
+    template = clients / "_template"
+    template.mkdir(parents=True)
+    (template / "avatar.yaml").write_text("name: Example Avatar\n", encoding="utf-8")
+
+    fresh = clients / "expand-furniture"
+    fresh.mkdir()
+    (fresh / "avatar.yaml").write_text("name: Example Avatar\n", encoding="utf-8")
+    monkeypatch.setattr(sd, "CLIENTS_DIR", clients)
+
+    stage = _stage(sd.strategy_status("expand-furniture"), "Personas")
+    assert stage.done is False
+
+    # Once the operator actually edits it, it counts again.
+    (fresh / "avatar.yaml").write_text("name: Real Persona\n", encoding="utf-8")
+    stage = _stage(sd.strategy_status("expand-furniture"), "Personas")
+    assert stage.done is True
