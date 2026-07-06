@@ -142,17 +142,8 @@ def _extract_product_urls_from_html(html: str, base_url: str) -> list[str]:
     return out
 
 
-def _fetch_html(url: str) -> str:
-    """Firecrawl when configured, plain httpx otherwise. Empty string on failure.
-
-    The Firecrawl module returns None whenever FIRECRAWL_API_KEY is unset, so
-    without this fallback the on-site review layer silently collects nothing.
-    Static HTML is enough here: vendor widget signatures and JSON-LD review
-    blocks are server-rendered on most storefronts.
-    """
-    html = firecrawl_scrape_html(url)
-    if html:
-        return html
+def _fetch_html_raw(url: str) -> str:
+    """Plain httpx fetch — the unrendered source with <script> JSON intact."""
     try:
         with httpx.Client(
             timeout=20.0, follow_redirects=True,
@@ -164,6 +155,21 @@ def _fetch_html(url: str) -> str:
     except httpx.HTTPError:
         pass
     return ""
+
+
+def _fetch_html(url: str) -> str:
+    """Firecrawl when configured, plain httpx otherwise. Empty string on failure.
+
+    Rendered HTML captures JS-injected review markup (microdata tier), but
+    rendering can DROP script-embedded vendor identifiers — found live on
+    Elevated Faith, whose Okendo subscriberId exists in the raw source and
+    vanishes after rendering. Callers that detect a vendor with empty
+    identifiers should retry extraction on _fetch_html_raw.
+    """
+    html = firecrawl_scrape_html(url)
+    if html:
+        return html
+    return _fetch_html_raw(url)
 
 
 def _shopify_products_json_urls(base_url: str, limit: int = 25) -> list[str]:
@@ -261,6 +267,24 @@ def pull_competitor_reviews(
             base_url=competitor.url,
             limit=review_limit,
         )
+        if not reviews and page_signal.vendor != "none" and not page_signal.identifiers:
+            # Rendered DOM detected a vendor but carried no identifiers —
+            # retry against the raw source, where script-embedded IDs live
+            # (found live on Elevated Faith: Okendo subscriberId present raw,
+            # gone after rendering).
+            raw_html = _fetch_html_raw(product_url)
+            if raw_html:
+                raw_reviews, raw_signal = fetch_product_reviews(
+                    html=raw_html,
+                    product_url=product_url,
+                    base_url=competitor.url,
+                    limit=review_limit,
+                )
+                if raw_signal.vendor != "none":
+                    page_signal = raw_signal
+                if raw_reviews:
+                    reviews = raw_reviews
+
         if page_signal.vendor != "none":
             detected_vendors.append(page_signal.vendor)
             bundle.vendor = page_signal.vendor
