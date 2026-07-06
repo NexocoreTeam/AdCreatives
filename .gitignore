@@ -85,3 +85,6 @@ dashboard-service*.log
 
 # archived client-dir versions (cold-run comparisons, superseded packages)
 _archives/
+
+# agent-local learning artifacts (OpenClaw continuous-learning)
+.learnings/
