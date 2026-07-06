@@ -29,6 +29,10 @@ explicit user discussion.
   it via `_bootstrap_env_from_dotenv`.
 - CLI entry: `adc --help` (defined in `cli.py`).
 - Dashboard: `adc dashboard` (Streamlit, reads local files only, no API calls).
+- Firecrawl is the default managed crawler/page-fetcher for AdCreatives research.
+  Do not block client research on a Brave Search API key. If a Slack/OpenClaw
+  workflow asks for Brave, that is outside the repo pipeline; route page crawling
+  through Firecrawl and broad discovery through Exa/Apify/Reddit as configured.
 
 ## Higgsfield integration
 
