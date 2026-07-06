@@ -316,9 +316,13 @@ def fetch_shopify_bestsellers(base_url: str, page_count: int = 3) -> list[tuple[
     return pages
 
 
-# Match both relative ("/products/...") and absolute ("https://x.com/products/...") hrefs
+# Match relative ("/products/..."), absolute ("https://x.com/products/..."),
+# and collection-scoped ("/collections/all/products/...") hrefs — many themes
+# only emit the collection-scoped form (Pipsticks: 24 scoped vs 1 bare,
+# Self-Care Is For Everyone: 24 vs 0, observed 2026-07-07). The captured
+# group stays the bare /products/<slug> path, which is the canonical PDP URL.
 _PRODUCT_HREF = re.compile(
-    r'href=["\'](?:https?://[^"\'/]+)?(/products/[a-z0-9][a-z0-9_-]*)(?:[?#][^"\']*)?["\']',
+    r'href=["\'](?:https?://[^"\'/]+)?(?:/collections/[a-z0-9_-]+)?(/products/[a-z0-9][a-z0-9_-]*)(?:[?#][^"\']*)?["\']',
     re.IGNORECASE,
 )
 

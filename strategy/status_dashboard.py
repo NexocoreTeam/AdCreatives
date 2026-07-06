@@ -441,6 +441,30 @@ def competitive_research_status(client: str) -> list[StageStatus]:
         counts={"comments": social_comment_count, "diagnostics": len(diagnostic_lines)},
     ))
 
+    # Competitor best-sellers — free sales-rank snapshots (what they BUY)
+    bs_dir = base / "competitor-bestsellers"
+    bs_files = sorted(bs_dir.glob("*.json")) if bs_dir.exists() else []
+    bs_with_data = 0
+    bs_product_count = 0
+    for f in bs_files:
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        top = data.get("top") or []
+        if top:
+            bs_with_data += 1
+            bs_product_count += len(top)
+    stages.append(StageStatus(
+        name="Competitor bestsellers",
+        done=bs_with_data > 0,
+        summary=(
+            f"{bs_with_data}/{len(bs_files)} competitor(s), {bs_product_count} ranked product(s)"
+            if bs_files else ""
+        ),
+        last_modified=_newest_mtime(bs_files),
+    ))
+
     # Gap map
     gap_yaml = base / "competitive-gaps.yaml"
     gap_md = base / "competitive-gaps.md"

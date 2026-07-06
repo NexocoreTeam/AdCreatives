@@ -506,6 +506,53 @@ def catalog(client: str, url: str | None, max_pages: int):
     log_cost(client, "adc catalog", note=f"{len(cards)} products clustered")
 
 
+# ─── Competitor best-sellers (free sales-rank snapshots) ────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--top", "top_n", default=15, type=int, help="How many top sellers to keep per competitor")
+def bestsellers(client: str, top_n: int):
+    """Snapshot each competitor's best-selling products (free, no LLM).
+
+    Fetches /collections/all?sort_by=best-selling per competitor —
+    Firecrawl-rendered first (JS themes), static fallback — and writes
+    research/competitor-bestsellers/<slug>.json. The gap analyzer injects
+    these rankings into its per-brand context on the next analyze-gaps run,
+    so the map knows what competitor customers BUY, not just what they
+    complain about.
+    """
+    from strategy.competitor_bestsellers import snapshot_for_client
+
+    if not (Path("clients") / client / "competitors.yaml").exists():
+        console.print(f"[red]No competitors.yaml for '{client}' — run adc scaffold-competitors first.[/red]")
+        raise SystemExit(1)
+
+    with console.status("Snapshotting competitor best-sellers..."):
+        results = snapshot_for_client(client, top_n=top_n)
+
+    table = Table(title=f"Competitor best-sellers — top {top_n}")
+    table.add_column("Competitor")
+    table.add_column("Method")
+    table.add_column("Ranked", justify="right")
+    table.add_column("#1 seller")
+    for r in results:
+        top = r.get("top") or []
+        first = top[0]["name"] if top else (r.get("note") or "-")
+        table.add_row(r["competitor"], r["method"], str(len(top)), first)
+    console.print(table)
+
+    got = [r for r in results if r.get("top")]
+    console.print(
+        f"\n[green]{len(got)}/{len(results)} competitor(s) captured[/green] — "
+        f"saved under clients/{client}/research/competitor-bestsellers/"
+    )
+    console.print(
+        "[dim]Next analyze-gaps run will include these rankings in each "
+        "competitor's context.[/dim]"
+    )
+
+
 # ─── Onboard wrapper (runs stages 1-5 in sequence) ──────────────────────────
 
 

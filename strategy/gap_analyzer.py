@@ -28,6 +28,7 @@ from strategy.competitor_research import (
     load_cached_competitor_bundles,
     load_competitors,
 )
+from strategy.competitor_bestsellers import format_bestsellers_block, load_bestsellers
 from strategy.exa_research import ExaQueryResult, load_cached
 from strategy.llm import claude_complete
 from strategy.social_comments import SocialComment, SocialCommentBundle
@@ -166,6 +167,7 @@ def _gather_brand_content(
     amazon_bundles: list[AmazonReviewBundle] | None = None,
     is_own_brand: bool = False,
     social_bundles: list[SocialCommentBundle] | None = None,
+    bestsellers: dict | None = None,
 ) -> tuple[str, dict]:
     """Concatenate every piece of customer voice we have about one brand into a
     single context string, plus a metadata dict. Returns (content, meta).
@@ -186,8 +188,17 @@ def _gather_brand_content(
         "instagram_comments": 0,
         "youtube_comments": 0,
         "total_chars": 0,
+        "bestseller_products": 0,
         "sources": set(),
     }
+
+    # Best-seller snapshot leads the content so it survives the per-brand
+    # char truncation — it's tiny and high-signal (what they BUY, not just
+    # what they complain about).
+    bestseller_block = format_bestsellers_block(bestsellers)
+    if bestseller_block:
+        parts.append(bestseller_block)
+        meta["bestseller_products"] = len((bestsellers or {}).get("top") or [])
 
     brand_slug = re.sub(r"[^a-zA-Z0-9]+", "-", brand_name.lower()).strip("-")
 
@@ -305,6 +316,7 @@ def analyze_one_brand(
     on_site_bundle: CompetitorReviewBundle | None,
     amazon_bundles: list[AmazonReviewBundle] | None = None,
     social_bundles: list[SocialCommentBundle] | None = None,
+    bestsellers: dict | None = None,
 ) -> dict:
     """One Claude call: produce a gap map for one brand."""
     content, meta = _gather_brand_content(
@@ -314,6 +326,7 @@ def analyze_one_brand(
         amazon_bundles,
         is_own_brand,
         social_bundles=social_bundles,
+        bestsellers=bestsellers,
     )
 
     if not content.strip():
@@ -540,6 +553,7 @@ def analyze_competitive_gaps(
                 on_site_bundle=on_site_by_slug.get(c.slug),
                 amazon_bundles=amazon_by_slug.get(c.slug),
                 social_bundles=social_by_slug.get(c.slug),
+                bestsellers=load_bestsellers(client_slug, c.slug),
             )
             competitor_analyses.append(analysis)
 
