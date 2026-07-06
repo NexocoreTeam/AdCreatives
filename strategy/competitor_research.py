@@ -203,6 +203,10 @@ def pull_competitor_reviews(
         competitor=competitor,
         fetched_at=datetime.utcnow().isoformat() + "Z",
     )
+    # Vendor-tier failure reasons (VendorSignal.notes) — persisted into
+    # bundle.notes on a 0-review outcome so research/competitor-reviews/*.json
+    # says WHY, not just "0" (pipeline-rules rule 6).
+    signal_notes: list[str] = []
 
     # 1. Find product pages first (where reviews actually live).
     #    Discovery chain: Firecrawl /map → Shopify /products.json → homepage links.
@@ -230,6 +234,8 @@ def pull_competitor_reviews(
             )
             if signal.vendor != "none":
                 bundle.vendor = signal.vendor
+            if signal.notes:
+                signal_notes.append(signal.notes)
             if reviews:
                 bundle.reviews = reviews
                 return bundle
@@ -258,6 +264,8 @@ def pull_competitor_reviews(
         if page_signal.vendor != "none":
             detected_vendors.append(page_signal.vendor)
             bundle.vendor = page_signal.vendor
+        if page_signal.notes:
+            signal_notes.append(page_signal.notes)
 
         if reviews:
             bundle.reviews = reviews
@@ -268,9 +276,16 @@ def pull_competitor_reviews(
         bundle.notes = (
             f"No reviews extracted from {len(bundle.scraped_pages)} page(s). "
             f"Detected vendors: {', '.join(unique_vendors)}. "
-            f"No supported widget API and no JSON-LD review markup — for this "
-            f"competitor, rely on Exa/Reddit/Amazon/social sources instead."
         )
+        if signal_notes:
+            # A vendor path ran and failed for a stated reason — that reason
+            # IS the diagnostic. Dedupe (same note repeats across PDPs).
+            bundle.notes += "Vendor diagnostics: " + " | ".join(dict.fromkeys(signal_notes))
+        else:
+            bundle.notes += (
+                "No supported widget API and no JSON-LD review markup — for this "
+                "competitor, rely on Exa/Reddit/Amazon/social sources instead."
+            )
     return bundle
 
 
