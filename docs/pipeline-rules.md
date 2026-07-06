@@ -198,6 +198,16 @@ Per-source expectations:
   premium brands publish no on-site reviews at all; the bundle `notes` and
   `adc status` will say so. That's a finding, not a failure — lean on the
   other layers.
+  - **Judge.me has a second tier:** some stores render reviews only via the
+    widget's runtime XHR — nothing in static or JS-rendered PDP HTML, no
+    public token on the page, and the classic widget endpoint returns 0
+    (found live on a 14K+-review store). The pipeline falls back to the
+    widget's own data source (`api.judge.me/reviews/reviews_for_widget` —
+    the same path on judge.me 404s) using the `*.myshopify.com` domain +
+    numeric Shopify product id recovered from the PDP HTML (ShopifyAnalytics
+    meta; `/products/<handle>.js` and `/products.json` can 404/500 on
+    rate-limited stores). When the tier can't run or still gets 0, the
+    reason lands in the diagnostics (`notes` / product-dive output).
 - **The CLIENT's own reviews** — when the client's store shows a review
   count but the pipeline pulls 0 (e.g. Judge.me with `disable_web_reviews`
   set: token-locked API, nothing rendered in the DOM — found live on

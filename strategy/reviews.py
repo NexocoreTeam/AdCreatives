@@ -16,12 +16,13 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, field
+from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
 import httpx
 
-from strategy.researcher import USER_AGENT
+from strategy.researcher import USER_AGENT, fetch_product_pages_with_raw
 
 
 @dataclass
@@ -42,6 +43,10 @@ class VendorSignal:
     vendor: str   # okendo|yotpo|judgeme|loox|stamped|junip|reviewsio|shopify-native|fera|none
     identifiers: dict = field(default_factory=dict)
     confidence: str = "high"  # high | medium | low
+    # Why a vendor path came up empty (or which fallback tier recovered it).
+    # Callers persist this into research diagnostics — pipeline-rules rule 6:
+    # 0-review outcomes must carry their reason, not vanish.
+    notes: str = ""
 
 
 def detect_review_vendor(html: str) -> VendorSignal:
@@ -358,6 +363,238 @@ def fetch_judgeme_reviews(shop_domain: str, product_handle: str, limit: int = 10
     return reviews
 
 
+# ── Judge.me widget-XHR fallback tier ───────────────────────────────────────
+#
+# Some Judge.me stores render reviews ONLY via the widget's runtime XHR:
+# no review content in static or even JS-rendered PDP HTML, no public token
+# on the page, and the classic v1 widget endpoint above returns nothing —
+# found live on a 14K+-review Shopify store whose deep-dive reported 0 for
+# every product. reviews_for_widget is the widget's own data source and
+# needs only the *.myshopify.com domain + the numeric Shopify product id.
+
+JUDGEME_WIDGET_API = "https://api.judge.me/reviews/reviews_for_widget"
+_JUDGEME_WIDGET_PER_PAGE = 10
+
+
+def _extract_myshopify_domain(html: str) -> str:
+    """First *.myshopify.com domain in page HTML (Shopify.shop, CDN URLs,
+    analytics payloads all carry it on any storefront page)."""
+    m = re.search(r"([\w-]+\.myshopify\.com)", html or "")
+    return m.group(1) if m else ""
+
+
+def _extract_shopify_product_id(html: str) -> str:
+    """Numeric Shopify product id from the ShopifyAnalytics meta on a PDP.
+
+    This is the reliable source: /products/<handle>.js and /products.json
+    can 404/500 on rate-limited stores while the PDP itself renders fine.
+    """
+    m = re.search(r'"product"\s*:\s*\{\s*"id"\s*:\s*(\d+)', html or "")
+    return m.group(1) if m else ""
+
+
+def _fetch_raw_html_bridged(url: str) -> str:
+    """One-URL raw fetch riding the same-domain rate-limit bridging of
+    researcher.fetch_product_pages_with_raw (4s/12s backoff): inside onboard
+    the store just absorbed a burst of requests, so a plain one-shot GET here
+    would fail exactly when this fallback is needed most."""
+    if not url:
+        return ""
+    pages = fetch_product_pages_with_raw([url])
+    return (pages.get(url) or {}).get("raw", "")
+
+
+def _parse_judgeme_widget_html(
+    fragment: str,
+    product_name: str = "",
+    product_id: str = "",
+) -> list[Review]:
+    """Parse reviews out of the `html` field of a reviews_for_widget response.
+
+    Judge.me renders the widget server-side with single-quoted attributes:
+    one `<div class='jdgm-rev ...'>` per review, rating as data-score on
+    jdgm-rev__rating, ISO-ish timestamp in jdgm-rev__timestamp's
+    data-content, body as <p> paragraphs inside jdgm-rev__body.
+    """
+    if not fragment:
+        return []
+    reviews: list[Review] = []
+    # The trailing space in the split token keeps the widget shell
+    # (jdgm-rev-widg) and inner elements (jdgm-rev__*) out of the blocks.
+    for block in fragment.split("<div class='jdgm-rev ")[1:]:
+        # Rest of the review div's opening tag — carries data-verified-buyer.
+        head = block.split(">", 1)[0]
+        rating_m = re.search(
+            r"jdgm-rev__rating[^>]*?data-score=['\"](\d)['\"]", block
+        ) or re.search(r"data-score=['\"](\d)['\"]", block)
+        # ['\"\s] after the class name keeps jdgm-rev__author-wrapper from
+        # matching before the actual author span.
+        author_m = re.search(r"jdgm-rev__author['\"\s][^>]*?>([^<]*)<", block)
+        title_m = re.search(r"jdgm-rev__title[^>]*?>([^<]*)<", block)
+        date_m = re.search(
+            r"jdgm-rev__timestamp[^>]*?data-content=['\"]([^'\"]+)['\"]", block
+        )
+        body = ""
+        body_m = re.search(r"jdgm-rev__body[^>]*?>(.*?)</div>", block, re.DOTALL)
+        if body_m:
+            body = unescape(re.sub(r"<[^>]+>", " ", body_m.group(1)))
+            body = re.sub(r"\s+", " ", body).strip()
+        reviews.append(
+            Review(
+                title=unescape(title_m.group(1)).strip() if title_m else "",
+                body=body,
+                rating=int(rating_m.group(1)) if rating_m else 0,
+                reviewer=unescape(author_m.group(1)).strip() if author_m else "",
+                date=(date_m.group(1) if date_m else "")[:25],
+                product_name=product_name,
+                product_id=product_id,
+                verified="data-verified-buyer='true'" in head
+                or 'data-verified-buyer="true"' in head,
+            )
+        )
+    return reviews
+
+
+def fetch_judgeme_widget_reviews(
+    myshopify_domain: str,
+    shopify_product_id: str,
+    limit: int = 100,
+    product_name: str = "",
+) -> list[Review]:
+    """Fetch product-scoped reviews from Judge.me's widget runtime XHR.
+
+    NOTE the api.judge.me host is required — the same path on judge.me
+    returns 404. Response JSON: {html, total_count, page}; paginates until
+    total_count is reached, an empty page, or `limit`.
+    """
+    if not myshopify_domain or not shopify_product_id:
+        return []
+
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
+    reviews: list[Review] = []
+    page = 1
+    max_pages = max(1, -(-limit // _JUDGEME_WIDGET_PER_PAGE))  # ceil
+
+    with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
+        while len(reviews) < limit and page <= max_pages:
+            try:
+                resp = client.get(
+                    JUDGEME_WIDGET_API,
+                    params={
+                        "url": myshopify_domain,
+                        "shop_domain": myshopify_domain,
+                        "platform": "shopify",
+                        "product_id": shopify_product_id,
+                        "page": page,
+                        "per_page": _JUDGEME_WIDGET_PER_PAGE,
+                    },
+                )
+            except (httpx.RequestError, httpx.TimeoutException):
+                break
+            if resp.status_code != 200:
+                break
+            try:
+                data = resp.json()
+            except json.JSONDecodeError:
+                break
+
+            parsed = _parse_judgeme_widget_html(
+                data.get("html") or "",
+                product_name=product_name,
+                product_id=str(shopify_product_id),
+            )
+            if not parsed:
+                break  # empty page ends pagination even if total_count claims more
+            reviews.extend(parsed)
+
+            try:
+                total_count = int(data.get("total_count") or 0)
+            except (TypeError, ValueError):
+                total_count = 0
+            if total_count and len(reviews) >= total_count:
+                break
+            page += 1
+
+    return reviews[:limit]
+
+
+def _fetch_judgeme_with_fallback(
+    signal: VendorSignal,
+    html: str,
+    product_url: str,
+    base_url: str,
+    limit: int,
+) -> list[Review]:
+    """Judge.me in two tiers: classic v1 widget endpoint first, then the
+    widget's runtime XHR when the primary yields 0 (mirrors the Okendo
+    product-scoped → store-level fallback shape).
+
+    Identifiers already in the HTML in hand are preferred; bridged re-fetches
+    (homepage for the myshopify domain, PDP for the product id) only run when
+    they're missing. Every 0-review outcome writes its reason to signal.notes.
+    """
+    from urllib.parse import urlparse
+
+    shop_domain = signal.identifiers.get("shop_domain") or ""
+    if not shop_domain and base_url:
+        shop_domain = urlparse(base_url).netloc
+    handle = ""
+    if product_url:
+        m = re.search(r"/products/([^/?#]+)", product_url)
+        if m:
+            handle = m.group(1)
+
+    reviews: list[Review] = []
+    primary_note = "v1 widget endpoint skipped (no product handle in URL)"
+    if shop_domain and handle:
+        reviews = fetch_judgeme_reviews(shop_domain, handle, limit=limit)
+        primary_note = "v1 widget endpoint empty"
+    if reviews:
+        return reviews
+
+    myshopify = _extract_myshopify_domain(html)
+    if not myshopify and shop_domain.endswith(".myshopify.com"):
+        myshopify = shop_domain
+    if not myshopify and base_url:
+        myshopify = _extract_myshopify_domain(_fetch_raw_html_bridged(base_url))
+    if not myshopify:
+        signal.notes = (
+            f"judgeme: {primary_note}; widget-XHR skipped — no "
+            f"*.myshopify.com domain in page or homepage HTML"
+        )
+        return []
+
+    product_id = _extract_shopify_product_id(html)
+    if not product_id and product_url and "/products/" in product_url:
+        product_id = _extract_shopify_product_id(_fetch_raw_html_bridged(product_url))
+    if not product_id:
+        signal.notes = (
+            f"judgeme: {primary_note}; widget-XHR skipped — no Shopify numeric "
+            f"product id in PDP HTML (ShopifyAnalytics meta missing)"
+        )
+        return []
+
+    reviews = fetch_judgeme_widget_reviews(
+        myshopify, product_id, limit=limit, product_name=handle
+    )
+    signal.identifiers.setdefault("shop_domain", myshopify)
+    signal.identifiers["product_id"] = product_id
+    if reviews:
+        signal.confidence = "high"
+        signal.notes = (
+            f"judgeme: {primary_note}; recovered {len(reviews)} review(s) via "
+            f"widget-XHR (api.judge.me reviews_for_widget)"
+        )
+    else:
+        signal.notes = (
+            f"judgeme: {primary_note}; widget-XHR also returned 0 — store may "
+            f"have no reviews for this product, or reviews are token-locked; "
+            f"for a client-owned store, export from the Judge.me dashboard "
+            f"into voc/ instead (pipeline-rules rule 6)"
+        )
+    return reviews
+
+
 def _iter_jsonld_nodes(data):
     """Yield dict nodes from a JSON-LD document (handles lists and @graph)."""
     stack = [data]
@@ -626,17 +863,9 @@ def fetch_product_reviews(
             reviews = fetch_yotpo_product_reviews(app_key, product_id, limit=limit)
 
     elif signal.vendor == "judgeme":
-        shop_domain = signal.identifiers.get("shop_domain")
-        if not shop_domain and base_url:
-            from urllib.parse import urlparse
-            shop_domain = urlparse(base_url).netloc
-        handle = ""
-        if product_url:
-            m = re.search(r"/products/([^/?#]+)", product_url)
-            if m:
-                handle = m.group(1)
-        if shop_domain and handle:
-            reviews = fetch_judgeme_reviews(shop_domain, handle, limit=limit)
+        reviews = _fetch_judgeme_with_fallback(
+            signal, html, product_url, base_url, limit
+        )
 
     if reviews:
         return reviews, signal

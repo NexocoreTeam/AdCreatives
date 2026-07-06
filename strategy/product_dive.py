@@ -388,6 +388,9 @@ def deep_dive_products(
             "confidence": result.enriched.get("extraction_confidence", "medium"),
             "reviews_fetched": len(product_reviews),
             "review_vendor": signal.vendor if signal else "none",
+            # Why a vendor path came up empty / which fallback tier recovered
+            # it — surfaced by the CLI so 0-review runs aren't silent.
+            "review_notes": signal.notes if signal else "",
         }
 
     return summary

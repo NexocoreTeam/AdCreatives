@@ -697,6 +697,9 @@ def product_deep_dive(client: str, product: str | None):
             str(info.get("confidence", "")),
         )
     console.print(table)
+    for name, info in summary.items():
+        if info.get("review_notes"):
+            console.print(f"[dim]{name}: {info['review_notes']}[/dim]")
 
 
 # ─── Offers (Stage 3) ───────────────────────────────────────────────────────
