@@ -19,6 +19,28 @@ operating rules (one product per run for multi-SKU brands, persona awareness
 calibration, gap-map filters, no-competitor-naming) — do not relax them without
 explicit user discussion.
 
+## Agent write policy (ALL agents, all machines — including orchestrator/main agents)
+
+- Tracked pipeline code and docs change ONLY via an attributable feature/fork
+  branch + PR — never as direct edits sitting uncommitted on master. This binds
+  every agent on every box, including main/orchestrator agents patching "just a
+  small fallback" mid-task. (2026-07-06: an orchestrator agent patched
+  `strategy/catalog.py` mid-thread with an untested curl fallback; it sat as
+  unattributed drift for a day and was discarded.)
+- `clients/<slug>/` is working data — agents write there freely for the client
+  they are working on.
+- Never write agent-local artifacts (`.learnings/`, scratch logs, skill
+  proposals) inside this repo; keep them in the agent's own workspace.
+- Found the working tree dirty with changes you didn't make? Post the full diff
+  to #creative-strategist immediately and leave it untouched (no commit, stash,
+  or discard) until reviewed.
+- Never hand-write artifacts that mimic pipeline output (gap maps, personas,
+  psychology profiles, catalog censuses) and let them pass as command output.
+  If a stage fails, report the failure and fix the stage. If a manual artifact
+  is genuinely needed, it must say so inside the file (`provenance: manual`) —
+  pipeline stages exist so results are reproducible, costed, and auditable
+  (the cost log is the proof of what actually ran).
+
 ## Quickstart
 
 - Python **3.11+**.
