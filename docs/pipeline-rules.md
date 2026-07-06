@@ -169,17 +169,17 @@ prompt, don't band-aid the output.
 sources will carry the VOC load — and configure competitors.yaml
 accordingly. Do not treat an empty layer as "research done".
 
-**Provider default:** Use Firecrawl as the default managed crawler/page fetcher
-for AdCreatives research. Do not block this repo's workflows on a Brave Search
-API key. Firecrawl handles known-page crawling/rendered extraction; Exa handles
-broad web sentiment and Amazon candidate discovery; Apify/official APIs handle
-platform-specific comment/review sources.
-
 **Why:** The Zoka Coffee run produced 0 competitor reviews, 0 social
 comments, and no Amazon data — not because commands crashed, but because
 the sources were mismatched to the category (specialty coffee VOC lives on
 Reddit, YouTube reviews, and brand-owned review widgets, not Amazon or
 Trustpilot).
+
+**Provider default:** Use Firecrawl as the default managed crawler/page fetcher
+for AdCreatives research. Do not block this repo's workflows on a Brave Search
+API key. Firecrawl handles known-page crawling/rendered extraction; Exa handles
+broad web sentiment and Amazon candidate discovery; Apify/official APIs handle
+platform-specific comment/review sources.
 
 Per-source expectations:
 
