@@ -191,6 +191,14 @@ Per-source expectations:
   premium brands publish no on-site reviews at all; the bundle `notes` and
   `adc status` will say so. That's a finding, not a failure — lean on the
   other layers.
+- **The CLIENT's own reviews** — when the client's store shows a review
+  count but the pipeline pulls 0 (e.g. Judge.me with `disable_web_reviews`
+  set: token-locked API, nothing rendered in the DOM — found live on
+  Expand Furniture), do NOT scrape harder. The client owns that data: have
+  them export reviews from the vendor dashboard (Judge.me/Okendo/Yotpo all
+  export CSV) and drop it into `clients/<slug>/voc/` as
+  `[{"rating": N, "body": "..."}]` JSON. First-party export beats any
+  scrape in completeness and is zero-risk.
 - **Amazon** — `amazon_urls` must be explicit; the pipeline does NOT
   auto-discover Amazon listings. Only add URLs when the exact competitor
   product is genuinely sold (and reviewed) on Amazon; otherwise skip the

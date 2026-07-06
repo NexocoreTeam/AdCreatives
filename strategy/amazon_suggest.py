@@ -19,12 +19,27 @@ AMAZON_PRODUCT_RE = re.compile(
 )
 
 
-def candidates_from_hits(hits: list[ExaHit]) -> list[dict]:
+def _brand_tokens(brand_name: str) -> list[str]:
+    tokens = [t.lower() for t in re.findall(r"[A-Za-z0-9]+", brand_name) if len(t) >= 5]
+    if tokens:
+        return tokens
+    name = brand_name.strip().lower()
+    return [name] if name else []
+
+
+def candidates_from_hits(hits: list[ExaHit], brand_name: str = "") -> list[dict]:
     """Extract deduped Amazon product candidates from search hits.
 
     Scans both hit URLs and hit text (listing URLs often appear inside
     roundup-article bodies). Canonicalizes to /dp/<ASIN>.
+
+    With brand_name given, candidates whose surrounding context never
+    mentions a brand token are dropped — Exa's wide fallback surfaces
+    recurring noise (books, watches, generic hardware) that otherwise
+    reaches the operator for manual rejection (found live on the
+    expand-furniture kickoff: 8 of 12 candidates were noise).
     """
+    tokens = _brand_tokens(brand_name)
     seen: set[str] = set()
     candidates: list[dict] = []
     for hit in hits:
@@ -32,6 +47,12 @@ def candidates_from_hits(hits: list[ExaHit]) -> list[dict]:
             for match in AMAZON_PRODUCT_RE.finditer(source):
                 asin = match.group(1)
                 if asin in seen:
+                    continue
+                window = (
+                    f"{hit.title or ''} "
+                    + source[max(0, match.start() - 150):match.end() + 150]
+                ).lower()
+                if tokens and not any(t in window for t in tokens):
                     continue
                 seen.add(asin)
                 candidates.append({
@@ -61,7 +82,7 @@ def suggest_amazon_candidates(
     )
     try:
         result = run_query(scoped)
-        candidates = candidates_from_hits(result.results)
+        candidates = candidates_from_hits(result.results, brand_name=competitor_name)
         if candidates:
             return candidates
     except Exception:
@@ -74,4 +95,4 @@ def suggest_amazon_candidates(
         category="amazon-suggest",
     )
     result = run_query(unfiltered)
-    return candidates_from_hits(result.results)
+    return candidates_from_hits(result.results, brand_name=competitor_name)

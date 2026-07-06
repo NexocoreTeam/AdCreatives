@@ -41,7 +41,7 @@ def test_scoped_search_refusal_falls_back_to_unfiltered(monkeypatch):
             raise ValueError("SOURCE_NOT_AVAILABLE")
         return ExaQueryResult(
             query=query, fetched_at="t",
-            results=[_hit(url="https://www.amazon.com/dp/B00AR0W5VE")],
+            results=[_hit(url="https://www.amazon.com/Stumptown-Coffee/dp/B00AR0W5VE", title="Stumptown Coffee Roasters Hair Bender")],
         )
 
     monkeypatch.setattr(suggest_mod, "run_query", fake_run_query)
@@ -57,9 +57,36 @@ def test_scoped_search_success_skips_fallback(monkeypatch):
         calls.append(query.label)
         return ExaQueryResult(
             query=query, fetched_at="t",
-            results=[_hit(url="https://www.amazon.com/dp/B00AR0W5VE")],
+            results=[_hit(url="https://www.amazon.com/Stumptown-Coffee/dp/B00AR0W5VE", title="Stumptown Coffee Roasters Hair Bender")],
         )
 
     monkeypatch.setattr(suggest_mod, "run_query", fake_run_query)
     suggest_amazon_candidates("Stumptown Coffee Roasters")
     assert len(calls) == 1
+
+
+def test_brand_token_filter_drops_noise_candidates():
+    """Found live on expand-furniture: 8 of 12 candidates were books, watches
+    and generic hardware the operator had to hand-reject."""
+    hits = [
+        _hit(url="https://www.amazon.com/Apple-Watch-Series/dp/B0CBVX91KR",
+             title="Apple Watch Series 9"),
+        _hit(url="https://www.amazon.com/dp/B0D5BWRDSP",
+             title="Transformer Table - Solid Wood Extendable Dining Table"),
+    ]
+    kept = candidates_from_hits(hits, brand_name="Transformer Table")
+    assert [c["asin"] for c in kept] == ["B0D5BWRDSP"]
+
+
+def test_no_brand_name_keeps_everything():
+    hits = [_hit(url="https://www.amazon.com/dp/B0CBVX91KR", title="Anything")]
+    assert len(candidates_from_hits(hits)) == 1
+
+
+def test_short_brand_falls_back_to_full_name():
+    hits = [
+        _hit(url="https://www.amazon.com/dp/B07H476RHB", title="Random publisher book"),
+        _hit(url="https://www.amazon.com/dp/B07H476AAA", title="Clei wall bed system"),
+    ]
+    kept = candidates_from_hits(hits, brand_name="Clei")
+    assert [c["asin"] for c in kept] == ["B07H476AAA"]
