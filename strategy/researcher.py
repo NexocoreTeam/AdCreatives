@@ -598,21 +598,34 @@ def fetch_product_pages_with_raw(urls: list[str]) -> dict[str, dict[str, str]]:
         timeout=15.0, follow_redirects=True, headers=BROWSER_HEADERS
     ) as client:
         for url in urls:
-            # One retry with a short backoff — a single transient failure here
-            # silently skips the product's entire enrichment (and its review
-            # pull), which is far more expensive than 1.5 seconds.
+            # Retries with growing backoff. Inside onboard, stage 1 just burst
+            # ~10+ requests at the same domain, and Shopify/Cloudflare
+            # rate-limit windows outlast a short retry — a failure here
+            # silently skips the product's entire enrichment AND review pull.
+            # Observed live: fails at +1.5s, succeeds minutes later; 4s + 12s
+            # bridges the window.
             raw = None
-            for attempt in (1, 2):
+            last_failure = ""
+            for backoff in (4.0, 12.0, 0.0):
                 try:
                     resp = client.get(url)
-                except (httpx.RequestError, httpx.TimeoutException):
+                except (httpx.RequestError, httpx.TimeoutException) as e:
                     resp = None
-                if resp is not None and resp.status_code == 200:
-                    raw = resp.text
-                    break
-                if attempt == 1:
-                    time.sleep(1.5)
+                    last_failure = f"{type(e).__name__}: {str(e)[:80]}"
+                if resp is not None:
+                    if resp.status_code == 200:
+                        raw = resp.text
+                        break
+                    last_failure = f"HTTP {resp.status_code}"
+                if backoff:
+                    time.sleep(backoff)
             if raw is None:
+                import sys
+                print(
+                    f"[fetch_product_pages_with_raw] giving up on {url} "
+                    f"after 3 attempts ({last_failure})",
+                    file=sys.stderr,
+                )
                 continue
             cleaned = clean_html(raw)[:MAX_HTML_PER_PAGE]
             if cleaned:
