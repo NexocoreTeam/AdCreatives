@@ -3606,14 +3606,24 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
                     max_reviews=max_reviews,
                     star_filter=star_filter,
                 )
-            cache_amazon_bundle(client, bundle)
+            # A failed pull must stay retryable: caching a zero-review bundle
+            # whose notes carry an Apify failure makes the failure look done
+            # forever (bit us live — cap-era empties skipped as '(cached)').
+            # Zero reviews WITHOUT a failure note is a legit empty tier and
+            # caches normally so we never re-pay for it.
+            pull_failed = not bundle.reviews and (bundle.notes or "").startswith(
+                ("Apify call failed", "Apify run completed", "Failed to read Apify")
+            )
+            if not pull_failed:
+                cache_amazon_bundle(client, bundle)
             table.add_row(
                 str(call_num),
                 competitor.name,
                 bundle.asin or "?",
                 short,
                 str(len(bundle.reviews)),
-                (bundle.notes or "OK")[:40],
+                ("NOT CACHED - retryable: " if pull_failed else "")
+                + (bundle.notes or "OK")[:40],
             )
 
     console.print(table)
