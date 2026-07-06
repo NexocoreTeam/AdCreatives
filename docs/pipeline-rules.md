@@ -47,6 +47,13 @@ trigger events, and psychology profiles diverge.
 Ask: "Would the personas for product A be substantially different from the
 personas for product B?" If yes → run separately. If no → run once.
 
+Mechanical test: `adc catalog --client <slug>` crawls the FULL catalog and
+clusters it by customer problem. The cluster count IS the number of pipeline
+scopes (1 cluster = single run; N clusters = N runs sharing the brand +
+competitor layers), and the printed rule-1 verdict makes the call explicit.
+The census also feeds the strategy matrix and brief prompts, so angles are
+written knowing the whole range instead of only the enriched heroes.
+
 If you run a brand with mixed products as a single pass, expect to throw out
 the result and re-run per-product.
 

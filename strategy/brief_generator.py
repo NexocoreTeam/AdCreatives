@@ -165,6 +165,11 @@ def generate_briefs(
         from strategy.competitive_context import load_voice
         voice = load_voice(client_slug)
 
+    # Auto-load the catalog census when present — briefs written knowing the
+    # full range can reference breadth and cross-sell without inventing SKUs.
+    from strategy.competitive_context import load_catalog
+    catalog = load_catalog(client_slug)
+
     # Spread the batch across mental stages — biased by the avatar's awareness
     # center of gravity but always covering all four stages when count >= 4.
     # Done here (not inside generate_angles) so brief_generator can stamp the
@@ -194,6 +199,7 @@ def generate_briefs(
         mental_stages=mental_stages,
         voice=voice,
         use_voice=use_voice,
+        catalog=catalog,
     )
 
     briefs = []

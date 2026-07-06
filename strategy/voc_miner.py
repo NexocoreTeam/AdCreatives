@@ -15,6 +15,7 @@ import yaml
 from models.avatar import CustomerAvatar, Desire, PainPoint
 from models.skills import load_skill
 from strategy.llm import claude_complete
+from strategy.llm_yaml import strip_fences, try_repair_yaml
 
 VOC_SYSTEM = """You are a voice-of-customer research analyst specializing in direct response advertising.
 
@@ -151,48 +152,6 @@ class VocExtractionError(RuntimeError):
     """The extraction LLM returned unusable YAML after mining + repair passes."""
 
 
-YAML_REPAIR_PROMPT = """The following YAML document failed to parse.
-
-PARSE ERROR:
-{error}
-
-BROKEN YAML:
-{broken}
-
-Re-emit the ENTIRE document as valid YAML. Rules:
-- Fix only the syntax; do not change, add, or drop content that already parses.
-- Any scalar containing quotes, colons, or parentheses must be properly quoted
-  or a block scalar.
-- Do not add keys that were not requested (no commentary, no analyst notes).
-- Output valid YAML only, no markdown fences."""
-
-
-def _strip_fences(text: str) -> str:
-    text = text.strip()
-    if text.startswith("```"):
-        text = text.split("\n", 1)[1]
-    if text.endswith("```"):
-        text = text.rsplit("```", 1)[0]
-    return text
-
-
-def _try_repair(broken: str, err: yaml.YAMLError) -> dict | None:
-    """One LLM pass asking for the same document with the syntax fixed.
-
-    Cheaper than re-mining (the model re-reads ~6K tokens of its own output
-    instead of the 15K-char review corpus) and usually sufficient — observed
-    wobbles are single-line slips, not structural failures."""
-    fixed = claude_complete(
-        YAML_REPAIR_PROMPT.format(error=err, broken=broken),
-        max_tokens=8192,
-    )
-    try:
-        parsed = yaml.safe_load(_strip_fences(fixed))
-    except yaml.YAMLError:
-        return None
-    return parsed if isinstance(parsed, dict) else None
-
-
 def extract_voc_from_text(
     reviews_text: str,
     product_category: str,
@@ -217,14 +176,14 @@ def extract_voc_from_text(
         # comments) mid-quoted-string, producing unparseable YAML. The full
         # schema averages ~4-6K tokens; 8K gives headroom for the largest
         # source dumps.
-        result = _strip_fences(
+        result = strip_fences(
             claude_complete(prompt, system=VOC_SYSTEM, max_tokens=8192)
         )
         try:
             parsed = yaml.safe_load(result)
         except yaml.YAMLError as err:
             last_error = err
-            repaired = _try_repair(result, err)
+            repaired = try_repair_yaml(result, err, claude_complete)
             if repaired is not None:
                 return repaired
             continue

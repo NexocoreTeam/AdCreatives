@@ -200,6 +200,20 @@ def strategy_status(client: str) -> list[StageStatus]:
         counts={"products": pcount, "enriched": enriched_count},
     ))
 
+    # Catalog census — full-SKU crawl + problem clusters (optional layer)
+    catalog_path = base / "products" / "catalog.yaml"
+    catalog_data = _safe_yaml_load(catalog_path) if catalog_path.exists() else None
+    stages.append(StageStatus(
+        name="Catalog census",
+        done=bool(catalog_data),
+        summary=(
+            f"{len(catalog_data.get('products') or [])} product(s), "
+            f"{len(catalog_data.get('clusters') or [])} cluster(s)"
+            if catalog_data else ""
+        ),
+        last_modified=_mtime(catalog_path),
+    ))
+
     # Offers
     offers_path = base / "offers.yaml"
     stages.append(StageStatus(
@@ -517,6 +531,11 @@ def build_recommendations(
         recs.append(
             f"Profile avatar psychology (gives sharper briefs): "
             f"adc profile-psychology --client {client}"
+        )
+    if not by_name["Catalog census"].done and by_name["Brand research"].done:
+        recs.append(
+            f"Census the full catalog (rule-1 scope + catalog-aware briefs): "
+            f"adc catalog --client {client}"
         )
 
     # Competitive layer

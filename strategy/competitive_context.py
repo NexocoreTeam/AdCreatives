@@ -282,3 +282,61 @@ def format_voice_block(voice: dict | None, avatar_name: str) -> str:
     if not lines:
         return ""
     return "BRAND VOICE\n" + "\n".join(lines)
+
+
+# ─── Full-catalog census ────────────────────────────────────────────────────
+
+
+def load_catalog(client_slug: str) -> dict | None:
+    """Return parsed products/catalog.yaml or None if missing/invalid."""
+    path = CLIENTS_DIR / client_slug / "products" / "catalog.yaml"
+    if not path.exists():
+        return None
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except yaml.YAMLError:
+        return None
+    if isinstance(data, dict) and data.get("clusters"):
+        return data
+    return None
+
+
+def format_catalog_block(catalog: dict | None, max_chars: int = 2500) -> str:
+    """Format the catalog census for prompt injection.
+
+    Returns "" when absent (like format_voice_block): the census is an
+    optional layer, and prompts for clients without one must stay unchanged.
+    """
+    if not catalog or not isinstance(catalog, dict):
+        return ""
+
+    clusters = catalog.get("clusters") or []
+    products = catalog.get("products") or []
+
+    lines: list[str] = [
+        f"**FULL CATALOG CONTEXT** ({catalog.get('total_products', len(products))} "
+        f"products across {len(clusters)} problem cluster(s)):"
+    ]
+    for c in clusters:
+        lines.append(
+            f"- {c.get('name', '?')} — {c.get('problem', '')} — "
+            f"{c.get('product_count', 0)} product(s); persona fit: {c.get('persona_fit', '?')}"
+        )
+
+    highlights = [p for p in products if p.get("ad_priority") == "high"]
+    if not highlights:
+        highlights = sorted(products, key=lambda p: p.get("rank") or 9999)
+    if highlights:
+        lines.append("Products with their own ad-worthy story:")
+        for p in highlights[:12]:
+            price = f" ({p['price']})" if p.get("price") else ""
+            promise = f": {p['promise']}" if p.get("promise") else ""
+            lines.append(f"- {p.get('name', '?')}{price}{promise}")
+
+    if catalog.get("rule1_verdict"):
+        lines.append(f"Scope note: {catalog['rule1_verdict']}")
+
+    block = "\n".join(lines)
+    if len(block) > max_chars:
+        block = block[: max_chars - 15].rsplit("\n", 1)[0] + "\n- [truncated]"
+    return block

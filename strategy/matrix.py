@@ -25,9 +25,11 @@ from models.avatar import CustomerAvatar
 from models.product import Product
 from models.skills import load_skill
 from strategy.competitive_context import (
+    format_catalog_block,
     format_competitive_block,
     format_psychology_summary,
     format_voc_block,
+    load_catalog,
     load_competitive_gaps,
     load_voc_pains,
 )
@@ -152,6 +154,7 @@ def build_strategy_matrix(
 
     competitive_block = format_competitive_block(competitive_gaps)
     voc_block = format_voc_block(voc_pains)
+    catalog_block = format_catalog_block(load_catalog(client_slug) if client_slug else None)
     psychology_block = format_psychology_summary(avatars)
 
     visual_id = ""
@@ -176,6 +179,7 @@ PERSONAS:
 
 PRODUCTS IN SCOPE:
 {products_text}
+{catalog_block}
 
 BRAND CONTEXT (excerpt for grounding):
 {brand_context_md[:8000]}

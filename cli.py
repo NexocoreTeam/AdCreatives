@@ -415,6 +415,97 @@ def generate_model_cmd(client: str, avatar_slug: str | None, candidates: int, fo
     )
 
 
+# ─── Catalog census (full-SKU crawl + problem clusters) ─────────────────────
+
+
+@cli.command()
+@click.option("--client", required=True, help="Client slug")
+@click.option("--url", default=None, help="Store homepage URL (defaults to brand.yaml's url)")
+@click.option("--max-pages", default=12, type=int, help="Max /collections/all pages to crawl")
+def catalog(client: str, url: str | None, max_pages: int):
+    """Census the FULL catalog: every SKU, problem clusters, rule-1 verdict.
+
+    Crawls /collections/all in best-selling order, clusters products by the
+    customer problem they solve, and writes products/catalog.yaml. One cluster
+    means a single pipeline scope; several mean separate runs per cluster
+    (pipeline rule 1). The strategy matrix and brief prompts auto-inject this
+    context whenever the file exists.
+    """
+    import yaml as _yaml
+
+    from strategy.catalog import (
+        CatalogError,
+        cluster_catalog,
+        crawl_full_catalog,
+        write_catalog,
+    )
+
+    client_dir = Path("clients") / client
+    if not client_dir.exists():
+        console.print(f"[red]Client '{client}' not found at {client_dir}[/red]")
+        raise SystemExit(1)
+
+    brand_snippet = ""
+    brand_path = client_dir / "brand.yaml"
+    if brand_path.exists():
+        brand_data = _yaml.safe_load(brand_path.read_text(encoding="utf-8")) or {}
+        url = url or brand_data.get("url") or brand_data.get("homepage")
+        brand_snippet = " | ".join(
+            str(brand_data.get(k)) for k in ("name", "tone", "mission") if brand_data.get(k)
+        )
+    if not url:
+        console.print("[red]No URL available — pass --url or set url in brand.yaml.[/red]")
+        raise SystemExit(1)
+
+    with console.status(f"Crawling full catalog from {url}..."):
+        cards = crawl_full_catalog(url, max_pages=max_pages)
+    if not cards:
+        console.print(
+            f"[red]No products found at {url}/collections/all — "
+            f"not a Shopify store, or the listing is blocked.[/red]"
+        )
+        raise SystemExit(1)
+    console.print(f"[green]Crawled {len(cards)} unique products.[/green]")
+
+    with console.status("Clustering by customer problem..."):
+        try:
+            clustering = cluster_catalog(cards, brand_snippet)
+        except CatalogError as exc:
+            console.print(f"[red]{exc}[/red]")
+            raise SystemExit(1)
+
+    out_path = write_catalog(client, url, cards, clustering)
+    data = _yaml.safe_load(out_path.read_text(encoding="utf-8"))
+
+    table = Table(title=f"Catalog census — {len(cards)} products")
+    table.add_column("Cluster")
+    table.add_column("Problem")
+    table.add_column("Products", justify="right")
+    table.add_column("Persona fit")
+    for c in data["clusters"]:
+        table.add_row(
+            c.get("name", ""), c.get("problem", ""),
+            str(c.get("product_count", 0)), c.get("persona_fit", ""),
+        )
+    console.print(table)
+    console.print(f"\n[bold]{data['rule1_verdict']}[/bold]")
+
+    high = [p for p in data["products"] if p.get("ad_priority") == "high"]
+    if high:
+        console.print(f"\n[cyan]{len(high)} product(s) flagged ad-priority HIGH:[/cyan]")
+        for p in high[:10]:
+            console.print(f"  - {p['name']} ({p.get('price') or '?'}) — {p.get('promise', '')}")
+
+    console.print(f"\nWrote {out_path}")
+    console.print(
+        "[dim]strategy-matrix and brief prompts will now include this catalog "
+        "context automatically.[/dim]"
+    )
+
+    from strategy.cost_tracker import log_cost
+    log_cost(client, "adc catalog", note=f"{len(cards)} products clustered")
+
+
 # ─── Onboard wrapper (runs stages 1-5 in sequence) ──────────────────────────
 
 
