@@ -3239,8 +3239,14 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
     for c in competitors:
         console.print(f"  - {c.name} ({c.priority}, {c.type}) -> {c.url}")
 
-    from strategy.research_preflight import amazon_preflight_line
+    from strategy.research_preflight import (
+        amazon_preflight_line,
+        homepage_preflight_line,
+    )
     console.print(f"[dim]{amazon_preflight_line(competitors, client)}[/dim]")
+    homepage_warning = homepage_preflight_line(competitors, client)
+    if homepage_warning:
+        console.print(f"[bold yellow]{homepage_warning}[/bold yellow]")
 
     console.print(
         f"\n[yellow]This run includes:[/yellow] Exa web sentiment (Reddit, Trustpilot, news) "

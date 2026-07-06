@@ -55,3 +55,17 @@ def test_amazon_preflight_lines():
         "zoka-coffee",
     )
     assert "1/1" in with_urls
+
+
+def test_homepage_preflight_flags_blank_urls():
+    from strategy.research_preflight import homepage_preflight_line
+
+    warn = homepage_preflight_line(
+        [_competitor(url=""), _competitor(name="Onyx", url="https://x.com")],
+        "expand-furniture",
+    )
+    assert warn is not None
+    assert "1 competitor(s) have no url" in warn
+    assert "Stumptown" in warn
+
+    assert homepage_preflight_line([_competitor(url="https://x.com")], "c") is None

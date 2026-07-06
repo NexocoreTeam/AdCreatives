@@ -108,3 +108,18 @@ def amazon_preflight_line(competitors, client_slug: str) -> str:
         f"Amazon preflight: no amazon_urls configured — that layer will be "
         f"skipped (candidates: adc suggest-amazon --client {client_slug})."
     )
+
+
+def homepage_preflight_line(competitors, client_slug: str) -> str | None:
+    """Warn when competitors lack homepage URLs — the on-site review layer
+    and PDP discovery silently come back empty for them (found live on the
+    expand-furniture kickoff: scaffolded file ran before urls were filled)."""
+    missing = [c.name for c in competitors if not (c.url or "").strip()]
+    if not missing:
+        return None
+    shown = ", ".join(missing[:4]) + (" (+more)" if len(missing) > 4 else "")
+    return (
+        f"Homepage preflight: {len(missing)} competitor(s) have no url — "
+        f"on-site reviews and PDP discovery will be EMPTY for: {shown}. "
+        f"Fill url fields in clients/{client_slug}/competitors.yaml first."
+    )
