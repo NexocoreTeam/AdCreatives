@@ -76,12 +76,20 @@ def detect_review_vendor(html: str) -> VendorSignal:
         )
 
     # --- Yotpo ---  (require an actual widget signature, not just the word "yotpo")
-    if re.search(r"staticw2\.yotpo\.com|yotpo-widget-instance|yotpo-main-widget", html, re.IGNORECASE):
+    if re.search(
+        r"staticw2\.yotpo\.com|yotpo-widget-instance|yotpo-main-widget"
+        r"|cdn-widgetsrepository\.yotpo\.com",
+        html, re.IGNORECASE,
+    ):
         ids = {}
         for pat in [
             r'data-yotpo-app-key=["\']([^"\']+)["\']',
             r'yotpo[_-]app[_-]key["\']?\s*[:=]\s*["\']([A-Za-z0-9]+)["\']',
             r'staticw2\.yotpo\.com/[^"\']*?/([A-Za-z0-9]{20,})',
+            # Yotpo v3 embeds carry the app key as the widget-loader GUID
+            # (found live on crazy-rumors: no legacy staticw2 script, key
+            # only present in the loader URL).
+            r'cdn-widgetsrepository\.yotpo\.com/v1/loader/([A-Za-z0-9_-]{20,})',
         ]:
             m = re.search(pat, html)
             if m:
