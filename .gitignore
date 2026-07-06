@@ -82,3 +82,6 @@ migration_assets*.tar.gz
 .venv/
 venv/
 dashboard-service*.log
+
+# archived client-dir versions (cold-run comparisons, superseded packages)
+_archives/
