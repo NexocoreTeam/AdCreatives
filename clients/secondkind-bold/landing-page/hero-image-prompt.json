@@ -1,0 +1,39 @@
+{
+  "image_details": {
+    "photo_context": "Unremarkable candid photo taken on an older smartphone by a family member standing in the kitchen doorway. Never edited, no filter. The kind of ordinary photo that sits unnoticed in a camera roll or runs beside a local newspaper health article.",
+    "subject": {
+      "demographics": "Woman in her late 40s, ordinary and believable, medium build",
+      "features": "Real mature skin with visible texture and faint lines, tired eyes with under-eye shadows, no makeup, slightly uneven skin tone",
+      "hair": "Shoulder-length dark blonde going grey at the part, pulled back carelessly, flyaways",
+      "expression": "Flat and foggy, eyes unfocused, staring at nothing past her coffee. Not crying, not performing sadness, just switched off",
+      "pose": "Sitting at the kitchen table, slumped, head propped on one hand with fingers in her hair at the temple. She does not know a photo is being taken"
+    },
+    "attire": {
+      "upper_body": "Rumpled oatmeal cardigan over an old heather grey t-shirt",
+      "accessories": "Thin wedding band, nothing else"
+    },
+    "action": "Sitting alone at the breakfast table on a grey weekday morning, coffee gone cold in front of her, too drained to start the day",
+    "environment": {
+      "location": "Ordinary lived-in kitchen, lights off, only dim window light",
+      "foreground": "A little too much empty table at the bottom of the frame",
+      "background": {
+        "left": "Kitchen window, slightly blown out and overexposed",
+        "right": "Counter with last night's unwashed dishes and a cereal box left out, older cabinetry",
+        "clutter": "Fridge with mismatched magnets, dish towel hanging off the oven handle, nothing arranged for the camera"
+      }
+    },
+    "objects": {
+      "on_table": [
+        "Full mug of coffee gone cold",
+        "Phone lying face down",
+        "Stray charging cable partly cut off by the edge of the frame"
+      ]
+    },
+    "technical_style": {
+      "lighting": "Dim grey overcast window light, mixed white balance between the bright window and the darker interior, mild noise in the shadows",
+      "composition": "Shot from across the kitchen at eye level, framing slightly tilted and a bit too wide, subject off to the left, background only mildly soft, no studio bokeh",
+      "quality": "Honest and a bit dull, flat muted colors, zero retouching, no glow, no HDR, boring realism",
+      "vibe": "Quiet, heavy, running on empty"
+    }
+  }
+}
