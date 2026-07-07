@@ -368,6 +368,7 @@ CUSTOMER AVATAR:
 {mental_stage_block}
 BRAND TONE: {brand_tone}
 MESSAGING APPROACH: {approach}
+{prohibited_block}
 {competitive_gaps_section}
 {catalog_block}
 For each angle, return:
@@ -604,6 +605,12 @@ def generate_angles(
         mental_stage_block=mental_stage_block,
         brand_tone=brand.tone,
         approach=awareness_strategy.get("approach", ""),
+        prohibited_block=(
+            "PROHIBITED TERMS - these words must NEVER appear in any hook, "
+            "angle, copy line, or visual direction, even inside customer "
+            f"quotes (paraphrase around them): {', '.join(brand.prohibited_terms)}"
+            if brand.prohibited_terms else ""
+        ),
         competitive_gaps_section=_format_competitive_gaps(competitive_gaps),
         voice_block=voice_block,
         catalog_block=format_catalog_block(catalog),
