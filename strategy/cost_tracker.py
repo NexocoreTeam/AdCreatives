@@ -41,6 +41,11 @@ COST_RATES: dict[str, float] = {
     "adc remix-images": 0.08,           # per image (fal.ai)
     "adc remix-refine": 0.10,           # per refined image (Claude rewrite + fal.ai)
 
+    # Ad Reference Library (logged to references/swipe/analyzed/.cost-log.jsonl
+    # via strategy.ad_library.log_library_cost — not client-scoped)
+    "adc analyze": 0.03,                # per vision call (one ad, one model)
+    "adc library validate": 0.03,       # per vision call; multiplied by runs
+
     # Competitive research
     "adc research-web": 0.50,
     "adc research-competitors": 2.00,   # one full pull
