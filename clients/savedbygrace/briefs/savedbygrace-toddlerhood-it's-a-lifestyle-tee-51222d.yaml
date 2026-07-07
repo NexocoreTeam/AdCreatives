@@ -1,0 +1,110 @@
+brief_id: savedbygrace-toddlerhood-it's-a-lifestyle-tee-51222d
+client: savedbygrace
+product: Toddlerhood - "It's a Lifestyle" Tee
+awareness_level: product_aware
+mental_stage: evaluation
+trigger_moment: ''
+framework: fab
+angle: "Boutique buyers on Faire trusted this enough to stock it \u2014 that's the\
+  \ permission slip to act"
+hook: '4,000+ boutiques stock this tee.
+
+  That''s not a trend. That''s a buying decision that''s already been
+
+  stress-tested by people with the same margin pressure you have.
+
+  '
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap sizing confidence plus Faire 4.7-star wholesale rating
+  from avatar desires
+hook_tactic: "Statistic \u2014 lead with a peer-validated number that collapses the\
+  \ risk of a decision already emotionally made"
+persona: Boutique Buyer Brooke
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: "Text-on-product photo \u2014 the tee centered, styled flat-lay or\
+  \ on a rack, with the stat as bold overlay text"
+visual_format_alternatives:
+- "Carousel static \u2014 first card is the stat, subsequent cards show boutique display\
+  \ setups using SBG Co. product, ending on the tee SKU with a wholesale CTA"
+- "Talking-head video \u2014 a boutique owner speaking to camera about her first reorder,\
+  \ stat appears as text overlay when she mentions volume"
+persona_traits: Boutique owner in a Southern or Midwestern town who has been burned
+  by faith apparel that sat on the rack and needs peer proof before she commits shelf
+  space
+pain_point: She has burned money on wholesale brands that looked great on Faire but
+  had quality complaints from customers in-store
+benefit_callouts:
+- 4.7 stars on Faire from boutique buyers
+- "100% ringspun cotton \u2014 survives your customers' wash cycles"
+- "As seen on the Today Show \u2014 it enters the conversation before you say a word"
+cta: Open on Faire and see why boutiques keep reordering
+body_copy: ''
+visual_direction: "The tee should be styled the way a boutique owner would display\
+  \ it \u2014\nfolded on a table with coordinating product nearby, or hanging on a\n\
+  rack with a handwritten price tag. The image signals merchandising\npossibility,\
+  \ not a product shot. The stat overlaid in clean sans-serif\ntype tells the buyer:\
+  \ other people who think like you already said yes.\n"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Brooke is product_aware and methodical \u2014 she's been burned before\
+    \ and needs structured, credible reasons to commit. A '3 reasons 4,000+ boutiques\
+    \ trust this tee' listicle directly maps to the FAB framework and lets the social-proof\
+    \ hook do the heavy lifting before validating quality, margins, and reorder data\
+    \ that de-risk her buying decision."
+  production_notes: "Each list item must reference a concrete, verifiable benefit\
+    \ (e.g. return rate, fabric spec, Faire review count) \u2014 vague lifestyle claims\
+    \ will lose a skeptical buyer who has been burned on quality before."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 2
+  rationale: "Brooke's core pain is paying wholesale for product that fails at retail\
+    \ \u2014 the 'We're Not Cheap' format meets her exactly at that objection by proactively\
+    \ addressing quality and supply-chain integrity, which is the implicit promise\
+    \ behind 4,000 boutiques stocking it. It validates the price point as a feature,\
+    \ not a liability, which is the crux of the FAB angle."
+  production_notes: "Anchor the 'not cheap' claims in tactile, specific details (fabric\
+    \ weight, dye process, wash durability) rather than abstract brand values \u2014\
+    \ boutique buyers will fast-forward through anything that sounds like marketing\
+    \ copy without proof."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 3
+  rationale: A Pixar-style animated tee character delivering the '4,000 boutiques'
+    stat with deliberate cringe bypasses Brooke's UGC skepticism (she knows staged
+    testimonials) and makes the social-proof hook memorable and shareable in wholesale
+    buyer communities. The irreverence signals brand confidence, which itself functions
+    as a credibility signal for a product-aware buyer evaluating whether this brand
+    has staying power.
+  production_notes: "Keep the animated character visually tied to the tee's actual\
+    \ aesthetic \u2014 the humor must feel like a confident brand winking, not a cheap\
+    \ attention grab that undercuts the premium-quality message central to this brief."
+text_layout: null
+source_matrix_row: null

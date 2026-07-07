@@ -1,0 +1,116 @@
+brief_id: savedbygrace-loves-jesus-america-too.-b88649
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: product_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: fab
+angle: "Category education framed as a buying mistake story \u2014 teaches boutique\
+  \ buyers what separates lifestyle-feel faith apparel from the Christian bookstore\
+  \ aesthetic without naming the product as the answer until the end"
+hook: 'The tees that sit on your rack and the ones your customers reach for first
+  look almost identical in the Faire thumbnail. Here''s the actual difference.
+
+  '
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: competitive-gap Faith apparel that doesnt feel churchy or dated + avatar
+  desire the phrase does the selling I dont have to say anything
+hook_tactic: "Micro-story with a confession open \u2014 start inside the category\
+  \ frustration before the product ever appears, so the buyer teaches herself what\
+  \ good looks like"
+persona: Boutique Buyer Brooke
+creative_mechanic: reframing_perception_plus_emotional_trigger
+visual_format: "Carousel or swipe-style static \u2014 frame 1 is the category frustration\
+  \ (a crowded faith-apparel rack), frames 2\u20134 walk through the three signals\
+  \ that separate a boutique-ready faith tee from a bookstore tee, final frame shows\
+  \ the SBG tee in context as the example"
+visual_format_alternatives:
+- "Talking-head video \u2014 boutique owner (founder or real buyer) walks through\
+  \ her buying checklist on camera, product appears naturally at the end as what checked\
+  \ all the boxes, never positioned as the pitch"
+- "Text-forward editorial static \u2014 styled like a buying guide or trade magazine\
+  \ page, headline reads something like What actually sells in the faith category\
+  \ and what just takes up a hanger, product image appears small at the bottom as\
+  \ a reference example"
+persona_traits: "Independent boutique buyer who has been burned by faith apparel that\
+  \ photographed beautifully on Faire but landed wrong with her customer base \u2014\
+  \ now she curates more carefully and wants a framework, not a pitch"
+pain_point: "Her customers want faith stuff but they don't want to look churchy \u2014\
+  \ and she can't tell the difference until it's already on her floor losing margin"
+benefit_callouts:
+- "Phrase-first design \u2014 customers read it out loud and reach for it"
+- "Lifestyle feel, faith message \u2014 fits your floor, not a church foyer"
+- Coordinates with kids styles for a full gifting display
+cta: Learn what makes faith apparel actually sell through
+body_copy: ''
+visual_direction: "Boutique-editorial aesthetic \u2014 natural wood, warm light, layered\
+  \ styling. The tee looks like it lives next to the other best-sellers on her floor.\
+  \ No halos, no crosses, no stained glass. The faith message is in the words, not\
+  \ the visual language."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Brooke is product_aware and methodical in her buying decisions \u2014\
+    \ she needs specific, scannable criteria to distinguish lifestyle-feel faith apparel\
+    \ from bookstore-aesthetic pieces, which maps perfectly to a '3 things that separate\
+    \ fast-selling faith tees from rack-sitters' structure. The FAB framework slots\
+    \ cleanly into a numbered format, letting the buying mistake angle unfold beat\
+    \ by beat before revealing the product as the logical conclusion."
+  production_notes: "Avoid generic religious imagery in the visuals \u2014 show actual\
+    \ Faire-style flatlay thumbnails side by side to anchor the education in her real\
+    \ buying context and prevent the format from feeling generic."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 2
+  rationale: "Brooke's core pain is that she can't justify a buying decision she can't\
+    \ visually defend until inventory is already failing on the floor, making objection-handling\
+    \ the exact psychological lever needed \u2014 this format lets the brand address\
+    \ 'why does this cost more than the bookstore equivalent' before she even asks\
+    \ it. The angle of teaching category differences through a mistake story pairs\
+    \ naturally with the 'here's why the price signal is actually the quality signal'\
+    \ structure this format demands."
+  production_notes: "Lead with the aesthetic distinction (lifestyle vs. churchy) as\
+    \ the primary objection rather than price alone \u2014 Brooke's hesitation is\
+    \ curatorial, not just cost-based, so framing the objection around 'why these\
+    \ look different on the rack' will outperform a pure price defense."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 3
+  rationale: While tonally unexpected for a faith-apparel category, the intentional
+    artificiality of this format sidesteps the 'is this a real boutique owner?' skepticism
+    that would undercut a traditional UGC testimonial for a scroll-fatigued buyer
+    who has seen hundreds of vendor ads on Faire and Instagram. Deploying a slightly
+    irreverent animated persona to walk through the 'churchy vs. lifestyle' education
+    creates pattern interrupt without requiring Brooke to trust a stranger's taste.
+  production_notes: "Tone calibration is critical \u2014 the cringe must stay lighthearted\
+    \ and category-curious, never mocking faith itself, or you risk alienating the\
+    \ values-driven identity that makes this buyer segment loyal in the first place."
+text_layout: null
+source_matrix_row: null

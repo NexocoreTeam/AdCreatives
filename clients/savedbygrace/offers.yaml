@@ -1,0 +1,464 @@
+existing_offers:
+- name: Made-to-Order Production Policy
+  type: made_to_order_policy
+  details: All items are made to order in-house in Charlotte, NC. Current processing
+    time is 14 business days before shipment. A pop-up on site informs customers of
+    current turnaround time. Processing time and shipping time are separate.
+  where_found: Homepage (expandable FAQ widget) and FAQ page (https://savedbygraceco.com/pages/faq)
+  on_brand: true
+  notes: Framed as a sustainability and quality feature, not a drawback. Founder voice
+    is used to humanize the wait ('I am very grateful for each and every one of you
+    willing to wait'). This is the brand's most significant conversion objection but
+    is currently under-leveraged as a trust asset rather than an active offer.
+- name: Store Credit Returns (No Cash Refunds)
+  type: refund_guarantee
+  details: 'No cash refunds accepted. Eligible items may be returned for store credit
+    with no expiration date. Excluded from returns: holiday items, sale items, home
+    decor, accessories, hats/beanies, worn or washed items. Size exchanges are accepted
+    but customer pays return shipping both ways. Cancellations accepted within 24
+    hours of order placement only.'
+  where_found: FAQ page (https://savedbygraceco.com/pages/faq)
+  on_brand: true
+  notes: No-expiration store credit is a meaningful but under-communicated benefit.
+    The policy as written leans heavily on restrictions rather than the positive framing
+    ('your credit never expires'). This is a conversion risk for first-time buyers
+    and gifters but could be turned into a confidence-building offer with the right
+    framing.
+- name: Route Shipping Insurance (Auto-Added at Checkout)
+  type: other
+  details: Route package insurance is automatically added to the cart at checkout.
+    Covers damage or loss in transit. Customers can file claims at claims.route.com.
+    SBG Co. explicitly states they are NOT responsible for postal damage if Route
+    is not purchased. Route described as a 'cost friendly alternative.'
+  where_found: FAQ page (https://savedbygraceco.com/pages/faq)
+  on_brand: true
+  notes: Auto-add is smart risk management for a made-to-order brand where replacements
+    are costly. However, this is buried in the FAQ rather than positioned as a buyer
+    benefit at the cart stage. Opportunity to reframe Route as 'Your order is protected'
+    rather than a liability disclaimer.
+- name: Wholesale via Faire
+  type: wholesale
+  details: Wholesale purchasing available through Faire. Dedicated wholesale page
+    and footer link present. 4,000+ boutique wholesale accounts on Faire confirmed
+    in brand context.
+  where_found: Homepage footer and FAQ page footer (https://savedbygraceco.com/pages/faire-wholesale
+    link)
+  on_brand: true
+  notes: Wholesale is a major revenue channel but not actively promoted as an offer
+    to DTC visitors. No visible incentive or CTA to convert boutique buyers found
+    on the pages crawled.
+- name: Last Chance / Final Markdown Collection
+  type: seasonal_promo
+  details: A dedicated 'Last Chance Favorites' collection (ww-sale) featuring limited
+    quantities and final markdowns. Framed as 'shop before they disappear.'
+  where_found: Homepage collection grid (https://savedbygraceco.com/collections/ww-sale)
+  on_brand: true
+  notes: Scarcity framing is appropriate and on-brand. However, sale items are excluded
+    from returns, which compounds conversion risk for new buyers. No specific discount
+    percentages or thresholds surfaced in the crawl.
+- name: Today Show Social Proof Bar
+  type: other
+  details: Rotating announcement bar at top of every page reads 'featured on the today
+    show' with the Today logo. Persistent across all pages crawled.
+  where_found: Homepage announcement bar, FAQ page, all crawled pages
+  on_brand: true
+  notes: This is a credibility signal, not a transactional offer, but it functions
+    as perceived-likelihood lever in the value equation. Currently the only content
+    in the announcement bar — a missed opportunity to run rotating offers, urgency
+    messaging, or gifting CTAs alongside the social proof.
+- name: Discount Codes via Newsletter and Social
+  type: other
+  details: Site states discount codes are distributed through the newsletter and social
+    media channels. No active discount code is displayed publicly on the site. Brand
+    states they cannot provide codes when none are currently running.
+  where_found: FAQ page (https://savedbygraceco.com/pages/faq)
+  on_brand: true
+  notes: Email and social list are the discount gatekeeping mechanism. This is appropriate
+    for brand positioning but means there is no visible email capture offer or lead
+    magnet currently surfaced on the crawled pages. A significant list-growth opportunity
+    is being left on the table.
+suggested_offers:
+- name: The 'Worth the Wait' Size Confidence Guarantee
+  type: core
+  rationale: The ICP's top two objections are the 14-business-day wait AND the no-refund
+    sizing risk. First-time buyers buying a $42-50 sweatshirt they cannot try on,
+    with a 14-day production queue and store-credit-only returns, face a compounded
+    risk perception. This offer collapses both objections simultaneously by making
+    the size exchange frictionless for first-time orders, eliminating the fear of
+    wasted money without eroding price integrity.
+  target_persona: primary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Receive a piece of apparel that fits perfectly and reflects exactly
+      who she is — no awkward returns, no wasted money, no regret — just the feeling
+      of wearing something made for her
+    perceived_likelihood_lever: Brand already inspects every item before shipment
+      and makes each piece by hand in Charlotte, NC — lean into 'we made this specifically
+      for you and we want it to fit' as the guarantee logic
+    time_delay_lever: Guarantee does not change production time but eliminates the
+      secondary time cost of a bad outcome — no weeks-long return dispute, no waiting
+      for a refund that never comes
+    effort_lever: 'For first-time buyers only: free prepaid return label for size
+      exchanges (one exchange per first order). Customer keeps the store credit process
+      but the friction of paying return shipping is removed, making the decision to
+      click ''buy'' much lower effort'
+  suggested_structure: 'On first-order product pages and checkout, display a badge:
+    ''First Order Size Promise — If the fit isn''t right, we''ll send a prepaid return
+    label and get you the right size. No hassle.'' Valid on first DTC order only,
+    excludes final sale, holiday, and accessories. One size exchange per order. Builds
+    trust without opening the door to serial returners.'
+  risk_reversal: Prepaid return label for size exchange on first order only. Store
+    credit still issued (no cash refund), maintaining margin protection. Framed as
+    'we stand behind the fit' not 'returns accepted.'
+  urgency_mechanic: None required — this is a permanent trust offer. Urgency would
+    cheapen it.
+  pricing_anchor_logic: 'Frame against the alternative: buying a $42 sweatshirt from
+    a mass retailer that fits fine but says nothing about who she is, versus a $42
+    piece made by hand in Charlotte that is exactly her. The First Order Size Promise
+    removes the last reason not to try it.'
+  estimated_lift: high
+  creative_angle: 'Ad hook: ''Made just for you in Charlotte, NC — and if the size
+    isn''t right, we''ll make it right. First order, on us.'' Unlocks cold traffic
+    creative targeting solution-aware women who''ve seen SBG but haven''t pulled the
+    trigger.'
+  notes: Operationally, this only requires generating prepaid labels for first-time
+    buyers requesting exchanges — a manageable volume. Tag first-time orders in Shopify/Gorgias
+    to automate eligibility check. Must be prominently placed on PDP and cart, not
+    buried in FAQ.
+- name: Mom + Mini Matching Bundle
+  type: bundle
+  rationale: SBG Co. explicitly designs women's and kids/baby pieces to coordinate
+    as mom-and-mini sets, but there is no current bundle offer surfacing this behavior
+    as an intentional purchase path. The ICP is a mom who buys for herself AND her
+    kids — this is the highest natural AOV behavior already in the catalog. A bundle
+    formalizes it, increases perceived value without discounting the individual items,
+    and drives multi-unit purchases that improve shipping economics.
+  target_persona: primary
+  target_awareness_stage: product_aware
+  value_equation:
+    dream_outcome: Pull up to the cookout, the church, or school pickup wearing matching
+      pieces with her kid that are funny, faith-forward, and clearly not from Target
+      — and have people stop her to ask where she got them
+    perceived_likelihood_lever: Products are already designed to coordinate; bundle
+      makes the pairing obvious and removes the work of figuring out what goes with
+      what. Show lifestyle photography of actual mom-and-mini pairs wearing the bundle.
+    time_delay_lever: Both items ship together in one order, one production queue,
+      one tracking number — no second order, no second wait
+    effort_lever: Pre-curated pairings eliminate the browse-and-build effort. One
+      click to add the set. No mixing and matching required.
+  suggested_structure: 'Pre-curated ''Mom + Mini'' product bundles on PDPs and a dedicated
+    landing collection. Example: ''Loves Jesus + America, Too'' women''s tee + coordinating
+    kids tee bundled at $52 (vs $56 purchased separately — ~$4 savings, roughly 7%).
+    Frame as ''The Set'' rather than ''discount.'' Free bundle-exclusive gift wrap
+    or faith-forward card insert adds perceived value without margin erosion. Do NOT
+    badge as % off — badge as ''The Complete Set.'''
+  risk_reversal: First Order Size Promise (see above) applies to both items in the
+    bundle. If either size is wrong, exchange is covered.
+  urgency_mechanic: Seasonal urgency is legitimate — 'Order by [date] to receive before
+    [Mother's Day / 4th of July / Back to School].' Rotate by calendar.
+  pricing_anchor_logic: 'Individual retail for mom tee ($32) + kid tee ($22) = $54.
+    Bundle at $50 creates $4 savings while anchoring against the full price. The real
+    anchor is emotional, not financial: ''The matching set you''ve been wanting —
+    made in one place, shipped together, delivered to your door.'''
+  estimated_lift: high
+  creative_angle: 'Ad hook: ''She asked where we got our matching tees. We said Charlotte,
+    NC. She said she needed the link.'' Visual of mom and kid in coordinating SBG
+    pieces. Strong UGC angle — encourage customers to tag matching photos.'
+  notes: 'This offer requires no new product development — only merchandising and
+    bundle logic in Shopify. Pairs naturally with seasonal windows (Mother''s Day,
+    4th of July, back to school). AOV lift on bundles typically 20-35% in apparel
+    DTC. Priority: build 3-5 hero pairings first, then expand.'
+- name: 'Gifter''s Guarantee: Order Early, We''ll Hold the Date'
+  type: seasonal
+  rationale: The 14-business-day production window is the single biggest gifting conversion
+    killer. A woman shopping for a Mother's Day or Christmas gift in week-of sees
+    the production time and abandons. This offer creates a hard deadline-to-order
+    CTA paired with a gifting date guarantee — turning the production lead time from
+    an objection into a reason to act NOW rather than a reason to leave.
+  target_persona: primary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Give a gift that arrives on time, looks thoughtful and personal,
+      and makes the recipient feel seen — not a last-minute Amazon fallback
+    perceived_likelihood_lever: Specific guaranteed delivery date stated at checkout.
+      'Order by [date] and we guarantee delivery by [holiday].' Countdown timer on
+      PDP during gifting windows.
+    time_delay_lever: Deadline framing collapses the perceived time delay — the wait
+      becomes a known quantity rather than an open-ended anxiety. 'You have until
+      [date]' is more actionable than '14 business days.'
+    effort_lever: Add a gift message field and optional gift wrap at checkout. Eliminate
+      the step of the buyer having to wrap and re-ship. One order, handled.
+  suggested_structure: 'During gifting seasons (Mother''s Day, Christmas, Valentine''s
+    Day, birthdays), activate a sitewide announcement bar message: ''Order by [exact
+    date] to guarantee delivery by [holiday]. Production closes at midnight.'' Add
+    a countdown timer on PDPs for best-sellers. Offer optional gift wrap + faith-forward
+    card insert for $4.99 upsell at cart. No discount required — urgency is the offer.'
+  risk_reversal: If order is placed before the stated cutoff date and does not arrive
+    by the guaranteed holiday date due to SBG's production timeline (excludes postal
+    delays), issue a store credit for the full order value. This is a manageable risk
+    given made-to-order control over timing.
+  urgency_mechanic: Countdown timer to cutoff date is the primary mechanic — fully
+    genuine and based on the actual production window. This is not manufactured scarcity.
+    It is the honest operational reality dressed as a gift to the customer.
+  pricing_anchor_logic: 'Anchor against the cost of a bad gift: ''A $32 tee that arrives
+    on time and makes her laugh out loud beats a $100 gift card that says you forgot.''
+    Gift wrap upsell at $4.99 anchors against retail gift wrapping services ($10-15)
+    or flower delivery add-ons.'
+  estimated_lift: high
+  creative_angle: 'Ad hook during Mother''s Day window: ''You have [X] days to order
+    a gift that actually looks like you thought about it. (We made it by hand in Charlotte.
+    You get the credit.)'' Scarcity + humor + faith-forward positioning in one frame.'
+  notes: Operationally requires a cutoff date calculator built off the current production
+    time. Must be updated each gifting season. Do NOT run this offer if production
+    times are slipping — the guarantee must be backed by operational reality. Coordinate
+    with Gorgias to proactively message customers who order after the cutoff.
+- name: '''She''ll Know You Mean It'' Gift Box Upsell'
+  type: upsell
+  rationale: SBG's catalog includes products with extremely high gifting utility —
+    'I Need a Diet Coke,' 'Heaven Sent Onesie,' 'Loves Jesus + America, Too' are natural
+    gifts for moms, new babies, and friends. Currently, there is no gift-packaging
+    or gift-curation offer at checkout. Adding a gift box upsell at cart increases
+    AOV by $8-15 per gifting order, improves recipient experience (increases likelihood
+    the gift generates a new customer), and gives the gifter a confidence boost that
+    the presentation matches the product quality.
+  target_persona: primary
+  target_awareness_stage: product_aware
+  value_equation:
+    dream_outcome: Hand someone a gift that looks as intentional on the outside as
+      it is on the inside — not a tee stuffed in a mailing bag, but something that
+      feels like it came from a boutique
+    perceived_likelihood_lever: Show photography of the gift box presentation. Include
+      a faith-forward card with a verse or phrase that matches the product lane (e.g.,
+      a Proverbs 31 quote in the box with a mom humor tee).
+    time_delay_lever: No additional wait — gift box is packed with the order in the
+      same production window
+    effort_lever: Gifter adds it in one click at cart. Writes a message in the gift
+      message field. Everything else is handled. No wrapping, no craft store run,
+      no tissue paper.
+  suggested_structure: 'Cart-level upsell: ''Make it a gift — add a branded gift box
+    + handwritten card for $6.99.'' Options: standard gift wrap OR ''The Full Set''
+    which adds a faith-forward card insert with a pre-written message option (e.g.,
+    ''Because you are exactly the kind of mom she needs''). At the $5-7 price point,
+    attachment rate in DTC apparel gifting is typically 15-25% when placed at cart
+    rather than checkout.'
+  risk_reversal: If the gift box arrives damaged, Route insurance covers it. No additional
+    guarantee needed at this price point.
+  urgency_mechanic: 'During gifting windows: ''Add gift wrap before your order enters
+    production — it cannot be added after your order is submitted.'''
+  pricing_anchor_logic: 'Anchor against the cost of a Hallmark gift bag and tissue
+    paper ($6-9 retail) with zero brand value. SBG gift box delivers brand presentation
+    + emotional message card. Frame: ''For less than a Hallmark card, make it feel
+    boutique.'''
+  estimated_lift: medium
+  creative_angle: 'UGC-style creative: recipient opening a SBG gift box on a birthday
+    or Mother''s Day morning, pulling out the tee, reading the card. Captures the
+    gifting moment that drives word-of-mouth and new customer acquisition through
+    the recipient.'
+  notes: Requires packaging design and small inventory of gift boxes/tissue/cards.
+    Low SKU complexity. The card insert is high-perceived-value at near-zero cost.
+    Match card messaging to product lane (faith lane gets a scripture, mom humor lane
+    gets a witty one-liner). This also functions as a brand awareness tool — the recipient
+    becomes a potential new customer.
+- name: Early Access Email List (The Insider Drop)
+  type: lead_magnet
+  rationale: There is no visible email capture offer or lead magnet on the crawled
+    pages. The brand currently gates discount codes behind the newsletter but does
+    not actively surface an opt-in incentive. The ICP is a community-oriented, loyalty-driven
+    customer who responds to belonging and exclusivity more than to discounts. An
+    early access offer aligned with the made-to-order model (you see new designs before
+    anyone else, before they sell out) is more on-brand than a percentage discount
+    and does not train the audience to wait for sales.
+  target_persona: all
+  target_awareness_stage: problem_aware
+  value_equation:
+    dream_outcome: Be the mom who finds the pieces before everyone else — wearing
+      the design her friends haven't seen yet, getting first shot at limited-run seasonal
+      drops before they sell out
+    perceived_likelihood_lever: Brand legitimately rotates designs frequently (founder
+      says so in FAQ). Early access is a real and deliverable benefit, not a manufactured
+      one. Reference past sellouts to make scarcity credible.
+    time_delay_lever: Immediate gratification on signup — access to the current new
+      arrivals page or a preview of the next drop. No wait required to feel the benefit.
+    effort_lever: One field email capture. No discount code to copy, no minimum order
+      to calculate. Just enter email and get the link.
+  suggested_structure: 'Exit-intent or timed popup (8-10 seconds on site): ''Get first
+    look at new drops before they go live — plus seasonal deals only for insiders.''
+    Email capture only, no discount. On confirmation: immediate redirect to current
+    New Arrivals collection with a note ''You''re in. Here''s what just dropped.''
+    Nurture sequence begins with founder story, social proof (Today Show, community
+    reviews), and a sizing guide email that directly addresses the top conversion
+    objection.'
+  risk_reversal: 'No financial risk reversal needed for a lead magnet. The implicit
+    promise: you will not miss a design you loved because you found out too late.'
+  urgency_mechanic: 'Popup triggered by exit intent or time on site. Copy: ''New designs
+    drop every week. Don''t find out after they''re gone.'''
+  pricing_anchor_logic: No price anchoring needed — this is a zero-cost offer. The
+    value is social capital (being first) not monetary savings.
+  estimated_lift: high
+  creative_angle: Not an ad offer — this is an on-site list-building tool. The downstream
+    email list is the asset that powers all seasonal and gifting offers above. Every
+    percentage point improvement in list capture rate multiplies the return on the
+    Gifter's Guarantee and seasonal promo offers.
+  notes: 'This is the highest-leverage infrastructure offer because it feeds every
+    other offer. Without a list, seasonal urgency CTAs have no retargeting audience.
+    Recommend testing two popup variants: (1) pure early access/exclusivity framing
+    vs (2) sizing guide lead magnet (''Not sure what size to order? Get our fit guide
+    + insider early access''). The sizing guide variant directly addresses the top
+    conversion objection and may outperform pure exclusivity framing for cold traffic.'
+- name: 'Win-Back: ''We Made Something New For You'''
+  type: winback
+  rationale: SBG has a 10-year-old community with verified repeat buyers — the founder
+    explicitly references customers 'willing to wait' and 'keeping coming back.' Lapsed
+    buyers (90-180 days since last purchase) are the highest-margin acquisition channel
+    because they already trust the brand, already know how to size themselves, and
+    already have no return policy friction. A win-back offer that leads with new product
+    drops rather than a discount reactivates community identity rather than conditioning
+    discount behavior.
+  target_persona: primary
+  target_awareness_stage: most_aware
+  value_equation:
+    dream_outcome: Rediscover a brand she already loves, find a new piece that feels
+      exactly right for this season of her life, and feel like she's part of something
+      again — not just a customer getting a coupon
+    perceived_likelihood_lever: She already has proof — she bought before and loved
+      it. Lead the email with a photo of the new design in her specific past purchase
+      lane (faith, mom humor, patriotic). Mirror her purchase history.
+    time_delay_lever: Lead with 'new this season' — recency of design is the hook,
+      not a discounted version of something she's already seen
+    effort_lever: One-click 'Shop the new drop' CTA direct to new arrivals filtered
+      by her past purchase category. No browsing required.
+  suggested_structure: 'Automated email flow triggered at 90 days post-last-purchase.
+    Subject line: ''We made something we think you''ll love.'' Body: founder voice,
+    2-3 new designs in her purchase lane, one social proof element (review or UGC
+    photo). CTA to shop. If no open/click by day 97: second email with a small, non-discount
+    offer — ''Free gift wrap on your next order (our way of saying we miss you).''
+    If still no engagement by day 110: offer a $5 store credit framed as ''We saved
+    this for you'' — store credit, not a discount code, which keeps margin intact
+    and drives site return.'
+  risk_reversal: Store credit offer ($5) at final win-back step removes financial
+    risk of returning to the site and not finding something — she has guaranteed spending
+    power.
+  urgency_mechanic: Store credit offer expires in 14 days. Matches the production
+    timeline as a psychological anchor — 'your order could be in production right
+    now.'
+  pricing_anchor_logic: 'Do not lead with price. Lead with identity. The anchor is:
+    she is the kind of woman who wears what she believes, and SBG just made something
+    new that is exactly that. Price is secondary to belonging.'
+  estimated_lift: medium
+  creative_angle: 'Email creative angle: personal note from the founder. ''I designed
+    this one thinking about you — the mom who showed up for her kids today even when
+    it was hard. It felt right to share it first with the people who''ve been here
+    from the start.'''
+  notes: Win-back sequence requires segmentation by purchase lane in Klaviyo or equivalent
+    ESP. The non-discount first two touches are critical — do not lead with the $5
+    credit or you train the lapsed audience to wait for offers. The goal is community
+    re-entry, not coupon redemption. Monitor unsubscribe rate on step 3 — if high,
+    pull back the credit offer and replace with a design preview exclusive.
+- name: Priority Production Upgrade (Beat the Queue)
+  type: upsell
+  rationale: The 14-business-day production time is the most-cited conversion objection
+    for the solution-aware persona, especially when shopping for a specific gifting
+    window or last-minute occasion. Rather than shortening the standard queue for
+    everyone (operationally impossible), this offer creates an optional paid expedite
+    lane that directly converts the wait-time objection into a revenue opportunity.
+    It respects the made-to-order model, rewards the buyer who needs speed without
+    subsidizing the wait for everyone, and adds a premium tier to an otherwise flat
+    transaction.
+  target_persona: primary
+  target_awareness_stage: solution_aware
+  value_equation:
+    dream_outcome: Order today and have it in hand in time for the birthday, the holiday,
+      the trip — without gambling on whether 14 days is enough
+    perceived_likelihood_lever: 'Specific guarantee: ''Priority orders ship within
+      5 business days or your upgrade is refunded.'' Hard commitment, not a soft promise.
+      This requires operational readiness but is credible given in-house production
+      control.'
+    time_delay_lever: Cuts perceived production time from 14 business days to 5 business
+      days — a 64% reduction in wait. This is the core of the value equation.
+    effort_lever: Add-on at cart — one checkbox, one upsell line item. No separate
+      ordering process, no customer service interaction required.
+  suggested_structure: 'Cart-level upsell: ''Need it faster? Add Priority Production
+    — ships within 5 business days — $9.99 per order.'' Position as a line item above
+    order total. On confirmation email: ''Your order is in the priority queue. It
+    will ship within 5 business days.'' If operational capacity allows, offer at $12.99
+    for orders over $75 (sweatshirt territory) — higher perceived value items justify
+    higher urgency premium.'
+  risk_reversal: If the priority order does not ship within 5 business days due to
+    SBG production (not postal), the $9.99 upgrade fee is automatically refunded as
+    store credit. This creates a hard operational accountability loop and makes the
+    guarantee credible.
+  urgency_mechanic: 'Display alongside a countdown on PDP during gifting windows:
+    ''Priority spots available — [X] remaining this week.'' Volume cap on priority
+    queue is legitimate given production constraints.'
+  pricing_anchor_logic: 'Anchor against the cost of the problem: missing a birthday,
+    showing up to Mother''s Day with nothing, paying for overnight shipping on a generic
+    Amazon gift. $9.99 to guarantee a piece made by hand in Charlotte, NC arrives
+    on time is a no-brainer against those alternatives.'
+  estimated_lift: medium
+  creative_angle: 'Cart abandonment email angle: ''Your order is almost ready — if
+    you need it by [date], there''s one thing left to do.'' Targets the exact cart-abandonment
+    moment where production time anxiety caused the drop-off.'
+  notes: This offer REQUIRES operational validation before launch — the 5-business-day
+    window must be genuinely achievable for a meaningful percentage of order volume.
+    Recommend soft-launching at capped volume (e.g., 20 priority slots per week) to
+    stress-test the timeline before scaling. Do not launch without the refund guarantee
+    — without it, the offer increases rather than reduces anxiety.
+notes:
+  brand_premium_constraints: 'SBG Co. should never lead with percentage-off discounts
+    as a primary acquisition or retention offer — doing so would train the audience
+    to wait for sales, erode the made-to-order quality narrative, and signal that
+    the product is not worth full price. The brand''s moat is identity, craftsmanship,
+    and community belonging, none of which are compatible with a perpetual 20%-off
+    coupon culture. Sale framing should be reserved for the existing Last Chance /
+    clearance collection where scarcity is genuine. Any offer that requires devaluing
+    the product (BOGO, buy-2-get-1) is structurally misaligned with a 14-business-day
+    production queue — you cannot give away what takes two weeks to make without destroying
+    margin. Free shipping thresholds were not confirmed active in the crawl — if not
+    currently running, a free shipping threshold (e.g., free shipping at $75+) would
+    be brand-safe and conversion-positive without being a discount, but must be validated
+    against actual shipping cost structure before implementing.
+
+    '
+  category_dynamics: 'Faith-forward and graphic apparel DTC brands typically structure
+    offers around (1) seasonal/holiday gifting windows as the primary urgency engine,
+    (2) community belonging and exclusivity as the primary list-growth mechanism,
+    (3) bundle mechanics to drive AOV without discounting, and (4) subscription or
+    loyalty programs for repeat purchase cohorts. SBG''s made-to-order model is atypical
+    for the category — most graphic tee competitors ship from warehouse in 2-4 days
+    — which means the standard free shipping threshold and fast-delivery promise competitive
+    set does not apply. SBG must compete on identity and craft rather than fulfillment
+    speed, which reinforces that offer engineering should focus on eliminating anxiety
+    (size guarantee, order protection, gifting certainty) rather than racing to match
+    fast-fashion shipping expectations. The 4,000+ boutique wholesale channel also
+    means there is a discoverable brand halo at retail that can be leveraged in DTC
+    acquisition creative (''Now available direct from the maker — no boutique markup'').
+
+    '
+  highest_priority_test: 'Test the Early Access Email List (The Insider Drop) popup
+    first. Rationale: every other suggested offer is amplified by list size. The Gifter''s
+    Guarantee seasonal urgency, the Win-Back sequence, and even the Priority Production
+    upsell all require an owned audience to reach. Without an active lead capture
+    mechanism, all conversion-rate offers operate on paid or organic traffic only.
+    The email popup is zero-cost to implement, reversible, and has a direct measurable
+    outcome (opt-in rate). Once the list is growing, the second priority test is the
+    Mom + Mini Matching Bundle because it requires no new product, no new guarantee,
+    and directly converts the existing highest-AOV natural purchase behavior into
+    a merchandised offer with measurable lift on average order value.
+
+    '
+  audience_specific_recommendations: 'The solution-aware persona (the one identified
+    in the brief) is the brand''s primary conversion challenge — she wants it but
+    is hesitating because of the wait time, the return policy risk, and the inability
+    to try it on. For this persona, every offer should reduce perceived risk and time
+    anxiety: the First Order Size Promise, the Priority Production Upgrade, and the
+    Gifter''s Guarantee are all targeted directly at her objections. The most-aware
+    repeat buyer (the loyal community member) responds to belonging, exclusivity,
+    and newness — she is the target for the Early Access Email List, the Mom + Mini
+    Bundle, and the Win-Back sequence. She is not discount-motivated and should never
+    be marketed to with price-first messaging. For gifters (a secondary behavioral
+    persona within the same ICP), the Gifter''s Guarantee and the Gift Box Upsell
+    are the highest-leverage offers, and they should be surfaced via seasonal ad creative
+    and email during the 4-6 weeks before major gifting holidays (Mother''s Day, Christmas,
+    Valentine''s Day). The wholesale buyer persona is not addressed in the suggested
+    offers above — a dedicated wholesale lead-funnel offer (Faire landing page with
+    net-30 framing and Today Show credibility) would be a separate document.'

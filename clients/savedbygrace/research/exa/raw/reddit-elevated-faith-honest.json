@@ -1,0 +1,15 @@
+{
+  "query": {
+    "label": "reddit-elevated-faith-honest",
+    "query": "Elevated Faith honest review experience worth it",
+    "include_domains": [
+      "reddit.com"
+    ],
+    "exclude_domains": [],
+    "num_results": 10,
+    "category": "reddit",
+    "keyword_query": "\"Elevated Faith\" review"
+  },
+  "fetched_at": "2026-07-06T22:58:28.602998Z",
+  "results": []
+}

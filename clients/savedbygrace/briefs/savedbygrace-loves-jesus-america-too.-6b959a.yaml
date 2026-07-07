@@ -1,0 +1,116 @@
+brief_id: savedbygrace-loves-jesus-america-too.-6b959a
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: problem_aware
+mental_stage: purchase
+trigger_moment: ''
+framework: bab
+angle: "Daughter's reaction validates the gift choice \u2014 social proof through\
+  \ recipient delight"
+hook: 'I have been buying baby shower gifts for thirty years and my daughter finally
+  texted me after opening one and said "Mom, this is my favorite gift from today."
+  It was a tee that said Loves Jesus + America, Too.
+
+  '
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: customer desire quote - my daughter said it was her favorite gift from
+  the shower
+hook_tactic: "Storytelling \u2014 mid-moment drop with emotional payoff reveal"
+persona: Grandma Gift-Giver Gloria
+creative_mechanic: micro_story_plus_suspense
+visual_format: "UGC Static \u2014 candid photo of a real grandmother holding up the\
+  \ tee with a phone screen showing a glowing text reply from her daughter"
+visual_format_alternatives:
+- "Lifestyle carousel \u2014 first frame shows the folded tee in gift tissue paper,\
+  \ second frame shows a baby wearing it, third frame shows the daughter's text reaction\
+  \ as a screenshot overlay"
+- "Talking-head video \u2014 grandmother speaking to camera, recounting the story\
+  \ in her own words with the tee visible in her hands"
+persona_traits: Grandmother in her 60s who has watched generic and dated religious
+  baby gifts sit unworn in a box, and desperately wants to give something her daughter
+  will actually reach for.
+pain_point: "Christian bookstore baby gifts look dated and cheesy \u2014 not something\
+  \ her daughter would actually dress the baby in"
+benefit_callouts:
+- A faith gift she'll actually put on the baby
+- "Super soft, preshrunk \u2014 holds up wash after wash"
+- Made one at a time, not pulled from a shelf
+cta: Order before her next occasion and actually nail it.
+body_copy: ''
+visual_direction: "Warm, lived-in home setting. Real grandmother energy \u2014 not\
+  \ staged. The tee is visible and clearly readable. The emotional payoff is on her\
+  \ face, not a product flat-lay."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Short, warm, educational direct-address piece: 35-75 words, 3 beats, 20-40
+    seconds, delivered as text overlay or VO over simple B-roll / creator content
+    / AI UGC. Beat 1: affectionate audience callout plus one surprising HEDGED fact
+    or identity behavior ("guys, sperm production takes around 74 days", "hot girls
+    put collagen in their morning coffee"). Beat 2: 2-3 emoji-led ingredient-level
+    lines in structure-function language ("X supports Y"), receipts said casually
+    ("studied over 84 days"). Beat 3: product named once plus an effortless close
+    ("easy add", "one pack a day") and an optional smart kicker reframe ("the upgrade,
+    but the foundation goes first"). Light, positive energy: no pain dwelling, no
+    enemy prosecution, no guarantee, no hard CTA, at most one wry aside. REDEFINED
+    2026-06-11 from operator-approved examples; previously misdocumented here as a
+    long 150-300 word confessional monologue (that long form is a different recipe,
+    not this format).'
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Gloria is problem-aware and emotionally motivated by her daughter's\
+    \ approval, making the warm, direct-address tone of a Love Letter a natural fit\
+    \ \u2014 Beat 1 can call out 'the grandma who wants a gift her daughter will actually\
+    \ love,' Beat 2 introduces the product as the surprising solution to dated Christian\
+    \ bookstore aesthetics, and Beat 3 mirrors the exact hook moment: her daughter's\
+    \ delighted text. The identity-focused, community-driven persona signals align\
+    \ closely with Gloria's desire to be seen as a thoughtful, modern grandmother."
+  production_notes: "Keep the VO or text overlay conversational and grandmotherly\
+    \ warm \u2014 avoid sounding like a product pitch; the daughter's reaction quote\
+    \ from the hook should appear verbatim on screen for maximum emotional resonance."
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 2
+  rationale: "Gloria's core pain point is explicitly adversarial \u2014 'Christian\
+    \ bookstore gifts look dated and cheesy' \u2014 which is a textbook 'broken status\
+    \ quo enemy' setup that David & Goliath was built for. Calling out the tired,\
+    \ generic religious baby gift industry before contrasting with 'Loves Jesus +\
+    \ America, Too.' directly validates her frustration and positions the product\
+    \ as the modern alternative her daughter would actually cherish."
+  production_notes: Name the enemy category ('generic Christian bookstore baby gifts')
+    but avoid naming specific retailers by name to reduce legal and platform risk;
+    let the visual contrast between dated frilly cross onesies and the actual product
+    do the heavy lifting.
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "A '3 reasons why this is the only baby shower gift a Christian mom actually\
+    \ wants' listicle gives Gloria concrete, repeatable talking points she can internalize\
+    \ and mentally share with her peer group \u2014 other grandmothers in the same\
+    \ gifting dilemma. The BAB framework maps cleanly onto the list structure: before-state\
+    \ reason, bridge reason, after-state payoff, closing with the daughter-reaction\
+    \ social proof angle."
+  production_notes: "Avoid a dry, bullet-reading delivery \u2014 each list item needs\
+    \ a micro-story or specific visual proof (e.g., show the actual product alongside\
+    \ a bland alternative) so the format doesn't feel low-effort to a skeptical problem-aware\
+    \ viewer."
+text_layout: null
+source_matrix_row: null

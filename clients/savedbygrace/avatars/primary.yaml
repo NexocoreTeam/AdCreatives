@@ -1,0 +1,255 @@
+name: All-Of-It Amber
+demographic: Woman, 28–40, married with 2–3 kids ages 0–8, lives in the South or Midwest
+  (Charlotte, Nashville, Tulsa, Columbus), household income $70K–$120K, shops boutiques
+  and Target, active on Instagram and Facebook, likely attends church semi-regularly
+psychographic: Amber is a modern Christian mom who holds all of her identities at
+  once without apology — her faith, her humor, her love for her kids, her patriotism.
+  She doesn't perform any of it; it's just who she is. She buys things that make her
+  feel seen as a whole person, not just a mom or just a believer. She values authenticity
+  over aesthetics and community over clout, but she also cares about looking put-together
+  in a relaxed, effortless way.
+pain_points:
+- pain: Faith apparel from Christian stores looks dated, preachy, and impossible to
+    style — she would never wear it to Target or a birthday party
+  intensity: high
+  customer_language:
+  - I want to wear my faith but I don't want to look like I'm handing out a tract
+  - Everything at the Christian bookstore looks like it was designed in 2003
+  - I believe all of this stuff, I just don't want to wear a font that screams church
+    bulletin
+  source: auto_from_brand_context
+- pain: Generic boutique tees and Etsy mom humor shirts are funny but empty — they
+    don't reflect the faith layer that matters to her
+  intensity: high
+  customer_language:
+  - It's cute but it's not me — there's no substance to it
+  - I can find funny mom shirts everywhere, I just can't find one that's also actually
+    me
+  - I want something that says I love my kids AND I love Jesus, not one or the other
+  source: auto_from_brand_context
+- pain: She has to shop multiple places to dress herself and her kids in a coordinated
+    way that reflects her values — there's no one brand that does all of it
+  intensity: medium
+  customer_language:
+  - I want us to match but I also want it to actually mean something
+  - I can't find kids stuff that goes with the vibe I'm going for without looking
+    costumey
+  source: auto_from_brand_context
+- pain: She worries about looking try-hard or preachy to people around her if the
+    faith message is too heavy-handed
+  intensity: medium
+  customer_language:
+  - I don't want people to think I'm shoving it down their throat
+  - I want it to feel natural, like this is just who I am, not like I'm on a mission
+  source: auto_from_brand_context
+desires:
+- desire: A brand that sees her whole identity and builds for it — not just the mom
+    part, not just the faith part, all of it at once
+  customer_language:
+  - I just want something that feels like me
+  - I've been looking for a brand that gets it and this is it
+- desire: Pieces she can actually wear everywhere — to church, to the school pickup
+    line, to a cookout — without changing
+  customer_language:
+  - I wore it to church and then straight to the grocery store and got so many compliments
+  - It's the kind of shirt I just live in
+- desire: Mom-and-mini moments that photograph well and feel intentional, not matchy-matchy
+    cheesy
+  customer_language:
+  - I love that we can coordinate without it looking like a costume
+  - We got so many compliments at the party wearing our matching sets
+objections:
+- Will it actually look good on me or is it going to look boxy and cheap like other
+  graphic tees?
+- Made to order means it takes longer — will it arrive in time for the event or holiday?
+- Is the sizing going to be weird? I need it to fit like a normal shirt, not too stiff
+  or too thin
+- Is this too on-the-nose? Will people think I'm being preachy?
+current_solutions:
+- Old Navy, Target graphic tees — stylish but no faith layer
+- Kerusso or Christian bookstore brands — faith layer present but feels dated
+- Etsy mom humor tees — funny but secular, doesn't feel fully like her
+- Elevated Faith — scripture-forward but skews younger and more minimalist, doesn't
+  have the mom humor or patriotic lanes
+- Not buying anything and just wearing plain basics because nothing quite fits
+trigger_events:
+- She sees a friend or someone she follows wearing an SBG Co. piece on Instagram and
+  immediately wants it — the phrase resonates and she screenshots it
+- A holiday or seasonal moment (Fourth of July, Christmas, back to school) makes her
+  want a coordinating mom-and-mini look
+- She's buying for a new baby occasion and realizes she wants the kids piece to match
+  something she'd actually wear herself
+- She gets frustrated shopping for faith apparel and types something like 'cute Christian
+  tees that don't look churchy' into Pinterest or Google
+- A friend tags her in an SBG Co. product in their group chat
+awareness_level: solution_aware
+language_patterns:
+- Warm, self-deprecating, group-chat casual — talks the way she'd text her best friend
+- Uses phrases like 'this is so me,' 'I need this,' 'obsessed,' 'literally cannot'
+- Faith language is present but casual — 'blessed,' 'Jesus,' 'God is good,' not formal
+  theological terms
+- Mom humor is dry and honest — 'surviving on Diet Coke and prayer,' 'raising em feral,'
+  'send help'
+- Compliments land on feeling seen — 'they just get it,' 'this is exactly what I was
+  looking for'
+psychology_profile:
+  dominant_heuristics:
+  - heuristic: effect_heuristic
+    confidence: high
+    why: Her purchase decisions are driven almost entirely by emotional resonance
+      and identity-fit — she buys the thing that makes her feel seen as a whole person,
+      not the thing with the best specs or price.
+    evidence:
+    - 'desires[0]: ''I just want something that feels like me'''
+    - 'desires[0]: ''I''ve been looking for a brand that gets it and this is it'''
+    - 'language_patterns: compliments land on feeling seen — ''they just get it,''
+      ''this is exactly what I was looking for'''
+    - 'trigger_events[0]: ''the phrase resonates and she screenshots it'' — impulse
+      response to emotional recognition, not research'
+    ad_implications: Lead with the moment of recognition, not the product. The hook
+      must make her say 'this is so me' before she sees the shirt. Emotional tone
+      and voice are the product — aesthetics and faith framing must feel effortless
+      and self-expressive, never pitched or curated-for-her. Avoid clinical or benefit-list
+      copy.
+  - heuristic: social_proof
+    confidence: high
+    why: Three of five trigger events are socially mediated — she discovers and validates
+      via Instagram, friend tags, and group chats, not search or brand ads. Her trust
+      architecture is peer-originated.
+    evidence:
+    - 'trigger_events[0]: ''She sees a friend or someone she follows wearing an SBG
+      Co. piece on Instagram and immediately wants it'''
+    - 'trigger_events[4]: ''A friend tags her in an SBG Co. product in their group
+      chat'''
+    - 'language_patterns: ''obsessed,'' ''I need this'' — language she uses and receives
+      in peer sharing contexts'
+    - 'current_solutions: Old Navy, Target, Etsy — all mass peer-validated channels,
+      not expert-curated ones'
+    ad_implications: UGC from women who look like her — same life stage, same Southern
+      or Midwest warmth, same casual faith expression — outperforms brand-voiced creative.
+      Friend-tagging and group-chat sharing behavior should be seeded into ad creative
+      structure. 'My friend sent me this' and 'I've been looking for this for years'
+      framings will outperform product-forward hooks.
+  - heuristic: framing_effect
+    confidence: high
+    why: 'Her entire pain architecture is built around category-level reframes — she
+      rejects ''Christian apparel'' as a category and rejects ''mom humor tees'' as
+      a category, and is looking for a product framed as neither: a whole-identity
+      piece. The brand wins by being framed as the category escape, not a better version
+      of an existing category.'
+    evidence:
+    - 'pain_points[0].customer_language: ''I want to wear my faith but I don''t want
+      to look like I''m handing out a tract'''
+    - 'pain_points[1].customer_language: ''It''s cute but it''s not me — there''s
+      no substance to it'''
+    - 'pain_points[1].customer_language: ''I want something that says I love my kids
+      AND I love Jesus, not one or the other'''
+    - 'current_solutions: five distinct solutions tried and abandoned — each framed
+      as partial, not whole'
+    ad_implications: Never frame SBG Co. as Christian apparel or as mom merch. Frame
+      it as the first brand that doesn't make her choose. The contrast frame — 'everything
+      else is either one thing or the other' — is structurally built into how she
+      already thinks. Cost, quality, and speed objections should be reframed as investment
+      in the one brand that actually fits, not defended on feature terms.
+  weak_heuristics:
+  - heuristic: authority_bias
+    why: Her trust is entirely peer-mediated. She does not cite experts, certifications,
+      or institutional voices anywhere in her language patterns or trigger events.
+      Her faith expression is casual and personal, not theologically credentialed.
+      Expert-forward or brand-authority framing would feel tone-deaf to her 'group-chat
+      casual' register.
+    avoid: Founder authority positioning, clergy endorsements, 'as seen in' press
+      badge framing, clinical-sounding quality claims. Authority only works here if
+      it comes through a peer voice — a trusted creator or friend — never a brand
+      or expert directly.
+  - heuristic: scarcity
+    why: Her trigger events are emotionally and seasonally paced, not urgency-driven.
+      She screenshots and saves, she asks friends, she waits for the right moment.
+      The made-to-order model she already navigates (per objections) signals she is
+      not an impulse-urgency buyer — she accepts lead time as a trade-off. Manufactured
+      scarcity would clash with the authentic, unpretentious brand tone.
+    avoid: Countdown timers, 'only 3 left' alerts, flash-sale urgency mechanics on
+      core products. Seasonal urgency (holiday ship-by dates) is acceptable because
+      it is real and situational, not manufactured.
+  - heuristic: temporal_discounting
+    why: She is not buying for symptom relief or an immediate transformation. Her
+      desires are identity-expression and community-belonging — slow, ongoing, cumulative.
+      'Feel better today' framing would pattern-match to the cheap graphic tee category
+      she is trying to escape.
+    avoid: Instant-results promises, 'you'll feel amazing the moment you put it on'
+      hooks, quick-fix framing. The payoff she wants is relational and cumulative
+      — compliments at the party, the photo that captured the moment — not immediate
+      relief.
+  emotional_position:
+    primary:
+      valence: positive
+      intensity: low
+      rationale: 'Amber''s dominant desire language is relief and recognition — ''I
+        just want something that feels like me,'' ''I''ve been looking for a brand
+        that gets it.'' This is HV/LI: she has found an accepted compromise (plain
+        basics, partial solutions) and is looking for permission to stop settling,
+        not a breakthrough transformation. Pain intensities are high for the category
+        frustration but the emotional charge is accumulated-dull, not fear-acute.
+        She is managing her identity expression through workarounds, not suffering
+        a crisis. The correct default ad anchor is the quiet relief of finally being
+        seen whole — not a triumph arc and not a fear-of-loss urgency play.'
+      use_for: ''
+    secondary:
+      valence: negative
+      intensity: low
+      rationale: 'LV/LI — the quiet, normalized cost of never finding the right thing.
+        ''Not buying anything and just wearing plain basics because nothing quite
+        fits'' (current_solutions) is a textbook LV/LI signal: accepted compromise,
+        low drama, but a slow erosion of self-expression.'
+      use_for: Cold-audience variant testing that names the invisible ache before
+        offering relief. Copy in this quadrant surfaces the dull resignation she's
+        been calling 'fine' — 'You've been wearing somebody else's version of yourself
+        for three years' — then pivots to the permission frame. Use for prospecting
+        audiences who haven't yet named the gap.
+  recommended_prompt_pairings:
+  - pairing: reframing_perception_plus_emotional_trigger
+    fits_because: 'Activates the two highest-leverage heuristics (framing_effect +
+      effect_heuristic). Flips the category perception — ''Christian apparel vs. mom
+      tees'' binary — into ''the brand that finally does both.'' Lands squarely in
+      HV/LI: relief and recognition, not hype.'
+  - pairing: tribal_belonging_plus_vulnerability
+    fits_because: Activates social_proof + effect_heuristic. Mirrors her actual discovery
+      mechanic — a friend or creator she trusts wearing the piece and naming the feeling.
+      The vulnerability layer ('I used to just wear basics because nothing felt like
+      me') matches the secondary LV/LI quadrant and the primary HV/LI pivot.
+  - pairing: anonymity_plus_social_proof
+    fits_because: Activates social_proof + processing_fluency. The 'overheard review'
+      or group-chat screenshot format mirrors exactly how she discovers and shares
+      products. Keeps trust architecture peer-originated rather than brand-voiced,
+      which is consistent with her weak authority_bias signal.
+  - pairing: contrast_plus_aspirational_identity
+    fits_because: Activates framing_effect + effect_heuristic. The before/after identity
+      frame — 'the version of you who kept choosing between your faith and your humor
+      vs. the version who stopped choosing' — maps directly onto her stated pain architecture.
+      Works in both primary (HV/LI relief) and secondary (LV/LI resignation surface)
+      quadrants depending on where the contrast opens.
+  - pairing: micro_story_plus_suspense
+    fits_because: Activates salience + effect_heuristic. Short narrative format matches
+      her casual-scroll, Instagram-and-Facebook behavior. Can open in either quadrant
+      — the quiet frustration of nothing fitting, or the moment of recognition when
+      she saw the piece. Works especially well as UGC-style video creative where a
+      woman tells the story of finding the brand.
+  avoid_pairings:
+  - pairing: gamification_plus_time_sensitive_offer
+    avoid_because: Violates all three weak heuristics simultaneously — scarcity, temporal_discounting,
+      and goal_gradient are all low-leverage for this avatar. Urgency mechanics undermine
+      the authentic, unpretentious brand tone that is her primary trust signal. She
+      is not an impulse buyer and the made-to-order model already sets expectations
+      against speed.
+  - pairing: authority_borrowing_plus_data_insight
+    avoid_because: Authority_bias is a weak heuristic for Amber. Her trust is peer-originated
+      and her faith expression is casual, not credentialed. Expert or institutional
+      framing — even Christian-adjacent — risks sounding like the Kerusso / Christian
+      bookstore category she is actively fleeing.
+  - pairing: shock_factor_plus_transformation_shortcut
+    avoid_because: Wrong intensity level (HI) for a buyer whose primary quadrant is
+      HV/LI. Transformation-shortcut framing also activates her 'try-hard' and 'preachy'
+      objections — she explicitly does not want anything that reads as performative
+      or over-the-top. High-intensity disruption creative would feel like the opposite
+      of the effortless, natural self-expression she is seeking.
+  source: auto_from_psychology_profiling

@@ -1,0 +1,40 @@
+{
+  "competitor": {
+    "name": "Kerusso",
+    "slug": "kerusso",
+    "url": "https://www.kerusso.com",
+    "type": "direct",
+    "priority": "tier1",
+    "notes": "",
+    "amazon_urls": [
+      "https://www.amazon.com/dp/B096TN1GXH"
+    ],
+    "foreplay_brand_id": "",
+    "tiktok_handle": "",
+    "tiktok_post_urls": [],
+    "tiktok_search_queries": [
+      "Kerusso review"
+    ],
+    "instagram_handle": "",
+    "instagram_post_urls": [],
+    "instagram_hashtags": [],
+    "youtube_channel_id": "",
+    "youtube_handle": "",
+    "youtube_video_ids": [],
+    "youtube_search_queries": [
+      "Kerusso review",
+      "Kerusso vs Saved by Grace Co. (SBG Co.)"
+    ]
+  },
+  "vendor": "yotpo",
+  "reviews": [],
+  "scraped_pages": [
+    "https://www.kerusso.com/products/hold-fast-mens-cap-usa-strong",
+    "https://www.kerusso.com/products/buy-2-get-1-free-gtcg",
+    "https://www.kerusso.com/products/buy-3-for-50",
+    "https://www.kerusso.com/products/hold-fast-mens-cap-heathered-flag",
+    "https://www.kerusso.com/products/buy-2-get-1-free-hf250"
+  ],
+  "fetched_at": "2026-07-06T22:30:59.196006Z",
+  "notes": "No reviews extracted from 5 page(s). Detected vendors: yotpo. No supported widget API and no JSON-LD review markup \u2014 for this competitor, rely on Exa/Reddit/Amazon/social sources instead."
+}

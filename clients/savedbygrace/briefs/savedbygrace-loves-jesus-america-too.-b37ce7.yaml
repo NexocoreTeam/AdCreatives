@@ -1,0 +1,108 @@
+brief_id: savedbygrace-loves-jesus-america-too.-b37ce7
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: solution_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: quest
+angle: The exhausting search for faith apparel that doesn't look churchy ends the
+  moment she finds the phrase that says it all
+hook: "I typed \"cute Christian tees that don't look like a church bulletin\" into\
+  \ Pinterest at 11pm.\nI'm not proud of how long I scrolled.\nThen I found one that\
+  \ just said: Loves Jesus + America, Too.\nAnd I thought \u2014 yeah. That's literally\
+  \ just me.\nI've worn it to church, the school pickup line, and a Fourth of July\
+  \ cookout.\nNobody once looked at me like I was handing out a pamphlet.\n"
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: "avatar pain quote \u2014 cute Christian tees that dont look churchy\
+  \ plus trigger event Pinterest search"
+hook_tactic: "Storytelling \u2014 opens mid-scene with a relatable discovery moment,\
+  \ then lands on the emotional payoff"
+persona: All-Of-It Amber
+creative_mechanic: micro_story_plus_suspense
+visual_format: "UGC-style vertical video \u2014 woman speaking directly to camera,\
+  \ casual home or kitchen setting, wearing the tee"
+visual_format_alternatives:
+- "Carousel static \u2014 each card shows one line of the story as text overlay on\
+  \ lifestyle photography (church, pickup line, cookout)"
+- "Voiceover reel \u2014 no talking head, just the tee in real-life settings while\
+  \ the story plays as text and narration"
+persona_traits: "Southern or Midwest mom, 28\u201340, who loves Jesus and loves America\
+  \ and has never once found a shirt that said both without making her cringe"
+pain_point: "Faith apparel from Christian stores looks dated, preachy, and impossible\
+  \ to style \u2014 she would never wear it to Target or a birthday party"
+benefit_callouts:
+- Wears to church AND the grocery store without a costume change
+- "Super soft, preshrunk \u2014 survives the wash and the lifestyle"
+- The phrase that says it all without saying too much
+cta: Find yours at SBG Co.
+body_copy: ''
+visual_direction: "Real woman, real life \u2014 not a styled flat lay. She's in the\
+  \ tee at the kitchen counter or the car line. \nThe shirt should be visible but\
+  \ incidental \u2014 this is about the feeling of finally being seen, \nnot a product\
+  \ hero shot. Warm Southern light. Nothing polished enough to look like an ad.\n"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Amber's entire pain point is a broken status quo \u2014 the Christian\
+    \ apparel industry serving up dated, preachy designs she'd never wear in real\
+    \ life. David & Goliath lets the brand call out that exact enemy (generic churchy\
+    \ tee culture) before contrasting with a shirt that actually fits her aesthetic,\
+    \ making it a natural match for her solution-aware frustration and quest arc."
+  production_notes: "Make the 'enemy' visual unmistakably recognizable (think clip-art\
+    \ doves and bold serif bible verses on oversized tees) so Amber feels seen before\
+    \ the brand reveal \u2014 don't soften the contrast or the payoff collapses."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 2
+  rationale: "Amber is scroll-fatigued and millennial-coded enough to appreciate an\
+    \ irreverent, self-aware format \u2014 an animated character embodying the cringe\
+    \ Christian tee she'd never buy landing as a comedic foil before the product reveal\
+    \ mirrors the relief-and-empathy hook she's primed for. The intentional fakeness\
+    \ also sidesteps any 'is this person like me?' skepticism that would derail a\
+    \ traditional UGC testimonial."
+  production_notes: "The animated 'bad shirt' character must nail the specific aesthetic\
+    \ Amber hates (think pastel, preachy, clip-art Jesus) \u2014 if the parody is\
+    \ too generic it loses the precision that makes solution-aware audiences feel\
+    \ understood."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "A '3 reasons this tee actually goes with your Target run outfit' frame\
+    \ speaks directly to Amber's solution-aware state \u2014 she already knows she\
+    \ wants styleable faith apparel, she just needs fast, concrete proof this specific\
+    \ product delivers. The format's low complexity also lets the hook's story energy\
+    \ carry the open before pivoting cleanly into styled-life evidence."
+  production_notes: "Avoid letting the listicle feel like a product spec sheet \u2014\
+    \ each reason must be grounded in a real styling scenario (brunch, errands, birthday\
+    \ party) that mirrors Amber's actual life or the format will feel generic rather\
+    \ than resonant."
+text_layout: null
+source_matrix_row: null

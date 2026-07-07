@@ -1,0 +1,254 @@
+name: Grandma Gift-Giver Gloria
+demographic: Woman, 55–72, grandmother of 1–4 grandchildren ages 0–6, lives in the
+  South or Midwest, likely retired or part-time, household income $50K–$90K, shops
+  via mobile with help from her daughter or daughter-in-law's recommendation, drives
+  purchases around baby showers, holidays, and birthdays
+psychographic: Gloria's entire motivation is her grandchildren and the daughter or
+  daughter-in-law who is raising them. She shares her daughter's faith values and
+  wants to give gifts that mean something — not just cute, but true to who the family
+  is. She's a buyer who prizes quality, sentiment, and appropriateness over trend
+  or humor. She doesn't necessarily find the 'Raising Em Feral' tee for herself, but
+  she will buy the 'Heaven Sent' onesie in a heartbeat.
+pain_points:
+- pain: Baby gifts at Target, Amazon, and big box stores feel generic and impersonal
+    — she wants something that actually reflects the family's faith
+  intensity: high
+  customer_language:
+  - I wanted something that meant something, not just another onesie
+  - Everything at the baby store looks the same and none of it feels like us
+  - I don't want to give her something she's going to return
+  source: auto_from_brand_context
+- pain: Christian bookstore baby gifts look dated and cheesy — not something her daughter
+    would actually dress the baby in
+  intensity: high
+  customer_language:
+  - I love the message but I know she won't use it if it doesn't look good
+  - I don't want to buy something religious that she puts in a box because it's ugly
+  source: auto_from_brand_context
+- pain: She's unsure about sizing and quality when ordering online, especially for
+    baby items — doesn't want to get it wrong
+  intensity: medium
+  customer_language:
+  - I wasn't sure about the size so I got two just in case
+  - I always worry about quality when I can't feel it in the store
+  - Great shirts, amazing quality like always and super cute on my grandbabies
+  source: auto_from_brand_context
+desires:
+- desire: A gift that her daughter genuinely loves and the grandbaby actually wears
+    — something with a story and faith behind it
+  customer_language:
+  - She loved it so much she ordered more in different sizes
+  - My daughter said it was her favorite gift from the shower
+  - I wanted something that would make her feel loved and this did it
+- desire: Quality she can trust — something that holds up through washes and looks
+    as good in person as online
+  customer_language:
+  - Amazing quality like always
+  - Super soft, even better than I expected
+  - I will definitely be ordering more
+objections:
+- I've never ordered from this brand before — how do I know the quality is good?
+- Made to order means it takes longer — will it arrive before the baby shower?
+- I'm not sure which size to get for a newborn or a 3-month-old
+- Is the price worth it compared to what I'd pay at a boutique?
+current_solutions:
+- Target and Amazon baby gifts — quick and easy but generic
+- Christian bookstore gifts — faith-aligned but not stylish enough for her daughter
+- Local boutique baby sections — closer to right, but limited faith-specific options
+- Carter's and similar brands — quality but no faith or meaning layer
+trigger_events:
+- A daughter or daughter-in-law announces a pregnancy or has a new baby — Gloria immediately
+  starts looking for a meaningful gift
+- A grandbaby birthday or holiday (Christmas, Easter) is approaching and she wants
+  something more personal than a gift card
+- She sees her daughter wearing an SBG Co. piece and asks where it's from — then visits
+  the site to find something for the grandkids
+- She is at a baby shower where another guest's gift is an SBG Co. piece and asks
+  about the brand
+- Her daughter sends her a link directly — 'Mom, can you get this for the baby?'
+awareness_level: problem_aware
+language_patterns:
+- Warmer and more traditional than Amber — uses full sentences, 'lovely,' 'precious,'
+  'so cute'
+- 'Review language tends to be effusive and specific about recipient reaction: ''my
+  daughter loved it,'' ''my grandbabies wore it to church'''
+- Faith vocabulary is comfortable but not academic — 'heaven sent,' 'blessed,' 'such
+  a sweet message'
+- Practical details matter in her language — she mentions sizing, quality, and shipping
+  in reviews
+- Social proof from her daughter or daughter-in-law is a major part of how she talks
+  about the purchase decision
+psychology_profile:
+  dominant_heuristics:
+  - heuristic: social_proof
+    confidence: high
+    why: Gloria's purchase decision is almost entirely mediated by her daughter's
+      approval — she buys to earn her daughter's validation, and her review language
+      centers the recipient's reaction rather than her own satisfaction.
+    evidence:
+    - 'trigger_events[4]: ''Her daughter sends her a link directly — Mom, can you
+      get this for the baby?'''
+    - 'language_patterns: ''Social proof from her daughter or daughter-in-law is a
+      major part of how she talks about the purchase decision'''
+    - 'desires[0] customer_language: ''My daughter said it was her favorite gift from
+      the shower'''
+    - 'desires[0] customer_language: ''She loved it so much she ordered more in different
+      sizes'''
+    ad_implications: Lead with daughter or daughter-in-law as the social proof anchor
+      — not peer grandmothers. Testimonials should show the recipient's delight, not
+      the gift-giver's confidence. Frame the purchase as 'the gift she will actually
+      love' rather than 'a gift you'll feel good giving.' UGC showing a young mom
+      reacting to the gift outperforms UGC showing a grandmother holding the product.
+  - heuristic: framing_effect
+    confidence: high
+    why: Gloria's entire pain structure is a comparison frame — she is already running
+      a mental contrast between generic/cheesy alternatives and what she actually
+      wants. The brand wins by making that contrast explicit and positioning itself
+      as the only category that resolves both legs of the comparison.
+    evidence:
+    - 'pain_points[0] customer_language: ''Everything at the baby store looks the
+      same and none of it feels like us'''
+    - 'pain_points[1] customer_language: ''I love the message but I know she won''t
+      use it if it doesn''t look good'''
+    - 'current_solutions: contrasts Target/Amazon (generic, no faith) against Christian
+      bookstore (faith, not stylish) — she is explicitly aware she is choosing between
+      two inferior categories'
+    - 'psychographic: ''prizes quality, sentiment, and appropriateness over trend
+      or humor'''
+    ad_implications: Frame SBG Co. as the resolution of a false choice she already
+      knows — 'finally, a faith gift she'll actually wear.' Never present the product
+      in isolation; always present it against the two failure modes she already holds
+      in her head (generic = meaningless, religious = ugly). Price objections should
+      be reframed against boutique spend, not Amazon spend.
+  - heuristic: effect_heuristic
+    confidence: medium
+    why: Gloria's decisions are emotionally driven — she is buying a feeling of having
+      given the right gift, and her language is warm, effusive, and recipient-outcome-oriented
+      rather than analytical. The aesthetic pass/fail test she applies ('I know she
+      won't use it if it doesn't look good') is a gut-feel judgment, not a spec check.
+    evidence:
+    - 'language_patterns: ''Review language tends to be effusive and specific about
+      recipient reaction'''
+    - 'pain_points[1]: ''I don''t want to buy something religious that she puts in
+      a box because it''s ugly'' — aesthetic rejection is intuitive, not criteria-based'
+    - 'desires[0] customer_language: ''I wanted something that would make her feel
+      loved and this did it'''
+    - 'psychographic: ''not just cute, but true to who the family is'' — emotional
+      alignment is the primary filter'
+    ad_implications: Warm, lifestyle photography showing the onesie on a real baby
+      in a real home context will outperform flat-lay product shots for Gloria. The
+      emotional payoff — grandma pride + daughter delight — must be visible in the
+      creative, not just described in copy. Brand aesthetic (modern farmhouse, warm
+      hazy tones) does the trust work before the product details do.
+  weak_heuristics:
+  - heuristic: scarcity
+    why: Gloria is a deliberate, sentiment-driven buyer planning for known events
+      (baby showers, holidays, birthdays). Urgency mechanics read as pressure tactics
+      and erode the warm, trustworthy brand signal she needs to feel confident buying
+      from an unfamiliar brand.
+    avoid: Countdown timers, 'only 3 left in stock,' flash-sale framing. Her objection
+      about made-to-order lead time already primes her toward concern about timing
+      — adding artificial urgency on top of a real timing anxiety will read as manipulative,
+      not motivating.
+  - heuristic: authority_bias
+    why: Gloria's trust architecture is peer-and-family-mediated, not expert-mediated.
+      Her triggers are daughter recommendations and baby shower word-of-mouth — not
+      certifications, clinical claims, or institutional endorsements. There is no
+      evidence in her language or triggers that she seeks or responds to external
+      authority figures.
+    avoid: Expert endorsements, media badges, or 'as seen in' framing that has no
+      connection to her daughter's peer network. Authority only works for Gloria when
+      it is filtered through the daughter's approval — a standalone 'expert recommends'
+      frame has no anchor.
+  - heuristic: temporal_discounting
+    why: Gloria's pain is not acute symptom-relief — it is a persistent, planning-oriented
+      search for the right gift. Her objections explicitly surface shipping time as
+      a concern, which means fast-result framing will heighten anxiety rather than
+      desire. Her purchases are premeditated, not impulse.
+    avoid: '''Get it today,'' ''instant gratification,'' or speed-as-value framing.
+      Shipping timeline reassurance is needed, but it should be presented as reliability
+      and planning confidence, not as a speed advantage.'
+  emotional_position:
+    primary:
+      valence: negative
+      intensity: low
+      rationale: 'Gloria is not in crisis — she is in a state of dull, accumulated
+        dissatisfaction with available options. Both high-intensity pain points (generic
+        gifts, dated Christian gifts) describe a chronic mismatch she has normalized
+        across multiple gift-giving occasions, not a sudden acute failure. Her trigger
+        events are calendar-driven and anticipated, not reactive. The emotional charge
+        is ''I keep settling for things that aren''t quite right'' rather than ''I
+        have to fix this now.'' This places her in LV/LI: quiet dissatisfaction, accepted
+        compromise, low urgency. The fact that she shops with her daughter''s recommendation
+        as a primary trigger suggests she has not been actively searching on her own
+        — she waits for the right option to surface through her network.'
+      use_for: ''
+    secondary:
+      valence: positive
+      intensity: low
+      rationale: 'The secondary quadrant is HV/LI — relief, recognition, and permission.
+        When Gloria finds the right product, her language shifts to warmth and delight
+        (''I wanted something that would make her feel loved and this did it''). The
+        aspiration is not transformation or becoming — it is the quiet satisfaction
+        of finally getting it right. This quadrant governs the payoff creative: the
+        moment she realizes this is the one her daughter will actually love.'
+      use_for: Variant testing ads that lead with the positive resolution rather than
+        the problem — 'the gift that finally feels like you got it right' rather than
+        'tired of generic baby gifts.' Works best for warmer audiences who have already
+        encountered the brand through a daughter's recommendation and need a confidence
+        close, not a problem-activation open.
+  recommended_prompt_pairings:
+  - pairing: tribal_belonging_plus_vulnerability
+    fits_because: Activates social_proof + effect_heuristic. Gloria's purchase is
+      fundamentally about belonging to the same faith-family culture as her daughter.
+      Creative that surfaces the shared identity ('for the grandma who raised her
+      daughter to love what matters') validates her emotional motivation without requiring
+      her to articulate it analytically. Vulnerability framing — 'I just want to give
+      her something that actually means something' — mirrors her own internal language
+      and creates instant recognition.
+  - pairing: reframing_perception_plus_emotional_trigger
+    fits_because: Activates framing_effect + effect_heuristic. Directly resolves her
+      core comparison frame by collapsing the false binary (generic vs. cheesy-religious)
+      and positioning SBG Co. as the third option she didn't know existed. Emotional
+      trigger layer shows the daughter's delight as the proof point, satisfying her
+      social_proof need simultaneously.
+  - pairing: anonymity_plus_social_proof
+    fits_because: Activates social_proof + processing_fluency. 'Overheard grandmother'
+      or 'overheard mom' review format mirrors Gloria's actual discovery pattern —
+      she hears about products through her daughter's network or at baby showers.
+      Keeps the trust architecture peer-originated and avoids the corporate-voice
+      credibility gap she would feel with a brand-authored claim.
+  - pairing: contrast_plus_aspirational_identity
+    fits_because: Activates framing_effect + effect_heuristic. Before/after contrast
+      frame ('the gift that sat in a drawer vs. the one she wore to every church Sunday
+      for six months') maps precisely onto her two documented failure modes. Identity
+      layer speaks to her desire to be the grandmother who gives the gift that matters,
+      not the one who gives the gift that gets returned.
+  - pairing: micro_story_plus_suspense
+    fits_because: Activates salience + effect_heuristic. Short narrative format —
+      a grandmother finding this brand for the first time, texting her daughter a
+      link, getting a heart-eyes reply — mirrors Gloria's own trigger event structure
+      and creates recognition without requiring long-form attention. Works in both
+      primary (LV/LI ache) and secondary (HV/LI relief) quadrants depending on where
+      the story opens.
+  avoid_pairings:
+  - pairing: gamification_plus_time_sensitive_offer
+    avoid_because: Gloria is a deliberate, calendar-driven buyer for whom scarcity
+      and temporal_discounting are both weak heuristics. Urgency mechanics compound
+      her existing anxiety about shipping timelines and made-to-order lead times rather
+      than accelerating a decision. Goal_gradient is also weak — she is buying a one-time
+      gift, not enrolling in a progression.
+  - pairing: shock_factor_plus_transformation_shortcut
+    avoid_because: Wrong intensity for her LV/LI primary quadrant and wrong tone for
+      the warm, sincere brand register she is trusting. Shock or disruption framing
+      reads as the opposite of the 'appropriate and meaningful' quality filter she
+      applies to every gift decision. Would pattern-match to the 'Raising Em Feral'
+      humor-forward products she explicitly does not buy.
+  - pairing: curiosity_plus_reverse_psychology
+    avoid_because: Gloria values directness, warmth, and clarity — her language patterns
+      are 'lovely,' 'precious,' full-sentence and sincere. Contrarian or clever-tease
+      framing violates the authenticity signal she uses to evaluate whether a brand
+      shares her faith-family values. Processing_fluency is a latent positive for
+      her (she wants simplicity and reassurance), making pattern-interrupt mechanics
+      a net negative.
+  source: auto_from_psychology_profiling

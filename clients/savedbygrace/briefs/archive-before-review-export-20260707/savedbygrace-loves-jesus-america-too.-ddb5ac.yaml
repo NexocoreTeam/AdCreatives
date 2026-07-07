@@ -1,0 +1,117 @@
+brief_id: savedbygrace-loves-jesus-america-too.-ddb5ac
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: product_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: slap
+angle: "Category education through a boutique buyer's before-and-after \u2014 she\
+  \ stopped carrying faith apparel, then found one that didn't look churchy and sold\
+  \ through"
+hook: "She pulled faith apparel from her buy two seasons ago. Customers kept passing\
+  \ it.\nShe added one tee back in \u2014 not because it was Christian apparel.\n\
+  Because it was a good boutique tee that happened to say something true.\nThat's\
+  \ a different category than what you've tried before.\n"
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar pain quote I tried carrying Christian apparel before and it just
+  sits there plus framing-effect heuristic boutique lifestyle brand not faith apparel
+hook_tactic: "Storytelling \u2014 drop mid-scene into a buyer's discovery moment,\
+  \ let the result land without editorializing"
+persona: Boutique Buyer Brooke
+creative_mechanic: micro_story_plus_suspense
+visual_format: "Organic-style video \u2014 handheld walk through a boutique lifestyle\
+  \ display, tee visible on a styled rack alongside non-faith pieces, no voiceover,\
+  \ text captions carry the story"
+visual_format_alternatives:
+- "Single static image \u2014 the tee styled on a rack between non-faith boutique\
+  \ pieces (a linen cardigan, a neutral tote), with caption copy telling the story\
+  \ in first person from the buyer's POV"
+- "Slideshow / photo essay \u2014 three images in sequence: an empty rack, the tee\
+  \ going up, customers stopping to read it, with caption text as the narrative thread"
+persona_traits: "Boutique buyer who pulled faith apparel from her assortment after\
+  \ it sat and burned margin \u2014 she is not anti-faith, she is anti-merch-that-doesn't-move,\
+  \ and she needs a reason to believe this one is different"
+pain_point: "Most faith apparel available at wholesale looks like it belongs in a\
+  \ Christian bookstore, not a modern boutique \u2014 her customers skip it on the\
+  \ rack"
+benefit_callouts:
+- Looks like a boutique tee. Reads like a conviction.
+- "The phrase does the selling \u2014 she just has to hang it"
+- "Preshrunk, eco-safe inks \u2014 still crisp after a season on the floor"
+cta: "Find it on Faire \u2014 search SBG Co."
+body_copy: ''
+visual_direction: "The tee lives in a real boutique context \u2014 not a white-background\
+  \ product shot, not a church hallway. It hangs between pieces that have nothing\
+  \ to do with faith. The customer in the frame (if present) is reading the phrase\
+  \ and smiling, not posed. The overall frame says: this fits in your store because\
+  \ it fits in her life."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Brooke is product_aware and methodical \u2014 she's already been burned\
+    \ by faith apparel that didn't sell, so a '3 reasons this tee doesn't look churchy'\
+    \ or '3 signs your wholesale faith apparel is killing your sell-through' structure\
+    \ maps directly to her educational, evidence-seeking buying mindset. The SLAP\
+    \ framework's 'problem' and 'amplify' beats slot naturally into numbered points\
+    \ that mirror how a boutique buyer evaluates a line."
+  production_notes: "Avoid generic religious imagery in the visuals \u2014 every frame\
+    \ should reinforce 'modern boutique aesthetic,' not Christian bookstore, or you'll\
+    \ trigger the exact objection you're trying to overcome."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 2
+  rationale: "Brooke's core hesitation is aesthetic and commercial risk \u2014 she\
+    \ pulled faith apparel because it didn't convert, so directly addressing 'this\
+    \ isn't your typical faith wholesale tee' as an objection-handling hook mirrors\
+    \ her specific before-and-after angle and speaks to a product_aware buyer who\
+    \ needs permission to re-engage the category. The angle 'we're not what you think\
+    \ faith apparel looks like' is a natural evolution of this format."
+  production_notes: "Lead with the boutique sell-through result (e.g. a specific sellout\
+    \ stat or reorder rate) before pivoting to design philosophy \u2014 Brooke buys\
+    \ with her margins, not her faith, so lead with commercial proof."
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Short, warm, educational direct-address piece: 35-75 words, 3 beats, 20-40
+    seconds, delivered as text overlay or VO over simple B-roll / creator content
+    / AI UGC. Beat 1: affectionate audience callout plus one surprising HEDGED fact
+    or identity behavior ("guys, sperm production takes around 74 days", "hot girls
+    put collagen in their morning coffee"). Beat 2: 2-3 emoji-led ingredient-level
+    lines in structure-function language ("X supports Y"), receipts said casually
+    ("studied over 84 days"). Beat 3: product named once plus an effortless close
+    ("easy add", "one pack a day") and an optional smart kicker reframe ("the upgrade,
+    but the foundation goes first"). Light, positive energy: no pain dwelling, no
+    enemy prosecution, no guarantee, no hard CTA, at most one wry aside. REDEFINED
+    2026-06-11 from operator-approved examples; previously misdocumented here as a
+    long 150-300 word confessional monologue (that long form is a different recipe,
+    not this format).'
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "While best_for skews slightly earlier in the funnel, the warm direct-address\
+    \ structure suits the empathy-and-relief hook type in this brief \u2014 Beat 1\
+    \ can affectionately call out boutique buyers who quietly dropped faith apparel,\
+    \ which mirrors Brooke's exact experience and creates immediate recognition before\
+    \ the result reveal. It's a lower-lift format that keeps the story-driven angle\
+    \ intact without requiring heavy production."
+  production_notes: "Keep the tone secular-adjacent and boutique-coded in the B-roll\
+    \ \u2014 show folded tees on a styled retail floor, not a church setting, so the\
+    \ 'not churchy' message lands visually before the VO even starts."
+text_layout: null
+source_matrix_row: null

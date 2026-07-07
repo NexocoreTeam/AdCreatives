@@ -1,0 +1,57 @@
+# Scaffolded by `adc scaffold-competitors` — review before running research:
+#   - fill url per competitor (homepage)
+#   - adjust type (direct|adjacent|switch-from) and priority (tier1-3)
+#   - add amazon_urls ONLY if the exact product is genuinely sold on Amazon
+#   - search queries beat brand handles for VOC; tune them per competitor
+competitors:
+  - name: Elevated Faith
+    slug: elevated-faith
+    url: 'https://elevatedfaith.com'
+    type: direct
+    priority: tier1
+    notes: ''
+    amazon_urls:
+      - https://www.amazon.com/dp/B0C47CR4WN
+    youtube_search_queries:
+      - Elevated Faith review
+      - Elevated Faith vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - Elevated Faith review
+  - name: Kerusso
+    slug: kerusso
+    url: 'https://www.kerusso.com'
+    type: direct
+    priority: tier1
+    notes: ''
+    amazon_urls:
+      - https://www.amazon.com/dp/B096TN1GXH
+    youtube_search_queries:
+      - Kerusso review
+      - Kerusso vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - Kerusso review
+  - name: Simply Southern
+    slug: simply-southern
+    url: 'https://simplysouthern.com'
+    type: direct
+    priority: tier1
+    notes: ''
+    amazon_urls:
+      - https://www.amazon.com/dp/B0DVKVN2X9
+    youtube_search_queries:
+      - Simply Southern review
+      - Simply Southern vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - Simply Southern review
+  - name: SpearmintLOVE
+    slug: spearmintlove
+    url: 'https://www.spearmintlove.com'
+    type: direct
+    priority: tier1
+    notes: ''
+    amazon_urls: []
+    youtube_search_queries:
+      - SpearmintLOVE review
+      - SpearmintLOVE vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - SpearmintLOVE review

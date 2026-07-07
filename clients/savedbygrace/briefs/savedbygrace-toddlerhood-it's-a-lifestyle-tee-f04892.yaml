@@ -1,0 +1,111 @@
+brief_id: savedbygrace-toddlerhood-it's-a-lifestyle-tee-f04892
+client: savedbygrace
+product: Toddlerhood - "It's a Lifestyle" Tee
+awareness_level: product_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: slap
+angle: "Faith apparel that actually sells \u2014 what to look for when you're done\
+  \ stocking things that just sit there"
+hook: "She tried carrying Christian apparel twice.\nBoth times it sat on the rack\
+  \ until she marked it down and moved on.\nThe third time, she looked for something\
+  \ different \u2014 not a faith tee,\na lifestyle brand that happened to carry a\
+  \ faith message.\nThat's the one her customers stopped to read out loud.\n"
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar pain quote I tried carrying Christian apparel before and it just
+  sits there plus gap 3 faith apparel that does not feel churchy
+hook_tactic: "Storytelling \u2014 drop mid-scene into the category problem a boutique\
+  \ buyer already lives, let the product appear as background resolution"
+persona: Boutique Buyer Brooke
+creative_mechanic: micro_story_plus_suspense
+visual_format: "Organic video (UGC style) \u2014 a boutique owner walking her shop\
+  \ floor, pausing at a rack, the tee visible but not hero; voiceover narrates the\
+  \ story while the visual shows the environment the buyer actually lives in"
+visual_format_alternatives:
+- "Scroll-style static carousel \u2014 each card is a line of the story, final card\
+  \ shows the tee styled on a boutique display with the resolution line as overlay\
+  \ text"
+- "Split-screen video \u2014 left side shows generic churchy faith tee on a clearance\
+  \ rack; right side shows the SBG Co. tee being picked up and read by a customer\
+  \ in-store, no voiceover needed"
+persona_traits: Boutique buyer who has already burned margin on faith apparel that
+  wouldn't move and is now quietly forming a picture of what a faith brand would have
+  to look like before she tries again
+pain_point: "Most faith apparel available at wholesale looks like it belongs in a\
+  \ Christian bookstore, not a modern boutique \u2014 her customers skip it on the\
+  \ rack"
+benefit_callouts:
+- "Lifestyle-first framing \u2014 the phrase does the selling before you say a word"
+- Mom-and-mini SKUs let you build a display, not just hang a single piece
+- "Soft enough that customers come back \u2014 ringspun cotton that holds up past\
+  \ the first wash"
+cta: "See how it merchandises \u2014 browse the collection on Faire"
+body_copy: ''
+visual_direction: "Keep the product present but not dominant. The story is about the\n\
+  category failure the buyer already knows \u2014 the tee appears as the\nquiet resolution\
+  \ in the final frame. A real boutique environment\n(warm lighting, wood fixtures,\
+  \ layered product) makes the buyer see\nherself in the scene. The goal is recognition,\
+  \ not admiration.\n"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Brooke is product_aware and methodical \u2014 she's been burned twice\
+    \ and is now actively researching what makes faith apparel actually move. A listicle\
+    \ like '3 things to look for in faith apparel that actually sells in a boutique'\
+    \ maps directly onto her decision-making mode and lets the SLAP framework deliver\
+    \ the payoff (problem acknowledged, solution itemized, action clear)."
+  production_notes: "Anchor each list item to a boutique-specific buying signal (aesthetic\
+    \ fit, margin, reorder velocity) \u2014 avoid generic faith language that reinforces\
+    \ her fear of Christian bookstore vibes."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 2
+  rationale: "Brooke's core objection is not price \u2014 it's sellability \u2014\
+    \ so flipping the objection-handling frame to 'we're not your typical wholesale\
+    \ faith brand, and here's why your customers will actually buy this' directly\
+    \ addresses her twice-burned skepticism. Her product-aware status means she needs\
+    \ reasons, not discovery, and this format delivers structured conviction."
+  production_notes: "Reframe 'not cheap' as 'not generic' \u2014 the hook should pivot\
+    \ immediately to boutique-fit proof points (modern design, customer identity resonance)\
+    \ rather than dwelling on cost justification."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 3
+  rationale: "A Pixar-style animated tee that literally walks into a boutique and\
+    \ says 'I actually sell' would cut through Brooke's scroll fatigue with self-aware\
+    \ humor while signaling that the brand understands modern retail aesthetics \u2014\
+    \ the irony of a faith product using the least 'Christian bookstore' format possible\
+    \ reinforces the angle viscerally."
+  production_notes: "The cringe must be intentional and controlled \u2014 keep the\
+    \ character on-brand (toddler aesthetic, lifestyle tone) so the humor lands as\
+    \ clever rather than undermining the premium boutique positioning Brooke needs\
+    \ to justify to her customers."
+text_layout: null
+source_matrix_row: null

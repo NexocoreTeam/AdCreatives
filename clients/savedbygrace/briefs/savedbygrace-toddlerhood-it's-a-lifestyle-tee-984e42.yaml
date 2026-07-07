@@ -1,0 +1,122 @@
+brief_id: savedbygrace-toddlerhood-it's-a-lifestyle-tee-984e42
+client: savedbygrace
+product: Toddlerhood - "It's a Lifestyle" Tee
+awareness_level: solution_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: fab
+angle: "Reframe: toddlerhood isn't a phase to survive \u2014 it's a full personality\
+  \ your kid is already living, and the right tee signals that mom sees it"
+hook: 'Everybody keeps telling me this is just a phase.
+
+
+  But have you met my toddler?
+
+
+  This is not a phase. This is a whole lifestyle. A complete worldview. An entire
+  operating system running at full volume, all day, with zero apologies.
+
+
+  And honestly? Same.
+
+  '
+hook_type: Curiosity Gap (Intrigue)
+slot: 4
+hook_source: "product unique mechanism \u2014 the phrase It's a Lifestyle reframes\
+  \ toddlerhood as full identity not a phase to endure"
+hook_tactic: "Contrarian \u2014 challenge the assumption that toddlerhood is a phase\
+  \ to get through, then reframe it as identity"
+persona: All-Of-It Amber
+creative_mechanic: reframing_perception_plus_emotional_trigger
+visual_format: "Short-form video (Reels/TikTok style) \u2014 toddler doing something\
+  \ completely unhinged but totally normal (emptying a drawer, narrating breakfast,\
+  \ refusing shoes) while the tee is visible; mom's voiceover delivers the hook"
+visual_format_alternatives:
+- "UGC static photo \u2014 toddler mid-chaos wearing the tee, bold text overlay reading\
+  \ 'not a phase. a lifestyle.' over the image, shot from mom's perspective looking\
+  \ down"
+- "Split-screen video \u2014 left side shows a toddler being a toddler (tantrum, snack\
+  \ demand, toy chaos), right side shows the tee close-up with 'It's a Lifestyle'\
+  \ visible; no voiceover, music only"
+persona_traits: "Self-deprecating millennial mom, 28\u201340, who laughs at the chaos\
+  \ of toddler life and wants her kid's clothes to carry the same confident unbothered\
+  \ energy she tries to bring to parenting"
+pain_point: "She wants to celebrate the wild full-personality stage of toddlerhood\
+  \ rather than just surviving it \u2014 and she wants her kids' clothes to reflect\
+  \ that"
+benefit_callouts:
+- "100% ringspun cotton \u2014 soft enough for a kid who never stops moving"
+- Multiple toddler sizes so it actually fits the lifestyle
+- "Made one at a time \u2014 because your kid deserves better than a shelf pull"
+cta: Get the tee that gets it
+body_copy: ''
+visual_direction: "Unpolished, real-life energy. The toddler is the star. The tee\
+  \ should be visible but never forced into frame \u2014 it's just on, the way it\
+  \ would be on any regular Tuesday. Warm tones, natural light, the kind of footage\
+  \ that makes other moms immediately text it to their group chat."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 1
+  rationale: "Amber's angle leans hard into irreverent celebration of toddler chaos\
+    \ \u2014 an intentionally cringe Pixar-style animated toddler character declaring\
+    \ 'I'm not a phase, I'm a lifestyle' mirrors the brief's reframe perfectly and\
+    \ speaks directly to her meme-aware, scroll-fatigued millennial sensibility. The\
+    \ format's built-in humor bypasses skepticism and lets the personality-forward\
+    \ product angle land without feeling like a sales pitch."
+  production_notes: "Keep the animated toddler's voice and mannerisms authentically\
+    \ chaotic \u2014 resist over-polishing the cringe; the comedy dies if it feels\
+    \ too curated or corporate."
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 2
+  rationale: "The brief's hook is literally a reframe against conventional wisdom\
+    \ ('everybody keeps telling me this is just a phase'), which maps cleanly onto\
+    \ the David vs. Goliath structure of calling out the broken status quo \u2014\
+    \ in this case, the 'survive toddlerhood' cultural narrative \u2014 before positioning\
+    \ the tee as the badge of a mom who sees it differently. Amber is solution-aware\
+    \ and frustrated with the default parenting posture, making her primed for an\
+    \ underdog contrast."
+  production_notes: "The 'Goliath' must be the cultural attitude, not a competitor\
+    \ brand \u2014 avoid anything that reads as punching at other apparel companies,\
+    \ which will feel petty rather than empowering."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "A quick '3 signs your toddler isn't in a phase \u2014 they're just living\
+    \ their best life' structure lets Amber see her specific kid reflected in the\
+    \ copy, reinforcing the core angle that toddlerhood is a full personality worth\
+    \ celebrating and worth wearing. At solution-aware stage she's already nodding\
+    \ along to the premise, so a punchy numbered format converts recognition into\
+    \ click intent efficiently."
+  production_notes: "Each list item must feel like a real toddler behavior observation,\
+    \ not a generic parenting trope \u2014 specificity is what separates a scroll-stopper\
+    \ from a scroll-passer here."
+text_layout: null
+source_matrix_row: null

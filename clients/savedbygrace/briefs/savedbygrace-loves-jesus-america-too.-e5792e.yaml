@@ -1,0 +1,114 @@
+brief_id: savedbygrace-loves-jesus-america-too.-e5792e
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: solution_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: four_cs
+angle: "The unspoken rule of faith apparel is that you have to pick a lane \u2014\
+  \ this shirt quietly proves that was never true"
+hook: "Here's the thing nobody in the faith apparel space wants to admit:\nMost of\
+  \ it makes you choose.\nPreachy or plain. Churchy or cute. Faith or personality.\n\
+  There's this shirt that just says: Loves Jesus + America, Too.\nThe \"Too\" is doing\
+  \ a lot of work.\nLike \u2014 yes, both things. At the same time. On one shirt.\n\
+  Wild that it took this long.\n"
+hook_type: Curiosity Gap (Intrigue)
+slot: 4
+hook_source: competitive-gap faith apparel that doesnt feel churchy or dated plus
+  avatar desire quote a brand that sees her whole identity
+hook_tactic: "Contrarian \u2014 opens by challenging the category assumption (you\
+  \ have to pick one) before the reveal that you don't"
+persona: All-Of-It Amber
+creative_mechanic: contrast_plus_aspirational_identity
+visual_format: "Text-on-product static \u2014 clean close-up of the phrase on the\
+  \ tee, no face, with short punchy copy lines stacked alongside it"
+visual_format_alternatives:
+- "Split-screen video \u2014 left side shows a stiff, dated Christian bookstore tee;\
+  \ right side shows the SBG Co. tee worn casually in a real-life moment. No labels,\
+  \ no commentary."
+- "Talking head reel \u2014 creator holds up the shirt and delivers the 'Too is doing\
+  \ a lot of work' line to camera with dry warmth, then shows it on"
+persona_traits: Values-driven mom who has spent years splitting her wardrobe between
+  what's cute and what actually means something, and never found one thing that was
+  both
+pain_point: "Generic boutique tees and Etsy mom humor shirts are funny but empty \u2014\
+  \ they don't reflect the faith layer that matters to her"
+benefit_callouts:
+- "Faith + patriotism in one phrase \u2014 no explanation required"
+- Wry enough for the cookout, real enough for Sunday
+- The brand that stopped making her choose
+cta: Shop Loves Jesus + America, Too. at SBG Co.
+body_copy: ''
+visual_direction: "Let the phrase carry the image. Close crop on the screen-printed\
+  \ text \u2014 crisp, warm, nothing clinical. \nThe shirt should feel worn-in and\
+  \ real, not stiff or catalog-fresh. \nIf a face appears at all, it's a half-smile,\
+  \ not a billboard grin. \nRed or blue colorway \u2014 whichever reads more immediately\
+  \ as American without being costume-y.\n"
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Amber is solution-aware and frustrated by a broken category \u2014 the\
+    \ angle explicitly calls out the false binary imposed by the faith apparel industry,\
+    \ making David & Goliath a natural fit to name that enemy (generic boutique tees,\
+    \ Etsy humor shirts) and contrast it with a shirt that refuses to choose. The\
+    \ 'unspoken rule' hook and curiosity-gap framing map directly onto this format's\
+    \ 'call out the broken status quo first' structure."
+  production_notes: "Ensure the 'Goliath' isn't a specific named competitor but rather\
+    \ the broader industry norm of forced choice \u2014 this keeps it aspirational\
+    \ rather than litigious and resonates with Amber's identity-driven frustration\
+    \ rather than brand rivalry."
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 2
+  rationale: "The curiosity-gap hook and irreverent angle give permission to lean\
+    \ into a format that is self-aware and disarming \u2014 Amber is scroll-fatigued\
+    \ and has seen every sincere faith-apparel ad, so an obviously stylized Pixar-esque\
+    \ character delivering the 'nobody wants to admit this' hook cuts through without\
+    \ triggering her skepticism toward traditional UGC. The intentional artificiality\
+    \ actually reinforces the brand's refusal to play by category rules."
+  production_notes: "The character voice and script must stay sharp and confident\
+    \ rather than goofy \u2014 cringe works here only if the underlying message lands\
+    \ with conviction, so avoid letting the aesthetic overwhelm the 'faith plus identity'\
+    \ payoff in the final beat."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "Amber is solution-aware, meaning she has already evaluated options and\
+    \ found them lacking \u2014 a '3 reasons most faith tees make you pick a lane\
+    \ (and why this one doesn't)' structure lets her confirm her own frustration while\
+    \ walking her through the Four Cs framework in a digestible, low-friction way.\
+    \ The negative framing variant ('3 things faith apparel brands won't tell you')\
+    \ mirrors the brief's angle of exposing an industry blind spot."
+  production_notes: "Avoid making the list feel like a generic product-feature rundown\
+    \ \u2014 each point must speak directly to the identity tension Amber feels between\
+    \ her faith expression and her aesthetic standards, or the format will read as\
+    \ flat and forgettable."
+text_layout: null
+source_matrix_row: null

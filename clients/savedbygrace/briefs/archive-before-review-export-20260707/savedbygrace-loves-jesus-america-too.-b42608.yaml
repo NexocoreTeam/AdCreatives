@@ -1,0 +1,105 @@
+brief_id: savedbygrace-loves-jesus-america-too.-b42608
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: product_aware
+mental_stage: evaluation
+trigger_moment: ''
+framework: fab
+angle: "Wholesale peer validation \u2014 boutique buyers across the country are reordering\
+  \ this tee because it sells itself off the rack"
+hook: '4,000+ boutiques carry this. Most reorder before their first run sells through.
+
+  That''s not a faith apparel stat. That''s a sell-through story.
+
+  '
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: competitive-gap category skepticism plus Faire 4.7 rating 504 reviews
+  wholesale proof
+hook_tactic: "Statistic anchored to peer behavior \u2014 boutique buyers who chose\
+  \ this and reordered"
+persona: Boutique Buyer Brooke
+creative_mechanic: authority_borrowing_plus_data_insight
+visual_format: "Text-on-product photo \u2014 clean flatlay of the tee with a stat\
+  \ overlay in brand typography"
+visual_format_alternatives:
+- "Carousel static \u2014 slide 1 is the stat hook, slide 2 shows the tee on a boutique\
+  \ rack in a real store environment, slide 3 is a pull quote from a boutique buyer"
+- "Talking head video \u2014 a boutique owner at her rack speaks directly to camera\
+  \ about what happened when she put it on the floor, no script energy, just her words"
+persona_traits: "Boutique owner in a Southern or Midwestern town who has been burned\
+  \ by faith apparel that sat on the rack \u2014 she thinks in units, margin, and\
+  \ reorder velocity, not vibes"
+pain_point: She has burned money on wholesale brands that looked great on Faire but
+  had quality complaints from customers in-store
+benefit_callouts:
+- 4,000+ boutique doors and counting
+- 4.7 stars across 504 wholesale reviews on Faire
+- "Screen printed with eco-safe inks \u2014 no fading complaints"
+cta: "See it on Faire \u2014 then decide"
+body_copy: ''
+visual_direction: "The tee is crisp, laid flat or hanging on a boutique-style wooden\
+  \ hanger. The stat lives as clean bold text overlaid on negative space. Nothing\
+  \ feels promotional \u2014 it feels like a trade publication data point. The color\
+  \ story (red or blue variant) reads as lifestyle-boutique, not Christian bookstore."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Brooke is product_aware and a methodical buyer who needs concrete reasons\
+    \ to commit wholesale dollars \u2014 a '3 reasons boutiques keep reordering this\
+    \ tee' structure maps perfectly to the FAB framework and lets each benefit (sell-through\
+    \ rate, quality, reorder velocity) land as a discrete proof point. The surprising-stat\
+    \ hook feeds directly into the numbered format, giving her the evidence-based\
+    \ case she needs after getting burned on past wholesale bets."
+  production_notes: "Avoid generic claims \u2014 anchor each list point to a specific,\
+    \ verifiable signal (e.g. '4,000+ boutiques,' 'reorder before first run sells\
+    \ through') so it doesn't read like the Faire hype she's already skeptical of."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 2
+  rationale: "Brooke's core pain is quality complaints from real customers in-store,\
+    \ which means her objection isn't price \u2014 it's risk; this format preemptively\
+    \ names that objection and reframes the product's value through supply chain and\
+    \ manufacturing transparency, aligning with the FAB angle that the tee 'sells\
+    \ itself off the rack.' The product_aware awareness level means she already knows\
+    \ the brand and just needs her skepticism dissolved, which is exactly what objection-handling\
+    \ creative is built to do."
+  production_notes: "Shift the hook slightly from price to quality risk \u2014 lead\
+    \ with something like 'We're not the cheapest wholesale tee on Faire, and here's\
+    \ why your customers will thank you for that' to match Brooke's actual fear rather\
+    \ than a cost objection she may not have."
+- format_id: were-sorry
+  name: We're Sorry (Apology Format)
+  summary: Counterintuitive apology format. Image-based, often. "We're sorry [for
+    the thing]." Surprises by scaling well, with low frequency and strong staying
+    power in ad accounts. Best used during sale periods or as a retargeting layer.
+  format_type: static
+  production_complexity: low
+  rank: 3
+  rationale: "As a retargeting layer for a product_aware buyer who has likely already\
+    \ visited the wholesale page, an apology static ad \u2014 'We're sorry your last\
+    \ wholesale brand let your customers down' \u2014 meets her exactly at her documented\
+    \ pain point and creates a sharp, low-friction reentry into the sales conversation.\
+    \ Its low complexity and strong staying power make it a cost-effective complement\
+    \ to the video formats above."
+  production_notes: "Keep copy hyper-specific to the boutique-buyer context and avoid\
+    \ generic sale framing \u2014 the apology must reference her real fear (customer\
+    \ quality complaints) rather than price, or it will read as irrelevant noise."
+text_layout: null
+source_matrix_row: null

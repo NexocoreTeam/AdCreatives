@@ -1,0 +1,15 @@
+{
+  "query": {
+    "label": "reddit-kerusso-honest",
+    "query": "Kerusso honest review experience worth it",
+    "include_domains": [
+      "reddit.com"
+    ],
+    "exclude_domains": [],
+    "num_results": 10,
+    "category": "reddit",
+    "keyword_query": "\"Kerusso\" review"
+  },
+  "fetched_at": "2026-07-06T22:59:13.792729Z",
+  "results": []
+}

@@ -1,0 +1,30 @@
+{
+  "platform": "tiktok",
+  "competitor_slug": "elevated-faith",
+  "competitor_name": "Elevated Faith",
+  "post_id": "7605455942796332302",
+  "post_url": "https://www.tiktok.com/@princesssalyssa/video/7605455942796332302",
+  "post_caption": "never posted this oldey but here we are \ud83c\udf31 my honest review @Elevated Faith \u2728",
+  "post_metrics": {
+    "plays": 181,
+    "diggs": 8,
+    "comments": 1,
+    "shares": 0
+  },
+  "comments": [
+    {
+      "platform": "tiktok",
+      "text": "I love them sm they have cute stuff \ud83d\ude0d",
+      "author": "grxace39",
+      "likes": 0,
+      "reply_count": 0,
+      "posted_at": "2026-02-21T22:37:32.000Z",
+      "comment_id": "7609451237667373844",
+      "post_id": "7605455942796332302",
+      "post_url": "https://www.tiktok.com/@princesssalyssa/video/7605455942796332302",
+      "is_reply": false
+    }
+  ],
+  "fetched_at": "2026-07-06T23:04:46.809626Z",
+  "notes": ""
+}

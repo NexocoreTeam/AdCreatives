@@ -1,0 +1,258 @@
+name: Boutique Buyer Brooke
+demographic: Woman, 30–50, boutique owner or buyer for an independent retail shop
+  in a small-to-mid-size Southern or Midwestern town, annual boutique revenue $200K–$1M,
+  shops Faire as her primary wholesale discovery platform, buys for a customer base
+  that mirrors SBG Co.'s primary persona
+psychographic: Brooke runs a small boutique — possibly from a storefront, possibly
+  a mobile boutique or online-only shop — and her entire job is knowing what her customers
+  will actually buy. She has an instinct for her community and is deeply attuned to
+  the faith-lifestyle-mom intersection because that is her customer base. She is not
+  buying for herself (though she probably loves the product); she is buying as a curator
+  and is acutely aware of margin, reorder velocity, and in-store sell-through.
+pain_points:
+- pain: Most faith apparel available at wholesale looks like it belongs in a Christian
+    bookstore, not a modern boutique — her customers skip it on the rack
+  intensity: high
+  customer_language:
+  - I've tried carrying Christian apparel before and it just sits there
+  - My customers want faith stuff but they don't want to look churchy
+  - I need something with a message that also looks good enough that they'd buy it
+    without the message
+  source: auto_from_brand_context
+- pain: Made-to-order or long lead times create planning complexity — she needs reliable
+    timing for seasonal drops and she can't wait four weeks for restock on a best-seller
+  intensity: medium
+  customer_language:
+  - I love the product but I need to know when it's going to ship before I put it
+    on the buying calendar
+  - If I can't reorder fast enough for the holiday window it doesn't work for my business
+  source: auto_from_brand_context
+- pain: She has burned money on wholesale brands that looked great on Faire but had
+    quality complaints from customers in-store — one bad experience from a wholesale
+    partner can damage her reputation
+  intensity: medium
+  customer_language:
+  - I can't have customers bringing things back because the print cracked after one
+    wash
+  - If I put my name behind something it has to hold up
+  source: auto_from_brand_context
+desires:
+- desire: A brand that practically sells itself because the product names and designs
+    spark conversations in her store and generate organic word-of-mouth
+  customer_language:
+  - I put it on the rack and people were stopping to read it out loud and laugh
+  - The phrase does the selling, I don't have to say anything
+  - I've had people come back and ask specifically for more from that brand
+- desire: A wholesale partner with enough SKU depth and coordinating kids/women options
+    that she can build a display, not just hang a few one-offs
+  customer_language:
+  - I want to be able to do a whole moment with it — a table, a wall, a vibe
+  - The mom-and-mini angle is so good for gifting displays around the holidays
+objections:
+- Made to order — can I get inventory in the quantities and timing I need for peak
+  seasons?
+- The retail price point ($28–50) needs to work with my keystone markup — what's the
+  wholesale margin?
+- Will this product still feel fresh and sell-through six months from now or is it
+  too trendy?
+- How exclusive is the distribution — will my customers see this at every boutique
+  in town?
+current_solutions:
+- Other Faire wholesale graphic tee brands with no faith dimension — sells fine but
+  not differentiated
+- Kerusso or mass-market Christian wholesale — faith-aligned but feels too traditional
+  for her boutique aesthetic
+- Local or regional graphic tee brands — community appeal but limited catalog depth
+- Mainstream lifestyle brands like PinkLily wholesale adjacent — trend-forward but
+  no faith lane
+trigger_events:
+- She browses Faire's trending section and sees SBG Co. with 4,600+ orders and a strong
+  review count — credibility signal triggers investigation
+- A customer walks into her boutique wearing an SBG Co. piece and several other customers
+  ask where it's from — she searches the brand the same day
+- A fellow boutique owner in a different market raves about a brand in their shared
+  buyer Facebook group or trade show conversation
+- She has a holiday buying window coming up (Fourth of July, Christmas) and is actively
+  looking for something that bridges faith and seasonal for her Southern customer
+  base
+- She sees SBG Co. featured in a press mention (Today Show) and interprets national
+  press as a product quality and demand signal
+awareness_level: product_aware
+language_patterns:
+- Business-practical and efficient — talks in terms of units, margin, sell-through,
+  and reorder velocity
+- Community-instinct language — 'my customers,' 'my girls,' 'my town,' 'what works
+  for us'
+- Discovery pride — 'I found this on Faire,' 'I was the first boutique in my area
+  to carry it'
+- 'Compliment pass-through — she reports customer reactions as social proof: ''I had
+  three people stop and read it out loud'''
+- Faith vocabulary is present but practical — she frames it as what her customer wants,
+  not her own personal expression
+psychology_profile:
+  dominant_heuristics:
+  - heuristic: social_proof
+    confidence: high
+    why: Every trigger event and desire expression is mediated through peer validation
+      — Faire order counts, customer reactions in-store, and fellow buyer recommendations
+      are the actual purchase levers, not brand claims.
+    evidence:
+    - 'trigger_events[0]: ''She browses Faire''s trending section and sees SBG Co.
+      with 4,600+ orders and a strong review count — credibility signal triggers investigation'''
+    - 'trigger_events[2]: ''A fellow boutique owner in a different market raves about
+      a brand in their shared buyer Facebook group or trade show conversation'''
+    - 'trigger_events[1]: ''A customer walks into her boutique wearing an SBG Co.
+      piece and several other customers ask where it''s from — she searches the brand
+      the same day'''
+    - 'language_patterns: ''Compliment pass-through — she reports customer reactions
+      as social proof: I had three people stop and read it out loud'''
+    - 'desires[0] customer_language: ''I put it on the rack and people were stopping
+      to read it out loud and laugh'' and ''I''ve had people come back and ask specifically
+      for more from that brand'''
+    ad_implications: 'Lead with proof at the wholesale peer layer — Faire order volume,
+      boutique owner testimonials, and buyer Facebook group language. Mirror her ''compliment
+      pass-through'' pattern: show the downstream social proof chain (her customers
+      reacting) not just end-consumer reviews. Never lead with brand claims; let a
+      fellow buyer''s voice open the ad.'
+  - heuristic: framing_effect
+    confidence: high
+    why: Her core pain is a reframe problem — she has already tried faith apparel
+      and lost money on it; the entire decision hinges on whether SBG Co. can be repositioned
+      from 'Christian bookstore merch' to 'boutique-worthy faith lifestyle product.'
+      Every objection she surfaces is a framing contest.
+    evidence:
+    - 'pain_points[0] customer_language: ''My customers want faith stuff but they
+      don''t want to look churchy'' — the word ''churchy'' is her frame for the category
+      she is rejecting'
+    - 'pain_points[0] customer_language: ''I need something with a message that also
+      looks good enough that they''d buy it without the message'' — explicit frame-stacking
+      request'
+    - 'current_solutions: ''Kerusso or mass-market Christian wholesale — faith-aligned
+      but feels too traditional for her boutique aesthetic'' — she is already doing
+      comparative frame rejection'
+    - 'objections: ''Will this product still feel fresh and sell-through six months
+      from now or is it too trendy?'' — a longevity vs. trend framing contest'
+    ad_implications: 'Never position SBG Co. inside the ''faith apparel'' category
+      frame. Position it as a boutique lifestyle brand that happens to carry a faith
+      message — lead with the aesthetic and sell-through story, let the faith dimension
+      surface as a differentiator, not the category label. Use her own language: ''looks
+      good enough they''d buy it without the message.'''
+  - heuristic: authority_bias
+    confidence: medium
+    why: National press and platform-level credibility signals (Today Show mention,
+      Faire order count) are cited as legitimizing triggers — she interprets third-party
+      institutional validation as a demand and quality proxy, which is a specific
+      form of authority bias filtered through business risk reduction.
+    evidence:
+    - 'trigger_events[4]: ''She sees SBG Co. featured in a press mention (Today Show)
+      and interprets national press as a product quality and demand signal'''
+    - 'trigger_events[0]: Faire''s 4,600+ orders functions as platform-authority proof,
+      not just social proof — it''s a credibility threshold, not a community signal'
+    - 'pain_points[2]: ''She has burned money on wholesale brands that looked great
+      on Faire but had quality complaints from customers in-store'' — her authority
+      appetite is driven by risk of reputational damage, not aspiration'
+    ad_implications: Deploy press mentions, Faire ranking signals, and wholesale credibility
+      markers early in the funnel — these function as risk-reduction authority for
+      a buyer who has been burned before. Frame authority as 'vetted by people with
+      more information than I have,' not as celebrity endorsement. A Today Show chyron
+      or Faire Top Seller badge does more work than a founder testimonial.
+  weak_heuristics:
+  - heuristic: scarcity
+    why: Her objections explicitly flag made-to-order and lead time as business risks
+      — artificial scarcity reads as a supply reliability threat, not a motivator.
+      She is a deliberate seasonal planner, not an impulse buyer.
+    avoid: Countdown timers, 'limited run' framing, or drop-model urgency mechanics.
+      These pattern-match to the exact supply unreliability she is already worried
+      about and will suppress, not accelerate, the purchase decision.
+  - heuristic: temporal_discounting
+    why: Her buying calendar is seasonal and pre-planned — she is thinking in six-month
+      windows ('holiday window,' 'Fourth of July,' 'Christmas'), not immediate gratification.
+      She explicitly objects to brands that can't deliver on her timeline, which is
+      the opposite of impulsive short-termism.
+    avoid: Fast-result promises, 'sell out by the weekend' copy, or any framing that
+      collapses her planning horizon. Her decision is slow and business-rational.
+  - heuristic: effect_heuristic
+    why: She explicitly separates her personal affinity for the product from her buying
+      decision — 'she is not buying for herself (though she probably loves the product).'
+      Her purchase language is units, margin, and sell-through velocity, not vibes
+      or aesthetics.
+    avoid: Purely sensory or emotional hooks that don't connect to business outcomes.
+      Aesthetic appeal is necessary but not sufficient — it must convert to a sell-through
+      argument or it stalls her decision.
+  emotional_position:
+    primary:
+      valence: negative
+      intensity: low
+      rationale: 'Her dominant pain is not acute crisis — it is dull accumulated frustration:
+        she has tried faith apparel, it sat on the rack, she burned margin, she stopped
+        carrying it. Pain intensity on the aesthetic-fit problem is rated high, but
+        the emotional register is resigned compromise (''I''ve tried carrying Christian
+        apparel before and it just sits there''), not fear-acute urgency. She is managing
+        a known gap in her store''s category mix, not bleeding. Trigger events are
+        discovery-mode (browsing Faire, overhearing a customer reaction) — passive
+        signals, not active crisis seeking. This places her in LV/LI: quiet dissatisfaction
+        with an accepted category gap she has learned to work around.'
+      use_for: ''
+    secondary:
+      valence: positive
+      intensity: low
+      rationale: 'Her desire language is relief and permission — ''I put it on the
+        rack and people were stopping to read it out loud and laugh,'' ''the phrase
+        does the selling, I don''t have to say anything.'' The aspiration is low-friction
+        curation success: finding the brand that makes her look smart and takes work
+        off her plate. This is HV/LI: the quiet win of the right product fitting perfectly
+        into her store without drama.'
+      use_for: Variant testing the positive resolution frame — the boutique owner
+        who finally found the faith brand that works. Use when reaching warmer audiences
+        who already follow boutique buyer content or Faire discovery channels. Anchor
+        in the relief of the discovery, not the frustration of the gap.
+  recommended_prompt_pairings:
+  - pairing: anonymity_plus_social_proof
+    fits_because: Activates social_proof + processing_fluency. Mirrors her actual
+      discovery behavior — she trusts overheard buyer conversations and Faire review
+      counts more than brand-originated claims. 'Overheard in a buyer Facebook group'
+      or 'a boutique owner in [similar market] said' format matches her trust architecture
+      exactly.
+  - pairing: tribal_belonging_plus_vulnerability
+    fits_because: Activates social_proof + framing. She self-identifies through community
+      language ('my customers,' 'my girls,' 'my town') and her buying decisions are
+      acts of community curation. A 'boutique owners who get their customer' tribal
+      frame collapses her resistance by positioning SBG Co. as the brand for buyers
+      who already understand their community — she wants to be in that group.
+  - pairing: reframing_perception_plus_emotional_trigger
+    fits_because: Activates framing_effect directly — her entire objection structure
+      is a category reframe problem. Copy that explicitly names and rejects the 'Christian
+      bookstore' frame before she has to ('This isn't the faith apparel that sat on
+      your rack') does the cognitive work she's already doing and accelerates trust.
+  - pairing: authority_borrowing_plus_data_insight
+    fits_because: Activates authority_bias + framing. Lets SBG Co. deploy Faire order
+      volume, press mentions, and sell-through data as risk-reduction authority signals
+      — speaks directly to her 'I've been burned before' objection and converts business
+      data into purchase confidence.
+  - pairing: contrast_plus_aspirational_identity
+    fits_because: Activates framing_effect + effect heuristic in a business context.
+      Before/after frame ('the version of your store that has a faith section that
+      actually sells vs. the one where it sits') fits her category-gap awareness and
+      her desire to be the boutique that discovered the right brand first.
+  - pairing: micro_story_plus_suspense
+    fits_because: 'Activates salience + social_proof via narrative. A short buyer
+      story (''I almost didn''t order it — then I saw the Faire numbers'') mirrors
+      her trigger event pattern and keeps proof architecture peer-originated. Works
+      in both primary and secondary quadrant: can open in the gap or the resolution.'
+  avoid_pairings:
+  - pairing: gamification_plus_time_sensitive_offer
+    avoid_because: Violates her deliberate seasonal planning posture and activates
+      her supply-reliability objection. Scarcity is a weak heuristic; temporal_discounting
+      is a weak heuristic. Urgency mechanics signal exactly the kind of unreliable
+      wholesale partner she has already been burned by.
+  - pairing: shock_factor_plus_transformation_shortcut
+    avoid_because: Wrong intensity for LV/LI primary quadrant and triggers her anti-hype
+      business filter. She is a practical curator, not a transformation seeker — disruption
+      framing reads as desperate rather than credible and undermines the authority
+      signals she actually responds to.
+  - pairing: curiosity_plus_reverse_psychology
+    avoid_because: Her language patterns are business-practical and efficiency-oriented
+      — she talks in units and margin, not riddles. Clever or contrarian-tease framing
+      erodes the straightforward credibility she is looking for in a wholesale partner
+      and wastes the limited attention she gives to Faire discovery browsing.
+  source: auto_from_psychology_profiling

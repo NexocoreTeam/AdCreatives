@@ -1,0 +1,99 @@
+brief_id: savedbygrace-loves-jesus-america-too.-ae4f98
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: product_aware
+mental_stage: evaluation
+trigger_moment: ''
+framework: slap
+angle: "Boutique buyers who skipped faith apparel for years are now reordering this\
+  \ tee \u2014 the sell-through data gives permission to a skeptical buyer"
+hook: 'She almost didn''t carry it. "I''ve tried Christian tees before and they just
+  sit there." Then she sold through her first order before the month was out.
+
+  '
+hook_type: Surprising Stat (Social Proof / Credibility)
+slot: 1
+hook_source: "avatar pain point \u2014 I tried carrying Christian apparel before and\
+  \ it just sits there + evaluation mental stage permission framing"
+hook_tactic: "Specific stat with a story \u2014 lead with a peer-validated number\
+  \ that collapses risk for a buyer who's been burned before"
+persona: Boutique Buyer Brooke
+creative_mechanic: anonymity_plus_social_proof
+visual_format: "UGC-style static \u2014 close-up of the tee folded on a boutique display\
+  \ table with a handwritten reorder note or Faire screenshot visible nearby"
+visual_format_alternatives:
+- "Testimonial pull-quote card \u2014 clean text-on-neutral-background graphic showing\
+  \ the buyer quote in her own words alongside a star rating, no product photo needed"
+- "Split-screen video \u2014 left side shows a generic preachy-looking faith tee on\
+  \ a rack untouched, right side shows the SBG tee being lifted off the rack by a\
+  \ customer mid-laugh"
+persona_traits: Boutique owner in a Southern or Midwestern town who burned margin
+  on faith apparel that wouldn't move and swore off the category until she saw something
+  that actually matched her floor's aesthetic
+pain_point: "Most faith apparel at wholesale looks like it belongs in a Christian\
+  \ bookstore \u2014 her customers skip it on the rack"
+benefit_callouts:
+- "Sells itself \u2014 the phrase does the work"
+- "Screen printed to last \u2014 no cracked ink after the first wash"
+- "Preshrunk soft fabric \u2014 no size surprises at reorder"
+cta: See why boutiques keep reordering it
+body_copy: ''
+visual_direction: "Warm boutique atmosphere \u2014 the tee looks like it belongs next\
+  \ to the candles and leather journals, not in a church gift shop. Show it in context,\
+  \ not on a white background."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Boutique Buyer Brooke is product_aware and methodical \u2014 she's already\
+    \ seen faith apparel fail, so a \"3 reasons this tee sells through\" listicle\
+    \ directly addresses her skepticism with the data-driven permission structure\
+    \ the SLAP angle demands. The numbered format mirrors how a buyer thinks: show\
+    \ me the evidence, fast."
+  production_notes: "Lead with the sell-through stat in reason #1 and avoid churchy\
+    \ aesthetics in visuals \u2014 every frame should feel like a boutique floor,\
+    \ not a Sunday school classroom."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 2
+  rationale: "Brooke's core objection isn't price \u2014 it's dead inventory risk,\
+    \ which is functionally the same skepticism this format is built to dismantle;\
+    \ flipping the hook to 'We're not easy to carry, and that's exactly why it sells'\
+    \ mirrors her buyer logic and the credibility angle. The objection-handling structure\
+    \ maps cleanly onto a product_aware persona who needs permission, not education."
+  production_notes: "Reframe the objection away from cost and toward sell-through\
+    \ proof \u2014 resist defaulting to price justification since her resistance is\
+    \ about customer indifference to faith apparel, not wholesale margin."
+- format_id: were-sorry
+  name: We're Sorry (Apology Format)
+  summary: Counterintuitive apology format. Image-based, often. "We're sorry [for
+    the thing]." Surprises by scaling well, with low frequency and strong staying
+    power in ad accounts. Best used during sale periods or as a retargeting layer.
+  format_type: static
+  production_complexity: low
+  rank: 3
+  rationale: "A counterintuitive apology static \u2014 'We're sorry your last faith\
+    \ tee is still on the rack' \u2014 hits Brooke's exact pain point with pattern-interrupt\
+    \ energy and the surprising-stat hook type translates well into a bold one-liner\
+    \ overlay. Its low complexity makes it an efficient retargeting layer after the\
+    \ video formats have primed her awareness."
+  production_notes: "Keep copy tightly focused on the dead-inventory pain, not generic\
+    \ brand apology tropes \u2014 the image should show a stylish boutique rack context,\
+    \ not religious iconography, to signal this brand understands her world."
+text_layout: null
+source_matrix_row: null

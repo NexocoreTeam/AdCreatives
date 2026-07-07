@@ -1,0 +1,37 @@
+{
+  "competitor": {
+    "name": "SpearmintLOVE",
+    "slug": "spearmintlove",
+    "url": "https://www.spearmintlove.com",
+    "type": "direct",
+    "priority": "tier1",
+    "notes": "",
+    "amazon_urls": [],
+    "foreplay_brand_id": "",
+    "tiktok_handle": "",
+    "tiktok_post_urls": [],
+    "tiktok_search_queries": [
+      "SpearmintLOVE review"
+    ],
+    "instagram_handle": "",
+    "instagram_post_urls": [],
+    "instagram_hashtags": [],
+    "youtube_channel_id": "",
+    "youtube_handle": "",
+    "youtube_video_ids": [],
+    "youtube_search_queries": [
+      "SpearmintLOVE review",
+      "SpearmintLOVE vs Saved by Grace Co. (SBG Co.)"
+    ]
+  },
+  "vendor": "judgeme",
+  "reviews": [],
+  "scraped_pages": [
+    "https://spearmintlove.com/products/cactus-boy-cushion-cover",
+    "https://spearmintlove.com/products/snorkeling-adventure-newborn-sticker",
+    "https://spearmintlove.com/products/s-is-for-santa-board-book",
+    "https://spearmintlove.com/products/organic-cotton-ferris-wheel-button-tee"
+  ],
+  "fetched_at": "2026-07-06T22:25:44.132660Z",
+  "notes": "No reviews extracted from 4 page(s). Detected vendors: judgeme. Vendor diagnostics: judgeme: v1 widget endpoint empty; widget-XHR also returned 0 \u2014 store may have no reviews for this product, or reviews are token-locked; for a client-owned store, export from the Judge.me dashboard into voc/ instead (pipeline-rules rule 6)"
+}

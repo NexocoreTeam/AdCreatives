@@ -1,0 +1,15 @@
+{
+  "query": {
+    "label": "reddit-saved-by-grace-co-sbg-co-honest",
+    "query": "Saved by Grace Co. (SBG Co.) honest review experience worth it",
+    "include_domains": [
+      "reddit.com"
+    ],
+    "exclude_domains": [],
+    "num_results": 10,
+    "category": "reddit",
+    "keyword_query": "\"Saved by Grace Co. (SBG Co.)\" review"
+  },
+  "fetched_at": "2026-07-06T22:57:31.682090Z",
+  "results": []
+}

@@ -1,0 +1,74 @@
+name: Auto-drafted — please review and rename
+demographic: Women ages 25–45, faith-leaning, likely married with young children (infants
+  through elementary school age), living in the South or Midwest, income suggesting
+  boutique-level discretionary spending ($50–100+ on apparel), socially active on
+  Instagram/Facebook, identifies as Christian without being overtly religious in a
+  performative way
+psychographic: ''
+pain_points:
+- pain: Can't find faith apparel that doesn't look dated, preachy, or embarrassing
+    to wear in public
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Wants to express her faith and her personality simultaneously but the market
+    makes her choose
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Existing mom humor brands don't have a faith dimension; existing faith brands
+    don't have humor
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Wants pieces that coordinate with her kids' outfits (mom-and-mini) but can't
+    find a single brand that does both well
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Tired of faith apparel that feels like it belongs in a church bookstore, not
+    a modern boutique
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+- pain: Wants to buy gifts for new moms, grandchildren, and other moms but struggles
+    to find anything that feels personal and meaningful vs. generic
+  intensity: medium
+  customer_language: []
+  source: auto_from_site_signals
+desires:
+- desire: To wear her faith as a natural expression of who she is — not a performance
+    or a statement
+  customer_language: []
+- desire: To feel seen as a modern mom who is funny, proud, faithful, and stylish
+    all at once
+  customer_language: []
+- desire: To find mom-and-mini pieces that look intentional and coordinated without
+    being matchy-matchy corny
+  customer_language: []
+- desire: To give gifts that feel personal, funny, and meaningful — things that will
+    actually get worn
+  customer_language: []
+- desire: To support a brand that feels like her — small, real, American-made, community-first
+  customer_language: []
+- desire: To express America pride in a way that feels celebratory rather than political
+    or aggressive
+  customer_language: []
+objections:
+- 14-business-day production time is a long wait — might miss a gifting window
+- No returns for refund (store credit only) — risk if sizing is wrong
+- Made-to-order means I can't see it in person before buying
+- Is the quality worth the price vs. Amazon or Etsy alternatives?
+- Will it actually look as good as the photos when it arrives?
+trigger_events:
+- Just had a baby or a friend/family member just had a baby (gift purchase trigger)
+- Mother's Day, Christmas, birthday occasion approaching
+- 4th of July / patriotic holiday season
+- Back to school — new kids wardrobe refresh
+- Saw a friend wearing an SBG piece and got compliments (social proof trigger)
+- Scrolling Instagram and a mom-and-mini matching photo stops the feed
+- New season / wardrobe refresh moment
+- Feeling unseen or frustrated with bland faith apparel options
+awareness_level: solution_aware
+language_patterns: []
+current_solutions: []

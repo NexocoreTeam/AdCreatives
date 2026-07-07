@@ -1,0 +1,121 @@
+brief_id: savedbygrace-loves-jesus-america-too.-7ef4eb
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: problem_aware
+mental_stage: purchase
+trigger_moment: ''
+framework: pas
+angle: Daughter's delighted reaction as the emotional payoff that retroactively justifies
+  the purchase decision
+hook: 'She texted me a photo of the baby wearing it at church.
+
+  Just the photo. No words.
+
+  That was the whole review.
+
+  '
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar desire quote - my daughter said it was her favorite gift from
+  the shower
+hook_tactic: "Storytelling \u2014 drop mid-moment into a real purchase story, then\
+  \ land on the relief of the right outcome"
+persona: Grandma Gift-Giver Gloria
+creative_mechanic: micro_story_plus_suspense
+visual_format: "UGC-style static photo \u2014 grandmother holding the tee up toward\
+  \ camera, soft natural light, warm home background"
+visual_format_alternatives:
+- "Lifestyle photo of the onesie laid flat on a wooden surface next to a handwritten\
+  \ card \u2014 gift-ready, no model needed"
+- 'Short looping video: hands unfolding the tee from tissue paper, slow reveal of
+  the phrase, no voiceover'
+persona_traits: "Grandmother, 55\u201372, buying a baby shower gift for her daughter,\
+  \ wants something with meaning behind it but has been burned by dated Christian\
+  \ gifts her daughter quietly put in a box"
+pain_point: "Baby gifts from big box stores feel generic and impersonal \u2014 nothing\
+  \ reflects the family's actual faith"
+benefit_callouts:
+- Faith she'll actually wear
+- Soft enough for newborn skin
+- A gift with a story behind it
+cta: Get her one she'll actually put on the baby.
+body_copy: ''
+visual_direction: "Warm, lived-in home context \u2014 not a product shot. The tee\
+  \ should look like it belongs in a real family's Sunday morning, not a white-background\
+  \ studio. Evoke the feeling of a text you'd actually send your mom."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: tiktok-love-letter
+  name: TikTok Love Letter
+  summary: 'Short, warm, educational direct-address piece: 35-75 words, 3 beats, 20-40
+    seconds, delivered as text overlay or VO over simple B-roll / creator content
+    / AI UGC. Beat 1: affectionate audience callout plus one surprising HEDGED fact
+    or identity behavior ("guys, sperm production takes around 74 days", "hot girls
+    put collagen in their morning coffee"). Beat 2: 2-3 emoji-led ingredient-level
+    lines in structure-function language ("X supports Y"), receipts said casually
+    ("studied over 84 days"). Beat 3: product named once plus an effortless close
+    ("easy add", "one pack a day") and an optional smart kicker reframe ("the upgrade,
+    but the foundation goes first"). Light, positive energy: no pain dwelling, no
+    enemy prosecution, no guarantee, no hard CTA, at most one wry aside. REDEFINED
+    2026-06-11 from operator-approved examples; previously misdocumented here as a
+    long 150-300 word confessional monologue (that long form is a different recipe,
+    not this format).'
+  format_type: video
+  production_complexity: low
+  rank: 1
+  rationale: "Gloria is a warm, community-driven grandma whose entire emotional arc\
+    \ is about identity and belonging \u2014 buying a gift that reflects the family's\
+    \ actual faith. The Love Letter format's affectionate callout and identity-affirming\
+    \ structure mirrors exactly how she processes this purchase: not as a transaction\
+    \ but as an act of love validated by her daughter's silent, photo-only response."
+  production_notes: "Keep the VO soft and grandmotherly \u2014 avoid any tone that\
+    \ reads as sales-y or corporate, since Gloria's skepticism of big-box generics\
+    \ is the very pain point being resolved."
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 2
+  rationale: "The brief's core pain is that big-box stores sell generic, faithless\
+    \ baby gifts \u2014 a perfect 'Goliath' villain Gloria already resents. Framing\
+    \ Target or Amazon as the cold, impersonal enemy and this product as the meaningful\
+    \ underdog will land hard for a problem-aware buyer who has already felt the sting\
+    \ of gifting something that meant nothing."
+  production_notes: Name the category enemy (e.g. 'big box baby aisles') but avoid
+    naming specific retailers by name to sidestep legal risk while keeping the contrast
+    emotionally sharp.
+- format_id: tiktok-short-pov
+  name: TikTok Short / POV
+  summary: 'One or two lines TOPS over a candid clip of a real person in a mundane
+    real moment (at a desk, on a Zoom call). Two line registers: (a) a meme-native
+    identity flex / after-state self-aware joke borrowed from caption formats live
+    in the operator''s own feed right now ("Healed so hard I''m almost as weird as
+    I was in middle school", "Serving looks and spreadsheets"), or (b) a POV scenario
+    open ("POV: ..."). The line never makes a product claim; the person is thriving
+    and the line carries the vibe. Brand presence stays minimal (account, caption,
+    product casually in frame). Visual: a single candid clip with natural motion,
+    or the stronger locked-camera variation cut (same seat, two outfits = two days).
+    Never a dead static clip. Primary job: the rapid, cheap messaging TEST BED; winning
+    lines graduate into love letters, creator briefs, and paid hooks. Also the easiest
+    iteration on an existing winner: keep the line, swap the background and the face.
+    Spec refined 2026-06-11 from operator-provided source examples.'
+  format_type: video
+  production_complexity: low
+  rank: 3
+  rationale: "The hook 'She texted me a photo of the baby wearing it at church. Just\
+    \ the photo. No words.' is already written as a one-line POV caption \u2014 it\
+    \ needs almost no adaptation. Dropping that line over a candid clip of a grandma\
+    \ looking at her phone delivers the empathy-plus-relief beat instantly for a problem-aware\
+    \ scroller who has felt the same gift-giving anxiety."
+  production_notes: "The candid clip must feel genuinely mundane and unpolished \u2014\
+    \ a too-polished 'grandma moment' will break the authenticity and undercut the\
+    \ emotional payoff of the silent photo reveal."
+text_layout: null
+source_matrix_row: null

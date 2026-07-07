@@ -29,6 +29,9 @@ clients/*/
 !clients/sbg-co/
 !clients/sbg-co-fresh/
 !clients/savedbygrace/
+# ...but its generated media stays out (repo rule: no images outside references/)
+clients/savedbygrace/**/*.png
+clients/savedbygrace/**/*.jpg
 !clients/secondkind/
 !clients/secondkind-bold/
 

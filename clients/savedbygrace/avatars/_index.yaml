@@ -1,0 +1,16 @@
+personas:
+- id: primary
+  name: All-Of-It Amber
+  role: primary
+  awareness_level: solution_aware
+  confidence: high
+- id: secondary
+  name: Grandma Gift-Giver Gloria
+  role: secondary
+  awareness_level: problem_aware
+  confidence: high
+- id: tertiary
+  name: Boutique Buyer Brooke
+  role: tertiary
+  awareness_level: product_aware
+  confidence: medium

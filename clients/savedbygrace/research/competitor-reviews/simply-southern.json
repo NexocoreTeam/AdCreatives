@@ -1,0 +1,36 @@
+{
+  "competitor": {
+    "name": "Simply Southern",
+    "slug": "simply-southern",
+    "url": "https://simplysouthern.com",
+    "type": "direct",
+    "priority": "tier1",
+    "notes": "",
+    "amazon_urls": [
+      "https://www.amazon.com/dp/B0DVKVN2X9"
+    ],
+    "foreplay_brand_id": "",
+    "tiktok_handle": "",
+    "tiktok_post_urls": [],
+    "tiktok_search_queries": [
+      "Simply Southern review"
+    ],
+    "instagram_handle": "",
+    "instagram_post_urls": [],
+    "instagram_hashtags": [],
+    "youtube_channel_id": "",
+    "youtube_handle": "",
+    "youtube_video_ids": [],
+    "youtube_search_queries": [
+      "Simply Southern review",
+      "Simply Southern vs Saved by Grace Co. (SBG Co.)"
+    ]
+  },
+  "vendor": "none",
+  "reviews": [],
+  "scraped_pages": [
+    "https://simplysouthern.com"
+  ],
+  "fetched_at": "2026-07-06T22:25:32.343394Z",
+  "notes": "No product pages found for https://simplysouthern.com. Site may not be Shopify, or sitemap//products.json is unavailable."
+}

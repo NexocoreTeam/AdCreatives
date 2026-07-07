@@ -1,0 +1,106 @@
+brief_id: savedbygrace-loves-jesus-america-too.-07ebf8
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: solution_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: quest
+angle: "The search that ends here \u2014 she typed 'cute Christian tees that don't\
+  \ look churchy' and finally found what she was looking for"
+hook: "She typed \"cute Christian tees that don't look churchy\" into Pinterest at\
+  \ 11pm.\nSound familiar?\n\nHere's the thing \u2014 the ones that look good don't\
+  \ say anything real.\nAnd the ones that say something real look like you're handing\
+  \ out a tract at Target.\n\nThat's not a you problem. That's a category problem.\n\
+  \nThe good news: a tee that says *Loves Jesus + America, Too.* exists \u2014\nand\
+  \ it's the kind of thing you put on for church and then just\u2026 never take off.\n"
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: avatar pain I want to wear my faith but not look like Im handing out
+  a tract + Pinterest trigger event
+hook_tactic: "Storytelling \u2014 open mid-scene in the frustration moment, land on\
+  \ the relief"
+persona: All-Of-It Amber
+creative_mechanic: tribal_belonging_plus_vulnerability
+visual_format: "UGC-style carousel \u2014 first frame is a relatable 'the search'\
+  \ moment (phone screen showing a Pinterest search), subsequent frames show the tee\
+  \ worn casually in real life settings (school pickup, cookout, grocery run)"
+visual_format_alternatives:
+- "Talking-head video \u2014 woman speaks directly to camera in a casual, group-chat\
+  \ tone recounting the failed search, cuts to her wearing the tee"
+- "Text-on-lifestyle-photo static \u2014 bold overlay text reads the hook line over\
+  \ a candid photo of the shirt being worn, no studio setup"
+persona_traits: "Southern or Midwest mom, 28\u201340, who keeps striking out on faith\
+  \ apparel because everything is either too churchy or too empty \u2014 she wants\
+  \ one shirt that tells the whole story without trying too hard"
+pain_point: "Faith apparel looks dated and preachy \u2014 she can't find anything\
+  \ that reflects both her faith and her real life without looking like a church handout"
+benefit_callouts:
+- Faith-forward without the tract energy
+- Soft enough to live in, strong enough to mean something
+- "Made to order in Charlotte, NC \u2014 not mass-printed to a shelf"
+cta: Find the tee that finally fits who you actually are
+body_copy: ''
+visual_direction: "Warm, real-life settings \u2014 not a studio. The tee should appear\
+  \ in the context of an ordinary Tuesday, worn by someone who looks like she could\
+  \ be in Amber's group chat. The vibe is recognition, not aspiration."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Amber is solution-aware and actively frustrated with the broken status\
+    \ quo of faith apparel \u2014 she's already searched, already been disappointed,\
+    \ and needs to see someone call out exactly what's wrong with the category before\
+    \ presenting an alternative. The 'enemy' here is generic churchy merch, and this\
+    \ format lets the brand contrast itself as the underdog who actually gets her\
+    \ aesthetic and her faith simultaneously."
+  production_notes: "The 'Goliath' must be the category norm (preachy, dated tees),\
+    \ not a named competitor \u2014 keep it relatable and empathetic, not combative,\
+    \ so it mirrors Amber's internal frustration rather than feeling like brand beef."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "A solution-aware Amber who typed that Pinterest search at 11pm is in\
+    \ research mode \u2014 she wants validation that this brand checks every box she's\
+    \ been failing to find elsewhere. A '3 reasons this tee doesn't look churchy'\
+    \ listicle maps directly onto her mental checklist and gives her permission to\
+    \ convert by systematically resolving each objection."
+  production_notes: "Avoid generic copy like 'high quality fabric' \u2014 each list\
+    \ point must visually and verbally address the style-vs-faith tension (e.g. cut,\
+    \ graphic design language, how it looks styled with jeans) to stay credible to\
+    \ Amber's specific search intent."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 3
+  rationale: "Amber is a values-driven shopper whose pain is about meaning and identity,\
+    \ not just price \u2014 framing the product's worth around intentional design\
+    \ choices (faith-forward but fashion-conscious) speaks directly to why this tee\
+    \ costs more than a Spirit Halloween rack find. The objection-handling structure\
+    \ converts her latent 'but is it worth it?' hesitation into confidence right at\
+    \ the decision point."
+  production_notes: "Anchor the 'not cheap' justification in design philosophy and\
+    \ brand conviction rather than materials or supply chain \u2014 Amber cares that\
+    \ someone thought carefully about making faith look beautiful, not about thread\
+    \ count."
+text_layout: null
+source_matrix_row: null

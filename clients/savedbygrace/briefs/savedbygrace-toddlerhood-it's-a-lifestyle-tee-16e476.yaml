@@ -1,0 +1,111 @@
+brief_id: savedbygrace-toddlerhood-it's-a-lifestyle-tee-16e476
+client: savedbygrace
+product: Toddlerhood - "It's a Lifestyle" Tee
+awareness_level: solution_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: quest
+angle: 'Category education: what to look for when you want kids apparel that actually
+  matches the family vibe without feeling costumey or empty'
+hook: "You know that feeling when you're standing in the kids section holding a graphic\
+  \ tee and thinking... this is cute, but it's not really us?\n\nNot preachy enough\
+  \ to belong in a Christian bookstore. Not meaningful enough to actually feel like\
+  \ you. Just... a shirt.\n\nHere's what I've learned shopping for my littles: the\
+  \ best kids pieces aren't just cute. They match the energy your whole family already\
+  \ lives. They can go to church and a birthday party and the grocery store without\
+  \ feeling like a costume. And when you put it on your toddler, you don't feel like\
+  \ you picked the funniest thing in the Target dollar section \u2014 you feel like\
+  \ it actually means something.\n\nThat's the thing nobody tells you to look for.\
+  \ Not just the design. The whole vibe.\n"
+hook_type: Story / Result (Empathy + Relief)
+slot: 2
+hook_source: "avatar pain \u2014 boutique tees are funny but empty plus desire for\
+  \ coordinated family look that means something"
+hook_tactic: "Storytelling \u2014 drop mid-moment into a real scene, then let the\
+  \ result land naturally"
+persona: All-Of-It Amber
+creative_mechanic: tribal_belonging_plus_vulnerability
+visual_format: "Lifestyle carousel \u2014 three to four real-life images of a toddler\
+  \ in the tee at different everyday moments (church parking lot, backyard cookout,\
+  \ grocery cart), no studio backdrop"
+visual_format_alternatives:
+- "Talking-head UGC video \u2014 mom speaking directly to camera from her kitchen\
+  \ or car, describing the shopping frustration in her own words before the shirt\
+  \ appears in the final frame"
+- "Text-on-product flat lay \u2014 ringspun cotton tee laid on a wood surface with\
+  \ handwritten-style text overlay quoting the 'it's cute but it's not really us'\
+  \ feeling, no model"
+persona_traits: "Millennial Southern or Midwest mom, 28\u201340, who has been hunting\
+  \ across multiple stores for kids and mom pieces that coordinate without looking\
+  \ costumey and reflect her casual faith, not just her sense of humor"
+pain_point: "Generic boutique and Etsy mom humor shirts are funny but empty \u2014\
+  \ no faith layer, no substance, not really her"
+benefit_callouts:
+- Toddler energy. Family vibe. One tee.
+- "Church, cookout, school pickup \u2014 it just works"
+- Soft enough to survive the lifestyle
+cta: Find the one that actually feels like you
+body_copy: ''
+visual_direction: "Warm, natural light. Real locations \u2014 not a studio. The toddler\
+  \ is moving, not posed. The shirt reads clearly but the scene feels like a candid\
+  \ from someone's camera roll, not a brand shoot."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "Amber is solution-aware and already frustrated with generic boutique\
+    \ and Etsy mom-humor shirts that feel hollow \u2014 this format lets the ad name\
+    \ that broken status quo explicitly (costumey graphics, faith-free filler tees)\
+    \ before positioning Toddlerhood as the meaningful alternative. The quest framework\
+    \ maps perfectly onto the underdog arc: she's been searching, the category has\
+    \ failed her, and now there's something built for her actual identity."
+  production_notes: "The 'enemy' must be the category norm (generic Etsy humor tees,\
+    \ big-box graphic tees), never a specific brand name \u2014 keep the contrast\
+    \ on substance and faith layer, not price."
+- format_id: listicle
+  name: Listicle
+  summary: Classic "3 reasons why" / numbered format. Same script distributed across
+    multiple creators with distinct personas. Often paired with negative marketing
+    ("3 reasons NOT to buy X" or "3 things I wish I knew"). Bottom-of-barrel creatively
+    but reliably saves campaigns.
+  format_type: video
+  production_complexity: low
+  rank: 2
+  rationale: "The angle is explicitly category education \u2014 'what to look for'\
+    \ \u2014 which maps directly to a numbered listicle structure, giving Amber the\
+    \ methodical framework she needs to evaluate kids apparel against her values.\
+    \ A '3 things to look for in kids apparel that actually fits your family vibe'\
+    \ format lets the product's faith layer and substance emerge as the natural checklist\
+    \ answer."
+  production_notes: "Avoid generic list items \u2014 each point must tie back to a\
+    \ real differentiator (faith-forward messaging, design intentionality, lifestyle\
+    \ identity) or it collapses into the same empty content she already scrolls past."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 3
+  rationale: "Amber is a values-driven, solution-aware buyer who will instinctively\
+    \ compare this tee to cheaper Etsy alternatives \u2014 directly addressing price\
+    \ objections by anchoring on design intention, faith substance, and lifestyle\
+    \ fit reframes cost as a signal of alignment, not markup. The hook in the brief\
+    \ ('this is cute, but it's not really us') is essentially a values objection,\
+    \ and this format answers it head-on."
+  production_notes: "Lead with identity and values language ('not cheap because it\
+    \ was made with intention, not filler') before any supply chain or production\
+    \ detail \u2014 Amber's objection is emotional and identity-based first, not logical."
+text_layout: null
+source_matrix_row: null

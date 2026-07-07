@@ -1,0 +1,1133 @@
+jobs_to_be_done:
+- job: Wear a garment that expresses faith, patriotism, or personal identity publicly
+  type: social
+  customer_language:
+  - I love my sweatshirt that supports America
+  - Great quality. Great message/cause.
+  - Love Dogs and Jesus! Fabulous quality shirt as Comfort colors are the best and
+    the message on the shirt makes my heart smile!
+  - High quality products & a great mission!!! I'm a huge fan!!
+  confidence: high
+- job: Find apparel that generates compliments and social recognition
+  type: social
+  customer_language:
+  - I've gotten so many compliments!
+  - I get a compliment every time I wear it.
+  - multiple people ask where I got it
+  - Loved it got compliments within minutes of stepping outside
+  - I am in love with this tshirt I got for my son! The material is so soft & I have
+    received so many compliments on it!
+  confidence: high
+- job: Gift meaningful, faith-aligned clothing to family members especially children
+    and grandchildren
+  type: emotional
+  customer_language:
+  - I love the sweatshirts I just purchased for my granddaughters.
+  - I ordered these shirts for my sons to wear to welcome their dad home from a 6
+    month deploy
+  - I bought the 'loves her babies & America, too' shirt
+  - LOVED this. My daughter looked so cute in this.
+  - It's perfect for my granddaughter.
+  confidence: high
+- job: Feel comfortable and cozy in everyday casual wear that still feels meaningful
+  type: functional
+  customer_language:
+  - best coziest adorable sweatshirt! Perfect comfy fit with a great message
+  - So comfy. I highly recommend!
+  - comfortable, fashionable, and great quality material
+  - I wear it on repeat
+  confidence: high
+- job: Support a values-aligned small business or mission-driven brand
+  type: social
+  customer_language:
+  - support a great company to purchase from
+  - High quality products & a great mission!!!
+  - Love this brand!
+  - I love that the seller uses quality garments
+  confidence: medium
+- job: Express faith identity visibly through everyday clothing
+  type: social
+  customer_language:
+  - Love the Jesus is king sweater
+  - Very nice designs!
+  - Loveeee this brand!!!
+  confidence: low
+  note: Only 3 comments plausibly reference faith-based apparel identity. Cannot confirm
+    JTBD without more data.
+- job: Find cute, desirable apparel that also reflects values
+  type: emotional
+  customer_language:
+  - Suchhh cute tops
+  - obsessed with the camo set!!
+  - They're so cute!
+  - I love them sm they have cute stuff
+  confidence: low
+  note: Aesthetic appeal is the dominant expressed desire, but it is unclear from
+    context alone whether these comments refer to faith-based items specifically.
+- job: Purchase from a brand they feel aligned with
+  type: social
+  customer_language:
+  - Loveeee this brand!!!
+  - BUYING NOW
+  confidence: low
+- job: Wear faith-based apparel as a daily, visible declaration of Christian identity
+  type: social
+  customer_language:
+  - ty for showing your faith online
+  - whoever gets the prize hope yall enjoy
+  - I would love to promote it to my audience abroad
+  - i love spreading my love for Christ in my school
+  - those are some fire clothing especially with significant meaning and useful words
+    on them cause you'll never know who it can impact by reading those words on your
+    clothing people may even come up to and say i like your clothing and maybe even
+    ask deeper questions towards it
+  confidence: high
+- job: Express Christian faith through trendy, aesthetically appealing products so
+    that faith feels current and not dated
+  type: emotional
+  customer_language:
+  - I love how he can do trends but make them Christian
+  - I love how u spread Christianity by using trendy things
+  - The hoodies are so sick
+  - DUDE THE CHRIST IS KING SHIRT WHITE AND BLUE HOODIE IS SO COOL I LOVE THAT WHAT
+  - The gym shorts are fire - His Plan - Not Mine
+  confidence: high
+- job: Discover Christian brands they didn't know existed so they can shop faith-aligned
+  type: functional
+  customer_language:
+  - I didn't know about all of these brands
+  - i'm so happy there is christian athletic gear bro like why didn't anyone tell
+    me about this earlier
+  - I haven't heard of some of these brands and they all look awesome
+  - I didn't know about all of these brands
+  confidence: high
+- job: Grow personal faith and publicly signal that growth to peers
+  type: social
+  customer_language:
+  - I recently started growing my relationship with god and want to proudly display
+    my faith
+  - I would do love any of the sweatshirts I love wearing them and I love spreading
+    my love for Christ in my school
+  - I love what you guys do and I always want to show other about you because you
+    make my life a lot better and made me a better Christian
+  confidence: high
+- job: Support and celebrate the existence of a Christian business ecosystem
+  type: emotional
+  customer_language:
+  - It makes me so happy to see all of these Christian companies
+  - eeeeeeekkkk, this was Super exciting! Love hearing about all the Christian Co's
+  - God is so good!! You deserve all of this. It makes me so happy to see all of these
+    Christian companies
+  - Thanks for the positive review. We have been helping Christians share their faith
+    with our products for nearly forty years
+  confidence: medium
+pain_points:
+- pain: "Sizing is unpredictable \u2014 runs small OR large depending on the item,\
+    \ confusing customers who expect standard sizing"
+  intensity: high
+  confidence: high
+  customer_language:
+  - runs small
+  - I can't believe this was a unisex sweatshirt. It barely fits me as a medium and
+    I normally wear a small.
+  - Medium is supposed to be size 8/10. It was way smaller than an 8/10. Doesn't Fit
+    unfortunately.
+  - Love the shirt & material - it seems rather big for a small so I would recommend
+    sizing down.
+  - soft and cozy sweatshirt - I suggest you size up one size.
+  source: review-export
+- pain: Long and unclear shipping times create anxiety, especially for time-sensitive
+    occasions
+  intensity: high
+  confidence: high
+  customer_language:
+  - super cute + great quality shirt but it took a month to receive. shipping needs
+    to be quicker.
+  - Shipping took way too long, and you pay for it.
+  - The quality is standard. The shipping took forever and longer than mentioned on
+    the site.
+  - Took months to arrive
+  - "we have about 20 that we ordered at the SAME time several weeks ago and we have\
+    \ NOT yet received them\u2026trying NoT to be SuPeR DuPeR nervous!! These will\
+    \ be perfect for our FaMiLy Christmas Pajamas\u2026SO we ReaLLy need them to arrive\
+    \ SOON!!!"
+  - "The sweater itself was cute\u2026 It did take over a month to come. There was\
+    \ little communication from the shop. Make sure to size up to make sure your kid\
+    \ still fits it by the time it finally arrives."
+  source: review-export
+- pain: Post-purchase shipping email feels threatening rather than reassuring, nearly
+    killing the sale
+  intensity: high
+  confidence: low
+  customer_language:
+  - After I purchased the tshirt for my daughter I received an email that felt like
+    a warning. All the information on what I should have paid extra for in shipping
+    in order to actually be sure that I received the item and the information about
+    getting the item faster was very threatening. I almost cancelled the order.
+  source: review-export
+- pain: Print/graphic is too light or too small to be legible or visible, undermining
+    the message
+  intensity: medium
+  confidence: high
+  customer_language:
+  - I just wish the print was either a little bigger or the font color a little darker.
+    It is really hard to see what it says unless you look super close.
+  - This shirt is super cute and fits great. I really wish the words were a little
+    bigger or darker. It is really hard to see what it says unless you look super
+    close.
+  - "The T was too big for the person I bought it for\u2026 Would love to see the\
+    \ lettering a little larger in the larger T's, so you can see it."
+  - The print on the hat is a lot lighter than I thought it would be, and it is not
+    at all centered on the hat.
+  source: review-export
+- pain: "Hat fit and construction is poor \u2014 crown point too high, words misaligned,\
+    \ looks like a defect"
+  intensity: high
+  confidence: medium
+  customer_language:
+  - This hat made everyone that tried it on look they had a unicorn horn. Same quality
+    you would expect from the dollar store.
+  - The point in the front on top is weirdly high and the words are too high up so
+    it doesnt look right when wearing.
+  - I took it out of the box excited to show my friend and her first reaction was
+    'oh..' in a sad tone. She thought I was showing her a mess up or disappointing
+    order
+  source: review-export
+- pain: Product color or appearance does not match online listing, especially for
+    hats
+  intensity: medium
+  confidence: medium
+  customer_language:
+  - It was not clear that the letters would not be the color as displayed online thus
+    costing more money and time to paint. Disappointed.
+  - they show the black option as having a white front, but this is black on black.
+  - The print on the hat is a lot lighter than I thought it would be
+  source: review-export
+- pain: No-return or store-credit-only policy frustrates customers who receive disappointing
+    items
+  intensity: medium
+  confidence: medium
+  customer_language:
+  - I tried to return since no one will wear it and they won't allow. Its now going
+    in the trash.
+  - I am returning for only store credit and I have to pay for shipping.
+  source: review-export
+- pain: Unresponsive customer service when cancellations or refund requests are made
+    pre-shipment
+  intensity: medium
+  confidence: low
+  customer_language:
+  - Asked fir a refund before the item shipped due to me changung my mind about the
+    print for my son, and never got a response.
+  source: review-export
+- pain: Blanket material too slick to be functional as a swaddle, despite good quality
+    feel
+  intensity: low
+  confidence: low
+  customer_language:
+  - Very soft material but my too soft to swaddle my son when ge sleeps, he kicked
+    rught out it because the material is slick.
+  source: review-export
+- pain: Perceived review manipulation erodes trust in the brand despite product satisfaction
+  intensity: low
+  confidence: low
+  customer_language:
+  - Jesus wouldn't want you to try to steal 5 star reviews. My daughter and grandson
+    love their sweatshirts though so cheers.
+  source: review-export
+- pain: "Difficulty finding or accessing restocked inventory \u2014 desired items\
+    \ sell out"
+  intensity: medium
+  confidence: low
+  customer_language:
+  - When will you guys be restocking on all your tshirts
+  - I don't see the cherry one on their site!!
+  source: tiktok-comments
+  note: Second quote may refer to baby apparel brand, not faith-based apparel.
+- pain: "Uncertainty about sizing \u2014 unclear whether to size up or down"
+  intensity: medium
+  confidence: low
+  customer_language:
+  - Did you size up on the sweatshirts?
+  - heyyy, what size did you get?
+  - what size did you get?
+  - Yes, you should have sized down, sissy
+  source: tiktok-comments
+  note: Multiple sizing questions appear across comments. Plausibly applies to apparel
+    context but brand cannot be confirmed as faith-based in each instance.
+- pain: "Not knowing how to purchase \u2014 friction at point of conversion"
+  intensity: medium
+  confidence: low
+  customer_language:
+  - How can you choose just one?!
+  - How do u purchase them!?
+  source: tiktok-comments
+- pain: Shipping/delivery timeline uncertainty
+  intensity: low
+  confidence: low
+  customer_language:
+  - How long does it take to come in?
+  - How long did shipping take?
+  source: tiktok-comments
+  note: These may refer to baby apparel, not faith-based apparel specifically.
+- pain: "Product fit issues \u2014 certain styles unflattering on certain body types"
+  intensity: medium
+  confidence: low
+  customer_language:
+  - That was a good deal but I have the same problem with trouser pants! It gives
+    me a fupa
+  - As soon as you started the video and were bent down I could see that!!! I hate
+    pants that do that
+  - Yeah that's not flattering or comfortable. Probably why they were cheap
+  - It's the pleat - it drives me crazy, I can't wear pleats
+  source: tiktok-comments
+  note: These comments describe a specific pants style review. May not be faith-based
+    apparel.
+- pain: "Christian athletic and activewear barely existed or was invisible to buyers\
+    \ \u2014 nobody told them"
+  intensity: high
+  confidence: medium
+  customer_language:
+  - bro i'm so happy there is christian athletic gear bro like why didn't anyone tell
+    me about this earlier
+  - I would love holstrength athletic for my gym workout showing Who is the mightiest
+  source: youtube-comments
+- pain: "Difficulty finding cool, trendy clothing that also aligns with Christian\
+    \ values \u2014 the two felt mutually exclusive"
+  intensity: high
+  confidence: high
+  customer_language:
+  - I love how he can do trends but make them Christian
+  - I love how u spread Christianity by using trendy things
+  - I've not seen such cool and nice Christian clothes where I live
+  - I have never even seen your channel before and I thought this was going to be
+    a parody. Making fun of Christians and Christian companies. WHAT A PLEASANT SUPRISE
+  source: youtube-comments
+- pain: "Low awareness of the Christian brand landscape \u2014 buyers don't know where\
+    \ to shop"
+  intensity: high
+  confidence: high
+  customer_language:
+  - i'm so happy there is christian athletic gear bro like why didn't anyone tell
+    me about this earlier
+  - I didn't know about all of these brands
+  - I haven't heard of some of these brands and they all look awesome
+  - I love all of the stuff that simply southern sent you
+  source: youtube-comments
+- pain: Christian apparel is perceived as uncool, preachy, or mockable by mainstream
+    culture
+  intensity: high
+  confidence: medium
+  customer_language:
+  - I have never even seen your channel before and I thought this was going to be
+    a parody. Making fun of Christians and Christian companies. WHAT A PLEASANT SUPRISE
+  - What a PLEASANT SUPRISE! Thank you so much for sharing your faith. It is so refreshing
+  source: youtube-comments
+- pain: Difficulty finding modest but stylish everyday Christian clothing
+  intensity: medium
+  confidence: medium
+  customer_language:
+  - everything you picked out looks so comfortable and modest
+  - I've not seen such cool and nice Christian clothes where I live
+  source: youtube-comments
+- pain: Young Christians struggle to stay grounded in faith during life pressures
+    like high school
+  intensity: medium
+  confidence: medium
+  customer_language:
+  - you have greatly helped me with getting through high school and continuing to
+    show Gods love
+  - You helped me come back to Christ when I was drifting away and for that I am forever
+    grateful
+  - He is so inspiring and has helped me even in the hard times
+  source: youtube-comments
+- pain: Specific items spotted in content are hard to locate on brand websites
+  intensity: medium
+  confidence: low
+  customer_language:
+  - I love this video especially those leggings but I can't find them on their website
+  source: youtube-comments
+- pain: "Price sensitivity \u2014 concern that Christian brands are expensive"
+  intensity: low
+  confidence: low
+  customer_language:
+  - Are they expensive
+  - How much $ ? If you don't mind me asking
+  source: youtube-comments
+- pain: "Geography limits access \u2014 viewers outside the US cannot easily access\
+    \ or receive Christian brand products"
+  intensity: low
+  confidence: low
+  customer_language:
+  - Mr. Peterson, can I have one of the shirts and one cold flask? I'm from Nigeria.
+  - I would love to promote it to my audience abroad
+  source: youtube-comments
+- pain: Platform barriers prevent participation in giveaways and community
+  intensity: low
+  confidence: medium
+  customer_language:
+  - I unfortunately don't have instagram though
+  - sadly i dont have instagram
+  - I don't have insta
+  - I would love a hat or water bottle. Unfortunately I don't have Instagram only
+    a YouTube channel
+  source: youtube-comments
+trigger_moments:
+- trigger: "Watching and waiting \u2014 coveting a specific item for months before\
+    \ finally committing"
+  customer_language:
+  - I had been looking at the God Bless American flag sweatshirt for months and I'm
+    so glad I finally bought it!
+  confidence: low
+- trigger: Upcoming time-sensitive occasion creates urgency to find the perfect piece
+  customer_language:
+  - I needed the perfect shirt for the fourth and this was it!
+  - I ordered these shirts for my sons to wear to welcome their dad home from a 6
+    month deploy
+  - "These will be perfect for our FaMiLy Christmas Pajamas\u2026SO we ReaLLy need\
+    \ them to arrive SOON!!!"
+  confidence: medium
+- trigger: "Finding a design that felt personally resonant or identity-affirming \u2014\
+    \ the 'I have to have this' moment"
+  customer_language:
+  - As soon as I saw the 'wild like my curls' t-shirt for kids, I knew I had to get
+    it for my curly-haired daughter!
+  - I love the 'loves her babies & America, too' shirt
+  - "Love Dogs and Jesus! \u2026the message on the shirt makes my heart smile!"
+  confidence: medium
+- trigger: Deep personal connection to the brand owner during a vulnerable life moment
+  customer_language:
+  - I came across her website many years ago where she said a prayer for me during
+    a difficult time in my life I had given birth to my kiddos and was dx with a brain
+    tumor. At the time I needed prayers and she gave them to me.
+  confidence: low
+- trigger: Matching or twinning opportunity with a child or family member
+  customer_language:
+  - Love that this has a matching mama shirt. Can't wait to twin with my boy!!
+  confidence: low
+- trigger: Seeing the product demonstrated visually (video/social content) and immediate
+    impulse to buy
+  customer_language:
+  - BUYING NOW
+  - obsessed with the camo set!!
+  - obsessed I need to go buy myself some now
+  - Sooooo cute!! I was just looking @ their site today and almost put in a big order
+    hahah
+  confidence: low
+  note: These are social media comment reactions, strongly suggesting TikTok/Instagram
+    video is the primary trigger moment for conversion in this audience.
+- trigger: Friend or peer tagging/referral
+  customer_language:
+  - '@kaylie'
+  - '@Jeunizeth Petit Te imaginas'
+  - '@Gyp$y can I get some of these??'
+  confidence: low
+  note: Tagging behavior is consistent across comments, suggesting peer referral is
+    a meaningful acquisition moment.
+- trigger: Seeing a specific design element that overcame resistance
+  customer_language:
+  - The second I see the ruffles on the butt I'm instantly influenced.. OMW spearmint
+    love!!
+  - Love the Jesus is king sweater
+  confidence: low
+- trigger: Discovering that trendy, mainstream-looking products can carry a Christian
+    message
+  customer_language:
+  - I love how he can do trends but make them Christian
+  - I love how u spread Christianity by using trendy things
+  - i'm so happy there is christian athletic gear bro like why didn't anyone tell
+    me about this earlier
+  confidence: high
+- trigger: Seeing the 'Faith Over Fear' phrase during a personally hard time (COVID)
+    that cemented emotional attachment to the slogan
+  customer_language:
+  - I saw 'Faith Over Fear' written next to a church on south Congress during the
+    hard Covid times. It gave me strength and it's a quote that is dear to my heart.
+  confidence: low
+- trigger: Watching a content creator unbox and review Christian brands for the first
+    time
+  customer_language:
+  - I didn't know about all of these brands
+  - I love all of the stuff that simply southern sent you
+  - Now I need to go shopping!
+  confidence: medium
+- trigger: Starting or re-starting a faith journey and wanting to display that publicly
+  customer_language:
+  - I recently started growing my relationship with god and want to proudly display
+    my faith
+  - You helped me come back to Christ when I was drifting away and for that I am forever
+    grateful
+  - 'New Christian: Love Your content.'
+  confidence: medium
+- trigger: Wanting to gift faith-aligned products to family members or friends
+  customer_language:
+  - My sister would love the Stanley, she would be ecstatic if I gave it to her
+  - My mom would freak out with that Stanley
+  - I am a size M and I have a brother who is a size XL he loves to work out, but
+    he loves God more
+  confidence: medium
+desires:
+- desire: Apparel that is genuinely soft, high-quality, and comfortable enough to
+    wear constantly
+  confidence: high
+  customer_language:
+  - Super soft, great quality tee.
+  - The material of the shirt is my favorite and I wear it on repeat.
+  - thick material and the design feels heavy duty
+  - Love Dogs and Jesus! Fabulous quality shirt as Comfort colors are the best
+  - Sizing is spot on and the quality is very nice. Washed well
+- desire: Clothing whose message or design sparks genuine compliments and conversation
+  confidence: high
+  customer_language:
+  - I get a compliment every time I wear it.
+  - Loved it got compliments within minutes of stepping outside
+  - I've gotten so many compliments!
+  - multiple people ask where I got it
+- desire: Inclusive sizing that works across body types without guessing games
+  confidence: medium
+  customer_language:
+  - Soft comfy material and incredible sizing inclusivity. Thank you!
+  - I am 5'5, 160 pounds. I ordered a large for an oversized fit. I love the shirt
+    and wear it all the time!
+- desire: "Transparent, encouraging communication about shipping \u2014 not anxiety-inducing\
+    \ warnings"
+  confidence: medium
+  customer_language:
+  - Just as expected and didn't take too long to receive, especially with the heads
+    up that production takes awhile.
+  - You need to encourage people to buy by having better shipping and good customer
+    service when an item doesn't arrive, not discourage the sale
+  - they do disclose. Soo worth the wait though.
+- desire: A brand rooted in faith, family, and positivity that they feel proud to
+    support
+  confidence: medium
+  customer_language:
+  - Her uplifting message of faith, joy, and hope will be forever remembered and appreciated.
+  - High quality products & a great mission!!!
+  - I love my sweatshirt that supports America. Thank you for producing beautiful
+    and encouraging patterns
+- desire: To own and wear visually appealing, on-trend apparel that also expresses
+    faith
+  confidence: low
+  customer_language:
+  - Love the Jesus is king sweater
+  - Suchhh cute tops
+  - Very nice designs!
+  - obsessed with the camo set!!
+- desire: To feel part of a community or movement (brand belonging)
+  confidence: low
+  customer_language:
+  - Loveeee this brand!!!
+  - I wanna join
+  - need a new coworker?
+- desire: To discover and share cute finds with friends
+  confidence: low
+  customer_language:
+  - How can you choose just one?!
+  - I need all of them
+  - obsessed I need to go buy myself some now
+- desire: "To wear faith proudly without looking outdated or weird \u2014 faith expressed\
+    \ through style that fits mainstream trends"
+  confidence: high
+  customer_language:
+  - I love how he can do trends but make them Christian
+  - I love how u spread Christianity by using trendy things
+  - I recently started growing my relationship with god and want to proudly display
+    my faith
+  - i love spreading my love for Christ in my school
+- desire: To be part of a Christian community that is positive, energetic, and visible
+    online
+  confidence: high
+  customer_language:
+  - ty for showing your faith online
+  - Thank you being real and Bold for Christ keep doing God's Work
+  - It is so refreshing to see a young man doing this type of content
+  - Your excitement about your faith and the faith of others is awesome
+- desire: To find a daily physical reminder that keeps them anchored to their faith
+  confidence: medium
+  customer_language:
+  - I would like one to have a daily reminder of what is most important, and to have
+    my life revolve around God
+  - Whenever I see someone wearing clothes with a Jesus message it makes me happy
+  - those are some fire clothing especially with significant meaning and useful words
+    on them cause you'll never know who it can impact
+- desire: "To evangelize passively \u2014 spark conversations about faith just by\
+    \ wearing the apparel"
+  confidence: medium
+  customer_language:
+  - people may even come up to and say i like your clothing and maybe even ask deeper
+    questions towards it. Definitely can really change someone perspective in life
+    spiritually mentally
+  - i love spreading my love for Christ in my school
+  - I would love to promote it to my audience abroad
+- desire: To have access to faith-based athletic and gym gear specifically
+  confidence: medium
+  customer_language:
+  - bro i'm so happy there is christian athletic gear bro like why didn't anyone tell
+    me about this earlier
+  - I would love holstrength athletic for my gym workout showing Who is the mightiest
+  - The gym shorts are fire - His Plan - Not Mine
+objections:
+- objection: "Shipping will take too long, especially for a gift or event \u2014 not\
+    \ worth ordering"
+  confidence: high
+  customer_language:
+  - Long shipping times which they do disclose. Soo worth the wait though.
+  - "Tshirts are great quality\u2026 It did take a little bit to get here, but it\
+    \ is all over the website so that was expected. Otherwise, great business!"
+  - "I ordered two t shirts from here and I absolutely love them\u2026 Shipping took\
+    \ a little while but they were up front about that so I was willing to wait and\
+    \ they were worth it."
+- objection: The quality might not justify the price for an online faith-based apparel
+    brand
+  confidence: medium
+  customer_language:
+  - for the price I paid, I expected better quality
+  - Shipping took way too long, and you pay for it. So eh, I like the hat but would
+    expect to for the price. Nothing overall impressive with the experience.
+- objection: "The sizing might be off since I can't try it on \u2014 I'll end up with\
+    \ something that doesn't fit"
+  confidence: medium
+  customer_language:
+  - I can't believe this was a unisex sweatshirt. It barely fits me as a medium and
+    I normally wear a small.
+  - soft and cozy sweatshirt - I suggest you size up one size.
+  - Love the shirt & material - it seems rather big for a small so I would recommend
+    sizing down.
+- objection: The graphic might not look as bold or vibrant in person as it does in
+    photos
+  confidence: medium
+  customer_language:
+  - The print on the hat is a lot lighter than I thought it would be, and it is not
+    at all centered on the hat.
+  - It was not clear that the letters would not be the color as displayed online
+  - I just wish the print was either a little bigger or the font color a little darker.
+- objection: If something goes wrong, returns or customer service will be a nightmare
+  confidence: low
+  customer_language:
+  - I tried to return since no one will wear it and they won't allow. Its now going
+    in the trash.
+  - The exchange was easy.
+  - Our order got lost in the mail and they were quick to get us a new order out!
+- objection: "Price relative to perceived value \u2014 hesitation before committing"
+  confidence: low
+  customer_language:
+  - It's a you get what you pay for situation lol
+  - Yeah that's not flattering or comfortable. Probably why they were cheap
+  note: These may refer to a general apparel item, not faith-based specifically.
+- objection: "Sizing uncertainty \u2014 fear of ordering the wrong size without trying\
+    \ on"
+  confidence: low
+  customer_language:
+  - Did you size up on the sweatshirts?
+  - heyyy, what size did you get?
+  - Did you try them on before you bought?
+- objection: "Product availability \u2014 item wanted is out of stock or not visible\
+    \ on site"
+  confidence: low
+  customer_language:
+  - I don't see the cherry one on their site!!
+  - When will you guys be restocking on all your tshirts
+- objection: "Skepticism that Christian content or products would be cool or authentic\
+    \ \u2014 expected a parody"
+  confidence: medium
+  customer_language:
+  - I have never even seen your channel before and I thought this was going to be
+    a parody. Making fun of Christians and Christian companies. WHAT A PLEASANT SUPRISE
+  - It is so refreshing to see a young man doing this type of content as opposed to
+    other options
+- objection: Concern about price / affordability of Christian branded apparel
+  confidence: low
+  customer_language:
+  - Are they expensive
+  - How much $ ? If you don't mind me asking
+  - Wow. How bold of you! If only I could afford to just give away free things
+- objection: Worry that Christian apparel won't be stylish enough to wear regularly
+  confidence: medium
+  customer_language:
+  - I've not seen such cool and nice Christian clothes where I live
+  - I love how he can do trends but make them Christian
+  - everything you picked out looks so comfortable and modest
+- objection: Uncertainty about sizing when purchasing online
+  confidence: low
+  customer_language:
+  - What size did you get? Please respond if you see this bc I want to ask for one
+    for Christmas but idk what size to ask for
+- objection: Skepticism about whether the broader definition of 'Christian' products
+    or brands holds up
+  confidence: low
+  customer_language:
+  - The term 'Christian' may be broader these days than before. Blessings to you.
+transformations:
+- transformation: "From uncertain/waiting to delighted \u2014 the product exceeded\
+    \ expectations on arrival"
+  customer_language:
+  - I just got my package and absolutely love this sweatshirt! Cant wait to wear it!
+  - I was so excited to receive my package! It took awhile to get to me but it was
+    wrapped cute and the quality is absolutely amazing!
+  - I received my first order from SBG and am so impressed by the quality of my shirt.
+    The fabric and graphic are gorgeous and I cannot wait to wear it!
+  confidence: medium
+- transformation: "From skeptical about wait time to confirmed repeat buyer \u2014\
+    \ quality justifies patience"
+  customer_language:
+  - Long shipping times which they do disclose. Soo worth the wait though.
+  - I will definitely order from here again!
+  - I plan to order again!
+  - I love the sweatshirt so much I bought two more!
+  confidence: high
+- transformation: From casual browser to emotionally bonded brand loyalist through
+    a personal faith connection
+  customer_language:
+  - "I came across her website many years ago where she said a prayer for me during\
+    \ a difficult time in my life\u2026 I am proud to call her a friend I met by chance\u2026\
+    \ I continue to buy from her over and over again. I can't get enough."
+  confidence: low
+- transformation: From everyday parent/grandparent to someone who gets noticed and
+    complimented
+  customer_language:
+  - I get a compliment every time I wear it.
+  - Loved it got compliments within minutes of stepping outside
+  - The Feral sweatshirt fit my granddaughter perfectly and the quality was impeccable.
+    I've already had multiple people ask where I got it.
+  confidence: high
+- transformation: From worried about an order gone wrong to trust restored by responsive
+    customer service
+  customer_language:
+  - Our order got lost in the mail and they were quick to get us a new order out!
+    Will definitely be ordering again in the future!
+  - Cute shirt and amazing customer service!
+  - Great quality shirt. Great customer service too.
+  confidence: medium
+- transformation: From browsing/curious to immediate purchase intent after seeing
+    product in video
+  customer_language:
+  - BUYING NOW
+  - obsessed I need to go buy myself some now
+  - Sooooo cute!! I was just looking @ their site today and almost put in a big order
+    hahah
+  confidence: low
+  note: This is a micro-transformation (pre-purchase emotional shift), not a post-purchase
+    life change. No post-purchase transformation quotes exist in this dataset.
+- transformation: From drifting away from faith to returning to Christ and actively
+    growing spiritually
+  customer_language:
+  - You helped me come back to Christ when I was drifting away and for that I am forever
+    grateful
+  - He is so inspiring and has helped me even in the hard times
+  - He has inspired me in growing my faith
+  confidence: medium
+- transformation: From being an unknown audience member to becoming a brand ambassador,
+    deepening identity investment
+  customer_language:
+  - I'm an ambassador for Elevated Faith! I LOVEEEEE THEM SO MUCH!
+  - An ambassador for elevated faith and holstrength here as well
+  confidence: low
+- transformation: From not knowing Christian apparel brands existed to actively purchasing
+    and recommending them
+  customer_language:
+  - i'm so happy there is christian athletic gear bro like why didn't anyone tell
+    me about this earlier
+  - Omg love simply southern just purchased some shirts from their and definitely
+    getting more
+  - I LOVE Simply Southern. It's the only preppy shirt brand I wear regularly
+  - I love Simply Southern! I probably have 15-20 of their t-shirts and a bunch of
+    their other stuff
+  confidence: high
+- transformation: From struggling through hard personal seasons (high school, COVID,
+    spiritual doubt) to feeling strengthened and supported
+  customer_language:
+  - you have greatly helped me with getting through high school and continuing to
+    show Gods love
+  - I saw 'Faith Over Fear' written next to a church on south Congress during the
+    hard Covid times. It gave me strength
+  - I love what you guys do and I always want to show other about you because you
+    make my life a lot better and made me a better Christian
+  confidence: medium
+- transformation: From casual faith observer to someone who wants to actively wear
+    and display their faith publicly
+  customer_language:
+  - I recently started growing my relationship with god and want to proudly display
+    my faith
+  - I would like one to have a daily reminder of what is most important, and to have
+    my life revolve around God
+  - i love spreading my love for Christ in my school
+  confidence: medium
+trigger_events:
+- event: Special occasion, holiday, or military homecoming requiring a meaningful
+    garment
+  confidence: medium
+- event: Desire to gift a grandchild, child, or family member something faith-aligned
+    and high-quality
+  confidence: high
+- event: Seeing a design that perfectly matched a personal identity (faith + dogs,
+    faith + patriotism, curly hair, motherhood)
+  confidence: medium
+- event: Extended window-shopping period on the site leading to an eventual purchase
+  confidence: low
+- event: Exposure to social media video content showing the product being worn
+  confidence: low
+  note: The comment section context implies TikTok/Reels haul or try-on video. The
+    trigger event is discovering the brand through organic video content.
+- event: "Pregnancy or upcoming baby \u2014 shopping for newborn/baby apparel (cross-brand\
+    \ contamination note)"
+  confidence: low
+  note: Multiple comments reference due dates and newborn sizing. This is a separate
+    product category contaminating the dataset.
+- event: Discount code surfaced in comments reducing purchase barrier
+  customer_language:
+  - you can use my code SHAY10 for a discount at checkout
+  - What's the code for 40% off?
+  confidence: low
+- event: "Starting or re-committing to a faith journey \u2014 newly saved or returning\
+    \ to church"
+  confidence: medium
+- event: Going through a hard personal season (high school stress, COVID, spiritual
+    drift) and seeking something anchoring
+  confidence: medium
+- event: Discovering a faith-aligned content creator who makes Christianity feel cool
+    and authentic
+  confidence: high
+- event: Realizing that Christian athletic or lifestyle products exist and are aesthetically
+    competitive with secular brands
+  confidence: medium
+- event: Wanting to give a meaningful gift to a faith-aligned family member
+  confidence: low
+alternatives_considered:
+- alternative: "Generic apparel retailers (implied \u2014 no faith-based or mission-driven\
+    \ component)"
+  why_rejected: Lack the message, cause, or values alignment; 'Love this brand!' and
+    'great mission' language implies no comparable alternative was satisfying
+- alternative: Dollar-store or low-quality promotional hats
+  why_rejected: Not explicitly tried first, but used as a negative comparison benchmark
+    by a dissatisfied hat buyer
+- alternative: Secular preppy brands (implied baseline before Simply Southern discovery)
+  why_rejected: No explicit rejection stated, but Simply Southern is described as
+    'the only' brand they now wear regularly, suggesting prior secular alternatives
+    felt insufficient for faith expression
+- alternative: "No Christian apparel at all \u2014 passive faith expression"
+  why_rejected: Desire to publicly display faith and spark conversations became strong
+    enough to seek out dedicated brands
+- alternative: Generic Christian merch / gift shop items (low aesthetic quality)
+  why_rejected: "Viewers express surprise and delight at finding trendy, cool options\
+    \ \u2014 implying prior experience with low-quality or unstylish Christian products"
+language_patterns:
+- "Highly casual, warm, and enthusiastic \u2014 heavy use of exclamation points and\
+  \ affectionate diminutives ('so cute,' 'adorable,' 'cozy')"
+- "Faith language is natural and unpretentious \u2014 'God Bless,' 'Jesus,' 'prayer'\
+  \ used conversationally, not formally"
+- "Family-first framing \u2014 products are discussed in relation to daughters, granddaughters,\
+  \ sons, babies, and 'twinning' moments"
+- "Compliment-reporting is a distinct behavior \u2014 buyers frequently note external\
+  \ validation unprompted ('I've gotten so many compliments')"
+- "Quality communicated through feel vocabulary \u2014 'soft,' 'cozy,' 'thick,' 'heavy\
+  \ duty,' 'Comfort colors' are the dominant quality signals"
+- "Repeat purchase intent stated explicitly and enthusiastically \u2014 'will definitely\
+  \ order again,' 'I can't get enough,' 'bought two more'"
+- "Shipping frustration expressed with resignation not rage \u2014 customers accept\
+  \ it when disclosed upfront but resent surprise delays"
+- "Sizing advice passed peer-to-peer in reviews \u2014 customers instinctively help\
+  \ future buyers navigate inconsistency"
+- Highly informal, abbreviation-heavy ('sm', 'omw', 'omg', 'af')
+- "Emoji-dominant communication \u2014 emojis often replace or amplify words (\U0001F970\
+  \U0001F60D\U0001F929\U0001F979)"
+- Repeated letters for emotional intensity ('Sooo Cuteeee', 'Loveeee', 'Cuuuuuute')
+- "Exclamation marks used prolifically \u2014 often 3-4 in a row"
+- All-caps for strong positive reactions ('BUYING NOW', 'SO CUTE', 'HELL NO')
+- "Community/in-group language \u2014 tagging friends, using brand-creator first names"
+- Questions as social engagement rather than genuine inquiry ('how can you choose
+  just one?!')
+- "Warm, affirming register \u2014 no harsh criticism in the apparel-adjacent comments"
+- 'Highly casual, enthusiastic, Gen-Z and Millennial register: ''bro,'' ''so sick,''
+  ''fire,'' ''hype,'' ''dope,'' ''need it,'' ''AHHHH'''
+- 'Heavy use of capitalization and repeated letters for emphasis: ''LOVEEEEE,'' ''stanleyyyyyy,''
+  ''I LITERALLY NEED'''
+- "Emoji as emotional punctuation \u2014 hearts, fire, praise hands used to reinforce\
+  \ sentiment rather than replace words"
+- 'Faith language blended casually with hype language: ''holy work,'' ''God bless,''
+  ''keep doing God''s Work,'' ''the Lord is mighty'''
+- "Gifting and sharing instinct surfaces repeatedly \u2014 'my mom would freak out,'\
+  \ 'my sister would be ecstatic,' 'my brother loves to work out but he loves God\
+  \ more'"
+- 'Discovery excitement language: ''why didn''t anyone tell me,'' ''I didn''t know,''
+  ''WHAT A PLEASANT SURPRISE'''
+- 'Authenticity and boldness as core values: ''bold for Christ,'' ''showing your faith
+  online,'' ''being real'''
+- "Comments frequently include size requests, Instagram handle disclosures, country\
+  \ of origin \u2014 signals high purchase intent masked as giveaway entry"
+money_quotes:
+- quote: I had been looking at the God Bless American flag sweatshirt for months and
+    I'm so glad I finally bought it! Just as expected and didn't take too long to
+    receive, especially with the heads up that production takes awhile.
+  theme: trigger
+  why_it_matters: "Captures the covet-then-commit buying arc and shows that transparent\
+    \ communication about wait times turns a potential objection into a non-issue\
+    \ \u2014 directly useful for ad copy and email nurture"
+- quote: Love Dogs and Jesus! Fabulous quality shirt as Comfort colors are the best
+    and the message on the shirt makes my heart smile!
+  theme: transformation
+  why_it_matters: "The phrase 'makes my heart smile' is emotionally vivid, ad-ready\
+    \ language that combines product quality with the emotional payoff of the message\
+    \ \u2014 usable as a hook or testimonial pull-quote"
+- quote: I ordered these shirts for my sons to wear to welcome their dad home from
+    a 6 month deploy
+  theme: trigger
+  why_it_matters: "Emotionally charged context that positions the product as part\
+    \ of a significant life moment \u2014 powerful social proof angle for ads targeting\
+    \ military families"
+- quote: "After I purchased the tshirt for my daughter I received an email that felt\
+    \ like a warning\u2026 I almost cancelled the order. You need to encourage people\
+    \ to buy by having better shipping and good customer service when an item doesn't\
+    \ arrive, not discourage the sale."
+  theme: pain
+  why_it_matters: "Rare and specific post-purchase friction insight \u2014 almost\
+    \ cancelled despite wanting the product. Direct operational and copy feedback\
+    \ about how fear-based shipping messaging destroys conversion"
+- quote: I was so excited to receive my package! It took awhile to get to me but it
+    was wrapped cute and the quality is absolutely amazing! The t shirt and sweatshirt
+    are both thick material and the design feels heavy duty. Finally a T shirt my
+    1 year old can't ruin!
+  theme: transformation
+  why_it_matters: "The final line is a breakthrough hook \u2014 'Finally a T shirt\
+    \ my 1 year old can't ruin!' \u2014 it names a specific, relatable parent pain\
+    \ and positions the product as the solution without any marketing language"
+- quote: "I came across her website many years ago where she said a prayer for me\
+    \ during a difficult time in my life I had given birth to my kiddos and was dx\
+    \ with a brain tumor. At the time I needed prayers and she gave them to me\u2026\
+    \ Tiny miracles of prayer, and God got me where I am today."
+  theme: transformation
+  why_it_matters: The most emotionally powerful review in the set. Demonstrates that
+    brand loyalty at this level is driven by spiritual and personal connection, not
+    product features. Useful for brand story content and mission-driven ad creative
+- quote: I took it out of the box excited to show my friend and her first reaction
+    was 'oh..' in a sad tone. She thought I was showing her a mess up or disappointing
+    order, but I hadnt even looked at it yet.
+  theme: pain
+  why_it_matters: "Viscerally specific story of a disappointing unboxing moment \u2014\
+    \ shows exactly what hat quality issues cost experientially. Useful as a cautionary\
+    \ contrast or to frame quality improvements"
+- quote: Long shipping times which they do disclose. Soo worth the wait though.
+  theme: objection
+  why_it_matters: "Compact, quotable objection-handling language that customers themselves\
+    \ are using \u2014 this is the exact phrasing to mirror in pre-purchase messaging\
+    \ and ad copy to pre-empt the wait-time objection"
+- quote: As soon as I saw the 'wild like my curls' t-shirt for kids, I knew I had
+    to get it for my curly-haired daughter! It's neutral, so cute, and the quality
+    is great! My daughter approves too!
+  theme: trigger
+  why_it_matters: "Captures the instant identity-resonance moment ('I knew I had to\
+    \ get it') \u2014 the design triggered an emotional recognition response. Powerful\
+    \ for ad creative showing the design with identity-matching imagery"
+- quote: The world needs who you are made to be.
+  theme: standout
+  why_it_matters: "A customer quoted brand copy from a wall hanging they purchased\
+    \ \u2014 the fact that they memorized and reproduced it verbatim in a review signals\
+    \ this message has lasting emotional impact beyond the product itself"
+- quote: Love the Jesus is king sweater
+  theme: standout
+  why_it_matters: Only explicit faith-based product callout in the entire dataset.
+    Confirms product name resonance and category clarity.
+- quote: obsessed I need to go buy myself some now
+  theme: trigger
+  why_it_matters: Captures the impulse-buy moment in authentic customer voice. 'I
+    need to go buy myself some now' is ad-ready urgency language.
+- quote: How can you choose just one?!
+  theme: standout
+  why_it_matters: Social-proof and desire-abundance framing. Could anchor a multi-product
+    ad or carousel creative.
+- quote: Loveeee this brand!!!
+  theme: transformation
+  why_it_matters: Brand-level affinity, not just product-level. Useful for brand awareness
+    creative.
+- quote: BUYING NOW
+  theme: trigger
+  why_it_matters: "Visceral, zero-friction purchase intent. The shortest possible\
+    \ conversion signal \u2014 useful as social proof overlay in video ads."
+- quote: The second I see the ruffles on the butt I'm instantly influenced
+  theme: trigger
+  why_it_matters: "Rare explicit description of the exact design detail that triggered\
+    \ purchase intent. Template: 'The second I see [specific feature] I'm instantly\
+    \ influenced' \u2014 high-conversion hook structure."
+- quote: Sooooo cute!! I was just looking @ their site today and almost put in a big
+    order hahah
+  theme: objection
+  why_it_matters: "Reveals the near-purchase behavior \u2014 customer was already\
+    \ primed. Social content pushed them from 'almost' to action."
+- quote: I need all of them
+  theme: desire
+  why_it_matters: Abundance desire language. Validates multi-SKU or collection drop
+    strategy.
+- quote: obsessed with the camo set!!
+  theme: standout
+  why_it_matters: '''Obsessed'' is high-affinity language. Specific product callout
+    (camo set) suggests design differentiation matters to this audience.'
+- quote: Very nice designs!
+  theme: standout
+  why_it_matters: Design quality is the primary stated reason for appeal. Simple,
+    clean, and reinforces that visual product execution is the core purchase driver.
+- quote: bro i'm so happy there is christian athletic gear bro like why didn't anyone
+    tell me about this earlier
+  theme: pain
+  why_it_matters: "Raw, unfiltered expression of a discovery gap \u2014 could headline\
+    \ an ad targeting Christian gym-goers who didn't know this category existed. Zero\
+    \ editing needed for social copy."
+- quote: I love how he can do trends but make them Christian
+  theme: standout
+  why_it_matters: "Captures the core brand tension the entire category has to solve\
+    \ \u2014 faith vs. relevance \u2014 and resolves it positively. Works as a hook\
+    \ or testimonial pull-quote."
+- quote: I recently started growing my relationship with god and want to proudly display
+    my faith
+  theme: trigger
+  why_it_matters: Classic trigger moment + desire statement in one sentence. Could
+    open a faith-journey-themed ad sequence targeting new or returning Christians.
+- quote: people may even come up to and say i like your clothing and maybe even ask
+    deeper questions towards it. Definitely can really change someone perspective
+    in life spiritually mentally
+  theme: transformation
+  why_it_matters: "Articulates the deepest social job-to-be-done \u2014 passive evangelism\
+    \ through apparel. Powerful for messaging that positions the product as a conversation\
+    \ starter, not just clothing."
+- quote: You helped me come back to Christ when I was drifting away and for that I
+    am forever grateful
+  theme: transformation
+  why_it_matters: Emotionally heavy before/after. Could anchor a testimonial-style
+    ad or retargeting creative for lapsed Christians.
+- quote: I have never even seen your channel before and I thought this was going to
+    be a parody. Making fun of Christians and Christian companies. WHAT A PLEASANT
+    SUPRISE
+  theme: objection
+  why_it_matters: "Surfaces the buried objection the whole category faces \u2014 that\
+    \ Christian products are embarrassing or mockable. Reframing this expectation\
+    \ is powerful ad territory."
+- quote: I love how u spread Christianity by using trendy things
+  theme: standout
+  why_it_matters: Concise articulation of brand positioning. Could be used verbatim
+    as social proof copy or inform a 'faith meets culture' brand tagline.
+- quote: those are some fire clothing especially with significant meaning and useful
+    words on them cause you'll never know who it can impact by reading those words
+    on your clothing
+  theme: transformation
+  why_it_matters: "Shows the buyer sees the apparel as a ministry tool, not just a\
+    \ fashion item. Elevates perceived value well beyond the product itself \u2014\
+    \ high leverage for premium pricing messaging."
+- quote: I would like one to have a daily reminder of what is most important, and
+    to have my life revolve around God
+  theme: desire
+  why_it_matters: Deep, emotionally honest articulation of the core desire beneath
+    the purchase. Could be the foundation of an entire brand narrative or long-form
+    ad.
+- quote: It is so refreshing to see a young man doing this type of content as opposed
+    to other options
+  theme: standout
+  why_it_matters: Implies the market felt underserved or culturally adrift before
+    this content appeared. The word 'refreshing' is a strong emotional signal worth
+    mining for brand voice.
+sample_notes:
+- total_reviews: 138
+  bias_warnings:
+  - "106 of 138 reviews are 5-star \u2014 extreme positive skew typical of review-gated\
+    \ or follow-up email solicitation; the 3-star reviews are disproportionately high\
+    \ signal and should be weighted accordingly"
+  - "Multiple apparent duplicate reviews present (identical text, identical rating)\
+    \ \u2014 actual unique reviewer count is lower than 138; patterns based on duplicates\
+    \ should not be double-counted for confidence scoring"
+  - "One 1-star review (scored as quality 1) was paradoxically written as a positive\
+    \ review \u2014 'Great quality and sizing is accurate. Excellent customer service.'\
+    \ This suggests possible misrating or platform error; treat as anomalous"
+  - Review set skews toward satisfied buyers who felt moved to write; frustrated customers
+    who silently churned or did not reorder are underrepresented
+  - "Hat-specific pain points cluster distinctly from apparel reviews \u2014 hats\
+    \ may represent a separate product quality tier or manufacturing source that should\
+    \ be evaluated independently"
+  - "No competitor brand names mentioned anywhere in the review set \u2014 alternatives\
+    \ considered section is largely inferred, not directly evidenced"
+  recency: "Specific dates not provided in the review data; recency cannot be confirmed\
+    \ \u2014 treat all insights as directional until timestamped data is available"
+- total_reviews: 201
+  bias_warnings:
+  - "CRITICAL \u2014 Dataset contamination: The overwhelming majority of these comments\
+    \ are unrelated to faith-based apparel. They appear to be scraped from TikTok\
+    \ or Instagram comment sections across multiple unrelated videos (BBQ restaurants\
+    \ in South Carolina, baby clothing brands, Indonesian beauty products, a pants\
+    \ try-on video). Only approximately 15-20 comments plausibly relate to apparel\
+    \ in general; fewer than 10 can be confirmed as faith-based apparel adjacent."
+  - "No star ratings exist \u2014 all reviews are listed as N/A. This eliminates a\
+    \ standard quality signal and collapses the distribution toward emoji/low-effort\
+    \ comments."
+  - 'Social media comment bias: these are TikTok/Instagram comments, not structured
+    reviews. This format skews heavily toward reactive, impulse-language responses
+    and away from considered, descriptive feedback. Power of this data is in linguistic
+    register and micro-trigger moments, NOT in frequency-based pattern analysis.'
+  - 'Zero post-purchase transformation data: no commenter describes life after using
+    a faith-based apparel product. All sentiment is pre-purchase or at-discovery stage.
+    This dataset cannot inform retention, repeat purchase, or satisfaction messaging.'
+  - 'Sample size for faith-based apparel specifically: fewer than 15 usable data points.
+    Per the customer-research framework minimum viable sample threshold (5-10 per
+    segment), this is insufficient to build personas, confirm JTBD, or draw messaging
+    conclusions. All confidence scores are LOW as a result.'
+  - Restaurant review contamination (Simply Southern BBQ and competitors) accounts
+    for roughly 40% of all non-emoji comments. These have been excluded entirely from
+    analysis.
+  - Indonesian-language comments (likely a fragrance or skincare product) account
+    for a small segment and have been excluded.
+  recency: "Not determinable \u2014 no timestamps provided. Comment style suggests\
+    \ contemporary social media (TikTok/Instagram Reels era), likely 2022-2024, but\
+    \ cannot be confirmed."
+  recommendation: This dataset is not suitable for VOC analysis of faith-based apparel
+    without significant additional data. Recommend supplementing with (1) G2/Etsy/Shopify
+    product reviews filtered to faith-based apparel SKUs, (2) Reddit communities such
+    as r/Christian or faith lifestyle subs, (3) dedicated TikTok comment pulls from
+    confirmed faith-apparel brand videos only, and (4) a minimum of 50 on-topic reviews
+    before drawing any strategic conclusions.
+- total_reviews: 130
+  bias_warnings:
+  - "These are YouTube comment section responses, not verified product reviews \u2014\
+    \ they reflect audience engagement with a content creator, not direct post-purchase\
+    \ product feedback. Treat as top-of-funnel sentiment, not conversion-stage VOC."
+  - "Comments skew young (Gen Z / younger Millennial), likely 13\u201325 demographic.\
+    \ Insights may not generalize to older faith-based apparel buyers."
+  - "Many comments are giveaway entries (include sizes, Instagram handles, item requests)\
+    \ \u2014 purchase intent signals are present but mediated by the incentive structure\
+    \ of the giveaway."
+  - "Significant comment pollution \u2014 roughly 40% of comments are off-topic (food\
+    \ reviews, greetings, unrelated content), which compressed usable signal severely."
+  - No verified purchasers in this set. Desires and language patterns are real, but
+    no post-purchase transformation data exists. Would need G2/app store/actual product
+    reviews to validate.
+  - "Positive sentiment bias is extreme \u2014 comment sections on faith-creator content\
+    \ self-select for supportive, same-faith viewers. Skeptics and critics are largely\
+    \ absent."
+  - Sample is too small and too homogeneous (Christian youth, US-skewing) to draw
+    conclusions about the broader faith-based apparel market without additional research.
+  - Minimum viable threshold for high-confidence insights (5+ independent data points
+    per theme) is met only for brand discovery gap, faith-as-style, and Simply Southern
+    brand affinity themes.
+  recency: Specific dates not visible in the provided data. Comments reference COVID-era
+    experiences and current Gen-Z slang patterns, suggesting approximate window of
+    2021-2024, with no clear way to weight by recency.
+review_quality_scores:
+- total: 138
+  by_score:
+    1: 4
+    2: 3
+    3: 14
+    4: 11
+    5: 106
+  discarded: 4
+- total: 201
+  by_score:
+    1: 158
+    2: 32
+    3: 8
+    4: 3
+    5: 0
+  discarded: 158
+- total: 130
+  by_score:
+    1: 52
+    2: 45
+    3: 22
+    4: 9
+    5: 2
+  discarded: 52

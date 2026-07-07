@@ -1,0 +1,69 @@
+name: I Need a Diet Coke. Tee or Sweatshirt
+description: Lifestyle humor tee/sweatshirt. Part of the Diet Coke + Dr. Pepper collection.
+  Evergreen relatable humor with strong gifting utility.
+benefits:
+- '[functional] Available as both a tee and a sweatshirt (two silhouette options)'
+- '[functional] Relaxed fit construction'
+- '[functional] Screenprinted for durability'
+- '[functional] Made on Comfort Colors brand blanks'
+- '[functional] Short sleeve option for the tee'
+- '[functional] Part of the Diet Coke + Dr. Pepper collection — designed as a coordinating
+  set'
+- '[emotional] Lets Diet Coke lovers wear their obsession proudly and unapologetically'
+- '[emotional] Delivers a small, wearable hit of humor on an ordinary day'
+- '[emotional] Feels like the shirt is saying exactly what you''re thinking — before
+  your first sip'
+- '[emotional] Gives permission to be relatable and a little extra about your beverage
+  loyalty'
+- '[social] Instant conversation starter for fellow Diet Coke devotees'
+- '[social] Perfect gift for the Diet Coke friend everyone has — removes gifting guesswork
+  entirely'
+- '[social] Signals membership in a very specific, very passionate tribe'
+- '[social] Wearable humor that reads as self-aware rather than try-hard'
+price: ~$28–50
+category: general
+image_path: ''
+image_url: https://savedbygraceco.com/cdn/shop/files/ScreenShot2024-06-21at10.24.50AM.png?v=1783218056&width=1448
+additional_images: []
+product_characteristics:
+  materials_or_ingredients:
+  - Comfort Colors brand blanks
+  - Screenprinted graphic (for durability)
+  shipping_and_fulfillment:
+  - No specific shipping lead time, made-to-order status, or fulfillment details visible
+    in the extracted HTML
+  ratings_and_reviews_meta:
+    star_rating: 4.8 / 5
+    review_count: ''
+    review_widget: Klaviyo
+  guarantees:
+  - No guarantee or refund policy language visible in the extracted HTML
+  cross_sells_or_bundles:
+  - Diet Coke + Dr. Pepper collection (implied — page description references this
+    as part of a coordinating collection)
+  - Faith Collection (site navigation)
+  - Mom Tees collection (site navigation)
+  - Best Sellers collection (site navigation)
+  customer_language_quotes: []
+  extraction_confidence: medium
+  extraction_notes: 'Price confirmed at $47.00 from both og:price:amount meta tag
+    and inline product price span. Star rating of 4.8 confirmed from aria-label on
+    product__rating div. Review count not rendered in HTML — likely populated dynamically
+    via Klaviyo star rating widget (span.klaviyo-star-rating-widget). No verbatim
+    review quotes present in source; customer language quotes left empty per instructions
+    — do not fabricate. Product copy is sparse: meta description confirms relaxed
+    fit, screenprinted, Comfort Colors brand, short sleeve for tee — sweatshirt specs
+    not explicitly detailed in visible HTML. Sweatshirt price may differ from $47.00
+    (could be variant-specific); $47.00 is the default/displayed price. No FAQ, shipping,
+    guarantee, or returns copy visible in extracted portion. Cross-sell to Dr. Pepper
+    collection inferred from brand description context, not from explicit page module.
+    Featured on the Today Show badge confirmed in announcement bar.'
+url: https://savedbygraceco.com/products/i-need-a-diet-coke
+unique_mechanism: 'The shirt works because it says the unsayable out loud — not ''I
+  like Diet Coke'' but ''I NEED a Diet Coke,'' capturing the specific emotional urgency
+  that real Diet Coke fans feel daily. Screenprinted on Comfort Colors blanks, the
+  durability of the graphic matches the durability of the sentiment: this isn''t a
+  phase, it''s a lifestyle.'
+objections:
+- No explicit FAQ or objection-handling copy visible in the extracted HTML
+social_proof: []

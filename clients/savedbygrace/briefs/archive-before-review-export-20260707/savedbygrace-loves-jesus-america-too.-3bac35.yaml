@@ -1,0 +1,107 @@
+brief_id: savedbygrace-loves-jesus-america-too.-3bac35
+client: savedbygrace
+product: Loves Jesus + America, Too.
+awareness_level: solution_aware
+mental_stage: exploration
+trigger_moment: ''
+framework: fab
+angle: "Why does faith apparel always make you choose \u2014 Sunday version or real\
+  \ version? This phrase doesn't."
+hook: "Most faith tees are designed for one version of you.\n\nThe Sunday version.\
+  \ The version that has it together.\n\n*Loves Jesus + America, Too.* was written\
+  \ for the one who also\nneeds a Diet Coke and a nap \u2014 and isn't apologizing\
+  \ for either.\n\nThere's a reason it's the shirt that keeps selling out.\n"
+hook_type: Curiosity Gap (Intrigue)
+slot: 4
+hook_source: "competitive-gap faith meets real-life mom humor \u2014 no competitor\
+  \ holds irreverent plus faithful tone simultaneously"
+hook_tactic: "Contrarian \u2014 challenge the assumption that you have to pick a lane,\
+  \ then reveal the shirt as proof you don't"
+persona: All-Of-It Amber
+creative_mechanic: contrast_plus_aspirational_identity
+visual_format: "Split-frame lifestyle static \u2014 left side shows a stiff, overtly\
+  \ religious graphic tee in a sterile setting; right side shows the Loves Jesus +\
+  \ America, Too. tee worn casually at a cookout or on a school run, same woman, completely\
+  \ different energy"
+visual_format_alternatives:
+- "Reels-style video montage \u2014 quick cuts between 'Sunday version' moments and\
+  \ 'real Tuesday' moments, tee present throughout, ending on a direct-camera smile"
+- "Text-motion graphic \u2014 the phrase 'Loves Jesus + America, Too.' builds word\
+  \ by word on screen over a warm lifestyle background, no people required"
+persona_traits: "Millennial Christian mom who runs two internal tracks simultaneously\
+  \ \u2014 the faith track and the 'feral' track \u2014 and is tired of apparel brands\
+  \ that only see one of them"
+pain_point: "Generic boutique tees are funny but empty; faith apparel is sincere but\
+  \ stiff \u2014 she can't find one shirt that holds both registers at once"
+benefit_callouts:
+- One phrase. Both versions of you.
+- Wry, warm, and zero apology
+- "The brand's most iconic crossover \u2014 for a reason"
+cta: Wear the whole you
+body_copy: ''
+visual_direction: "The contrast should feel true, not mean \u2014 the 'other' tee\
+  \ side isn't mocked, it just looks like it belongs in a different life. The SBG\
+  \ Co. side should look lived-in, warm, and immediately recognizable as her real\
+  \ Tuesday aesthetic."
+tone_override: ''
+target_platform: meta
+source_insight: angle_multiplier
+campaign_name: ''
+trending_format_recommendations:
+- format_id: david-and-goliath
+  name: David & Goliath
+  summary: Underdog brand vs giant industry/competitor. Calls out an enemy first (a
+    specific competitor, a massive scam, or the broken status quo), then contrasts
+    with your brand using core differentiators and the science of why you're better.
+    Animations on the science boost retention.
+  format_type: both
+  production_complexity: medium
+  rank: 1
+  rationale: "The brief's core angle is explicitly adversarial toward an industry\
+    \ status quo \u2014 faith apparel forces a false choice between 'Sunday version'\
+    \ and 'real version.' David & Goliath is built exactly for this: call out the\
+    \ broken category first, then position 'Loves Jesus + America, Too.' as the brand\
+    \ that refuses that compromise. Amber is solution-aware and frustrated, making\
+    \ the switcher/frustrated persona match tight."
+  production_notes: Define the 'enemy' as the category norm (stiff sincerity vs. hollow
+    humor), not a specific brand, to avoid legal risk and keep the message broadly
+    relatable.
+- format_id: obvious-ai-slop
+  name: Obvious AI Slop
+  summary: "Pixar-style animated characters being intentionally cringe (e.g. \"Hi\
+    \ I'm Vitamin D3\", \"I'm your stinky coochie\"). Works precisely BECAUSE it's\
+    \ obviously fake \u2014 bypasses the \"is this person real?\" skepticism that's\
+    \ killing traditional UGC. The cartoonish framing travels well across demographics\
+    \ because it sidesteps the trust question entirely \u2014 even buttoned-up, research-driven\
+    \ buyers engage with it as entertainment first, then absorb the product claim\
+    \ almost as a side effect. Strong evergreen pattern for any brand that needs to\
+    \ break through scroll-fatigue."
+  format_type: video
+  production_complexity: medium
+  rank: 2
+  rationale: "Amber is meme-aware and scroll-fatigued, and the brief's tone already\
+    \ carries irreverence \u2014 the whole joke is that this shirt holds two registers\
+    \ at once. Obvious AI Slop lets the creative lean into that dual-register energy\
+    \ visually (sincere character + absurd format), signaling to Amber that this brand\
+    \ gets the joke without being empty."
+  production_notes: "Keep the Pixar-style character visually tied to the American\
+    \ faith aesthetic \u2014 flannel, flag, cross \u2014 so the cringe reads as self-aware\
+    \ celebration, not mockery of her identity."
+- format_id: were-not-cheap
+  name: We're Not Cheap (Objection Handling)
+  summary: Direct objection handling. Lead hook is "We're not cheap and we don't want
+    to be" followed by specific reasons (ingredients, supply chain, ethics, manufacturing).
+    Classic objection-handling sales technique applied to creative.
+  format_type: both
+  production_complexity: low
+  rank: 3
+  rationale: "Amber's pain point is that generic boutique tees are empty and faith\
+    \ tees are stiff \u2014 implying she's already dismissed cheap options on both\
+    \ ends. Objection handling that leads with 'we're not cheap' reframes the price\
+    \ premium as intentional craftsmanship, speaking directly to a values-driven buyer\
+    \ who wants quality to match conviction."
+  production_notes: "Ground the 'not cheap' reasons in tangible product details \u2014\
+    \ fabric weight, print durability, the specific phrase \u2014 rather than vague\
+    \ brand values, or it risks sounding like every other boutique."
+text_layout: null
+source_matrix_row: null
