@@ -40,6 +40,8 @@
 | 2026-06-11 | **POV short, corrected spec** (meme-flex line register, candid-motion visuals, messaging test bed) | APPROVED | "This looks good"; operator supplied source transcript + examples |
 | 2026-06-11 | **The approved caption structure** (🤦‍♀️ confession → "turns out" → 💡 vindication turn → mechanism → ✅ postbiotics → offer close) | APPROVED | "Here's the style of copy that we typically like" (operator-provided reference) |
 | 2026-06-10 | Culture-pulse system (4 layers, surface tiers, promotion ladder) | APPROVED | "This looks good" → propagated to repo + skills + handoff |
+| 2026-07-08 | **Mechanism/advertorial ad copy = news-headline register** | APPROVED-DIRECTION | "Short and punchy, essentially like a headline in a news article." Model lines: "The real reason you feel not yourself after 40" and "It's not perimenopause. Doctors are finding a different root cause." ("I particularly like the perimenopause one. It does a good job of piquing curiosity.") Structure: headline + max one deck line + diagram labels. Lives in `../static-ads/mechanism-infographic-2026-07/copy-notes.md` |
+| 2026-07-08 | **No publication mastheads on ad creative** ("inside health report" kicker) | REJECTED | Operator worried about legal backlash from fake-outlet chrome. News GENRE styling OK; publication IDENTITY not. Swapped to generic "research brief" slug |
 
 ## Angles & territories
 
@@ -64,6 +66,7 @@
 
 | Date | Item | Why |
 |---|---|---|
+| 2026-07-08 | Second-person storytelling sub-copy on mechanism ads ("You went to bed early again. The wall still came." / "You fixed the coffee. You fixed the sleep.") | "Sounds very ad-y." On-image copy must stay in news-headline register |
 | 2026-07-01 | First punchy header batch ("Feel like yourself again." / "Not gone. Under-supplied." / "You, before the bloat.") | "Don't love any of these. It just is flat. Needs to be bolder." |
 | 2026-07-01 | Long, she-coded hero subs | "Very specific... 'she'... kind of long. I want it more punchy." |
 | 2026-06-11 | Long confessional monologue as "love letter" | Wrong format; superseded by operator examples |

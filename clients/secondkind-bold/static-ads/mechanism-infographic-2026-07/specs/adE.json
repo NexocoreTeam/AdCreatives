@@ -1,8 +1,7 @@
 {
   "blocks": [
     {"text": "The Exhaustion That More\nSleep Doesn't Fix", "font": "news", "size": 0.05, "color": "#3A2E22", "x": 0.06, "y": 0.035, "line_spacing": 1.14},
-    {"text": "You went to bed early again. The wall still came.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.155},
-    {"text": "The energy leak may be lower than you think.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.182},
+    {"text": "Doctors are finding a different root cause.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.155},
     {"text": "what mornings feel like", "font": "condensed", "size": 0.02, "color": "#B5432F", "x": 0.045, "y": 0.66}
   ],
   "out_size": [1080, 1350]

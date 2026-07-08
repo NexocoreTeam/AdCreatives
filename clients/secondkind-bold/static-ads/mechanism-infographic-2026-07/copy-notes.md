@@ -8,12 +8,23 @@ reference literally says "HEAL NATURALLY", which SecondKind cannot say). Headlin
 Case (brand bans ALL CAPS), Franklin Gothic for the news voice. All text composited via
 scripts/ad_text_overlay.py; specs re-editable. 4:5 (1080x1350).
 
+## Copy register rule (operator note, 2026-07-08)
+
+On-image copy must read like a NEWS HEADLINE: short, punchy, curiosity-gap, optional
+authority attribution ("Doctors are finding..."). NO second-person storytelling
+("You tried X. You did Y.") anywhere on the image; it reads as an ad. Model lines the
+operator approved: "The real reason you feel not yourself after 40" and especially
+"It's not perimenopause. Doctors are finding a different root cause." Structure = one
+headline + at most one news-style deck line + diagram labels + optional figure caption.
+No publication mastheads on creative (legal/policy risk); generic genre slugs like
+"research brief" are OK.
+
 | Ad | Headline | Visual | Reference it maps to |
 |---|---|---|---|
-| A | Brain Fog Might Be a Gut Signal Issue | vintage textbook gut-wall cross-section, red particles slipping the lining, nerve to brain; labels: gut lining / signal molecules / to the brain | "Fibromyalgia pain might be a gut wall issue" |
+| A | Midlife Brain Fog May Start Here, Not in the Brain | vintage textbook gut-wall cross-section, red particles slipping the lining, nerve to brain; labels: gut lining / signal molecules / to the brain | "Fibromyalgia pain might be a gut wall issue" |
 | B | 90% of Your Serotonin Is Made in Your Gut, Not Your Brain | sepia pencil before/after women, fog scribble vs clear; label "it starts here" at gut dot; captions fog,flatness / steady,clear | the sketch before/after pair |
-| C | Emotional Flatness May Start in Your Gut Wall | two-tone oxblood/cream silhouettes, red signal noise vs clean gold gut-to-head line; captions signal noise / clear signal | "Inflammation amplifying your pain starts in your gut wall" |
-| D | The 'Second Brain' Discovery Changing How We See Midlife Mood | dark macro gut-cavern with golden neuron path, "inside health report" kicker | "Arteries could heal naturally" dark news cover |
+| C | The Real Reason You Don't Feel Like Yourself After 40 | two-tone oxblood/cream silhouettes, red signal noise vs clean gold gut-to-head line; captions signal noise / clear signal | "Inflammation amplifying your pain starts in your gut wall" |
+| D | The 'Second Brain' Discovery Changing How We See Midlife Mood | dark macro gut-cavern with golden neuron path, "research brief" kicker | "Arteries could heal naturally" dark news cover |
 
 ## Wave 2 (adE-adI): own-audience pain points
 
@@ -31,17 +42,22 @@ palette, and news-genre typography as wave 1.
 
 ## Suggested primary text (shared base, tune per ad)
 
-The fog, the flatness, the 2pm wall. You blamed age.
-New research points somewhere else: the gut wall, where 90% of your serotonin is made.
-Read why thousands of women over 40 are looking at their gut first.
+Same register as on-image: headline-y curiosity, no second-person storytelling.
 
-Wave-2 per-ad first lines (swap into the base):
+The fog, the flatness, the 2pm wall. New research traces all three to the gut wall,
+where 90% of serotonin is made. The full report explains what doctors are finding.
 
-- E: You went to bed at 9. You woke up tired anyway.
-- F: Coffee number three and the wall still won.
-- G: That hum of dread with nothing behind it has a mechanism.
-- H: You took the capsules for months. You felt nothing. There may be a reason.
-- I: You snapped at someone you love and did not recognize yourself.
+Per-ad first lines (swap into the base):
+
+- A: Midlife brain fog may not start in the brain at all.
+- B: 90% of serotonin is made in the gut. Researchers say it may explain the midlife dip.
+- C: It may be signal chemistry, not hormones.
+- D: The 'second brain' discovery is changing how researchers see midlife mood.
+- E: Doctors are looking below the brain for the kind of tired sleep can't fix.
+- F: The afternoon crash may be a fuel problem, not a coffee problem.
+- G: Anxiety with no reason behind it may be a misfired gut signal.
+- H: Billions of CFUs and no felt difference. The route may be the reason.
+- I: Sudden mood swings may be chemistry, not character.
 
 ## Link headline options
 
