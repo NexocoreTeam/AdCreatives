@@ -22,8 +22,10 @@ a bot config would drift within weeks.
    `#ad-review` (escalations; strategist + the bot).
 3. Git: the bot commits cards on the `ad-library/cards` branch (see commit
    policy below). It needs push access to that branch only.
-4. Validation before trusting it: the strategist builds the gold set and the
-   bake-off picks the default model — `references/swipe/gold/README.md`.
+4. Validation before trusting it: Devin drafts the gold set and runs the
+   bake-off; Mitchell reviews and approves at both gates — full process in
+   `references/swipe/gold/README.md`. The default model is whatever Gate 2
+   crowns.
 
 ## Workflow instruction (configure in OpenClaw)
 
