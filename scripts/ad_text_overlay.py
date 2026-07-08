@@ -93,7 +93,7 @@ def render(background: Path, spec_path: Path, out_path: Path) -> None:
         y = int(h * block["y"])
         spacing = block.get("line_spacing", 1.22)
         halo = block.get("halo")
-        stroke = max(2, int(h * block["size"] * 0.10)) if halo else 0
+        stroke = max(3, int(h * block["size"] * 0.16)) if halo else 0
         for line in block["text"].split("\n"):
             draw.text((x, y), line, font=font, fill=block["color"],
                       stroke_width=stroke, stroke_fill=halo)
@@ -102,7 +102,7 @@ def render(background: Path, spec_path: Path, out_path: Path) -> None:
     for label in spec.get("labels", []):
         font = load_font(label.get("font", "sans"), int(h * label["size"]))
         halo = label.get("halo")
-        stroke = max(2, int(h * label["size"] * 0.10)) if halo else 0
+        stroke = max(3, int(h * label["size"] * 0.16)) if halo else 0
         draw.text(
             (int(w * label["tx"]), int(h * label["ty"])),
             label["text"], font=font, fill=label["color"],

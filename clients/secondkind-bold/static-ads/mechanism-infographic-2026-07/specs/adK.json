@@ -1,0 +1,12 @@
+{
+  "blocks": [
+    {"text": "Normal Labs. Same Fog.", "font": "news", "size": 0.05, "color": "#3A2E22", "x": 0.06, "y": 0.035},
+    {"text": "Doctors are finding what standard panels can't see.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.115},
+    {"text": "what never gets tested", "font": "condensed", "size": 0.024, "color": "#F2E8D5", "x": 0.36, "y": 0.60},
+    {"text": "Not yet part of routine midlife screening.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "halo": "#F2E8D5", "x": 0.06, "y": 0.945}
+  ],
+  "labels": [
+    {"text": "what gets tested", "color": "#8A6A2F", "size": 0.022, "tx": 0.08, "ty": 0.295, "lx1": 0.255, "ly1": 0.307, "lx2": 0.345, "ly2": 0.322}
+  ],
+  "out_size": [1080, 1350]
+}

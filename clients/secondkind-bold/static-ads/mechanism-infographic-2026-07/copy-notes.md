@@ -40,6 +40,27 @@ palette, and news-genre typography as wave 1.
 | H | Billions of CFUs. Nothing You Could Feel. | "tried probiotics, felt nothing" (category indictment, no brands) | two capsules: winding route dissolving in a stomach-acid pool vs direct arrow reaching the gut wall; "the long way / the direct way" |
 | I | Out-of-Character Mood Swings May Start in the Gut | snapping at family, "who was that?" | seismograph strip: calm line, two red quake bursts "out of nowhere", settling to gold "steadier" |
 
+## Wave 3 (adJ-adM): the perimenopause angle
+
+Operator asked for more on the proven perimenopause angle (best performer; model line
+"It's not perimenopause. Doctors are finding a different root cause."). All four follow
+the LP's actual argument: not "perimenopause is wrong" but "there is a second system
+nobody checks." News register per the 2026-07-08 rule.
+
+| Ad | Headline | Visual | LP element it front-runs |
+|---|---|---|---|
+| J | It's Not Perimenopause. Doctors Are Finding a Different Root Cause. | vintage textbook brain + intestine connected by gold vagus line, label "the signal route" | the operator's model line verbatim; vagus nerve frame |
+| K | Normal Labs. Same Fog. | sepia iceberg, cream tip vs huge oxblood mass; labels "what gets tested" / "what never gets tested"; kicker "Not yet part of routine midlife screening." | "not part of routine midlife screening" + normal-labs dismissal |
+| L | The Perimenopause Symptoms That May Not Be Perimenopause | gold + oxblood venn, overlap holds brain fog / mood swings / exhaustion | symptom checklist; "communication breakdown" second system |
+| M | What Perimenopause Gets Blamed For | two declining curves age 40 to 55: estrogen (expected) vs gut signal (unchecked); kicker "Only one is on the standard panel." | "accelerates during perimenopause"; screening gap |
+
+Wave-3 primary text first lines:
+
+- J: It's not perimenopause. Doctors are finding a different root cause.
+- K: Hormone panels come back normal. The fog stays. Researchers may know why.
+- L: Some symptoms blamed on perimenopause may belong to a different system.
+- M: Two declines start after 40. Only one is on the standard panel.
+
 ## Suggested primary text (shared base, tune per ad)
 
 Same register as on-image: headline-y curiosity, no second-person storytelling.

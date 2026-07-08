@@ -1,0 +1,12 @@
+{
+  "blocks": [
+    {"text": "The Perimenopause Symptoms\nThat May Not Be Perimenopause", "font": "news", "size": 0.046, "color": "#3A2E22", "x": 0.06, "y": 0.06, "line_spacing": 1.14},
+    {"text": "Doctors are finding a second system behind the overlap.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.185},
+    {"text": "hormones", "font": "condensed", "size": 0.026, "color": "#8A6A2F", "x": 0.185, "y": 0.53},
+    {"text": "gut-brain signals", "font": "condensed", "size": 0.026, "color": "#7A2E23", "x": 0.615, "y": 0.53},
+    {"text": "brain fog", "font": "serif_reg", "size": 0.021, "color": "#6B5844", "x": 0.435, "y": 0.585},
+    {"text": "mood swings", "font": "serif_reg", "size": 0.021, "color": "#6B5844", "x": 0.42, "y": 0.64},
+    {"text": "exhaustion", "font": "serif_reg", "size": 0.021, "color": "#6B5844", "x": 0.43, "y": 0.695}
+  ],
+  "out_size": [1080, 1350]
+}
