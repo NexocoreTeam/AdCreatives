@@ -45,6 +45,13 @@ clients/*/remixes/
 # Reference images uploaded via the dashboard's Remix tab — local-only.
 references/_dashboard_uploads/
 
+# Ad Reference Library working files: unsaved analyzer drafts, the library's
+# cost log (append-only, regenerable), and gold-eval result runs. The cards
+# themselves (ad-*.yaml + images) and the gold answer key ARE committed.
+references/swipe/analyzed/.drafts/
+references/swipe/analyzed/.cost-log.jsonl
+references/swipe/gold/results-*.yaml
+
 # Scratch / temp logs from CLI runs — regenerable, not source-of-truth
 .tmp_*
 *.bak

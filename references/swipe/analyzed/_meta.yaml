@@ -1,0 +1,34 @@
+library: analyzed
+description: >-
+  The Ad Reference Library — competitor ads broken down into the agency's
+  creative vocabulary (format, hook tactic, mechanic, scan path, proof,
+  awareness stage) with honest steal/avoid lines. Every card is AI
+  first-pass analyzed (`adc analyze`) and human-approved (`adc library
+  save`) before it lands here; nothing in this folder is unreviewed.
+
+# WHAT THIS LIBRARY IS FOR: transferable mechanics, never copying.
+# Cards answer WHY a competitor ad works so prompt generation can rebuild
+# the mechanic as brand-owned creative. The agency rule is baked into every
+# card's steal/avoid pair: reuse the mechanic, structure, scan path, and
+# proof logic — never the creator, exact copy lines, or visual identity.
+purpose:
+  signal: strategy
+  use_for:
+    - creative_mechanic
+    - hook_tactic
+    - scan_path
+    - proof_logic
+    - awareness_stage_fit
+  not_for:
+    - creator_likeness
+    - exact_copy_lines
+    - competitor_visual_identity
+
+# Layout: flat — ad-###.yaml + ad-###.jpg|png per card. Categorization
+# lives in each card's `analysis:` block (queryable), not in folders.
+# Vocabulary is parsed live from prompts/skills/motion/*.md; each card's
+# provenance records the taxonomy_version it was analyzed against.
+source:
+  type: analyzer-workflow
+  intake: Slack #ad-library via OpenClaw → adc analyze → human review
+  runbook: docs/ad-analyzer-openclaw.md

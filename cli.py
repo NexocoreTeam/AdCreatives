@@ -6699,5 +6699,357 @@ def remix_rebuild_prompts(
     )
 
 
+# ─── Ad Reference Library ────────────────────────────────────────────────────
+
+
+def _echo_payload_json(payload: dict) -> None:
+    import json as _json
+    click.echo(_json.dumps(payload, indent=2, ensure_ascii=False, default=str))
+
+
+@cli.command()
+@click.argument("source", required=False)
+@click.option("--brand", default="", help="Advertiser name (auto-filled from Foreplay)")
+@click.option("--signal", default="", help="Proxy performance signal, e.g. 'running 4 months, "
+              "12 variations' (auto-computed from Foreplay runtime)")
+@click.option("--source-link", default="", help="Foreplay / landing page link for the card")
+@click.option("--model", default=None, help="Vision model (default claude-sonnet-4-6; "
+              "'gpt-*' → OpenAI, 'vendor/model' → OpenRouter)")
+@click.option("--allow-video", is_flag=True, default=False,
+              help="Analyze a video ad's thumbnail (library v1 scope is static)")
+@click.option("--json", "as_json", is_flag=True, default=False,
+              help="Machine output (full draft payload) — what OpenClaw consumes")
+@click.option("--print-prompt", is_flag=True, default=False,
+              help="Print the generated analyzer system prompt and exit (no API call)")
+def analyze(source: str | None, brand: str, signal: str, source_link: str, model: str | None,
+            allow_video: bool, as_json: bool, print_prompt: bool):
+    """AI first-pass analysis of a competitor ad → draft reference card.
+
+    SOURCE is a local image path, a numeric Foreplay/Facebook ad id, or a URL
+    containing one. Produces a DRAFT under references/swipe/analyzed/.drafts/ —
+    nothing enters the library until `adc library save` with an explicit
+    approve/escalate status. The analyzer prompt is generated from the
+    taxonomy skill docs on every run; it cannot drift from the strategist's
+    vocabulary.
+    """
+    from strategy.ad_analyzer import (
+        DEFAULT_MODEL,
+        analyze_image,
+        build_system_prompt,
+        resolve_source,
+    )
+    from strategy.ad_card import write_draft
+    from strategy.ad_library import log_library_cost
+    from strategy.cost_tracker import COST_RATES
+    from strategy.taxonomy import load_taxonomy
+
+    tax = load_taxonomy()
+    model = model or DEFAULT_MODEL
+
+    if print_prompt:
+        click.echo(build_system_prompt(tax, "static"))
+        return
+    if not source:
+        console.print("[red]Missing SOURCE — pass an image path or a Foreplay ad id.[/red]")
+        raise SystemExit(1)
+
+    try:
+        image_path, media_type, foreplay_meta, context = resolve_source(
+            source, allow_video=allow_video)
+    except ValueError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    extra = {k: v for k, v in context.items()
+             if k in ("headline", "description") and v}
+    try:
+        payload = analyze_image(
+            image_path,
+            tax=tax,
+            media_type=media_type,
+            model=model,
+            brand=brand or context.get("brand", ""),
+            proxy_signal=signal or context.get("proxy_signal", ""),
+            source_link=source_link or context.get("source_link", ""),
+            extra_context=extra,
+            foreplay_meta=foreplay_meta,
+        )
+    except (RuntimeError, EnvironmentError) as exc:
+        # Per workflow rules: say so plainly, do not fabricate a card.
+        console.print(f"[red]Analysis failed: {exc}[/red]")
+        raise SystemExit(1)
+
+    draft_path = write_draft(payload)
+    payload["draft_path"] = str(draft_path)
+    log_library_cost("adc analyze", COST_RATES.get("adc analyze", 0.03),
+                     note=f"{payload['card'].get('brand', '?')} via {model}")
+
+    if as_json:
+        _echo_payload_json(payload)
+        return
+    click.echo(payload["display"])
+    for w in payload["warnings"]:
+        console.print(f"[yellow]note:[/yellow] {w}")
+    for issue in payload["issues"]:
+        console.print(f"[red]needs correction before save:[/red] {issue}")
+    console.print(f"\n[dim]Draft: {draft_path}[/dim]")
+    console.print(
+        "[dim]Save:  adc library save --draft "
+        f"\"{draft_path}\" --status approved --by <name>[/dim]")
+
+
+@cli.group()
+def library():
+    """Ad Reference Library — review, save, and audit analyzed ad cards."""
+
+
+@library.command(name="save")
+@click.option("--draft", "draft_path", required=True, type=click.Path(exists=True),
+              help="Draft JSON produced by `adc analyze`")
+@click.option("--corrections", default="", help="Reviewer corrections: 'field = value', "
+              "comma- or newline-separated (fuzzy-matched to canonical values)")
+@click.option("--status", type=click.Choice(["approved", "needs-strategist"]),
+              default=None, help="approve → library; needs-strategist → escalated")
+@click.option("--by", "by_user", default="", help="Reviewer name (Slack handle)")
+@click.option("--note", default="", help="Strategist notes to store on the card")
+@click.option("--dry-run", is_flag=True, default=False,
+              help="Apply corrections and re-render the card WITHOUT saving")
+@click.option("--json", "as_json", is_flag=True, default=False, help="Machine output")
+def library_save(draft_path: str, corrections: str, status: str | None, by_user: str,
+                 note: str, dry_run: bool, as_json: bool):
+    """Save a reviewed draft to the library (or --dry-run the corrections).
+
+    Requires an explicit --status: no card is ever saved without a human's
+    approve or escalate. --dry-run is the re-post loop: it applies
+    corrections, reports exact/fuzzy/rejected matches, and prints the
+    updated card for another look.
+    """
+    from strategy.ad_card import (
+        apply_corrections,
+        read_draft,
+        render_display,
+        save_card,
+        utc_now_iso,
+        validate_card,
+        write_draft,
+    )
+    from strategy.taxonomy import load_taxonomy
+
+    tax = load_taxonomy()
+    payload = read_draft(Path(draft_path))
+    card = dict(payload["card"])
+    original = dict(card)
+
+    report = None
+    if corrections:
+        card, report = apply_corrections(card, corrections, tax)
+
+    result = validate_card(card, tax)
+    display = render_display(result.card, status=status or "")
+
+    if dry_run or not status:
+        if corrections and not dry_run:
+            # Corrections without a status: persist them into the draft so the
+            # next `save --status approved` doesn't need them re-typed.
+            payload["card"] = result.card
+            payload["display"] = render_display(result.card)
+            new_draft = write_draft(payload)
+            console.print(f"[dim]Updated draft: {new_draft}[/dim]")
+        out = {
+            "display": display,
+            "issues": result.issues,
+            "warnings": result.warnings,
+            "corrections": {
+                "applied": report.applied if report else [],
+                "fuzzy_confirm": report.fuzzy if report else [],
+                "rejected": report.rejected if report else [],
+            },
+            "saved": False,
+        }
+        if as_json:
+            _echo_payload_json(out)
+        else:
+            click.echo(display)
+            for line in out["corrections"]["fuzzy_confirm"]:
+                console.print(f"[yellow]fuzzy:[/yellow] {line}")
+            for line in out["corrections"]["rejected"]:
+                console.print(f"[red]rejected:[/red] {line}")
+            for issue in result.issues:
+                console.print(f"[red]blocks save:[/red] {issue}")
+            if not status and not dry_run:
+                console.print("[yellow]No --status given — nothing saved. Pass "
+                              "--status approved or --status needs-strategist.[/yellow]")
+        return
+
+    meta = payload.get("meta") or {}
+    changed = {k: original.get(k) for k in result.card
+               if k in original and original.get(k) != result.card.get(k)
+               and k not in ("field_confidence", "reasoning")}
+    provenance = {
+        "analyzed_at": meta.get("analyzed_at", ""),
+        "model": meta.get("model", ""),
+        "taxonomy_version": meta.get("taxonomy_version", ""),
+        "added_by": by_user,
+        "approved_by": by_user,
+        "approved_at": utc_now_iso(),
+        "model_draft_values": changed,   # what the model said before human corrections
+        "corrections": (report.applied + report.fuzzy) if report else [],
+        "foreplay": meta.get("foreplay") or {},
+    }
+    image = Path(meta["image"]) if meta.get("image") else None
+    try:
+        card_id, sidecar_path = save_card(
+            result.card, status=status, image_path=image, tax=tax,
+            provenance=provenance, added_by=by_user, strategist_notes=note)
+    except ValueError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    # Successful save — clean the draft (image was copied into the library).
+    Path(draft_path).unlink(missing_ok=True)
+    if image and ".drafts" in str(image):
+        image.unlink(missing_ok=True)
+
+    if as_json:
+        _echo_payload_json({"saved": True, "card_id": card_id, "status": status,
+                            "sidecar": str(sidecar_path)})
+    else:
+        suffix = " — escalated to strategist" if status == "needs-strategist" else ""
+        console.print(f"[green]Saved as {card_id}{suffix}[/green]  [dim]{sidecar_path}[/dim]")
+
+
+@library.command(name="update")
+@click.argument("card_id")
+@click.option("--corrections", default="", help="'field = value' corrections")
+@click.option("--status", type=click.Choice(["approved", "needs-strategist"]), default=None)
+@click.option("--by", "by_user", default="", help="Who is making the change")
+@click.option("--note", default="", help="Strategist notes")
+@click.option("--json", "as_json", is_flag=True, default=False, help="Machine output")
+def library_update(card_id: str, corrections: str, status: str | None, by_user: str,
+                   note: str, as_json: bool):
+    """Correct or re-status an EXISTING card — the escalation close-out.
+
+    Typical: strategist resolves a needs-strategist card with
+    `adc library update AD-007 --corrections "mechanic = The Reframe"
+    --status approved --by @strategist`.
+    """
+    from strategy.ad_card import render_display, update_card
+    from strategy.taxonomy import load_taxonomy
+
+    status = status or ""
+    if not (corrections or status or note):
+        console.print("[yellow]Nothing to do — pass --corrections, --status, or --note.[/yellow]")
+        return
+    tax = load_taxonomy()
+    try:
+        sidecar, report = update_card(
+            card_id.upper(), corrections=corrections, status=status,
+            strategist_notes=note, updated_by=by_user, tax=tax)
+    except (FileNotFoundError, ValueError) as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    analysis = sidecar.get("analysis") or {}
+    display = render_display(
+        {**analysis, "brand": sidecar.get("brand", "")},
+        card_id=sidecar.get("card_id", card_id), status=analysis.get("status", ""))
+    if as_json:
+        _echo_payload_json({
+            "card_id": sidecar.get("card_id"), "status": analysis.get("status"),
+            "display": display,
+            "corrections": {"applied": report.applied, "fuzzy_confirm": report.fuzzy,
+                            "rejected": report.rejected},
+        })
+    else:
+        click.echo(display)
+        for line in report.rejected:
+            console.print(f"[red]rejected:[/red] {line}")
+
+
+@library.command(name="status")
+@click.option("--json", "as_json", is_flag=True, default=False, help="Machine output")
+def library_status_cmd(as_json: bool):
+    """Library counts, the needs-strategist queue, and the coverage gap map
+    (awareness stage × mechanic)."""
+    from strategy.ad_library import library_status
+    from strategy.taxonomy import AWARENESS_STAGES, load_taxonomy
+
+    tax = load_taxonomy()
+    data = library_status(tax)
+    if as_json:
+        _echo_payload_json(data)
+        return
+
+    console.print(f"\n[bold]Ad Reference Library[/bold] — {data['total']} card(s)")
+    for status, n in sorted(data["by_status"].items()):
+        console.print(f"  {status}: {n}")
+
+    if data["needs_strategist"]:
+        console.print("\n[yellow]Needs strategist (close these out with "
+                      "`adc library update`):[/yellow]")
+        for item in data["needs_strategist"]:
+            low = f" — low confidence: {item['low_confidence']}" if item["low_confidence"] else ""
+            console.print(f"  {item['card_id']}  {item['brand']}  ({item['date_added']}){low}")
+
+    table = Table(title="Coverage — awareness stage × mechanic")
+    table.add_column("stage")
+    for m in tax.mechanic_names():
+        table.add_column(m.replace("The ", ""), justify="center")
+    for stage, row in data["grid"].items():
+        table.add_row(AWARENESS_STAGES.get(stage, stage),
+                      *[str(row[m]) if row[m] else "·" for m in tax.mechanic_names()])
+    console.print(table)
+    if data["empty_mechanics"]:
+        console.print(f"[dim]No cards yet for: {', '.join(data['empty_mechanics'])}[/dim]")
+
+
+@library.command(name="validate")
+@click.option("--model", "models", multiple=True, required=True,
+              help="Candidate model (repeat for a bake-off): claude-*, gpt-*, vendor/model")
+@click.option("--runs", default=2, type=click.IntRange(1, 5),
+              help="Runs per model per ad (2+ measures self-consistency)")
+@click.option("--json", "as_json", is_flag=True, default=False, help="Machine output")
+def library_validate(models: tuple[str, ...], runs: int, as_json: bool):
+    """Score candidate models against the strategist's gold answer key.
+
+    Re-run after ANY prompt/model/taxonomy change and compare to the last
+    results file — if scores drop, roll back (the gold set is forever).
+    """
+    from strategy.ad_library import log_library_cost
+    from strategy.cost_tracker import COST_RATES
+    from strategy.gold_eval import SCORED_FIELDS, run_gold_eval
+
+    try:
+        results = run_gold_eval(list(models), runs_per_model=runs)
+    except (FileNotFoundError, ValueError) as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    calls = results["gold_ads"] * runs * len(models)
+    log_library_cost("adc library validate",
+                     COST_RATES.get("adc library validate", 0.03) * calls,
+                     note=f"{results['gold_ads']} ads × {runs} runs × {len(models)} models")
+    if as_json:
+        _echo_payload_json(results)
+        return
+
+    table = Table(title=f"Gold eval — {results['gold_ads']} ads × {runs} runs "
+                        f"(taxonomy {results['taxonomy_version']})")
+    table.add_column("model")
+    table.add_column("overall", justify="right")
+    table.add_column("consistency", justify="right")
+    for f in SCORED_FIELDS:
+        table.add_column(f, justify="right")
+    for model, r in sorted(results["models"].items(),
+                           key=lambda kv: -kv[1]["overall_accuracy"]):
+        table.add_row(model, f"{r['overall_accuracy']:.0%}", f"{r['self_consistency']:.0%}",
+                      *[f"{r['field_accuracy'][f]:.0%}" for f in SCORED_FIELDS])
+    console.print(table)
+    console.print(f"[dim]Full results (incl. prose for blind rating): "
+                  f"{results['results_path']}[/dim]")
+    console.print("[dim]Failures per model are listed in the results file — read them "
+                  "before crowning a winner.[/dim]")
+
+
 if __name__ == "__main__":
     cli()
