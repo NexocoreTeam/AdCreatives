@@ -1,0 +1,73 @@
+{
+  "out_size": [
+    1080,
+    1920
+  ],
+  "blocks": [
+    {
+      "text": "What Perimenopause\nGets Blamed For",
+      "font": "news",
+      "size": 0.0352,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.045,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "Two declines start after 40. They feel identical.",
+      "font": "serif_reg",
+      "size": 0.0155,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.145
+    },
+    {
+      "text": "estrogen, expected",
+      "font": "condensed",
+      "size": 0.0169,
+      "color": "#7A5C1E",
+      "x": 0.66,
+      "y": 0.6171
+    },
+    {
+      "text": "gut health, unchecked",
+      "font": "condensed",
+      "size": 0.0162,
+      "color": "#B5432F",
+      "x": 0.555,
+      "y": 0.7781
+    },
+    {
+      "text": "age 40",
+      "font": "condensed",
+      "size": 0.0148,
+      "color": "#57432F",
+      "x": 0.105,
+      "y": 0.8147
+    },
+    {
+      "text": "age 55",
+      "font": "condensed",
+      "size": 0.0148,
+      "color": "#57432F",
+      "x": 0.875,
+      "y": 0.8147
+    },
+    {
+      "text": "Only one of these is actually tested by doctors.",
+      "font": "serif_reg",
+      "size": 0.0162,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.833
+    },
+    {
+      "text": "The other goes unchecked.",
+      "font": "serif_reg",
+      "size": 0.0162,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.8548
+    }
+  ]
+}

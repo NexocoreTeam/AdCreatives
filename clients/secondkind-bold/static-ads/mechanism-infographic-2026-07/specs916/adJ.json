@@ -1,0 +1,30 @@
+{
+  "out_size": [
+    1080,
+    1920
+  ],
+  "blocks": [
+    {
+      "text": "It's Not Perimenopause.\nDoctors Are Finding a\nDifferent Root Cause.",
+      "font": "news",
+      "size": 0.0295,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.1,
+      "line_spacing": 1.14
+    }
+  ],
+  "labels": [
+    {
+      "text": "the signal route",
+      "color": "#7A5C1E",
+      "size": 0.0183,
+      "tx": 0.6,
+      "ty": 0.6062,
+      "lx1": 0.59,
+      "ly1": 0.6146,
+      "lx2": 0.548,
+      "ly2": 0.6146
+    }
+  ]
+}

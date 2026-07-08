@@ -1,0 +1,49 @@
+{
+  "out_size": [
+    1080,
+    1920
+  ],
+  "scrim": {
+    "start": 0.4219,
+    "strength": 0.5
+  },
+  "quote": {
+    "x": 0.05,
+    "y": 0.71,
+    "size": 0.0492,
+    "color": "#F2C24E"
+  },
+  "blocks": [
+    {
+      "text": "Normal Lab Tests.\nSame Brain Fog.",
+      "font": "sans",
+      "size": 0.0352,
+      "color": "#F2C24E",
+      "x": 0.05,
+      "y": 0.745,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "Doctors are finding what standard panels can't see.",
+      "font": "sans_reg",
+      "size": 0.0141,
+      "color": "#C9CDD2",
+      "x": 0.05,
+      "y": 0.852
+    }
+  ],
+  "labels": [
+    {
+      "text": "what gets tested",
+      "font": "sans_reg",
+      "color": "#E8E4DC",
+      "size": 0.0148,
+      "tx": 0.08,
+      "ty": 0.3833,
+      "lx1": 0.29,
+      "ly1": 0.3917,
+      "lx2": 0.465,
+      "ly2": 0.4395
+    }
+  ]
+}

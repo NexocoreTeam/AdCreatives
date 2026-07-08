@@ -1,0 +1,55 @@
+{
+  "out_size": [
+    1080,
+    1920
+  ],
+  "blocks": [
+    {
+      "text": "91% of Your Serotonin\nIs Made in Your Gut,\nNot Your Brain",
+      "font": "news",
+      "size": 0.0366,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.05,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "Why researchers are finding such a big drop at midlife.",
+      "font": "serif_reg",
+      "size": 0.0155,
+      "color": "#5A4A38",
+      "x": 0.12,
+      "y": 0.2,
+      "align": "center"
+    },
+    {
+      "text": "fog, flatness",
+      "font": "condensed",
+      "size": 0.019,
+      "color": "#7A2E23",
+      "x": 0.2,
+      "y": 0.8474
+    },
+    {
+      "text": "steady, clear",
+      "font": "condensed",
+      "size": 0.019,
+      "color": "#7A5C1E",
+      "x": 0.64,
+      "y": 0.8474
+    }
+  ],
+  "labels": [
+    {
+      "text": "it starts here",
+      "color": "#B5432F",
+      "size": 0.0162,
+      "tx": 0.04,
+      "ty": 0.545,
+      "lx1": 0.248,
+      "ly1": 0.5534,
+      "lx2": 0.263,
+      "ly2": 0.5534
+    }
+  ]
+}

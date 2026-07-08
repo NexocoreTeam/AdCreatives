@@ -1,0 +1,65 @@
+{
+  "out_size": [
+    1080,
+    1920
+  ],
+  "blocks": [
+    {
+      "text": "Anxiety Without a Reason\nMay Be a Signal Problem",
+      "font": "news",
+      "size": 0.0352,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.045,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "It may be a misfired gut signal, not your mind.",
+      "font": "serif_reg",
+      "size": 0.0155,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.148
+    },
+    {
+      "text": "signal noise",
+      "font": "condensed",
+      "size": 0.019,
+      "color": "#B5432F",
+      "x": 0.715,
+      "y": 0.403
+    },
+    {
+      "text": "steady signal",
+      "font": "condensed",
+      "size": 0.019,
+      "color": "#7A5C1E",
+      "x": 0.7,
+      "y": 0.6892
+    },
+    {
+      "text": "Studies suggest probiotics could help steady that signal.",
+      "font": "serif_reg",
+      "size": 0.0141,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.8087
+    },
+    {
+      "text": "But most die in stomach acid before they can.",
+      "font": "serif_reg",
+      "size": 0.0141,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.8277
+    },
+    {
+      "text": "A new technology is now changing that.",
+      "font": "serif_reg",
+      "size": 0.0141,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.8467
+    }
+  ]
+}

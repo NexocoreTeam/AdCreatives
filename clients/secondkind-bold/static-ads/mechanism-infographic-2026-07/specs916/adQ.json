@@ -1,0 +1,47 @@
+{
+  "out_size": [
+    1080,
+    1920
+  ],
+  "quote": {
+    "x": 0.05,
+    "y": 0.71,
+    "size": 0.0492,
+    "color": "#F2C24E"
+  },
+  "blocks": [
+    {
+      "text": "What Perimenopause\nGets Blamed For",
+      "font": "sans",
+      "size": 0.0352,
+      "color": "#F2C24E",
+      "x": 0.05,
+      "y": 0.745,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "estrogen, expected",
+      "font": "sans_reg",
+      "size": 0.0155,
+      "color": "#D9A83E",
+      "x": 0.55,
+      "y": 0.3094
+    },
+    {
+      "text": "gut health, unchecked",
+      "font": "sans_reg",
+      "size": 0.0155,
+      "color": "#E4573F",
+      "x": 0.57,
+      "y": 0.4641
+    },
+    {
+      "text": "Only one of these is actually tested by doctors.",
+      "font": "sans_reg",
+      "size": 0.0141,
+      "color": "#C9CDD2",
+      "x": 0.05,
+      "y": 0.852
+    }
+  ]
+}

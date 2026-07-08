@@ -1,0 +1,61 @@
+{
+  "out_size": [
+    1080,
+    1920
+  ],
+  "blocks": [
+    {
+      "text": "Midlife Brain Fog May Start\nHere, Not in the Brain",
+      "font": "news",
+      "size": 0.0338,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.06,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "Scientists are tracing it to the gut lining.",
+      "font": "serif_reg",
+      "size": 0.0155,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.152
+    }
+  ],
+  "labels": [
+    {
+      "text": "signal molecules",
+      "color": "#B5432F",
+      "size": 0.0169,
+      "tx": 0.06,
+      "ty": 0.4691,
+      "lx1": 0.315,
+      "ly1": 0.4775,
+      "lx2": 0.5,
+      "ly2": 0.6097
+    },
+    {
+      "text": "gut lining",
+      "color": "#57432F",
+      "size": 0.0169,
+      "halo": "#F2E8D5",
+      "tx": 0.06,
+      "ty": 0.5886,
+      "lx1": 0.235,
+      "ly1": 0.597,
+      "lx2": 0.27,
+      "ly2": 0.5675
+    },
+    {
+      "text": "to the brain",
+      "color": "#7A5C1E",
+      "size": 0.0169,
+      "tx": 0.7,
+      "ty": 0.3987,
+      "lx1": 0.79,
+      "ly1": 0.4269,
+      "lx2": 0.83,
+      "ly2": 0.4726
+    }
+  ]
+}

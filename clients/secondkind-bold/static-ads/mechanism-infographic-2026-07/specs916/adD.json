@@ -1,0 +1,37 @@
+{
+  "out_size": [
+    1080,
+    1920
+  ],
+  "scrim": {
+    "start": 0.3841,
+    "strength": 0.6
+  },
+  "blocks": [
+    {
+      "text": "research brief",
+      "font": "mono",
+      "size": 0.014,
+      "color": "#C99B3F",
+      "x": 0.07,
+      "y": 0.695
+    },
+    {
+      "text": "The ‘Second Brain’\nDiscovery Changing How\nWe See Midlife Mood",
+      "font": "serif",
+      "size": 0.03,
+      "color": "#F0DFA8",
+      "x": 0.07,
+      "y": 0.73,
+      "line_spacing": 1.24
+    },
+    {
+      "text": "Why researchers stopped looking only at the brain.",
+      "font": "serif_reg",
+      "size": 0.0154,
+      "color": "#C9B99A",
+      "x": 0.072,
+      "y": 0.852
+    }
+  ]
+}

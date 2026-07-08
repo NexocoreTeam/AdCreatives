@@ -123,3 +123,13 @@ Per-ad first lines (swap into the base):
 
 Plates: hf-output/sk-mechanism-ads/ (GPT Image 2 for the three flat infographics, NB2 for
 the dark macro; GPT max vertical is 3:4, cropped to 4:5 in post). All through deai_post.
+
+## 9:16 versions (final-916/, 2026-07-08)
+
+Story/Reels builds for A, B, D, E, G, H, J, K, L, M, N, O, Q at 1080x1920. Plates
+extended programmatically (mirror-tiled clean paper at top for the vintage set, mirrored
+darkness at bottom for the cinematic set) so no art was regenerated. Type re-laid per
+format: paper ads carry headline+deck at top, dark ads keep the gold block at bottom;
+all copy sits inside story safe zones (roughly 8-86% of height). Specs in specs916/;
+9:16 backgrounds in hf-output/sk-mechanism-ads/916/. adK's corner tease runs as a
+single line under the deck in this format.

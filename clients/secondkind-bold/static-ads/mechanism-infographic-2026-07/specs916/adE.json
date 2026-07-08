@@ -1,0 +1,33 @@
+{
+  "out_size": [
+    1080,
+    1920
+  ],
+  "blocks": [
+    {
+      "text": "The Exhaustion That More\nSleep Doesn't Fix",
+      "font": "news",
+      "size": 0.0352,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.06,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "Doctors are finding a different root cause.",
+      "font": "serif_reg",
+      "size": 0.0155,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.152
+    },
+    {
+      "text": "what mornings feel like",
+      "font": "condensed",
+      "size": 0.0162,
+      "color": "#B5432F",
+      "x": 0.045,
+      "y": 0.7574
+    }
+  ]
+}
