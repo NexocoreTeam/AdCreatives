@@ -1,12 +1,61 @@
 {
   "blocks": [
-    {"text": "Midlife Brain Fog May Start\nHere, Not in the Brain", "font": "news", "size": 0.048, "color": "#3A2E22", "x": 0.06, "y": 0.035, "line_spacing": 1.14},
-    {"text": "Scientists are tracing it to the gut lining.", "font": "serif_reg", "size": 0.0195, "color": "#5A4A38", "x": 0.06, "y": 0.155}
+    {
+      "text": "Midlife Brain Fog May Start\nHere, Not in the Brain",
+      "font": "news",
+      "size": 0.048,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.035,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "Scientists are tracing it to the gut lining.",
+      "font": "serif_reg",
+      "size": 0.022,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.155
+    }
   ],
   "labels": [
-    {"text": "signal molecules", "color": "#B5432F", "size": 0.021, "tx": 0.06, "ty": 0.245, "lx1": 0.285, "ly1": 0.257, "lx2": 0.50, "ly2": 0.445},
-    {"text": "gut lining", "color": "#6B5844", "size": 0.021, "halo": "#F2E8D5", "tx": 0.06, "ty": 0.415, "lx1": 0.20, "ly1": 0.427, "lx2": 0.26, "ly2": 0.385},
-    {"text": "to the brain", "color": "#8A6A2F", "size": 0.021, "tx": 0.70, "ty": 0.145, "lx1": 0.79, "ly1": 0.185, "lx2": 0.83, "ly2": 0.25}
+    {
+      "text": "signal molecules",
+      "color": "#B5432F",
+      "size": 0.024,
+      "tx": 0.06,
+      "ty": 0.245,
+      "lx1": 0.315,
+      "ly1": 0.257,
+      "lx2": 0.5,
+      "ly2": 0.445
+    },
+    {
+      "text": "gut lining",
+      "color": "#57432F",
+      "size": 0.024,
+      "halo": "#F2E8D5",
+      "tx": 0.06,
+      "ty": 0.415,
+      "lx1": 0.235,
+      "ly1": 0.427,
+      "lx2": 0.27,
+      "ly2": 0.385
+    },
+    {
+      "text": "to the brain",
+      "color": "#7A5C1E",
+      "size": 0.024,
+      "tx": 0.7,
+      "ty": 0.145,
+      "lx1": 0.79,
+      "ly1": 0.185,
+      "lx2": 0.83,
+      "ly2": 0.25
+    }
   ],
-  "out_size": [1080, 1350]
+  "out_size": [
+    1080,
+    1350
+  ]
 }

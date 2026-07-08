@@ -1,8 +1,33 @@
 {
   "blocks": [
-    {"text": "The Exhaustion That More\nSleep Doesn't Fix", "font": "news", "size": 0.05, "color": "#3A2E22", "x": 0.06, "y": 0.035, "line_spacing": 1.14},
-    {"text": "Doctors are finding a different root cause.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.155},
-    {"text": "what mornings feel like", "font": "condensed", "size": 0.02, "color": "#B5432F", "x": 0.045, "y": 0.66}
+    {
+      "text": "The Exhaustion That More\nSleep Doesn't Fix",
+      "font": "news",
+      "size": 0.05,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.035,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "Doctors are finding a different root cause.",
+      "font": "serif_reg",
+      "size": 0.022,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.155
+    },
+    {
+      "text": "what mornings feel like",
+      "font": "condensed",
+      "size": 0.023,
+      "color": "#B5432F",
+      "x": 0.045,
+      "y": 0.655
+    }
   ],
-  "out_size": [1080, 1350]
+  "out_size": [
+    1080,
+    1350
+  ]
 }

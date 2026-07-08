@@ -1,12 +1,65 @@
 {
   "blocks": [
-    {"text": "What Perimenopause\nGets Blamed For", "font": "news", "size": 0.05, "color": "#3A2E22", "x": 0.06, "y": 0.05, "line_spacing": 1.14},
-    {"text": "Two declines start after 40. They feel identical.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.175},
-    {"text": "estrogen, expected", "font": "condensed", "size": 0.021, "color": "#8A6A2F", "x": 0.68, "y": 0.545},
-    {"text": "gut signal, unchecked", "font": "condensed", "size": 0.021, "color": "#B5432F", "x": 0.58, "y": 0.75},
-    {"text": "age 40", "font": "condensed", "size": 0.019, "color": "#6B5844", "x": 0.105, "y": 0.916},
-    {"text": "age 55", "font": "condensed", "size": 0.019, "color": "#6B5844", "x": 0.875, "y": 0.916},
-    {"text": "Only one is on the standard panel.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.948}
+    {
+      "text": "What Perimenopause\nGets Blamed For",
+      "font": "news",
+      "size": 0.05,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.05,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "Two declines start after 40. They feel identical.",
+      "font": "serif_reg",
+      "size": 0.022,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.175
+    },
+    {
+      "text": "estrogen, expected",
+      "font": "condensed",
+      "size": 0.024,
+      "color": "#7A5C1E",
+      "x": 0.66,
+      "y": 0.545
+    },
+    {
+      "text": "gut signal, unchecked",
+      "font": "condensed",
+      "size": 0.023,
+      "color": "#B5432F",
+      "x": 0.555,
+      "y": 0.865
+    },
+    {
+      "text": "age 40",
+      "font": "condensed",
+      "size": 0.021,
+      "color": "#57432F",
+      "x": 0.105,
+      "y": 0.916
+    },
+    {
+      "text": "age 55",
+      "font": "condensed",
+      "size": 0.021,
+      "color": "#57432F",
+      "x": 0.875,
+      "y": 0.916
+    },
+    {
+      "text": "Only one is on the standard panel.",
+      "font": "serif_reg",
+      "size": 0.021,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.948
+    }
   ],
-  "out_size": [1080, 1350]
+  "out_size": [
+    1080,
+    1350
+  ]
 }

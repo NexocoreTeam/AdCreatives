@@ -19,6 +19,11 @@ headline + at most one news-style deck line + diagram labels + optional figure c
 No publication mastheads on creative (legal/policy risk); generic genre slugs like
 "research brief" are OK.
 
+Type floor (operator legibility note, 2026-07-08): deck lines 0.022, diagram labels
+0.023 minimum, kickers 0.021. On cream paper use dark gold #7A5C1E and dark brown
+#57432F (the lighter #8A6A2F / #6B5844 read as hard-to-see). Red #B5432F and cream
+#F2E8D5-on-dark are fine. Chart labels sit adjacent to their own line, not floating.
+
 | Ad | Headline | Visual | Reference it maps to |
 |---|---|---|---|
 | A | Midlife Brain Fog May Start Here, Not in the Brain | vintage textbook gut-wall cross-section, red particles slipping the lining, nerve to brain; labels: gut lining / signal molecules / to the brain | "Fibromyalgia pain might be a gut wall issue" |

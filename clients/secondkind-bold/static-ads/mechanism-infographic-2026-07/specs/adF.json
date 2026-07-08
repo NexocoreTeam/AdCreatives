@@ -1,11 +1,57 @@
 {
   "blocks": [
-    {"text": "The 2pm Wall Isn't\na Caffeine Problem", "font": "news", "size": 0.05, "color": "#3A2E22", "x": 0.06, "y": 0.035, "line_spacing": 1.14},
-    {"text": "New research points to gut energy signaling.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.155},
-    {"text": "9 a.m.", "font": "condensed", "size": 0.021, "color": "#6B5844", "x": 0.10, "y": 0.678},
-    {"text": "the wall", "font": "condensed", "size": 0.022, "color": "#B5432F", "x": 0.567, "y": 0.69},
-    {"text": "with steady signals", "font": "condensed", "size": 0.021, "color": "#8A6A2F", "x": 0.62, "y": 0.335},
-    {"text": "Fig. 1: energy through the day, with and without steady gut signaling", "font": "serif_reg", "size": 0.0175, "color": "#7A6650", "x": 0.06, "y": 0.90}
+    {
+      "text": "The 2pm Wall Isn't\na Caffeine Problem",
+      "font": "news",
+      "size": 0.05,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.035,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "New research points to gut energy signaling.",
+      "font": "serif_reg",
+      "size": 0.022,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.155
+    },
+    {
+      "text": "9 a.m.",
+      "font": "condensed",
+      "size": 0.024,
+      "color": "#57432F",
+      "x": 0.1,
+      "y": 0.678
+    },
+    {
+      "text": "the wall",
+      "font": "condensed",
+      "size": 0.024,
+      "color": "#B5432F",
+      "x": 0.567,
+      "y": 0.69
+    },
+    {
+      "text": "with steady signals",
+      "font": "condensed",
+      "size": 0.024,
+      "color": "#7A5C1E",
+      "x": 0.62,
+      "y": 0.335
+    },
+    {
+      "text": "Fig. 1: energy through the day, with and without steady gut signaling",
+      "font": "serif_reg",
+      "size": 0.019,
+      "color": "#7A6650",
+      "x": 0.06,
+      "y": 0.9
+    }
   ],
-  "out_size": [1080, 1350]
+  "out_size": [
+    1080,
+    1350
+  ]
 }

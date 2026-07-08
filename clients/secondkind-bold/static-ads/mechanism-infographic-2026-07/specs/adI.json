@@ -1,10 +1,49 @@
 {
   "blocks": [
-    {"text": "Out-of-Character Mood Swings\nMay Start in the Gut", "font": "news", "size": 0.046, "color": "#3A2E22", "x": 0.06, "y": 0.038, "line_spacing": 1.14},
-    {"text": "It may be chemistry, not character.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.15},
-    {"text": "out of nowhere", "font": "condensed", "size": 0.024, "color": "#B5432F", "x": 0.24, "y": 0.345},
-    {"text": "steadier", "font": "condensed", "size": 0.024, "color": "#8A6A2F", "x": 0.80, "y": 0.615},
-    {"text": "The gut speaks before the mood does.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.90}
+    {
+      "text": "Out-of-Character Mood Swings\nMay Start in the Gut",
+      "font": "news",
+      "size": 0.046,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.038,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "It may be chemistry, not character.",
+      "font": "serif_reg",
+      "size": 0.022,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.15
+    },
+    {
+      "text": "out of nowhere",
+      "font": "condensed",
+      "size": 0.027,
+      "color": "#B5432F",
+      "x": 0.24,
+      "y": 0.345
+    },
+    {
+      "text": "steadier",
+      "font": "condensed",
+      "size": 0.027,
+      "color": "#7A5C1E",
+      "x": 0.8,
+      "y": 0.615
+    },
+    {
+      "text": "The gut speaks before the mood does.",
+      "font": "serif_reg",
+      "size": 0.021,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.9
+    }
   ],
-  "out_size": [1080, 1350]
+  "out_size": [
+    1080,
+    1350
+  ]
 }

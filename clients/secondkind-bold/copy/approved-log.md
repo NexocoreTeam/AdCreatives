@@ -42,6 +42,8 @@
 | 2026-06-10 | Culture-pulse system (4 layers, surface tiers, promotion ladder) | APPROVED | "This looks good" → propagated to repo + skills + handoff |
 | 2026-07-08 | **Mechanism/advertorial ad copy = news-headline register** | APPROVED-DIRECTION | "Short and punchy, essentially like a headline in a news article." Model lines: "The real reason you feel not yourself after 40" and "It's not perimenopause. Doctors are finding a different root cause." ("I particularly like the perimenopause one. It does a good job of piquing curiosity.") Structure: headline + max one deck line + diagram labels. Lives in `../static-ads/mechanism-infographic-2026-07/copy-notes.md` |
 | 2026-07-08 | **No publication mastheads on ad creative** ("inside health report" kicker) | REJECTED | Operator worried about legal backlash from fake-outlet chrome. News GENRE styling OK; publication IDENTITY not. Swapped to generic "research brief" slug |
+| 2026-07-08 | **Perimenopause mechanism wave (adJ-adM)**: model-line vagus diagram, Normal Labs iceberg, symptom venn, blamed-for curves | APPROVED | "I really like all of these new ones." Minor notes: small text bigger/darker, chart labels hug their lines |
+| 2026-07-08 | **Legibility floor for infographic ads** | APPROVED-PRINCIPLE | Small text was "a little bit hard to read... bigger or in different colors." Floor now: decks 0.022, diagram labels 0.023+, dark gold #7A5C1E and dark brown #57432F on cream (not the lighter #8A6A2F/#6B5844); chart labels sit adjacent to their line |
 
 ## Angles & territories
 

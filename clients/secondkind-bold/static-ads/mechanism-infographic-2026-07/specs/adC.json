@@ -1,9 +1,41 @@
 {
   "blocks": [
-    {"text": "The Real Reason You Don't\nFeel Like Yourself After 40", "font": "news", "size": 0.048, "color": "#3A2E22", "x": 0.06, "y": 0.04, "line_spacing": 1.14},
-    {"text": "It may be signal chemistry, not hormones.", "font": "serif_reg", "size": 0.019, "color": "#5A4A38", "x": 0.06, "y": 0.163},
-    {"text": "signal noise", "font": "condensed", "size": 0.026, "color": "#F2E8D5", "x": 0.17, "y": 0.91},
-    {"text": "clear signal", "font": "condensed", "size": 0.026, "color": "#6B5844", "x": 0.645, "y": 0.91}
+    {
+      "text": "The Real Reason You Don't\nFeel Like Yourself After 40",
+      "font": "news",
+      "size": 0.048,
+      "color": "#3A2E22",
+      "x": 0.06,
+      "y": 0.04,
+      "line_spacing": 1.14
+    },
+    {
+      "text": "It may be signal chemistry, not hormones.",
+      "font": "serif_reg",
+      "size": 0.022,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.163
+    },
+    {
+      "text": "signal noise",
+      "font": "condensed",
+      "size": 0.028,
+      "color": "#F2E8D5",
+      "x": 0.17,
+      "y": 0.91
+    },
+    {
+      "text": "clear signal",
+      "font": "condensed",
+      "size": 0.028,
+      "color": "#57432F",
+      "x": 0.645,
+      "y": 0.91
+    }
   ],
-  "out_size": [1080, 1350]
+  "out_size": [
+    1080,
+    1350
+  ]
 }
