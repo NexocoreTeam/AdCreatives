@@ -23,15 +23,15 @@
       "size": 0.024,
       "color": "#7A5C1E",
       "x": 0.66,
-      "y": 0.545
+      "y": 0.6
     },
     {
-      "text": "gut signal, unchecked",
+      "text": "gut health, unchecked",
       "font": "condensed",
       "size": 0.023,
       "color": "#B5432F",
       "x": 0.555,
-      "y": 0.865
+      "y": 0.829
     },
     {
       "text": "age 40",
@@ -39,7 +39,7 @@
       "size": 0.021,
       "color": "#57432F",
       "x": 0.105,
-      "y": 0.916
+      "y": 0.881
     },
     {
       "text": "age 55",
@@ -47,15 +47,23 @@
       "size": 0.021,
       "color": "#57432F",
       "x": 0.875,
-      "y": 0.916
+      "y": 0.881
     },
     {
-      "text": "Only one is on the standard panel.",
+      "text": "Only one of these is actually tested by doctors.",
       "font": "serif_reg",
-      "size": 0.021,
+      "size": 0.023,
       "color": "#5A4A38",
       "x": 0.06,
-      "y": 0.948
+      "y": 0.907
+    },
+    {
+      "text": "The other goes unchecked.",
+      "font": "serif_reg",
+      "size": 0.023,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.938
     }
   ],
   "out_size": [

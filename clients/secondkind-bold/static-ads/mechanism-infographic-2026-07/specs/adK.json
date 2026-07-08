@@ -26,13 +26,28 @@
       "y": 0.6
     },
     {
-      "text": "The new technology nobody is talking about yet.",
-      "font": "serif_reg",
-      "size": 0.021,
-      "color": "#5A4A38",
-      "halo": "#F2E8D5",
-      "x": 0.06,
-      "y": 0.945
+      "text": "The new technology",
+      "font": "condensed",
+      "size": 0.024,
+      "color": "#7A2E23",
+      "x": 0.05,
+      "y": 0.872
+    },
+    {
+      "text": "nobody is talking",
+      "font": "condensed",
+      "size": 0.024,
+      "color": "#7A2E23",
+      "x": 0.05,
+      "y": 0.902
+    },
+    {
+      "text": "about yet.",
+      "font": "condensed",
+      "size": 0.024,
+      "color": "#7A2E23",
+      "x": 0.05,
+      "y": 0.932
     }
   ],
   "labels": [

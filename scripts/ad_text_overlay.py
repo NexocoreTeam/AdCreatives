@@ -94,8 +94,13 @@ def render(background: Path, spec_path: Path, out_path: Path) -> None:
         spacing = block.get("line_spacing", 1.22)
         halo = block.get("halo")
         stroke = max(3, int(h * block["size"] * 0.16)) if halo else 0
+        centered = block.get("align") == "center"
         for line in block["text"].split("\n"):
-            draw.text((x, y), line, font=font, fill=block["color"],
+            lx = x
+            if centered:
+                bb = draw.textbbox((0, 0), line, font=font)
+                lx = (w - (bb[2] - bb[0])) // 2
+            draw.text((lx, y), line, font=font, fill=block["color"],
                       stroke_width=stroke, stroke_fill=halo)
             y += int(h * block["size"] * spacing)
 

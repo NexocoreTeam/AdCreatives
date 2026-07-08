@@ -24,10 +24,13 @@ Type floor (operator legibility note, 2026-07-08): deck lines 0.022, diagram lab
 #57432F (the lighter #8A6A2F / #6B5844 read as hard-to-see). Red #B5432F and cream
 #F2E8D5-on-dark are fine. Chart labels sit adjacent to their own line, not floating.
 
-Solution-tease closers (operator-directed, 2026-07-08): B/G/H/K now end on a hedged
-tease of the fix ("A new technology is now changing that." / "Researchers have found
-a way to bypass stomach acid entirely." / "The new technology nobody is talking about
-yet."). Category-level and unbranded; still zero product names on curiosity ads.
+Solution-tease placement (operator-directed, 2026-07-08): the tease should read as
+primary copy, not a fine-print caption. adH carries "Researchers have found a way to
+bypass stomach acid entirely." as the DECK under the headline; adK runs "The new
+technology nobody is talking about yet." as a bold 3-line corner block on clear paper
+(halo strokes over art read as "weird", avoid); adG closes with the 3-line
+probiotics-die-first + new-technology block. Category-level and unbranded; still zero
+product names on curiosity ads.
 
 | Ad | Headline | Visual | Reference it maps to |
 |---|---|---|---|
@@ -62,7 +65,7 @@ nobody checks." News register per the 2026-07-08 rule.
 | J | It's Not Perimenopause. Doctors Are Finding a Different Root Cause. | vintage textbook brain + intestine connected by gold vagus line, label "the signal route" | the operator's model line verbatim; vagus nerve frame |
 | K | Normal Lab Tests. Same Brain Fog. | sepia iceberg, cream tip vs huge oxblood mass; labels "what gets tested" / "what never gets tested"; kicker "The new technology nobody is talking about yet." | "not part of routine midlife screening" + normal-labs dismissal |
 | L | The Perimenopause Symptoms That May Not Be Perimenopause | gold + oxblood venn, overlap holds brain fog / mood swings / exhaustion | symptom checklist; "communication breakdown" second system |
-| M | What Perimenopause Gets Blamed For | two declining curves age 40 to 55: estrogen (expected) vs gut signal (unchecked); kicker "Only one is on the standard panel." | "accelerates during perimenopause"; screening gap |
+| M | What Perimenopause Gets Blamed For | two declining curves age 40 to 55: estrogen (expected) vs gut health (unchecked); plate re-cropped to slide the graph up for kicker room; kicker "Only one of these is actually tested by doctors. / The other goes unchecked." | "accelerates during perimenopause"; screening gap |
 
 Wave-3 primary text first lines:
 

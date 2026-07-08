@@ -15,7 +15,8 @@
       "size": 0.022,
       "color": "#5A4A38",
       "x": 0.12,
-      "y": 0.945
+      "y": 0.945,
+      "align": "center"
     },
     {
       "text": "fog, flatness",
