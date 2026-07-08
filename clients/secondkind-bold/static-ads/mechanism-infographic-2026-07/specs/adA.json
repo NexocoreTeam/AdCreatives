@@ -1,7 +1,7 @@
 {
   "blocks": [
     {"text": "Midlife Brain Fog May Start\nHere, Not in the Brain", "font": "news", "size": 0.048, "color": "#3A2E22", "x": 0.06, "y": 0.035, "line_spacing": 1.14},
-    {"text": "Doctors are tracing it to the gut lining.", "font": "serif_reg", "size": 0.0195, "color": "#5A4A38", "x": 0.06, "y": 0.155}
+    {"text": "Scientists are tracing it to the gut lining.", "font": "serif_reg", "size": 0.0195, "color": "#5A4A38", "x": 0.06, "y": 0.155}
   ],
   "labels": [
     {"text": "signal molecules", "color": "#B5432F", "size": 0.021, "tx": 0.10, "ty": 0.415, "lx1": 0.315, "ly1": 0.427, "lx2": 0.505, "ly2": 0.443},

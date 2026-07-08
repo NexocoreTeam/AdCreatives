@@ -2,8 +2,8 @@
   "blocks": [
     {"text": "Billions of CFUs.\nNothing You Could Feel.", "font": "news", "size": 0.033, "color": "#3A2E22", "x": 0.06, "y": 0.012, "line_spacing": 1.10},
     {"text": "the long way", "font": "condensed", "size": 0.024, "color": "#B5432F", "x": 0.055, "y": 0.375},
-    {"text": "live bacteria must survive", "font": "serif_reg", "size": 0.0165, "color": "#7A6650", "x": 0.055, "y": 0.408},
-    {"text": "stomach acid first", "font": "serif_reg", "size": 0.0165, "color": "#7A6650", "x": 0.055, "y": 0.431},
+    {"text": "up to 70% of live bacteria", "font": "serif_reg", "size": 0.0165, "color": "#7A6650", "x": 0.055, "y": 0.408},
+    {"text": "die in stomach acid", "font": "serif_reg", "size": 0.0165, "color": "#7A6650", "x": 0.055, "y": 0.431},
     {"text": "the direct way", "font": "condensed", "size": 0.024, "color": "#8A6A2F", "x": 0.755, "y": 0.375},
     {"text": "postbiotic compounds,", "font": "serif_reg", "size": 0.0165, "color": "#7A6650", "x": 0.755, "y": 0.408},
     {"text": "already active", "font": "serif_reg", "size": 0.0165, "color": "#7A6650", "x": 0.755, "y": 0.431}

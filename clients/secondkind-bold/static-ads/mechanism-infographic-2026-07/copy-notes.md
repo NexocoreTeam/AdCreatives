@@ -22,7 +22,7 @@ No publication mastheads on creative (legal/policy risk); generic genre slugs li
 | Ad | Headline | Visual | Reference it maps to |
 |---|---|---|---|
 | A | Midlife Brain Fog May Start Here, Not in the Brain | vintage textbook gut-wall cross-section, red particles slipping the lining, nerve to brain; labels: gut lining / signal molecules / to the brain | "Fibromyalgia pain might be a gut wall issue" |
-| B | 90% of Your Serotonin Is Made in Your Gut, Not Your Brain | sepia pencil before/after women, fog scribble vs clear; label "it starts here" at gut dot; captions fog,flatness / steady,clear | the sketch before/after pair |
+| B | 91% of Your Serotonin Is Made in Your Gut, Not Your Brain | sepia pencil before/after women, fog scribble vs clear; label "it starts here" at gut dot; captions fog,flatness / steady,clear | the sketch before/after pair |
 | C | The Real Reason You Don't Feel Like Yourself After 40 | two-tone oxblood/cream silhouettes, red signal noise vs clean gold gut-to-head line; captions signal noise / clear signal | "Inflammation amplifying your pain starts in your gut wall" |
 | D | The 'Second Brain' Discovery Changing How We See Midlife Mood | dark macro gut-cavern with golden neuron path, "research brief" kicker | "Arteries could heal naturally" dark news cover |
 
@@ -43,14 +43,17 @@ palette, and news-genre typography as wave 1.
 ## Suggested primary text (shared base, tune per ad)
 
 Same register as on-image: headline-y curiosity, no second-person storytelling.
+Numbers and language must match the live LP; canonical facts + ad-to-LP congruency
+map live in ../../landing-page/advertorial-lp-copy.md (91% serotonin NOT 90, 50%
+dopamine, up to 70% probiotic acid death, battery metaphor, Dr. Weinberger narrator).
 
 The fog, the flatness, the 2pm wall. New research traces all three to the gut wall,
-where 90% of serotonin is made. The full report explains what doctors are finding.
+where 91% of serotonin is made. The full report explains what doctors are finding.
 
 Per-ad first lines (swap into the base):
 
 - A: Midlife brain fog may not start in the brain at all.
-- B: 90% of serotonin is made in the gut. Researchers say it may explain the midlife dip.
+- B: 91% of serotonin is made in the gut. Researchers say it may explain the midlife dip.
 - C: It may be signal chemistry, not hormones.
 - D: The 'second brain' discovery is changing how researchers see midlife mood.
 - E: Doctors are looking below the brain for the kind of tired sleep can't fix.
