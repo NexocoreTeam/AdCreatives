@@ -3,7 +3,6 @@
   "quote": {"x": 0.05, "y": 0.715, "size": 0.07, "color": "#F2C24E"},
   "blocks": [
     {"text": "Normal Lab Tests.\nSame Brain Fog.", "font": "sans", "size": 0.05, "color": "#F2C24E", "x": 0.05, "y": 0.785, "line_spacing": 1.14},
-    {"text": "what never gets tested", "font": "sans_reg", "size": 0.021, "color": "#8E959D", "x": 0.60, "y": 0.755},
     {"text": "Doctors are finding what standard panels can't see.", "font": "sans_reg", "size": 0.02, "color": "#C9CDD2", "x": 0.05, "y": 0.915}
   ],
   "labels": [
