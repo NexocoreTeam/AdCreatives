@@ -34,12 +34,28 @@
       "y": 0.705
     },
     {
-      "text": "Both start in the same place.",
+      "text": "Studies suggest probiotics could help steady that signal.",
       "font": "serif_reg",
-      "size": 0.021,
+      "size": 0.02,
       "color": "#5A4A38",
       "x": 0.06,
-      "y": 0.9
+      "y": 0.875
+    },
+    {
+      "text": "But most die in stomach acid before they can.",
+      "font": "serif_reg",
+      "size": 0.02,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.902
+    },
+    {
+      "text": "A new technology is now changing that.",
+      "font": "serif_reg",
+      "size": 0.02,
+      "color": "#5A4A38",
+      "x": 0.06,
+      "y": 0.929
     }
   ],
   "out_size": [

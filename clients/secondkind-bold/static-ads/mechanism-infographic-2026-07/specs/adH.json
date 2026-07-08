@@ -1,13 +1,21 @@
 {
   "blocks": [
     {
-      "text": "Billions of CFUs.\nNothing You Could Feel.",
+      "text": "Billions of CFUs from Probiotics.",
       "font": "news",
-      "size": 0.033,
+      "size": 0.036,
       "color": "#3A2E22",
       "x": 0.06,
-      "y": 0.012,
-      "line_spacing": 1.1
+      "y": 0.018
+    },
+    {
+      "text": "Researchers have found a way to bypass stomach acid entirely.",
+      "font": "serif_reg",
+      "size": 0.02,
+      "color": "#4E3A28",
+      "halo": "#F2E8D5",
+      "x": 0.06,
+      "y": 0.95
     },
     {
       "text": "the long way",
