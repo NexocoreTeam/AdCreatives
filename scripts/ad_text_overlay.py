@@ -19,6 +19,8 @@ Spec schema (all coords are 0-1 fractions of canvas width/height):
     {"text": "vagus nerve", "color": "#9AA0A6", "size": 0.021,
      "tx": 0.14, "ty": 0.35, "lx1": 0.30, "ly1": 0.357, "lx2": 0.46, "ly2": 0.357}
   ],
+  # blocks and labels accept "halo": "#F2E8D5" — paper-colored text stroke so
+  # copy stays readable over busy artwork; labels accept "font" (default sans)
   "out_size": [1080, 1620]
 }
 """
@@ -90,15 +92,21 @@ def render(background: Path, spec_path: Path, out_path: Path) -> None:
         x = int(w * block["x"])
         y = int(h * block["y"])
         spacing = block.get("line_spacing", 1.22)
+        halo = block.get("halo")
+        stroke = max(2, int(h * block["size"] * 0.10)) if halo else 0
         for line in block["text"].split("\n"):
-            draw.text((x, y), line, font=font, fill=block["color"])
+            draw.text((x, y), line, font=font, fill=block["color"],
+                      stroke_width=stroke, stroke_fill=halo)
             y += int(h * block["size"] * spacing)
 
     for label in spec.get("labels", []):
-        font = load_font("sans", int(h * label["size"]))
+        font = load_font(label.get("font", "sans"), int(h * label["size"]))
+        halo = label.get("halo")
+        stroke = max(2, int(h * label["size"] * 0.10)) if halo else 0
         draw.text(
             (int(w * label["tx"]), int(h * label["ty"])),
             label["text"], font=font, fill=label["color"],
+            stroke_width=stroke, stroke_fill=halo,
         )
         draw_dashed(
             draw,

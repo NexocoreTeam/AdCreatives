@@ -6,7 +6,7 @@
     {"text": "steady, clear", "font": "condensed", "size": 0.025, "color": "#8A6A2F", "x": 0.64, "y": 0.905}
   ],
   "labels": [
-    {"text": "it starts here", "color": "#B5432F", "size": 0.02, "tx": 0.04, "ty": 0.585, "lx1": 0.205, "ly1": 0.597, "lx2": 0.258, "ly2": 0.6}
+    {"text": "it starts here", "color": "#B5432F", "size": 0.02, "tx": 0.04, "ty": 0.475, "lx1": 0.235, "ly1": 0.487, "lx2": 0.263, "ly2": 0.487}
   ],
   "out_size": [1080, 1350]
 }
