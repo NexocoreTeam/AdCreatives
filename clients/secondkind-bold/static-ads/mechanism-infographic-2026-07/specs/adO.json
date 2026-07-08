@@ -1,0 +1,13 @@
+{
+  "scrim": {"start": 0.60, "strength": 0.5},
+  "quote": {"x": 0.05, "y": 0.715, "size": 0.07, "color": "#F2C24E"},
+  "blocks": [
+    {"text": "Normal Lab Tests.\nSame Brain Fog.", "font": "sans", "size": 0.05, "color": "#F2C24E", "x": 0.05, "y": 0.785, "line_spacing": 1.14},
+    {"text": "what never gets tested", "font": "sans_reg", "size": 0.021, "color": "#8E959D", "x": 0.60, "y": 0.755},
+    {"text": "Doctors are finding what standard panels can't see.", "font": "sans_reg", "size": 0.02, "color": "#C9CDD2", "x": 0.05, "y": 0.915}
+  ],
+  "labels": [
+    {"text": "what gets tested", "font": "sans_reg", "color": "#E8E4DC", "size": 0.021, "tx": 0.08, "ty": 0.545, "lx1": 0.29, "ly1": 0.557, "lx2": 0.465, "ly2": 0.625}
+  ],
+  "out_size": [1080, 1350]
+}

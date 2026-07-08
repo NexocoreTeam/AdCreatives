@@ -1,0 +1,10 @@
+{
+  "quote": {"x": 0.05, "y": 0.715, "size": 0.07, "color": "#F2C24E"},
+  "blocks": [
+    {"text": "What Perimenopause\nGets Blamed For", "font": "sans", "size": 0.05, "color": "#F2C24E", "x": 0.05, "y": 0.78, "line_spacing": 1.14},
+    {"text": "estrogen, expected", "font": "sans_reg", "size": 0.022, "color": "#D9A83E", "x": 0.55, "y": 0.44},
+    {"text": "gut health, unchecked", "font": "sans_reg", "size": 0.022, "color": "#E4573F", "x": 0.57, "y": 0.66},
+    {"text": "Only one of these is actually tested by doctors.", "font": "sans_reg", "size": 0.02, "color": "#C9CDD2", "x": 0.05, "y": 0.912}
+  ],
+  "out_size": [1080, 1350]
+}

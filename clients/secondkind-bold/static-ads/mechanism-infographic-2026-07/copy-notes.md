@@ -74,6 +74,25 @@ Wave-3 primary text first lines:
 - L: Some symptoms blamed on perimenopause may belong to a different system.
 - M: Two declines start after 40. Only one is on the standard panel.
 
+## Wave 4 (adN-adQ): dark cinematic perimenopause set
+
+Operator supplied a dark cinematic reference (black bg, glowing anatomy, thin dashed
+labels, gold quote-mark + bold gold sans headline bottom-left) and asked for the
+perimenopause angles restyled to match. Plates on Nano Banana Pro (photoreal 3D-render
+look), 3:4 cropped to 4:5, deai pass. Text treatment: gold #F2C24E Segoe UI Bold
+headline + Georgia quote glyph, thin sans_reg labels (red #E4573F, grey #AEB4BC),
+scrim where the plate needs it.
+
+| Ad | Headline | Visual |
+|---|---|---|
+| N | It's Not Perimenopause. Doctors Are Finding a Different Root Cause | reference recreation: dark brain, electric blue vagus bundle snapping in a red rupture, dashed ghost lines to dark intestine; labels signal breakdown / vagus nerve |
+| O | Normal Lab Tests. Same Brain Fog. | dark gut cavern, one clinical light beam illuminating a small patch; labels what gets tested (lit) / what never gets tested (darkness) |
+| P | The Perimenopause Symptoms That May Not Be Perimenopause | gold and crimson mist clouds colliding, overlap glowing; hormones / gut-brain signals; symptoms in the overlap |
+| Q | What Perimenopause Gets Blamed For | light-painting chart: gold trail declining gently, red plunging; estrogen, expected / gut health, unchecked; deck "Only one of these is actually tested by doctors." |
+
+Same headlines as the paper set = style A/B test on identical angles (J vs N, K vs O,
+L vs P, M vs Q).
+
 ## Suggested primary text (shared base, tune per ad)
 
 Same register as on-image: headline-y curiosity, no second-person storytelling.

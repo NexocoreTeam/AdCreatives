@@ -1,0 +1,12 @@
+{
+  "quote": {"x": 0.05, "y": 0.715, "size": 0.07, "color": "#F2C24E"},
+  "blocks": [
+    {"text": "The Perimenopause Symptoms\nThat May Not Be Perimenopause", "font": "sans", "size": 0.044, "color": "#F2C24E", "x": 0.05, "y": 0.785, "line_spacing": 1.16},
+    {"text": "hormones", "font": "sans_reg", "size": 0.023, "color": "#F0D18A", "x": 0.09, "y": 0.63},
+    {"text": "gut-brain signals", "font": "sans_reg", "size": 0.023, "color": "#F0664E", "x": 0.68, "y": 0.30},
+    {"text": "brain fog", "font": "sans_reg", "size": 0.021, "color": "#EFEAE0", "x": 0.44, "y": 0.56},
+    {"text": "mood swings", "font": "sans_reg", "size": 0.021, "color": "#EFEAE0", "x": 0.425, "y": 0.605},
+    {"text": "exhaustion", "font": "sans_reg", "size": 0.021, "color": "#EFEAE0", "x": 0.435, "y": 0.65}
+  ],
+  "out_size": [1080, 1350]
+}
