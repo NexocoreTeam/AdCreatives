@@ -1,0 +1,8 @@
+{
+  "scrim": {"start": 0.53, "strength": 0.72},
+  "quote": {"x": 0.08, "y": 0.575, "size": 0.068, "color": "#F3B73C"},
+  "blocks": [
+    {"text": "Doctors Keep Hearing\nthe Same Six Words\nFrom Women Over 40", "font": "sans", "size": 0.053, "color": "#F3B73C", "x": 0.08, "y": 0.645, "line_spacing": 1.26}
+  ],
+  "out_size": [1080, 1080]
+}

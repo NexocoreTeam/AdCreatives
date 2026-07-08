@@ -23,6 +23,14 @@ reflow to shorter first line + 0.040 (clip).
 
 Total Higgsfield jobs this batch: 10 (1 dud). Roughly 20-25 credits.
 
+## 1:1 versions (2026-07-08)
+
+No regeneration: each 2:3 plate cropped to a square window (per-ad top offset chosen to keep
+the subject; see scratch script logic reproduced in specs) and re-typeset with `specs/adN-sq.json`
+at square proportions. Notable square adaptations: ad4 moved the vagus label above the spark and
+runs the headline over the scrimmed gut; ad6 clips at the hips and dims the lower gut glow under
+the scrim; ad5 re-places the drawn battery HUD. Finals: `final/adN-remake-1x1.jpg` (1080x1080).
+
 Assets:
 - `final/ad1-remake.jpg` ... `final/ad7-remake.jpg` (upload-ready, 1080x1620)
 - `final/contact-sheet.jpg` (review grid)

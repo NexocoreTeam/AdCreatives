@@ -1,0 +1,20 @@
+{
+  "scrim": {"start": 0.70, "strength": 0.4},
+  "blocks": [
+    {"text": "3,000+ women reported:", "font": "mono", "size": 0.026, "color": "#C99A5B", "x": 0.07, "y": 0.052},
+    {"text": "01", "font": "sans", "size": 0.033, "color": "#E8A33D", "x": 0.07, "y": 0.125},
+    {"text": "Brain fog that wasn't there 5 years ago", "font": "sans_reg", "size": 0.031, "color": "#F2E5D8", "x": 0.155, "y": 0.126},
+    {"text": "02", "font": "sans", "size": 0.033, "color": "#E8A33D", "x": 0.07, "y": 0.188},
+    {"text": "Anxiety that shows up without a reason", "font": "sans_reg", "size": 0.031, "color": "#F2E5D8", "x": 0.155, "y": 0.189},
+    {"text": "03", "font": "sans", "size": 0.033, "color": "#E8A33D", "x": 0.07, "y": 0.251},
+    {"text": "Emotional flatness. Not sad. Just muted.", "font": "sans_reg", "size": 0.031, "color": "#F2E5D8", "x": 0.155, "y": 0.252},
+    {"text": "04", "font": "sans", "size": 0.033, "color": "#E8A33D", "x": 0.07, "y": 0.314},
+    {"text": "Exhaustion that more sleep doesn't fix", "font": "sans_reg", "size": 0.031, "color": "#F2E5D8", "x": 0.155, "y": 0.315},
+    {"text": "05", "font": "sans", "size": 0.033, "color": "#E8A33D", "x": 0.07, "y": 0.377},
+    {"text": "Mood swings that feel out of character", "font": "sans_reg", "size": 0.031, "color": "#F2E5D8", "x": 0.155, "y": 0.378},
+    {"text": "Thousands of Women Over 40\nReport the Same 5 Complaints", "font": "serif", "size": 0.040, "color": "#F0A93C", "x": 0.07, "y": 0.535, "line_spacing": 1.24},
+    {"text": "Researchers now think they're connected.", "font": "sans_reg", "size": 0.028, "color": "#E8D9C4", "x": 0.072, "y": 0.655}
+  ],
+  "quote": {"x": 0.07, "y": 0.468, "size": 0.062, "color": "#F0A93C"},
+  "out_size": [1080, 1080]
+}

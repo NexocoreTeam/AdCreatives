@@ -1,0 +1,12 @@
+{
+  "scrim": {"start": 0.60, "strength": 0.82},
+  "labels": [
+    {"text": "vagus nerve", "color": "#9AA0A6", "size": 0.026, "tx": 0.11, "ty": 0.398, "lx1": 0.315, "ly1": 0.412, "lx2": 0.46, "ly2": 0.412},
+    {"text": "signal breakdown", "color": "#E5493A", "size": 0.026, "tx": 0.075, "ty": 0.505, "lx1": 0.335, "ly1": 0.519, "lx2": 0.425, "ly2": 0.519}
+  ],
+  "quote": {"x": 0.08, "y": 0.628, "size": 0.062, "color": "#F2C14E"},
+  "blocks": [
+    {"text": "It's Not Perimenopause.\nDoctors Are Finding\na Different Root Cause", "font": "sans", "size": 0.050, "color": "#F5DFA0", "x": 0.08, "y": 0.695, "line_spacing": 1.25}
+  ],
+  "out_size": [1080, 1080]
+}
