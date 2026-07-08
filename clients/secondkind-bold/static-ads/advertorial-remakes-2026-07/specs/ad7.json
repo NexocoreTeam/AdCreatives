@@ -1,0 +1,8 @@
+{
+  "scrim": {"start": 0.60, "strength": 0.82},
+  "quote": {"x": 0.08, "y": 0.685, "size": 0.058, "color": "#F2C14E"},
+  "blocks": [
+    {"text": "Ever Said ‘I Just Don't\nFeel Like Myself Anymore’?\nRead This.", "font": "serif", "size": 0.040, "color": "#F0DFA8", "x": 0.08, "y": 0.742, "line_spacing": 1.26}
+  ],
+  "out_size": [1080, 1620]
+}

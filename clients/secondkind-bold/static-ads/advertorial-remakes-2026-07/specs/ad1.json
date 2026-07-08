@@ -1,0 +1,8 @@
+{
+  "scrim": {"start": 0.52, "strength": 0.72},
+  "quote": {"x": 0.09, "y": 0.60, "size": 0.062, "color": "#F2C14E"},
+  "blocks": [
+    {"text": "A Gastroenterologist Spent\n30 Years Asking Why Women\nStop Feeling Like Themselves", "font": "sans", "size": 0.041, "color": "#F5DFA0", "x": 0.09, "y": 0.665, "line_spacing": 1.3}
+  ],
+  "out_size": [1080, 1620]
+}

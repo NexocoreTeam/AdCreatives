@@ -1,0 +1,8 @@
+{
+  "scrim": {"start": 0.72, "strength": 0.78},
+  "quote": {"x": 0.09, "y": 0.795, "size": 0.058, "color": "#F2C14E"},
+  "blocks": [
+    {"text": "The Real Reason You Feel\n‘Not Yourself’ After 40", "font": "serif", "size": 0.041, "color": "#F0DFA8", "x": 0.09, "y": 0.858, "line_spacing": 1.24}
+  ],
+  "out_size": [1080, 1620]
+}

@@ -1,0 +1,9 @@
+{
+  "scrim": {"start": 0.66, "strength": 0.6},
+  "battery": {"cx": 0.5, "cy": 0.615, "w": 0.20, "h": 0.030, "pct": 15, "seg_count": 5, "label": "source", "label_size": 0.023, "label_color": "#F0D084"},
+  "quote": {"x": 0.09, "y": 0.715, "size": 0.058, "color": "#F2C14E"},
+  "blocks": [
+    {"text": "Your Brain Fog May Not\nStart in Your Brain,\nDoctors Are Discovering", "font": "serif", "size": 0.047, "color": "#F0DFA8", "x": 0.09, "y": 0.772, "line_spacing": 1.24}
+  ],
+  "out_size": [1080, 1620]
+}
