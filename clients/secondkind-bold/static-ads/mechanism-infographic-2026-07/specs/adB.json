@@ -1,0 +1,12 @@
+{
+  "blocks": [
+    {"text": "90% of Your Serotonin\nIs Made in Your Gut,\nNot Your Brain", "font": "news", "size": 0.052, "color": "#3A2E22", "x": 0.06, "y": 0.032, "line_spacing": 1.14},
+    {"text": "The gut cells that make it need more support after 40.", "font": "serif_reg", "size": 0.0195, "color": "#5A4A38", "x": 0.17, "y": 0.945},
+    {"text": "fog, flatness", "font": "condensed", "size": 0.025, "color": "#7A2E23", "x": 0.20, "y": 0.905},
+    {"text": "steady, clear", "font": "condensed", "size": 0.025, "color": "#8A6A2F", "x": 0.64, "y": 0.905}
+  ],
+  "labels": [
+    {"text": "it starts here", "color": "#B5432F", "size": 0.02, "tx": 0.04, "ty": 0.585, "lx1": 0.205, "ly1": 0.597, "lx2": 0.258, "ly2": 0.6}
+  ],
+  "out_size": [1080, 1350]
+}

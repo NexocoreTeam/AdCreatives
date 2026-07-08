@@ -35,6 +35,8 @@ FONTS = {
     "sans": "C:/Windows/Fonts/segoeuib.ttf",
     "sans_reg": "C:/Windows/Fonts/segoeui.ttf",
     "mono": "C:/Windows/Fonts/consolab.ttf",
+    "news": "C:/Windows/Fonts/framd.ttf",
+    "condensed": "C:/Windows/Fonts/arialnb.ttf",
 }
 
 
