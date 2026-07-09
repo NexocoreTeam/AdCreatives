@@ -1,0 +1,60 @@
+card_id: AD-001
+date_added: '2026-07-08'
+added_by: '@Mitchell T'
+brand: Happy Mammoth
+source_link: https://happymammoth.com/products/the-hormone-harmony
+media_type: static
+assets:
+  primary: ad-001.png
+analysis:
+  format: Feature Benefit Callout
+  hook_type: Bold Claim
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - countdown headline + 'GONE' claim
+  - product bottle center
+  - icon + benefit callouts right column
+  - disclaimer footer
+  proof_element: 'product label copy listing specific claims: relieves menopausal symptoms, reduces mood
+    swings, alleviates bloating'
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The countdown hook ('3…2…1… my hormonal weight is GONE') borrows testimonial voice to
+    make an outsized claim feel personal and lived-in, while the four icon-benefit stack on the right
+    reframes a single supplement as a multi-symptom solution — collapsing consideration into one purchase
+    decision.
+  cultural_note: Quotation marks around the countdown mimic a real customer quote, borrowing UGC confession
+    energy inside a polished static format.
+  steal: Use a countdown or sequenced hook phrasing to give a bold claim the emotional cadence of a personal
+    testimonial, then anchor it with a vertically stacked icon-benefit column that converts the product
+    into a multi-problem solver.
+  avoid: Do not reuse the Happy Mammoth brand identity, label design, exact copy lines, or any implied
+    medical claims without compliant disclaimer framing.
+  proxy_signal: running ~37 months (since 2023-05-26), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: med
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad opens by validating the viewer's lived frustration with hormonal weight — a belief
+      they already hold — then reframes a supplement as the simple, countdown-fast solution, which is
+      the Reframe structure; however the icon ladder also functions as an independent benefit callout
+      layer, making mechanic classification slightly mixed.
+    awareness_stage: The ad assumes the viewer already knows hormone-balancing supplements exist and is
+      evaluating options — it leads with outcome claims and benefit specifics rather than educating on
+      the problem category, placing it firmly in solution-aware.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-09T03:22:32+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Mitchell T'
+  approved_by: '@Mitchell T'
+  approved_at: '2026-07-09T03:26:05+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}
