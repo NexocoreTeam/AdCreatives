@@ -227,3 +227,11 @@ class TestResolveSource:
                             image_url="https://i.example/asset")
         with pytest.raises(ValueError, match="not a recognized image"):
             resolve_source("1234567890123", root=tmp_path)
+
+    def test_assetless_dco_ad_teaches_manual_path(self, tmp_path, monkeypatch):
+        # Live case: Alpha Brew 997171006269187 — DCO ad, API exposes no
+        # image/video/thumbnail. The error must name the remedy.
+        self._mock_foreplay(monkeypatch, b"", display_format="dco",
+                            video_url="", image_url="", thumbnail_url="")
+        with pytest.raises(ValueError, match="Save the ad image manually"):
+            resolve_source("1234567890123", root=tmp_path)

@@ -310,7 +310,13 @@ def resolve_source(
 
     asset_url = ad.image_url or ad.thumbnail_url or ad.mobile_screenshot
     if not asset_url:
-        raise ValueError(f"Ad {ad_id} has no downloadable image asset")
+        # Common with DCO ads — Foreplay's API exposes no direct asset even
+        # though the ad renders fine in their UI (live case: Alpha Brew
+        # 997171006269187). Teach the operator the manual path.
+        raise ValueError(
+            f"Ad {ad_id} ({ad.display_format or 'unknown'} format) exposes no "
+            "downloadable image asset on Foreplay's API. Save the ad image "
+            "manually from Foreplay and post the image file instead.")
 
     dest = drafts_dir(root) / f"foreplay-{ad_id}.jpg"
     dest.parent.mkdir(parents=True, exist_ok=True)
