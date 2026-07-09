@@ -180,25 +180,50 @@ class TestResolveSource:
         with pytest.raises(ValueError, match="VIDEO"):
             resolve_source("1234567890123", root=tmp_path)
 
-    def test_video_ad_thumbnail_with_flag(self, tmp_path, monkeypatch):
+    @staticmethod
+    def _mock_foreplay(monkeypatch, asset_bytes: bytes, **ad_overrides):
         from strategy.foreplay_client import ForeplayAd
 
-        ad = ForeplayAd(ad_id="1234567890123", name="Soft Services",
+        defaults = dict(ad_id="1234567890123", name="Soft Services",
                         display_format="video", video_url="https://v",
                         thumbnail_url="https://t.jpg", link_url="https://brand.com",
                         started_running=1673997984000, live=True)
+        ad = ForeplayAd(**{**defaults, **ad_overrides})
         import strategy.foreplay_client as fc
         monkeypatch.setattr(fc, "fetch_ad_by_id", lambda ad_id: ad)
 
         def fake_download(url, dest, **kwargs):
-            dest.write_bytes(b"thumb")
+            dest.write_bytes(asset_bytes)
             return dest
 
         monkeypatch.setattr(fc, "download_asset", fake_download)
+
+    def test_video_ad_thumbnail_with_flag(self, tmp_path, monkeypatch):
+        jpeg = b"\xff\xd8\xff\xe0" + b"\x00" * 32
+        self._mock_foreplay(monkeypatch, jpeg)
         path, media, meta, ctx = resolve_source(
             "https://app.foreplay.co/whatever/1234567890123",
             allow_video=True, root=tmp_path)
         assert media == "video"
-        assert path.read_bytes() == b"thumb"
+        assert path.suffix == ".jpg" and path.read_bytes() == jpeg
         assert meta["brand"] == "Soft Services"
         assert "running" in ctx["proxy_signal"]
+
+    def test_png_asset_renamed_from_jpg_default(self, tmp_path, monkeypatch):
+        # Regression: Vessi ad 544513423796604 (2026-07-08) — Foreplay served
+        # PNG bytes, resolve_source named the file .jpg, and Anthropic 400'd
+        # on the media-type mismatch. The file must be named by its bytes.
+        png = b"\x89PNG\r\n\x1a\n" + b"\x00" * 32
+        self._mock_foreplay(monkeypatch, png, display_format="image",
+                            video_url="", image_url="https://i.example/asset")
+        path, media, _, _ = resolve_source("1234567890123", root=tmp_path)
+        assert media == "static"
+        assert path.suffix == ".png"
+        assert path.read_bytes() == png
+
+    def test_unrecognized_asset_bytes_rejected(self, tmp_path, monkeypatch):
+        self._mock_foreplay(monkeypatch, b"not an image at all",
+                            display_format="image", video_url="",
+                            image_url="https://i.example/asset")
+        with pytest.raises(ValueError, match="not a recognized image"):
+            resolve_source("1234567890123", root=tmp_path)
