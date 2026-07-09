@@ -8,7 +8,7 @@ assets:
   primary: ad-001.png
 analysis:
   format: Feature Benefit Callout
-  hook_type: Bold Claim
+  hook_type: Warning
   mechanic: The Reframe
   secondary_mechanic: null
   scan_path:
@@ -56,5 +56,7 @@ provenance:
   approved_by: '@Mitchell T'
   approved_at: '2026-07-09T03:26:05+00:00'
   model_draft_values: {}
-  corrections: []
+  corrections:
+  - hook_type = Warning (2026-07-09T03:30:36+00:00 by @Mitchell T)
+  - status = approved (2026-07-09T03:30:36+00:00 by @Mitchell T)
   foreplay: {}
