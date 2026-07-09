@@ -37,6 +37,11 @@ First, read the three vocabulary docs start to finish (budget an hour):
 - `prompts/skills/motion/hook-tactics.md`
 - `prompts/skills/motion/visual-formats.md`
 
+While annotating, keep the one-page cheat sheet of every allowed value at
+hand: ask the bot in #ad-library to "post the taxonomy", or run
+`adc taxonomy --markdown` (`adc taxonomy` for the terminal table view).
+It's generated from those same docs, so it's always current.
+
 Then for each ad, put two files in this folder:
 
 1. `<name>.jpg` — the ad image. Name it kebab-case, e.g.

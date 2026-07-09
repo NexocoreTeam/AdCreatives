@@ -39,6 +39,14 @@ AWARENESS_STAGES: dict[str, str] = {
     "most_aware": "Most-Aware",
 }
 
+AWARENESS_DEFINITIONS: dict[str, str] = {
+    "unaware": "doesn't yet know they have the problem",
+    "problem_aware": "feels the problem, doesn't know solutions exist",
+    "solution_aware": "knows solutions exist, hasn't met this product",
+    "product_aware": "knows this product, isn't convinced yet",
+    "most_aware": "knows and wants it — needs a reason to act now",
+}
+
 PRODUCT_ROLES: dict[str, str] = {
     "hero": "product is the visual center",
     "prop": "present but supporting",
@@ -193,6 +201,58 @@ def taxonomy_version(root: Path | None = None) -> str:
     """Short content hash of the taxonomy source files (provenance stamp)."""
     skills = (root / SKILLS_DIR) if root else SKILLS_DIR
     return _cached_version(tuple(str(skills / f) for f in TAXONOMY_SOURCE_FILES))
+
+
+# ─── Human-readable reference (adc taxonomy) ─────────────────────────────────
+
+_MEDIUM_LABELS = {"static": "static only", "video": "video only", "both": "static or video"}
+
+
+def render_taxonomy_markdown(tax: Taxonomy, media_type: str = "") -> str:
+    """One-page markdown reference of the full creative vocabulary.
+
+    Generated, never hand-edited — same zero-drift rule as the analyzer
+    prompt. Meant for pinning in Slack / quick lookup while annotating;
+    the source docs in prompts/skills/motion/ stay the deep reference.
+    """
+    formats = tax.format_entries(media_type)
+    static_count = len(tax.format_entries("static"))
+    lines = [
+        f"# Creative taxonomy — quick reference (v{tax.version})",
+        "",
+        "Generated from `prompts/skills/motion/` by `adc taxonomy --markdown` — "
+        "do not hand-edit; regenerate instead. Full definitions with examples "
+        "and pairings live in the source docs.",
+        "",
+        f"## Creative mechanics ({len(tax.mechanics)}) — the cognitive move that "
+        "makes the ad land. One primary per card; optional NAMED secondary.",
+    ]
+    for e in tax.mechanics:
+        lines.append(f"- **{e.name}** — {e.definition}")
+    lines += [
+        "",
+        f"## Hook tactics ({len(tax.hook_types)}) — the strategic frame of the "
+        "opening line/headline.",
+    ]
+    for e in tax.hook_types:
+        lines.append(f"- **{e.name}** — {e.definition}")
+    scope = " (static-capable only)" if media_type == "static" else ""
+    lines += [
+        "",
+        f"## Visual formats ({len(formats)}{scope}) — the production structure. "
+        + (f"{static_count} of {len(tax.formats)} work for static ads."
+           if not media_type else ""),
+    ]
+    for e in formats:
+        lines.append(f"- **{e.name}** *({_MEDIUM_LABELS.get(e.medium, e.medium)})* — "
+                     f"{e.definition}")
+    lines += ["", "## Awareness stages — who the ad is talking to."]
+    for key, label in AWARENESS_STAGES.items():
+        lines.append(f"- **{key}** ({label}) — {AWARENESS_DEFINITIONS[key]}")
+    lines += ["", "## Product roles — how present the product is."]
+    for key, desc in PRODUCT_ROLES.items():
+        lines.append(f"- **{key}** — {desc}")
+    return "\n".join(lines)
 
 
 # ─── Fuzzy matching (reviewer corrections → canonical values) ────────────────

@@ -10,11 +10,13 @@ from __future__ import annotations
 import pytest
 
 from strategy.taxonomy import (
+    AWARENESS_DEFINITIONS,
     AWARENESS_STAGES,
     Taxonomy,
     TaxonomyEntry,
     load_taxonomy,
     match_enum,
+    render_taxonomy_markdown,
     taxonomy_version,
 )
 
@@ -110,3 +112,21 @@ class TestEntryModel:
     def test_taxonomy_entry_defaults(self):
         e = TaxonomyEntry(name="X")
         assert e.definition == "" and e.medium == ""
+
+
+class TestRenderMarkdown:
+    def test_contains_every_enum_value_and_version(self, tax):
+        md = render_taxonomy_markdown(tax)
+        for e in tax.mechanics + tax.hook_types + tax.formats:
+            assert f"**{e.name}**" in md
+        for key in AWARENESS_STAGES:
+            assert f"**{key}**" in md
+            assert AWARENESS_DEFINITIONS[key] in md
+        assert tax.version in md
+        assert "do not hand-edit" in md
+
+    def test_static_filter_scopes_formats(self, tax):
+        md = render_taxonomy_markdown(tax, "static")
+        assert "**Billboard**" in md
+        assert "**ASMR**" not in md
+        assert "static-capable only" in md

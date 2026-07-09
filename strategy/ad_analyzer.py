@@ -31,6 +31,7 @@ from strategy.ad_card import (
 )
 from strategy.llm import vision_complete
 from strategy.taxonomy import (
+    AWARENESS_DEFINITIONS,
     AWARENESS_STAGES,
     PRODUCT_ROLES,
     Taxonomy,
@@ -42,14 +43,6 @@ DEFAULT_MODEL = "claude-sonnet-4-6"
 # Optional few-shot examples file, maintained by the strategist after the
 # gold set exists (see references/swipe/gold/README.md). Appended verbatim.
 EXAMPLES_FILE = Path("references/swipe/gold/examples.md")
-
-AWARENESS_DEFINITIONS: dict[str, str] = {
-    "unaware": "doesn't yet know they have the problem",
-    "problem_aware": "feels the problem, doesn't know solutions exist",
-    "solution_aware": "knows solutions exist, hasn't met this product",
-    "product_aware": "knows this product, isn't convinced yet",
-    "most_aware": "knows and wants it — needs a reason to act now",
-}
 
 
 def build_system_prompt(tax: Taxonomy, media_type: str = "static") -> str:
