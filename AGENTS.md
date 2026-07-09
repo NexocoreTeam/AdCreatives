@@ -30,10 +30,11 @@ explicit user discussion.
 - `clients/<slug>/` is working data — agents write there freely for the client
   they are working on.
 - `references/swipe/analyzed/` (the Ad Reference Library) is written ONLY via
-  `adc library save` / `adc library update` — every card is human-approved and
-  carries provenance. Never hand-author or hand-edit card YAML there. Card
-  commits go on the `ad-library/cards` branch (see
-  `docs/ad-analyzer-openclaw.md`).
+  `adc library save` / `adc library update` — every card is human-approved in
+  Slack and carries provenance, so it is working data: the workflow commits
+  card files directly to master (scoped to that folder, plain commits, never
+  amend/force-push). Never hand-author or hand-edit card YAML there. See
+  `docs/ad-analyzer-openclaw.md`.
 - Never write agent-local artifacts (`.learnings/`, scratch logs, skill
   proposals) inside this repo; keep them in the agent's own workspace.
 - Found the working tree dirty with changes you didn't make? Post the full diff

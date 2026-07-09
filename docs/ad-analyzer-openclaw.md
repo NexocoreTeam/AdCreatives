@@ -20,8 +20,12 @@ a bot config would drift within weeks.
    `OPENAI_API_KEY` / `OPENROUTER_API_KEY` only for the model bake-off).
 2. Slack: `#ad-library` (intake + review; Devin + the bot),
    `#ad-review` (escalations; strategist + the bot).
-3. Git: the bot commits cards on the `ad-library/cards` branch (see commit
-   policy below). It needs push access to that branch only.
+3. Git: the bot commits approved cards directly to `master` (see commit
+   policy below). Cards are working data whose review gate is the human
+   approve/escalate in Slack — a second PR gate proved to break `library
+   status` and close-outs (cards lived on a side branch the CLI couldn't
+   see) and went stale against pipeline fixes (2026-07-09). Pipeline code
+   and docs still change ONLY via branch + PR, never by this workflow.
 4. Validation before trusting it: Devin drafts the gold set and runs the
    bake-off; Mitchell reviews and approves at both gates — full process in
    `references/swipe/gold/README.md`. The default model is whatever Gate 2
@@ -85,12 +89,13 @@ STEP 3 — HANDLE REPLIES (same thread, until approve/escalate)
 
 STEP 4 — CONFIRM + COMMIT
 Reply "Saved as <card_id> ✅" (or "… escalated to strategist ⚠️").
-Then commit the new/changed files under references/swipe/analyzed/ on the
-ad-library/cards branch and push:
-    git add references/swipe/analyzed/ && git commit -m "library: <card_id> <brand> (<status>) — approved by @<reviewer>"
-Keep a rolling PR from ad-library/cards → master; the strategist merges in
-batches. NEVER commit anything outside references/swipe/analyzed/ from this
-workflow, and never commit to master directly.
+Then, still on master, commit the new/changed files under
+references/swipe/analyzed/ and push:
+    git add references/swipe/analyzed/ && git commit -m "library: <card_id> <brand> (<status>) — approved by @<reviewer>" && git push origin master
+Rules: NEVER commit anything outside references/swipe/analyzed/ from this
+workflow. Never amend or force-push. If the push is rejected (remote moved),
+git pull --ff-only and push again — never rebase or force. Everything (CLI
+and git) happens on master; there is no separate cards branch.
 
 STRATEGIST CLOSE-OUT (#ad-review or the original thread)
 When the strategist replies with corrections and/or `approve` on an
