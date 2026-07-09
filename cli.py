@@ -6798,6 +6798,67 @@ def analyze(source: str | None, brand: str, signal: str, source_link: str, model
         f"\"{draft_path}\" --status approved --by <name>[/dim]")
 
 
+@cli.command(name="taxonomy")
+@click.option("--section", type=click.Choice(["mechanics", "hooks", "formats", "stages",
+                                              "roles"]), default=None,
+              help="Show one section instead of everything")
+@click.option("--media", type=click.Choice(["static", "video"]), default=None,
+              help="Filter formats to what a media type can use")
+@click.option("--markdown", "as_markdown", is_flag=True, default=False,
+              help="Emit a markdown one-pager (for pinning in Slack)")
+def taxonomy_cmd(section: str | None, media: str | None, as_markdown: bool):
+    """The creative vocabulary — mechanics, hook tactics, formats, stages, roles.
+
+    Rendered live from prompts/skills/motion/ (same source the analyzer
+    prompt is generated from), so it can never drift. The source docs stay
+    the deep reference — this is the cheat sheet.
+    """
+    from strategy.taxonomy import (
+        AWARENESS_DEFINITIONS,
+        AWARENESS_STAGES,
+        PRODUCT_ROLES,
+        load_taxonomy,
+        render_taxonomy_markdown,
+    )
+
+    tax = load_taxonomy()
+    if as_markdown:
+        click.echo(render_taxonomy_markdown(tax, media or ""))
+        return
+
+    def table_for(title: str, rows: list[tuple[str, ...]], *cols: str) -> None:
+        t = Table(title=title, show_lines=False)
+        for c in cols:
+            t.add_column(c, overflow="fold")
+        for row in rows:
+            t.add_row(*row)
+        console.print(t)
+
+    if section in (None, "mechanics"):
+        table_for(f"Creative mechanics ({len(tax.mechanics)}) — one primary per card, "
+                  "optional named secondary",
+                  [(e.name, e.definition) for e in tax.mechanics], "mechanic", "what it is")
+    if section in (None, "hooks"):
+        table_for(f"Hook tactics ({len(tax.hook_types)}) — the opening line's frame",
+                  [(e.name, e.definition) for e in tax.hook_types], "hook type", "what it is")
+    if section in (None, "formats"):
+        entries = tax.format_entries(media or "")
+        medium_label = {"static": "static only", "video": "video only", "both": "both"}
+        table_for(f"Visual formats ({len(entries)}"
+                  + (f", {media}-capable" if media else "") + ")",
+                  [(e.name, medium_label.get(e.medium, e.medium), e.definition)
+                   for e in entries], "format", "medium", "what it is")
+    if section in (None, "stages"):
+        table_for("Awareness stages",
+                  [(k, AWARENESS_STAGES[k], AWARENESS_DEFINITIONS[k]) for k in AWARENESS_STAGES],
+                  "value", "label", "who the ad talks to")
+    if section in (None, "roles"):
+        table_for("Product roles",
+                  [(k, v) for k, v in PRODUCT_ROLES.items()], "role", "meaning")
+    console.print(f"[dim]taxonomy version {tax.version} — generated from "
+                  f"prompts/skills/motion/ (edit those to change the vocabulary)[/dim]")
+
+
 @cli.group()
 def library():
     """Ad Reference Library — review, save, and audit analyzed ad cards."""

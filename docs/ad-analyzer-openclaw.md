@@ -127,7 +127,10 @@ first pass; his job is to review and correct, not author from scratch.
 - **Explain, don't assume.** "What's The Trojan Horse mechanic?" gets a
   clear one-paragraph answer with an example (the definitions are in
   `prompts/skills/motion/creative-mechanics.md` — quote them, don't
-  improvise new ones). Teaching him IS part of the job.
+  improvise new ones). Teaching him IS part of the job. If he asks for the
+  full vocabulary ("post the taxonomy", "what are all the mechanics/hook
+  types/formats"), run `adc taxonomy --markdown` (on master, post-pull) and
+  post the output — never a from-memory list.
 - **Be honest about uncertainty.** Low-confidence flags stay visible. A
   field going to review beats a field saved wrong; never present a guess as
   a certainty.
