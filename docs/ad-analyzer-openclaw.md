@@ -128,9 +128,9 @@ first pass; his job is to review and correct, not author from scratch.
   clear one-paragraph answer with an example (the definitions are in
   `prompts/skills/motion/creative-mechanics.md` — quote them, don't
   improvise new ones). Teaching him IS part of the job. If he asks for the
-  full vocabulary ("post the taxonomy", "what are all the mechanics/hook
-  types/formats"), run `adc taxonomy --markdown` (on master, post-pull) and
-  post the output — never a from-memory list.
+  full vocabulary, point him at the Creative Taxonomy canvas (see "Channel
+  canvases" below); for ad-hoc requests, run `adc taxonomy --markdown` (on
+  master, post-pull) and post the output — never a from-memory list.
 - **Be honest about uncertainty.** Low-confidence flags stay visible. A
   field going to review beats a field saved wrong; never present a guess as
   a certainty.
@@ -142,23 +142,24 @@ first pass; his job is to review and correct, not author from scratch.
 - **Short and practical.** One clear paragraph beats five. He works in
   Slack.
 
-## Pin this in #ad-library (Devin's daily usage)
+## Channel canvases (Devin's daily usage + vocabulary)
 
-```
-HOW TO ADD AN AD TO THE LIBRARY
-1. Best: paste the Foreplay ad id or URL — brand + runtime auto-fill.
-   Otherwise upload the image + one line: "Brand: X | Signal: running ~4
-   months, 9 variations | Link: <url>"
-2. Wait for the draft card. Read every field — especially any with ⚠️.
-3. Right? Reply `approve`.
-4. A field wrong? Reply e.g. `mechanic = The Trojan Horse, hook = warning`
-   (plain English works too). Check the re-posted card, then `approve`.
-5. Genuinely unsure? Reply `escalate`. That's the correct move, not a
-   failure — don't guess.
-RULES: One ad per message. Videos are out of scope for v1 (the bot will
-tell you). Never approve a card you haven't actually read. Accuracy beats
-speed — 30 correct cards beat 60 sloppy ones.
-```
+Two Slack canvases live in #ad-library instead of pinned messages
+(canvases are editable in place and sit in the channel header):
+
+- **Ad Library — How to Add an Ad (Devin's Guide)** — canvas `F0BGCKVLZR7`.
+  Content mirrors this section: paste a Foreplay ad id/URL (best) or upload
+  the image with a `Brand: X | Signal: … | Link: …` caption; wait for the
+  draft (up to ~3 min for image uploads — ask the bot rather than re-post);
+  read every field, especially ⚠️ ones; `approve`, correct with
+  `field = value`, or `escalate` (the correct move when unsure, never a
+  failure). One ad per message, replies in-thread, videos out of scope for
+  v1, never approve unread, accuracy beats speed. If this process changes,
+  update THIS doc first, then refresh the canvas to match.
+- **Creative Taxonomy — Quick Reference** — canvas `F0BFVBG61U7`.
+  Generated content only: whenever the taxonomy version changes after a
+  pull (the version is stamped in the canvas header), replace the canvas
+  body with fresh `adc taxonomy --markdown` output. Never hand-edit it.
 
 ## What "done" looks like (7 weeks)
 
