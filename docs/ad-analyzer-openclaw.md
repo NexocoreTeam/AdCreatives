@@ -26,10 +26,14 @@ a bot config would drift within weeks.
    status` and close-outs (cards lived on a side branch the CLI couldn't
    see) and went stale against pipeline fixes (2026-07-09). Pipeline code
    and docs still change ONLY via branch + PR, never by this workflow.
-4. Validation before trusting it: Devin drafts the gold set and runs the
-   bake-off; Mitchell reviews and approves at both gates — full process in
-   `references/swipe/gold/README.md`. The default model is whatever Gate 2
-   crowns.
+4. Validation: the default model is `claude-sonnet-4-6`; Devin starts
+   reviewing cards directly (review-and-correct is his job per the project
+   brief — he does not pre-author a gold set). Mitchell reviews Devin's
+   first ~10 approved cards as the calibration pass (the sidecars'
+   `model_draft_values` show correction vs. rubber-stamp at a glance).
+   Once ~15 cards exist, Mitchell promotes a corrected-heavy subset into
+   the gold set for regression protection — process in
+   `references/swipe/gold/README.md`.
 
 ## Workflow instruction (configure in OpenClaw)
 
