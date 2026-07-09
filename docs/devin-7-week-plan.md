@@ -97,6 +97,10 @@ an empty escalation queue.
 This is the core of your internship: five straight weeks of experiment →
 winner → teach the agent → verify → next experiment.
 
+> Full step-by-step protocols for every experiment — setup, arms, grading
+> rubric, decision rules, time budgets, traps — live in
+> `docs/experiments-e1-e7.md`. This section is the overview.
+
 You take real ad tasks, try them 2–3 different ways, compare outputs side
 by side, and record which way won. Your grading rubric is always the card:
 does the output preserve what the card said mattered (the mechanic, the
