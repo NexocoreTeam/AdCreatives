@@ -1,145 +1,89 @@
 # Gold Standard — the analyzer's answer key
 
-Hand-annotated ads that decide which vision model the analyzer uses, and
-regression-check every prompt / taxonomy change afterward. **Keep this set
-forever.** If a change makes scores drop, roll the change back.
+Human-verified ads that score the analyzer: they decide (optionally) which
+vision model is the default, and regression-check every prompt / taxonomy
+change afterward. **Keep this set forever.** If a change makes scores drop,
+roll the change back.
 
-**Who does what:** Devin drafts (Parts A–E below). Mitchell reviews and
-approves at two gates. Nothing here counts until Mitchell has approved it.
+## How the gold set gets built: promoted, not pre-authored
 
-## The one hard rule
+The gold set is **derived from the live library**, not written from
+scratch. Devin's job is reviewing and correcting AI drafts in #ad-library —
+not authoring analysis cold (that was the original project brief, and
+pre-authoring a gold set contradicted it). Every approved card is already a
+human-verified annotation, so the answer key falls out of normal work.
 
-**Never run `adc analyze` on a gold ad before its answer key is approved.**
-The answer key must come from humans. If the model helps write the key, the
-test measures whether the model agrees with itself — it can no longer catch
-the model's mistakes. Classify every gold ad with your own eyes and the
-skill docs only. (After Gate 1 approval, analyzer runs on these ads are
-fine — that's the whole point.)
+**Promotion (Mitchell, ~30 min, once ~15 approved cards exist):**
 
----
+1. Pick 10–15 approved cards. **Prefer cards where a human overrode the
+   model** — check `provenance.model_draft_values` and the corrections
+   trail in each sidecar. Corrected cards are the most informative test
+   items precisely because the model got them wrong; a gold set made only
+   of untouched approvals just measures the model agreeing with itself.
+   Include a few clean approvals too, re-verified by you at promotion time.
+2. For each card: copy its image here as `<name>.jpg` (or `.png`), and
+   write `<name>.expected.yaml` from the card's APPROVED analysis (format
+   below). Where the thread showed genuine ambiguity, record the
+   defensible alternates under `acceptable:`.
+3. Sanity-check every answer key against its image yourself — promotion is
+   the strategist QA moment. Then commit the set via PR.
 
-## Part A — Pick the ads (Devin, in Foreplay)
-
-Pick **12–15 static image ads** (no videos), different brands:
-
-- Prefer long-running ads (longevity = the ad is working).
-- Spread the set out: across all 15, aim for at least 5 different
-  mechanics, 8 different formats, and 4 of the 5 awareness stages.
-- Deliberately include **2–3 ads you find genuinely hard to classify** —
-  those teach us where the model needs a human.
-- Note each ad's brand and Foreplay ad id as you go.
-
-## Part B — Annotate (Devin — this is the learning part)
-
-First, read the three vocabulary docs start to finish (budget an hour):
-
-- `prompts/skills/motion/creative-mechanics.md`
-- `prompts/skills/motion/hook-tactics.md`
-- `prompts/skills/motion/visual-formats.md`
-
-While annotating, keep the one-page cheat sheet of every allowed value at
-hand: the **Creative Taxonomy — Quick Reference** canvas in #ad-library
-(or run `adc taxonomy --markdown`; `adc taxonomy` for the terminal view).
-It's generated from those same docs, so it's always current.
-
-Then for each ad, put two files in this folder:
-
-1. `<name>.jpg` — the ad image. Name it kebab-case, e.g.
-   `soft-services-receipt.jpg`.
-2. `<name>.expected.yaml` — your answer key:
+## Answer key format
 
 ```yaml
 brand: Soft Services
-media_type: static
-context:                      # optional — only if Foreplay shows a signal
+media_type: static            # static | video (video = thumbnail analysis)
+context:                      # optional — operator context fed to the model
   proxy_signal: "running ~4 months, 12 variations"
-expected:                     # exact names from the skill docs
-  format: Receipt
+expected:                     # canonical taxonomy values (exact names)
+  format: Us vs. Them
   hook_type: Contrast
-  mechanic: The Trojan Horse
-  awareness_stage: problem_aware
+  mechanic: The Contrast Without Comment
+  awareness_stage: solution_aware
   product_role: prop
-acceptable:                   # optional — see below
-  mechanic: [The Contrast Without Comment]
+acceptable:                   # optional — defensible alternates also score
+  mechanic: [The Trojan Horse]
 ```
 
-Rules of thumb:
+Exact canonical names are in the **Creative Taxonomy — Quick Reference**
+canvas in #ad-library, or `adc taxonomy` (`--markdown` for the one-pager).
+Awareness stages: `unaware`, `problem_aware`, `solution_aware`,
+`product_aware`, `most_aware`. Product roles: `hero`, `prop`, `reveal`,
+`absent`.
 
-- Values must be the **exact names** from the skill docs (`###` headings).
-  Awareness stages are: `unaware`, `problem_aware`, `solution_aware`,
-  `product_aware`, `most_aware`. Product roles: `hero`, `prop`, `reveal`,
-  `absent`.
-- Torn between two defensible values? Put your pick under `expected:` and
-  the runner-up under `acceptable:` — and flag it in your Gate 1 report.
-  Don't agonize alone; that's what the review is for.
-- Don't look up "what would the AI say." Your read + the docs only.
+`acceptable:` matters: genuinely ambiguous ads have more than one
+defensible read. Without it, exact-match scoring punishes reasonable
+answers and adds noise.
 
-## Part C — Gate 1: report to Mitchell (Devin)
-
-Send Mitchell a short report:
-
-1. Where the files are (branch name, or the folder if you're not on git yet).
-2. A table: `name | brand | format | mechanic | awareness stage | unsure?`
-3. Coverage check: which mechanics / stages the set covers, and which it
-   doesn't.
-4. Your questions — every ad you flagged `unsure`, and why.
-5. The sentence: "I did not run the analyzer on any of these."
-
-**Mitchell's review (Gate 1):** open each image next to its yaml; check
-mechanic and awareness_stage hardest (they're the most misread); confirm
-the flagged-ambiguous ads carry `acceptable:` alternates; correct or
-discuss anything off; then commit the approved set to master via PR.
-The gold set is now frozen.
-
-## Part D — Run the bake-off (Devin, only AFTER Gate 1 approval)
-
-On the machine with the repo + `.env` set up (if a model's API key is
-missing, ask Mitchell — don't create accounts or handle keys):
+## Running the eval / bake-off (after promotion)
 
 ```
 adc library validate --model claude-sonnet-4-6 --model gpt-4o \
     --model google/gemini-2.5-pro --runs 2
 ```
 
-- ~90 API calls; it runs sequentially, so expect 15–30 minutes. Let it
-  finish. Total cost ≈ $3.
-- It prints an accuracy table and writes `results-<stamp>.yaml` here with
-  every model's `why_it_works` / `steal` / `avoid` prose.
-- **Prepare the blind prose sheet:** for each gold ad, paste the three
-  models' prose into a doc in shuffled order labeled Option 1/2/3. Keep
-  the option→model mapping in a separate private note. Mitchell rates
-  without knowing which model wrote which.
+- The default model is `claude-sonnet-4-6` until a bake-off says otherwise —
+  running one is optional now that a human reviews every card, but the
+  regression use is not: **re-run this after ANY prompt, model, or taxonomy
+  change** and compare against the previous `results-*.yaml`. Scores drop →
+  roll back.
+- Enum accuracy + self-consistency print as a table; full results (each
+  model's `why_it_works` / `steal` / `avoid` prose) land in
+  `results-<stamp>.yaml`. Rate the prose **blind** (1–5 in the `rating:`
+  fields) before looking at which model wrote which.
+- If a bake-off crowns a different model, add `--model <winner>` to the
+  `adc analyze` line in the OpenClaw workflow — no code change.
 
-## Part E — Gate 2: report to Mitchell (Devin)
+## Few-shot examples
 
-Send:
-
-1. The accuracy table (paste or screenshot) + the results file path.
-2. The blind prose sheet (not the mapping).
-3. The `failures:` list from the results file — which fields each model
-   gets wrong.
-4. Your recommendation and one paragraph of reasoning. (Mitchell decides;
-   your reasoning is the exercise.)
-
-**Mitchell's review (Gate 2):** rate the prose blind (1–5 per entry), then
-unblind with Devin; weigh enum accuracy + self-consistency (< ~90%
-consistency = flaky enums, be wary) + prose ratings; crown the default
-model. If the winner isn't `claude-sonnet-4-6`, add `--model <winner>` to
-the `adc analyze` line in the OpenClaw workflow instruction — no code
-change. Post the decision and the winning scores in #ad-library so the
-choice is on record (results files themselves stay gitignored).
-
-## After the decision — few-shot examples
-
-Devin assembles `examples.md` in this folder from the 2–3 gold cards
-Mitchell picks (image description + the correct JSON per the schema).
-Mitchell approves, it gets committed, and `adc analyze` automatically
-appends it to the prompt under "EXAMPLES OF CORRECT ANALYSIS" —
-measurably improves consistency.
+Copy 2–3 of the best gold cards into `examples.md` here (image description
++ the correct JSON per the card schema). If that file exists, `adc analyze`
+appends it to the generated system prompt under "EXAMPLES OF CORRECT
+ANALYSIS" — measurably improves consistency.
 
 ## Housekeeping
 
 - `results-*.yaml` files are gitignored (regenerable). The images,
   `*.expected.yaml`, and `examples.md` are committed.
-- Any future prompt/model/taxonomy change: re-run Part D's command and
-  compare against the previous results before shipping.
+- As the library grows, promote newly-corrected cards occasionally — the
+  gold set should keep covering the places the model actually fails.
