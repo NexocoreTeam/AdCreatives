@@ -1,0 +1,57 @@
+card_id: AD-001
+date_added: '2026-07-09'
+added_by: '@Mitchell T'
+brand: Alpha Brew
+source_link: slack://C0BG19H81K7/1783604169.708249
+media_type: static
+assets:
+  primary: ad-001.jpg
+analysis:
+  format: Listicle
+  hook_type: Listicle
+  mechanic: Other (ingredient list as value stack)
+  secondary_mechanic: null
+  scan_path:
+  - bold headline '1 Scoop. 11 Benefits.'
+  - ingredient list top-to-bottom left column
+  - scoop/product visual right
+  - tagline 'The Only Coffee Built For Men's Health'
+  proof_element: 11 named ingredients each paired with a specific physiological benefit, reinforcing formula
+    transparency
+  product_role: prop
+  awareness_stage: solution_aware
+  why_it_works: The '1 Scoop. 11 Benefits.' headline converts a potentially overwhelming ingredient list
+    into a perceived efficiency win — one daily ritual that replaces multiple supplements, making the
+    value stack feel additive not complicated.
+  cultural_note: Men's health biohacking vernacular (Tongkat Ali, Shilajit, L-Citrulline) signals in-group
+    fluency with the supplement-literate male wellness community
+  steal: Use the '1 [unit]. [N] benefits.' headline structure paired with a vertical ingredient-to-benefit
+    list as a density-of-value proof format for any multi-ingredient product.
+  avoid: Do not reuse the Alpha Brew brand name, exact copy lines, or the specific scoop product visual
+    identity.
+  proxy_signal: Slack image attachment
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: med
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad doesn't fit cleanly into named mechanics — it functions as a transparent value stack
+      where each ingredient image + bold name + dashed benefit acts as a micro-proof unit, building cumulative
+      credibility rather than contrast, reframe, or social witness.
+    awareness_stage: The ad assumes the viewer already knows supplements/functional coffee exist and is
+      evaluating options — it leads with ingredients and specific benefits rather than problem agitation,
+      indicating a solution-aware buyer being converted.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-09T13:39:50+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Mitchell T'
+  approved_by: '@Mitchell T'
+  approved_at: '2026-07-09T13:53:47+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}
