@@ -100,6 +100,23 @@ class TestValidateCard:
         assert result.card["secondary_mechanic"] is None
         assert any("secondary_mechanic" in w for w in result.warnings)
 
+    def test_other_secondary_dropped_not_blocking(self, tax):
+        # Regression: first live card (Huel, 2026-07-08) — the model emitted
+        # an Other(...) secondary and the save was blocked. Optional field →
+        # drop to null with a warning, never a blocking issue.
+        result = validate_card(
+            good_draft() | {"secondary_mechanic":
+                            "Other (familiar food as benchmark proof)"}, tax)
+        assert result.ok
+        assert result.card["secondary_mechanic"] is None
+        assert any("dropped" in w for w in result.warnings)
+
+    def test_unmatched_secondary_dropped_not_blocking(self, tax):
+        result = validate_card(
+            good_draft() | {"secondary_mechanic": "The Sneaky Pete"}, tax)
+        assert result.ok
+        assert result.card["secondary_mechanic"] is None
+
     def test_wordy_why_it_works_warns(self, tax):
         result = validate_card(good_draft() | {"why_it_works": "word " * 50}, tax)
         assert result.ok
