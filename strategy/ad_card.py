@@ -136,6 +136,14 @@ def validate_card(data: dict[str, Any], tax: Taxonomy) -> ValidationResult:
                 warnings.append(f"{fname}: '{raw}' matched to '{matched}'")
         elif fname in ("format", "mechanic") and _is_other(raw):
             card[fname] = raw
+        elif fname == "secondary_mechanic":
+            # Optional enrichment field — an unnamed/Other secondary can't be
+            # queried or matched downstream, so drop it rather than block the
+            # save over optional data. The warning keeps it reviewable.
+            card[fname] = None
+            warnings.append(
+                f"secondary_mechanic: '{raw}' isn't a named mechanic — dropped "
+                "(re-add with a correction if it should stay)")
         else:
             issues.append(f"{fname}: '{raw}' is not in the allowed values")
             if fname in CONFIDENCE_FIELDS:

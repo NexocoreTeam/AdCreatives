@@ -93,9 +93,11 @@ def build_system_prompt(tax: Taxonomy, media_type: str = "static") -> str:
     lines += [
         "- Other (describe in 3-6 words) — use rarely.",
         "",
-        "secondary_mechanic — mechanics often layer. If a second mechanic clearly "
-        "reinforces the primary, name it (same allowed values); otherwise null. "
-        "The primary shapes the concept architecture; the secondary adds depth.",
+        "secondary_mechanic — mechanics often layer. If a second mechanic from the "
+        "NAMED list above clearly reinforces the primary, name it; otherwise null. "
+        "Never use Other here — if the reinforcing move isn't a named mechanic, "
+        "output null. The primary shapes the concept architecture; the secondary "
+        "adds depth.",
         "",
         "scan_path — ordered list of 2-5 elements describing where the eye travels, "
         "in order. Example: [\"headline\", \"receipt total\", \"product\", \"CTA\"]",

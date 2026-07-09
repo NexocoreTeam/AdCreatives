@@ -72,6 +72,12 @@ class TestBuildSystemPrompt:
         assert "problem_aware" in prompt
         assert "secondary_mechanic" in prompt
 
+    def test_secondary_mechanic_forbids_other(self, tax):
+        # The prompt contract and the validator must agree: secondary is a
+        # NAMED mechanic or null, never Other (regression: Huel, 2026-07-08).
+        prompt = build_system_prompt(tax, "static")
+        assert "Never use Other here" in prompt
+
 
 class TestAnalyzeImage:
     def test_happy_path_payload(self, tax, tmp_path, monkeypatch):
