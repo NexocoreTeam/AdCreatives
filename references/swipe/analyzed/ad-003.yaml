@@ -1,0 +1,76 @@
+card_id: AD-003
+date_added: '2026-07-09'
+added_by: '@Mitchell T'
+brand: Vessi
+source_link: https://ca.vessi.com/
+media_type: static
+assets:
+  primary: ad-003.png
+foreplay:
+  ad_id: '544513423796604'
+  foreplay_id: ExQt5rfv3ZsdEgTozQ1x
+  brand: Vessi
+  headline: Get Your Vessis In 4 Interest-Free Payments
+  description: Want to finally grab a pair of Vessis 100% Waterproof sneakers without paying all at once?
+    We got you covered...<br /> <br /> Checkout with Sezzle and split your entire order into 4 interest-free
+    payments over 6 weeks!
+  cta: SHOP_NOW
+  link_url: https://ca.vessi.com/
+  display_format: image
+  started_running: 1670242527360
+  live: false
+  niches:
+  - Service Business
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  fetched_at: '2026-07-09T13:03:12+00:00'
+analysis:
+  format: Feature Benefit Callout
+  hook_type: Demographic Callout
+  mechanic: Other (identity badge with feature proof)
+  secondary_mechanic: The Reframe
+  scan_path:
+  - headline 'FOR THE ADVENTURE SEEKERS'
+  - feature callout badges (Waterproof, Breathable, Lightweight, Ultracomfy)
+  - Sezzle interest-free payment line
+  - product on feet in water
+  - Vessi logo
+  proof_element: white sneakers physically submerged in running stream water — live product demo
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The stream-water setting makes the waterproof claim self-evident without words — the product
+    proves itself visually in real conditions, while the identity headline pre-qualifies exactly who this
+    shoe is for.
+  cultural_note: none
+  steal: Lead with a tight identity label ('For the [tribe]') layered over in-context product proof —
+    the setting does the feature demonstration so the copy only needs to name the benefit, not argue it.
+  avoid: Do not reuse the Vessi brand name, exact copy lines ('For the Adventure Seekers'), creator/model
+    identity, or Sezzle co-brand without a live partnership agreement.
+  proxy_signal: running ~43 months (since 2022-12-05), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: med
+    awareness_stage: med
+    product_role: high
+  reasoning:
+    mechanic: The ad does not fit cleanly into any named mechanic — it primarily functions as a tribal
+      identity badge ('Adventure Seekers') layered with four feature callouts and environmental proof;
+      the closest named mechanic (The Reframe) is secondary at best, so Other was used.
+    awareness_stage: The four explicit feature callouts (Waterproof, Breathable, etc.) and the BNPL offer
+      suggest the viewer already knows waterproof sneakers exist but needs convincing this specific product
+      fits their lifestyle and budget — solution_aware is the best fit.
+  status: needs-strategist
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-09T13:03:27+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Mitchell T'
+  approved_by: '@Mitchell T'
+  approved_at: '2026-07-09T13:08:11+00:00'
+  model_draft_values: {}
+  corrections: []
