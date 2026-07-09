@@ -316,6 +316,23 @@ def resolve_source(
     dest.parent.mkdir(parents=True, exist_ok=True)
     download_asset(asset_url, dest)
 
+    # Foreplay's asset URLs don't reveal the real format — name the file by
+    # its bytes, or the declared media type lies downstream (Anthropic 400s
+    # on mismatch) and the library sidecar stores a wrong extension.
+    from strategy.llm import sniff_image_mime
+    mime = sniff_image_mime(dest.read_bytes()[:32])
+    actual_ext = {"image/png": ".png", "image/jpeg": ".jpg"}.get(mime or "")
+    if actual_ext is None:
+        dest.unlink(missing_ok=True)
+        raise ValueError(
+            f"Foreplay asset for ad {ad_id} is {mime or 'not a recognized image'} — "
+            "only PNG/JPEG ads are supported. Save the ad image manually and "
+            "analyze the file instead.")
+    if dest.suffix != actual_ext:
+        corrected = dest.with_suffix(actual_ext)
+        dest.replace(corrected)
+        dest = corrected
+
     foreplay_meta = {
         "ad_id": ad.ad_id or ad_id,
         "foreplay_id": ad.foreplay_id,

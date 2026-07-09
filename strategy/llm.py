@@ -232,6 +232,25 @@ def claude_vision(prompt: str, image_url: str, system: str = "", max_tokens: int
     return response.content[0].text
 
 
+def sniff_image_mime(data: bytes) -> str | None:
+    """Detect an image's MIME type from its magic bytes.
+
+    Extensions lie: Foreplay serves PNG assets behind .jpg-looking URLs, and
+    Anthropic 400s when the declared media type doesn't match the bytes
+    (live failure: Vessi ad 544513423796604, 2026-07-08). Returns None for
+    anything that isn't a recognized image format.
+    """
+    if data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return "image/png"
+    if data.startswith(b"\xff\xd8\xff"):
+        return "image/jpeg"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "image/webp"
+    if data[:4] in (b"GIF8",):
+        return "image/gif"
+    return None
+
+
 def vision_complete(
     prompt: str,
     image: str,
@@ -253,9 +272,12 @@ def vision_complete(
     is_url = image.startswith(("http://", "https://"))
     if not is_url:
         path = Path(image)
+        data = path.read_bytes()
         suffix = path.suffix.lower().lstrip(".")
-        mime = f"image/{'jpeg' if suffix in ('jpg', 'jpeg') else suffix}"
-        b64 = base64.standard_b64encode(path.read_bytes()).decode()
+        # Trust the bytes over the extension — mismatches get rejected by
+        # the vision APIs.
+        mime = sniff_image_mime(data) or f"image/{'jpeg' if suffix in ('jpg', 'jpeg') else suffix}"
+        b64 = base64.standard_b64encode(data).decode()
 
     if model.startswith("claude"):
         client = get_anthropic_client()
