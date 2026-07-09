@@ -30,8 +30,8 @@ foreplay:
 analysis:
   format: Feature Benefit Callout
   hook_type: Demographic Callout
-  mechanic: Other (identity badge with feature proof)
-  secondary_mechanic: The Reframe
+  mechanic: The Reframe
+  secondary_mechanic: null
   scan_path:
   - headline 'FOR THE ADVENTURE SEEKERS'
   - feature callout badges (Waterproof, Breathable, Lightweight, Ultracomfy)
@@ -53,17 +53,15 @@ analysis:
   field_confidence:
     format: high
     hook_type: high
-    mechanic: med
+    mechanic: high
     awareness_stage: med
     product_role: high
   reasoning:
-    mechanic: The ad does not fit cleanly into any named mechanic — it primarily functions as a tribal
-      identity badge ('Adventure Seekers') layered with four feature callouts and environmental proof;
-      the closest named mechanic (The Reframe) is secondary at best, so Other was used.
+    mechanic: (corrected by reviewer)
     awareness_stage: The four explicit feature callouts (Waterproof, Breathable, etc.) and the BNPL offer
       suggest the viewer already knows waterproof sneakers exist but needs convincing this specific product
       fits their lifestyle and budget — solution_aware is the best fit.
-  status: needs-strategist
+  status: approved
   strategist_notes: ''
 provenance:
   analyzed_at: '2026-07-09T13:03:27+00:00'
@@ -73,4 +71,6 @@ provenance:
   approved_by: '@Mitchell T'
   approved_at: '2026-07-09T13:08:11+00:00'
   model_draft_values: {}
-  corrections: []
+  corrections:
+  - mechanic = The Reframe (2026-07-09T13:26:14+00:00 by @Mitchell T)
+  - status = approved (2026-07-09T13:26:14+00:00 by @Mitchell T)
