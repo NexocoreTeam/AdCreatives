@@ -1,0 +1,81 @@
+card_id: AD-002
+date_added: '2026-07-09'
+added_by: '@Mitchell T'
+brand: Huel
+source_link: https://huel.com/products/huel-black-edition
+media_type: static
+assets:
+  primary: ad-002.png
+foreplay:
+  ad_id: '1224413004952357'
+  foreplay_id: 3gp9MOtZBdvSFghGjm2k
+  brand: Huel
+  headline: Everything You Need From Food. 1 Meal.
+  description: Trying to eat healthier this year? <br /> <br /> Huel makes it so easy to eat delicious,
+    100% nutritious food without spending hours planning, prepping, or cooking. Just add water, shake
+    or stir, and you&#039;re good to go. <br /> <br /> 🥚Know you&#039;re getting enough protein in your
+    diet<br /> 💪Reduce tiredness and fatigue with 27 essential vitamins &amp; minerals like iron<br />
+    🥣Easy portion control<br /> ⏰Ready in 5 min<br /> <br /> Get 34 meals for as little as $2.50 per meal,
+    plus a FREE T-shirt + shaker if you&#039;re a new customer!
+  cta: SHOP_NOW
+  link_url: https://huel.com/products/huel-black-edition
+  display_format: image
+  started_running: 1671642497000
+  live: false
+  niches:
+  - Food/Drink
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  fetched_at: '2026-07-09T12:43:21+00:00'
+analysis:
+  format: Listicle
+  hook_type: Question
+  mechanic: The Reframe
+  secondary_mechanic: The Contrast Without Comment
+  scan_path:
+  - headline question
+  - four nutrient comparison rows
+  - price anchor CTA
+  - product/person
+  proof_element: specific food benchmarks — 5 eggs, banana, two tins of sardines, small orange — make
+    nutrition claims feel concrete and testable
+  product_role: prop
+  awareness_stage: solution_aware
+  why_it_works: Anchoring each nutrient to a familiar whole food (eggs, banana, sardines, orange) converts
+    abstract label claims into tangible, lived-experience comparisons the viewer can immediately verify
+    against their own kitchen.
+  cultural_note: New Year resolution framing ('this year') taps seasonal health intent moment; fitness
+    influencer aesthetic with neck tattoos signals aspirational-but-accessible identity rather than elite
+    athlete
+  steal: Use the 'more X than [familiar whole food]' structure to translate any supplement or nutrition
+    product's label data into relatable, benchmarked proof rows with matching food icons.
+  avoid: Do not reuse this specific creator or his exact copy lines; do not replicate Huel's brand bottle,
+    logo, or color identity.
+  proxy_signal: running ~43 months (since 2022-12-21), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: med
+    product_role: high
+  reasoning:
+    mechanic: The ad opens by validating the viewer's existing goal ('eating healthier') then reframes
+      the solution — rather than assembling multiple whole foods, one Huel shake outperforms each of them
+      individually, pivoting the viewer's mental model from effort to convenience.
+    awareness_stage: The viewer already knows meal replacement shakes exist and likely has a competing
+      product in mind; the nutrient-vs-whole-food benchmarking and price anchor are persuasion moves aimed
+      at someone comparing solutions, not discovering a problem.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-09T12:43:36+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Mitchell T'
+  approved_by: '@Mitchell T'
+  approved_at: '2026-07-09T12:47:49+00:00'
+  model_draft_values: {}
+  corrections: []
