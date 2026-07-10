@@ -119,6 +119,23 @@ existing_offers:
     reduces melt/damage claims — worth highlighting as a product differentiator vs.
     refrigerated probiotic competitors.
 suggested_offers:
+- name: The Real-Life 90-Day Gut Reset
+  type: multipack_protocol
+  rationale: The strongest new acquisition frame is not another discount or one-bottle trial. It is a structured consistency offer that turns 3 months of Gut Balance into a simple daily gut-foundation routine. This preserves the phase-one insight that the audience is probiotic-fatigued and skeptical, while laddering the promise up from symptom relief to whole-body daily rhythm.
+  target_persona: primary
+  target_awareness_stage: problem_aware
+  value_equation:
+    dream_outcome: Give the gut 90 days of consistent postbiotic-first support and feel lighter, clearer, more regular, and more in rhythm without a complicated wellness protocol.
+    perceived_likelihood_lever: Anchored to the existing clinical-study timeframes and the logic that durable gut support needs consistency, not another random supplement trial. The reset gives customers a reason to stay with the routine long enough for compounding benefits to feel believable.
+    time_delay_lever: 'Uses concrete milestones: days 1-30 start the routine, days 31-60 build better rhythm, days 61-90 make it stick. This avoids promising that one bottle completes the transformation.'
+    effort_lever: Two capsules daily plus simple guidance, tracking, what-to-expect notes, routine tips, missed-day guidance, and optional email/SMS check-ins. No restrictive meal plan, no cleanse, no complicated protocol.
+  suggested_structure: '3 bottles of Gut Balance positioned as "The Real-Life 90-Day Gut Reset." Include a 90-day reset guide, bloating/trigger tracker, gut-friendly meal or snack prompts, weekly reset tips, travel/routine tips, and simple check-ins. If the commercial mechanic is buy 2, get 1 free, frame it as the way to complete the 90-day reset, not as the primary coupon.'
+  risk_reversal: Existing 60-day guarantee is already strong for first-bottle risk. If client/legal approves, test a 90-day guarantee or 90-day satisfaction language specifically for the reset. Do not claim guaranteed symptom elimination.
+  urgency_mechanic: No manufactured scarcity. The urgency is habit-based: one bottle can start the change, three months gives the body a real reset window.
+  pricing_anchor_logic: Anchor against the cost of continued random supplement switching and half-finished gut protocols. The customer is not just buying extra bottles; they are buying enough runway to build the routine properly.
+  estimated_lift: high
+  creative_angle: Your gut does not need another quick fix. It needs 90 days of consistency.
+  notes: 'Use the master promise: "Support the system behind how you feel every day: your gut." Copy ladder should move from real-life symptom to gut foundation to postbiotics as payoff to daily routine to 90-day reset. Keep claims compliant: supports digestion, regularity, gut lining, immune resilience, calm, sleep quality, stress response, focus, and emotional balance. Avoid cure/fix/control language.'
 - name: The Postbiotic Switch Protocol — 30-Day Starter Kit
   type: trial
   rationale: The ICP's top objection is 'I've already tried probiotics — why would
