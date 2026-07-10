@@ -1,0 +1,88 @@
+card_id: AD-001
+date_added: '2026-07-10'
+added_by: '@Mitchell T'
+brand: ActandAcre
+source_link: https://actandacre.com/pages/quiz_fb
+media_type: static
+assets:
+  primary: ad-001.jpg
+foreplay:
+  ad_id: '792380015575298'
+  foreplay_id: IM4qeXwuZMwrZIj3K3r2
+  brand: ActandAcre
+  headline: Unlock Your Perfect Hair
+  description: '"I tried everything. Only Act+Acre worked."
+
+
+    ✨Trichologist-developed routine, customized for your hair/scalp needs
+
+    🌱Clinically proven less shedding after 1 month of usage
+
+    🏔Nourished and hydrated scalp and hair
+
+    🤩20% Off when you subscribe
+
+
+    Take our 2-minute trichologist-developed quiz to get customized routine for the hair of your dreams!'
+  cta: SHOP_NOW
+  link_url: https://actandacre.com/pages/quiz_fb
+  display_format: dco
+  started_running: 1678371551000
+  live: false
+  niches:
+  - Beauty
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  fetched_at: '2026-07-10T16:15:25+00:00'
+analysis:
+  format: Review
+  hook_type: Social Proof
+  mechanic: The Trojan Horse
+  secondary_mechanic: The Reframe
+  scan_path:
+  - face and curly hair (aspirational result)
+  - comment card username and timestamp
+  - emotional review copy — 'changed my life / struggled since 13'
+  - brand logo top-left
+  proof_element: Verbatim social comment from named user 'Rebecca' with timestamp, like count, and reply
+    button — native platform UI signals authenticity
+  product_role: absent
+  awareness_stage: solution_aware
+  why_it_works: The review is structured as a personal failure narrative ('tried everything') resolved
+    by accidental discovery, making the testimonial feel unscripted and earned — the emotional peak ('I
+    am in tears') converts skepticism into identification for chronic dandruff sufferers.
+  cultural_note: Mimics native Instagram/TikTok comment UI exactly — the timestamp, avatar, like count,
+    and reply button borrow platform-native credibility signals, making the review feel organic rather
+    than placed.
+  steal: Use the 'chronic problem + emotional resolution' review structure — lead with years of failed
+    attempts, end with tearful relief — overlaid on an aspirational result visual to anchor the outcome.
+  avoid: Do not reuse this creator's likeness, Rebecca's exact copy, or Act+Acre's brand logo and identity.
+  proxy_signal: running ~40 months (since 2023-03-09), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: med
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad opens as what appears to be an organic user selfie and comment — entertainment/UGC
+      framing — with the brand appearing only as the named solution inside the review copy, making it
+      a Trojan Horse; the secondary reframe validates the 'I tried everything' belief before presenting
+      Act+Acre as the exception.
+    awareness_stage: The review copy explicitly references trying 'everything out there, more than once'
+      before finding this product via a Facebook ad — the viewer is positioned as someone who knows scalp/dandruff
+      solutions exist but hasn't found one that works, placing them squarely in solution-aware.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-10T16:15:42+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Mitchell T'
+  approved_by: '@Mitchell T'
+  approved_at: '2026-07-10T17:23:27+00:00'
+  model_draft_values: {}
+  corrections: []
