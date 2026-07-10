@@ -19,6 +19,11 @@ operating rules (one product per run for multi-SKU brands, persona awareness
 calibration, gap-map filters, no-competitor-naming) — do not relax them without
 explicit user discussion.
 
+Read `docs/creative-production-system.md` before doing hands-on ad production,
+reference recreation, Higgsfield generation, local text overlays, or Canva
+handoff work. It captures current tool roles, native text presets, product
+handling, reference packets, crop-safety, and pre-send QA rules.
+
 ## Agent write policy (ALL agents, all machines — including orchestrator/main agents)
 
 - Tracked pipeline code and docs change ONLY via an attributable feature/fork
