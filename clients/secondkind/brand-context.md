@@ -3,6 +3,28 @@
 
 ---
 
+## 2026 Messaging Overlay
+
+As of 2026-07-09, keep the phase-one research, ICPs, pain map, probiotic fatigue, competitor gaps, and postbiotic mechanism. The strategy shift is hierarchy, not replacement.
+
+SecondKind should now be treated as a postbiotic-first daily wellness system: a daily foundation for whole-body health, with the gut as the system behind how people feel every day. Postbiotics remain the technology and proof mechanism, but cold acquisition should not sit only in "better gut supplement" territory.
+
+Default copy ladder:
+
+1. Name the real-life symptom or feeling: bloated, foggy, sluggish, irregular, stressed, off-routine.
+2. Reframe it through the gut as the foundation behind daily function.
+3. Explain that probiotics are the process and postbiotics are the payoff.
+4. Present Gut Balance as the simple daily routine.
+5. Push the Real-Life 90-Day Gut Reset as consistency support.
+
+Primary working offer: **The Real-Life 90-Day Gut Reset**. This is 3 months of Gut Balance plus simple guidance, tracking, what-to-expect milestones, check-ins, and routine support. Treat "buy 2, get 1 free" as supporting logic for a 90-day reset, not as the lead coupon.
+
+Master promise: **Support the system behind how you feel every day: your gut.**
+
+Reference: `C:\AdCreatives\clients\secondkind\strategy\messaging-overlay-2026-07-09.md`.
+
+---
+
 ## Brand Overview
 
 SecondKind is a premium postbiotic supplement brand founded by Remy Reinstein, built around the central thesis that the gut is the body's "second brain" — and that most gut health products fail because they rely on fragile live bacteria that never reach their destination. Their flagship product, Gut Balance, delivers clinically studied postbiotic compounds (the bioactive outputs that probiotics produce) directly to the gut, bypassing the digestion survival problem entirely. The brand sits at the premium end of the wellness supplement market with an editorial, science-credible identity designed to attract functional-medicine-curious consumers who have been burned by probiotic hype.
