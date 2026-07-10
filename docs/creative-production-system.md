@@ -5,7 +5,9 @@ Strategist agent. It is for agents working in this repo who need to understand
 how we actually make, remix, finish, and QA ads after strategy briefs exist.
 
 Read this alongside `AGENTS.md`, `docs/pipeline-rules.md`, and any relevant
-client files under `clients/<slug>/`.
+client files under `clients/<slug>/`. For controlled one-pass vs multi-pass,
+JSON vs natural language, model-route, product-locking, or text-overlay tests,
+also read `docs/static-ad-production-test-plan.md`.
 
 ## Purpose
 

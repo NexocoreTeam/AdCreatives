@@ -24,6 +24,11 @@ reference recreation, Higgsfield generation, local text overlays, or Canva
 handoff work. It captures current tool roles, native text presets, product
 handling, reference packets, crop-safety, and pre-send QA rules.
 
+Read `docs/static-ad-production-test-plan.md` before running controlled static
+production tests such as one-pass vs two-pass Higgsfield, JSON vs natural
+language prompts, model bake-offs, Pinterest/Soul model sourcing, product
+locking, or local vs Canva text-overlay comparisons.
+
 ## Agent write policy (ALL agents, all machines — including orchestrator/main agents)
 
 - Tracked pipeline code and docs change ONLY via an attributable feature/fork
