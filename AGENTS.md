@@ -195,6 +195,10 @@ adc research-amazon --client <slug>          # needs amazon_urls
 adc research-social --client <slug>          # TikTok / Instagram / YouTube comments
 #   both research commands print a source-quality preflight BEFORE spending;
 #   heed a LOW verdict — fix competitors.yaml instead of running anyway
+adc audience-conversion collect --client <slug> --product <product-id> --category <category>
+#   free/local: consolidates existing brand, product, VOC, review, social, and
+#   Exa artifacts into clients/<slug>/research/audience-conversion/ for
+#   source-truthed synthesis; use --manual-source for extra raw TXT/MD notes
 adc mine-voc --client <slug> --category <c>
 adc analyze-gaps --client <slug>
 adc brief --client <slug> --product <id> --angles 6

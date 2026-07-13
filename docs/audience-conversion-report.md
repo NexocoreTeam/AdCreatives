@@ -118,6 +118,34 @@ clients/<slug>/research/audience-conversion/raw-data.jsonl
 clients/<slug>/research/audience-conversion/source-manifest.yaml
 ```
 
+Preferred CLI:
+
+```text
+adc audience-conversion collect --client <slug> --product <product-slug> --category <category>
+```
+
+This command is free/local. It does not run paid research or LLM synthesis. It
+consolidates existing repo artifacts into the Audience Conversion folder:
+
+- `brand-context.md`
+- product YAML context
+- own VOC files under `clients/<slug>/voc/`
+- competitor review files under `research/competitor-reviews/`
+- Amazon review files under `research/amazon-reviews/`
+- social comment files under `research/*-comments/`
+- cached Exa results under `research/exa/raw/`
+- optional raw TXT/MD files passed with `--manual-source`
+
+Use `--skip-exa` if Exa snippets are too broad for the current synthesis.
+
+Examples:
+
+```text
+adc audience-conversion collect --client secondkind --product gut-balance --category postbiotics
+adc audience-conversion collect --client zoka-coffee --product espresso-paladino --category specialty-coffee
+adc audience-conversion collect --client expand-furniture --manual-source clients/expand-furniture/raw/client-notes.md
+```
+
 The agent should generate these files automatically from collected sources.
 Do not summarize while collecting.
 

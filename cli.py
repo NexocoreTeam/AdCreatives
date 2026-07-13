@@ -6859,6 +6859,84 @@ def taxonomy_cmd(section: str | None, media: str | None, as_markdown: bool):
                   f"prompts/skills/motion/ (edit those to change the vocabulary)[/dim]")
 
 
+@cli.group(name="audience-conversion")
+def audience_conversion():
+    """Audience Conversion Report raw-data tooling."""
+
+
+@audience_conversion.command(name="collect")
+@click.option("--client", required=True, help="Client slug")
+@click.option("--product", default=None, help="Optional product slug to focus product context")
+@click.option("--category", default=None, help="Optional product/category label for the manifest")
+@click.option(
+    "--manual-source",
+    "manual_sources",
+    multiple=True,
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Optional raw TXT/MD source file to include. Repeatable.",
+)
+@click.option(
+    "--include-exa/--skip-exa",
+    default=True,
+    help="Include cached Exa raw results in the raw-data dump.",
+)
+def audience_conversion_collect(
+    client: str,
+    product: str | None,
+    category: str | None,
+    manual_sources: tuple[Path, ...],
+    include_exa: bool,
+):
+    """Build raw Audience Conversion artifacts from existing client research.
+
+    This command is free/local. It consolidates source-preserved repo artifacts
+    into clients/<slug>/research/audience-conversion/ for later synthesis and
+    source-truthing. It does not run paid research or LLM analysis.
+    """
+    from strategy.audience_conversion import collect_audience_conversion_raw
+
+    try:
+        result = collect_audience_conversion_raw(
+            client,
+            product=product,
+            category=category,
+            include_exa=include_exa,
+            manual_sources=list(manual_sources),
+        )
+    except FileNotFoundError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    console.print(f"\n[green]Collected {result.record_count} raw record(s).[/green]")
+    console.print(f"[green]Wrote {result.raw_md_path}[/green]")
+    console.print(f"[green]Wrote {result.raw_jsonl_path}[/green]")
+    console.print(f"[green]Wrote {result.manifest_path}[/green]")
+    console.print(f"[green]Wrote {result.research_document_path}[/green]")
+    console.print(f"[green]Wrote {result.source_truth_path}[/green]")
+
+    if result.source_counts:
+        table = Table(title="Audience Conversion Sources")
+        table.add_column("Source", style="cyan")
+        table.add_column("Records", justify="right", style="green")
+        for source, count in sorted(result.source_counts.items()):
+            table.add_row(source, str(count))
+        console.print(table)
+
+    if result.empty_lanes:
+        console.print("\n[yellow]Empty or blocked lanes recorded in source-manifest.yaml:[/yellow]")
+        for lane in result.empty_lanes[:10]:
+            reason = lane.get("reason", "no reason recorded")
+            label = lane.get("lane", "unknown")
+            console.print(f"  - {label}: {reason}")
+        if len(result.empty_lanes) > 10:
+            console.print(f"  ... {len(result.empty_lanes) - 10} more")
+
+    console.print(
+        "\n[bold]Next:[/bold] synthesize research-document.md using "
+        "docs/audience-conversion-report.md, then source-truth it."
+    )
+
+
 @cli.group()
 def library():
     """Ad Reference Library — review, save, and audit analyzed ad cards."""
