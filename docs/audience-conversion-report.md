@@ -723,6 +723,140 @@ Strong ad concepts should come from:
 Do not turn the report into generic strategy language. The value is customer
 phrasing.
 
+## Step 9: Phase 2 Concept And Industry Research Handoff
+
+After the Audience Conversion Report, Brand Information, and Key Personas are
+source-truthed, move into concept research. Do not jump straight from broad
+research into ad production.
+
+The Phase 2 handoff should include:
+
+- One selected persona/avatar for the concept batch.
+- One primary mass desire, objection, misconception, failed solution, or
+  behavior/moment to build around.
+- Direct competitor/category examples.
+- Adjacent niche examples.
+- Internal winners, if the client or agency has prior winning ads.
+- An angle bank organized by awareness level.
+- A short list of concepts/templates to build.
+
+### One Avatar Per Concept Batch
+
+Static ads should usually speak to one person, not the whole market.
+
+Before concepting, choose one avatar and capture:
+
+- core desire
+- core pain
+- core objection
+- daily-life context
+- exact language style
+- best first ad angle
+- angles to avoid
+
+If a concept tries to speak to multiple personas with different motives, split
+it into separate concepts.
+
+### 70 / 20 / 10 Concept Mix
+
+For performance-focused concept batches, use this default allocation:
+
+- **70% proven outside references:** direct competitor ads, adjacent niche ads,
+  Foreplay boards, Apify/Meta/TikTok ad scrape, Pinterest mechanics, and
+  ad-library teardowns.
+- **20% internal winners:** client or agency hooks, formats, templates, offers,
+  and visual mechanics that have worked before.
+- **10% new swings:** new hypotheses, unusual hooks, trend plays, or creative
+  ideas with lower evidence but meaningful upside.
+
+Every concept should be labeled with its source type and evidence level. This
+prevents random brainstorming from masquerading as proven concept strategy.
+
+### Adjacent Niche Mining
+
+Do not only study brands selling the same product. Pull mechanics from adjacent
+niches that sell a similar desire, speak to the same avatar, or handle similar
+objections.
+
+Examples:
+
+- Functional snacks and electrolyte drinks for protein or health routines.
+- Digestive enzymes, bloating teas, greens powders, and healthy-girl routine
+  content for gut health.
+- Espresso gear, craft chocolate, premium pantry goods, and morning routines
+  for specialty coffee.
+
+Fast operating target:
+
+- 10 direct/category examples.
+- 10 adjacent niche examples.
+- 3-5 internal winners if available.
+- About one hour of concept/industry research before moving into angle
+  selection, unless the category is under-sourced.
+
+### Angle Bank By Awareness Level
+
+Create an angle bank before choosing templates or producing images.
+
+Use the Audience Conversion Report to generate angles from:
+
+- mass desires
+- objections
+- misconceptions
+- failed solutions
+- behavior/moment triggers
+- exact customer phrases
+- golden nuggets
+- product USPs
+- proof points
+
+Organize angles by awareness level:
+
+- unaware
+- problem-aware
+- solution-aware
+- product-aware
+- most-aware
+
+For every selected template or concept, generate:
+
+- headline options
+- first-line copy
+- benefit bullets
+- comparison/negative bullets where relevant
+- objection handled
+- proof needed
+- awareness level
+- source insight
+
+### Proven Template Remix Handoff
+
+When using a proven Canva/static template, the template controls the structure,
+not the strategy.
+
+Template controls:
+
+- layout
+- scan path
+- proof structure
+- product/image slots
+- text hierarchy
+- badges and CTA placement
+
+Research controls:
+
+- persona
+- awareness level
+- headline
+- first-line copy
+- benefits
+- objections
+- proof
+- exact customer language
+
+AI/image tools may help replace product or image slots, but final text should
+stay editable in Canva/local whenever copy iteration matters.
+
 ## Relationship To Existing Repo Pipeline
 
 This workflow does not replace the repo pipeline. It improves it.

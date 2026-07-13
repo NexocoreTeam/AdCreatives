@@ -109,6 +109,110 @@ Reference lanes:
 - Execution reference: typography, badges, callouts, receipt/chart details.
 - Anti-example: what to avoid.
 
+## Concept And Industry Research
+
+Before making a batch of static ads, separate audience research from concept
+research.
+
+- Audience research answers who we are speaking to, what they care about, what
+  they object to, what moments trigger the problem, and what exact language they
+  use.
+- Concept and industry research answers which ad mechanics, hooks, visual
+  structures, and templates are already working in the market or adjacent
+  markets.
+
+Do not start static production from a blank brainstorm. Start from the Audience
+Conversion Report, a selected persona/avatar, and a concept source mix.
+
+### 70 / 20 / 10 Concept Source Mix
+
+For performance-oriented static batches, use this default sourcing mix:
+
+- **70% proven outside references:** direct competitors, category leaders,
+  adjacent niches, Foreplay boards, Apify/Meta/TikTok ad scrape, Pinterest
+  mechanics, and ad-library teardowns.
+- **20% internal winners:** hooks, formats, templates, overlays, offers, and
+  mechanics that have already worked for this client or across agency accounts.
+- **10% new swings:** fresh hypotheses, new visual ideas, odd hooks, trend
+  plays, or strategist intuition.
+
+Label each concept by source:
+
+- `direct_competitor`
+- `adjacent_niche`
+- `internal_winner`
+- `new_swing`
+- `cross_industry_swipe`
+
+Also label the evidence level:
+
+- `high`: performance/spend/traffic signal or known internal winner.
+- `medium`: long-running active ad, repeated category pattern, strong Foreplay
+  or ad-library signal.
+- `low`: visually interesting or strategically plausible, but not proven.
+
+### Adjacent Niche Mining
+
+Do not only look at direct competitors. Adjacent niches often provide fresher
+mechanics than the same product category.
+
+Ask:
+
+- What categories solve a similar desire?
+- What categories sell to the same persona/avatar?
+- What categories address the same objection or failed solution?
+- What categories have better visual/copy mechanics than this niche?
+
+Examples:
+
+- Clear protein: protein bars, electrolyte drinks, protein gummies, low-calorie
+  snacks, functional beverages, sports nutrition.
+- Gut health/postbiotics: probiotics, prebiotics, greens powders, digestive
+  enzymes, bloating teas, women's wellness supplements, functional beverages,
+  GLP-1 support, healthy-girl routine content.
+- Premium coffee: specialty coffee subscriptions, espresso gear, boutique
+  chocolate, craft alcohol, luxury pantry goods, morning routine products.
+
+Fast operating target:
+
+- Pull 10 direct/category examples.
+- Pull 10 adjacent niche examples.
+- Pull 3-5 internal winners when available.
+- Stop the research pass around one hour unless the category lacks usable
+  references.
+
+### Angle Bank Before Template Selection
+
+Before selecting templates or asking for images, generate an angle bank from
+the Audience Conversion Report.
+
+Inputs:
+
+- selected persona/avatar
+- one mass desire or core objection
+- behavior/moment triggers
+- failed solutions
+- exact customer terminology
+- product USP and proof
+- awareness level
+
+Organize angles by awareness level:
+
+- unaware
+- problem-aware
+- solution-aware
+- product-aware
+- most-aware
+
+Each static concept should state:
+
+- Which persona it speaks to.
+- Which source-backed pain, desire, objection, misconception, moment, failed
+  solution, or golden nugget it uses.
+- Which awareness level it targets.
+- Which reference/template/mechanic it uses.
+- What copy must be changed per awareness level.
+
 ## Production Routes
 
 ### Exact Reference Emulation
@@ -173,6 +277,54 @@ Rules:
   spacing, native colors.
 - Casual copy often matters more than perfect design polish.
 - QA small UI realism details before sending.
+
+### Proven Template Remix
+
+Use when we already have a proven static format and need to adapt it quickly to
+a product, persona, or angle.
+
+This route is different from asking an image model to create a whole ad from
+scratch. The template controls the structure; research controls the copy; AI
+only helps with asset replacement or visual base work when needed.
+
+Examples:
+
+- us vs them
+- receipt comparison
+- apology note
+- calendar screenshot
+- testimonial/story overlay
+- TikTok pill stack
+- IG Story square text box
+- founder note
+- product comparison grid
+
+Process:
+
+1. Choose a proven template from the client or agency library.
+2. Identify what the template controls: layout, scan path, proof structure,
+   image slots, text hierarchy, badges, and product placement.
+3. Identify what must change: product, copy, claims, avatar, offer, awareness
+   level, brand colors, and unsupported competitor language.
+4. Use HF/ChatGPT/Canva AI only for asset replacement or visual slots when
+   needed, such as replacing a can with the client product or generating a
+   secondary comparison object.
+5. Use the angle bank to write awareness-specific template copy.
+6. Finish in Canva/local so headlines, bullets, badges, and spacing can be
+   tested without regenerating the image.
+
+For each template, generate:
+
+- five headline options
+- first-line copy
+- benefit bullets
+- negative/comparison bullets where relevant
+- objection handled
+- proof needed
+- one copy set per relevant awareness level
+
+Hard rule: do not bake final exact copy into generated image pixels when the
+goal is fast testing. Use editable Canva/local text for copy iteration.
 
 ### HF Base + Canva Cleanup
 

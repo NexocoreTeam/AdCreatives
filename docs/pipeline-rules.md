@@ -299,3 +299,41 @@ logic without cloning the surface. Change obvious visual identifiers: color,
 font treatment, layout rhythm, marker color, product placement, and copy
 cadence. In comparison ads, use a generic category product on the competitor
 side and the client product only on the client/postbiotic side.
+
+---
+
+## 8. Static concepts need a source mix, not a blank brainstorm
+
+**Rule:** Static ad batches should start from the Audience Conversion Report,
+a selected persona/avatar, and a labeled concept source mix. Do not move from
+generic research straight into image generation.
+
+Default concept mix:
+
+1. **70% proven outside references** â€” direct competitors, category leaders,
+   adjacent niches, Foreplay, Apify/Meta/TikTok ad scrape, Pinterest mechanics,
+   and approved ad-library teardowns.
+2. **20% internal winners** â€” client or agency hooks, templates, formats,
+   offers, overlays, or visual mechanics that have worked before.
+3. **10% new swings** â€” fresh hypotheses, trend plays, unusual hooks, or
+   strategist intuition.
+
+Every concept should identify:
+
+- the persona/avatar
+- the source-backed insight from Phase 1
+- the awareness level
+- the source type (`direct_competitor`, `adjacent_niche`, `internal_winner`,
+  `new_swing`, etc.)
+- the evidence level (`high`, `medium`, `low`)
+- the template/reference/mechanic being used
+
+Adjacent niche mining is required for concept diversity. Pull roughly 10 direct
+or category examples and 10 adjacent niche examples before selecting concepts,
+unless the category is already saturated with high-quality references.
+
+For template-based statics, generate an angle bank before editing the template.
+The angle bank should include awareness-level copy options, benefits,
+negatives/comparison bullets, objections handled, proof needed, and exact
+customer phrasing. Image tools can help replace visual assets; final text
+belongs in Canva/local layers when iteration matters.
