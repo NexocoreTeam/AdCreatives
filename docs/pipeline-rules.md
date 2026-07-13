@@ -337,3 +337,36 @@ The angle bank should include awareness-level copy options, benefits,
 negatives/comparison bullets, objections handled, proof needed, and exact
 customer phrasing. Image tools can help replace visual assets; final text
 belongs in Canva/local layers when iteration matters.
+
+---
+
+## 9. Static ads must pass the mistake filter before production or export
+
+**Rule:** Do not generate, export, or send a static ad that is hard to read,
+generic, merely promotional, or built from clever copy instead of source-truthed
+customer language.
+
+Every static must pass these six checks:
+
+1. **One-second readability.** The main hook must be legible while the viewer
+   is half-scrolling. Tiny text, low contrast, busy backgrounds behind copy,
+   and white-on-yellow style combinations fail.
+2. **Moves the sale forward.** The ad must do more than announce a sale or
+   offer. It should clarify the mechanism, handle an objection, dramatize a
+   moment, explain the difference, or make the viewer feel understood.
+3. **Not generic.** If any competitor could say the same thing, rewrite with
+   proof, specificity, mechanism, exact customer language, or a concrete use
+   case.
+4. **Benefit depth.** Push beyond level-one benefits. Translate "more energy"
+   into the daily-life, emotional, identity, or lived-moment payoff when the
+   research supports it.
+5. **Research before cleverness.** Do not ship cringey wordplay or
+   copywriter-clever hooks unless the line is grounded in a real pain, moment,
+   objection, failed solution, or customer phrase.
+6. **Authenticity match.** Match the visual polish to the claim. Use polished
+   product statics for proof/mechanism/comparison and native UGC statics for
+   relatability, routine, skepticism, and lived moments.
+
+Treat failures as upstream bugs in the concept, copy, reference choice, or
+layout. Fix the concept before spending on image generation or sending the
+asset for review.

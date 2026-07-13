@@ -213,6 +213,21 @@ Each static concept should state:
 - Which reference/template/mechanic it uses.
 - What copy must be changed per awareness level.
 
+Every angle bank should also include benefit-depth options. Do not stop at the
+first functional benefit.
+
+- Level 1: functional benefit, e.g. "more energy".
+- Level 2: daily-life outcome, e.g. "no 2 PM crash".
+- Level 3: emotional payoff, e.g. "feel in control of your routine again".
+- Level 4: identity or social payoff, e.g. "show up as the person you used to
+  be".
+- Level 5: specific lived moment, e.g. "wear the dress that has been sitting in
+  the closet" or "finish the gym session and still have energy after".
+
+Prefer level 3-5 language for hooks and first-line copy when it is supported by
+the Audience Conversion Report. Use level 1 only when the format is explicitly
+mechanism, proof, or comparison led.
+
 ## Production Routes
 
 ### Exact Reference Emulation
@@ -469,6 +484,101 @@ Rules:
   Story/Reels-only or create a separate feed-safe version.
 - Check this before sending any 9:16 preview.
 
+## Static Mistake Filter
+
+Use this before generation and again before sending. A static ad should be
+rejected or rewritten if it fails these checks.
+
+### One-Second Readability
+
+The ad must be understandable while someone is half-scrolling.
+
+Fail if:
+
+- Main copy is tiny.
+- White text sits on yellow, pale, busy, or low-contrast backgrounds.
+- Decorative graphics sit behind key copy.
+- Too many elements compete with the hook.
+- The core message is not readable inside the center 1:1 crop.
+
+### Move The Sale Forward
+
+A static should not only announce an offer, sale, or generic claim. It should
+make the viewer more ready to buy before they click.
+
+The ad should do at least one:
+
+- Clarify the mechanism.
+- Handle a real objection.
+- Dramatize a source-backed moment.
+- Create urgency around a real desire.
+- Explain why this product is different.
+- Make the viewer feel understood.
+
+If the ad only says "sale", "50% off", or "everyone loves this", rewrite it.
+
+### Generic Claim Filter
+
+If any competitor could say the same line, the line is not strong enough.
+
+Rewrite generic claims with:
+
+- proof
+- specificity
+- unique mechanism
+- exact customer language
+- category contrast
+- concrete use case
+- authority or earned credibility
+
+Bad:
+
+- "Everyone is going crazy for this."
+- "Boost energy."
+- "Supports immunity."
+- "Feel better."
+
+Better:
+
+- "No longer crashing at 2 PM."
+- "Postbiotic support that does not need live bacteria to survive digestion."
+- "The routine that finally stayed consistent after probiotics did not."
+
+### Benefit Depth
+
+Hooks and first-line copy should usually go deeper than level-one benefits.
+
+Ask:
+
+- What does this benefit change in their day?
+- What emotion does that create?
+- What identity or social moment does it unlock?
+- What exact lived scene would make the viewer say "that is me"?
+
+Do not write "enhanced energy" if the real angle is "I stopped cancelling my
+evening plans after work."
+
+### Research Before Cleverness
+
+Do not reward clever lines that are detached from source data. A witty headline
+is weaker than a plain line pulled from a real objection, failed solution,
+moment, or customer phrase.
+
+Fail if the concept sounds like the copywriter trying to be clever instead of
+the customer recognizing their own thought.
+
+### Authenticity Match
+
+Choose the visual polish level for the claim.
+
+- Polished product statics fit proof, mechanism, comparison, receipts, charts,
+  and premium product-stage formats.
+- Organic UGC/native statics fit lived moments, routine claims, creator POV,
+  skepticism, and testimonial-style angles.
+
+Do not use a glossy template model for a claim that needs relatability or lived
+messiness. Do not use a messy UGC scene for a claim that needs proof clarity.
+
 ## Pre-Send QA
 
 Before showing Mitch or a client a preview, inspect the image for human-eye
@@ -476,6 +586,7 @@ flaws.
 
 Check:
 
+- Passes the Static Mistake Filter above.
 - Text visible in the intended crop and, for 9:16/4:5, the center 1:1 crop.
 - Text baseline centered inside pills/boxes.
 - Consistent spacing between similar elements.

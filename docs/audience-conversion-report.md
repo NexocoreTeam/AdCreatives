@@ -829,6 +829,33 @@ For every selected template or concept, generate:
 - awareness level
 - source insight
 
+Also generate benefit-depth versions before choosing the final hook:
+
+- Level 1: functional benefit.
+- Level 2: daily-life outcome.
+- Level 3: emotional payoff.
+- Level 4: identity or social payoff.
+- Level 5: specific lived moment.
+
+Use source-backed level 3-5 language when possible. A first-level benefit like
+"more energy" or "less bloating" is usually only a starting point. The ad-ready
+version is the lived consequence, such as "no longer cancelling plans after
+dinner" or "finally consistent again after years of restarting."
+
+Each concept should also answer: how does this static move the sale forward?
+Choose at least one:
+
+- clarifies the mechanism
+- handles an objection
+- dramatizes a behavior or moment
+- creates urgency around a real desire
+- explains why the product is different
+- makes the viewer feel understood
+
+If a concept only announces an offer, sale, or generic benefit, keep it out of
+the concept batch until it is rewritten with proof, specificity, exact language,
+or a stronger lived moment.
+
 ### Proven Template Remix Handoff
 
 When using a proven Canva/static template, the template controls the structure,
