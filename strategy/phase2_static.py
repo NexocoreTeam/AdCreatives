@@ -251,6 +251,26 @@ possible.
 | product-aware |  |  |  |  |  |
 | most-aware |  |  |  |  |  |
 
+### Verbatim-First Quote Bank
+
+When source quotes exist, start copy from the customer's actual words. The
+goal is to say it back in ad form, not to polish it into generic marketing
+language.
+
+| Raw quote / exact phrase | Source type | Theme/gap | Ad-ready line | What changed and why |
+|---|---|---|---|---|
+|  | review / Amazon / TikTok / Reddit / competitor review / own review |  |  |  |
+
+Rules:
+
+- Prefer verbatim or near-verbatim customer wording for hooks, first lines,
+  bullets, objections, and UGC/story copy.
+- Add a source note for every important line so the operator knows why those
+  words are being used.
+- Only rewrite for clarity, length, compliance, or fit to the selected visual
+  format.
+- Do not flatten vivid customer language into generic claims.
+
 ## Gate 8: Visual Format / Template Selection
 
 Stop here and ask the operator which format/template to use.
@@ -281,36 +301,36 @@ Complete this only after the operator chooses the visual format/template.
 
 ### Benefits To List
 
-| Awareness level | Benefit | Benefit-depth level | Source phrase/proof |
-|---|---|---|---|
-| unaware |  |  |  |
-| problem-aware |  |  |  |
-| solution-aware |  |  |  |
-| product-aware |  |  |  |
-| most-aware |  |  |  |
+| Awareness level | Benefit | Benefit-depth level | Raw quote / exact phrase | Ad-ready wording |
+|---|---|---|---|---|
+| unaware |  |  |  |  |
+| problem-aware |  |  |  |  |
+| solution-aware |  |  |  |  |
+| product-aware |  |  |  |  |
+| most-aware |  |  |  |  |
 
 ### Negatives / Comparison Bullets To List
 
-| Awareness level | Negative/comparison bullet | What it contrasts against | Source phrase/proof |
-|---|---|---|---|
-| unaware |  |  |  |
-| problem-aware |  |  |  |
-| solution-aware |  |  |  |
-| product-aware |  |  |  |
-| most-aware |  |  |  |
+| Awareness level | Negative/comparison bullet | What it contrasts against | Raw quote / exact phrase | Ad-ready wording |
+|---|---|---|---|---|
+| unaware |  |  |  |  |
+| problem-aware |  |  |  |  |
+| solution-aware |  |  |  |  |
+| product-aware |  |  |  |  |
+| most-aware |  |  |  |  |
 
 ### Five Headline Options
 
 Keep headlines clear. Prefer 6-10 words when possible. Rank by
 scroll-stopping power and relevance.
 
-| Rank | Headline | Awareness level | Why it works | Source language |
-|---:|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| Rank | Headline | Awareness level | Why it works | Raw quote / exact phrase | Source |
+|---:|---|---|---|---|---|
+| 1 |  |  |  |  |  |
+| 2 |  |  |  |  |  |
+| 3 |  |  |  |  |  |
+| 4 |  |  |  |  |  |
+| 5 |  |  |  |  |  |
 
 ## Gate 10: Static Mistake Filter
 

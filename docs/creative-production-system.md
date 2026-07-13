@@ -256,6 +256,43 @@ For headings and hook lines, prefer clear 6-10 word options when possible. Rank
 headline options by scroll-stopping power and relevance, and explain which
 source language or insight supports each option.
 
+### Verbatim-First Copy
+
+When the Audience Conversion Report has raw quotes, exact phrases, TikTok
+questions, Reddit/GigaBrain lines, Amazon snippets, competitor-review language,
+or own-review wording, use those lines as the raw material for ad copy.
+
+The standard translation is:
+
+1. Pull the exact customer line.
+2. Identify the theme, gap, moment, objection, or desire it represents.
+3. Turn it into an ad-ready line with the least editing necessary.
+4. Record what changed and why.
+
+Use this for:
+
+- hooks
+- first-line copy
+- benefit bullets
+- negatives/comparison bullets
+- objection callouts
+- UGC/story captions
+- testimonial-style overlays
+
+Bad workflow:
+
+- Source says "I do everything right and still feel bloated."
+- Ad says "Supports digestive comfort."
+
+Better workflow:
+
+- Source says "I do everything right and still feel bloated."
+- Ad says "Doing everything right... still bloated?"
+
+Ad copy should sound like the customer recognized their own thought. Do not
+turn vivid customer language into generic strategist language unless a claim,
+compliance, or proof constraint requires it.
+
 Every angle bank should also include benefit-depth options. Do not stop at the
 first functional benefit.
 

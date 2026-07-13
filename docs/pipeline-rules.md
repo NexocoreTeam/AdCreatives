@@ -363,6 +363,12 @@ negatives/comparison bullets, objections handled, proof needed, and exact
 customer phrasing. Image tools can help replace visual assets; final text
 belongs in Canva/local layers when iteration matters.
 
+Copy must be verbatim-first when raw customer language exists. For important
+hooks, first lines, benefits, negatives/comparison bullets, and objection
+callouts, capture the raw quote or exact phrase, source type, ad-ready version,
+and what changed. The goal is to say the customer's own words back in ad form,
+not translate them into generic marketing language.
+
 When analyzing pulled competitor or adjacent ads, do not only summarize. Extract
 the ad mechanic, what works, what they did wrong, missed opportunities, and how
 the mechanic can be emulated for the selected avatar and mass desire.

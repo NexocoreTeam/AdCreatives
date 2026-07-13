@@ -29,6 +29,9 @@ def test_create_static_phase2_workbook_writes_required_gates(tmp_path):
     assert "Done-Everything-Right Dana" in text
     assert "finally feel consistent again" in text
     assert "We are using this phrase because customers said" in text
+    assert "Verbatim-First Quote Bank" in text
+    assert "Raw quote / exact phrase" in text
+    assert "Ad-ready wording" in text
 
 
 def test_create_static_phase2_workbook_refuses_overwrite_without_force(tmp_path):

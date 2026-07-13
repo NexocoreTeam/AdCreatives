@@ -915,6 +915,31 @@ repeatedly describe people trying probiotics, diet changes, and gut routines
 while still feeling bloated.
 ```
 
+### Quote-To-Copy Translation
+
+For every major hook, first line, benefit, negative/comparison bullet, or
+objection callout, include the raw customer wording that inspired it.
+
+The agent should almost say the source line back to the audience, then tighten
+it for the chosen ad format.
+
+Use this table:
+
+| Raw customer line | Source | Theme/gap | Ad-ready line | What changed and why |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+Rules:
+
+- Prefer verbatim or near-verbatim language when the source line is clear,
+  emotional, specific, or native to the platform.
+- Rewrite only for length, clarity, claim safety, grammar, or fit to the visual
+  format.
+- Do not invent quotes.
+- Do not strip out the specificity that made the line valuable.
+- If a phrase comes from TikTok, Reddit/GigaBrain, Amazon, competitor reviews,
+  own reviews, YouTube, or Instagram, label the source type.
+
 ### Proven Template Remix Handoff
 
 When using a proven Canva/static template, the template controls the structure,

@@ -164,6 +164,26 @@ Awareness mapping:
 Headlines should be clear before clever. Prefer 6-10 words when possible.
 Use review/comment language and explain why each headline works.
 
+### Verbatim-First Copy Rule
+
+When raw quotes or exact phrases exist, start from those words before writing
+ad copy. The strongest static copy should often feel like the customer said it
+first and the ad simply sharpened it.
+
+For every important hook, benefit, negative/comparison bullet, objection, or
+first-line copy option, capture:
+
+- raw quote or exact phrase
+- source type: review, Amazon, TikTok, Reddit/GigaBrain, competitor review,
+  own review, YouTube, Instagram, etc.
+- lightly edited ad line
+- what changed and why
+
+Do not replace vivid source language with generic marketing language. If the
+source says "I do everything right and still feel bloated," do not flatten it
+to "supports digestive comfort" unless the format specifically needs a
+mechanism/proof line.
+
 ## Gate 8: Operator Chooses Visual Format
 
 Stop and ask for the visual format/template:
@@ -195,6 +215,12 @@ After the visual format is chosen, write:
 
 For comparison formats like `us vs them`, benefits and negatives are the core
 copy. For story or UGC formats, use moments and exact terminology instead.
+
+Add a quote-to-copy translation table before finalizing copy:
+
+| Raw customer line | Source | Ad-ready line | Use case | Keep / change note |
+|---|---|---|---|---|
+|  |  |  | headline / bullet / objection / CTA |  |
 
 ## Gate 10: Static Mistake Filter
 
