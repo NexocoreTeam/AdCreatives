@@ -243,6 +243,12 @@ After any research command reports 0 items, check the diagnostics before
 moving on: `research/exa/errors/`, `research/<platform>-diagnostics/`, and
 the `notes` field in `research/competitor-reviews/*.json`.
 
+When automated VOC is thin, run the manual Audience Conversion Report workflow
+in `docs/audience-conversion-report.md` before calling research complete. It
+adds a raw-data dump, manual GigaBrain/Reddit/forum mining, own and competitor
+reviews, TikTok/comment questions, product-USP context, and a source-truthed
+research document that can feed personas, gaps, scripts, and briefs.
+
 ---
 
 ## 7. Static ad copy should sound like a person, not a strategy doc

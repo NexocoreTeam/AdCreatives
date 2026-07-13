@@ -29,6 +29,12 @@ production tests such as one-pass vs two-pass Higgsfield, JSON vs natural
 language prompts, model bake-offs, Pinterest/Soul model sourcing, product
 locking, or local vs Canva text-overlay comparisons.
 
+Read `docs/audience-conversion-report.md` before new-client research, ICP
+refreshes, VOC collection, manual GigaBrain/Reddit/TikTok review mining, or
+turning raw audience data into ad angles. It defines the raw-data dump,
+Audience Conversion Report, source-truth check, and product-USP angle mapping
+workflow.
+
 ## Agent write policy (ALL agents, all machines — including orchestrator/main agents)
 
 - Tracked pipeline code and docs change ONLY via an attributable feature/fork
