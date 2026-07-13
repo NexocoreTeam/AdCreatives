@@ -30,10 +30,11 @@ language prompts, model bake-offs, Pinterest/Soul model sourcing, product
 locking, or local vs Canva text-overlay comparisons.
 
 Read `docs/audience-conversion-report.md` before new-client research, ICP
-refreshes, VOC collection, manual GigaBrain/Reddit/TikTok review mining, or
-turning raw audience data into ad angles. It defines the raw-data dump,
-Audience Conversion Report, source-truth check, and product-USP angle mapping
-workflow.
+refreshes, VOC collection, GigaBrain/Reddit/TikTok review mining, or turning
+raw audience data into ad angles. It defines the automation-first raw-data
+dump, OpenClaw/browser-assisted source collection, Audience Conversion Report,
+source-truth check, behavior/moment extraction, exact customer terminology,
+and product-USP angle mapping workflow.
 
 ## Agent write policy (ALL agents, all machines — including orchestrator/main agents)
 

@@ -7,10 +7,13 @@ The goal is to turn raw customer and category conversations into a clean
 research document that directly feeds hooks, briefs, scripts, statics, UGC
 concepts, and objection-handling ads.
 
-This is a manual-first workflow. It can sit on top of the repo's structured
-research layers. Do not treat it as a replacement for `adc research-*`,
-`adc mine-voc`, `adc analyze-gaps`, personas, or briefs. Use it to improve
-the source quality and copy usefulness of those outputs.
+This is an automation-first workflow with manual fallback. It sits on top of
+the repo's structured research layers and should collect/source as much as
+possible through repo commands, APIs, Apify actors, Firecrawl, Reddit/YouTube
+integrations, Foreplay, and OpenClaw browser automation before asking a human
+to copy/paste. Do not treat it as a replacement for `adc research-*`,
+`adc mine-voc`, `adc analyze-gaps`, personas, or briefs. Use it to improve the
+source quality and copy usefulness of those outputs.
 
 ## When To Use
 
@@ -31,16 +34,71 @@ Use it especially when `adc status` shows weak source layers:
 - Missing Amazon/product review URLs.
 - Broad sentiment exists, but true VOC is thin.
 
+## Automation-First Standard
+
+Do not default to manual Google Doc collection when the same source can be
+collected by the repo or the OpenClaw desktop/browser runtime.
+
+Preferred collection order:
+
+1. Repo-native commands:
+   - `adc research-competitors --client <slug>`
+   - `adc research-social --client <slug>`
+   - `adc research-amazon --client <slug>`
+   - `adc mine-voc --client <slug> --category <category>`
+2. Source-specific APIs or configured bridges:
+   - Reddit API or Apify Reddit bridge.
+   - Apify TikTok/Instagram/Amazon actors.
+   - YouTube comments API when configured.
+   - Firecrawl for known pages and rendered review/comment pages.
+   - Exa for broad sentiment and discovery.
+3. OpenClaw browser automation on the designated PC:
+   - GigaBrain / Reddit Answers searches.
+   - Login-gated source review where the user is already authenticated.
+   - TikTok/Google/Pinterest-style first-page source collection when APIs are
+     too thin.
+4. Human copy/paste only when automation is blocked, paid access is not
+   approved, or the source explicitly requires human judgment.
+
+When using OpenClaw/browser automation for GigaBrain or Reddit Answers, the
+agent should search, expand, capture visible summaries/comments/source links,
+and write them directly into repo artifacts with source labels. The operator
+should not have to maintain a raw Google Doc unless they explicitly prefer
+that route.
+
+Every collected item should keep provenance:
+
+- Source type: own review, competitor review, TikTok comment, Reddit/GigaBrain,
+  Reddit Answers, YouTube comment, support email, sales call, survey, etc.
+- Source URL or source label when available.
+- Competitor/client/product association.
+- Raw text.
+- Date collected.
+- Automation method: repo command, API, Apify, Firecrawl, Exa, OpenClaw browser,
+  or manual.
+
 ## Output Files
 
-For repo-backed client work, save the manual raw dump and final report under:
+For repo-backed client work, save the generated raw dump and final report under:
 
 ```text
 clients/<slug>/research/audience-conversion/
   raw-data.md
+  raw-data.jsonl
+  source-manifest.yaml
   research-document.md
   source-truth-check.md
 ```
+
+Use:
+
+- `raw-data.md` for a human-readable dump grouped by source.
+- `raw-data.jsonl` for source-preserved records that downstream tooling can
+  parse.
+- `source-manifest.yaml` for search terms, URLs, tools used, source counts, and
+  missing/blocked lanes.
+- `research-document.md` for the synthesized Audience Conversion Report.
+- `source-truth-check.md` for the audit.
 
 If the work is happening manually in Google Docs, mirror the names:
 
@@ -50,15 +108,18 @@ If the work is happening manually in Google Docs, mirror the names:
 If a PDF or TXT export is used for an LLM, keep it as an attachment or local
 working artifact, but the repo-readable final should be Markdown.
 
-## Step 1: Set Up The Raw Data Document
+## Step 1: Generate The Raw Data Dump
 
-Create a Google Doc or Markdown file:
+Create or update the repo raw dump:
 
 ```text
-Raw Data - [Product Name]
+clients/<slug>/research/audience-conversion/raw-data.md
+clients/<slug>/research/audience-conversion/raw-data.jsonl
+clients/<slug>/research/audience-conversion/source-manifest.yaml
 ```
 
-Paste everything raw, with minimal formatting. Do not summarize while collecting.
+The agent should generate these files automatically from collected sources.
+Do not summarize while collecting.
 
 Recommended sections:
 
@@ -70,19 +131,30 @@ Recommended sections:
 - Sales calls, support emails, surveys, or client notes.
 - Product USPs and claims.
 
-Paste without formatting when possible. Raw is fine. Messy is fine. The point is
-to preserve the voice of the market before the model cleans it up.
+Raw is fine. Messy is fine. The point is to preserve the voice of the market
+before the model cleans it up.
+
+If a source is collected manually, label it clearly as manual in the source
+manifest. Manual collection should be the exception, not the default.
 
 ## Step 2: Gather Product/Category Conversations
 
-Primary manual source:
+Primary automated routes:
+
+- Reddit API / Apify Reddit bridge from configured search queries.
+- Exa broad sentiment for discovery.
+- OpenClaw browser automation for GigaBrain or Reddit Answers when the
+  designated PC has access.
+
+Useful browser-automation source:
 
 ```text
 https://www.reddit.com/answers/
 ```
 
 GigaBrain may also be used when available, especially for Reddit/forum-style
-conversation mining.
+conversation mining. Treat it as a browser-automated source unless the user
+explicitly chooses manual copy/paste.
 
 Search:
 
@@ -105,14 +177,15 @@ Examples:
 - `postbiotics vs probiotics`
 - `probiotics not working`
 
-Operator steps:
+Automated collector steps:
 
 1. Search the product category.
 2. Open relevant threads.
 3. Expand comments.
-4. Copy full conversations into the raw document.
+4. Capture full visible conversations into `raw-data.md` and `raw-data.jsonl`.
 5. Use follow-up questions to go deeper.
-6. Copy summaries, source-thread references, and raw comments.
+6. Capture summaries, source-thread references, and raw comments.
+7. Record source labels and search terms in `source-manifest.yaml`.
 
 Useful follow-up questions:
 
@@ -162,6 +235,17 @@ Important TikTok/comment signals:
 
 If the client's owned social comments are weak, use competitor/category content.
 Do not stop just because the client has low comment volume.
+
+Automation notes:
+
+- Own reviews should come from vendor APIs, exports, or Firecrawl-rendered
+  review pages when possible.
+- Competitor reviews should use supported review widgets/APIs first, then
+  Firecrawl-rendered pages, then source-specific fallback.
+- TikTok/Instagram comments should use Apify/source bridges or explicit post
+  URLs/search queries before manual capture.
+- If a lane returns 0 items, write the failure or source mismatch to the source
+  manifest instead of silently treating the lane as complete.
 
 ## Step 4: Add Product USPs Before Synthesis
 
@@ -282,17 +366,69 @@ Correct understanding written simply.
 
 Format as a table:
 
-Moment | What It Reveals | Ad Angle
----|---|---
+Moment | Trigger | Behavior | Exact Language | What It Reveals | Ad Angle
+---|---|---|---|---|---
 
 Moment:
 The real-life behavior, situation, or trigger.
+
+Trigger:
+What sets the moment off: time of day, meal, commute, workout, event, social
+situation, purchase moment, product failure, comparison point, etc.
+
+Behavior:
+What the person does next, avoids, repeats, googles, asks, buys, complains
+about, or changes in their routine.
+
+Exact Language:
+The raw phrase or close paraphrase that proves the moment. Preserve customer
+wording whenever possible.
 
 What It Reveals:
 What this says about the audience's pain, desire, or skepticism.
 
 Ad Angle:
 How this could become a hook, scene, or static ad idea.
+
+Do not bury behavior/moment triggers inside pain points. They are first-class
+creative inputs because they become scenes, hooks, POV ads, calendar moments,
+TikTok overlays, and UGC scripts.
+
+### Exact Customer Terminology
+
+Format as a table:
+
+Phrase | Source/Context | Plain Meaning | How To Use In Ads | Avoid
+---|---|---|---|---
+
+Phrase:
+The exact customer wording or very close paraphrase.
+
+Source/Context:
+Where it came from and what the person was talking about.
+
+Plain Meaning:
+What the phrase means strategically.
+
+How To Use In Ads:
+Hook, caption, script line, objection line, proof setup, or scene idea.
+
+Avoid:
+Any wording that would make the phrase feel too polished, too clinical, or
+invented.
+
+Prioritize phrases that sound like real people:
+
+- specific metaphors
+- casual complaints
+- skeptical questions
+- timing language
+- comparison words
+- routine phrases
+- humor or sarcasm
+- "I tried X and Y happened" structures
+
+Do not replace vivid customer wording with generic strategy language.
 
 ### Golden Nuggets
 
@@ -356,6 +492,14 @@ Based on language_notes, summarize:
 - Copywriting tips: how to speak exactly like the ICP.
 
 Use real examples where possible.
+
+Include:
+
+- words they repeat
+- phrases they would actually type in a comment
+- phrases that should become hooks
+- phrases that should never be polished away
+- language differences by awareness level or persona when visible
 
 ### Key Personas
 
@@ -468,8 +612,10 @@ adc brief --client <slug> --product <id> --angles 6
 If automated research is strong, the Audience Conversion Report organizes the
 best findings into an operator-friendly document.
 
-If automated research is weak, the raw-data workflow fills gaps with manual
-GigaBrain, Reddit, TikTok, review, and sales/support inputs.
+If automated research is weak, the raw-data workflow fills gaps with
+OpenClaw/browser-automated GigaBrain, Reddit Answers, TikTok, review, and
+sales/support inputs first. Use manual copy/paste only when automation is
+blocked.
 
 ## Minimum Research Quality Bar
 
@@ -481,7 +627,9 @@ Do not call an Audience Conversion Report complete unless it includes:
 - TikTok/social questions or objections when category-relevant.
 - Product USPs and approved claims.
 - Exact customer phrases.
+- Exact customer terminology table with ad-use notes.
 - Behavior/moment triggers.
+- Behavior/moment table with trigger, behavior, exact language, and ad angle.
 - Objections.
 - Failed solutions.
 - Source-truth review.
@@ -492,11 +640,15 @@ fallback source used.
 ## Operator Notes
 
 - Raw first, synthesis second.
+- Automate collection first; manual copy/paste is fallback.
 - Do not clean up too early.
 - Do not let the model invent customer language.
 - Questions in TikTok comments are often ad angles.
 - Competitor comments are useful even when our client has low volume.
 - Behaviors and moments are as important as pains and desires.
+- Behaviors and moments should become scenes, hooks, and UGC/script beats.
+- Exact customer terminology should be preserved, not translated into generic
+  marketing wording.
 - Objections should map directly to creative angles.
 - Product USPs must be injected before final synthesis.
 - Final copy should sound like the ICP, not like a research report.
