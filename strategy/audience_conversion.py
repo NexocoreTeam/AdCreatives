@@ -83,6 +83,8 @@ def collect_audience_conversion_raw(
     records: list[AudienceRecord] = []
 
     records.extend(_collect_product_context(client_dir, product=product))
+    records.extend(_collect_brand_yaml(client_dir, empty_lanes))
+    records.extend(_collect_persona_context(client_dir, empty_lanes))
     records.extend(_collect_voc_files(client_dir, empty_lanes))
     records.extend(_collect_competitor_reviews(client_dir, empty_lanes))
     records.extend(_collect_amazon_reviews(client_dir, empty_lanes))
@@ -170,6 +172,77 @@ def _collect_product_context(client_dir: Path, *, product: str | None) -> list[A
                     automation_method="repo",
                 )
             )
+    return records
+
+
+def _collect_brand_yaml(
+    client_dir: Path, empty_lanes: list[dict[str, Any]]
+) -> list[AudienceRecord]:
+    path = client_dir / "brand.yaml"
+    if not path.exists():
+        empty_lanes.append({"lane": "brand_information", "reason": "brand.yaml does not exist"})
+        return []
+
+    payload = _read_yaml(path)
+    if not isinstance(payload, dict) or not payload:
+        empty_lanes.append({"lane": "brand_information", "file": str(path), "reason": "empty brand.yaml"})
+        return []
+
+    text = yaml.safe_dump(payload, sort_keys=False, allow_unicode=True).strip()
+    if not text:
+        empty_lanes.append({"lane": "brand_information", "file": str(path), "reason": "0 usable fields"})
+        return []
+
+    return [
+        AudienceRecord(
+            source_type="brand_information",
+            source_label=str(path.relative_to(client_dir)),
+            text=text,
+            automation_method="repo",
+        )
+    ]
+
+
+def _collect_persona_context(
+    client_dir: Path, empty_lanes: list[dict[str, Any]]
+) -> list[AudienceRecord]:
+    persona_paths: list[Path] = []
+    avatar_file = client_dir / "avatar.yaml"
+    if avatar_file.exists():
+        persona_paths.append(avatar_file)
+    avatars_dir = client_dir / "avatars"
+    if avatars_dir.exists():
+        persona_paths.extend(
+            path for path in sorted(avatars_dir.glob("*.yaml")) if path.name != "_index.yaml"
+        )
+
+    if not persona_paths:
+        empty_lanes.append(
+            {
+                "lane": "existing_personas",
+                "reason": "no avatar.yaml or avatars/*.yaml found",
+            }
+        )
+        return []
+
+    records: list[AudienceRecord] = []
+    for path in persona_paths:
+        payload = _read_yaml(path)
+        if not isinstance(payload, dict) or not payload:
+            empty_lanes.append({"lane": "existing_personas", "file": str(path), "reason": "empty persona"})
+            continue
+        text = yaml.safe_dump(payload, sort_keys=False, allow_unicode=True).strip()
+        if not text:
+            empty_lanes.append({"lane": "existing_personas", "file": str(path), "reason": "0 usable fields"})
+            continue
+        records.append(
+            AudienceRecord(
+                source_type="existing_persona",
+                source_label=str(path.relative_to(client_dir)),
+                text=text,
+                automation_method="repo",
+            )
+        )
     return records
 
 
@@ -476,6 +549,7 @@ Use `raw-data.md` and `raw-data.jsonl` with the prompt in
 
 Required sections:
 
+- Brand information.
 - Categorized insights.
 - Top pain points.
 - Failed solutions.
@@ -490,6 +564,27 @@ Required sections:
 - Product-USP angle mapping.
 - ICP language analysis.
 - Key personas.
+- Concepts.
+
+## Brand Information
+
+- Brand Name:
+- Unique Differentiator:
+- Best-Selling Product/Service:
+- Three Things Prospects Should Know:
+- Desired Brand Perception:
+- Seasonal Patterns:
+- FAQs And Common Claims:
+- Claims To Avoid Or Verify:
+
+## Key Personas
+
+Generate exactly three source-supported personas after synthesis, or paste in
+three reviewed personas if they already exist in the client files.
+
+## Concepts
+
+Concept section intentionally left open for next-phase concept brainstorming.
 """
     path.write_text(text, encoding="utf-8")
 

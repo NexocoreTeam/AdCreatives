@@ -128,7 +128,9 @@ This command is free/local. It does not run paid research or LLM synthesis. It
 consolidates existing repo artifacts into the Audience Conversion folder:
 
 - `brand-context.md`
+- `brand.yaml` brand information
 - product YAML context
+- existing avatar/persona YAML context
 - own VOC files under `clients/<slug>/voc/`
 - competitor review files under `research/competitor-reviews/`
 - Amazon review files under `research/amazon-reviews/`
@@ -275,9 +277,30 @@ Automation notes:
 - If a lane returns 0 items, write the failure or source mismatch to the source
   manifest instead of silently treating the lane as complete.
 
-## Step 4: Add Product USPs Before Synthesis
+## Step 4: Add Brand Information And Product USPs Before Synthesis
 
-Before giving the raw data to an LLM, add product-specific context:
+Before synthesizing the report or generating personas, add brand and
+product-specific context. This is a required gate, not an optional note. The
+audience data is the source of truth for the market, but the brand information
+keeps personas and concepts tied to the actual offer.
+
+Add a **Brand Information** section with:
+
+- Brand name.
+- Unique differentiator: what makes the brand stand out.
+- Best-selling or core product/service.
+- Three things we wish every prospect knew about the product or brand.
+- Desired brand perception: tone, values, trust signals, and how the brand
+  should feel.
+- Seasonal patterns: busy periods, holiday/seasonal use cases, gifting windows,
+  seasonal objections, or recurring offers.
+- FAQs and common customer questions.
+- Approved claims.
+- Claims to avoid or claims that need proof.
+- Price, offer, guarantee, bundles, subscription details, or other buying
+  context.
+
+Then add product-specific context:
 
 - What the product does.
 - Core mechanism.
@@ -293,7 +316,10 @@ Before giving the raw data to an LLM, add product-specific context:
 The research report should compare real audience language against the product's
 actual strengths. Otherwise the report becomes generic category research.
 
-## Step 5: Generate The Research Document
+If any required brand field is missing, record it in `source-manifest.yaml` or
+the research document as a missing input instead of inventing it.
+
+## Step 5: Generate The Research Document And Personas
 
 Export the raw document as TXT, PDF, or copy the raw Markdown into the LLM.
 
@@ -314,6 +340,22 @@ You are given audience data that includes the following fields:
 Objective:
 Analyze and synthesize this data into a clean, structured format using the
 following exact sections.
+
+## Brand Information
+
+Summarize the brand context that was provided:
+
+- Brand Name
+- Unique Differentiator
+- Best-Selling Product/Service
+- Three Things Prospects Should Know
+- Desired Brand Perception
+- Seasonal Patterns
+- FAQs And Common Claims
+- Claims To Avoid Or Verify
+
+If a field is missing from the source data, write `Missing from provided data`.
+Do not invent brand details.
 
 ## Categorized Insights
 
@@ -531,6 +573,13 @@ Include:
 
 ### Key Personas
 
+Generate exactly three buyer personas/avatar profiles from the source-truthed
+research and brand information. Each persona should represent a distinct
+conversion-relevant audience segment, not a demographic stereotype.
+
+Personas must be grounded in the raw data. If a persona detail is inferred
+rather than directly supported, mark it as an inference.
+
 For each persona:
 
 - Persona Name ("Nickname")
@@ -546,6 +595,26 @@ For each persona:
 - Their interests:
 - Their values:
 - How they speak:
+- Source Support: raw quote/comment/review/paraphrase that supports the persona.
+- Best First Ad Angle:
+- Angles To Avoid:
+
+### Concepts
+
+Leave this section ready for Phase 2 concept brainstorming.
+
+If the team has not approved concept directions yet, write:
+
+`Concept section intentionally left open for next-phase concept brainstorming.`
+
+If the report strongly suggests concept seeds, include them as source-backed
+seeds only:
+
+Concept Seed | Source Insight | Persona | Why It Might Work | Proof Needed
+---|---|---|---|---
+
+Do not turn this into a full brief-generation step yet. The goal is to prepare
+the document for concepts, not skip the concept review.
 
 ## Important Rules
 
@@ -557,9 +626,37 @@ For each persona:
 - Keep the final output clean, readable, and marketing-useful.
 - Flag any claim, insight, or persona detail that is not directly supported by
   the raw data.
+- Generate personas only after Brand Information and the Audience Conversion
+  Report are present.
+- Do not create personas from brand assumptions alone.
 ```
 
-## Step 6: Source-Truth The Report
+## Step 6: Review And Refine Personas
+
+Before using personas for concepts, review the three generated avatars.
+
+Check:
+
+- Does each persona represent a real pattern in the raw data?
+- Is the persona too broad or too demographic?
+- Does the persona have one clear desire, pain, objection, and daily-life
+  context?
+- Does the persona speak in the same language as the source data?
+- Are unsupported details marked as inference or removed?
+- Are there three distinct conversion-relevant audiences?
+
+Refine any persona that does not match the real customer data. In client Slack
+channels, ask the team to correct or approve personas before moving into
+concepts when the client context is important.
+
+Manual fallback:
+
+If the team wants to use an external Avatar GPT, export the research document
+as a PDF, upload it, generate three personas, then paste the finalized personas
+back into the **Key Personas** section. The repo-first path should generate and
+store personas directly in the research document when possible.
+
+## Step 7: Source-Truth The Report
 
 Before using the report for briefs or ad copy, audit it.
 
@@ -570,6 +667,8 @@ Ask:
 - Is this a quote, paraphrase, or model inference?
 - Is it relevant to the ICP and offer?
 - Is it product-level, not operational noise?
+- Are persona details supported by the raw data or clearly marked as inference?
+- Are concepts empty or source-backed rather than invented?
 
 If the report includes unsupported ideas, revise with:
 
@@ -593,8 +692,10 @@ Include:
 - Insights with direct source support.
 - Insights that need more data.
 - Claims that need client approval or proof.
+- Persona details revised or removed.
+- Concept seeds that are source-backed vs deferred.
 
-## Step 7: Use The Report For Creative
+## Step 8: Use The Report For Creative
 
 The finished report should feed:
 
@@ -654,6 +755,8 @@ Do not call an Audience Conversion Report complete unless it includes:
 - Reddit/forum/GigaBrain-style conversations or equivalent social VOC.
 - TikTok/social questions or objections when category-relevant.
 - Product USPs and approved claims.
+- Brand information: differentiator, best seller/core product, desired
+  perception, seasonal patterns, FAQs, and approved/common claims.
 - Exact customer phrases.
 - Exact customer terminology table with ad-use notes.
 - Behavior/moment triggers.
@@ -678,5 +781,9 @@ fallback source used.
 - Exact customer terminology should be preserved, not translated into generic
   marketing wording.
 - Objections should map directly to creative angles.
-- Product USPs must be injected before final synthesis.
+- Brand information and product USPs must be injected before final synthesis.
+- Personas must be generated from the source-truthed report, not from brand
+  assumptions alone.
+- The Concepts section should exist before handoff, even if intentionally left
+  open for the next phase.
 - Final copy should sound like the ICP, not like a research report.
