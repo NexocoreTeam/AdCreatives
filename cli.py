@@ -6937,6 +6937,57 @@ def audience_conversion_collect(
     )
 
 
+@audience_conversion.command(name="phase2-static")
+@click.option("--client", required=True, help="Client slug")
+@click.option("--product", default=None, help="Optional product slug")
+@click.option("--avatar", default=None, help="Optional selected avatar/persona name")
+@click.option("--mass-desire", default=None, help="Optional selected mass desire/core focus")
+@click.option(
+    "--filename",
+    default="phase-2-static-briefing-workbook.md",
+    show_default=True,
+    help="Workbook filename under research/audience-conversion/.",
+)
+@click.option("--force", is_flag=True, help="Overwrite an existing workbook.")
+def audience_conversion_phase2_static(
+    client: str,
+    product: str | None,
+    avatar: str | None,
+    mass_desire: str | None,
+    filename: str,
+    force: bool,
+):
+    """Create the Phase 2 static briefing workbook.
+
+    This command is free/local. It does not pull ads, call LLMs, or generate
+    images. It creates the required working doc for the updated Phase 2 flow:
+    research synthesis, avatar gate, mass-desire gate, competitor/adjacent
+    ad analysis, 70/20/10 source mix, angle bank, format selection, and
+    template-specific copy approval.
+    """
+    from strategy.phase2_static import create_static_phase2_workbook
+
+    try:
+        result = create_static_phase2_workbook(
+            client,
+            product=product,
+            focus_avatar=avatar,
+            mass_desire=mass_desire,
+            filename=filename,
+            force=force,
+        )
+    except (FileExistsError, FileNotFoundError) as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    console.print(f"\n[green]Wrote {result.path}[/green]")
+    console.print(
+        "[bold]Next:[/bold] complete the gates in order: synthesize research, "
+        "pick avatar, pick mass desire, pull/analyze competitor and adjacent ads, "
+        "then choose the visual format before writing template-specific copy."
+    )
+
+
 @cli.group()
 def library():
     """Ad Reference Library — review, save, and audit analyzed ad cards."""

@@ -36,6 +36,12 @@ dump, OpenClaw/browser-assisted source collection, Audience Conversion Report,
 source-truth check, behavior/moment extraction, exact customer terminology,
 and product-USP angle mapping workflow.
 
+Read `docs/phase-2-static-briefing-workflow.md` before turning Phase 1 research
+into static ad concepts. It defines the required Phase 2 gates: research
+synthesis, avatar selection, mass-desire selection, direct + adjacent ad
+analysis, 70/20/10 source mix, angle bank by awareness level, operator-chosen
+visual format, template-specific copy, and approval before production.
+
 ## Agent write policy (ALL agents, all machines — including orchestrator/main agents)
 
 - Tracked pipeline code and docs change ONLY via an attributable feature/fork
@@ -199,6 +205,10 @@ adc audience-conversion collect --client <slug> --product <product-id> --categor
 #   free/local: consolidates existing brand, product, VOC, review, social, and
 #   Exa artifacts into clients/<slug>/research/audience-conversion/ for
 #   source-truthed synthesis; use --manual-source for extra raw TXT/MD notes
+adc audience-conversion phase2-static --client <slug> --product <product-id>
+#   free/local: creates the Phase 2 static briefing workbook with gates for
+#   avatar, mass desire, competitor/adjacent ad analysis, angle bank, template
+#   selection, template-specific copy, and approval before production
 adc mine-voc --client <slug> --category <c>
 adc analyze-gaps --client <slug>
 adc brief --client <slug> --product <id> --angles 6

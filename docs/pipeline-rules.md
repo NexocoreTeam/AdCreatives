@@ -305,8 +305,33 @@ side and the client product only on the client/postbiotic side.
 ## 8. Static concepts need a source mix, not a blank brainstorm
 
 **Rule:** Static ad batches should start from the Audience Conversion Report,
-a selected persona/avatar, and a labeled concept source mix. Do not move from
-generic research straight into image generation.
+a selected persona/avatar, a selected mass desire or core focus, and a labeled
+concept source mix. Do not move from generic research straight into image
+generation.
+
+Use `docs/phase-2-static-briefing-workflow.md` and, when useful, scaffold the
+working file with:
+
+```text
+adc audience-conversion phase2-static --client <slug> --product <product-id>
+```
+
+The static briefing workbook is required before production when the request is
+broad, research-led, or concept-batch oriented.
+
+Phase 2 gate order:
+
+1. Audience research synthesis: psychographics, problems/desires,
+   behaviors/moments, objections, exact terminology.
+2. Avatar selection.
+3. Mass desire or core-focus selection.
+4. Direct competitor and adjacent-niche ad pull/analysis.
+5. 70 / 20 / 10 source mix.
+6. Angle bank by awareness level.
+7. Operator-selected visual format/template.
+8. Template-specific benefits, negatives, and headlines.
+9. Static Mistake Filter.
+10. Approval before production.
 
 Default concept mix:
 
@@ -337,6 +362,10 @@ The angle bank should include awareness-level copy options, benefits,
 negatives/comparison bullets, objections handled, proof needed, and exact
 customer phrasing. Image tools can help replace visual assets; final text
 belongs in Canva/local layers when iteration matters.
+
+When analyzing pulled competitor or adjacent ads, do not only summarize. Extract
+the ad mechanic, what works, what they did wrong, missed opportunities, and how
+the mechanic can be emulated for the selected avatar and mass desire.
 
 ---
 

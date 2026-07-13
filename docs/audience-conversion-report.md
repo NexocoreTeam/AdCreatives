@@ -729,6 +729,17 @@ After the Audience Conversion Report, Brand Information, and Key Personas are
 source-truthed, move into concept research. Do not jump straight from broad
 research into ad production.
 
+When the handoff is broad or the operator asks for a static concept batch,
+create the Phase 2 workbook:
+
+```text
+adc audience-conversion phase2-static --client <slug> --product <product-id>
+```
+
+The workbook keeps the process in the correct order and prevents the agent from
+choosing creative formats before the avatar, mass desire, and source mix are
+approved.
+
 The Phase 2 handoff should include:
 
 - One selected persona/avatar for the concept batch.
@@ -739,6 +750,11 @@ The Phase 2 handoff should include:
 - Internal winners, if the client or agency has prior winning ads.
 - An angle bank organized by awareness level.
 - A short list of concepts/templates to build.
+
+Do not choose visual formats too early. First build the research synthesis,
+avatar choice, mass-desire choice, source mix, and angle bank. Then ask the
+operator to choose the visual format/template. Only after that should the agent
+write format-specific benefits, negatives, and headlines.
 
 ### One Avatar Per Concept Batch
 
@@ -818,6 +834,14 @@ Organize angles by awareness level:
 - product-aware
 - most-aware
 
+Awareness mapping:
+
+- Most aware: urgency, proof, CTA, offer, validation.
+- Product aware: differentiation, social validation, why this product.
+- Solution aware: comparison, mechanism, credibility, category contrast.
+- Problem aware: empathy, agitation, daily-life payoff.
+- Unaware: curiosity, story, surprising moment, identity tension.
+
 For every selected template or concept, generate:
 
 - headline options
@@ -855,6 +879,41 @@ Choose at least one:
 If a concept only announces an offer, sale, or generic benefit, keep it out of
 the concept batch until it is rewritten with proof, specificity, exact language,
 or a stronger lived moment.
+
+### Format Selection And Copy Gate
+
+After the angle bank is built, stop and ask the operator which visual
+format/template to use.
+
+Examples:
+
+- us vs them
+- receipt comparison
+- apology note
+- calendar screenshot
+- testimonial/story overlay
+- comparison grid
+- TikTok pill stack
+- IG Story square box
+- organic caption
+- founder note
+
+After the format is chosen, write:
+
+- benefits to list
+- negatives or comparison bullets to list
+- one set for each relevant awareness level
+- five headline options
+- source-language notes explaining why specific words are used
+- proof needed before production
+
+Use explicit source-language notes, e.g.:
+
+```text
+We are using "doing everything right" because reviews and social comments
+repeatedly describe people trying probiotics, diet changes, and gut routines
+while still feeling bloated.
+```
 
 ### Proven Template Remix Handoff
 

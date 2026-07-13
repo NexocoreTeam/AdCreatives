@@ -9,6 +9,12 @@ client files under `clients/<slug>/`. For controlled one-pass vs multi-pass,
 JSON vs natural language, model-route, product-locking, or text-overlay tests,
 also read `docs/static-ad-production-test-plan.md`.
 
+For research-led Phase 2 static batches, read
+`docs/phase-2-static-briefing-workflow.md` before selecting formats or
+templates. Phase 2 must choose the avatar and mass desire, analyze competitor
+and adjacent ads, build the angle bank, and ask the operator for the visual
+format before writing format-specific copy.
+
 ## Purpose
 
 The production system is not "prompt once and use the result." The current
@@ -122,7 +128,29 @@ research.
   markets.
 
 Do not start static production from a blank brainstorm. Start from the Audience
-Conversion Report, a selected persona/avatar, and a concept source mix.
+Conversion Report, a selected persona/avatar, a selected mass desire or core
+focus, and a concept source mix.
+
+The correct order is:
+
+1. Synthesize the research: psychographics, problems/desires, moments,
+   objections, and exact customer terminology.
+2. Ask the operator to pick or approve one avatar.
+3. Ask the operator to pick or approve one mass desire, objection,
+   misconception, failed solution, or behavior/moment.
+4. Pull/analyze direct competitor and adjacent-niche ads.
+5. Build the 70 / 20 / 10 source mix.
+6. Build the angle bank by awareness level.
+7. Ask the operator to choose the visual format/template.
+8. Generate format-specific benefits, negatives, and headlines.
+9. Run the Static Mistake Filter.
+10. Get approval before production.
+
+Use the local scaffold when the batch needs a working document:
+
+```text
+adc audience-conversion phase2-static --client <slug> --product <product-id>
+```
 
 ### 70 / 20 / 10 Concept Source Mix
 
@@ -212,6 +240,21 @@ Each static concept should state:
 - Which awareness level it targets.
 - Which reference/template/mechanic it uses.
 - What copy must be changed per awareness level.
+
+The agent should ask the operator to choose the mass desire or core focus before
+building the bank. Do not assume this choice when several desires are plausible.
+
+When ad examples have been pulled, analyze them for:
+
+- what the ad did well
+- what the ad did wrong
+- the missed opportunity
+- the transferable mechanic
+- how we can emulate it without cloning surface details
+
+For headings and hook lines, prefer clear 6-10 word options when possible. Rank
+headline options by scroll-stopping power and relevance, and explain which
+source language or insight supports each option.
 
 Every angle bank should also include benefit-depth options. Do not stop at the
 first functional benefit.
@@ -321,11 +364,13 @@ Process:
    image slots, text hierarchy, badges, and product placement.
 3. Identify what must change: product, copy, claims, avatar, offer, awareness
    level, brand colors, and unsupported competitor language.
-4. Use HF/ChatGPT/Canva AI only for asset replacement or visual slots when
+4. Use the angle bank and selected visual format to determine the benefits,
+   negatives, objections, proof, and headlines before editing the template.
+5. Use HF/ChatGPT/Canva AI only for asset replacement or visual slots when
    needed, such as replacing a can with the client product or generating a
    secondary comparison object.
-5. Use the angle bank to write awareness-specific template copy.
-6. Finish in Canva/local so headlines, bullets, badges, and spacing can be
+6. Use the angle bank to write awareness-specific template copy.
+7. Finish in Canva/local so headlines, bullets, badges, and spacing can be
    tested without regenerating the image.
 
 For each template, generate:
