@@ -14,18 +14,17 @@ In the Canva Developer Portal:
 - Add the local dev redirect if Canva allows more than one redirect:
   - `http://127.0.0.1:8787/canva/oauth/callback`
 
-Recommended starting scopes:
+Start with the smallest scopes that Canva's authentication guide confirms:
 
 ```text
-profile:read
 asset:read asset:write
-design:meta:read design:meta:write
-design:content:read design:content:write
-folder:read folder:write
+design:meta:read
+folder:read
 ```
 
-Skip comments, permissions, and `collaboration:event` webhooks until a workflow
-requires them.
+Add broader design/folder write scopes later only after Canva accepts them in
+the integration portal. Skip comments, permissions, and `collaboration:event`
+webhooks until a workflow requires them.
 
 ## Local Env
 
@@ -35,7 +34,7 @@ Add the credentials to local `.env`:
 CANVA_CLIENT_ID=...
 CANVA_CLIENT_SECRET=...
 CANVA_REDIRECT_URI=http://127.0.0.1:8787/canva/oauth/callback
-CANVA_SCOPES=profile:read asset:read asset:write design:meta:read design:meta:write design:content:read design:content:write folder:read folder:write
+CANVA_SCOPES=asset:read asset:write design:meta:read folder:read
 CANVA_API_VERSION=2026-02-02
 ```
 
