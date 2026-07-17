@@ -22,11 +22,9 @@ import httpx
 AUTHORIZE_URL = "https://www.canva.com/api/oauth/authorize"
 TOKEN_URL = "https://api.canva.com/rest/v1/oauth/token"
 DEFAULT_CANVA_SCOPES = (
-    "profile:read "
     "asset:read asset:write "
-    "design:meta:read design:meta:write "
-    "design:content:read design:content:write "
-    "folder:read folder:write"
+    "design:meta:read "
+    "folder:read"
 )
 
 
