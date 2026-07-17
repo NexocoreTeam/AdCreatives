@@ -302,7 +302,34 @@ side and the client product only on the client/postbiotic side.
 
 ---
 
-## 8. Static concepts need a source mix, not a blank brainstorm
+## 8. Copied statics default to simple one-pass emulation plus Magic Text
+
+**Rule:** When the operator asks to copy, emulate, or lightly remix an existing
+static ad, start with a simple natural-language one-pass Higgsfield prompt using
+the reference ad and client product image. Do not default to JSON prompts,
+multi-pass workflows, or complex planning unless the first output fails or the
+operator explicitly requests a controlled test.
+
+The prompt should preserve the winning ad mechanic and visual polish while
+changing small surface identifiers so the output is not a clone:
+
+- background color, material, or texture
+- lighting warmth or surface treatment
+- kitchen backsplash, wall, cabinet, or countertop colors
+- small background objects, e.g. coffee maker instead of plant
+- model reference, hair color, clothing, scenery, or supporting props
+- product replacement and brand-owned color accents
+
+After the image is approved, upload it into Canva and use **Magic Text** first.
+Only the ad copy should become editable. Keep the rest of the generated image
+intact unless broader product/model cleanup is required.
+
+Use Magic Layers only when Magic Text is insufficient, and protect product
+labels first with Magic Grab if the product/package matters.
+
+---
+
+## 9. Static concepts need a source mix, not a blank brainstorm
 
 **Rule:** Static ad batches should start from the Audience Conversion Report,
 a selected persona/avatar, a selected mass desire or core focus, and a labeled
@@ -375,7 +402,7 @@ the mechanic can be emulated for the selected avatar and mass desire.
 
 ---
 
-## 9. Static ads must pass the mistake filter before production or export
+## 10. Static ads must pass the mistake filter before production or export
 
 **Rule:** Do not generate, export, or send a static ad that is hard to read,
 generic, merely promotional, or built from clever copy instead of source-truthed

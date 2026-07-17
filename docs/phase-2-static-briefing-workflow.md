@@ -202,6 +202,13 @@ Stop and ask for the visual format/template:
 If the operator has not chosen or approved a format, do not produce final
 format-specific copy.
 
+If the operator chooses to copy/emulate a specific ad, use the default simple
+emulation route from `docs/creative-production-system.md`: one natural-language
+Higgsfield pass with the reference ad and product image, small surface changes
+so it is not a clone, then Canva Magic Text for editable copy only. Do not
+switch to JSON, multi-pass generation, or Magic Layers unless the operator asks
+for a test or the first pass fails.
+
 ## Gate 9: Format-Specific Copy Set
 
 After the visual format is chosen, write:

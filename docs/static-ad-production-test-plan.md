@@ -8,6 +8,13 @@ encoding defaults into the repo.
 The goal is not to make a few good ads. The goal is to learn which route should
 become the default for each kind of static ad.
 
+For normal copied/emulated statics, the current production default is already
+simple: upload the reference ad and product image, use a short natural-language
+one-pass prompt, make a few small visual changes so the output is not a direct
+copy, then use Canva Magic Text to make only the ad copy editable. Use this test
+plan when the operator explicitly wants to audit whether a more complex route is
+better.
+
 ## Test Objective
 
 Build a controlled testing system so Creative Strategist can answer:
@@ -186,6 +193,7 @@ Purpose: determine how many production stages are best for each creative type.
 ### A1. One-Pass Higgsfield
 
 Use when testing whether Higgsfield can handle the full visual base at once.
+This is also the normal baseline for simple ad-copying/emulation jobs.
 
 Inputs:
 
@@ -207,6 +215,9 @@ Prompt should tell Higgsfield:
 
 - The reference controls layout, lighting, composition, and visual polish.
 - The product reference controls product identity/category.
+- Make small surface changes so the output is not a direct clone: background
+  color/texture, wall or backsplash color, props, model hair/clothing, scenery,
+  or supporting objects.
 - Final text does not need to be perfect if text will be rebuilt later.
 - Do not redesign the product label.
 
@@ -231,6 +242,8 @@ Use this if:
 - Scene/product lighting needs to feel integrated.
 - Reference polish is the main value.
 - Product identity risk is acceptable or can be cleaned in Canva.
+- The intended Canva handoff is Magic Text for copy-only layers, not Magic
+  Layers over the whole image.
 
 ### A2. Two-Pass Workflow
 
