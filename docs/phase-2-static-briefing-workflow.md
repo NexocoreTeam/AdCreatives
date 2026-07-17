@@ -209,6 +209,34 @@ so it is not a clone, then Canva Magic Text for editable copy only. Do not
 switch to JSON, multi-pass generation, or Magic Layers unless the operator asks
 for a test or the first pass fails.
 
+If the operator provides a large Foreplay library, do not assign final copy
+before seeing the emulated visual containers. Use this branch:
+
+```text
+Foreplay Library -> Simple HF Emulation -> Canva Magic Text -> Ad Card ->
+Angle Fit -> Copy Set -> Approval -> Finalize
+```
+
+Each post-emulation ad card must document:
+
+- scene / visual context
+- ad mechanic
+- persuasion mechanism
+- product role
+- existing text zones
+- approximate text capacity
+- awareness level fit
+- best angles this format can carry
+- bad angles for this format
+- exact VOC phrases that can fit
+- Canva edit notes
+- 1:1 crop-safe text notes
+- Static Mistake Filter risks
+
+Use the ad card to decide which angle belongs on the visual. If the chosen
+angle needs more text than the layout can carry, choose a different angle or a
+different emulated ad instead of forcing the copy.
+
 ## Gate 9: Format-Specific Copy Set
 
 After the visual format is chosen, write:

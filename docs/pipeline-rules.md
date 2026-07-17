@@ -432,3 +432,33 @@ Every static must pass these six checks:
 Treat failures as upstream bugs in the concept, copy, reference choice, or
 layout. Fix the concept before spending on image generation or sending the
 asset for review.
+
+---
+
+## 11. Foreplay emulation batches require post-emulation ad cards
+
+**Rule:** When the operator provides a large Foreplay library for copied or
+emulated statics, do not force the Phase 2 angle/copy onto the references before
+seeing the emulated visual containers. First create the candidate visuals, then
+make an ad card for each one.
+
+Default sequence:
+
+1. Build the idea pool from the Audience Conversion Report.
+2. Pull/import the Foreplay library.
+3. Tag each ad by mechanic.
+4. Run Simple Natural-Language Emulation with reference ad + product image.
+5. Make small surface changes so the result is not a clone.
+6. Upload to Canva and use Magic Text for editable copy only.
+7. Create a post-emulation ad card.
+8. Match the angle/copy to the ad card.
+9. Get approval before finalizing.
+
+The ad card must capture scene, mechanic, persuasion mechanism, product role,
+existing text zones, approximate text capacity, awareness fit, best/bad angles,
+exact VOC phrases that can fit, Canva edit notes, 1:1 crop safety, and Static
+Mistake Filter risks.
+
+If the selected angle needs more text than the visual can carry, choose a
+different angle or a different candidate ad. Do not cram dense mechanism copy
+into a lifestyle/UGC visual or force a long note into a one-headline layout.

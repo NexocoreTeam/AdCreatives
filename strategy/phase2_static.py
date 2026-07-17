@@ -295,6 +295,51 @@ Selected format/template:
 - What the template controls:
 - What research controls:
 
+### Optional Branch: Foreplay Library Emulation And Ad Cards
+
+Use this branch when the operator provides a large Foreplay library and wants to
+emulate candidates before deciding which angle/copy belongs on each visual.
+
+Default sequence:
+
+```text
+Foreplay Library -> Simple HF Emulation -> Canva Magic Text -> Ad Card ->
+Angle Fit -> Copy Set -> Approval -> Finalize
+```
+
+Rules:
+
+- Run the first pass as simple natural-language emulation: reference ad +
+  product image, small surface changes, no heavy final-copy decisions yet.
+- Upload the first-pass output to Canva and use Magic Text so only visible ad
+  text becomes editable.
+- Create an ad card before assigning final copy.
+- Match the angle to the ad card's mechanic and text capacity.
+- If the selected angle does not fit the available text zones, choose a
+  different angle or a different emulated ad.
+
+#### Post-Emulation Ad Card Template
+
+| Field | Notes |
+|---|---|
+| Candidate ID |  |
+| Source Foreplay ad |  |
+| First-pass output / Canva link |  |
+| Scene / visual context |  |
+| Ad mechanic | us vs them / receipt / founder note / testimonial / routine screenshot / product comparison / proof static / UGC native / other |
+| Persuasion mechanism |  |
+| Product role | hero / handheld / staged / background / comparison object / other |
+| Existing text zones |  |
+| Approximate text capacity | e.g. one headline + one caption, 4 short bullets, long note body |
+| Awareness level fit |  |
+| Best angles this format can carry |  |
+| Bad angles for this format |  |
+| Exact VOC phrases that can fit |  |
+| Canva edit notes |  |
+| Center 1:1 crop-safe notes |  |
+| Static Mistake Filter risks |  |
+| Recommended angle/copy direction |  |
+
 ## Gate 9: Template-Specific Copy Set
 
 Complete this only after the operator chooses the visual format/template.

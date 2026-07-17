@@ -25,6 +25,8 @@ def test_create_static_phase2_workbook_writes_required_gates(tmp_path):
     assert "10 Adjacent Niche Ideas" in text
     assert "Angle Bank By Awareness Level" in text
     assert "Visual Format / Template Selection" in text
+    assert "Foreplay Library Emulation And Ad Cards" in text
+    assert "Post-Emulation Ad Card Template" in text
     assert "Template-Specific Copy Set" in text
     assert "Done-Everything-Right Dana" in text
     assert "finally feel consistent again" in text

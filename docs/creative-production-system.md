@@ -367,6 +367,72 @@ Use controlled tests in `docs/static-ad-production-test-plan.md` only when we
 are auditing whether another route is better. For normal production, simple
 natural language plus one pass is the starting point.
 
+### Foreplay Library Emulation And Ad Cards
+
+Use this route when the operator provides a large Foreplay library and wants to
+turn many proven ads into product-specific candidates before deciding which
+angle/copy belongs on each one.
+
+This route is intentionally different from normal Phase 2 concepting. The first
+pass is not the final ad. It creates the visual container so the team can see
+what the ad can actually carry.
+
+Workflow:
+
+1. Build the idea pool from the Audience Conversion Report: avatar, mass
+   desire, objection, exact VOC phrases, awareness level, and angle bank.
+2. Import or pull the Foreplay library.
+3. Tag each Foreplay ad by mechanic: us vs them, receipt, founder note,
+   testimonial, routine screenshot, product comparison, callout/proof static,
+   UGC/native screenshot, etc.
+4. Run Simple Natural-Language Emulation for selected ads:
+   - reference ad + product image
+   - one short natural-language Higgsfield prompt
+   - small surface changes so it is not a clone
+   - no heavy final-copy decisions yet
+5. Upload the first-pass output into Canva and use Magic Text so only visible
+   ad text becomes editable.
+6. Create a post-emulation ad card for each candidate.
+7. Match the angle/copy to the ad card.
+8. Write the copy set, get approval, and only then finalize.
+
+The post-emulation ad card is required before final copy. It should capture:
+
+- source Foreplay ad and first-pass output
+- scene / visual context
+- ad mechanic
+- persuasion mechanism
+- product role
+- existing text zones
+- approximate text capacity
+- awareness level fit
+- best angles this format can carry
+- bad angles for this format
+- exact VOC phrases that can fit
+- Canva edit notes
+- 1:1 crop-safe text notes
+- Static Mistake Filter risks
+
+Angle-fit rules:
+
+- If the emulated ad has room for 4 short bullets, it can carry us-vs-them,
+  objection handling, benefits/negatives, or mechanism comparison.
+- If it has one big headline and one small caption, use one strong VOC hook or
+  lived moment, not dense mechanism education.
+- If it is lifestyle/UGC, use native quote, routine, or moment language.
+- If it is receipt/comparison, use failed solutions, value, switch logic, or
+  "tried everything" proof.
+- If the copy needed for an angle does not fit the actual text zones, choose a
+  different angle or a different emulated ad. Do not force long copy into a
+  small visual container.
+
+Default sequence name:
+
+```text
+Foreplay Library -> Simple HF Emulation -> Canva Magic Text -> Ad Card ->
+Angle Fit -> Copy Set -> Approval -> Finalize
+```
+
 ### Exact Reference Emulation
 
 Use when Mitch wants an ad to look close to a specific reference.
