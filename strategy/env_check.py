@@ -35,6 +35,8 @@ KEY_SPECS: list[tuple[str, str, str]] = [
      "visual identity capture during research (skipped gracefully if absent)"),
     ("OPENAI_API_KEY", TIER_OPTIONAL,
      "vision analysis + structured prompt writing"),
+    ("CANVA_API_KEY", TIER_OPTIONAL,
+     "Canva handoff/import/export tooling when API access is available"),
     ("FAL_KEY", TIER_PHASE2,
      "image generation (adc generate)"),
     ("HF_CREDENTIALS", TIER_PHASE2,
