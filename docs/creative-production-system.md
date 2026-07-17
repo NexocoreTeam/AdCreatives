@@ -310,6 +310,63 @@ mechanism, proof, or comparison led.
 
 ## Production Routes
 
+### Simple Natural-Language Emulation
+
+Use this as the default route when the task is to copy, emulate, or lightly
+remix an existing static ad.
+
+This is intentionally simple. Do not overbuild a JSON prompt packet or split the
+job into multiple Higgsfield passes unless the first pass fails or the ad has a
+fragile product/model requirement.
+
+Inputs:
+
+- the reference ad to emulate
+- the client product image
+- optional model/person reference, usually from Pinterest or another real
+  source image
+- a short natural-language instruction
+
+Default prompt shape:
+
+```text
+Recreate this image in the same style and composition, but replace the product
+with [client product]. Keep the ad mechanic and visual polish, but make these
+small changes so it is not a direct copy: [background/color/texture/model
+clothing/scenery/object changes]. Do not redesign the product label.
+```
+
+Small visual changes are enough. Preserve the winning structure while changing
+surface identifiers:
+
+- Plain product shoot: change background color, texture, surface, lighting
+  warmth, or prop set.
+- Lifestyle/kitchen scene: change wall/backsplash colors, cabinet tones,
+  countertop material, lighting, or small background objects such as swapping a
+  plant for a coffee maker.
+- Model/lifestyle scene: use a model reference when needed, then change hair
+  color, clothing articles, pose details, room/scenery, or supporting props.
+- Product comparison/static: replace product assets and adjust color treatment,
+  badges, and supporting objects without changing the scan path.
+
+After the one-pass image is approved, upload it into Canva and use **Magic Text**
+to create editable layers only for the visible ad text. Do not use Magic Layers
+on the whole image by default, because it can disturb the product, model,
+background, and layout. The base image should remain intact; only the ad copy
+needs to become editable.
+
+Use a second pass only when:
+
+- the product is wrong or unreadable
+- the model/hand is unusable
+- the image is too close to the original
+- the background/object changes were not applied
+- the product has a halo, pasted edge, or obvious label drift
+
+Use controlled tests in `docs/static-ad-production-test-plan.md` only when we
+are auditing whether another route is better. For normal production, simple
+natural language plus one pass is the starting point.
+
 ### Exact Reference Emulation
 
 Use when Mitch wants an ad to look close to a specific reference.
@@ -319,6 +376,8 @@ Rules:
 - Use the actual reference image in Higgsfield when polish, product lighting,
   stage, gradient, or composition matter.
 - Do not rebuild polished references from memory or local approximations.
+- Start with the Simple Natural-Language Emulation route unless the ad is a
+  UI-heavy/screenshot static or the product/model needs special protection.
 - Use local rendering or Canva for exact copy cleanup after generation.
 - Preserve the mechanic and polish, but translate competitor names/products
   into category or client-owned language.
@@ -432,8 +491,12 @@ Rules:
 
 - Higgsfield creates the base.
 - Canva cleans text and product layers.
-- Use Magic Grab on product first when labels matter.
-- Use Magic Layers only after protecting the product layer.
+- For normal copied/emulated statics, use Magic Text first so only visible copy
+  becomes editable and the rest of the image stays untouched.
+- Use Magic Grab on product first when labels matter and broader layer work is
+  needed.
+- Use Magic Layers only after protecting the product layer, and only when Magic
+  Text is insufficient for the edit.
 - Rebuild final text/badges as editable Canva elements when the team needs
   future edits.
 
@@ -536,9 +599,14 @@ The wide shadow should read as a readability cushion, not a visible glow.
 - Clarify whether a Canva design is a flattened PNG or editable native text.
 - Flattened Canva imports are acceptable for review/storage, but not final
   editable handoff.
-- For product/package ads, use Magic Grab on the product first.
+- For one-pass emulation outputs, use **Magic Text** first. The goal is to
+  create editable layers only for the ad copy while keeping the generated
+  product, model, background, props, and layout intact.
+- For product/package ads that need broader layer cleanup, use Magic Grab on the
+  product first.
 - Keep the product layer separate and protected.
-- Then run Magic Layers on the remaining image/background layer.
+- Then run Magic Layers on the remaining image/background layer only if Magic
+  Text is not enough.
 - Delete bad OCR layers, especially product-label OCR.
 - Rebuild ad text, receipts, totals, badges, and proof rows as clean Canva
   text/shapes when future editing matters.
@@ -546,6 +614,8 @@ The wide shadow should read as a readability cushion, not a visible glow.
 
 Known failure modes:
 
+- Magic Text may miss stylized, warped, or low-contrast text; rebuild those
+  lines manually in Canva if needed.
 - Magic Layers can damage or duplicate label text if run on the whole product
   image.
 - Local blur patches create visible bands, ghost text, footer smears, and
