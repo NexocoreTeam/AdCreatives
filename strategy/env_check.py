@@ -39,6 +39,16 @@ KEY_SPECS: list[tuple[str, str, str]] = [
      "image generation (adc generate)"),
     ("HF_CREDENTIALS", TIER_PHASE2,
      "Higgsfield engine (--engine higgsfield-soul)"),
+    ("CANVA_CLIENT_ID", TIER_PHASE2,
+     "Canva Connect OAuth integration"),
+    ("CANVA_CLIENT_SECRET", TIER_PHASE2,
+     "Canva Connect OAuth integration"),
+    ("CANVA_REDIRECT_URI", TIER_PHASE2,
+     "Canva Connect OAuth callback URL"),
+    ("CANVA_ACCESS_TOKEN", TIER_PHASE2,
+     "Canva Connect API calls after OAuth approval"),
+    ("CANVA_REFRESH_TOKEN", TIER_PHASE2,
+     "Canva Connect token refresh"),
 ]
 
 

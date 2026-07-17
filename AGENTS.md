@@ -42,6 +42,9 @@ synthesis, avatar selection, mass-desire selection, direct + adjacent ad
 analysis, 70/20/10 source mix, angle bank by awareness level, operator-chosen
 visual format, template-specific copy, and approval before production.
 
+Read `docs/canva-connect-oauth.md` before adding or troubleshooting Canva
+Connect API access. Canva uses OAuth with PKCE, not a generic API key.
+
 ## Agent write policy (ALL agents, all machines — including orchestrator/main agents)
 
 - Tracked pipeline code and docs change ONLY via an attributable feature/fork
@@ -84,6 +87,13 @@ visual format, template-specific copy, and approval before production.
   Do not block client research on a Brave Search API key. If a Slack/OpenClaw
   workflow asks for Brave, that is outside the repo pipeline; route page crawling
   through Firecrawl and broad discovery through Exa/Apify/Reddit as configured.
+
+## Canva Connect integration
+
+Canva Connect API access is OAuth-based. Configure `CANVA_CLIENT_ID`,
+`CANVA_CLIENT_SECRET`, `CANVA_REDIRECT_URI`, and `CANVA_SCOPES` in local `.env`,
+then use `adc canva auth-url` and `adc canva callback-server` to test the OAuth
+flow and save local access/refresh tokens. See `docs/canva-connect-oauth.md`.
 
 ## Higgsfield integration
 

@@ -3698,6 +3698,168 @@ def check_env_cmd():
         console.print("[green]All Phase 1 keys present.[/green]")
 
 
+# ─── Canva Connect OAuth ─────────────────────────────────────────────────────
+
+
+@cli.group(name="canva")
+def canva_cmd():
+    """Canva Connect OAuth utilities."""
+    pass
+
+
+@canva_cmd.command(name="auth-url")
+@click.option(
+    "--state-file",
+    type=click.Path(path_type=Path),
+    default=None,
+    help="Where to store temporary PKCE state. Defaults to ~/.adcreatives/.",
+)
+def canva_auth_url_cmd(state_file: Path | None):
+    """Print a Canva OAuth URL and save the PKCE verifier locally.
+
+    Free, local. Does not call Canva or spend anything.
+    """
+    from strategy.canva_oauth import (
+        build_authorization_url,
+        default_state_path,
+        generate_pkce_pair,
+        load_config_from_env,
+        save_oauth_state,
+    )
+
+    try:
+        config = load_config_from_env()
+    except ValueError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    code_verifier, code_challenge = generate_pkce_pair()
+    state = os.urandom(16).hex()
+    state_path = state_file or default_state_path()
+    save_oauth_state(
+        state_path,
+        state=state,
+        code_verifier=code_verifier,
+        redirect_uri=config.redirect_uri,
+    )
+    url = build_authorization_url(
+        config,
+        state=state,
+        code_challenge=code_challenge,
+    )
+
+    console.print("[green]Saved temporary Canva OAuth state.[/green]")
+    console.print(f"[dim]{state_path}[/dim]")
+    console.print("\n[bold]Open this URL to approve the integration:[/bold]")
+    console.print(url)
+    console.print(
+        "\n[dim]Start the callback server before approving if your redirect URI "
+        "points to 127.0.0.1.[/dim]"
+    )
+
+
+@canva_cmd.command(name="callback-server")
+@click.option("--port", default=8787, show_default=True, type=int)
+@click.option(
+    "--state-file",
+    type=click.Path(path_type=Path),
+    default=None,
+    help="PKCE state file from `adc canva auth-url`.",
+)
+@click.option(
+    "--env-path",
+    type=click.Path(path_type=Path),
+    default=Path(".env"),
+    show_default=True,
+    help="Local env file to update with Canva tokens.",
+)
+def canva_callback_server_cmd(port: int, state_file: Path | None, env_path: Path):
+    """Handle one local Canva OAuth callback and save tokens to .env."""
+    from strategy.canva_oauth import (
+        CanvaOAuthConfig,
+        default_state_path,
+        load_config_from_env,
+        load_oauth_state,
+        run_callback_server,
+    )
+
+    state_path = state_file or default_state_path()
+    if not state_path.exists():
+        console.print(
+            f"[red]Missing OAuth state file: {state_path}. "
+            "Run `adc canva auth-url` first.[/red]"
+        )
+        raise SystemExit(1)
+
+    try:
+        config = load_config_from_env()
+        saved = load_oauth_state(state_path)
+    except (ValueError, OSError, KeyError) as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    # Use the same redirect URI used to generate the PKCE auth URL, even if the
+    # shell env changed between commands.
+    config = CanvaOAuthConfig(
+        client_id=config.client_id,
+        client_secret=config.client_secret,
+        redirect_uri=saved["redirect_uri"],
+        scopes=config.scopes,
+    )
+    console.print(
+        f"[green]Listening for one Canva OAuth callback on "
+        f"http://127.0.0.1:{port}/canva/oauth/callback[/green]"
+    )
+    try:
+        run_callback_server(
+            config=config,
+            expected_state=saved["state"],
+            code_verifier=saved["code_verifier"],
+            env_path=env_path,
+            port=port,
+        )
+    except RuntimeError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    console.print("[green]Canva OAuth succeeded. Tokens saved to local .env.[/green]")
+    console.print("[dim]Token values were not printed.[/dim]")
+
+
+@canva_cmd.command(name="refresh-token")
+@click.option(
+    "--env-path",
+    type=click.Path(path_type=Path),
+    default=Path(".env"),
+    show_default=True,
+    help="Local env file to update with refreshed Canva tokens.",
+)
+def canva_refresh_token_cmd(env_path: Path):
+    """Refresh CANVA_ACCESS_TOKEN from CANVA_REFRESH_TOKEN."""
+    from strategy.canva_oauth import (
+        load_config_from_env,
+        refresh_access_token,
+        token_updates,
+        update_env_file,
+    )
+
+    refresh_token = os.environ.get("CANVA_REFRESH_TOKEN", "").strip()
+    if not refresh_token:
+        console.print("[red]Missing CANVA_REFRESH_TOKEN.[/red]")
+        raise SystemExit(1)
+    try:
+        config = load_config_from_env()
+        tokens = refresh_access_token(config, refresh_token=refresh_token)
+    except Exception as exc:
+        console.print(f"[red]Canva token refresh failed: {exc}[/red]")
+        raise SystemExit(1)
+    updates = token_updates(tokens)
+    if updates:
+        update_env_file(env_path, updates)
+    console.print("[green]Canva token refreshed and saved to local .env.[/green]")
+    console.print("[dim]Token values were not printed.[/dim]")
+
+
 @cli.command(name="scaffold-competitors")
 @click.option("--client", required=True, help="Client slug")
 @click.option(
