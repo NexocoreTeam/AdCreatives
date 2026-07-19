@@ -1,0 +1,82 @@
+card_id: AD-002
+date_added: '2026-07-19'
+added_by: '@Devin'
+brand: Free Soul
+source_link: https://freesoul.com/products/vegan-protein-shake
+media_type: static
+assets:
+  primary: ad-002.png
+foreplay:
+  ad_id: '1516793316269640'
+  foreplay_id: WgsdZGJynTNx6VFQpbz1
+  brand: Free Soul
+  headline: 'Free Soul Vegan Protein: level up your protein⚡'
+  description: "Not all protein is made the same. \n\nFree Soul Vegan Protein is uniquely formulated for\
+    \ women, with hormone-supporting superfoods, 20g of plant protein and irritant free - made with care,\
+    \ for your self-care.\n\n✅ Uniquely formulated for women\n✅ 20g of protein per serving \n✅ Available\
+    \ in 4 flavours \n✅ Superfoods and minerals to support your health\n✅ Gluten and dairy free to encourage\
+    \ digestion"
+  cta: SHOP_NOW
+  link_url: https://freesoul.com/products/vegan-protein-shake
+  display_format: image
+  started_running: 1784012400000
+  live: true
+  niches:
+  - Health/Wellness
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-07-19T21:42:24+00:00'
+analysis:
+  format: Native Text Overlay
+  hook_type: Contrarian
+  mechanic: The Reframe
+  secondary_mechanic: The Borrowed Enemy
+  scan_path:
+  - dark hook headline — 'respectfully, basic protein isn't enough anymore'
+  - creator face and outdoor selfie context
+  - body copy with @FreeSoul mention and ingredient list
+  - FreeSoul shaker in hand
+  - pink CTA button
+  proof_element: named functional ingredients — B vitamins, flaxseed, minerals — implying formula superiority
+    over unnamed 'basic' protein
+  product_role: prop
+  awareness_stage: solution_aware
+  why_it_works: The word 'respectfully' mimics a Gen-Z softened callout tone, making the dismissal of
+    competitor protein feel culturally fluent and non-aggressive, while the ingredient list reframes the
+    switch as obvious self-upgrade rather than a sales pitch.
+  cultural_note: '''Respectfully'' is a widely used Gen-Z/millennial hedge that signals polite but firm
+    judgment — borrowing this tone makes the copy read as peer advice rather than advertising.'
+  steal: Use the 'respectfully, X isn't enough anymore' contrarian hook structure to position any upgraded
+    product against a generic category incumbent, layering specific ingredient or feature callouts as
+    the reframe payload.
+  avoid: Do not reuse the creator, her likeness, the exact copy line 'respectfully, basic protein isn't
+    enough anymore', or Free Soul's brand visual identity including color palette and shaker design.
+  proxy_signal: running 5 days (since 2026-07-14), still live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad opens by validating the viewer's existing behavior (using protein) and then reframes
+      it as insufficient — a classic Reframe move; the unnamed 'basic protein' also functions as a Borrowed
+      Enemy.
+    awareness_stage: The viewer already uses protein supplements and knows plant-based options exist;
+      this ad targets someone who hasn't yet differentiated FreeSoul from the category, placing them firmly
+      at solution-aware.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-19T21:42:39+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin'
+  approved_by: '@Devin'
+  approved_at: '2026-07-19T23:45:35+00:00'
+  model_draft_values: {}
+  corrections: []
