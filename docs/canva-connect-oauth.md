@@ -81,6 +81,64 @@ cd C:\AdCreatives
 py -3 cli.py canva refresh-token
 ```
 
+## Internal API Utilities
+
+These commands use the saved OAuth tokens. They do not print token values.
+
+Check token/env/scope status:
+
+```powershell
+cd C:\AdCreatives
+py -3 cli.py canva status
+```
+
+List recent design metadata:
+
+```powershell
+py -3 cli.py canva designs --limit 25
+```
+
+Upload a local image/video as a Canva asset:
+
+```powershell
+py -3 cli.py canva upload-asset path\to\image.png --name "SecondKind HF Output"
+```
+
+Read an uploaded asset by ID:
+
+```powershell
+py -3 cli.py canva asset <asset_id>
+```
+
+List items in a known folder ID:
+
+```powershell
+py -3 cli.py canva folder-items <folder_id>
+```
+
+### Proven With Current Scopes
+
+- Refresh expired OAuth access tokens.
+- List design metadata and edit URLs.
+- Upload HF/local outputs as Canva assets.
+- Read uploaded asset records.
+- List known folder contents when the folder ID is available.
+
+### Blocked Until Scopes Are Expanded
+
+- `profile:read` for profile/account lookup.
+- `design:content:read` for export/read design content.
+- `design:content:write` for creating/updating design content.
+- `folder:write` for creating folders or moving/organizing items.
+- `brandtemplate:meta:read` for brand template discovery.
+
+Keep comments, permissions, webhooks, and brand templates off until a workflow
+actually needs them.
+
+Magic Text does not appear to be exposed as a Canva Connect endpoint. Treat it
+as a Canva UI/browser-assisted step for now: API can get assets/design metadata
+into place, then the UI handles Magic Text.
+
 ## Submission Incomplete Error
 
 Canva shows "Submission incomplete" when the OAuth flow has not been tested.

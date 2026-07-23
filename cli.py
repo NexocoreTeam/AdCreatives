@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import sys
+import json
 from datetime import date
 from pathlib import Path
 
@@ -3858,6 +3859,200 @@ def canva_refresh_token_cmd(env_path: Path):
         update_env_file(env_path, updates)
     console.print("[green]Canva token refreshed and saved to local .env.[/green]")
     console.print("[dim]Token values were not printed.[/dim]")
+
+
+def _canva_payload_items(payload: dict) -> list:
+    for key in ("items", "designs", "assets"):
+        value = payload.get(key)
+        if isinstance(value, list):
+            return value
+    return []
+
+
+def _canva_nested_item(item: dict) -> dict:
+    for key in ("design", "asset", "folder", "item"):
+        value = item.get(key)
+        if isinstance(value, dict):
+            return value
+    return item
+
+
+def _print_canva_json(payload: dict) -> None:
+    console.print(json.dumps(payload, indent=2, ensure_ascii=False))
+
+
+@canva_cmd.command(name="status")
+def canva_status_cmd():
+    """Show local Canva Connect env/token/scope status without printing secrets."""
+    from strategy.canva_connect import granted_scopes, missing_scopes
+
+    recommended_next = [
+        "profile:read",
+        "design:content:read",
+        "design:content:write",
+        "folder:write",
+    ]
+    token_fields = [
+        "CANVA_CLIENT_ID",
+        "CANVA_CLIENT_SECRET",
+        "CANVA_REDIRECT_URI",
+        "CANVA_ACCESS_TOKEN",
+        "CANVA_REFRESH_TOKEN",
+    ]
+    table = Table(title="Canva Connect Status")
+    table.add_column("Field")
+    table.add_column("Status")
+    for field in token_fields:
+        present = bool(os.environ.get(field, "").strip())
+        table.add_row(field, "[green]present[/green]" if present else "[yellow]missing[/yellow]")
+    console.print(table)
+
+    scopes = sorted(granted_scopes())
+    console.print("\n[bold]Current/requested scopes:[/bold]")
+    console.print(" ".join(scopes) if scopes else "[yellow]none configured[/yellow]")
+    blocked = missing_scopes(recommended_next)
+    if blocked:
+        console.print("\n[yellow]Recommended next internal-test scopes not currently present:[/yellow]")
+        console.print(" ".join(blocked))
+    else:
+        console.print("\n[green]Recommended internal-test scopes are present.[/green]")
+    console.print(
+        "\n[dim]Magic Text still appears to require Canva UI/browser assistance; "
+        "Connect API covers OAuth, assets, metadata, and folder/design endpoints.[/dim]"
+    )
+
+
+@canva_cmd.command(name="designs")
+@click.option("--query", default=None, help="Optional Canva design search query.")
+@click.option("--limit", default=25, show_default=True, type=click.IntRange(1, 100))
+@click.option("--continuation", default=None, help="Continuation cursor from Canva.")
+@click.option("--json", "as_json", is_flag=True, help="Print raw Canva JSON.")
+def canva_designs_cmd(query: str | None, limit: int, continuation: str | None, as_json: bool):
+    """List Canva design metadata using the saved OAuth token."""
+    from strategy.canva_connect import CanvaConnectError, list_designs
+
+    try:
+        payload = list_designs(query=query, continuation=continuation, limit=limit)
+    except CanvaConnectError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+    if as_json:
+        _print_canva_json(payload)
+        return
+
+    table = Table(title="Canva Designs")
+    table.add_column("ID")
+    table.add_column("Title")
+    table.add_column("URL")
+    for item in _canva_payload_items(payload):
+        row = _canva_nested_item(item)
+        table.add_row(
+            str(row.get("id") or ""),
+            str(row.get("title") or row.get("name") or ""),
+            str(row.get("url") or row.get("edit_url") or row.get("thumbnail", {}).get("url") or ""),
+        )
+    console.print(table)
+    if payload.get("continuation"):
+        console.print(f"[dim]Continuation: {payload['continuation']}[/dim]")
+
+
+@canva_cmd.command(name="design")
+@click.argument("design_id")
+@click.option("--json", "as_json", is_flag=True, help="Print raw Canva JSON.")
+def canva_design_cmd(design_id: str, as_json: bool):
+    """Fetch one Canva design metadata record."""
+    from strategy.canva_connect import CanvaConnectError, get_design
+
+    try:
+        payload = get_design(design_id)
+    except CanvaConnectError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+    if as_json:
+        _print_canva_json(payload)
+        return
+    row = _canva_nested_item(payload)
+    console.print(f"[bold]ID:[/bold] {row.get('id', design_id)}")
+    console.print(f"[bold]Title:[/bold] {row.get('title') or row.get('name') or ''}")
+    console.print(f"[bold]URL:[/bold] {row.get('url') or row.get('edit_url') or ''}")
+
+
+@canva_cmd.command(name="upload-asset")
+@click.argument("file_path", type=click.Path(path_type=Path, exists=True, dir_okay=False))
+@click.option("--name", default=None, help="Canva asset name. Defaults to file name.")
+@click.option("--json", "as_json", is_flag=True, help="Print raw Canva JSON.")
+def canva_upload_asset_cmd(file_path: Path, name: str | None, as_json: bool):
+    """Upload one local image/video file as a Canva asset."""
+    from strategy.canva_connect import CanvaConnectError, upload_asset
+
+    try:
+        payload = upload_asset(file_path, name=name)
+    except CanvaConnectError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+    if as_json:
+        _print_canva_json(payload)
+        return
+    job = payload.get("job", payload)
+    asset = job.get("asset", {}) if isinstance(job, dict) else {}
+    console.print("[green]Canva asset upload started/succeeded.[/green]")
+    console.print(f"[bold]Job ID:[/bold] {job.get('id', '') if isinstance(job, dict) else ''}")
+    console.print(f"[bold]Status:[/bold] {job.get('status', '') if isinstance(job, dict) else ''}")
+    if asset.get("id"):
+        console.print(f"[bold]Asset ID:[/bold] {asset['id']}")
+
+
+@canva_cmd.command(name="asset")
+@click.argument("asset_id")
+@click.option("--json", "as_json", is_flag=True, help="Print raw Canva JSON.")
+def canva_asset_cmd(asset_id: str, as_json: bool):
+    """Fetch one Canva asset record."""
+    from strategy.canva_connect import CanvaConnectError, get_asset
+
+    try:
+        payload = get_asset(asset_id)
+    except CanvaConnectError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+    if as_json:
+        _print_canva_json(payload)
+        return
+    row = _canva_nested_item(payload)
+    console.print(f"[bold]ID:[/bold] {row.get('id', asset_id)}")
+    console.print(f"[bold]Name:[/bold] {row.get('name') or row.get('title') or ''}")
+
+
+@canva_cmd.command(name="folder-items")
+@click.argument("folder_id")
+@click.option("--limit", default=50, show_default=True, type=click.IntRange(1, 100))
+@click.option("--continuation", default=None, help="Continuation cursor from Canva.")
+@click.option("--json", "as_json", is_flag=True, help="Print raw Canva JSON.")
+def canva_folder_items_cmd(folder_id: str, limit: int, continuation: str | None, as_json: bool):
+    """List items in a known Canva folder ID."""
+    from strategy.canva_connect import CanvaConnectError, list_folder_items
+
+    try:
+        payload = list_folder_items(folder_id, continuation=continuation, limit=limit)
+    except CanvaConnectError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+    if as_json:
+        _print_canva_json(payload)
+        return
+    table = Table(title=f"Canva Folder Items: {folder_id}")
+    table.add_column("Type")
+    table.add_column("ID")
+    table.add_column("Name")
+    for item in _canva_payload_items(payload):
+        row = _canva_nested_item(item)
+        table.add_row(
+            str(item.get("type") or row.get("type") or ""),
+            str(row.get("id") or ""),
+            str(row.get("name") or row.get("title") or ""),
+        )
+    console.print(table)
+    if payload.get("continuation"):
+        console.print(f"[dim]Continuation: {payload['continuation']}[/dim]")
 
 
 @cli.command(name="scaffold-competitors")
