@@ -463,20 +463,23 @@ Default sequence:
 9. Get approval before finalizing.
 
 For UGC, selfie, model, hand-held, or creator-style Foreplay references, the
-simple Higgsfield prompt must include imperfect phone-photo realism language.
-Ask for lower clarity/sharpness, reduced micro-contrast, softened fine detail,
-subtle dirty-lens haze, natural uneven lighting, lower contrast/saturation when
-needed, realistic skin texture, and ordinary candid background details. The
-goal is a usable creator-camera image, not blur and not a clean AI/studio
-render.
+simple Higgsfield prompt must include short imperfect phone-photo realism
+language. Use blunt wording such as: "Make this look like a real low-effort
+iPhone selfie, not an AI image. Preserve the pose and product-in-hand layout,
+but use a different person. The camera should feel ordinary and slightly bad:
+soft front-camera focus, dirty lens haze, flat indoor light, muted color, mild
+compression, no HDR, no beauty-camera skin, no visible pore detail, no crisp
+hair strands, no glossy sharp edges. Make it feel like a casual photo from
+someone's camera roll." Do not paste long beauty/skin/camera explanations by
+default.
 
 When a Foreplay/reference ad contains a recognizable person, the prompt must
 replace the model identity, not just recolor hair or clothing. Preserve the
 winning pose, crop, camera source, lighting direction, and hand/product
-placement, but change the face/identity, hair, wardrobe, accessories,
-grooming/makeup, room/scenery, and props enough that the output reads as a
-different creator. If available, use a separate person/model reference for the
-new creator's look.
+placement, but keep the instruction short: use a different creator, not the
+same model with styling changes. Change face, hair, wardrobe, accessories, and
+room details enough that the output clearly reads as a different person. If
+available, use a separate person/model reference for the new creator's look.
 
 The ad card must capture scene, mechanic, persuasion mechanism, product role,
 existing text zones, approximate text capacity, awareness fit, best/bad angles,

@@ -365,45 +365,32 @@ surface identifiers:
 - Product comparison/static: replace product assets and adjust color treatment,
   badges, and supporting objects without changing the scan path.
 
-For UGC, selfie, model, hand-held, or creator-style references, add the
-imperfect-phone realism block by default:
+For UGC, selfie, model, hand-held, or creator-style references, keep the
+imperfect-phone realism instruction short and blunt. Short prompts have tested
+better than long, highly qualified camera notes for this route:
 
 ```text
-Make the image feel like a real casual phone photo, not a polished AI render or
-studio shot. Add subtle real-world imperfections: slightly soft phone-camera
-sharpness, mild lens smudge or dirty-camera haze, natural uneven lighting,
-small exposure imperfections, realistic skin texture, and ordinary background
-messiness. Turn down overly clean contrast, saturation, and glossy sharpness.
-
-Make the image less sharp and less polished, like a real front-facing phone
-photo taken quickly in imperfect indoor light. Slightly soften fine detail,
-reduce micro-contrast, lower clarity/sharpness, and add a very subtle
-dirty-lens haze. Avoid crisp studio edges, over-defined skin texture, glossy
-product sharpness, or perfectly clean AI lighting. Keep it realistic and
-usable, not blurry, but make it feel like an ordinary phone photo from a
-creator's camera roll.
+Make this look like a real low-effort iPhone selfie, not an AI image. Preserve
+the pose and product-in-hand layout, but use a different person. The camera
+should feel ordinary and slightly bad: soft front-camera focus, dirty lens haze,
+flat indoor light, muted color, mild compression, no HDR, no beauty-camera
+skin, no visible pore detail, no crisp hair strands, no glossy sharp edges.
+Make it feel like a casual photo from someone's camera roll.
 ```
 
 For model-led references, add the model replacement block before the
 imperfect-phone realism block:
 
 ```text
-Replace the original person with a different believable creator. Do not keep
-the same face, facial structure, hair, or recognizable identity from the
-reference ad. Preserve the useful source mechanics only: pose, crop, camera
-height, hand/product placement, lighting direction, and selfie/product-in-hand
-composition.
-
-Change the person's identity and styling enough that this cannot be mistaken
-for the same model: different face shape, hair color/style, wardrobe,
-accessories, grooming/makeup, and small environment details. If a separate
-person/model reference is provided, use it to guide the new creator's look
-while keeping the original ad's pose and camera feel.
-
-Keep the person natural and camera-real: realistic skin texture, mild asymmetry,
-ordinary expression, clothing wrinkles, flyaway hair, and no beauty-retouch or
-stock-model finish.
+Use a different creator, not the same model with styling changes. Keep the
+same pose, crop, selfie angle, and product-in-hand mechanic, but change the
+face, hair, wardrobe, accessories, and room details enough that it clearly reads
+as a different person.
 ```
+
+Do not add long beauty/skin/camera explanations unless the short version fails.
+Avoid phrases like "realistic skin texture" when the issue is over-rendering;
+ask for ordinary phone-camera skin and no pore-level detail instead.
 
 Do not use this block for polished product statics, clinical proof boards,
 receipts, screenshots, or premium product-stage ads unless the operator

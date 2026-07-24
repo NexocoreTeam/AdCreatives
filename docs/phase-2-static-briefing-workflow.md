@@ -214,19 +214,22 @@ perspective, color temperature, and depth of field while removing halos,
 cutout edges, pasted-on looks, and source-image artifacts.
 
 If the reference is UGC, selfie, model-led, hand-held, or creator-style, include
-the imperfect phone-photo block as well: lower clarity/sharpness, reduce
-micro-contrast, soften fine detail, lower contrast/saturation when needed, add
-subtle dirty-lens haze, preserve realistic skin texture, and avoid crisp studio
-edges or a clean AI render. Keep it realistic and usable, not blurry.
+the short imperfect iPhone block as well. Default to blunt natural language:
+"Make this look like a real low-effort iPhone selfie, not an AI image. Preserve
+the pose and product-in-hand layout, but use a different person. The camera
+should feel ordinary and slightly bad: soft front-camera focus, dirty lens haze,
+flat indoor light, muted color, mild compression, no HDR, no beauty-camera skin,
+no visible pore detail, no crisp hair strands, no glossy sharp edges. Make it
+feel like a casual photo from someone's camera roll." Keep it realistic and
+usable, not blurry.
 
 If the reference contains a recognizable person, do not merely change hair or
-clothing. Add the model replacement block: replace the original person with a
-different believable creator, preserve the source mechanics only (pose, crop,
-camera height, hand/product placement, lighting direction, selfie/product-in-hand
-composition), and change identity cues such as face structure, hair, wardrobe,
-accessories, grooming/makeup, and small environment details. If a separate
-person/model reference is available, use it to control the new creator's look
-while the Foreplay ad controls pose and layout.
+clothing. Add the short model replacement instruction: "Use a different creator,
+not the same model with styling changes. Keep the same pose, crop, selfie angle,
+and product-in-hand mechanic, but change the face, hair, wardrobe, accessories,
+and room details enough that it clearly reads as a different person." If a
+separate person/model reference is available, use it to control the new
+creator's look while the Foreplay ad controls pose and layout.
 
 If the operator provides a large Foreplay library, do not assign final copy
 before seeing the emulated visual containers. Use this branch:
