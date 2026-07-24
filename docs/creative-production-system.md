@@ -333,7 +333,19 @@ Default prompt shape:
 Recreate this image in the same style and composition, but replace the product
 with [client product]. Keep the ad mechanic and visual polish, but make these
 small changes so it is not a direct copy: [background/color/texture/model
-clothing/scenery/object changes]. Do not redesign the product label.
+clothing/scenery/object changes].
+
+Use the provided product reference for product identity, shape, proportions,
+packaging, and label accuracy, but re-integrate the product so it belongs in
+the new scene. Match the scene's lighting direction, shadow softness, color
+temperature, contrast, perspective, and depth of field. Remove any halo, cutout
+edge, pasted-on look, mismatched lighting, or source-image artifact from the
+product reference. The product should feel physically present in the scene, with
+realistic contact shadows/reflections where appropriate.
+
+Do not redesign the product label, do not warp the product, and do not invent
+fake unreadable label text. Final ad text will be edited later in Canva, so
+prioritize the visual container and product integration.
 ```
 
 Small visual changes are enough. Preserve the winning structure while changing

@@ -207,7 +207,11 @@ emulation route from `docs/creative-production-system.md`: one natural-language
 Higgsfield pass with the reference ad and product image, small surface changes
 so it is not a clone, then Canva Magic Text for editable copy only. Do not
 switch to JSON, multi-pass generation, or Magic Layers unless the operator asks
-for a test or the first pass fails.
+for a test or the first pass fails. The prompt must also include the generic
+product-integration instruction: the product reference controls identity and
+label fidelity, but Higgsfield should match the scene's lighting, shadows,
+perspective, color temperature, and depth of field while removing halos,
+cutout edges, pasted-on looks, and source-image artifacts.
 
 If the operator provides a large Foreplay library, do not assign final copy
 before seeing the emulated visual containers. Use this branch:

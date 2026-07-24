@@ -320,6 +320,14 @@ changing small surface identifiers so the output is not a clone:
 - model reference, hair color, clothing, scenery, or supporting props
 - product replacement and brand-owned color accents
 
+The product reference controls product identity, packaging, proportions, and
+label accuracy. Higgsfield should re-light and re-integrate that product into
+the reference scene so it matches lighting direction, shadow softness, color
+temperature, contrast, perspective, and depth of field. Explicitly ask it to
+remove halos, cutout edges, pasted-on looks, mismatched lighting, and
+source-image artifacts from the product reference. Do not let it redesign,
+warp, or hallucinate the product label.
+
 After the image is approved, upload it into Canva and use **Magic Text** first.
 Only the ad copy should become editable. Keep the rest of the generated image
 intact unless broader product/model cleanup is required.
