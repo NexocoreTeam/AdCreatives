@@ -3884,13 +3884,15 @@ def _print_canva_json(payload: dict) -> None:
 @canva_cmd.command(name="status")
 def canva_status_cmd():
     """Show local Canva Connect env/token/scope status without printing secrets."""
-    from strategy.canva_connect import granted_scopes, missing_scopes
+    from strategy.canva_connect import granted_scopes, missing_scopes, requested_scopes
 
     recommended_next = [
         "profile:read",
+        "folder:write",
+    ]
+    design_content_scopes = [
         "design:content:read",
         "design:content:write",
-        "folder:write",
     ]
     token_fields = [
         "CANVA_CLIENT_ID",
@@ -3907,15 +3909,31 @@ def canva_status_cmd():
         table.add_row(field, "[green]present[/green]" if present else "[yellow]missing[/yellow]")
     console.print(table)
 
-    scopes = sorted(granted_scopes())
-    console.print("\n[bold]Current/requested scopes:[/bold]")
-    console.print(" ".join(scopes) if scopes else "[yellow]none configured[/yellow]")
+    requested = sorted(requested_scopes())
+    granted = sorted(granted_scopes())
+    console.print("\n[bold]Requested scopes for next OAuth flow:[/bold]")
+    console.print(" ".join(requested) if requested else "[yellow]none configured[/yellow]")
+    console.print("\n[bold]Granted scopes on current saved token:[/bold]")
+    console.print(" ".join(granted) if granted else "[yellow]none granted yet[/yellow]")
+    if requested and granted and set(requested) != set(granted):
+        console.print(
+            "\n[yellow]Requested scopes differ from the current token. "
+            "Run `adc canva auth-url` and `adc canva callback-server` again "
+            "to get a newly authorized token.[/yellow]"
+        )
     blocked = missing_scopes(recommended_next)
     if blocked:
-        console.print("\n[yellow]Recommended next internal-test scopes not currently present:[/yellow]")
+        console.print("\n[yellow]Next internal-test scopes not granted yet:[/yellow]")
         console.print(" ".join(blocked))
     else:
         console.print("\n[green]Recommended internal-test scopes are present.[/green]")
+    design_blocked = missing_scopes(design_content_scopes)
+    if design_blocked:
+        console.print(
+            "\n[dim]Design content scopes not granted: "
+            f"{' '.join(design_blocked)}. If Canva's portal will not let you "
+            "enable design write, leave these off for now.[/dim]"
+        )
     console.print(
         "\n[dim]Magic Text still appears to require Canva UI/browser assistance; "
         "Connect API covers OAuth, assets, metadata, and folder/design endpoints.[/dim]"

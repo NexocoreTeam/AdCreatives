@@ -31,6 +31,12 @@ class CanvaConnectError(RuntimeError):
     """Raised when Canva Connect cannot complete a request."""
 
 
+def requested_scopes() -> set[str]:
+    """Return scopes currently requested for the next OAuth flow."""
+    raw = os.environ.get("CANVA_SCOPES", "")
+    return {scope.strip() for scope in raw.split() if scope.strip()}
+
+
 def granted_scopes() -> set[str]:
     """Return scopes stored after OAuth, falling back to requested scopes."""
     raw = os.environ.get("CANVA_GRANTED_SCOPES") or os.environ.get("CANVA_SCOPES", "")

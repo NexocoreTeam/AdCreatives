@@ -19,6 +19,7 @@ def test_granted_scopes_prefers_actual_granted_scopes(monkeypatch):
     monkeypatch.setenv("CANVA_SCOPES", "asset:read asset:write folder:read")
     monkeypatch.setenv("CANVA_GRANTED_SCOPES", "asset:read")
 
+    assert canva_connect.requested_scopes() == {"asset:read", "asset:write", "folder:read"}
     assert canva_connect.granted_scopes() == {"asset:read"}
     assert canva_connect.missing_scopes(["asset:read", "asset:write"]) == ["asset:write"]
 
