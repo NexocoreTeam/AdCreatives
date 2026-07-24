@@ -361,6 +361,30 @@ surface identifiers:
 - Product comparison/static: replace product assets and adjust color treatment,
   badges, and supporting objects without changing the scan path.
 
+For UGC, selfie, model, hand-held, or creator-style references, add the
+imperfect-phone realism block by default:
+
+```text
+Make the image feel like a real casual phone photo, not a polished AI render or
+studio shot. Add subtle real-world imperfections: slightly soft phone-camera
+sharpness, mild lens smudge or dirty-camera haze, natural uneven lighting,
+small exposure imperfections, realistic skin texture, and ordinary background
+messiness. Turn down overly clean contrast, saturation, and glossy sharpness.
+
+Make the image less sharp and less polished, like a real front-facing phone
+photo taken quickly in imperfect indoor light. Slightly soften fine detail,
+reduce micro-contrast, lower clarity/sharpness, and add a very subtle
+dirty-lens haze. Avoid crisp studio edges, over-defined skin texture, glossy
+product sharpness, or perfectly clean AI lighting. Keep it realistic and
+usable, not blurry, but make it feel like an ordinary phone photo from a
+creator's camera roll.
+```
+
+Do not use this block for polished product statics, clinical proof boards,
+receipts, screenshots, or premium product-stage ads unless the operator
+explicitly wants a native/UGC downgrade. It is specifically for cases where the
+reference should feel like a real creator camera image.
+
 After the one-pass image is approved, upload it into Canva and use **Magic Text**
 to create editable layers only for the visible ad text. Do not use Magic Layers
 on the whole image by default, because it can disturb the product, model,
@@ -494,6 +518,10 @@ Rules:
 - Start with a real visual reference that shows the source context.
 - If the mechanic is "iPhone POV holding product," the hand/product framing is
   non-negotiable.
+- Prompt for imperfect phone realism: lower clarity/sharpness, reduce
+  micro-contrast, soften fine detail, lower contrast/saturation when needed,
+  and add a subtle dirty-lens or quick-phone-photo haze. The goal is ordinary
+  creator-camera realism, not blur.
 - If AI iterations make people/hands/products look fake, use a real Pinterest
   image base and lightly edit it instead.
 - Add final text locally or in Canva; avoid baked-in generative text.

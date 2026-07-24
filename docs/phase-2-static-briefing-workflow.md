@@ -213,6 +213,12 @@ label fidelity, but Higgsfield should match the scene's lighting, shadows,
 perspective, color temperature, and depth of field while removing halos,
 cutout edges, pasted-on looks, and source-image artifacts.
 
+If the reference is UGC, selfie, model-led, hand-held, or creator-style, include
+the imperfect phone-photo block as well: lower clarity/sharpness, reduce
+micro-contrast, soften fine detail, lower contrast/saturation when needed, add
+subtle dirty-lens haze, preserve realistic skin texture, and avoid crisp studio
+edges or a clean AI render. Keep it realistic and usable, not blurry.
+
 If the operator provides a large Foreplay library, do not assign final copy
 before seeing the emulated visual containers. Use this branch:
 

@@ -462,6 +462,14 @@ Default sequence:
 8. Match the angle/copy to the ad card.
 9. Get approval before finalizing.
 
+For UGC, selfie, model, hand-held, or creator-style Foreplay references, the
+simple Higgsfield prompt must include imperfect phone-photo realism language.
+Ask for lower clarity/sharpness, reduced micro-contrast, softened fine detail,
+subtle dirty-lens haze, natural uneven lighting, lower contrast/saturation when
+needed, realistic skin texture, and ordinary candid background details. The
+goal is a usable creator-camera image, not blur and not a clean AI/studio
+render.
+
 The ad card must capture scene, mechanic, persuasion mechanism, product role,
 existing text zones, approximate text capacity, awareness fit, best/bad angles,
 exact VOC phrases that can fit, Canva edit notes, 1:1 crop safety, and Static
