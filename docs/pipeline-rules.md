@@ -470,6 +470,14 @@ needed, realistic skin texture, and ordinary candid background details. The
 goal is a usable creator-camera image, not blur and not a clean AI/studio
 render.
 
+When a Foreplay/reference ad contains a recognizable person, the prompt must
+replace the model identity, not just recolor hair or clothing. Preserve the
+winning pose, crop, camera source, lighting direction, and hand/product
+placement, but change the face/identity, hair, wardrobe, accessories,
+grooming/makeup, room/scenery, and props enough that the output reads as a
+different creator. If available, use a separate person/model reference for the
+new creator's look.
+
 The ad card must capture scene, mechanic, persuasion mechanism, product role,
 existing text zones, approximate text capacity, awareness fit, best/bad angles,
 exact VOC phrases that can fit, Canva edit notes, 1:1 crop safety, and Static

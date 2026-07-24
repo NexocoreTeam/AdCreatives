@@ -219,6 +219,15 @@ micro-contrast, soften fine detail, lower contrast/saturation when needed, add
 subtle dirty-lens haze, preserve realistic skin texture, and avoid crisp studio
 edges or a clean AI render. Keep it realistic and usable, not blurry.
 
+If the reference contains a recognizable person, do not merely change hair or
+clothing. Add the model replacement block: replace the original person with a
+different believable creator, preserve the source mechanics only (pose, crop,
+camera height, hand/product placement, lighting direction, selfie/product-in-hand
+composition), and change identity cues such as face structure, hair, wardrobe,
+accessories, grooming/makeup, and small environment details. If a separate
+person/model reference is available, use it to control the new creator's look
+while the Foreplay ad controls pose and layout.
+
 If the operator provides a large Foreplay library, do not assign final copy
 before seeing the emulated visual containers. Use this branch:
 

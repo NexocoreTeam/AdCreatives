@@ -356,8 +356,12 @@ surface identifiers:
 - Lifestyle/kitchen scene: change wall/backsplash colors, cabinet tones,
   countertop material, lighting, or small background objects such as swapping a
   plant for a coffee maker.
-- Model/lifestyle scene: use a model reference when needed, then change hair
-  color, clothing articles, pose details, room/scenery, or supporting props.
+- Model/lifestyle scene: replace the recognizable person/face by default, not
+  just the styling. Preserve the winning pose, crop, camera angle, hand/product
+  placement, and source context, but change enough identity cues that the output
+  reads as a different creator: face structure, hair color/style, wardrobe,
+  makeup/grooming, accessories, room/scenery, and supporting props. Use a
+  separate model/person reference when needed.
 - Product comparison/static: replace product assets and adjust color treatment,
   badges, and supporting objects without changing the scan path.
 
@@ -378,6 +382,27 @@ dirty-lens haze. Avoid crisp studio edges, over-defined skin texture, glossy
 product sharpness, or perfectly clean AI lighting. Keep it realistic and
 usable, not blurry, but make it feel like an ordinary phone photo from a
 creator's camera roll.
+```
+
+For model-led references, add the model replacement block before the
+imperfect-phone realism block:
+
+```text
+Replace the original person with a different believable creator. Do not keep
+the same face, facial structure, hair, or recognizable identity from the
+reference ad. Preserve the useful source mechanics only: pose, crop, camera
+height, hand/product placement, lighting direction, and selfie/product-in-hand
+composition.
+
+Change the person's identity and styling enough that this cannot be mistaken
+for the same model: different face shape, hair color/style, wardrobe,
+accessories, grooming/makeup, and small environment details. If a separate
+person/model reference is provided, use it to guide the new creator's look
+while keeping the original ad's pose and camera feel.
+
+Keep the person natural and camera-real: realistic skin texture, mild asymmetry,
+ordinary expression, clothing wrinkles, flyaway hair, and no beauty-retouch or
+stock-model finish.
 ```
 
 Do not use this block for polished product statics, clinical proof boards,
