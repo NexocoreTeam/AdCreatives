@@ -63,7 +63,7 @@ analysis:
   - swipe arrow CTA
   proof_element: numbered list promise (5 specific flags) implies insider knowledge others won't tell
     you
-  product_role: absent
+  product_role: reveal
   awareness_stage: problem_aware
   why_it_works: The listicle carousel format disguises product promotion as educational health content
     — the witch + red flags visual makes abstract hormone warning signs playful and non-threatening, pulling
@@ -104,3 +104,6 @@ provenance:
     secondary_mechanic: The Implied Answer
   corrections:
   - secondary_mechanic = none
+  - format = Listicle (2026-07-25T22:45:34+00:00 by @Devin)
+  - product_role = reveal (2026-07-25T22:45:34+00:00 by @Devin)
+  - status = needs-strategist (2026-07-25T22:45:34+00:00 by @Devin)
