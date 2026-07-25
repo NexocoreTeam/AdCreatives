@@ -1,0 +1,106 @@
+card_id: AD-005
+date_added: '2026-07-25'
+added_by: '@Devin'
+brand: Rheal
+source_link: https://rhealsuperfoods.com/pages/reasons-why-balance-tonic-menopause
+media_type: static
+assets:
+  primary: ad-005.png
+foreplay:
+  ad_id: '1483645197141864'
+  foreplay_id: SVxl7V7eQDyVu3CPhnUg
+  brand: Rheal
+  headline: Support your hormones, properly
+  description: 'If every month feels like a cycle of stress, low energy and mood dips — your hormones
+    likely need support.
+
+
+    Balance Tonic doesn’t just mask it.
+
+    It’s designed to support your body properly, using proven adaptogens and organic superfoods.
+
+
+    Because feeling good shouldn’t be the exception.
+
+    Balance Tonic is:
+
+
+    • Certified organic
+
+    • Menopause friendly accredited
+
+    • Plant-based & gluten-free
+
+    • Built around clinically studied ingredients
+
+    • Used by 1M+ women
+
+
+    One scoop a day. That’s it.'
+  cta: SHOP_NOW
+  link_url: https://rhealsuperfoods.com/pages/reasons-why-balance-tonic-menopause
+  display_format: image
+  started_running: 1784012400000
+  live: true
+  niches:
+  - Beauty
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-07-25T20:16:54+00:00'
+analysis:
+  format: Listicle
+  hook_type: Listicle
+  mechanic: The Trojan Horse
+  secondary_mechanic: null
+  scan_path:
+  - headline '5 RED FLAGS'
+  - demographic callout 'in your 40s'
+  - witch illustration holding red flags
+  - swipe arrow CTA
+  proof_element: numbered list promise (5 specific flags) implies insider knowledge others won't tell
+    you
+  product_role: absent
+  awareness_stage: problem_aware
+  why_it_works: The listicle carousel format disguises product promotion as educational health content
+    — the witch + red flags visual makes abstract hormone warning signs playful and non-threatening, pulling
+    a health-anxious 40s woman to swipe before she knows it's an ad.
+  cultural_note: Red flag emoji/meme culture repurposed literally as a visual metaphor; witch character
+    adds self-deprecating humor that resonates with women reclaiming 'witch' identity in perimenopause
+    wellness communities
+  steal: Use a numbered 'red flags nobody talks about' carousel structure with a disarming illustrated
+    character to drive swipe-through on problem-aware health audiences before revealing the product as
+    the solution slide.
+  avoid: Do not reuse the witch character design, exact headline copy, or Rheal's color palette and brand
+    identity.
+  proxy_signal: running 11 days (since 2026-07-14), still live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The cover slide withholds the product entirely and presents itself as educational content
+      ('red flags') — classic Trojan Horse structure where the product reveal is deferred to later carousel
+      slides; the witch visually implies 'things you weren't warned about' reinforcing the implied-answer
+      tension.
+    awareness_stage: The '40s' demographic callout and 'nobody talks about' framing targets women who
+      already feel something is wrong (hormonal shifts, mood, energy) but haven't yet connected it to
+      a product solution — squarely problem-aware.
+  status: needs-strategist
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-25T20:17:12+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin'
+  approved_by: '@Devin'
+  approved_at: '2026-07-25T22:24:25+00:00'
+  model_draft_values:
+    secondary_mechanic: The Implied Answer
+  corrections:
+  - secondary_mechanic = none
