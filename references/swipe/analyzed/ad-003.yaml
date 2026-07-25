@@ -1,0 +1,56 @@
+card_id: AD-003
+date_added: '2026-07-25'
+added_by: '@U0BJ3KGJ830'
+brand: Rheal
+source_link: https://devin-s-team.slack.com/files/U0BEG7BSR32/F0BJCNWBAJE/image.png
+media_type: static
+assets:
+  primary: ad-003.png
+analysis:
+  format: Native Text Overlay
+  hook_type: Relatability
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - phone lock screen / time
+  - reminder notification text
+  - spoon pouring into coffee
+  - product tubs
+  proof_element: specific dose claim — 10,000mg + Vitamin C — and price anchor of 80p a day
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The iOS reminder notification format mimics a personal, intimate device moment — making
+    a brand message feel like self-directed advice rather than an ad — while the 80p/day price anchor
+    collapses the perceived barrier to starting.
+  cultural_note: Mimics iPhone lock screen notification UI — borrows the psychological intimacy and authority
+    of your own phone reminding you to do something, collapsing the distance between brand and self-talk.
+  steal: Use the iOS lock screen / reminder notification format to deliver a key USP or price anchor as
+    if it were the viewer's own internal reminder, pairing it with a casual product usage shot to naturalise
+    the habit.
+  avoid: Do not reuse Rheal's exact copy lines, brand name, product packaging design, or visual identity.
+  proxy_signal: unknown
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: med
+    product_role: high
+  reasoning:
+    mechanic: The ad opens by validating a shared belief ('collagen is complicated') and immediately reframes
+      it — the notification copy does the cognitive work of dismantling objection before the product is
+      even seen.
+    awareness_stage: The copy assumes the viewer already knows collagen supplements exist and is weighing
+      options or hasn't committed; it doesn't explain what collagen is, but does simplify the decision
+      with dose and price specifics.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-19T23:55:23+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@U0BJ3KGJ830'
+  approved_by: '@U0BJ3KGJ830'
+  approved_at: '2026-07-25T18:31:54+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}
