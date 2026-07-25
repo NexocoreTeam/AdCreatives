@@ -1,0 +1,57 @@
+card_id: AD-004
+date_added: '2026-07-25'
+added_by: '@Devin Souphanthong'
+brand: Rheal
+source_link: slack://C0BG19H81K7/1785004480.262969
+media_type: static
+assets:
+  primary: ad-004.png
+analysis:
+  format: Other (Reddit mockup)
+  hook_type: Question
+  mechanic: The Overheard Conversation
+  secondary_mechanic: null
+  scan_path:
+  - Reddit post headline/question
+  - upvote/comment count
+  - top comment body
+  - comment upvote count
+  proof_element: 943 upvotes on the post and 122 upvotes on the recommending comment, implying community
+    consensus
+  product_role: absent
+  awareness_stage: solution_aware
+  why_it_works: The ad mimics an organic Reddit thread where a frustrated buyer expresses a near-universal
+    collagen skepticism, then a peer — not the brand — delivers the product recommendation with a specific,
+    science-backed reason (10,000mg + Vitamin C), making it feel discovered rather than sold.
+  cultural_note: Mimics Reddit's r/SkincareAddiction community aesthetic — dark mode, upvote counts, and
+    subreddit authority — borrowing the platform's trusted peer-review culture to launder a brand recommendation
+    as organic word-of-mouth.
+  steal: Use the fabricated frustrated-question post + knowledgeable peer reply structure to introduce
+    a product via apparent community discovery, with a mechanistic explanation (dosage/ingredient gap)
+    as the credibility engine.
+  avoid: Do not reuse the u/kellzie_28 or u/rachelobr usernames, the exact copy lines, Rheal's brand name
+    in the comment, or Reddit's visual identity without platform-appropriate licensing.
+  proxy_signal: unknown
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The entire ad is framed as a conversation the viewer stumbles upon — a public Reddit thread
+      — where the brand recommendation emerges from a third party, not the advertiser, creating the illusion
+      of being overheard rather than marketed to.
+    awareness_stage: (corrected by reviewer)
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-25T18:35:40+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-07-25T19:22:29+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}
