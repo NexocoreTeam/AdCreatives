@@ -1,0 +1,80 @@
+card_id: AD-008
+date_added: '2026-07-26'
+added_by: '@Devin Souphanthong'
+brand: Free Soul
+source_link: https://freesoul.com/products/vegan-protein-shake
+media_type: static
+assets:
+  primary: ad-008.png
+foreplay:
+  ad_id: '1074225921597221'
+  foreplay_id: lGj3ATDXolzsowMtGj4K
+  brand: Free Soul
+  headline: 'Free Soul Vegan Protein: level up your protein⚡'
+  description: "Not all protein is made the same. \n\nFree Soul Vegan Protein is uniquely formulated for\
+    \ women, with hormone-supporting superfoods, 20g of plant protein and irritant free - made with care,\
+    \ for your self-care.\n\n✅ Uniquely formulated for women\n✅ 20g of protein per serving \n✅ Available\
+    \ in 4 flavours \n✅ Superfoods and minerals to support your health\n✅ Gluten and dairy free to encourage\
+    \ digestion"
+  cta: SHOP_NOW
+  link_url: https://freesoul.com/products/vegan-protein-shake
+  display_format: image
+  started_running: 1784012400000
+  live: false
+  niches:
+  - Health/Wellness
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-07-26T12:06:24+00:00'
+analysis:
+  format: Native Text Overlay
+  hook_type: Shocking Statement
+  mechanic: The Borrowed Enemy
+  secondary_mechanic: The Reframe
+  scan_path:
+  - hook text top-right
+  - product bag with ingredient list
+  - shaker bottle
+  - bottom-left callout text
+  proof_element: visible ingredient list on pack naming 10+ individual supplements consolidated into one
+    product
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The phrase 'robbing you blind' frames the viewer's existing supplement stack as the villain,
+    then the ingredient list on the bag visually proves the consolidation claim — the product literally
+    shows the receipts.
+  cultural_note: Casual kitchen countertop setting with native-style pink sticky text mimics organic UGC
+    content, reducing ad-detection resistance on Instagram/TikTok feeds.
+  steal: Use the 'your [existing category habit] is robbing you blind' hook structure paired with a visible
+    ingredient or SKU list as visual proof of consolidation — the product itself becomes the argument.
+  avoid: Do not reuse the Free Soul creator, exact copy lines ('robbing you blind'), pink brand colorway,
+    or the Free Soul shaker bottle visual identity.
+  proxy_signal: running 12 days (since 2026-07-14), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad never names a competitor supplement brand but implicitly indicts the viewer's entire
+      existing supplement shelf — a classic Borrowed Enemy move where the unnamed alternative is the real
+      antagonist.
+    awareness_stage: The viewer already buys and uses multiple supplements (solution-aware behavior);
+      the ad reframes their current multi-product solution as wasteful and positions Free Soul as the
+      smarter alternative within that same solution category.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-26T12:06:38+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-07-26T12:23:44+00:00'
+  model_draft_values: {}
+  corrections: []
