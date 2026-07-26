@@ -1,0 +1,78 @@
+card_id: AD-010
+date_added: '2026-07-26'
+added_by: '@Devin Souphanthong'
+brand: Arrae
+source_link: https://www.arrae.com/products/bloat-gummies
+media_type: static
+assets:
+  primary: ad-010.jpg
+foreplay:
+  ad_id: '998376389305121'
+  foreplay_id: h3CzzMMYs3Lra3INno3r
+  brand: Arrae
+  headline: IBS? Meet Bloat Gummies
+  description: 'Get instant and long-term bloat relief with arrae’s new daily digestive gummies 🌿
+
+
+    Transform your gut health today with arrae.'
+  cta: SHOP_NOW
+  link_url: https://www.arrae.com/products/bloat-gummies
+  display_format: image
+  started_running: 1780210800000
+  live: false
+  niches:
+  - Health/Wellness
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-07-26T13:51:00+00:00'
+analysis:
+  format: Native Text Overlay
+  hook_type: Confession
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - opening confession text overlay
+  - problem amplification text
+  - product name reveal in third text block
+  - flat stomach with gummies held in hand
+  proof_element: first-person before/after testimony delivered casually alongside a visible flat, unbloated
+    stomach as physical evidence
+  product_role: prop
+  awareness_stage: problem_aware
+  why_it_works: The flat midriff reveal functions as wordless before/after proof — the body IS the testimonial
+    — so the text claim feels confirmed by visual evidence rather than asserted by advertising copy.
+  cultural_note: Mimics organic Instagram Stories confession format — white text-box overlays on casual
+    photo — making paid promotion read as a friend sharing a personal win, native to the platform's UGC
+    aesthetic.
+  steal: Use the three-beat confession structure (past suffering → moment of change → present transformation)
+    overlaid on a visual that physically embodies the result, letting the body carry the proof burden
+    so the copy stays conversational.
+  avoid: Do not reuse this creator, her likeness, or the exact copy lines; avoid midriff-as-proof framing
+    in any category where FTC body-result claims are under heightened scrutiny.
+  proxy_signal: running 56 days (since 2026-05-31), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: (corrected by reviewer)
+    awareness_stage: The opening line ('I used to deal with chronic bloating every day') mirrors the viewer's
+      own lived pain and validates the problem, indicating the ad is targeting someone who already feels
+      the problem but hasn't committed to a solution.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-26T13:51:17+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-07-26T15:18:22+00:00'
+  model_draft_values: {}
+  corrections: []
