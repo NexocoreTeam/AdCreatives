@@ -1,0 +1,57 @@
+card_id: AD-009
+date_added: '2026-07-26'
+added_by: '@Devin'
+brand: Unknown
+source_link: slack://C0BG19H81K7/1785069095.587659
+media_type: static
+assets:
+  primary: ad-009.png
+analysis:
+  format: Grid Swap
+  hook_type: Authority
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - headline 'The Cortisol Matrix'
+  - four-quadrant grid with emojis and labels
+  - bottom tagline 'Most men fight cortisol. High performers manage it.'
+  - LEARN MORE CTA button
+  proof_element: structured four-quadrant framework borrowed from strategic-planning conventions (like
+    the Eisenhower Matrix), lending institutional credibility to health claims
+  product_role: absent
+  awareness_stage: problem_aware
+  why_it_works: Packaging health advice as a named strategic framework ('The Cortisol Matrix') makes the
+    viewer feel they're receiving expert insider knowledge, not an ad — product reveal is deferred entirely
+    to the click, so the hook earns trust before asking for anything.
+  cultural_note: Borrows the 2x2 matrix format popularized by McKinsey/Eisenhower productivity culture
+    and the biohacker wellness trend (cortisol, HIIT, ice baths) dominant on X/Twitter male-optimization
+    communities.
+  steal: Use a named 2x2 matrix framework as the entire creative surface to deliver genuinely useful category
+    education, reserving the product pitch for the landing page — the framework title does the authority
+    work.
+  avoid: Do not reuse the creator, exact copy lines ('Most men fight cortisol. High performers manage
+    it.'), or the specific 'Cortisol Matrix' brand name or visual identity.
+  proxy_signal: unknown
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: med
+    product_role: high
+  reasoning:
+    mechanic: (corrected by reviewer)
+    awareness_stage: The audience knows they feel stressed, fatigued, or hormonally off (the problem),
+      but the ad doesn't reference a specific product solution, suggesting it targets viewers who feel
+      the pain but haven't yet searched for a fix.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-26T12:32:35+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin'
+  approved_by: '@Devin'
+  approved_at: '2026-07-26T12:53:45+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}
