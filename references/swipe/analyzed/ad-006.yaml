@@ -1,0 +1,84 @@
+card_id: AD-006
+date_added: '2026-07-25'
+added_by: '@Devin Souphanthong'
+brand: Rheal
+source_link: https://rhealsuperfoods.com/pages/reasons-why-balance-tonic-menopause
+media_type: static
+assets:
+  primary: ad-006.jpg
+foreplay:
+  ad_id: '1585531749814181'
+  foreplay_id: pJP6FZRfnDXuAWVstCh4
+  brand: Rheal
+  headline: Feel more like yourself again
+  description: 'Tried the teas, powders, supplements… and nothing really sticks?
+
+
+    Most hormone products are packed with fillers or vague claims.
+
+
+    Balance Tonic keeps it simple - 5 certified organic superfoods, including KSM-66® Ashwagandha, all
+    from 58p per serving.
+
+
+    No fillers. No fluff. Just ingredients that make sense.'
+  cta: SHOP_NOW
+  link_url: https://rhealsuperfoods.com/pages/reasons-why-balance-tonic-menopause
+  display_format: image
+  started_running: 1784012400000
+  live: false
+  niches:
+  - Beauty
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-07-25T22:56:40+00:00'
+analysis:
+  format: Review
+  hook_type: Confession
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - large quote hook — 'I'm unable to use HRT'
+  - body copy review text
+  - product image
+  - Menopause Friendly badge + Trustpilot stars
+  proof_element: Trustpilot 5-star rating badge plus Menopause Friendly certification mark
+  product_role: prop
+  awareness_stage: solution_aware
+  why_it_works: The hook names HRT — the dominant category solution — as unavailable to the reviewer,
+    immediately qualifying a frustrated, underserved segment and positioning the product as the only credible
+    alternative without ever attacking HRT directly.
+  cultural_note: HRT is a heavily discussed topic in UK perimenopause communities; framing around inability
+    to access it taps into a widely shared frustration and signals deep audience intimacy.
+  steal: Use a customer quote that names a mainstream solution the audience can't or won't use as the
+    entire hook — it self-selects the most motivated buyers and frames the product as the logical next
+    step without a single brand claim.
+  avoid: Do not reuse the Rheal creator, exact quote copy, brand color palette, or the specific reviewer's
+    language; do not imply medical equivalence to HRT or any prescription therapy.
+  proxy_signal: running 11 days (since 2026-07-14), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: (corrected by reviewer)
+    awareness_stage: The viewer already knows hormonal/menopause solutions exist (HRT, supplements) but
+      is blocked from or dissatisfied with them, making them solution-aware and actively scanning for
+      alternatives.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-25T22:56:56+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-07-26T00:42:14+00:00'
+  model_draft_values: {}
+  corrections: []
