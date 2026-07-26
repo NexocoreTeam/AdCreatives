@@ -1,0 +1,92 @@
+card_id: AD-007
+date_added: '2026-07-25'
+added_by: '@Devin'
+brand: The Dodo
+source_link: https://offers.thepetlabco.com/probright-advanced/hybrid-stat
+media_type: static
+assets:
+  primary: ad-007.jpg
+foreplay:
+  ad_id: '2023532441626892'
+  foreplay_id: svJo5eKTN2i6ECwLyyXS
+  brand: The Dodo
+  headline: Why Over 1 Million Dog Owners Switched To ProBright Advanced
+  description: '#ad From targeting stubborn tartar to persistent bad breath, PetLab Co.’s ProBright® Advanced
+    offers an expert-formulated, effortless solution to doggy dental care.
+
+
+    The best part? It’s a once-a-day powder you simply sprinkle right on your dog''s food. No fuss, no
+    toothbrush wars – just simple and easy.
+
+
+    Backed by two clinical studies, featuring vet-reviewed ingredients, and already trusted by over 1
+    million dogs globally, it’s remarkably convenient and highly effective.
+
+
+    Find out why it easily earned a prestigious 5-star rating and upgrade your dog''s oral care routine
+    today. 👇'
+  cta: SHOP_NOW
+  link_url: https://offers.thepetlabco.com/probright-advanced/hybrid-stat
+  display_format: image
+  started_running: 1784098800000
+  live: true
+  niches:
+  - Media/News
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-07-26T00:44:38+00:00'
+analysis:
+  format: Native Text Overlay
+  hook_type: Bold Claim
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - headline — 'Finally! A dog dental routine that actually works for us.'
+  - subtext — 'No toothbrush required, just one simple scoop daily!'
+  - dog + hand scooping powder into bowl
+  - product container
+  - PetLabCo. logo
+  proof_element: product shown in active use — powder being scooped directly onto food, implying effortless
+    daily habit
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The word 'Finally' does the heavy lifting — it validates that dog owners have already
+    failed with toothbrushes and other dental solutions, making the no-brush claim feel like a relief
+    rather than a sales pitch.
+  cultural_note: The 'toothbrush wars' framing is a widely shared relatable pet-owner struggle; the warm
+    kitchen setting and casual hand-scooping shot mimic organic UGC lifestyle content rather than a brand
+    ad.
+  steal: Use the 'Finally!' + past-failure validation opener to position your product as the resolution
+    to a specific, named frustration that existing solutions have failed to fix, then immediately deliver
+    the simplified mechanic as the payoff.
+  avoid: Do not reuse the creator, the dog, the exact copy lines ('Finally! A dog dental routine that
+    actually works for us'), or PetLabCo.'s visual identity, packaging colors, or logo.
+  proxy_signal: running 10 days (since 2026-07-15), still live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad opens by implicitly validating that prior dental routines (toothbrushes) have failed
+      — a classic Reframe that makes the viewer feel understood before introducing the product as the
+      fix; the borrowed enemy is the toothbrush/existing dental category, never named but clearly indicted.
+    awareness_stage: The viewer already knows dog dental solutions exist (toothbrushes, dental treats)
+      and likely has tried them — the ad speaks directly to that frustration, positioning PetLabCo. as
+      the better alternative, which is solution-aware targeting.
+  status: needs-strategist
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-07-26T00:44:55+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin'
+  approved_by: '@Devin'
+  approved_at: '2026-07-26T01:09:31+00:00'
+  model_draft_values: {}
+  corrections: []
