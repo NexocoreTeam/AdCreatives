@@ -231,6 +231,24 @@ and room details enough that it clearly reads as a different person." If a
 separate person/model reference is available, use it to control the new
 creator's look while the Foreplay ad controls pose and layout.
 
+For client-owned model systems, use the approved client model/product image as
+the primary source rather than asking for a generic different creator. The
+prompt should define the image roles explicitly:
+
+- image 1: approved client model/product source
+- image 2: Foreplay/reference ad scene and mechanic
+
+Then name the exact replacement: "replace the person with the blue sweater in
+image 2 with the model from image 1." Keep the likeness, body/styling cues, and
+product from image 1, but match image 2's lighting, shadows, contrast,
+perspective, color grade, and photography style so the replacement looks like it
+belongs in the reference scene.
+
+If only a product flat lay exists and the chosen reference requires a modeled
+shot, do a pre-step before Foreplay emulation: generate the product on an
+approved model, curate/correct it for product fidelity, and then use that
+modeled result as image 1.
+
 If the operator provides a large Foreplay library, do not assign final copy
 before seeing the emulated visual containers. Use this branch:
 

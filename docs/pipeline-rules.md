@@ -481,6 +481,22 @@ same model with styling changes. Change face, hair, wardrobe, accessories, and
 room details enough that the output clearly reads as a different person. If
 available, use a separate person/model reference for the new creator's look.
 
+For clients with approved reusable models, especially Saved by Grace, the
+approved model/product source is the identity reference and the Foreplay ad is
+only the scene/mechanic reference. Treat image roles this way:
+
+1. Image 1 = approved client model/product image.
+2. Image 2 = Foreplay/reference ad.
+3. Replace the specific person/product role in image 2 with the person/product
+   from image 1.
+4. Preserve image 1's likeness/product truth while matching image 2's lighting,
+   shadows, contrast, perspective, and camera style.
+
+If the client only has a flat lay for the product but the reference needs a
+model, make an approved on-model product asset first, then use that on-model
+asset as image 1. Do not ask Higgsfield to borrow or keep the reference ad's
+model identity.
+
 The ad card must capture scene, mechanic, persuasion mechanism, product role,
 existing text zones, approximate text capacity, awareness fit, best/bad angles,
 exact VOC phrases that can fit, Canva edit notes, 1:1 crop safety, and Static

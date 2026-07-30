@@ -365,6 +365,27 @@ surface identifiers:
 - Product comparison/static: replace product assets and adjust color treatment,
   badges, and supporting objects without changing the scan path.
 
+When the reference ad contains a model or person and the client has an
+approved model/product source, reverse the usual mental framing:
+
+- **Image 1 = approved client source**: the actual model/person likeness and
+  product/garment we are allowed to use.
+- **Image 2 = reference ad**: the scene, pose, crop, text capacity, background
+  type, and ad mechanic we want to emulate.
+
+Prompt Higgsfield to place the person/product from image 1 into the matching
+role in image 2. Be explicit about what is being replaced, for example:
+"Replace the person in the blue sweater in image 2 with the model from image
+1. Keep the person's likeness, styling, and product from image 1, but make
+them belong in image 2's scene and photography style." The replacement must
+match image 2's lighting, shadows, contrast, perspective, color temperature,
+and camera feel so it does not look photoshoot-shocked or pasted in.
+
+If the product we want to use only exists as a flat lay and the target
+reference needs a model wearing it, do a pre-step first: create an approved
+on-model product image using the client model/product pipeline, then use that
+on-model result as image 1 for the Foreplay/reference emulation.
+
 For UGC, selfie, model, hand-held, or creator-style references, keep the
 imperfect-phone realism instruction short and blunt. Short prompts have tested
 better than long, highly qualified camera notes for this route:

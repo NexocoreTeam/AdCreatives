@@ -24,6 +24,49 @@ in a single ad is lower risk than synthesizing derivative content.
 
 ---
 
+## Foreplay model replacement rule
+
+Foreplay references are never a source of model identity for Saved by Grace.
+They only control the ad mechanic: pose, crop, camera angle, text capacity,
+background type, product placement, and overall visual structure.
+
+When adapting a model-led Foreplay ad, use this image-role logic:
+
+1. **Image 1 = SBG-approved model/product image.** This controls the person,
+   likeness, styling, garment/product, print, fit, and product truth.
+2. **Image 2 = Foreplay/reference ad.** This controls the scene, pose,
+   background type, crop, lighting mood, and ad format.
+3. Prompt Higgsfield to replace the exact person/product role in image 2 with
+   the model/product from image 1.
+
+Default prompt shape:
+
+```text
+Use image 1 as the model and product we want to use. Use image 2 as the
+reference ad scene and layout. Replace the person wearing [describe item/role]
+in image 2 with the model from image 1. Keep the person's likeness, styling,
+body feel, and product/garment from image 1.
+
+Make the person/product from image 1 look like they belong in image 2. Match
+the scene's lighting, shadows, contrast, color grade, perspective, camera
+quality, and photography style. The replacement should not look pasted in,
+cut out, glowing, over-sharp, or photoshoot-shocked.
+
+Keep the ad mechanic, pose, crop, and text capacity from image 2, but do not
+use the model identity from image 2. Final text will be edited later in Canva.
+```
+
+If the product only exists as a flat lay but the Foreplay reference needs a
+model, run the SBG AI-modeled product-photo pipeline first. Create and curate
+an approved on-model product image with Model 1 or Model 2, then use that
+finished on-model result as image 1 for Foreplay emulation.
+
+For kids products, do not use the adult SBG model references. Use flat lays,
+clothesline scenes, product-only collages, or a separately approved kid-safe
+route.
+
+---
+
 ## Brand visual signature (apply to every ad)
 
 1. **Golden hour is mandatory.** Every lifestyle shot. No harsh midday, no
