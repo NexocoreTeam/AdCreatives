@@ -1,0 +1,102 @@
+card_id: AD-013
+date_added: '2026-08-01'
+added_by: '@Devin Souphanthong'
+brand: Heart Health Report
+source_link: https://everanaturals.com/pages/arterial-plaque-reduction
+media_type: static
+assets:
+  primary: ad-013.png
+foreplay:
+  ad_id: '1394775556006657'
+  foreplay_id: W7j1OGum7ogVFLlynHPi
+  brand: Heart Health Report
+  headline: They smoke the most. They die the least from heart disease.
+  description: "For decades, Japanese men smoked and drank more than almost any other country on earth.\
+    \ \n\nThey also lived longer than almost anyone else.\n\nJapan has three times as many people living\
+    \ past 100 per capita as the U.S. Their heart disease rates are among the lowest in the world. Researchers\
+    \ have been trying to explain this since the 1970s.\n\nThey studied the fish. The green tea. The walking.\
+    \ None of it fully explains the gap.\n\nThe clue they keep coming back to is not a habit. It is a\
+    \ food.\n\nA sticky pile of fermented soybeans called natto. It has been on the Japanese breakfast\
+    \ table for over a thousand years. Most Americans have never seen it.\n\nBut inside those beans is\
+    \ an enzyme that has been studied for over forty years. Its name is nattokinase.\n\nHere is what it\
+    \ does.\n\nYour arteries collect buildup as you age. The protein at the center of that buildup is\
+    \ called fibrin. Your body makes its own enzyme to clear it. After fifty, that enzyme slows down.\
+    \ The fibrin stays. The walls narrow.\n\nNattokinase supports the body’s ability to break fibrin down.\
+    \ Same job. Just not as slow.\n\nIt was discovered in 1980 by a Japanese researcher named Hiroyuki\
+    \ Sumi at the University of Chicago. He tested 173 natural compounds. He found the answer in a dish\
+    \ his grandmother served him for breakfast. In his 1987 paper, he called its potency \"matched by\
+    \ no other compound\" he had tested.\n\nAlmost no American has heard of it.\n\nNot because it does\
+    \ not work. Because it comes from food. Food cannot be patented. Without a patent, no company funds\
+    \ the trials that put a substance on your doctor’s radar. So the research went to Japan, Korea, and\
+    \ China. Published in journals most American doctors have never read.\n\nBut the studies kept coming.\n\
+    \nIn a sixteen-year study of 29,000 adults in central Japan, the highest natto consumers died of heart\
+    \ disease 43% less often.\n\nIn 2017, researchers found nattokinase may help reduce carotid plaque\
+    \ by over 36% in just twenty-six weeks.\n\nIn 2022, the largest clinical study ever done on nattokinase\
+    \ was published. Over 1,000 participants. Twelve months. The group taking 10,800 FU per day saw plaque\
+    \ reduction on ultrasound. The group taking 3,600 FU per day saw nothing.\n\nThat last part is what\
+    \ everyone misses. The dose matters.\n\nMost bottles on the shelf contain 2,000 FU. That is less than\
+    \ a fifth of the dose that worked. People try it, feel nothing, and give up. The compound was right.\
+    \ The dose was never close.\n\nEvera delivers 10,000 FU per serving. Four capsules. In the range where\
+    \ clinical research showed results.\n\nPaired with CoQ10, bromelain, turmeric, ginger, olive leaf,\
+    \ and white willow bark. Third-party lab tested.\n\nThe Japanese did not find a miracle. They ate\
+    \ food every morning for a thousand years. We built Evera to deliver the enzyme inside it at the dose\
+    \ the research says matters.\n\nRead what the research actually says below.\n\nhttps://everanaturals.com/products/nattokinase-4000-fu-enteric-coated-softgels"
+  cta: LEARN_MORE
+  link_url: https://everanaturals.com/pages/arterial-plaque-reduction
+  display_format: image
+  started_running: 1781074800000
+  live: false
+  niches:
+  - Health/Wellness
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-08-01T18:38:51+00:00'
+analysis:
+  format: AI Slop Animation
+  hook_type: Bold Claim
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - headline 'ARTERIES COULD HEAL NATURALLY'
+  - AI-rendered artery/plaque visual
+  - subheadline enzyme explanation
+  - brand logo top-right
+  proof_element: reference to 'newly discovered enzyme' framed as scientific discovery
+  product_role: absent
+  awareness_stage: solution_aware
+  why_it_works: The hyper-realistic AI artery visual makes an abstract internal health claim viscerally
+    concrete — viewers feel like they're seeing the mechanism working, lending false empirical weight
+    to an unverified claim.
+  cultural_note: Mimics the visual language of medical/science journalism (microscopic biological imagery,
+    teal bioluminescent particles) to borrow institutional credibility without peer-reviewed backing.
+  steal: Use a photorealistic AI-rendered internal biological visual paired with a 'discovered mechanism'
+    hook to make an abstract health benefit feel like breaking scientific news rather than a product pitch.
+  avoid: Do not reuse the creator, Heart Health Report branding, exact copy lines, or make unsubstantiated
+    medical claims about reversing disease without surgery.
+  proxy_signal: running 52 days (since 2026-06-10), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: med
+    product_role: high
+  reasoning:
+    mechanic: (corrected by reviewer)
+    awareness_stage: The viewer already understands heart disease and arterial plaque as problems (problem-aware
+      baseline), and the 'without surgery' framing implies familiarity with existing solutions like surgery
+      or statins — placing them squarely in solution-aware territory evaluating a new alternative mechanism.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-01T18:39:05+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-08-01T19:22:23+00:00'
+  model_draft_values: {}
+  corrections: []
