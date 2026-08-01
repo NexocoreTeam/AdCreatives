@@ -1,0 +1,92 @@
+card_id: AD-011
+date_added: '2026-08-01'
+added_by: '@Devin Souphanthong'
+brand: The Dodo
+source_link: https://offers.thepetlabco.com/probright-advanced/hybrid-stat
+media_type: static
+assets:
+  primary: ad-011.jpg
+foreplay:
+  ad_id: '2023532441626892'
+  foreplay_id: svJo5eKTN2i6ECwLyyXS
+  brand: The Dodo
+  headline: Why Over 1 Million Dog Owners Switched To ProBright Advanced
+  description: '#ad From targeting stubborn tartar to persistent bad breath, PetLab Co.’s ProBright® Advanced
+    offers an expert-formulated, effortless solution to doggy dental care.
+
+
+    The best part? It’s a once-a-day powder you simply sprinkle right on your dog''s food. No fuss, no
+    toothbrush wars – just simple and easy.
+
+
+    Backed by two clinical studies, featuring vet-reviewed ingredients, and already trusted by over 1
+    million dogs globally, it’s remarkably convenient and highly effective.
+
+
+    Find out why it easily earned a prestigious 5-star rating and upgrade your dog''s oral care routine
+    today. 👇'
+  cta: SHOP_NOW
+  link_url: https://offers.thepetlabco.com/probright-advanced/hybrid-stat
+  display_format: image
+  started_running: 1784098800000
+  live: false
+  niches:
+  - Media/News
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-08-01T14:54:41+00:00'
+analysis:
+  format: Native Text Overlay
+  hook_type: Bold Claim
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - headline overlay
+  - dog and hand scooping product
+  - product jar
+  - brand logo
+  proof_element: implied mass adoption via operator context ('1 Million Dog Owners Switched') and product
+    shown in-use ritual
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The word 'Finally' validates the viewer's existing frustration with failed dental routines,
+    then reframes the toothbrush — the default solution — as the real problem, making a powder-on-food
+    ritual feel like a genuine discovery rather than a sales pitch.
+  cultural_note: The phrase 'that actually works for us' mimics the first-person confessional tone of
+    organic pet-owner social posts, borrowing credibility from UGC culture without using a real creator.
+  steal: Use the 'Finally! A [category] that actually works for us' reframe structure — open by validating
+    prior failures, name the friction point the incumbent solution creates (toothbrush wars), then introduce
+    the product as the obvious fix.
+  avoid: Do not reuse the exact headline copy, the PetLabCo. brand identity, the ProBright product jar,
+    or this specific dog/kitchen visual.
+  proxy_signal: running 17 days (since 2026-07-15), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad opens by validating the viewer's prior struggle ('Finally') and reframes the standard
+      solution (toothbrush) as burdensome friction, positioning the powder as the logical upgrade — a
+      classic Reframe move. The secondary Borrowed Enemy mechanic is active because 'No toothbrush required'
+      implicitly casts every competitor dental product that requires brushing as the villain.
+    awareness_stage: The viewer already knows dog dental care is a problem and that solutions like dental
+      chews, toothbrushes, and water additives exist — the ad speaks directly to that prior experience
+      ('that actually works for us'), signaling it targets someone who has tried and failed with existing
+      solutions, placing them squarely in solution-aware.
+  status: needs-strategist
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-01T14:54:57+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-08-01T17:50:29+00:00'
+  model_draft_values: {}
+  corrections: []
