@@ -1,0 +1,90 @@
+card_id: AD-012
+date_added: '2026-08-01'
+added_by: '@Devin Souphanthong'
+brand: The Dodo
+source_link: https://offers.thepetlabco.com/probright-advanced/hybrid-stat
+media_type: static
+assets:
+  primary: ad-012.jpg
+foreplay:
+  ad_id: '2099573704311251'
+  foreplay_id: pYUySEDyGwk00V5iKX7Y
+  brand: The Dodo
+  headline: Why Over 1 Million Dog Owners Switched To ProBright Advanced
+  description: '#ad From targeting stubborn tartar to persistent bad breath, PetLab Co.’s ProBright® Advanced
+    offers an expert-formulated, effortless solution to doggy dental care.
+
+
+    The best part? It’s a once-a-day powder you simply sprinkle right on your dog''s food. No fuss, no
+    toothbrush wars – just simple and easy.
+
+
+    Backed by two clinical studies, featuring vet-reviewed ingredients, and already trusted by over 1
+    million dogs globally, it’s remarkably convenient and highly effective.
+
+
+    Find out why it easily earned a prestigious 5-star rating and upgrade your dog''s oral care routine
+    today. 👇'
+  cta: SHOP_NOW
+  link_url: https://offers.thepetlabco.com/probright-advanced/hybrid-stat
+  display_format: image
+  started_running: 1784098800000
+  live: false
+  niches:
+  - Media/News
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-08-01T17:54:34+00:00'
+analysis:
+  format: Native Text Overlay
+  hook_type: Relatability
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - dog face + scoop action
+  - text overlay testimonial
+  - product container
+  - PetLabCo. brand logo
+  proof_element: casual in-home usage shot with real product scoop mid-action, implying daily routine
+    already in practice
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The candid 'I'm so glad we found this' phrasing mimics how a real dog owner would text
+    a friend — it reads as an unsolicited discovery rather than an ad, lowering skepticism before the
+    product is even named.
+  cultural_note: Mimics UGC pet content native to Instagram Reels and TikTok — casual kitchen setting,
+    cute dog reacting to food prep, organic overlay text — borrowing the visual grammar of viral pet accounts
+    like The Dodo.
+  steal: Use the 'I'm so glad we found this for [problem]' testimonial structure paired with a mid-action
+    product-use shot to make the ad feel like an organic peer recommendation rather than a brand claim.
+  avoid: Do not reuse the creator's hand, this specific dog, the exact copy line, or PetLabCo.'s navy
+    blue brand identity and ProBright packaging.
+  proxy_signal: running 17 days (since 2026-07-15), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: med
+    product_role: high
+  reasoning:
+    mechanic: (corrected by reviewer)
+    awareness_stage: The copy targets someone who already knows dental problems exist for dogs and is
+      aware solutions like powders/supplements exist, but positions PetLabCo. as the specific discovered
+      answer — placing the viewer in solution-aware rather than problem-aware.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-01T17:54:50+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-08-01T18:36:57+00:00'
+  model_draft_values:
+    mechanic: The Trojan Horse
+  corrections:
+  - mechanic = The Reframe
