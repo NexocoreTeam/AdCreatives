@@ -1,0 +1,84 @@
+card_id: AD-014
+date_added: '2026-08-02'
+added_by: '@Devin Souphanthong'
+brand: Wild
+source_link: https://wearewild.com/products/roll-on-deodorant
+media_type: static
+assets:
+  primary: ad-014.png
+foreplay:
+  ad_id: '1383804279332681'
+  foreplay_id: N5LYSMGxwg0X7uCsWgVa
+  brand: Wild
+  headline: We’re reinventing the ball with natural, refillable roll on deodorant from Wild
+  description: 'Wild roll on deodorant is here!
+
+    💪24hr triple action odour defence
+
+    ✅No white marks - invisible and fast-drying formula
+
+    🌻95% natural origin ingredients
+
+    🚫 No aluminium salts or parabens
+
+    🤩 Rated ''Excellent'' with over 60,000 five star reviews'
+  cta: SHOP_NOW
+  link_url: https://wearewild.com/products/roll-on-deodorant
+  display_format: image
+  started_running: 1766390400000
+  live: false
+  niches:
+  - Beauty
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-08-01T19:22:37+00:00'
+analysis:
+  format: Feature Benefit Callout
+  hook_type: Bold Claim
+  mechanic: This and a…
+  secondary_mechanic: null
+  scan_path:
+  - Wild x Cath Kidston headline
+  - product being opened in hands
+  - surrounding callout labels
+  - brand logo on bottle
+  proof_element: 95% natural origin ingredients claim anchored directly to product
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The Cath Kidston co-brand does dual work — it signals giftable, design-led desirability
+    to skeptics of natural deodorant while the callout labels preemptively answer every objection (white
+    marks, dryness, longevity, eco guilt) in one scan.
+  cultural_note: Brand collaboration badge (x format) borrows fashion-drop energy — signals limited edition
+    collectibility and elevates a functional personal-care product into a lifestyle accessory.
+  steal: Use the radial callout structure around a hand-held product hero to turn a single static into
+    a silent objection-handling machine — each arrow answers a distinct purchase barrier without body
+    copy.
+  avoid: Do not reuse the Wild or Cath Kidston visual identity, the floral pattern, the exact callout
+    copy, or the creator's hands/nail aesthetic.
+  proxy_signal: running ~7 months (since 2025-12-22), no longer live
+  field_confidence:
+    format: high
+    hook_type: med
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: (corrected by reviewer)
+    awareness_stage: Viewer already knows natural/refillable deodorant alternatives exist (Wild has 60k+
+      reviews in market) but may not have chosen this product — callouts target conversion objections,
+      not problem education.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-01T19:22:54+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-08-02T16:33:32+00:00'
+  model_draft_values: {}
+  corrections: []
