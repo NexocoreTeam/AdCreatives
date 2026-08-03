@@ -213,6 +213,33 @@ label fidelity, but Higgsfield should match the scene's lighting, shadows,
 perspective, color temperature, and depth of field while removing halos,
 cutout edges, pasted-on looks, and source-image artifacts.
 
+Before any paid Higgsfield run, complete the simple-step checklist:
+
+- What is image 1?
+- What is image 2?
+- What optional image 3 controls.
+- What is the one change requested?
+- What must stay locked?
+- Does the product orientation match the reference? Front-print products need
+  front-facing references; back-print products need back-facing references.
+- Is this a final-copy image or only a visual container?
+
+When the first pass gets close but misses a detail, continue with the last good
+output as the base and ask for one small change at a time. Do not turn the next
+prompt into a long all-at-once correction. Typical sequence:
+
+1. Product or shirt swap.
+2. Product lighting/shadow integration.
+3. Model or styling adjustment.
+4. Pose/setting variation.
+5. Text treatment.
+6. Light anti-AI finishing pass.
+
+For people-led images, include camera, light, and shadow language when it helps:
+modern iPhone camera or 35mm/f2.8 feel, warm side light, natural shadows, lower
+contrast/saturation, and normal camera depth of field. Avoid generic "8K" or
+"ultra-realistic" phrasing.
+
 If the reference is UGC, selfie, model-led, hand-held, or creator-style, include
 the short imperfect iPhone block as well. Default to blunt natural language:
 "Make this look like a real low-effort iPhone selfie, not an AI image. Preserve
