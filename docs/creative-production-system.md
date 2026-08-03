@@ -32,6 +32,73 @@ Use AI image tools for visual base, scene, lighting, composition, and aesthetic
 translation. Use local rendering or Canva for exact text and product-label
 fidelity.
 
+## Higgsfield Simple-Step Doctrine
+
+Use this doctrine for reference-led Higgsfield work, especially Foreplay,
+Pinterest, Saved by Grace apparel, people-led images, and any image that starts
+to drift.
+
+Default rule: do not ask Higgsfield to solve the whole ad at once when the
+creative has fragile model, product, crop, text, or camera requirements. Use the
+fewest possible steps, with one concrete change per pass.
+
+Before every paid Higgsfield pass, state the production setup:
+
+- Image 1 role.
+- Image 2 role.
+- Optional image 3 role.
+- The exact one change requested.
+- What must stay locked.
+- Whether the product/reference orientation fits the ad mechanic.
+- Whether the run uses final text or only creates a visual container.
+
+If any output starts looking wrong, too AI, too copied, or product-inaccurate,
+stop broad prompting and switch to tiny sequential edits. Use the previous good
+output as the next base:
+
+1. Product or shirt swap.
+2. Product integration: lighting, shadows, fit, fabric, and print.
+3. Model/person adjustment.
+4. Humanizing or brand-fit adjustment.
+5. Pose, crop, setting, or prop variation.
+6. Text treatment.
+7. Subtle anti-AI finishing pass.
+
+Reference roles are strict:
+
+- Foreplay/reference ads control the mechanic, scene, crop, text capacity,
+  camera, lighting, and layout.
+- Client model/product sources control the actual person, product, garment,
+  label, color, fit, and print.
+- Photography-style references control lighting, color, camera feel, and
+  framing only; do not copy their people or clothing.
+
+Prompt Higgsfield in ordinary language. Short, concrete instructions usually
+beat long stacked realism prompts. Good prompts sound like:
+
+```text
+Keep this image the same. Only change the shirt to the product in image 2.
+Match the lighting, shadows, fabric folds, perspective, and color grade so it
+looks naturally photographed in the scene.
+```
+
+or:
+
+```text
+Insert the model from image 1 into the scene of image 2 and replace the model
+in image 2. Keep image 1's person and product, but match image 2's lighting,
+shadows, crop, camera style, and background.
+```
+
+Do not keep adding adjectives like "photorealistic", "8K", "ultra-realistic",
+or detailed skin notes when the problem is camera believability. Describe the
+camera, light source, shadows, and scene instead.
+
+When people or products look too AI, first check whether camera texture is
+consistent across face, fabric, product, and background. A face, shirt print, or
+product that is sharper or glossier than the scene will read generated even if
+the composition is correct.
+
 ## Reference Sources
 
 Use several source types, each with a specific job.
@@ -749,6 +816,47 @@ The wide shadow should read as a readability cushion, not a visible glow.
 - Delete bad OCR layers, especially product-label OCR.
 - Rebuild ad text, receipts, totals, badges, and proof rows as clean Canva
   text/shapes when future editing matters.
+
+### Anti-AI Finishing Pass
+
+Use after the image structure is correct. Do not use the finishing pass to hide
+bad product fidelity, wrong model identity, broken hands, unreadable text, or a
+bad reference match. Fix those upstream first.
+
+The goal is to make the asset feel captured by a real camera, not to create a
+visible filter.
+
+Default still-image pass:
+
+- Lower contrast slightly.
+- Lower saturation slightly.
+- Reduce clarity/sharpness lightly, especially on faces, hair, fabric edges,
+  product edges, and background texture.
+- Lift blacks very slightly for a natural faded-film / phone-camera feel.
+- Add subtle sensor noise or film grain. Keep it barely visible; if the viewer
+  notices the grain as a style, it is too much.
+- Preserve text and product-label readability.
+
+Good prompt or editing language:
+
+```text
+Make this feel less AI-polished and more like a real camera capture. Slightly
+lower contrast and saturation, reduce overly crisp sharpness, lift the blacks a
+touch, and add very subtle sensor noise. Keep it natural and clean, not grainy
+or filtered. Preserve the product and text readability.
+```
+
+For generated video, use the same grade plus subtle handheld movement:
+
+- lower contrast
+- slightly lower saturation
+- lower sharpness/clarity
+- tiny lifted blacks
+- subtle grain/noise
+- small phone-handheld wiggle, not visible motion effects
+
+Do not overdo "imperfections." Heavy dirty-lens haze, strong grain, fake blur,
+or intentionally bad-camera language can make the output look more AI, not less.
 - Do text changes in Canva/editable layers. Do not blur-patch polished ads.
 
 Known failure modes:

@@ -15,6 +15,13 @@ copy, then use Canva Magic Text to make only the ad copy editable. Use this test
 plan when the operator explicitly wants to audit whether a more complex route is
 better.
 
+When a normal production run starts drifting, do not immediately escalate into
+the full test matrix. First use the simple-step recovery rule from
+`docs/creative-production-system.md`: keep the last good output as the base,
+ask for one exact change, and keep everything else locked. Only move into this
+test plan when the team is deliberately comparing routes, prompts, models, or
+product strategies.
+
 ## Test Objective
 
 Build a controlled testing system so Creative Strategist can answer:
@@ -220,6 +227,13 @@ Prompt should tell Higgsfield:
   or supporting objects.
 - Final text does not need to be perfect if text will be rebuilt later.
 - Do not redesign the product label.
+
+For fragile model/product references, the one-pass prompt should not try to
+solve identity, product, background, pose, text, and anti-AI finishing at once.
+If the first result is close, run small follow-up passes such as "change only
+the shirt", "make only the model more approachable", "change only the text
+color", or "add only subtle finishing". Record these as production steps, not
+as a new strategy unless the operator is running a formal comparison.
 
 Keep constant:
 

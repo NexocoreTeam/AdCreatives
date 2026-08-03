@@ -505,3 +505,56 @@ Mistake Filter risks.
 If the selected angle needs more text than the visual can carry, choose a
 different angle or a different candidate ad. Do not cram dense mechanism copy
 into a lifestyle/UGC visual or force a long note into a one-headline layout.
+
+---
+
+## 12. Higgsfield reference edits use one controlled change at a time
+
+**Rule:** When a reference-led Higgsfield edit has fragile product, model,
+camera, crop, or text requirements, use small sequential edits instead of one
+overloaded prompt.
+
+Before paid generation, define:
+
+1. What each image controls.
+2. The exact one change requested.
+3. What must stay locked.
+4. Whether the product orientation fits the reference mechanic.
+5. Whether final text belongs in Higgsfield, Canva, or local rendering.
+
+Default reference roles:
+
+- Foreplay/reference ad = scene, crop, lighting, camera, layout, text capacity,
+  and ad mechanic.
+- Client model/product source = person likeness, product identity, garment
+  color, fit, print, packaging, label, and product truth.
+- Photography style reference = camera texture, light direction, color grade,
+  framing, and shadow behavior only.
+
+If the first output is wrong, do not add a giant corrective paragraph. Use the
+last good output as the new base and change one thing:
+
+- shirt/product swap
+- product lighting/shadow integration
+- model identity or styling
+- model humanizing / brand-fit
+- pose or setting variation
+- text color/font/layout
+- subtle anti-AI finishing pass
+
+For people-led or lifestyle images, prompts should use concrete camera and
+lighting language, not generic realism language. Prefer "modern iPhone camera",
+"35mm lens, f/2.8", "late-afternoon side light", "soft shadows", "lower
+contrast and saturation", and "natural phone-camera depth of field" over
+"photorealistic", "8K", or "ultra-realistic".
+
+After the structure is right, apply a light anti-AI finishing pass:
+
+- lower contrast slightly
+- lower saturation slightly
+- reduce clarity/sharpness lightly
+- lift blacks slightly
+- add very subtle sensor noise or film grain
+
+Keep this tasteful. If the grain, blur, haze, or "imperfection" is obvious, it
+has gone too far.
