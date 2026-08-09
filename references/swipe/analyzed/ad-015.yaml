@@ -1,0 +1,56 @@
+card_id: AD-015
+date_added: '2026-08-09'
+added_by: '@Devin Souphanthong'
+brand: Arrae
+source_link: slack://C0BG19H81K7/1786282526.678199
+media_type: static
+assets:
+  primary: ad-015.png
+analysis:
+  format: Text Message
+  hook_type: Social Proof
+  mechanic: The Overheard Conversation
+  secondary_mechanic: The Social Witness
+  scan_path:
+  - beach photo of woman in bikini
+  - 'incoming message: ''girl how do you ALWAYS look like that'''
+  - reply dismissing credit
+  - product reveal in final message bubble
+  proof_element: casual confession that product was used one hour before flattering photo was taken
+  product_role: reveal
+  awareness_stage: solution_aware
+  why_it_works: The DM format makes the product recommendation feel like an accidentally overheard friend
+    secret rather than an ad — the social witness compliment creates the problem ('how?') and the confession
+    instantly resolves it with the product name.
+  cultural_note: Mimics native Instagram/iMessage DM UI — the purple reply bubbles signal the 'sender'
+    perspective, creating parasocial intimacy and the illusion of a real private exchange between friends.
+  steal: Use the overheard-DM structure where a flattering third-party compliment forces the 'secret'
+    product reveal, embedding the product name organically in the final reply bubble rather than a headline.
+  avoid: Do not reuse the creator, exact copy lines ('girl how do you ALWAYS look like that'), the specific
+    username, or the bikini photo of this individual.
+  proxy_signal: unknown
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: med
+    product_role: high
+  reasoning:
+    mechanic: The entire ad is framed as a private DM conversation the viewer is not supposed to see —
+      the product is never advertised directly but emerges naturally as the answer to a friend's compliment,
+      which is textbook Overheard Conversation.
+    awareness_stage: The ad targets someone who knows debloating supplements exist but hasn't committed
+      to Arrae — the 'viral bloat capsules' phrasing assumes category familiarity while positioning Arrae
+      as the specific hero solution.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-09T13:36:40+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-08-09T13:50:01+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}
