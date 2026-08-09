@@ -1,0 +1,60 @@
+card_id: AD-020
+date_added: '2026-08-09'
+added_by: '@Devin'
+brand: Mars Men
+source_link: https://slack.com/archives/C0BG19H81K7/p1786297760568849
+media_type: static
+assets:
+  primary: ad-020.png
+analysis:
+  format: Before and After
+  hook_type: Contrast
+  mechanic: The Contrast Without Comment
+  secondary_mechanic: null
+  scan_path:
+  - '''After GLP-1'' label + tired face (left)'
+  - '''After GLP-1 With Mars Men'' label + healthy face (right)'
+  - product bottle centered between faces
+  - discount code CTA
+  proof_element: AI-illustrated side-by-side facial transformation between GLP-1 alone vs. GLP-1 plus
+    Mars Men supplement
+  product_role: prop
+  awareness_stage: solution_aware
+  why_it_works: It hijacks existing GLP-1 (Ozempic/Wegovy) cultural momentum — a topic millions of men
+    are actively researching — and reframes a known side effect (muscle/testosterone loss) as the problem
+    Mars Men solves, making the product feel necessary rather than optional.
+  cultural_note: Piggybacks on the GLP-1/Ozempic cultural zeitgeist; the 'GLP-1 face' concern (premature
+    aging, muscle wasting) is a widely discussed side effect in men's health communities, making this
+    contrast immediately legible to the target audience.
+  steal: Use the 'same scenario, with vs. without our product' contrast structure anchored to a trending
+    cultural health topic the audience is already anxious about, letting the visual gap do the persuasion
+    without editorial commentary.
+  avoid: Do not reuse the AI-illustrated faces, the exact copy lines, the CHRONICLE10 code, or the Mars
+    Men visual identity.
+  proxy_signal: unknown
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The two AI-illustrated faces are shown side by side with minimal editorial text — the visual
+      contrast between the tired, puffy face and the sharp, healthy face does all the persuasion without
+      the ad ever saying 'our product is better'; the audience draws that conclusion themselves.
+    awareness_stage: The ad assumes the viewer already knows what GLP-1 drugs are and is either using
+      them or considering them — it does not explain GLP-1 at all, only positions Mars Men as the necessary
+      co-solution, indicating a solution-aware audience who knows treatments exist but hasn't yet adopted
+      this specific supplement.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-09T17:50:10+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin'
+  approved_by: '@Devin'
+  approved_at: '2026-08-09T20:51:13+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}
