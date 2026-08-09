@@ -1,0 +1,57 @@
+card_id: AD-019
+date_added: '2026-08-09'
+added_by: '@Devin Souphanthong'
+brand: Rheal
+source_link: https://slack.com/archives/C0BG19H81K7/p1786295110123109
+media_type: static
+assets:
+  primary: ad-019.png
+analysis:
+  format: Native Text Overlay
+  hook_type: Directive
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - headline text top
+  - product in hand
+  - ingredient list on packaging
+  - CTA button bottom
+  proof_element: ingredient transparency printed directly on packaging (supergreens, microalgae, baobab,
+    acerola, pineapple)
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The headline assumes the viewer already has a protein routine — validating their existing
+    identity as a health-conscious person — then reframes greens as the missing piece, making purchase
+    feel like completing a system rather than starting one.
+  cultural_note: Taps into the gym-bro/fitness community language of 'hitting targets' and 'routines'
+    — the CTA 'Add to Routine' mirrors app/supplement stack culture, making this feel native to that in-group.
+  steal: Use the 'you already do X, now complete it with Y' two-sentence hook structure to position your
+    product as the natural next step in an existing customer habit loop.
+  avoid: Do not reuse the creator's hand or exact copy lines; do not replicate Rheal's kraft-tube packaging
+    aesthetic or green brand identity.
+  proxy_signal: unknown
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad opens by validating something the viewer already believes (they hit their protein
+      target) then reframes it — greens are the gap in an otherwise complete routine, not a new behavior
+      to adopt.
+    awareness_stage: The headline assumes familiarity with supplement stacks and macros tracking, signalling
+      to someone who already knows greens powders exist but hasn't committed to this specific one; they're
+      not being educated on the problem category.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-09T17:06:02+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-08-09T17:44:31+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}
