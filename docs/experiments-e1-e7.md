@@ -5,16 +5,22 @@ For: Devin · Nexocore Static Ad System · companion to
 
 Rules that apply to every experiment: change one variable at a time ·
 grade every output against the reference card · max 2 inputs per HF
-generation · `enhance_prompt: false` always (auto-enhance rewrites prompts
-and makes results unattributable) · log everything (setup, output links,
+generation for these baseline experiments · disable prompt enhancement where
+supported and record the actual setting · log everything (setup, output links,
 winner, why) · every winner gets taught to the agent the same week
 (teach → fresh-chat verify → regression check → changelog).
 
-One principle underneath everything: **AI generates pixels; Python/PIL
-composes layouts and text.** Headlines, CTAs, grids, and brand marks are
-the PIL pass — plan generations to leave clean space per the card's scan
-path, grade the pixels, and never blame the AI step for text it was never
-supposed to render.
+The [2026-09-18 reference-emulation procedure](reference-emulation-workflow.md)
+adds operator observations, not benchmark results. Paid runs still require
+cost/budget confirmation. Record exact model/route, ordered inputs, aspect ratio,
+resolution, and selected parent. The two-input baseline is a test control,
+not evidence that more inputs always fail.
+
+Keep finishing constant unless it is the variable under test. For these baseline
+experiments, AI generates the visual and Python/PIL or Canva finishes exact text
+and layout. Plan clean text space per the card's scan path. Grade each stage
+against its intended job. Image-model text editing can be evaluated separately
+for flattened creatives; the production workflow also supports that option.
 
 ## How grading works everywhere
 
@@ -73,8 +79,16 @@ clean SecondKind product shot.
   structure untouched.
 
 **Procedure:** For each of the 3 reference ads, run A three times and B
-three times (18 generations total). Grade against the card. Log per
-format — the answer may differ by format.
+three times: 18 complete chains, 27 image generations before retries (9 A
+generations plus 18 B generations). Grade against the card. Log per format;
+the answer may differ by format. Keep model/settings, source assets, final
+brand direction, and finishing constant; the chain is the changed variable.
+
+For a separate comparison of operator selection between product and branding
+stages, use [Test A4](reference-emulation-tests.md#a4-product-first-editing-with-selection-between-stages).
+Predeclare attempt limits and acceptance criteria. Include rejected attempts,
+operator time, total cost, and acceptance rate. Do not compare uncurated A
+outputs with only the selected best of unlimited B attempts.
 
 **Decision rule:** If B wins by 2+ points average for a format, two-step
 becomes the rule for that format. If they tie, one-shot wins (fewer steps
@@ -105,10 +119,11 @@ prompt the agent wrote. If the prompt style is wrong, every later result
 is polluted — a "Soul vs. Pinterest" loss might really be a bad-prompt
 loss in disguise. Settle this before E2–E7.
 
-**Setup:** 2 reference ads (use E1 winners' chain). Same card, same
-chain, same references — ONLY the prompt changes. Write prompts as if the
-reference images don't exist, then anchor with "the same product as
-reference 2" — the documented identity-prompt pattern.
+**Setup:** 2 reference ads (use E1 winners' chain). Same card, chain,
+ordered references, model, and settings; ONLY the prompt representation changes
+in part a. Define each image's role and retain the same replacement/removal,
+preservation, identity, and intended-result instructions in both formats.
+Do not make the natural-language variant more specific than the JSON variant.
 
 **Variants (part a):**
 
@@ -120,6 +135,9 @@ reference 2" — the documented identity-prompt pattern.
 - C (minimal): 3 fields — mechanic, scan path, product role.
 - D (medium): 5–6 fields — add proof element, format, brand palette line.
 - E (maximal): everything on the card.
+
+All three variants retain the same explicit image roles and edit instructions;
+the field count measures added card context. Concise does not mean ambiguous.
 
 **Procedure:** 3 runs per variant per reference ad. For part b, watch for
 the confusion signature: outputs that ignore instructions, mash elements
@@ -286,12 +304,11 @@ can't articulate the look, run the diverge step and present options."
 
 Priority 6 · ~2–3 hrs · scope-controlled
 
-**Ground truth first.** The Higgsfield skill already has a
-model-selection table (`nano_banana_pro` = identity + reliable in-image
-text; `text2image_soul_v2` = anti-polish people; `soul_cast` = 16:9
-one-offs; Soul-ID training rarely worth it under 20 shots). E7 verifies
-that table per job category and catches anything new — it is not a
-from-scratch bake-off.
+**Baseline first.** Read the current Higgsfield model-selection guidance and
+verify which models the chosen website/API route actually exposes at test time.
+Record exact model identifiers and settings. Guidance and the walkthrough's
+model preferences are starting hypotheses; E7 measures them on the chosen tasks.
+Do not assume a website model can be selected through the repo's API engines.
 
 **The question:** Which HF image model is the default for each category
 of job?
@@ -302,6 +319,11 @@ S1–S4), all using proven chains/prompts:
 - Photoreal person (use the E3-winning source)
 - Product static (clean product-hero shot)
 - Stylized/graphic (receipt, notes-app, or graphic-native format)
+
+For product statics, name the edit task: product replacement, branding, or copy.
+Use the same accepted base for all models in a downstream-edit comparison.
+Keep these results separate so one successful replacement does not establish
+the best model for every subsequent edit.
 
 **Procedure:** Per category, run the same task through the table's
 recommended model + challenger models available (3 runs per model). Grade
@@ -377,8 +399,10 @@ scope E7 to two categories, protect E1–E4 at full quality.
 
 - Experiment / variant — e.g. `E1-B (two-step)`
 - Reference card — e.g. `AD-014 (receipt comparison)`
-- Setup — e.g. `Step 1: ref + product. Step 2: output + brand restyle`
-- Output links — the 3 generation links
+- Setup — ordered inputs/roles, exact prompts, model/route, ratio/resolution
+- Output links — every stage, repeat, and failed/rejected attempt
+- Selection — accepted parent/output, operator, and rejection reasons
+- Cost/time — all requests, spend, operator time, cleanup, and acceptance rate
 - Card score — avg of 3, e.g. `8.3 / 10`
 - Winner? — e.g. `Yes — beat E1-A (5.7) by 2.6`
 - Why — e.g. `One-shot kept losing the itemized-receipt structure`

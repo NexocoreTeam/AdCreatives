@@ -24,6 +24,11 @@ reference recreation, Higgsfield generation, local text overlays, or Canva
 handoff work. It captures current tool roles, native text presets, product
 handling, reference packets, crop-safety, and pre-send QA rules.
 
+For reference emulation, also read `docs/reference-emulation-workflow.md`.
+It captures the operator's 2026-09-18 walkthrough: prepared assets, explicit
+image roles, selection between edits, source-backed copy, finishing choices,
+and the distinction between manual checkpoints and current CLI automation.
+
 Read `docs/static-ad-production-test-plan.md` before running controlled static
 production tests such as one-pass vs two-pass Higgsfield, JSON vs natural
 language prompts, model bake-offs, Pinterest/Soul model sourcing, product

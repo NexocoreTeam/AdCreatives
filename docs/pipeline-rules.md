@@ -302,13 +302,26 @@ side and the client product only on the client/postbiotic side.
 
 ---
 
-## 8. Copied statics default to simple one-pass emulation plus Magic Text
+## 8. Reference emulation uses focused edits and selected outputs
 
-**Rule:** When the operator asks to copy, emulate, or lightly remix an existing
-static ad, start with a simple natural-language one-pass Higgsfield prompt using
-the reference ad and client product image. Do not default to JSON prompts,
-multi-pass workflows, or complex planning unless the first output fails or the
-operator explicitly requests a controlled test.
+**Rule:** Start simple copied/emulated statics with one focused natural-language
+pass using the reference ad and client product image. Use staged editing after
+a failed pass, for fragile product/person requirements, or when the operator
+chooses that route. Do not prescribe JSON, a fixed number of passes, or one
+model for every job.
+
+Follow [Reference Emulation Workflow](reference-emulation-workflow.md), informed
+by the operator's 2026-09-18 walkthrough. Prepare a suitable product view,
+usable logo, source-supported copy options, and explicit output settings.
+Each prompt identifies the actual ordered inputs, object to replace/remove,
+what stays, and intended result.
+
+Each pass has one main objective; minor related changes may share a pass.
+Inspect and select before proceeding. Use the accepted output as the next base,
+remove stale references from that request, and add only necessary new assets.
+Keep original files and prior attempts. Do not treat the latest output as
+approved automatically. The current CLI staged chain has no visual selection
+pause; enforce these checkpoints through separate edits.
 
 The prompt should preserve the winning ad mechanic and visual polish while
 changing small surface identifiers so the output is not a clone:
@@ -328,12 +341,25 @@ remove halos, cutout edges, pasted-on looks, mismatched lighting, and
 source-image artifacts from the product reference. Do not let it redesign,
 warp, or hallucinate the product label.
 
-After the image is approved, upload it into Canva and use **Magic Text** first.
-Only the ad copy should become editable. Keep the rest of the generated image
-intact unless broader product/model cleanup is required.
+Inherited reference text/logos may remain in an explicitly marked working
+intermediate. Remove or replace them with approved client copy/branding before
+final QA or client delivery. Do not publish competitor names or unsupported
+reference claims.
+
+Choose final copy from research to fit the selected image's actual text
+capacity. Brainstormed origin, material, durability, or mechanism claims need
+verification. Exact typography, editable variants, and team handoff use
+Canva/local finishing; **Magic Text** is the first Canva option for copy-only
+edits. A focused image-model text edit is an option for a single flattened
+creative if exact approved wording and product fidelity pass QA.
 
 Use Magic Layers only when Magic Text is insufficient, and protect product
 labels first with Magic Grab if the product/package matters.
+
+This updates production practice, not model benchmark results. Use the
+[controlled test plan](static-ad-production-test-plan.md) before encoding new
+model defaults. Existing research, source-truth, crop, approval, and paid-run
+cost rules still apply.
 
 ---
 
@@ -455,9 +481,9 @@ Default sequence:
 1. Build the idea pool from the Audience Conversion Report.
 2. Pull/import the Foreplay library.
 3. Tag each ad by mechanic.
-4. Run Simple Natural-Language Emulation with reference ad + product image.
-5. Make small surface changes so the result is not a clone.
-6. Upload to Canva and use Magic Text for editable copy only.
+4. Emulate reference + product using rule 8's simple or staged route.
+5. Inspect/select the visual and make brand-owned surface changes.
+6. Choose finishing; use Canva Magic Text when editable copy is needed.
 7. Create a post-emulation ad card.
 8. Match the angle/copy to the ad card.
 9. Get approval before finalizing.

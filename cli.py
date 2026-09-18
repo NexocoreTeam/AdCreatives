@@ -5905,21 +5905,18 @@ def remix(
     is_flag=True,
     default=False,
     help=(
-        "Split the differential edit into 3 sequential passes — product "
-        "swap, then text swap, then model/character swap. Each pass has "
-        "ONE job, mirroring the operator's manual workflow.\n\n"
-        "Engine combinations:\n"
-        "  --staged (default --engine nb2): stages 1+2 via NB2 (fal), "
-        "stage 3 via Higgsfield Soul if persona has a trained soul, else "
-        "stops at stage 2. Best fal-backed staged path.\n"
-        "  --staged --engine higgsfield-soul: ALL 3 passes via Higgsfield "
-        "soul_2 (no fal calls). Experimental — soul_2 isn't an edit "
-        "model so layout drifts a bit between passes, but doesn't depend "
-        "on fal at all. Identity-locked on stage 3 if soul present.\n\n"
+        "Run an automatic differential-edit chain: product swap, text swap, "
+        "then optional person/character swap. Saves intermediate images but "
+        "does NOT pause for visual review or candidate selection.\n\n"
+        "Stages 1+2 use NB2 (fal), including with --engine higgsfield-soul. "
+        "Stage 3 tries NB2 when the run has a model descriptor; "
+        "--engine higgsfield-soul also enables a ready Soul fallback. "
+        "Without either, the chain stops at stage 2. "
+        "--engine hf-web uses its single-pass route even with --staged.\n\n"
         "Requires a differential-mode remix run (the mappings/ dir). "
         "Intermediate stage images are saved as <bid>_stage{1,2,3}_*.png. "
-        "Note: for single-shot reference-faithful edits, use --engine hf-web "
-        "(no --staged) — it's strictly better than the legacy hf-cli staged path."
+        "For operator selection between edits, use separate adc edit or "
+        "remix-refine calls. See docs/reference-emulation-workflow.md."
     ),
 )
 def remix_images(
@@ -5940,8 +5937,9 @@ def remix_images(
     persona's trained Soul Character — gives identity-locked output. Use the
     default --engine nb2 for the existing fal.ai Nano Banana 2 pipeline.
 
-    Pass --staged for differential runs to use the 3-pass product → text →
-    model workflow (mirrors the manual Higgsfield process).
+    Pass --staged for an automatic differential product → text → optional
+    person chain. It has no visual approval pause; use separate edit/refinement
+    calls when the operator needs to select an output between stages.
     """
     from strategy.ad_remixer import generate_remix_images
     from strategy.cost_tracker import log_cost

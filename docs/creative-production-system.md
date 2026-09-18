@@ -24,7 +24,7 @@ workflow is:
 2. Decide what each reference controls.
 3. Choose the production route.
 4. Generate or build a clean base.
-5. Finish text/product details deterministically.
+5. Finish text/product details using the selected route.
 6. QA visually before sending.
 7. Put useful working versions into Canva when the team needs handoff or edits.
 
@@ -312,194 +312,61 @@ mechanism, proof, or comparison led.
 
 ### Simple Natural-Language Emulation
 
-Use this as the default route when the task is to copy, emulate, or lightly
-remix an existing static ad.
+Use the [Reference Emulation Workflow](reference-emulation-workflow.md) for
+reference-based static edits. It contains the image-role prompt, asset
+preparation, person/UGC instructions, selection gates, and failure handling.
 
-This is intentionally simple. Do not overbuild a JSON prompt packet or split the
-job into multiple Higgsfield passes unless the first pass fails or the ad has a
-fragile product/model requirement.
+Start simple adaptations with one focused natural-language pass. Use staged
+editing after failure, for fragile product/person requirements, or when the
+operator chooses it. Give each pass one main objective; inspect and select
+before continuing. Carry only the selected output and assets needed next.
 
-Inputs:
+The reference controls composition and mechanic; the client source controls
+product/person identity. Match lighting, shadow, perspective, and scene contact.
+Preserve product geometry and markings. For creator references, retain the
+approved-client-model or different-creator rules and short ordinary-phone
+prompt in the linked procedure. Do not apply UGC softness to polished statics.
 
-- the reference ad to emulate
-- the client product image
-- optional model/person reference, usually from Pinterest or another real
-  source image
-- a short natural-language instruction
-
-Default prompt shape:
-
-```text
-Recreate this image in the same style and composition, but replace the product
-with [client product]. Keep the ad mechanic and visual polish, but make these
-small changes so it is not a direct copy: [background/color/texture/model
-clothing/scenery/object changes].
-
-Use the provided product reference for product identity, shape, proportions,
-packaging, and label accuracy, but re-integrate the product so it belongs in
-the new scene. Match the scene's lighting direction, shadow softness, color
-temperature, contrast, perspective, and depth of field. Remove any halo, cutout
-edge, pasted-on look, mismatched lighting, or source-image artifact from the
-product reference. The product should feel physically present in the scene, with
-realistic contact shadows/reflections where appropriate.
-
-Do not redesign the product label, do not warp the product, and do not invent
-fake unreadable label text. Final ad text will be edited later in Canva, so
-prioritize the visual container and product integration.
-```
-
-Small visual changes are enough. Preserve the winning structure while changing
-surface identifiers:
-
-- Plain product shoot: change background color, texture, surface, lighting
-  warmth, or prop set.
-- Lifestyle/kitchen scene: change wall/backsplash colors, cabinet tones,
-  countertop material, lighting, or small background objects such as swapping a
-  plant for a coffee maker.
-- Model/lifestyle scene: replace the recognizable person/face by default, not
-  just the styling. Preserve the winning pose, crop, camera angle, hand/product
-  placement, and source context, but change enough identity cues that the output
-  reads as a different creator: face structure, hair color/style, wardrobe,
-  makeup/grooming, accessories, room/scenery, and supporting props. Use a
-  separate model/person reference when needed.
-- Product comparison/static: replace product assets and adjust color treatment,
-  badges, and supporting objects without changing the scan path.
-
-When the reference ad contains a model or person and the client has an
-approved model/product source, reverse the usual mental framing:
-
-- **Image 1 = approved client source**: the actual model/person likeness and
-  product/garment we are allowed to use.
-- **Image 2 = reference ad**: the scene, pose, crop, text capacity, background
-  type, and ad mechanic we want to emulate.
-
-Prompt Higgsfield to place the person/product from image 1 into the matching
-role in image 2. Be explicit about what is being replaced, for example:
-"Replace the person in the blue sweater in image 2 with the model from image
-1. Keep the person's likeness, styling, and product from image 1, but make
-them belong in image 2's scene and photography style." The replacement must
-match image 2's lighting, shadows, contrast, perspective, color temperature,
-and camera feel so it does not look photoshoot-shocked or pasted in.
-
-If the product we want to use only exists as a flat lay and the target
-reference needs a model wearing it, do a pre-step first: create an approved
-on-model product image using the client model/product pipeline, then use that
-on-model result as image 1 for the Foreplay/reference emulation.
-
-For UGC, selfie, model, hand-held, or creator-style references, keep the
-imperfect-phone realism instruction short and blunt. Short prompts have tested
-better than long, highly qualified camera notes for this route:
-
-```text
-Make this look like a real low-effort iPhone selfie, not an AI image. Preserve
-the pose and product-in-hand layout, but use a different person. The camera
-should feel ordinary and slightly bad: soft front-camera focus, dirty lens haze,
-flat indoor light, muted color, mild compression, no HDR, no beauty-camera
-skin, no visible pore detail, no crisp hair strands, no glossy sharp edges.
-Make it feel like a casual photo from someone's camera roll.
-```
-
-For model-led references, add the model replacement block before the
-imperfect-phone realism block:
-
-```text
-Use a different creator, not the same model with styling changes. Keep the
-same pose, crop, selfie angle, and product-in-hand mechanic, but change the
-face, hair, wardrobe, accessories, and room details enough that it clearly reads
-as a different person.
-```
-
-Do not add long beauty/skin/camera explanations unless the short version fails.
-Avoid phrases like "realistic skin texture" when the issue is over-rendering;
-ask for ordinary phone-camera skin and no pore-level detail instead.
-
-Do not use this block for polished product statics, clinical proof boards,
-receipts, screenshots, or premium product-stage ads unless the operator
-explicitly wants a native/UGC downgrade. It is specifically for cases where the
-reference should feel like a real creator camera image.
-
-After the one-pass image is approved, upload it into Canva and use **Magic Text**
-to create editable layers only for the visible ad text. Do not use Magic Layers
-on the whole image by default, because it can disturb the product, model,
-background, and layout. The base image should remain intact; only the ad copy
-needs to become editable.
-
-Use a second pass only when:
-
-- the product is wrong or unreadable
-- the model/hand is unusable
-- the image is too close to the original
-- the background/object changes were not applied
-- the product has a halo, pasted edge, or obvious label drift
-
-Use controlled tests in `docs/static-ad-production-test-plan.md` only when we
-are auditing whether another route is better. For normal production, simple
-natural language plus one pass is the starting point.
+Use Canva/local finishing for editable variants and exact typography. A focused
+image-model text edit is also an option for a flattened creative if the exact
+approved copy and product survive QA. The CLI's automatic staged chain does
+not pause for these selections; use individual edits for operator review.
 
 ### Foreplay Library Emulation And Ad Cards
 
-Use this route when the operator provides a large Foreplay library and wants to
-turn many proven ads into product-specific candidates before deciding which
-angle/copy belongs on each one.
+Use this branch for a Foreplay library batch. Build the research idea pool
+first; candidate visuals establish what each layout can carry before final copy.
 
-This route is intentionally different from normal Phase 2 concepting. The first
-pass is not the final ad. It creates the visual container so the team can see
-what the ad can actually carry.
+1. Build the idea pool from the Audience Conversion Report: avatar, desire,
+   objections, exact VOC, awareness, and angles.
+2. Import references and tag each ad's mechanic.
+3. Emulate selected references with the simple or staged route above.
+4. Inspect/select each usable visual; make brand-owned surface changes.
+5. Choose finishing: Canva Magic Text for editable copy, local rendering for
+   exact layouts, or a focused image-model edit for a flattened creative.
+6. Create the required post-emulation ad card before final copy.
+7. Match angle/copy to the actual text zones, get approval, then finalize.
 
-Workflow:
-
-1. Build the idea pool from the Audience Conversion Report: avatar, mass
-   desire, objection, exact VOC phrases, awareness level, and angle bank.
-2. Import or pull the Foreplay library.
-3. Tag each Foreplay ad by mechanic: us vs them, receipt, founder note,
-   testimonial, routine screenshot, product comparison, callout/proof static,
-   UGC/native screenshot, etc.
-4. Run Simple Natural-Language Emulation for selected ads:
-   - reference ad + product image
-   - one short natural-language Higgsfield prompt
-   - small surface changes so it is not a clone
-   - no heavy final-copy decisions yet
-5. Upload the first-pass output into Canva and use Magic Text so only visible
-   ad text becomes editable.
-6. Create a post-emulation ad card for each candidate.
-7. Match the angle/copy to the ad card.
-8. Write the copy set, get approval, and only then finalize.
-
-The post-emulation ad card is required before final copy. It should capture:
-
-- source Foreplay ad and first-pass output
-- scene / visual context
-- ad mechanic
-- persuasion mechanism
-- product role
-- existing text zones
-- approximate text capacity
-- awareness level fit
-- best angles this format can carry
-- bad angles for this format
-- exact VOC phrases that can fit
-- Canva edit notes
-- 1:1 crop-safe text notes
-- Static Mistake Filter risks
+Each card records the source and selected output, scene, mechanic, persuasion
+mechanism, product role, text zones/capacity, awareness fit, good/bad angle fits,
+exact VOC, finishing/editability notes, crop safety, and Static Mistake Filter
+risks. Cards are client working data; curated library cards still use the
+approved library commands.
 
 Angle-fit rules:
 
-- If the emulated ad has room for 4 short bullets, it can carry us-vs-them,
-  objection handling, benefits/negatives, or mechanism comparison.
-- If it has one big headline and one small caption, use one strong VOC hook or
-  lived moment, not dense mechanism education.
-- If it is lifestyle/UGC, use native quote, routine, or moment language.
-- If it is receipt/comparison, use failed solutions, value, switch logic, or
-  "tried everything" proof.
-- If the copy needed for an angle does not fit the actual text zones, choose a
-  different angle or a different emulated ad. Do not force long copy into a
-  small visual container.
+- Four short bullets can carry comparison, objections, or mechanism contrasts.
+- One headline and small caption need one strong hook or moment.
+- Lifestyle/UGC favors native quotes, routine, or lived moments.
+- Receipts/comparisons favor failed solutions, value, or switch logic.
+- If the angle needs more text than the visual can carry, change angle or
+  layout; do not force long copy into small text zones.
 
-Default sequence name:
+Default sequence:
 
 ```text
-Foreplay Library -> Simple HF Emulation -> Canva Magic Text -> Ad Card ->
-Angle Fit -> Copy Set -> Approval -> Finalize
+Foreplay Library -> HF Emulation -> Inspect/Select -> Finish Route -> Ad Card
+-> Angle Fit -> Copy Set -> Approval -> Finalize
 ```
 
 ### Exact Reference Emulation
@@ -513,7 +380,7 @@ Rules:
 - Do not rebuild polished references from memory or local approximations.
 - Start with the Simple Natural-Language Emulation route unless the ad is a
   UI-heavy/screenshot static or the product/model needs special protection.
-- Use local rendering or Canva for exact copy cleanup after generation.
+- Use the linked emulation procedure to choose text finishing.
 - Preserve the mechanic and polish, but translate competitor names/products
   into category or client-owned language.
 
@@ -922,8 +789,10 @@ spacing, alignment, emoji, product, or crop problems.
 - Add a feed-crop preview/checker for 9:16 and 4:5 images.
 - Build clearer Canva handoff tooling that distinguishes flattened vs editable
   designs.
-- Build a clean product asset library per client with cutout, no-shadow, and
-  scene-ready variants.
+- Prepare reusable product views (cutout, no-shadow, and scene-ready) and usable
+  light/dark logos per client.
+- Add persisted stage selection and resume from the accepted parent to staged
+  automation; today's CLI chain does not implement visual approval gates.
 - Improve reference-packet storage so every ad has sources and assigned roles.
 - Improve Apify/Foreplay/Pinterest ingestion into client-specific creative
   research packets.

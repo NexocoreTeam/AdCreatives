@@ -202,16 +202,21 @@ Stop and ask for the visual format/template:
 If the operator has not chosen or approved a format, do not produce final
 format-specific copy.
 
-If the operator chooses to copy/emulate a specific ad, use the default simple
-emulation route from `docs/creative-production-system.md`: one natural-language
-Higgsfield pass with the reference ad and product image, small surface changes
-so it is not a clone, then Canva Magic Text for editable copy only. Do not
-switch to JSON, multi-pass generation, or Magic Layers unless the operator asks
-for a test or the first pass fails. The prompt must also include the generic
-product-integration instruction: the product reference controls identity and
-label fidelity, but Higgsfield should match the scene's lighting, shadows,
-perspective, color temperature, and depth of field while removing halos,
-cutout edges, pasted-on looks, and source-image artifacts.
+If the operator chooses to emulate a specific ad, follow
+[Reference Emulation Workflow](reference-emulation-workflow.md). Start simple
+adaptations with one focused natural-language pass; use staged editing after
+failure, for fragile product/person requirements, or when the operator chooses
+it. Prepare suitable product/logo assets and explicit output dimensions first.
+Define ordered image roles, replacement/removal, preserved elements, and the
+intended result. Match scene lighting, shadows, perspective, color temperature,
+and depth of field while preserving product identity and label fidelity.
+
+Inspect/select before the next edit and use only the accepted base plus assets
+needed for that step. Prepare a small pool of source-supported copy before
+production; fit final wording to the selected visual's actual text capacity.
+Use Canva/local for editable copy or exact typography. A focused image-model
+text edit is an option for a flattened creative, subject to exact-copy and
+product-fidelity QA. Existing briefing and paid-run approvals still apply.
 
 If the reference is UGC, selfie, model-led, hand-held, or creator-style, include
 the short imperfect iPhone block as well. Default to blunt natural language:
@@ -253,8 +258,8 @@ If the operator provides a large Foreplay library, do not assign final copy
 before seeing the emulated visual containers. Use this branch:
 
 ```text
-Foreplay Library -> Simple HF Emulation -> Canva Magic Text -> Ad Card ->
-Angle Fit -> Copy Set -> Approval -> Finalize
+Foreplay Library -> HF Emulation -> Inspect/Select -> Finish Route -> Ad Card
+-> Angle Fit -> Copy Set -> Approval -> Finalize
 ```
 
 Each post-emulation ad card must document:
@@ -269,7 +274,7 @@ Each post-emulation ad card must document:
 - best angles this format can carry
 - bad angles for this format
 - exact VOC phrases that can fit
-- Canva edit notes
+- finishing route, editability, and Canva/local edit notes
 - 1:1 crop-safe text notes
 - Static Mistake Filter risks
 
@@ -287,6 +292,11 @@ After the visual format is chosen, write:
 - five headline options
 - source-language notes
 - proof needed
+
+Keep a source for each factual differentiator and any required qualification.
+Origin, material, durability, and unique-mechanism suggestions from the
+walkthrough are brainstorming examples, not verified claims for the client.
+Shorten copy without losing proof or meaning; choose another layout if needed.
 
 For comparison formats like `us vs them`, benefits and negatives are the core
 copy. For story or UGC formats, use moments and exact terminology instead.
