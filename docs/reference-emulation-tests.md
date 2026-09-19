@@ -208,3 +208,36 @@ The extra passes are justified only if acceptable-output rate or quality
 improves enough to justify the measured time, spend, and cleanup. Treat results
 as specific to the tested format/task. Visual scores do not establish CTR,
 CPA, ROAS, or a universal model ranking.
+
+### A5. Model-Led Pilot With Final Person Replacement
+
+Test the operator's additional final step on one static with an adult human
+model. This is a supervised execution pilot, not a model benchmark.
+
+1. Select a Foreplay image with visible eyewear, a compatible face angle and
+   usable copy space. Record source, crop, photographic style and model details.
+2. Use the exact client product and variant. Integrate the sunglasses, checking
+   fit at the bridge and ears, lens perspective and hair/hand occlusion. Select
+   an acceptable on-model product base before adding branding or copy.
+3. Apply and approve client branding and format-specific copy. Inspect product,
+   text and crop safety; save the accepted parent for the final edit.
+4. Run the [final person replacement](reference-emulation-workflow.md#final-person-replacement)
+   pass. Change facial structure, face shape, complexion slightly, haircut,
+   clothing and background while protecting the accepted creative. Change
+   apparent height only when visible in the existing framing.
+5. Compare against the original reference and accepted parent. Inspect visible
+   person differences, anatomy, sunglasses fit/identity, exact logo and copy,
+   sharpness, layout and crop safety. Reject a styling-only change, a warped
+   product, a cropped temple, a changed claim or newly unsafe text.
+6. Record the operator's final selection or the specific failure. Do not promote
+   an unfinished source-person intermediate as a completed client ad.
+
+Before generation, declare the attempt count, per-stage estimate and total
+budget; an approved total need not be reconfirmed between stages. Selection
+and QA gates still apply. Include failed attempts in the spend and report.
+Save actual prompts, ordered inputs, outputs, selected parents, concrete
+appearance/background changes, height applicability and manual QA findings.
+
+To compare early versus late person replacement later, hold reference, product,
+model/settings, final appearance brief, copy and finishing route constant; vary
+only the stage order. The one-creative pilot cannot establish which order wins.

@@ -13,6 +13,9 @@ batches still use the [Phase 2 gates](phase-2-static-briefing-workflow.md).
 - Source: Mitchell Thompson's [18 September 2026 walkthrough](https://vento.so/view/ebd429ad-b14b-41a7-949a-d39de4794cf6).
 - Provenance: manual synthesis of the recording's transcript and representative
   visual checks, discussed and accepted by the operator on 18 September 2026.
+- Operator follow-up on 18 September 2026: for references with a human model,
+  perform the distinct-person edit last, after product, branding and copy are
+  accepted. Preserve the rest of the creative and verify that it survived.
 - Demonstration: adapting a phone-product reference ad to IVI sunglasses.
 - Evidence level: one observed production session, with several variables
   changing. Model preferences and explanations for failures are hypotheses,
@@ -55,7 +58,8 @@ The staged route is:
 
 ```text
 Prepared assets -> Product replacement -> Inspect/select
--> Branding/background -> Inspect/select -> Approved copy -> Final QA
+-> Branding/background -> Inspect/select -> Approved copy
+-> Final person replacement when needed -> Final QA
 ```
 
 Each pass has one main objective. A minor related change can share a pass when
@@ -129,7 +133,11 @@ being replaced. Match lighting, shadows, contrast, perspective, and camera feel.
 If only a flat lay exists but the scene needs a modeled product, first create
 and approve an on-model product source through the client model pipeline.
 
-Otherwise replace the recognizable reference creator, not just their clothing:
+Otherwise replace the recognizable reference creator, not just their clothing.
+For the operator's staged model-led route, do this in the final image-edit pass
+described below. A one-pass adaptation can include it earlier. If a private
+intermediate still contains the reference person, label it unfinished and do
+not promote it as a completed client creative.
 
 ```text
 Use a different creator, not the same model with styling changes. Keep the
@@ -153,6 +161,70 @@ Adapt the identity sentence when using an approved client model. Do not apply
 this realism downgrade to polished product statics, receipts, proof boards,
 or screenshots. Keep products and ad text legible. Add detail only to address
 a specific failure; do not expand the prompt into beauty/camera theory.
+
+### Final person replacement
+
+For the operator-selected staged route, finish product integration, select the
+usable base, and accept branding and copy before this pass. Change the person
+last, then inspect the complete result. This is an operator preference to test,
+not evidence that late replacement always produces better images.
+
+Use only the latest accepted creative as the edit canvas. Keep the original
+Foreplay ad and product photographs as QA references on disk; do not reattach
+the original ad as a likeness reference. Add another input only when a specific
+product or approved-model fidelity problem requires it, and state its role.
+
+Create a clearly different adult person through visible facial structure,
+face shape, a modest natural complexion change, a different haircut, and a
+different outfit. Change background details while retaining the scene's depth,
+light direction and composition. Specify concrete changes after inspecting the
+reference. A haircut or wardrobe change alone is not sufficient.
+
+Height is conditional: change apparent stature only when a full-body or wide
+view provides enough context to assess it. In a portrait or torso crop, omit
+height and record it as not applicable; do not zoom out or invent unseen body
+proportions to satisfy the instruction. Keep the pose and camera framing.
+
+Prompt template, adapted to the actual person and scene:
+
+```text
+Edit the selected creative. Replace the featured model with a clearly different
+adult person, not the same person with a new hairstyle. Change facial bone
+structure and face shape, shift the complexion slightly and naturally, give
+the person a different haircut and outfit, and change the background details.
+Use the concrete appearance and background changes specified for this image.
+Change apparent height only if the existing full-body view makes it visible;
+otherwise leave height out and preserve the existing crop.
+
+Leave everything else exactly the same: the ad layout, camera angle, framing,
+pose, expression, gaze, lighting direction, approved logo, exact copy, font,
+line breaks, text positions, and crop-safe margins. Preserve the client's
+sunglasses, including frame geometry, lens colour, material finish, bridge,
+temple details and markings. Allow only the minimal contact/occlusion changes
+needed to fit the unchanged sunglasses naturally to the new face. Do not
+replace, enlarge, crop, restyle or redraw the product. Keep the reference's
+photographic character, including ordinary-phone softness when appropriate.
+No additional text, objects or people.
+```
+
+"Everything else" excludes only the declared person, outfit and background
+changes; enumerate the protected elements so the instruction is not ambiguous.
+The wording is a constraint to check, not a guarantee of pixel preservation.
+Use masks/protected layers when supported. If the face change requires a
+product redesign or breaks fit, reject it and return to the accepted parent.
+
+Review the result beside both the source ad and selected parent. Check that the
+person reads as different through several visible features, with natural anatomy,
+and that the scene/wardrobe have changed. For eyewear, inspect bridge and nose
+contact, temple-to-ear placement, hair occlusion, lens perspective and all product
+markings. Recheck exact copy, logo, sharpness, dimensions and center-square safety.
+Record each changed attribute, height applicability, preserved elements and any
+drift. Do not infer identity verification or campaign performance from this check.
+
+If the pass changes typography or product details, do not call it finished.
+Return to the accepted base and use a narrower edit or protected-layer finishing
+within the approved scope. Do not spend on an unapproved retry. The operator
+selects the accepted final; no later generative pass is required by this route.
 
 ## Inspect, select, and promote
 

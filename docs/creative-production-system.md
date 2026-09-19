@@ -327,6 +327,8 @@ Preserve product geometry and markings. For creator references, retain the
 approved-client-model or different-creator rules and short ordinary-phone
 prompt in the linked procedure. Do not apply UGC softness to polished statics.
 
+For staged model-led work, apply [final person replacement](reference-emulation-workflow.md#final-person-replacement) last and recheck product, copy, logo and crop safety.
+
 Use Canva/local finishing for editable variants and exact typography. A focused
 image-model text edit is also an option for a flattened creative if the exact
 approved copy and product survive QA. The CLI's automatic staged chain does
