@@ -19,6 +19,9 @@ batches still use the [Phase 2 gates](phase-2-static-briefing-workflow.md).
 - Operator follow-up on 21 September 2026: preserve the reference model's level
   of attractiveness and aspirational casting appeal while changing identity.
   The first IVI model replacement needs refinement on this criterion.
+- Further operator direction on 21 September 2026: let Higgsfield add the words.
+  Local reuse of generated lettering retained uneven spacing; local typesetting
+  was explicitly declined. Use the Higgsfield text route for these emulation runs.
 - Demonstration: adapting a phone-product reference ad to IVI sunglasses.
 - Evidence level: one observed production session, with several variables
   changing. Model preferences and explanations for failures are hypotheses,
@@ -285,6 +288,14 @@ are questions to verify, not facts to publish. Never shrink a necessary proof
 qualification away to fit a headline; shorten accurately or change the layout.
 
 Choose finishing deliberately:
+
+For this operator's Higgsfield emulation runs, add or correct ad copy in
+Higgsfield and inspect the result. Supply exact wording, normal word spaces,
+natural kerning, consistent centering and explicit crop-safe placement. Use
+the accepted clean photographic base when available. Do not typeset locally
+or transplant raster glyphs to repair text unless the operator changes this
+instruction. Inspection crops and format exports must not alter the lettering.
+The other finishing routes below remain available when selected for other work.
 
 - **Editable variants, exact typography, native UI, or team handoff:** Canva
   Magic Text/native elements or local rendering. Keep the accepted visual base
