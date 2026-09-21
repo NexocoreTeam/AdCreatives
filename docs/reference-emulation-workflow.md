@@ -16,6 +16,9 @@ batches still use the [Phase 2 gates](phase-2-static-briefing-workflow.md).
 - Operator follow-up on 18 September 2026: for references with a human model,
   perform the distinct-person edit last, after product, branding and copy are
   accepted. Preserve the rest of the creative and verify that it survived.
+- Operator follow-up on 21 September 2026: preserve the reference model's level
+  of attractiveness and aspirational casting appeal while changing identity.
+  The first IVI model replacement needs refinement on this criterion.
 - Demonstration: adapting a phone-product reference ad to IVI sunglasses.
 - Evidence level: one observed production session, with several variables
   changing. Model preferences and explanations for failures are hypotheses,
@@ -180,6 +183,20 @@ different outfit. Change background details while retaining the scene's depth,
 light direction and composition. Specify concrete changes after inspecting the
 reference. A haircut or wardrobe change alone is not sufficient.
 
+Treat casting appeal as a separate acceptance requirement. Before the edit,
+describe what should carry over from the reference: comparable attractiveness,
+expression, presence, grooming, styling and fit with the intended audience.
+Choose the identity changes within that casting brief. A different face alone
+does not establish that the replacement works for the ad.
+
+Use the operator-selected reference as the visual benchmark. Attractiveness is
+a subjective casting judgment, so record the operator's side-by-side decision
+separately from identity difference and technical QA. Facial proportions, hair,
+complexion and wardrobe can vary while meeting the same appeal requirement;
+do not equate one specific feature or complexion with attractiveness. Preserve
+natural skin texture, anatomy and the reference's photographic character.
+An ordinary-phone UGC reference still needs its original level of relatability.
+
 Height is conditional: change apparent stature only when a full-body or wide
 view provides enough context to assess it. In a portrait or torso crop, omit
 height and record it as not applicable; do not zoom out or invent unseen body
@@ -195,6 +212,11 @@ the person a different haircut and outfit, and change the background details.
 Use the concrete appearance and background changes specified for this image.
 Change apparent height only if the existing full-body view makes it visible;
 otherwise leave height out and preserve the existing crop.
+
+Maintain the reference's level of attractiveness and aspirational appeal with
+the distinct new identity. Follow the casting brief for expression, presence,
+grooming and styling. Keep the result naturally believable, with realistic
+skin texture and anatomy, within the original photographic style.
 
 Leave everything else exactly the same: the ad layout, camera angle, framing,
 pose, expression, gaze, lighting direction, approved logo, exact copy, font,
@@ -215,7 +237,10 @@ product redesign or breaks fit, reject it and return to the accepted parent.
 
 Review the result beside both the source ad and selected parent. Check that the
 person reads as different through several visible features, with natural anatomy,
-and that the scene/wardrobe have changed. For eyewear, inspect bridge and nose
+and that the scene/wardrobe have changed. Separately check whether the new model
+matches the reference's attractiveness, presence and styling for this creative.
+Record operator acceptance or `needs-casting-refinement`; a technically sound
+image can still fail this casting check. For eyewear, inspect bridge and nose
 contact, temple-to-ear placement, hair occlusion, lens perspective and all product
 markings. Recheck exact copy, logo, sharpness, dimensions and center-square safety.
 Record each changed attribute, height applicability, preserved elements and any
@@ -281,6 +306,7 @@ safety, and finish route. Local working cards are not library cards; write
 | Wrong dimensions | Set the intended ratio explicitly; check the actual output dimensions |
 | Original product remains or replacement is ignored | Check attachment order; name the visible object, explicit replacement/removal, and intended result |
 | Unrelated changes or mixed identities | Reduce the task and active inputs; retry from the last accepted base |
+| Distinct person but weaker casting appeal | Revise the casting brief against the reference; protect accepted product, layout and scene; seek operator selection within an authorized retry budget |
 | Correct product but pasted appearance | Fix integration: light, perspective, scale, contact shadows/reflections |
 | Wrong product geometry, label, or markings | Return to the real asset; use protected product/compositing when needed |
 | Bad logo or background color | Improve logo source or specify the desired treatment/palette |
