@@ -8,12 +8,30 @@ encoding defaults into the repo.
 The goal is not to make a few good ads. The goal is to learn which route should
 become the default for each kind of static ad.
 
-For normal copied/emulated statics, the current production default is already
-simple: upload the reference ad and product image, use a short natural-language
-one-pass prompt, make a few small visual changes so the output is not a direct
-copy, then use Canva Magic Text to make only the ad copy editable. Use this test
-plan when the operator explicitly wants to audit whether a more complex route is
-better.
+For simple emulation, start with a focused natural-language pass. Follow
+[Reference Emulation Workflow](reference-emulation-workflow.md) for staged
+editing, selection checkpoints, and finishing choices. The 2026-09-18
+walkthrough supplies observations and hypotheses, not controlled results.
+
+## Controls and authorization
+
+- Obtain the existing paid-run cost/budget confirmation before executing tests.
+  These protocols are plans; writing or approving them does not run generations.
+- Fix the exact source assets, ordered input roles, product variant, copy,
+  target aspect ratio/resolution, model/version, and relevant settings. Change
+  only the declared variable or explicitly defined workflow.
+- Run each variant three times. A one-output smoke check can find a failure
+  but cannot establish a default. Keep failures and all attempts in the report.
+- Record exact prompts and enhancement settings; disable prompt enhancement
+  where supported. Record unavailable settings rather than pretending they
+  were controlled.
+- For selection-based workflows, predeclare attempt limits and acceptance
+  criteria. Track total requests, operator time, cleanup, and spend, including
+  rejected candidates. The newest output is not automatically the selected one.
+- Compare final quality after equivalent finishing. Score intermediate stages
+  against their stated job; placeholder reference text is not final approved copy.
+- Do not turn the demo's model preferences, 3:4 ratio, 1K resolution, or
+  suspected causes of failure into global defaults.
 
 ## Test Objective
 
@@ -188,160 +206,15 @@ explains how to recreate or translate it without breaking it.
 
 ## Test A: One Pass vs Two Passes vs Three Passes
 
-Purpose: determine how many production stages are best for each creative type.
+Use the detailed [Pass Strategy Tests](reference-emulation-tests.md):
 
-### A1. One-Pass Higgsfield
+- A1: one-pass visual adaptation.
+- A2: scene/base first, then product or text finishing.
+- A3: scene, product/person, and deterministic finishing.
+- A4: product replacement, inspect/select, branding, inspect/select, copy.
 
-Use when testing whether Higgsfield can handle the full visual base at once.
-This is also the normal baseline for simple ad-copying/emulation jobs.
-
-Inputs:
-
-- Main reference ad.
-- Product image.
-- Full prompt.
-- Brand/product constraints.
-
-Operator steps:
-
-1. Upload/select the reference ad.
-2. Upload/select the product image.
-3. Paste the one-pass prompt.
-4. Select the target model/route.
-5. Generate one output.
-6. Save output as `A_one_pass_[prompt-format]_[model]`.
-
-Prompt should tell Higgsfield:
-
-- The reference controls layout, lighting, composition, and visual polish.
-- The product reference controls product identity/category.
-- Make small surface changes so the output is not a direct clone: background
-  color/texture, wall or backsplash color, props, model hair/clothing, scenery,
-  or supporting objects.
-- Final text does not need to be perfect if text will be rebuilt later.
-- Do not redesign the product label.
-
-Keep constant:
-
-- Same reference image.
-- Same product image.
-- Same format/aspect ratio.
-- Same copy intent.
-
-Score:
-
-- Overall polish.
-- Reference match.
-- Product fidelity.
-- Product integration.
-- Halo/glow risk.
-- Cleanup effort.
-
-Use this if:
-
-- Scene/product lighting needs to feel integrated.
-- Reference polish is the main value.
-- Product identity risk is acceptable or can be cleaned in Canva.
-- The intended Canva handoff is Magic Text for copy-only layers, not Magic
-  Layers over the whole image.
-
-### A2. Two-Pass Workflow
-
-Use when testing whether splitting the base from product/text improves control.
-
-Pass 1 inputs:
-
-- Reference ad.
-- Prompt for scene, layout, lighting, background, or visual base.
-- No final exact text requirement.
-- Product may be absent or only lightly suggested depending on the test.
-
-Pass 1 operator steps:
-
-1. Upload/select the reference ad.
-2. Paste the visual-base prompt.
-3. Generate the base.
-4. Save as `C_two_pass_base_[model]`.
-
-Pass 2 inputs:
-
-- Pass 1 base output.
-- Product image or locked product layer.
-- Prompt for product integration or final refinement.
-
-Pass 2 operator steps:
-
-1. Upload/select the base output.
-2. Upload/select the product image if product integration is being tested.
-3. Paste the product/final refinement prompt.
-4. Generate or move to Canva/local depending on the variant.
-5. Save as `C_two_pass_final_[model]`.
-
-Variants to run:
-
-- `hf_base_then_product`: Higgsfield creates base, then integrates product.
-- `hf_base_then_locked_product`: base is created in Higgsfield, product is
-  composited/protected later.
-- `hf_base_then_canva_text`: base is created in Higgsfield, text is rebuilt in
-  Canva/local.
-
-Score:
-
-- Product fidelity.
-- Product pasted look.
-- Scene lighting consistency.
-- Cleanup difficulty.
-- Final ad quality.
-
-Use this if:
-
-- Product label must be accurate.
-- Higgsfield creates halos/glows.
-- Final text must be exact.
-- Product should be locked as its own layer.
-
-### A3. Three-Step Workflow
-
-Use when testing complex ads with both fragile scene and fragile person/product
-requirements.
-
-Steps:
-
-1. Scene/style/base composition.
-2. Product or human/model integration.
-3. Canva/local text, badges, product protection, and QA cleanup.
-
-Operator steps:
-
-1. Run a base-scene prompt from the format/style reference.
-2. Run a second step using product and/or model/hand reference.
-3. Finish exact text, badges, and crop-safe copy locally or in Canva.
-4. Save each stage.
-
-Recommended variants:
-
-- `three_step_scene_product_text`
-- `three_step_scene_model_text`
-- `three_step_scene_product_magic_grab_text`
-
-Score:
-
-- Does quality improve enough to justify the time?
-- Does each pass add drift?
-- Does the human/model become more AI-ish?
-- Does product fidelity improve or degrade?
-- Is cleanup easier or harder than one-pass?
-
-Use this if:
-
-- Human/model/hand is important.
-- Product and person are both fragile.
-- Scene needs one reference and model/pose needs another.
-
-Risk:
-
-- Every extra pass can introduce drift. If pass 2 makes the image more AI-ish,
-  stop and switch to source-image editing or local/Canva cleanup.
+A4 captures the walkthrough's operator-guided route. It is distinct from the
+CLI's automatic staged chain and from A2's scene-first assembly.
 
 ## Test B: Prompt Format
 
@@ -361,7 +234,8 @@ Operator steps:
 
 Prompt should include:
 
-- Task.
+- Task and actual ordered image roles.
+- Explicit replacement/removal and intended result.
 - What to preserve.
 - What to change.
 - Product constraints.
@@ -445,7 +319,11 @@ Decision rule:
 
 ## Test C: Model / Route Comparison
 
-Purpose: choose the best model/route by creative type.
+Purpose: choose the best model/route by creative type and edit task. Compare
+product replacement separately from branding or copy edits using a fixed
+accepted base for downstream tasks; do not conflate chain and model changes.
+Record the exact UI label/API model identifier and provider available at run
+time. Website support is not proof that the repo's engine supports that model.
 
 Models/routes to compare when available:
 
@@ -460,7 +338,7 @@ Operator steps:
 1. Use the same reference/product inputs.
 2. Use the same pass strategy.
 3. Use the winning or current best prompt format.
-4. Run one output per model/route.
+4. Run three outputs per model/route; keep failures in the comparison.
 5. Save as `C_[model-route]_[variant]`.
 
 Score:
@@ -719,10 +597,13 @@ Decision rule:
 
 ## Required Artifacts
 
-Every test variant should save:
+Every test variant should save the following per repeat/attempt under client
+working data. Manual notes/scorecards must say `provenance: manual`; actual
+tool logs retain their own provenance. Include ordered inputs, selected parent,
+settings, rejection reasons, all outputs, and actual cost or explicitly unknown.
 
 ```text
-outputs/static-tests/<test-id>/<variant-id>/
+clients/<slug>/ad-runs/static-tests/<test-id>/<variant-id>/<attempt-id>/
   output.png
   prompt.txt
   plan.json
@@ -761,7 +642,10 @@ Tag failures:
 - `text_ui_miss`
 - `crop_safety_miss`
 - `cleanup_workflow_miss`
-- `model_limitation`
+- `model_limitation` (after checking inputs, prompt, and settings)
+- `replacement_ignored`
+- `reference_overload`
+- `sharpness_drift`
 
 ## Test Report Template
 
@@ -776,10 +660,19 @@ After running variants, summarize:
 - Creative type:
 - Reference:
 - Goal:
+- Controlled variables and changed variable:
+- Attempt limit, acceptance criteria, and selection rule:
+- Actual model/route, settings, and ordered input roles:
 
 ## Variants
 | Variant | Pass Strategy | Prompt Format | Model | Product Strategy | Score | Notes |
 |---|---|---|---|---|---|---|
+
+## Execution
+- All attempts, failures, and selected-parent links:
+- Acceptance rate:
+- Total requests, spend, operator time, and cleanup:
+- Uncontrolled variables or missing cost data:
 
 ## Winner
 - Winning variant:
@@ -819,6 +712,9 @@ Once manual tests identify winners, implement code support:
 5. Add benchmark YAML manifests.
 6. Add scorecard artifacts.
 7. Encode default routing rules by creative type.
+8. Add persisted stage status, candidate selection, selected-parent lineage,
+   and resume from the accepted stage. These checkpoints are manual today;
+   `adc remix-images --staged` currently runs without visual review pauses.
 
 Do not hard-code one pass or two pass globally. The strategy should be selected
 by creative type, product fidelity risk, text accuracy needs, and human/model

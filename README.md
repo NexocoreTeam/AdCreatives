@@ -25,6 +25,12 @@ LLM system context. Each skill carries an attribution header — see
 > awareness calibration, gap-map filters, no-competitor-naming, etc.). These
 > encode hard-won lessons and should not be relaxed without explicit discussion.
 
+For reference-based creative production, use the
+[Reference Emulation Workflow](docs/reference-emulation-workflow.md):
+prepare assets, make focused edits, select the output for the next stage,
+fit research-backed copy, and QA the finished ad. The guide distinguishes
+operator checkpoints from the CLI's automatic staged generation.
+
 ## Quick Start
 
 ```bash
