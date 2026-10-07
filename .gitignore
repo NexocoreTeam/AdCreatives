@@ -99,3 +99,7 @@ _archives/
 
 # agent-local learning artifacts (OpenClaw continuous-learning)
 .learnings/
+
+# Private versioned creative assets and analytics review queues
+clients/*/creative-recipes/
+clients/*/creative-feedback/
