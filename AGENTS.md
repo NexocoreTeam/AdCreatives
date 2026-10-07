@@ -52,6 +52,11 @@ Connect API access. Canva uses OAuth with PKCE, not a generic API key.
 
 ## Agent write policy (ALL agents, all machines — including orchestrator/main agents)
 
+Before saving production recipes, linking live ads, or making variants from
+performance winners, read `docs/creative-feedback-loop.md`. Preserve exact
+prompts, inputs, settings and version lineage; label recovered history as
+reconstructed and retain its gaps. A winner queue is not production approval.
+
 - Tracked pipeline code and docs change ONLY via an attributable feature/fork
   branch + PR — never as direct edits sitting uncommitted on master. This binds
   every agent on every box, including main/orchestrator agents patching "just a

@@ -98,6 +98,11 @@ Create brand profile (colors, fonts, tone, audience), add products, add customer
 - Brand checker confirms color accuracy
 
 ### 5. Learn & Iterate
+
+Use the [creative recipe and feedback workflow](docs/creative-feedback-loop.md)
+to archive production inputs/settings, map exact versions to live ads through
+the analytics repo, and import winner packets for reviewed variations.
+
 - Log performance data (CTR, CPA, ROAS)
 - Pattern learner identifies what works
 - Next batch of briefs is informed by real performance data

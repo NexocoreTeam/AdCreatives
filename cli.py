@@ -15,6 +15,8 @@ from dotenv import load_dotenv
 from rich.console import Console
 from rich.table import Table
 
+from strategy.creative_commands import creative
+
 # Force UTF-8 on stdout/stderr before Rich initializes, so glyphs like ✓ render
 # safely on Windows consoles that default to cp1252. No-op on POSIX.
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
@@ -6523,6 +6525,9 @@ def edit_cmd(
     is_flag=True,
     help="Print the available registry layout names and exit.",
 )
+@click.option("--product", "recipe_product", default="", help="Product slug for the saved recipe.")
+@click.option("--parent-recipe", default=None, type=click.Path(exists=True, dir_okay=False))
+@click.option("--change", "recipe_changes", multiple=True, help="Variation component=value.")
 def ugc_ad_cmd(
     base_path: str | None,
     layout: str | None,
@@ -6530,6 +6535,9 @@ def ugc_ad_cmd(
     out_path: str | None,
     brand_slug: str | None,
     list_layouts: bool,
+    recipe_product: str,
+    parent_recipe: str | None,
+    recipe_changes: tuple[str, ...],
 ):
     """First-class hybrid UGC pipeline — caption boxes + pills on a clean photo.
 
@@ -6742,6 +6750,21 @@ def ugc_ad_cmd(
         pass
 
 
+    from dataclasses import asdict
+    from generators.recipe_capture import capture_render
+
+    capture_render(
+        client=brand_slug or brief_client_slug,
+        product=recipe_product or (brief.product if brief else ""),
+        base=base, outputs=[output], engine="pil-overlay",
+        settings={"text_layout": [item if isinstance(item, dict) else item.model_dump(mode="json")
+                                  for item in layout_payload],
+                  "style": asdict(style)},
+        brief=brief.model_dump(mode="json") if brief else None,
+        parent=parent_recipe, changes=recipe_changes,
+    )
+
+
 @cli.command(name="native-ad")
 @click.option("--component", type=click.Choice(["question_box", "imessage", "notes", "reminder"]),
               default=None, help="Native screen to render. Required unless --brief has a native_ui block.")
@@ -6775,9 +6798,13 @@ def ugc_ad_cmd(
 @click.option("--placement", type=click.FloatRange(0, 1), default=None,
               help="Vertical position as a fraction of height (component default if unset).")
 @click.option("--client", "client_slug", default="", help="Client slug for the metadata sidecar.")
+@click.option("--product", "recipe_product", default="", help="Product slug for the saved recipe.")
+@click.option("--parent-recipe", default=None, type=click.Path(exists=True, dir_okay=False))
+@click.option("--change", "recipe_changes", multiple=True, help="Variation component=value.")
 def native_ad_cmd(component, brief_path, base_path, out_dir, name, sizes, content_source, question, bold,
                   answer, avatar, messages, timestamp, title, lines, checklist, checked, theme, body,
-                  reminder_title, button, placement, client_slug):
+                  reminder_title, button, placement, client_slug, recipe_product, parent_recipe,
+                  recipe_changes):
     """Native phone/app-screen statics: IG question box, iMessage, Notes, reminder.
 
     Renders the screen with its NATIVE look (never brand fonts/colours) onto a clean base
@@ -6856,6 +6883,7 @@ def native_ad_cmd(component, brief_path, base_path, out_dir, name, sizes, conten
     out = Path(out_dir)
     stem = name or spec.component.replace("_", "-")
     component_obj = component_from_spec(spec)
+    rendered_paths = []
     for size_key in (list(sizes) or spec.sizes):
         target = out / f"{stem}_{size_key}.png"
         try:
@@ -6864,6 +6892,7 @@ def native_ad_cmd(component, brief_path, base_path, out_dir, name, sizes, conten
             console.print(f"[red]Render failed: {type(e).__name__}: {e}[/red]")
             raise SystemExit(1)
         console.print(f"[green]✓ {target}[/green]")
+        rendered_paths.append(target)
         try:
             from generators.ad_metadata import write_ad_metadata
             write_ad_metadata(
@@ -6877,6 +6906,19 @@ def native_ad_cmd(component, brief_path, base_path, out_dir, name, sizes, conten
             )
         except Exception:
             pass
+
+
+    from generators.recipe_capture import capture_render
+
+    capture_render(
+        client=client_slug, product=recipe_product or (brief.product if brief else ""),
+        base=base, outputs=rendered_paths, engine="pil-native-ui",
+        settings={"native_ui": spec.model_dump(mode="json"),
+                  "sizes": list(sizes) or spec.sizes},
+        brief=brief.model_dump(mode="json") if brief else None,
+        extra_assets={"avatar": Path(spec.avatar)} if spec.avatar else None,
+        parent=parent_recipe, changes=recipe_changes,
+    )
 
 
 @cli.command(name="fetch-references")
@@ -7752,6 +7794,8 @@ def library_validate(models: tuple[str, ...], runs: int, as_json: bool):
     console.print("[dim]Failures per model are listed in the results file — read them "
                   "before crowning a winner.[/dim]")
 
+
+cli.add_command(creative)
 
 if __name__ == "__main__":
     cli()
