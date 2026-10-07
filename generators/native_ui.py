@@ -409,6 +409,42 @@ RENDERERS = {
     ReminderPopup: render_reminder_popup,
 }
 
+SIZES = {"4x5": (1080, 1350), "9x16": (1080, 1920), "1x1": (1080, 1080)}
+COMPONENTS = ("question_box", "imessage", "notes", "reminder")
+
+
+def component_from_spec(spec) -> QuestionBox | IMessageThread | NotesCard | ReminderPopup:
+    """Build a component from a `models.brief.NativeUiSpec` (or an equivalent dict)."""
+    get = spec.get if isinstance(spec, dict) else (lambda k, d=None: getattr(spec, k, d))
+    kind, placement = get("component"), get("placement")
+    if kind == "question_box":
+        avatar = get("avatar")
+        c = QuestionBox(question=get("question"), bold=get("bold"), answer=get("answer"),
+                        avatar=Path(avatar) if avatar else None)
+        if placement is not None:
+            c.center_y = placement
+        return c
+    if kind == "imessage":
+        msgs = [Message(m["text"], m.get("sender", "them")) if isinstance(m, dict)
+                else Message(m.text, m.sender) for m in get("messages") or []]
+        c = IMessageThread(messages=msgs, timestamp=get("timestamp", "Today 9:41 AM"))
+        if placement is not None:
+            c.top = placement
+        return c
+    if kind == "notes":
+        c = NotesCard(title=get("title"), lines=list(get("lines") or []), checklist=bool(get("checklist")),
+                      checked=list(get("checked") or []), theme=get("theme") or "light")
+        if placement is not None:
+            c.top = placement
+        return c
+    if kind == "reminder":
+        c = ReminderPopup(body=get("body"), title=get("reminder_title") or "Reminder",
+                          button=get("button") or "OK")
+        if placement is not None:
+            c.center_y = placement
+        return c
+    raise ValueError(f"unknown native_ui component: {kind!r} (expected one of {COMPONENTS})")
+
 
 def render_native(base: Path | Image.Image, component, out_path: Path | None = None,
                   size: tuple[int, int] | None = None) -> Image.Image:

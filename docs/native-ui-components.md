@@ -30,10 +30,39 @@ Apple/Instagram UI conventions.
 | `NotesCard` | lists, real review roundups, checklists | "‹ Notes" in Notes yellow `#E2A226`, bold 44 px title, 33 px rows, optional checklist circles; light or dark theme |
 | `ReminderPopup` | one-line reminders, product-name punchlines | iOS alert `#F2F2F2`, radius 30, semibold title, 28 px body, divider `#C6C6C8`, blue `OK` `#0A84FF` |
 
+### Command
+
+```bash
+adc native-ad --component question_box --question "What phrase would you put on a tee?"     --bold phrase --source "brand-authored question"     --base clients/savedbygrace/lifestyle-background-tests/03-small-town-porch-lifestyle.png     -o ai-ads/savedbygrace/native --client savedbygrace
+adc native-ad --component notes --title "things you've told us" --line "..." --line "..."     --source "reviews: brand-context.md L195-201" --base <clean.png> -o <dir>
+adc native-ad --component imessage --message "them: ..." --message "me: ..."     --source "DM from @x, permission granted 2026-10-07" --base <clean.png> -o <dir>
+adc native-ad --brief clients/<client>/briefs/<brief>.yaml -o <dir>
+```
+
+Default sizes 4x5 + 9x16 (`--size 1x1` too). Each PNG gets a `.meta.yaml` sidecar recording
+the content source.
+
+### Brief block
+
+```yaml
+native_ui:
+  component: notes            # question_box | imessage | notes | reminder
+  content_source: "reviews: clients/savedbygrace/brand-context.md L195-201"
+  base_image: clients/savedbygrace/lifestyle-background-tests/01-soft-home-everyday-faith.png
+  sizes: [4x5, 9x16]
+  title: "things you've told us"
+  lines: ["“SOOO many compliments!!!” - Danielle P."]
+```
+
+Validation: each component's required fields; `content_source` always; iMessage specs must
+state permission or they're rejected.
+
+### Python
+
 ```python
-from generators.native_ui import QuestionBox, NotesCard, render_native
+from generators.native_ui import QuestionBox, render_native
 render_native("base.png", QuestionBox("What phrase would you put on a tee?", bold="phrase"),
-              "out_4x5.png", size=(1080, 1350))   # also (1080, 1920) for stories
+              "out_4x5.png", size=(1080, 1350))
 ```
 
 Placement is a fraction of image height (`center_y` / `top`). Put the component over calm
@@ -60,10 +89,41 @@ clean lifestyle bases (`clients/savedbygrace/lifestyle-background-tests/`, untra
 Open items for SBG: its profile picture for the question-box avatar (`avatar=`); real customer
 questions/DMs (none on file; the question lines in `voc/` come from competitors' TikTok comments).
 
-## Next steps (not built yet)
+## Canva route (optional)
 
-- CLI command (e.g. `adc native-ad --component notes --base ... --size 4x5`) and brief support
-  (a `native_ui` block on `CreativeBrief`), so strategists can request these without Python.
-- More components measured in organic-content: DM/comment replies, Q&A answer card, Copy/Select
-  menu, lock screen.
-- Fold rules 1–3 into the native static QA checklist.
+Default for ads is the code route above: any size, $0, deterministic. Use Canva only when an
+exact organic-template screen is wanted. Mitchell's Canva has copies of the Ella Content Club
+library in the folder **"Ella Templates"** (`FAHXWdJE5hg`). Native-screen source pages:
+
+| Screen | Copy (design ID) · page |
+|---|---|
+| IG question box | iOS `DAHXWe9cEqM` p33 · Content Creator `DAHXWKD2A58` p17 · Fitness `DAHXWc0SgZ8` p41 · Real Estate `DAHXWRfyiNU` p8 (Q&A) |
+| iMessage / chat | Content Creator `DAHXWKD2A58` p24 · Social Media Coach `DAHXWbpUTg0` p39 · Hairstylist `DAHXWd5DkOI` p13 |
+| DM / comment replies | Content Creator `DAHXWKD2A58` p18, p51 |
+| Notes | Finance `DAHXWVCSelI` p51 (checklist) · iOS `DAHXWe9cEqM` p3, p5 · Wellness `DAHXWZVr4OA` p50 |
+| Reminder | Fitness `DAHXWc0SgZ8` p21 · Skincare Quotes `DAHXWT3E2ww` p12 |
+
+Workflow with the Canva connector: `copy-design` with `page_numbers: [N]` (the big
+multi-page files can't be edited directly) → `read-design` with `open_transaction` →
+`edit-design` (`find_and_replace_text` keeps each word's formatting; `update_fill` swaps a
+photo) → compare before/after thumbnails → owner approval → commit → `export-design` PNG.
+The connector can't change font families (fine, since native screens keep theirs).
+
+Licence (Ella CS LLC): use for clients as part of a paid service is allowed; never resell or
+redistribute the templates or share the library links with clients. Full catalogue and specs
+live in the organic-content repo (`ops/resources/ella-content-club.md`,
+`ops/resources/NATIVE-UI-TEMPLATES.md`).
+
+## Routing (how agents pick this up)
+
+`AGENTS.md` (native ad design rules + reading list), `docs/pipeline-rules.md` §12,
+`docs/creative-production-system.md` (Graphic / Screenshot Style, Current Tool Roles) and
+`docs/phase-2-static-briefing-workflow.md` Gate 8 all point here. A request like "make an
+SBG question-box ad", or a brief with a `native_ui` block, routes to `adc native-ad`.
+
+## Next steps
+
+- More components already measured in organic-content: DM/comment replies, Q&A answer card,
+  Copy/Select menu, lock screen.
+- SBG: profile picture for the question-box avatar (`--avatar`); real customer questions/DMs.
+- Install Inter (OFL) on render machines for closer Apple-UI type.

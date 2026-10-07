@@ -29,9 +29,9 @@ JOBS = [
      QuestionBox(question="What phrase would you put on a tee?", bold="phrase", center_y=0.30)),
     ("02-notes-real-reviews", "01-soft-home-everyday-faith.png",
      NotesCard(title="things you\u2019ve told us \U0001F90D", top=0.14, lines=[
-         "\u201cSOOO many compliments!!!\u201d \u2014 Danielle P.",
-         "\u201camazing quality like always\u201d \u2014 Cathy B.",
-         "\u201cmy love for Jesus and dogs, both\u201d \u2014 Heidi H.",
+         "\u201cSOOO many compliments!!!\u201d - Danielle P.",
+         "\u201camazing quality like always\u201d - Cathy B.",
+         "\u201cmy love for Jesus and dogs, both\u201d - Heidi H.",
      ])),
     ("03-reminder-product-name", "04-mom-life-casual.png",
      ReminderPopup(body="Mind Your Own Motherhood.", center_y=0.26)),

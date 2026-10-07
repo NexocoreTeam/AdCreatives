@@ -91,3 +91,62 @@ def test_wrap_balanced_avoids_orphan_word():
 
 def test_emoji_runs_split():
     assert _runs("things you told us \U0001F90D") == [("things you told us ", False), ("\U0001F90D", True)]
+
+
+# ─── Brief spec + CLI ───────────────────────────────────────────────────────
+
+import pytest  # noqa: E402
+from click.testing import CliRunner  # noqa: E402
+from pydantic import ValidationError  # noqa: E402
+
+from generators.native_ui import component_from_spec  # noqa: E402
+from models.brief import NativeUiSpec  # noqa: E402
+
+
+def test_spec_requires_component_fields():
+    with pytest.raises(ValidationError):
+        NativeUiSpec(component="notes", title="only a title", content_source="reviews")
+
+
+def test_spec_blocks_imessage_without_permission():
+    with pytest.raises(ValidationError):
+        NativeUiSpec(component="imessage", messages=[{"text": "hi"}], content_source="made up")
+    ok = NativeUiSpec(component="imessage", messages=[{"text": "hi"}],
+                      content_source="DM from @x, permission granted 2026-10-07")
+    assert ok.messages[0].sender == "them"
+
+
+def test_spec_requires_content_source():
+    with pytest.raises(ValidationError):
+        NativeUiSpec(component="reminder", body="hi", content_source="")
+
+
+def test_component_from_spec_maps_placement():
+    c = component_from_spec(NativeUiSpec(component="question_box", question="Q?", placement=0.2,
+                                         content_source="brand-authored question"))
+    assert isinstance(c, QuestionBox) and c.center_y == 0.2
+
+
+def test_cli_native_ad_renders_requested_sizes(tmp_path):
+    from cli import cli
+
+    base = tmp_path / "base.png"
+    _base((928, 1152)).save(base)
+    res = CliRunner().invoke(cli, [
+        "native-ad", "--component", "reminder", "--body", "Mind Your Own Motherhood.",
+        "--source", "real product name", "--base", str(base), "-o", str(tmp_path / "out"),
+        "--size", "4x5", "--size", "1x1",
+    ])
+    assert res.exit_code == 0, res.output
+    assert Image.open(tmp_path / "out" / "reminder_4x5.png").size == (1080, 1350)
+    assert Image.open(tmp_path / "out" / "reminder_1x1.png").size == (1080, 1080)
+
+
+def test_cli_native_ad_rejects_missing_source(tmp_path):
+    from cli import cli
+
+    base = tmp_path / "base.png"
+    _base().save(base)
+    res = CliRunner().invoke(cli, ["native-ad", "--component", "reminder", "--body", "x",
+                                   "--base", str(base), "-o", str(tmp_path / "out")])
+    assert res.exit_code != 0

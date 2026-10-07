@@ -24,6 +24,11 @@ reference recreation, Higgsfield generation, local text overlays, or Canva
 handoff work. It captures current tool roles, native text presets, product
 handling, reference packets, crop-safety, and pre-send QA rules.
 
+Read `docs/native-ui-components.md` before any ad that imitates a phone or app
+screen: Instagram question box / Q&A, iMessage or DM thread, Notes card, or
+reminder pop-up. Build those with `adc native-ad` (code-rendered, native look),
+never with image-model text or brand-styled overlays, and only with real content.
+
 Read `docs/static-ad-production-test-plan.md` before running controlled static
 production tests such as one-pass vs two-pass Higgsfield, JSON vs natural
 language prompts, model bake-offs, Pinterest/Soul model sourcing, product
@@ -179,8 +184,14 @@ These are hard rules. If you're editing templates, brief outputs, or prompt copy
 
 - No em-dashes in ad copy.
 - Sourcing rule applies (cite review sources when claims appear in copy).
-- No UI chrome in image ads (no fake browser bars, fake DM overlays unless the
-  template is explicitly that format).
+- No invented UI chrome (fake browser bars, made-up app overlays). **Native
+  phone/app-screen formats are allowed** when the chosen format calls for them
+  (IG question box, iMessage/DM thread, Notes card, reminder pop-up): build them
+  with `adc native-ad`, keep the native look (no brand fonts/colours/pills on the
+  UI), and use real content only: real conversations shared with permission,
+  real attributed reviews, questions actually received, or the brand's own
+  question. Never write a fake testimonial into a realistic bubble.
+  See `docs/native-ui-components.md`. (Rule updated 2026-10-07, approved by Mitchell.)
 - Pill sizing matches the visual format spec.
 - Wild brand aesthetic where applicable.
 
@@ -236,6 +247,13 @@ clients/<slug>/research/competitor-reviews/*.json  # `notes` explains vendor det
 ```
 Source-mismatch rules (Amazon / Trustpilot / YouTube expectations) live in
 `docs/pipeline-rules.md` rule 6.
+
+Native phone/app-screen statics (question box, iMessage, Notes, reminder):
+```
+adc native-ad --component question_box --question "..." --bold <word> \n    --source "brand-authored question" --base <clean.png> -o ai-ads/<client>/native
+adc native-ad --brief clients/<client>/briefs/<brief>.yaml -o ai-ads/<client>/native
+#   brief carries a native_ui block; renders 4x5 + 9x16 by default
+```
 
 Phase 2 (image gen):
 ```
