@@ -505,3 +505,23 @@ Mistake Filter risks.
 If the selected angle needs more text than the visual can carry, choose a
 different angle or a different candidate ad. Do not cram dense mechanism copy
 into a lifestyle/UGC visual or force a long note into a one-headline layout.
+
+## 12. Native phone/app-screen ads are code-rendered, native-styled and real
+
+**Rule:** Ads that imitate a phone or app screen (Instagram question box / Q&A,
+iMessage or DM thread, Notes card, reminder pop-up) are built with
+`adc native-ad` / `generators/native_ui.py`, never with image-model text and
+never restyled with brand fonts, colours or pills. Only the words change, and
+the words must be real: a conversation shared with permission, attributed
+reviews, a question actually received, or the brand's own question.
+`content_source` is required on every `native_ui` spec; iMessage specs must
+state the permission.
+
+**Why:** These formats work because they read as organic. Image models garble
+UI text and brand overlays make them look like ads. A fabricated conversation
+or testimonial in a realistic bubble is deceptive and a Meta policy risk.
+
+**How to apply:** Choose the format at Phase 2 Gate 8, add a `native_ui` block
+to the brief (or pass the copy flags), render 4:5 + 9:16, and keep the
+`.meta.yaml` sidecar so the content source travels with the asset.
+Details and specs: `docs/native-ui-components.md`. (Added 2026-10-07.)

@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class TextOverlay(BaseModel):
@@ -41,6 +41,73 @@ class TextOverlay(BaseModel):
         description="Optional emoji glyph to render to the right of the text "
         "(e.g. '💀', '✅').",
     )
+
+
+class NativeUiMessage(BaseModel):
+    """One bubble in a native iMessage thread."""
+
+    text: str
+    sender: Literal["them", "me"] = "them"
+
+
+class NativeUiSpec(BaseModel):
+    """A native phone/app-screen component for `adc native-ad` (generators/native_ui.py).
+
+    The screen keeps its native look (no brand fonts/colours); only the words change.
+    `content_source` is required so every native ad records where its words came from:
+    real attributed reviews, a real question, the brand's own question, or a real
+    conversation shared with permission. Fabricated conversations are not allowed.
+    """
+
+    component: Literal["question_box", "imessage", "notes", "reminder"]
+    content_source: str = Field(
+        min_length=3,
+        description="Provenance of the words, e.g. 'brand-authored question', "
+        "'reviews: brand-context.md L195-201', 'DM from @x, permission granted 2026-10-07'.",
+    )
+    base_image: str | None = Field(default=None, description="Clean base photo (no text).")
+    sizes: list[Literal["4x5", "9x16", "1x1"]] = Field(default_factory=lambda: ["4x5", "9x16"])
+    placement: float | None = Field(
+        default=None, ge=0.0, le=1.0,
+        description="Vertical position as a fraction of height (card centre for "
+        "question_box/reminder, top edge for imessage/notes). Component default if unset.",
+    )
+    # question_box
+    question: str | None = None
+    bold: str | None = Field(default=None, description="One word of the question to set in bold.")
+    answer: str | None = Field(default=None, description="A real shared response; omit to show the empty field.")
+    avatar: str | None = Field(default=None, description="Brand profile picture for the sticker avatar.")
+    # imessage
+    messages: list[NativeUiMessage] | None = None
+    timestamp: str | None = "Today 9:41 AM"
+    # notes
+    title: str | None = None
+    lines: list[str] | None = None
+    checklist: bool = False
+    checked: list[int] = Field(default_factory=list)
+    theme: Literal["light", "dark"] = "light"
+    # reminder
+    body: str | None = None
+    reminder_title: str = "Reminder"
+    button: str = "OK"
+
+    @model_validator(mode="after")
+    def _check_component_fields(self) -> "NativeUiSpec":
+        required = {
+            "question_box": ("question",),
+            "imessage": ("messages",),
+            "notes": ("title", "lines"),
+            "reminder": ("body",),
+        }[self.component]
+        missing = [f for f in required if not getattr(self, f)]
+        if missing:
+            raise ValueError(f"native_ui component '{self.component}' needs: {', '.join(missing)}")
+        if self.component == "imessage" and "permission" not in self.content_source.lower():
+            raise ValueError(
+                "imessage threads must be a real conversation: content_source has to "
+                "state that permission was given (e.g. 'DM from @x, permission granted 2026-10-07')."
+            )
+        return self
 
 
 class AwarenessLevel(str, Enum):
@@ -227,6 +294,12 @@ class CreativeBrief(BaseModel):
         "--brief <path>` uses this instead of a layout-registry key. Each "
         "entry positions a caption box or pill at a fractional y position "
         "with a font size relative to frame height.",
+    )
+    native_ui: NativeUiSpec | None = Field(
+        default=None,
+        description="Optional native phone/app-screen component (Instagram question box, "
+        "iMessage thread, Notes card, reminder pop-up) for `adc native-ad --brief <path>`. "
+        "Rendered by generators/native_ui.py; see docs/native-ui-components.md.",
     )
     source_matrix_row: str | None = Field(
         default=None,

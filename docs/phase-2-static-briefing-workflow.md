@@ -198,6 +198,13 @@ Stop and ask for the visual format/template:
 - IG Story square box
 - organic caption
 - founder note
+- native IG question box (brand's own question, or a real answer)
+- native iMessage / DM thread (real conversation shared with permission only)
+- native Notes card (real attributed reviews, lists, checklists)
+- native reminder pop-up (one short line, e.g. a real product name)
+
+Native formats are built with `adc native-ad` from a brief `native_ui` block,
+not generated. See `docs/native-ui-components.md`.
 
 If the operator has not chosen or approved a format, do not produce final
 format-specific copy.

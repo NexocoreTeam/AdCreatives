@@ -6742,6 +6742,143 @@ def ugc_ad_cmd(
         pass
 
 
+@cli.command(name="native-ad")
+@click.option("--component", type=click.Choice(["question_box", "imessage", "notes", "reminder"]),
+              default=None, help="Native screen to render. Required unless --brief has a native_ui block.")
+@click.option("--brief", "brief_path", default=None, type=click.Path(dir_okay=False, exists=True),
+              help="Brief YAML with a native_ui block (overrides the copy flags).")
+@click.option("--base", "base_path", default=None, type=click.Path(dir_okay=False),
+              help="Clean base photo (no text). Falls back to native_ui.base_image in the brief.")
+@click.option("--output", "-o", "out_dir", default=None, type=click.Path(file_okay=False),
+              help="Output folder. Files are written as <name>_<size>.png.")
+@click.option("--name", default=None, help="Filename stem (default: the component name).")
+@click.option("--size", "sizes", multiple=True, type=click.Choice(["4x5", "9x16", "1x1"]),
+              help="Output size(s). Default 4x5 + 9x16.")
+@click.option("--source", "content_source", default=None,
+              help="Where the words come from (required): e.g. 'brand-authored question', "
+                   "'reviews: brand-context.md L195-201', 'DM from @x, permission granted <date>'.")
+@click.option("--question", default=None, help="question_box: the question.")
+@click.option("--bold", default=None, help="question_box: one word of the question to bold.")
+@click.option("--answer", default=None, help="question_box: a real shared response (omit for the empty field).")
+@click.option("--avatar", default=None, type=click.Path(dir_okay=False), help="question_box: brand profile picture.")
+@click.option("--message", "messages", multiple=True,
+              help="imessage: 'them: text' or 'me: text'. Repeat in order.")
+@click.option("--timestamp", default="Today 9:41 AM", help="imessage: timestamp line ('' to hide).")
+@click.option("--title", default=None, help="notes: title line.")
+@click.option("--line", "lines", multiple=True, help="notes: one row. Repeat in order.")
+@click.option("--checklist", is_flag=True, default=False, help="notes: render rows as a checklist.")
+@click.option("--checked", multiple=True, type=int, help="notes: index of a checked row (0-based). Repeatable.")
+@click.option("--theme", type=click.Choice(["light", "dark"]), default="light", help="notes: theme.")
+@click.option("--body", default=None, help="reminder: body text.")
+@click.option("--reminder-title", default="Reminder", help="reminder: title.")
+@click.option("--button", default="OK", help="reminder: button label.")
+@click.option("--placement", type=click.FloatRange(0, 1), default=None,
+              help="Vertical position as a fraction of height (component default if unset).")
+@click.option("--client", "client_slug", default="", help="Client slug for the metadata sidecar.")
+def native_ad_cmd(component, brief_path, base_path, out_dir, name, sizes, content_source, question, bold,
+                  answer, avatar, messages, timestamp, title, lines, checklist, checked, theme, body,
+                  reminder_title, button, placement, client_slug):
+    """Native phone/app-screen statics: IG question box, iMessage, Notes, reminder.
+
+    Renders the screen with its NATIVE look (never brand fonts/colours) onto a clean base
+    photo, pixel-exact, at 4:5 / 9:16 / 1:1. Words only change; content must be real
+    (see docs/native-ui-components.md). Fabricated conversations are rejected.
+
+    \b
+    Examples:
+      adc native-ad --component question_box --question "What phrase would you put on a tee?" \\
+          --bold phrase --source "brand-authored question" \\
+          --base clients/savedbygrace/lifestyle-background-tests/03-small-town-porch-lifestyle.png \\
+          -o ai-ads/savedbygrace/native --client savedbygrace
+      adc native-ad --brief clients/savedbygrace/briefs/native-notes.yaml -o ai-ads/savedbygrace/native
+    """
+    from pydantic import ValidationError
+
+    from generators.native_ui import SIZES, component_from_spec, render_native
+    from models.brief import NativeUiSpec
+
+    brief = None
+    if brief_path:
+        import yaml as _yaml
+        from models.brief import CreativeBrief
+
+        with open(brief_path, encoding="utf-8") as f:
+            data = _yaml.safe_load(f) or {}
+        try:
+            brief = CreativeBrief(**data)
+        except Exception as e:
+            console.print(f"[red]Failed to parse brief at {brief_path}: {e}[/red]")
+            raise SystemExit(1)
+        if not brief.native_ui:
+            console.print("[red]Brief has no native_ui block.[/red]")
+            raise SystemExit(1)
+        spec = brief.native_ui
+        client_slug = client_slug or (brief.client or "")
+    else:
+        if not component:
+            console.print("[red]--component is required (or pass --brief with a native_ui block).[/red]")
+            raise SystemExit(1)
+        parsed_msgs = []
+        for m in messages:
+            who, _, text = m.partition(":")
+            if who.strip().lower() not in ("them", "me") or not text.strip():
+                console.print(f"[red]--message must look like 'them: text' or 'me: text' (got {m!r}).[/red]")
+                raise SystemExit(1)
+            parsed_msgs.append({"sender": who.strip().lower(), "text": text.strip()})
+        try:
+            spec = NativeUiSpec(
+                component=component, content_source=content_source or "", base_image=base_path,
+                sizes=list(sizes) or ["4x5", "9x16"], placement=placement,
+                question=question, bold=bold, answer=answer, avatar=avatar,
+                messages=parsed_msgs or None, timestamp=timestamp or None,
+                title=title, lines=list(lines) or None, checklist=checklist, checked=list(checked),
+                theme=theme, body=body, reminder_title=reminder_title, button=button,
+            )
+        except ValidationError as e:
+            console.print(f"[red]Invalid native-ad input:[/red] {e.errors()[0]['msg']}")
+            raise SystemExit(1)
+
+    base_str = base_path or spec.base_image
+    if not base_str or not Path(base_str).exists():
+        console.print(f"[red]Base image not found: {base_str!r} (pass --base or set native_ui.base_image).[/red]")
+        raise SystemExit(1)
+    base = Path(base_str)
+    if not out_dir:
+        console.print("[red]--output is required.[/red]")
+        raise SystemExit(1)
+
+    copy_text = " ".join(filter(None, [spec.question, spec.answer, spec.title, spec.body,
+                                       *(spec.lines or []), *[m.text for m in spec.messages or []]]))
+    if "—" in copy_text:
+        console.print("[yellow]⚠ Em-dash in ad copy (house rule: no em-dashes). Use a hyphen or "
+                      "rephrase before shipping.[/yellow]")
+
+    out = Path(out_dir)
+    stem = name or spec.component.replace("_", "-")
+    component_obj = component_from_spec(spec)
+    for size_key in (list(sizes) or spec.sizes):
+        target = out / f"{stem}_{size_key}.png"
+        try:
+            render_native(base, component_obj, target, size=SIZES[size_key])
+        except Exception as e:
+            console.print(f"[red]Render failed: {type(e).__name__}: {e}[/red]")
+            raise SystemExit(1)
+        console.print(f"[green]✓ {target}[/green]")
+        try:
+            from generators.ad_metadata import write_ad_metadata
+            write_ad_metadata(
+                target,
+                engine="pil-native-ui",
+                prompt_or_layout=f"native-ui:{spec.component}",
+                references_used=[str(base)],
+                ship_status="alt",
+                brief_id=(brief.brief_id if brief else ""),
+                notes=f"client={client_slug}; content_source: {spec.content_source}",
+            )
+        except Exception:
+            pass
+
+
 @cli.command(name="fetch-references")
 @click.option("--client", "client_slug", required=True, help="Client slug")
 @click.option(
