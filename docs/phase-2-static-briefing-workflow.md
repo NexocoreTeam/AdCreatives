@@ -203,8 +203,20 @@ Stop and ask for the visual format/template:
 - native Notes card (real attributed reviews, lists, checklists)
 - native reminder pop-up (one short line, e.g. a real product name)
 
-Native formats are built with `adc native-ad` from a brief `native_ui` block,
-not generated. See `docs/native-ui-components.md`.
+Use `docs/native-organic-workflow.md` to route the selected treatment. Supported
+app components use `adc native-ad` with `native_ui`; caption boxes/pills use
+the existing UGC route, and exact caption presets use local/Canva treatments.
+Instagram DM/comment replies are not implemented in `adc native-ad`.
+
+Record the choice in the workbook's Native / Organic Production Handoff:
+reference, renderer, brief/copy, content source and permission evidence, clean
+base, sizes/crop plan, variant output, and editable handoff. If the operator
+already selected a format, record it without asking again. Existing workbooks
+can receive this section manually; do not overwrite their research/approvals.
+
+For these formats, the emulation instructions below apply to the clean photo
+only. Render captions/app elements afterward instead of generating UI text
+and extracting it with Magic Text. Keep the existing strategy/approval gates.
 
 If the operator has not chosen or approved a format, do not produce final
 format-specific copy.
@@ -315,6 +327,10 @@ Before production, the concept must pass:
 - benefit depth beyond level one when supported
 - research before cleverness
 - authenticity match
+
+For organic captions/app elements, also run Native / Organic QA in
+`docs/native-organic-workflow.md`: reference fidelity, source/permission,
+per-size crop checks, and retained brief/metadata.
 
 If it fails, fix the concept before spending money or generating images.
 

@@ -310,6 +310,13 @@ mechanism, proof, or comparison led.
 
 ## Production Routes
 
+For organic captions, pills, question stickers, or app elements, select the
+route using `docs/native-organic-workflow.md` first. It connects Gate 8 and the
+workbook handoff to the caption presets, `adc ugc-ad`, `adc native-ad`, and
+optional Canva templates. For these formats, emulation below makes the clean
+photo only; final captions/UI are rendered afterward. Preserve native UI
+styling even when the general remix route calls for brand colours or fonts.
+
 ### Simple Natural-Language Emulation
 
 Use this as the default route when the task is to copy, emulate, or lightly

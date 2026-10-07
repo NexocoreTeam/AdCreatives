@@ -525,3 +525,11 @@ or testimonial in a realistic bubble is deceptive and a Meta policy risk.
 to the brief (or pass the copy flags), render 4:5 + 9:16, and keep the
 `.meta.yaml` sidecar so the content source travels with the asset.
 Details and specs: `docs/native-ui-components.md`. (Added 2026-10-07.)
+
+For everyday routing alongside organic captions/pills, use
+`docs/native-organic-workflow.md` and the Phase 2 workbook's Native / Organic
+Production Handoff. The four implemented app components are question_box,
+imessage, notes, and reminder; Instagram DM/comment replies need a template
+route until implemented. For native treatments, rules 8 and 11's emulation
+route produces the clean photo only, followed by local/template text and UI.
+This routing preserves the existing source, approval, and crop-safety rules.

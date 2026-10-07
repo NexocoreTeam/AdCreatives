@@ -287,6 +287,14 @@ Examples:
 - IG Story square box
 - organic caption
 - founder note
+- native IG question box
+- native iMessage thread (real conversation shared with permission)
+- native Notes card
+- native reminder pop-up
+
+If the operator already selected a format/reference, record it rather than
+asking again. For organic-looking posts, use docs/native-organic-workflow.md
+to distinguish caption treatments from app UI and unavailable components.
 
 Selected format/template:
 
@@ -294,6 +302,30 @@ Selected format/template:
 - Why this format fits the angle:
 - What the template controls:
 - What research controls:
+
+### Native / Organic Production Handoff
+
+Complete for organic captions or app elements after the format is selected.
+Use `adc ugc-ad` with `text_layout` for supported caption boxes/pills;
+use `adc native-ad` with `native_ui` for question_box, imessage, notes, reminder.
+Exact platform caption presets or unbuilt app elements need the documented
+local/Canva route. Do not apply brand caption styling to app UI.
+
+| Field | Decision / evidence |
+|---|---|
+| Caption treatment or native_ui component |  |
+| Platform reference / template page |  |
+| Renderer / command |  |
+| Brief path and approved copy fields |  |
+| Content source / permission evidence |  |
+| Clean base photo / product reference |  |
+| Sizes / placement / center-square crop plan |  |
+| Unique variant output folder / filename |  |
+| Source brief / metadata / editable handoff |  |
+
+Reuse the approved clean photo for copy variants. New paid base generation
+still needs cost approval. Keep manual brief provenance explicit. A native_ui
+brief must be sent to `adc native-ad` explicitly, not through `adc generate`.
 
 ### Optional Branch: Foreplay Library Emulation And Ad Cards
 
@@ -309,6 +341,9 @@ Angle Fit -> Copy Set -> Approval -> Finalize
 
 Rules:
 
+- For native captions/app UI, emulate only the clean photo and finish the
+  element locally or in an approved template. Use the handoff above instead
+  of baking UI/text into the first pass for Magic Text extraction.
 - Run the first pass as simple natural-language emulation: reference ad +
   product image, small surface changes, no heavy final-copy decisions yet.
 - Upload the first-pass output to Canva and use Magic Text so only visible ad
@@ -388,6 +423,14 @@ Before production, confirm:
 - The hook uses benefit depth beyond level one when research supports it.
 - The line is grounded in research, not cleverness.
 - The visual authenticity matches the claim.
+
+Native / organic QA (when applicable):
+
+- Native font, colours, shapes, spacing, emoji, and wrapping match the reference.
+- Copy source and conversation permission evidence are verified.
+- Product/face and hook remain visible in every size and intended crop.
+- No em-dashes; no invented testimonials or client conversations.
+- Source brief and render metadata are retained; flattened vs editable is clear.
 
 Failure notes:
 

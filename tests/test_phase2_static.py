@@ -34,6 +34,16 @@ def test_create_static_phase2_workbook_writes_required_gates(tmp_path):
     assert "Verbatim-First Quote Bank" in text
     assert "Raw quote / exact phrase" in text
     assert "Ad-ready wording" in text
+    assert "native IG question box" in text
+    assert "native iMessage thread" in text
+    assert "native Notes card" in text
+    assert "native reminder pop-up" in text
+    assert "Native / Organic Production Handoff" in text
+    assert "adc native-ad" in text
+    assert "adc ugc-ad" in text
+    assert "Content source / permission evidence" in text
+    assert "Native / organic QA" in text
+    assert "docs/native-organic-workflow.md" in text
 
 
 def test_create_static_phase2_workbook_refuses_overwrite_without_force(tmp_path):
