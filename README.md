@@ -88,6 +88,16 @@ Create brand profile (colors, fonts, tone, audience), add products, add customer
 - **Brief Generation**: AI creates messaging angles with hooks, callouts, and visual direction
 
 ### 3. Generate (visual execution)
+
+For ads that should look like organic posts, follow the
+[native / organic workflow](docs/native-organic-workflow.md). Choose the caption
+or app element at Phase 2 Gate 8, reuse a clean photo, and render the text
+locally: `adc ugc-ad` for caption boxes/pills or `adc native-ad` for question
+stickers, iMessage, Notes, and reminders. The guide covers exact caption
+presets, source/permission records, crop QA, and the optional Canva route.
+
+For other image-generation styles:
+
 - Pick a style template (product-hero, benefit-callout, lifestyle-ugc, split-comparison, social-proof)
 - Composer merges brief + brand + style into a fal.ai prompt
 - Platform adapter adjusts for Meta (polished) vs TikTok (authentic)

@@ -23,6 +23,11 @@ Apple/Instagram UI conventions.
 
 ## Components
 
+For the full briefing-to-production route, including organic captions and
+existing UGC overlays, use [native-organic-workflow.md](native-organic-workflow.md).
+Only the four components below are implemented; DM/comment replies and the
+separate Q&A answer card require the optional template route for now.
+
 | Component | Use it for | Key specs (at 1080 px wide; scaled to the base) |
 |---|---|---|
 | `QuestionBox` | "Ask me" engagement, FAQ-style hooks | white card 524 px, radius 34, avatar disc 80 px on the top edge, question 30 px (one bold word optional), grey field `#F0F0F0` radius 16, "Type something..." at ~47% opacity |

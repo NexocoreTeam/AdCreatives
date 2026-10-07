@@ -29,6 +29,11 @@ screen: Instagram question box / Q&A, iMessage or DM thread, Notes card, or
 reminder pop-up. Build those with `adc native-ad` (code-rendered, native look),
 never with image-model text or brand-styled overlays, and only with real content.
 
+For organic-looking ads, captions, pills, stickers, or app elements, use
+`docs/native-organic-workflow.md` to select the production route and fill the
+Phase 2 workbook handoff. Caption presets and native app UI are different
+routes; use an already-selected format without asking the operator again.
+
 Read `docs/static-ad-production-test-plan.md` before running controlled static
 production tests such as one-pass vs two-pass Higgsfield, JSON vs natural
 language prompts, model bake-offs, Pinterest/Soul model sourcing, product
