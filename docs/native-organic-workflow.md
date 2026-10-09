@@ -8,6 +8,12 @@ not the research standard.
 
 ## Choose The Treatment At Gate 8
 
+For the iOS/Ella Canva board or a request for its exact Apple-organic look,
+use [canva-native-ads.md](canva-native-ads.md) and the `canva-native-ads` skill.
+That supplied reference takes precedence over the local component rows below.
+The skill prepares editable drafts, obtains Canva's required preview approval,
+and records actual production steps and exports for future variations.
+
 If the operator already names a format or supplies a reference to reproduce,
 record that choice; do not ask them to choose it again. If they only say
 "make it organic," recommend the closest supported treatments for the angle
