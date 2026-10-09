@@ -26,8 +26,10 @@ handling, reference packets, crop-safety, and pre-send QA rules.
 
 Read `docs/native-ui-components.md` before any ad that imitates a phone or app
 screen: Instagram question box / Q&A, iMessage or DM thread, Notes card, or
-reminder pop-up. Build those with `adc native-ad` (code-rendered, native look),
-never with image-model text or brand-styled overlays, and only with real content.
+reminder pop-up. For the supplied iOS/Ella Canva collection or its exact look,
+use the editable template workflow in `docs/canva-native-ads.md` and the
+`canva-native-ads` Codex skill. Otherwise use `adc native-ad` for its supported
+components. Never use image-model text or brand-styled UI; use real content only.
 
 For organic-looking ads, captions, pills, stickers, or app elements, use
 `docs/native-organic-workflow.md` to select the production route and fill the

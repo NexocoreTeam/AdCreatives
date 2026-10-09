@@ -94,10 +94,11 @@ clean lifestyle bases (`clients/savedbygrace/lifestyle-background-tests/`, untra
 Open items for SBG: its profile picture for the question-box avatar (`avatar=`); real customer
 questions/DMs (none on file; the question lines in `voc/` come from competitors' TikTok comments).
 
-## Canva route (optional)
+## Canva route (preferred for the supplied iOS/Ella reference)
 
-Default for ads is the code route above: any size, $0, deterministic. Use Canva only when an
-exact organic-template screen is wanted. Mitchell's Canva has copies of the Ella Content Club
+For the iOS/Ella board and its exact look, use the reusable Codex workflow in
+[canva-native-ads.md](canva-native-ads.md). The code route remains available for
+supported local/batch renders. Mitchell's Canva has copies of the Ella Content Club
 library in the folder **"Ella Templates"** (`FAHXWdJE5hg`). Native-screen source pages:
 
 | Screen | Copy (design ID) · page |
@@ -108,11 +109,13 @@ library in the folder **"Ella Templates"** (`FAHXWdJE5hg`). Native-screen source
 | Notes | Finance `DAHXWVCSelI` p51 (checklist) · iOS `DAHXWe9cEqM` p3, p5 · Wellness `DAHXWZVr4OA` p50 |
 | Reminder | Fitness `DAHXWc0SgZ8` p21 · Skincare Quotes `DAHXWT3E2ww` p12 |
 
-Workflow with the Canva connector: `copy-design` with `page_numbers: [N]` (the big
-multi-page files can't be edited directly) → `read-design` with `open_transaction` →
-`edit-design` (`find_and_replace_text` keeps each word's formatting; `update_fill` swaps a
-photo) → compare before/after thumbnails → owner approval → commit → `export-design` PNG.
-The connector can't change font families (fine, since native screens keep theirs).
+Workflow with the Canva connector: `copy_design` with `page_numbers: [N]` →
+`start_editing_transaction` on the working copy → `perform_editing_operations`
+(`find_and_replace_text` preserves existing formatting; `update_fill` swaps a
+photo) → compare before/after previews → user approval → `commit_editing_transaction`.
+Discover export capability separately; the current connector has no export tool.
+Use an authenticated Canva browser for Download, or report export pending.
+Keep the source's fonts and styling; record the actual operations and exports.
 
 Licence (Ella CS LLC): use for clients as part of a paid service is allowed; never resell or
 redistribute the templates or share the library links with clients. Full catalogue and specs
@@ -124,7 +127,8 @@ live in the organic-content repo (`ops/resources/ella-content-club.md`,
 `AGENTS.md` (native ad design rules + reading list), `docs/pipeline-rules.md` §12,
 `docs/creative-production-system.md` (Graphic / Screenshot Style, Current Tool Roles) and
 `docs/phase-2-static-briefing-workflow.md` Gate 8 all point here. A request like "make an
-SBG question-box ad", or a brief with a `native_ui` block, routes to `adc native-ad`.
+SBG question-box ad", or a brief with a `native_ui` block, routes to `adc native-ad`
+unless the operator selects the iOS/Ella Canva source or its exact treatment.
 
 ## Next steps
 

@@ -573,6 +573,8 @@ Use for calendar, receipt, text message, note, app, chart, or UI-native ads.
 Rules:
 
 - Instagram question box, iMessage/DM thread, Notes card and reminder pop-up:
+  use the `canva-native-ads` skill and `docs/canva-native-ads.md` for the supplied
+  iOS/Ella reference or its exact look. For supported local components,
   use `adc native-ad` (`generators/native_ui.py`). It renders the native look
   exactly at 4:5 / 9:16 / 1:1 and records the content source. Read
   `docs/native-ui-components.md` first: native look only, words only, real
@@ -926,8 +928,8 @@ spacing, alignment, emoji, product, or crop problems.
 - Canva: Magic Grab, Magic Layers, cleanup, handoff, final editable polish.
 - Local scripts/rendering: precise native text overlays and deterministic UI or
   graphic statics; `adc native-ad` for native phone/app screens (default route).
-- Canva (Ella template copies): optional route when an exact organic-template
-  native screen is wanted; see `docs/native-ui-components.md` → Canva route.
+- Canva (Ella template copies): preferred for the supplied iOS collection and
+  its exact treatment; see `docs/canva-native-ads.md` for the reusable skill.
 
 ## Improvement Backlog
 
