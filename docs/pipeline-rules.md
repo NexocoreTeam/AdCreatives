@@ -533,3 +533,14 @@ imessage, notes, and reminder; Instagram DM/comment replies need a template
 route until implemented. For native treatments, rules 8 and 11's emulation
 route produces the clean photo only, followed by local/template text and UI.
 This routing preserves the existing source, approval, and crop-safety rules.
+
+## 13. Video references need source evidence and a reviewed remake packet
+
+Use `adc video-reference` and `docs/video-reference-remakes.md` for a video
+format remake. Preserve the authorized source bytes and hash, observed timeline,
+target product truth, prompt, cost approval, provider job and final recipe.
+An inferred breakdown is not the original generation prompt. Importing a
+reference does not approve copying its claims, testimonials, identity or audio.
+Do not shorten a failed opening to conceal a motion/lip-sync defect. A runtime
+change requires an explicit reason in the brief. Paid attempts retain the
+existing user cost approval rule; uncertain submissions require reconciliation.
