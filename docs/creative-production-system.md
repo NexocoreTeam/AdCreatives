@@ -931,6 +931,12 @@ spacing, alignment, emoji, product, or crop problems.
 
 ## Improvement Backlog
 
+Video-reference recreation now has a local staging and recipe route:
+`adc video-reference`. See [video-reference-remakes.md](video-reference-remakes.md)
+for source acquisition, frame/shot review, connected Higgsfield handoff, exact
+cost approval, single-attempt recording, QA and parent recipe lineage. This
+does not change the image REST adapter or add employee service endpoints.
+
 - Add reusable local overlay commands for TikTok pill, IG Story box, and organic
   caption presets.
 - Add a feed-crop preview/checker for 9:16 and 4:5 images.

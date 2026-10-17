@@ -7795,6 +7795,96 @@ def library_validate(models: tuple[str, ...], runs: int, as_json: bool):
                   "before crowning a winner.[/dim]")
 
 
+@cli.group("video-reference")
+@click.option("--client", required=True, help="Client folder slug.")
+@click.option("--clients-dir", type=click.Path(path_type=Path, exists=True), default="clients")
+@click.pass_context
+def video_reference(ctx, client, clients_dir):
+    """Inspect video references and stage safe, versioned Higgsfield remakes."""
+    from strategy.creative_recipes import validate_slug
+    from strategy.video_assets import client_file
+
+    try:
+        ctx.obj = client_file(clients_dir, validate_slug(client), directory=True)
+    except (ValueError, OSError) as exc:
+        raise click.ClickException(str(exc)) from exc
+
+
+def _video_call(function, *args, **kwargs):
+    try:
+        result = function(*args, **kwargs)
+    except (ValueError, OSError, KeyError, TypeError) as exc:
+        raise click.ClickException(str(exc)) from exc
+    click.echo(json.dumps(result, indent=2) if isinstance(result, dict) else str(result))
+
+
+@video_reference.command("inspect")
+@click.option("--source", required=True, help="Video path relative to this client folder.")
+@click.option("--source-url", default="", help="Provenance only; never fetched.")
+@click.pass_obj
+def video_reference_inspect(client, source, source_url):
+    """Copy a bounded local video and extract cut candidates/frames for review. Free."""
+    from strategy.video_remake import ingest
+    _video_call(ingest, client, source, source_url)
+
+
+@video_reference.command("prepare")
+@click.option("--reference", required=True, help="Inspected run, relative to client folder.")
+@click.option("--analysis", required=True, help="Source-hash-bound analysis JSON.")
+@click.option("--brief", required=True, help="Target product, direction and runtime JSON.")
+@click.option("--product-image", required=True)
+@click.option("--parent", default=None, help="Optional parent recipe.json, relative to client.")
+@click.pass_obj
+def video_reference_prepare(client, reference, analysis, brief, product_image, parent):
+    """Save an immutable prompt/request and input snapshots. No uploads or API calls."""
+    from strategy.video_remake import prepare
+    _video_call(prepare, client, reference, analysis, brief, product_image, parent)
+
+
+@video_reference.command("approve")
+@click.option("--run", required=True)
+@click.option("--quote", required=True, help="Connected-tool quote with exact params and media IDs.")
+@click.option("--credits", required=True, type=float)
+@click.option("--approval-text", required=True, help="The operator's actual authorization.")
+@click.option("--operator", required=True)
+@click.pass_obj
+def video_reference_approve(client, run, quote, credits, approval_text, operator):
+    """Record exact cost approval. Does not generate or authenticate an operator."""
+    from strategy.video_remake import approve
+    _video_call(approve, client, run, quote, credits, approval_text, operator)
+
+
+@video_reference.command("claim")
+@click.option("--run", required=True)
+@click.pass_obj
+def video_reference_claim(client, run):
+    """Claim one paid attempt, then hand the emitted params to Higgsfield once."""
+    from strategy.video_remake import claim
+    _video_call(claim, client, run)
+
+
+@video_reference.command("receipt")
+@click.option("--run", required=True)
+@click.option("--job-id", required=True)
+@click.pass_obj
+def video_reference_receipt(client, run, job_id):
+    """Record the returned Higgsfield job ID; never resubmit a claimed attempt."""
+    from strategy.video_remake import receipt
+    _video_call(receipt, client, run, job_id)
+
+
+@video_reference.command("finish")
+@click.option("--run", required=True)
+@click.option("--output", required=True, help="Downloaded result, relative to client folder.")
+@click.option("--evidence", required=True, help="JSON: job_id, completed status, output_sha256.")
+@click.option("--qa", required=True, help="Actual visual/audio QA findings; never assume a pass.")
+@click.pass_obj
+def video_reference_finish(client, run, output, evidence, qa):
+    """Verify runtime and save the generated output in the existing recipe registry."""
+    from strategy.video_remake import finish
+    _video_call(finish, client, run, output, evidence, qa)
+
+
 cli.add_command(creative)
 
 if __name__ == "__main__":

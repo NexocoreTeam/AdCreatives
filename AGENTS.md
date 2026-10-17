@@ -24,6 +24,13 @@ reference recreation, Higgsfield generation, local text overlays, or Canva
 handoff work. It captures current tool roles, native text presets, product
 handling, reference packets, crop-safety, and pre-send QA rules.
 
+For Facebook/Meta or other video-reference remakes, read
+`docs/video-reference-remakes.md` and use `adc video-reference`. Import an
+authorized local copy, review its full timeline, and preserve the product and
+intended duration. Use the connected Higgsfield tools for media/quotes/jobs;
+record cost approval before claiming a paid attempt. Never retry an uncertain
+submission or treat inferred analysis as the recovered original prompt.
+
 Read `docs/native-ui-components.md` before any ad that imitates a phone or app
 screen: Instagram question box / Q&A, iMessage or DM thread, Notes card, or
 reminder pop-up. Build those with `adc native-ad` (code-rendered, native look),
