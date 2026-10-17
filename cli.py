@@ -7841,6 +7841,43 @@ def video_reference_prepare(client, reference, analysis, brief, product_image, p
     _video_call(prepare, client, reference, analysis, brief, product_image, parent)
 
 
+@video_reference.command("excerpt")
+@click.option("--source", required=True)
+@click.option("--start", required=True, type=float)
+@click.option("--end", required=True, type=float)
+@click.option("--reason", required=True)
+@click.pass_obj
+def video_reference_excerpt(client, source, start, end, reason):
+    """Extract a reviewed scene and pad its ending to the provider minimum. Free."""
+    from strategy.video_edit_media import excerpt
+    _video_call(excerpt, client, source, start, end, reason)
+
+
+@video_reference.command("assemble")
+@click.option("--run", required=True, help="Completed element-edit run.")
+@click.option("--source", required=True, help="Original full ad, checked against the source hash.")
+@click.option("--qa", required=True)
+@click.pass_obj
+def video_reference_assemble(client, run, source, qa):
+    """Replace the chosen scene, retain source audio, and save a child preview recipe. Free."""
+    from strategy.video_edit_media import assemble
+    _video_call(assemble, client, run, source, qa)
+
+
+@video_reference.command("prepare-edit")
+@click.option("--reference", required=True)
+@click.option("--analysis", required=True)
+@click.option("--brief", required=True, help="Person/setting change and preservation JSON.")
+@click.option("--product-image", required=True, help="Preservation or replacement reference image.")
+@click.option("--parent", default=None, help="Parent recipe.json for a saved variation.")
+@click.pass_obj
+def video_reference_prepare_edit(client, reference, analysis, brief, product_image, parent):
+    """Prepare a Genjutsu person/setting edit; no provider calls or spending."""
+    from strategy.video_remake import prepare
+    _video_call(prepare, client, reference, analysis, brief, product_image, parent,
+                element_edit=True)
+
+
 @video_reference.command("approve")
 @click.option("--run", required=True)
 @click.option("--quote", required=True, help="Connected-tool quote with exact params and media IDs.")

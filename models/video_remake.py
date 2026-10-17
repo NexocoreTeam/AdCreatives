@@ -58,3 +58,25 @@ class RemakeBrief(BaseModel):
         if "—" in self.script:
             raise ValueError("Em-dashes are not allowed in ad copy")
         return self
+
+
+class ElementEditBrief(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    product: str = Field(min_length=1, max_length=200)
+    product_truth: str = Field(min_length=1, max_length=2000)
+    purpose: str = Field(min_length=1, max_length=1000)
+    change: Literal["person", "setting", "person_and_setting"]
+    direction: str = Field(min_length=1, max_length=3000)
+    preserve: str = Field(min_length=1, max_length=2000)
+    reference_role: Literal["preservation", "replacement"] = "preservation"
+    text_policy: Literal["preserve", "remove"] = "preserve"
+    duration: int = Field(ge=4, le=30)
+    duration_change_reason: str = Field(default="", max_length=500)
+    resolution: Literal["480p", "720p", "1080p"] = "720p"
+    billing: Literal["credits", "free"] = "credits"
+
+    @model_validator(mode="after")
+    def free_resolution(self):
+        if self.billing == "free" and self.resolution == "1080p":
+            raise ValueError("Free Genjutsu requires 480p or 720p; verify current eligibility")
+        return self
