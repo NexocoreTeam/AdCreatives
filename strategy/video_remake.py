@@ -9,7 +9,8 @@ from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 from uuid import UUID, uuid4
 
-from models.video_remake import RemakeBrief, VideoAnalysis
+from models.video_remake import ElementEditBrief, RemakeBrief, VideoAnalysis
+from strategy.video_element_prompt import edit_params
 from strategy.creative_recipes import capture_recipe, load_recipe, validate_slug
 from strategy.video_assets import (
     client_file,
@@ -115,18 +116,22 @@ def prepare(
     brief_file: str,
     product_image: str,
     parent: str | None = None,
+    *, element_edit: bool = False,
 ) -> Path:
     source_run = client_file(client, reference, directory=True)
     info = read_json(client_file(source_run, "source.json"))
     source = client_file(source_run, info["file"])
     analysis = VideoAnalysis.model_validate(read_json(client_file(client, analysis_file)))
-    brief = RemakeBrief.model_validate(read_json(client_file(client, brief_file)))
+    brief_type = ElementEditBrief if element_edit else RemakeBrief
+    brief = brief_type.model_validate(read_json(client_file(client, brief_file)))
     if digest(source) != info["sha256"] or analysis.source_sha256 != info["sha256"]:
         raise ValueError("Analysis does not match the source video hash")
     if abs(info["duration"] - analysis.duration) > 0.05:
         raise ValueError("Analysis duration differs from source")
     if abs(brief.duration - analysis.duration) > 0.15 and not brief.duration_change_reason:
         raise ValueError("Changing source duration requires an explicit reason")
+    if element_edit and abs(brief.duration - analysis.duration) > 0.05:
+        raise ValueError("Edit duration must match the prepared source; use excerpt first")
     ancestor = None
     if parent:
         ancestor = load_recipe(client_file(client, parent))
@@ -140,7 +145,7 @@ def prepare(
     shutil.copyfile(source, saved_source)
     if digest(saved_source) != info["sha256"] or digest(product) != digest(image):
         raise ValueError("Input changed during preparation")
-    params = dict(
+    params = edit_params(brief) if element_edit else dict(
         model="seedance_2_5",
         mode="omni_reference",
         count=1,
@@ -153,7 +158,7 @@ def prepare(
     if len(params["prompt"]) > 8000:
         raise ValueError("Prompt exceeds 8000 characters; condense the reviewed shot descriptions")
     packet = dict(
-        schema_version=1,
+        schema_version=2 if element_edit else 1,
         client=client.name,
         created_at=now(),
         analysis=analysis.model_dump(),
@@ -173,6 +178,12 @@ def prepare(
             "No unsupported claims; native UI added separately if requested",
         ],
     )
+    if element_edit:
+        packet["source_provenance"] = info
+        packet["qa"] = ["Requested elements changed consistently across all cuts",
+                        "Product geometry, mechanism, hand contact and preserved elements",
+                        "Text policy followed; no new claims or speech",
+                        "Full motion review, runtime and original audio alignment"]
     write_new(folder / "packet.json", dict(**packet, review_hash=fingerprint(packet)))
     (folder / "prompt.txt").write_text(params["prompt"], encoding="utf-8")
     return folder
@@ -185,8 +196,10 @@ def read_packet(client: Path, relative: str) -> dict:
     if packet["client"] != client.name or fingerprint(packet) != expected:
         raise ValueError("Packet identity or review hash mismatch")
     analysis = VideoAnalysis.model_validate(packet["analysis"])
-    brief = RemakeBrief.model_validate(packet["brief"])
-    params = dict(
+    element_edit = packet["schema_version"] == 2
+    brief_type = ElementEditBrief if element_edit else RemakeBrief
+    brief = brief_type.model_validate(packet["brief"])
+    params = edit_params(brief) if element_edit else dict(
         model="seedance_2_5",
         mode="omni_reference",
         count=1,
@@ -196,8 +209,16 @@ def read_packet(client: Path, relative: str) -> dict:
         generate_audio=brief.audio == "spoken",
         prompt=build_prompt(analysis, brief),
     )
-    if packet["schema_version"] != 1 or packet["params"] != params:
+    if packet["schema_version"] not in (1, 2) or packet["params"] != params:
         raise ValueError("Unsupported or inconsistent generation packet")
+    if element_edit and abs(brief.duration - analysis.duration) > 0.05:
+        raise ValueError("Edit duration differs from reviewed source")
+    if element_edit:
+        source_info = packet["source_provenance"]
+        if (source_info["sha256"] != packet["assets"]["source"]["sha256"] or
+                source_info["sha256"] != analysis.source_sha256 or
+                abs(source_info["duration"] - analysis.duration) > 0.05):
+            raise ValueError("Edit source provenance differs from reviewed media")
     if set(packet["assets"]) != {"source", "product"}:
         raise ValueError("Require source and product assets")
     for asset in packet["assets"].values():
@@ -208,14 +229,16 @@ def read_packet(client: Path, relative: str) -> dict:
 
 def validate_quote(packet: dict, quote: dict, approved_credits: float) -> None:
     credits = quote["credits"]
+    free = packet["params"].get("use_free_gens") is True
     if (
         not isinstance(credits, (int, float))
         or not math.isfinite(credits)
-        or credits <= 0
+        or isinstance(credits, bool)
+        or (credits != 0 if free else credits <= 0)
         or not math.isfinite(approved_credits)
         or approved_credits < credits
     ):
-        raise ValueError("Approval must cover the positive quoted credit estimate")
+        raise ValueError("Approval must cover the quote; free requests require zero credits")
     time = datetime.fromisoformat(quote["quoted_at"])
     if time.tzinfo is None or not 0 <= (datetime.now(timezone.utc) - time).total_seconds() <= 86400:
         raise ValueError("Quote must be from the last 24 hours")
@@ -224,8 +247,9 @@ def validate_quote(packet: dict, quote: dict, approved_credits: float) -> None:
     if params != packet["params"]:
         raise ValueError("Quote changes reviewed generation settings")
     roles = [m["role"] for m in medias]
-    if roles not in (["image"], ["image", "video"]):
-        raise ValueError("Require one product image and optionally one reference video")
+    valid = sorted(roles) == ["image", "video"] if packet["schema_version"] == 2 else roles in (["image"], ["image", "video"])
+    if not valid:
+        raise ValueError("Require one image and, for element edits, exactly one source video")
     for media in medias:
         if set(media) != {"role", "value"}:
             raise ValueError("Unexpected media fields")
@@ -249,6 +273,9 @@ def approve(
 ) -> Path:
     packet = read_packet(client, relative)
     quote = read_json(client_file(client, quote_file))
+    aliases = {"image_references": "image", "video_references": "video"}
+    quote = dict(quote, params=dict(quote["params"], medias=[
+        dict(m, role=aliases.get(m["role"], m["role"])) for m in quote["params"].get("medias", [])]))
     validate_quote(packet, quote, approved_credits)
     if not approval_text.strip() or not operator.strip():
         raise ValueError("Record the operator and their actual approval text")
@@ -362,6 +389,8 @@ def finish(client: Path, relative: str, output: str, evidence: str, qa: str) -> 
         changes={
             "product": packet["brief"]["product_truth"],
             "direction": packet["brief"]["direction"],
+            **({"changed_elements": packet["brief"]["change"],
+                "preserved_elements": packet["brief"]["preserve"]} if packet["schema_version"] == 2 else {}),
         },
         steps=[
             dict(

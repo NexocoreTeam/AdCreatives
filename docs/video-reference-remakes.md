@@ -1,5 +1,9 @@
 # Video reference remakes
 
+For person/setting replacement without changing the product, use
+[video element edits](video-element-edits.md). That route uses Genjutsu and adds
+local excerpt/assembly commands while preserving this approval/recipe chain.
+
 Given an authorized Facebook/Meta, Instagram, YouTube or local video, preserve
 its useful format and recreate it for a verified client product. This is a
 reviewed agent workflow, not guaranteed recovery of a creator's prompt or an

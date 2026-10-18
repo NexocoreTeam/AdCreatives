@@ -30,6 +30,9 @@ authorized local copy, review its full timeline, and preserve the product and
 intended duration. Use the connected Higgsfield tools for media/quotes/jobs;
 record cost approval before claiming a paid attempt. Never retry an uncertain
 submission or treat inferred analysis as the recovered original prompt.
+For changing a person or setting while preserving the product and action, read
+`docs/video-element-edits.md`; use `excerpt`, `prepare-edit`, and the same
+approval/receipt/finish flow, then `assemble` to save a full-ad child preview.
 
 Read `docs/native-ui-components.md` before any ad that imitates a phone or app
 screen: Instagram question box / Q&A, iMessage or DM thread, Notes card, or
