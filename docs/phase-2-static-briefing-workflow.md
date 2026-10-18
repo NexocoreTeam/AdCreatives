@@ -204,6 +204,8 @@ Stop and ask for the visual format/template:
 - native reminder pop-up (one short line, e.g. a real product name)
 
 Use `docs/native-organic-workflow.md` to route the selected treatment. Supported
+components requested from the iOS/Ella Canva collection use the editable
+workflow in `docs/canva-native-ads.md` and the `canva-native-ads` skill. Other
 app components use `adc native-ad` with `native_ui`; caption boxes/pills use
 the existing UGC route, and exact caption presets use local/Canva treatments.
 Instagram DM/comment replies are not implemented in `adc native-ad`.
