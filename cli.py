@@ -3702,6 +3702,298 @@ def check_env_cmd():
 # ─── Canva Connect OAuth ─────────────────────────────────────────────────────
 
 
+# Pinterest Ads API OAuth
+
+
+@cli.group(name="pinterest")
+def pinterest_cmd():
+    """Pinterest Ads API OAuth utilities."""
+    pass
+
+
+@pinterest_cmd.command(name="auth-url")
+@click.option(
+    "--state-file",
+    type=click.Path(path_type=Path),
+    default=None,
+    help="Where to store temporary OAuth state. Defaults to ~/.adcreatives/.",
+)
+def pinterest_auth_url_cmd(state_file: Path | None):
+    """Print a Pinterest OAuth URL and save local state.
+
+    Free, local. Does not call Pinterest or spend anything.
+    """
+    from strategy.pinterest_oauth import (
+        build_authorization_url,
+        default_state_path,
+        load_config_from_env,
+        save_oauth_state,
+    )
+
+    try:
+        config = load_config_from_env()
+    except ValueError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    state = os.urandom(16).hex()
+    state_path = state_file or default_state_path()
+    save_oauth_state(
+        state_path,
+        state=state,
+        redirect_uri=config.redirect_uri,
+    )
+    url = build_authorization_url(config, state=state)
+
+    console.print("[green]Saved temporary Pinterest OAuth state.[/green]")
+    console.print(f"[dim]{state_path}[/dim]")
+    console.print("\n[bold]Open this URL to approve the Pinterest app:[/bold]")
+    console.print(url)
+    console.print(
+        "\n[dim]Start the callback server before approving if your redirect URI "
+        "points to 127.0.0.1.[/dim]"
+    )
+
+
+@pinterest_cmd.command(name="callback-server")
+@click.option("--port", default=8787, show_default=True, type=int)
+@click.option(
+    "--state-file",
+    type=click.Path(path_type=Path),
+    default=None,
+    help="State file from `adc pinterest auth-url`.",
+)
+@click.option(
+    "--env-path",
+    type=click.Path(path_type=Path),
+    default=Path(".env"),
+    show_default=True,
+    help="Local env file to update with Pinterest tokens.",
+)
+def pinterest_callback_server_cmd(port: int, state_file: Path | None, env_path: Path):
+    """Handle one local Pinterest OAuth callback and save tokens to .env."""
+    from strategy.pinterest_oauth import (
+        PinterestOAuthConfig,
+        default_state_path,
+        load_config_from_env,
+        load_oauth_state,
+        run_callback_server,
+    )
+
+    state_path = state_file or default_state_path()
+    if not state_path.exists():
+        console.print(
+            f"[red]Missing OAuth state file: {state_path}. "
+            "Run `adc pinterest auth-url` first.[/red]"
+        )
+        raise SystemExit(1)
+
+    try:
+        config = load_config_from_env()
+        saved = load_oauth_state(state_path)
+    except (ValueError, OSError, KeyError) as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    config = PinterestOAuthConfig(
+        client_id=config.client_id,
+        client_secret=config.client_secret,
+        redirect_uri=saved["redirect_uri"],
+        scopes=config.scopes,
+        continuous_refresh=config.continuous_refresh,
+    )
+    console.print(
+        f"[green]Listening for one Pinterest OAuth callback on "
+        f"http://127.0.0.1:{port}/pinterest/oauth/callback[/green]"
+    )
+    try:
+        run_callback_server(
+            config=config,
+            expected_state=saved["state"],
+            env_path=env_path,
+            port=port,
+        )
+    except RuntimeError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+
+    console.print("[green]Pinterest OAuth succeeded. Tokens saved to local .env.[/green]")
+    console.print("[dim]Token values were not printed.[/dim]")
+
+
+@pinterest_cmd.command(name="refresh-token")
+@click.option(
+    "--env-path",
+    type=click.Path(path_type=Path),
+    default=Path(".env"),
+    show_default=True,
+    help="Local env file to update with refreshed Pinterest tokens.",
+)
+def pinterest_refresh_token_cmd(env_path: Path):
+    """Refresh PINTEREST_ACCESS_TOKEN from PINTEREST_REFRESH_TOKEN."""
+    from strategy.pinterest_oauth import (
+        load_config_from_env,
+        refresh_access_token,
+        token_updates,
+        update_env_file,
+    )
+
+    refresh_token = os.environ.get("PINTEREST_REFRESH_TOKEN", "").strip()
+    if not refresh_token:
+        console.print("[red]Missing PINTEREST_REFRESH_TOKEN.[/red]")
+        raise SystemExit(1)
+    try:
+        config = load_config_from_env()
+        tokens = refresh_access_token(config, refresh_token=refresh_token)
+    except Exception as exc:
+        console.print(f"[red]Pinterest token refresh failed: {exc}[/red]")
+        raise SystemExit(1)
+    updates = token_updates(tokens)
+    if updates:
+        update_env_file(env_path, updates)
+    console.print("[green]Pinterest token refreshed and saved to local .env.[/green]")
+    console.print("[dim]Token values were not printed.[/dim]")
+
+
+def _pinterest_payload_items(payload: dict) -> list:
+    value = payload.get("items")
+    return value if isinstance(value, list) else []
+
+
+def _print_pinterest_json(payload: dict) -> None:
+    console.print(json.dumps(payload, indent=2, ensure_ascii=False))
+
+
+@pinterest_cmd.command(name="status")
+def pinterest_status_cmd():
+    """Show local Pinterest Ads API env/token/scope status without printing secrets."""
+    from strategy.pinterest_ads import granted_scopes, missing_scopes, requested_scopes
+
+    token_fields = [
+        "PINTEREST_CLIENT_ID",
+        "PINTEREST_CLIENT_SECRET",
+        "PINTEREST_REDIRECT_URI",
+        "PINTEREST_ACCESS_TOKEN",
+        "PINTEREST_REFRESH_TOKEN",
+    ]
+    table = Table(title="Pinterest Ads API Status")
+    table.add_column("Field")
+    table.add_column("Status")
+    for field in token_fields:
+        present = bool(os.environ.get(field, "").strip())
+        table.add_row(field, "[green]present[/green]" if present else "[yellow]missing[/yellow]")
+    console.print(table)
+
+    requested = sorted(requested_scopes())
+    granted = sorted(granted_scopes())
+    console.print("\n[bold]Requested scopes for next OAuth flow:[/bold]")
+    console.print(",".join(requested) if requested else "[yellow]none configured[/yellow]")
+    console.print("\n[bold]Granted scopes on current saved token:[/bold]")
+    console.print(",".join(granted) if granted else "[yellow]none granted yet[/yellow]")
+    required = ["ads:read", "ads:write"]
+    blocked = missing_scopes(required)
+    if blocked:
+        console.print("\n[yellow]Missing launch-critical scopes:[/yellow]")
+        console.print(",".join(blocked))
+    else:
+        console.print("\n[green]Launch-critical Ads API scopes are present.[/green]")
+    console.print(
+        "\n[dim]Use read-only checks first: `adc pinterest user`, "
+        "`adc pinterest ad-accounts`, then `adc pinterest campaigns <ad_account_id>`.[/dim]"
+    )
+
+
+@pinterest_cmd.command(name="user")
+@click.option("--json", "as_json", is_flag=True, help="Print raw Pinterest JSON.")
+def pinterest_user_cmd(as_json: bool):
+    """Fetch the connected Pinterest user account."""
+    from strategy.pinterest_ads import PinterestAdsError, get_user_account
+
+    try:
+        payload = get_user_account()
+    except PinterestAdsError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+    if as_json:
+        _print_pinterest_json(payload)
+        return
+    console.print(f"[bold]Username:[/bold] {payload.get('username', '')}")
+    console.print(f"[bold]Account type:[/bold] {payload.get('account_type', '')}")
+    console.print(f"[bold]Business name:[/bold] {payload.get('business_name', '')}")
+
+
+@pinterest_cmd.command(name="ad-accounts")
+@click.option("--page-size", default=25, show_default=True, type=click.IntRange(1, 100))
+@click.option("--bookmark", default=None, help="Pagination bookmark from Pinterest.")
+@click.option("--json", "as_json", is_flag=True, help="Print raw Pinterest JSON.")
+def pinterest_ad_accounts_cmd(page_size: int, bookmark: str | None, as_json: bool):
+    """List Pinterest ad accounts accessible to the saved token."""
+    from strategy.pinterest_ads import PinterestAdsError, list_ad_accounts
+
+    try:
+        payload = list_ad_accounts(page_size=page_size, bookmark=bookmark)
+    except PinterestAdsError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+    if as_json:
+        _print_pinterest_json(payload)
+        return
+    table = Table(title="Pinterest Ad Accounts")
+    table.add_column("ID")
+    table.add_column("Name")
+    table.add_column("Country")
+    table.add_column("Currency")
+    for item in _pinterest_payload_items(payload):
+        table.add_row(
+            str(item.get("id") or ""),
+            str(item.get("name") or ""),
+            str(item.get("country") or ""),
+            str(item.get("currency") or ""),
+        )
+    console.print(table)
+    if payload.get("bookmark"):
+        console.print(f"[dim]Bookmark: {payload['bookmark']}[/dim]")
+
+
+@pinterest_cmd.command(name="campaigns")
+@click.argument("ad_account_id")
+@click.option("--page-size", default=25, show_default=True, type=click.IntRange(1, 100))
+@click.option("--bookmark", default=None, help="Pagination bookmark from Pinterest.")
+@click.option("--json", "as_json", is_flag=True, help="Print raw Pinterest JSON.")
+def pinterest_campaigns_cmd(
+    ad_account_id: str,
+    page_size: int,
+    bookmark: str | None,
+    as_json: bool,
+):
+    """List campaigns for one Pinterest ad account."""
+    from strategy.pinterest_ads import PinterestAdsError, list_campaigns
+
+    try:
+        payload = list_campaigns(ad_account_id, page_size=page_size, bookmark=bookmark)
+    except PinterestAdsError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise SystemExit(1)
+    if as_json:
+        _print_pinterest_json(payload)
+        return
+    table = Table(title=f"Pinterest Campaigns: {ad_account_id}")
+    table.add_column("ID")
+    table.add_column("Name")
+    table.add_column("Status")
+    table.add_column("Objective")
+    for item in _pinterest_payload_items(payload):
+        table.add_row(
+            str(item.get("id") or ""),
+            str(item.get("name") or ""),
+            str(item.get("status") or ""),
+            str(item.get("objective_type") or ""),
+        )
+    console.print(table)
+    if payload.get("bookmark"):
+        console.print(f"[dim]Bookmark: {payload['bookmark']}[/dim]")
+
+
 @cli.group(name="canva")
 def canva_cmd():
     """Canva Connect OAuth utilities."""
