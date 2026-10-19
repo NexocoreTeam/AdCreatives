@@ -4,12 +4,38 @@
 #   - add amazon_urls ONLY if the exact product is genuinely sold on Amazon
 #   - search queries beat brand handles for VOC; tune them per competitor
 competitors:
+  - name: Dear Heart
+    slug: dear-heart
+    url: 'https://dearheartdesigns.com'
+    type: direct
+    priority: tier1
+    notes: 'Primary direct competitor. Faith-based graphic tees, pullovers, jewelry/accessories, Christian small-business feel, and conversation-starter positioning. One of the closest SBG Co. comparisons.'
+    amazon_urls: []
+    youtube_search_queries:
+      - Dear Heart review
+      - Dear Heart Designs review
+      - Dear Heart vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - Dear Heart review
+      - Dear Heart Designs review
+  - name: Love in Faith
+    slug: love-in-faith
+    url: 'https://loveinfaith.life'
+    type: direct
+    priority: tier1
+    notes: 'Primary direct competitor. Christian family business with in-house designs and faith-to-fashion apparel; competes directly on tees, sweatshirts, and message-led everyday wear.'
+    amazon_urls: []
+    youtube_search_queries:
+      - Love in Faith review
+      - Love in Faith vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - Love in Faith review
   - name: Elevated Faith
     slug: elevated-faith
     url: 'https://elevatedfaith.com'
     type: direct
     priority: tier1
-    notes: ''
+    notes: 'Primary direct competitor and polished benchmark for faith apparel, social commerce, product storytelling, and broader brand ecosystem.'
     amazon_urls:
       - https://www.amazon.com/dp/B0C47CR4WN
     youtube_search_queries:
@@ -17,25 +43,99 @@ competitors:
       - Elevated Faith vs Saved by Grace Co. (SBG Co.)
     tiktok_search_queries:
       - Elevated Faith review
-  - name: Kerusso
+  - name: Elly and Grace
+    slug: elly-and-grace
+    url: 'https://ellyandgrace.com'
+    type: direct
+    priority: tier1
+    notes: 'Primary direct competitor. Christian apparel and apparel-adjacent meaningful products, especially women''s faith shirts, hoodies, and giftable message-led pieces.'
+    amazon_urls: []
+    youtube_search_queries:
+      - Elly and Grace review
+      - Elly and Grace vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - Elly and Grace review
+  - name: Kerusso / Grace & Truth
     slug: kerusso
     url: 'https://www.kerusso.com'
     type: direct
     priority: tier1
-    notes: ''
+    notes: 'Primary commercial competitor. Established Christian apparel/gift player; more mass-market and legacy than SBG Co., but relevant for Christian apparel, gifts, and Grace & Truth branded product context.'
     amazon_urls:
       - https://www.amazon.com/dp/B096TN1GXH
     youtube_search_queries:
       - Kerusso review
+      - Grace & Truth apparel review
       - Kerusso vs Saved by Grace Co. (SBG Co.)
     tiktok_search_queries:
       - Kerusso review
+      - Grace & Truth apparel review
+  - name: Tees by Taylor
+    slug: tees-by-taylor
+    url: 'https://teesbytaylor.com'
+    type: adjacent
+    priority: tier2
+    notes: 'Secondary comparator. Likely relevant to message-led apparel, but validate product overlap before ranking above Dear Heart or Love in Faith.'
+    amazon_urls: []
+    youtube_search_queries:
+      - Tees by Taylor review
+      - Tees by Taylor vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - Tees by Taylor review
+  - name: He Would Love First
+    slug: he-would-love-first
+    url: 'https://hewouldlovefirst.com'
+    type: adjacent
+    priority: tier2
+    notes: 'Secondary faith-apparel alternative. Real category comparator, but less mom/kids/family-specific than SBG Co.'
+    amazon_urls: []
+    youtube_search_queries:
+      - He Would Love First review
+      - He Would Love First vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - He Would Love First review
+  - name: Jesus Loves You Company
+    slug: jesus-loves-you-company
+    url: 'https://jesuslovesyou.company'
+    type: adjacent
+    priority: tier2
+    notes: 'Secondary faith-apparel alternative. Relevant to Christian apparel and message-led everyday wear, but less specific to SBG Co.''s mom, kids, baby, and gifting architecture.'
+    amazon_urls: []
+    youtube_search_queries:
+      - Jesus Loves You Company review
+      - Jesus Loves You Company vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - Jesus Loves You Company review
+  - name: NHiM Apparel
+    slug: nhim-apparel
+    url: 'https://nhimapparel.com'
+    type: adjacent
+    priority: tier2
+    notes: 'Secondary faith-apparel alternative. Relevant as a Christian apparel comparator, but likely less mom/kids/family-specific than SBG Co.'
+    amazon_urls: []
+    youtube_search_queries:
+      - NHiM Apparel review
+      - NHiM Apparel vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - NHiM Apparel review
+  - name: Forty Six Ten
+    slug: forty-six-ten
+    url: ''
+    type: adjacent
+    priority: tier2
+    notes: 'Secondary commerce/content reference unless product assortment overlap validates it as a stronger direct competitor.'
+    amazon_urls: []
+    youtube_search_queries:
+      - Forty Six Ten review
+      - Forty Six Ten vs Saved by Grace Co. (SBG Co.)
+    tiktok_search_queries:
+      - Forty Six Ten review
   - name: Simply Southern
     slug: simply-southern
     url: 'https://simplysouthern.com'
-    type: direct
-    priority: tier1
-    notes: ''
+    type: adjacent
+    priority: tier3
+    notes: 'Historical comparator from the original SBG research set. Not part of the revised primary audit set; keep only as a broader Southern lifestyle/apparel reference unless specifically needed.'
     amazon_urls:
       - https://www.amazon.com/dp/B0DVKVN2X9
     youtube_search_queries:
@@ -47,8 +147,8 @@ competitors:
     slug: spearmintlove
     url: 'https://www.spearmintlove.com'
     type: direct
-    priority: tier1
-    notes: ''
+    priority: tier2
+    notes: 'Active retained competitor from the original SBG research set. Keep for kids/baby/gifting overlap, mom-and-mini context, boutique-adjacent apparel, and values-trust comparison.'
     amazon_urls: []
     youtube_search_queries:
       - SpearmintLOVE review

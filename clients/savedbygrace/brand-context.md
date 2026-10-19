@@ -91,13 +91,15 @@ SBG Co.'s positioning is built on a clear category indictment: faith apparel tha
 
 | Competitor | Their Positioning | How SBG Co. Differs |
 |---|---|---|
-| **Elevated Faith** (elevatedfaith.com) | Direct faith apparel — scripture-forward, clean aesthetic, significant social following | SBG Co. is broader in message (mom humor, patriotic, lifestyle) and leans warmer/more grounded; Elevated Faith skews younger/more minimalist-devotional |
-| **Kerusso** | Mass-market Christian apparel; sold in Christian bookstores; safe and traditional | SBG Co. is boutique-feel, independent, modern; not "bookstore merch" |
-| **Groovy Grits / other mom humor brands** | Mom humor tees, often without faith layer | SBG Co. integrates faith + humor in a single brand; not just a funny-shirt store |
-| **Cactus Cowboy / southern lifestyle brands** | Patriotic + southern lifestyle apparel | SBG Co. has the faith layer and the kids/baby line; more family-system than solo brand |
-| **Generic Etsy faith tee sellers** | Cheap, often low-quality faith-phrased tees | SBG Co. has 10 years of brand equity, wholesale scale, Today Show credibility, and made-to-order quality story |
+| **Dear Heart** | Very close direct competitor: faith-based graphic tees, pullovers, jewelry/accessories, Christian small-business feel, conversation-starter positioning | SBG Co. overlaps on faith-led everyday apparel, but has a broader mom, kids, baby, patriotic, humor, and wholesale display architecture |
+| **Love in Faith** | Direct Christian apparel competitor: family-business story, in-house designs, faith-to-fashion tees and sweatshirts | SBG Co. should not out-devotional them; win on warmer family-system merchandising, mom humor, kids/baby coordination, and made-in-Charlotte craft |
+| **Elevated Faith** (elevatedfaith.com) | Bigger, broader, more polished faith-apparel competitor; benchmark for social commerce, influencer feel, and product storytelling | SBG Co. is broader in message (mom humor, patriotic, lifestyle) and leans warmer/more grounded; Elevated Faith skews younger/more minimalist-devotional |
+| **Elly and Grace** | Direct Christian apparel/apparel-adjacent competitor, especially women's faith shirts, hoodies, and meaningful giftable products | SBG Co. can win by feeling less single-lane and more like a complete lifestyle line for mom, child, home, gifting, and boutique merchandising |
+| **Kerusso / Grace & Truth** | Established Christian apparel/gift competitor; more mass/legacy and bookstore-adjacent than SBG Co. | SBG Co. is boutique-feel, independent, modern, and more emotionally current; not "bookstore merch" |
 
-*Note: Operator confirmed Elevated Faith as primary competitor. Others above are inferred from category knowledge. Confirm with client.*
+**Secondary comparators:** SpearmintLOVE stays in the active competitor set for kids/baby/gifting overlap, mom-and-mini context, and boutique-adjacent apparel comparison. Tees by Taylor is likely relevant but should be validated for product overlap before ranking above Dear Heart or Love in Faith. He Would Love First, Jesus Loves You Company, and NHiM Apparel are real faith-apparel alternatives, but less mom/kids/family-specific. Forty Six Ten is best treated as a commerce/content reference unless its product assortment proves heavy overlap.
+
+**Historical comparator moved out of the active audit set:** Simply Southern was in the original research set, but the revised SBG audit should not rank it above Dear Heart or Love in Faith. Keep it only as a broader Southern lifestyle reference when the angle needs that lens.
 
 ---
 
