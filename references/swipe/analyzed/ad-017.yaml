@@ -1,0 +1,59 @@
+card_id: AD-017
+date_added: '2026-08-09'
+added_by: '@Devin Souphanthong'
+brand: Arrae
+source_link: https://slack.com/archives/C0BG19H81K7/p1786287765784019
+media_type: static
+assets:
+  primary: ad-017.png
+analysis:
+  format: Us vs. Them
+  hook_type: Question
+  mechanic: The Borrowed Enemy
+  secondary_mechanic: null
+  scan_path:
+  - headline question
+  - without arrae MB-1 negatives column
+  - with arrae MB-1 positives column
+  - product hero shot
+  proof_element: side-by-side structured comparison framing injections as the implicit alternative — no
+    competitor named
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: The 'expensive, painful injections' line transparently targets GLP-1 injection users without
+    naming Ozempic or Wegovy — borrowing their equity and pain points to position MB-1 as the frictionless,
+    prescription-free upgrade for the same goal.
+  cultural_note: Taps into the mainstream cultural anxiety around GLP-1 injectable drugs (Ozempic, Wegovy)
+    — a dominant weight-loss conversation in 2024-2025 social feeds — making the borrowed enemy instantly
+    legible to solution-aware scrollers.
+  steal: Use the 'without X / with X' two-column structure where the left column silently indicts a dominant
+    category solution by naming its known pain points, letting the viewer self-diagnose without feeling
+    sold to.
+  avoid: Do not reuse the Arrae brand name, exact copy lines, product label design, or the specific creator/photographer
+    visual identity.
+  proxy_signal: unknown
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad never names Ozempic or any GLP-1 drug but 'expensive, painful injections' is an unmistakable
+      description of that category — the borrowed enemy mechanic works by weaponizing a competitor's known
+      weaknesses without triggering direct comparison disclaimers.
+    awareness_stage: The headline 'Why is MB-1 the right choice for weight loss?' presupposes the viewer
+      already knows weight-loss solutions exist and is evaluating options — classic solution-aware framing,
+      not an awareness-stage problem introduction.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-09T15:03:42+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-08-09T16:32:19+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}

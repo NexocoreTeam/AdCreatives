@@ -1,0 +1,57 @@
+card_id: AD-018
+date_added: '2026-08-09'
+added_by: '@Devin Souphanthong'
+brand: Rent the Runway
+source_link: https://slack.com/archives/C0BG19H81K7/p1786293139462089
+media_type: static
+assets:
+  primary: ad-018.png
+analysis:
+  format: Feature Benefit Callout
+  hook_type: Aspirational
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - 'headline: Upgrade Your Closet'
+  - 'top-left callout: Save hundreds on premium designers'
+  - 'right callout: Always have something new to wear'
+  - 'bottom-left callout: Never miss a trend or must-have'
+  - lifestyle model image
+  proof_element: three distinct benefit callout chips implying systematic value, not a single claim
+  product_role: absent
+  awareness_stage: solution_aware
+  why_it_works: The three callout chips reframe the classic objection to renting (why not just buy?) by
+    stacking savings, novelty, and trend-access simultaneously — making ownership feel like the irrational
+    choice without ever saying so.
+  cultural_note: Floating pill-shaped callout bubbles mimic app UI tooltips and social tagging conventions,
+    lending a native-digital, non-ad feel to a polished lifestyle photo.
+  steal: Use floating pill callouts anchored to a lifestyle model to deliver three distinct benefit claims
+    that collectively reframe the category objection without a single defensive sentence.
+  avoid: Do not reuse the creator, her exact styling, or the exact copy lines; do not replicate Rent the
+    Runway's serif/dark-green brand identity.
+  proxy_signal: unknown
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: med
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad opens by validating the desire for a great wardrobe, then reframes the path to it
+      — renting beats buying — through stacked benefit chips rather than direct argument, which is the
+      Reframe structure; secondary mechanic is too executional to map cleanly to a named option.
+    awareness_stage: The viewer already knows closet-rental subscription services exist; the ad is persuading
+      them this specific model solves savings, novelty, and trend-access better than alternatives, placing
+      them squarely in solution-aware territory.
+  status: needs-strategist
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-09T16:33:25+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-08-09T16:52:21+00:00'
+  model_draft_values: {}
+  corrections: []
+  foreplay: {}

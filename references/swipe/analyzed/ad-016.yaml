@@ -1,0 +1,82 @@
+card_id: AD-016
+date_added: '2026-08-09'
+added_by: '@Devin Souphanthong'
+brand: Arrae
+source_link: https://www.arrae.com/products/tone-sour-green-apple
+media_type: static
+assets:
+  primary: ad-016.jpg
+foreplay:
+  ad_id: '25792319563774420'
+  foreplay_id: 53uSkPuDPUTVcH1ISVs9
+  brand: Arrae
+  headline: 'JUST DROPPED: Tone Sour Green Apple🍏'
+  description: 'The Creatine Monohydrate Gummies you know and love just got a crisp new twist…
+
+
+    Build lean muscle while optimizing body composition with our new Sour Green Apple flavored gummies
+    – no bloat, no bulk.'
+  cta: SHOP_NOW
+  link_url: https://www.arrae.com/products/tone-sour-green-apple
+  display_format: image
+  started_running: 1777446000000
+  live: false
+  niches:
+  - Health/Wellness
+  publisher_platform:
+  - facebook
+  - instagram
+  - audience_network
+  - messenger
+  - threads
+  fetched_at: '2026-08-09T13:52:17+00:00'
+analysis:
+  format: Feature Benefit Callout
+  hook_type: Myth Busting
+  mechanic: The Reframe
+  secondary_mechanic: null
+  scan_path:
+  - headline with strikethrough 'Bulk'
+  - subheadline ingredients callout
+  - product packaging
+  - gummies spilling from stacked mugs
+  - new flavor callout arrow
+  proof_element: 5g creatine monohydrate dosage badge visible on packaging label
+  product_role: hero
+  awareness_stage: solution_aware
+  why_it_works: 'The strikethrough on ''Bulk'' visually destroys the #1 objection women have to creatine
+    in a single gesture, repositioning a feared outcome as a non-issue before the viewer can consciously
+    raise it.'
+  cultural_note: Strikethrough typography as visual objection-killer is a native DTC/social-first convention;
+    taps the widespread female fitness fear that creatine = masculine bulk, a dominant discourse in women's
+    wellness communities.
+  steal: Use a single crossed-out word in the headline to pre-emptively destroy the audience's biggest
+    objection while simultaneously stating the desired outcome — requires no body copy to resolve the
+    tension.
+  avoid: Do not reuse the Arrae brand identity, the 'TONE' product name, the exact 'That Bulk TONE' copy,
+    or the specific postbiotic/ginger ingredient framing.
+  proxy_signal: running ~3 months (since 2026-04-29), no longer live
+  field_confidence:
+    format: high
+    hook_type: high
+    mechanic: high
+    awareness_stage: high
+    product_role: high
+  reasoning:
+    mechanic: The ad validates the viewer's pre-existing belief that creatine causes bulk, then immediately
+      reframes it — the strikethrough physically enacts the belief-flip, making the Reframe mechanic literal
+      and visual rather than just rhetorical.
+    awareness_stage: The viewer already knows creatine exists as a solution for muscle/body composition;
+      the ad's entire job is to overcome the 'but it will bulk me' hesitation specific to this product
+      category, which is a solution-aware objection pattern.
+  status: approved
+  strategist_notes: ''
+provenance:
+  analyzed_at: '2026-08-09T13:52:33+00:00'
+  model: claude-sonnet-4-6
+  taxonomy_version: a8b64ffbc6
+  added_by: '@Devin Souphanthong'
+  approved_by: '@Devin Souphanthong'
+  approved_at: '2026-08-09T15:02:49+00:00'
+  model_draft_values: {}
+  corrections: []
