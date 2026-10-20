@@ -122,13 +122,26 @@ limitations. Select changes, record the hypothesis, and get production
 approval before paid work. Preserve the control. Rendered variants then get
 new version IDs and new platform ad bindings when launched.
 
-## Pilot activation still needed
+## Pilot status (Saved by Grace, checked 2026-10-20)
 
-- Match a real SBG single-image ad to its exact archived output by inspection.
-- Confirm currency, account reporting timezone, attribution context, minimum
-  spend/purchases, CPA or ROAS target, and conversion-delay policy.
-- Review/apply the analytics migration once, then import and bind recipes.
-- Run the first export and review queue manually before scheduling weekly.
+The SBG pilot is active. Its activation steps are done:
+
+- A real SBG single-image ad (Mystery Drop, Meta ad 120252324071620734) was
+  matched to its exact archived output and recipe on 2026-10-07.
+- Currency (USD), account timezone (America/New_York), minimum spend ($100)
+  and purchases (5), ROAS target (2.0) and the three-day conversion buffer
+  were approved on 2026-10-07; the attribution context is recorded with them.
+- The analytics migration is applied; SBG recipes are registered and binding
+  to exact ads works (first binding 2026-10-07).
+- The first export and review queue ran by hand on 2026-10-07. The weekly
+  review now runs Wednesdays 09:00 on the always-on PC (Codex automation
+  `sbg-weekly-creative-review`; first weekly reports 2026-10-14).
+
+Its files are in `clients/savedbygrace/creative-feedback/`: `WEEKLY-REVIEW.md`
+(how to run it), `shortlist-policy.json` (approved thresholds) and
+`product-ad-map.json` (reviewed product-to-ad map). Winner rules are per
+client; other clients have no approved policy yet, so describe their results
+and ask for thresholds.
 
 No migration, recurring schedule or paid generation is activated by installing
 these commands. Existing performance logs and reports are unchanged.

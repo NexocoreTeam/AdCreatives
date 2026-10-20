@@ -87,9 +87,11 @@ Use the already-connected Higgsfield account, not Zuverse/Zurelay credentials:
 2. Get current model capabilities. This adapter uses `seedance_2_5`,
    `omni_reference`, the product as canonical role `image`, and optionally the
    source as `video`. It deliberately preserves the existing image REST client.
-3. Quote the exact `packet.params` plus `medias` with `estimate_video_cost`.
-   Backend role aliases are expected; duration/model/resolution/prompt changes
-   require a new packet/quote. Successful pricing does not validate generation.
+3. Quote the exact `packet.params` plus `medias` with `estimate_video_cost`
+   (where the connector has no such tool, `generate_video` with
+   `get_cost: true` returns the cost without submitting). Backend role
+   aliases are expected; duration/model/resolution/prompt changes require a
+   new packet/quote. Successful pricing does not validate generation.
 4. Save a sanitized `quote.json` with the structure below. Include current UTC
    time and the higher of whole/exact credit cost, rounded up if necessary.
    Bind every uploaded UUID to its packet asset hash. These bindings are operator
@@ -166,9 +168,11 @@ Native iOS/Ella elements belong in the existing Canva/native route afterwards.
 - Approval records are local audit records, **not authentication**. A person
   able to rewrite files can forge them. Shared service integration must enforce
   existing operator/client ACLs and real approval gates before execution.
-- These CLI commands are not automatically added to Alex's shared-service
-  catalog. That requires a reviewed service adapter. No live service changed
-  and no keys are distributed by this feature.
+- Since 2026-10-17 the shared service runs these `video-reference` steps (plus
+  the element-edit steps `excerpt`, `prepare-edit` and `assemble`) as
+  zero-cost `pipeline_ops.py` commands and registers finished recipes in
+  Postgres. It never submits paid Higgsfield jobs and distributes no keys;
+  generation stays on the operator's connected Higgsfield account.
 
 ## Upstream inspiration
 

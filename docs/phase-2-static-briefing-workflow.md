@@ -9,13 +9,16 @@ Phase 2 is not "generate static concepts". Phase 2 is:
 1. Synthesize the source-backed audience research.
 2. Choose one avatar.
 3. Choose one mass desire or core focus.
-4. Pull and analyze direct competitor plus adjacent-niche ads.
-5. Build the 70 / 20 / 10 source mix.
-6. Build an angle bank by awareness level.
-7. Ask the operator to choose the visual format or template.
-8. Generate format-specific benefits, negatives, and headlines.
-9. Run the Static Mistake Filter.
-10. Get approval before production or paid generation.
+4. Pull direct competitor plus adjacent-niche ads.
+5. Analyze those ads and extract opportunities.
+6. Build the 70 / 20 / 10 source mix.
+7. Build an angle bank by awareness level.
+8. Ask the operator to choose the visual format or template.
+9. Generate format-specific benefits, negatives, and headlines.
+10. Run the Static Mistake Filter.
+11. Get approval before production or paid generation.
+
+The step numbers match the Gate numbers below.
 
 ## Create The Workbook
 
@@ -199,7 +202,7 @@ Stop and ask for the visual format/template:
 - organic caption
 - founder note
 - native IG question box (brand's own question, or a real answer)
-- native iMessage / DM thread (real conversation shared with permission only)
+- native iMessage thread (real conversation shared with permission only)
 - native Notes card (real attributed reviews, lists, checklists)
 - native reminder pop-up (one short line, e.g. a real product name)
 

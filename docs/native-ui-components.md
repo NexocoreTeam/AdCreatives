@@ -16,7 +16,8 @@ Apple/Instagram UI conventions.
    brand shows up in the photo, the product and the words, not in the UI chrome.
 2. **Only the words change.** Keep copy short enough that cards and bubbles don't reflow oddly.
    Questions and messages wrap balanced, with no orphaned last word.
-3. **Real content only.** iMessage/DM threads are real conversations shared with permission.
+3. **Real content only.** iMessage threads (and any Instagram DM made from a template) are real
+   conversations shared with permission.
    Reviews are real, attributed reviews. The question box is either a question the brand is
    asking (placeholder field) or a real customer's answer. Never write a fake testimonial into a
    realistic bubble: it's deceptive, and on Meta it's a policy risk.
