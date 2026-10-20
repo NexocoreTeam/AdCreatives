@@ -124,6 +124,22 @@ def test_prepare_is_local_immutable_and_preserves_product(tmp_path):
     assert not (packet / "approval.json").exists()
 
 
+def test_kids_remake_preserves_age_direction_without_forcing_adult(tmp_path):
+    client, source = fixture_run(tmp_path)
+    brief = json.loads((client / "brief.json").read_text())
+    brief.update(product="kids-pullover", product_truth="Children's sweatshirt",
+                 direction="A fictional six-year-old child in the kids sweatshirt")
+    (client / "brief.json").write_text(json.dumps(brief))
+    run = prepare(client, source.relative_to(client).as_posix(), "analysis.json",
+                  "brief.json", "product.png")
+    packet = read_packet(client, run.relative_to(client).as_posix())
+    prompt = packet["params"]["prompt"]
+    assert brief["direction"] in prompt
+    assert "Use a fictional adult" not in prompt
+    assert "Keep clothing fully on" in prompt
+    assert packet["brief"]["product_truth"] == brief["product_truth"]
+
+
 def test_tampered_asset_rejected(tmp_path):
     client, packet = make_packet(tmp_path)
     (packet / "assets/product.png").write_bytes(b"changed")
