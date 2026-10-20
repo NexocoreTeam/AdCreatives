@@ -24,6 +24,52 @@ an ad handoff sheet. Do not run after every generation unless requested.
    machine, retrieve needed assets through supported shared creative download
    commands; do not assume the host's local paths exist there or share keys.
 
+## Launch from a handoff document
+
+Before preparing new ads, read the document supplied or selected for this batch
+and its intended rows. If none was supplied, look for a clearly matching client
+batch manifest; otherwise ask for the document or accept equivalent exact inputs
+in chat. Never assume the last client's sheet or an entire sheet is the target.
+Read similar documents by their actual headers, not fixed column letters. Keep
+size pairs and copy/headline variants in one ad as described below.
+
+Use an explicit `Meta ad name` or `Ad name` column as the proposed launch name.
+An explicit name in the current request takes precedence; surface any conflict
+with the document. A friendly Creative name, headline or filename is not an
+approved Meta name. For rows without an explicit launch name, ask once, before
+staging the final approval packet:
+
+> What's the name of this ad? You can also say "skip naming" and I'll use a
+> traceable generated name. For several ads, you can give names by Creative ID
+> or skip naming for the whole selected batch.
+
+Identify the affected rows/Creative IDs together so the operator can answer once.
+Honor an already supplied name or explicit naming bypass without asking again.
+No answer is not a bypass. Read-only preparation can continue while waiting.
+On bypass, use the client naming convention with a stable Creative ID and show
+that exact generated name in the approval packet. Record the naming source
+(document, operator, or generated after bypass), document/tab/row, Creative ID,
+and actual bypass instruction in the run's intake record. Keep optional intake
+metadata out of strict service payloads unless its contract supports it.
+
+When a document or name is missing, briefly offer the usual layout, linking the
+current client's sheet if known or showing the Main sheet table below:
+
+> Our usual launch sheet has the creative type, links for each size, two ad-copy
+> options, two headlines, the destination URL, Creative ID and Meta ad name.
+> You can use that layout or send a similar document; I'll match its columns.
+
+This is a convenience, not a requirement to create a new sheet. Missing custom
+names can be bypassed; required assets, copy, destination, identity and exact
+Meta write approvals cannot. A proposed sheet name is included in approval,
+not authorization to create or activate an ad. For changes to existing ads,
+preserve the current name unless an exact rename is approved.
+
+Save source-row-to-Creative-ID-to-recipe/output/hash bindings with the run and
+reconcile actual ad IDs/names after readback. Update the source sheet only when
+its maintenance is authorized; otherwise retain a pending reconciliation record.
+Never silently rewrite the operator's document to fit the standard layout.
+
 ## Upload and organize
 
 - Use readable filenames with a stable creative ID, treatment and actual ratio,
