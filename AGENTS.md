@@ -29,6 +29,11 @@ For "upload this to the document" or client Drive/launch-Sheet handoffs, read
 ad name, preserve exact recipe/output bindings, and record actual launch events
 from receipts. A Sheet upload is not proof of usage or permission to delete media.
 Use the installed creative-batch-handoff or nexocore-ad-operations skill for tools.
+For new-ad launches, read the supplied batch document and its intended rows.
+Use its explicit Meta ad names; ask once for missing names and offer an explicit
+bypass using a traceable generated name shown in the approval packet. Offer the
+standard sheet layout in that guide when helpful. Naming bypass never bypasses
+launch approval. Preserve existing-ad names unless a rename is approved.
 
 For Facebook/Meta or other video-reference remakes, read
 `docs/video-reference-remakes.md` and use `adc video-reference`. Import an
