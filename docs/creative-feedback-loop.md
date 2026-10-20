@@ -1,5 +1,10 @@
 # Creative recipes and performance feedback
 
+For client Drive/Google Sheet delivery, searchable Meta ad names, launch history
+and a later unused-media cleanup review, follow `creative-batch-handoff.md`.
+Names are labels; the client/account/ad/recipe/output/hash binding is the evidence.
+Keep immutable recipe bundles and required parent inputs intact during cleanup.
+
 The first slice connects a saved creative version to a single-image Meta ad,
 then imports an analytics winner packet into a review queue. It never launches
 ads or starts paid generation. Saved by Grace is the pilot client.

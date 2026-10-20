@@ -24,6 +24,12 @@ reference recreation, Higgsfield generation, local text overlays, or Canva
 handoff work. It captures current tool roles, native text presets, product
 handling, reference packets, crop-safety, and pre-send QA rules.
 
+For "upload this to the document" or client Drive/launch-Sheet handoffs, read
+`docs/creative-batch-handoff.md`. Include a stable Creative ID and proposed Meta
+ad name, preserve exact recipe/output bindings, and record actual launch events
+from receipts. A Sheet upload is not proof of usage or permission to delete media.
+Use the installed creative-batch-handoff or nexocore-ad-operations skill for tools.
+
 For Facebook/Meta or other video-reference remakes, read
 `docs/video-reference-remakes.md` and use `adc video-reference`. Import an
 authorized local copy, review its full timeline, and preserve the product and
