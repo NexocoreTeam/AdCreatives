@@ -11,8 +11,11 @@ client accounts. Two-phase model:
 - **Phase 1 — Strategy.** Brand research → personas → products → offers → strategy
   matrix → psychology profiles → creative briefs. Eleven steps, not just one CLI call.
   Outputs live in `clients/<slug>/`.
-- **Phase 2 — Image generation.** Briefs → fal.ai prompts → rendered PNGs. Outputs
-  live in `ai-ads/<slug>/` (gitignored, regenerable).
+- **Phase 2 — Briefing, then image generation.** Briefs → fal.ai prompts →
+  rendered PNGs. Outputs live in `ai-ads/<slug>/` (gitignored, regenerable).
+  For broad, research-led or batch static work, Phase 2 starts with the static
+  briefing gates in `docs/phase-2-static-briefing-workflow.md`; generation
+  comes only after their approval. "Phase 2 Gate N" always means those gates.
 
 Read `docs/pipeline-rules.md` before touching the pipeline. It encodes hard-won
 operating rules (one product per run for multi-SKU brands, persona awareness
@@ -46,9 +49,11 @@ For changing a person or setting while preserving the product and action, read
 approval/receipt/finish flow, then `assemble` to save a full-ad child preview.
 
 Read `docs/native-ui-components.md` before any ad that imitates a phone or app
-screen: Instagram question box / Q&A, iMessage or DM thread, Notes card, or
+screen: Instagram question box / Q&A, iMessage thread, Notes card, or
 reminder pop-up. Build those with `adc native-ad` (code-rendered, native look),
 never with image-model text or brand-styled overlays, and only with real content.
+Instagram DM/comment replies are not built yet; never use iMessage in their
+place (see `docs/native-organic-workflow.md` for the template route).
 
 For organic-looking ads, captions, pills, stickers, or app elements, use
 `docs/native-organic-workflow.md` to select the production route and fill the
@@ -134,7 +139,7 @@ flow and save local access/refresh tokens. See `docs/canva-connect-oauth.md`.
 ## Higgsfield integration
 
 Higgsfield AI is wired into both the brief→image pipeline (`--engine
-higgsfield-soul`) and the agent's own toolset. Three layers:
+higgsfield-soul`) and the agent's own toolset. Four layers:
 
 1. **Runtime REST client** at `generators/higgsfield_client.py` — used by
    `adc remix-images`, `adc remix-refine`, and `adc generate` when
@@ -150,22 +155,21 @@ higgsfield-soul`) and the agent's own toolset. Three layers:
    slash commands installed via `npx skills add higgsfield-ai/skills`:
    `/higgsfield-generate`, `/higgsfield-soul-id`,
    `/higgsfield-product-photoshoot`, `/higgsfield-marketplace-cards`. They
-   wrap the CLI with structured prompts. Prefer these over the deprecated
-   Higgsfield MCP connector.
+   wrap the CLI with structured prompts. Where they are installed, they are
+   an alternative to the connected Higgsfield tools for image and Soul work.
+4. **Connected Higgsfield tools.** Both agents keep their Higgsfield
+   connection: Codex uses its Higgsfield app connection, and Claude Code uses
+   the Claude.ai Higgsfield connector (`mcp.higgsfield.ai/mcp`). This is the
+   current route for video. Video-reference remakes and element edits
+   (`docs/video-reference-remakes.md`, `docs/video-element-edits.md`) use these
+   tools for uploads, cost quotes, `generate_video` (including Genjutsu
+   `hf_mult_replace_object`) and job status. Do not remove either connection
+   (Mitchell, 2026-10-20). The paid-generation rules still apply to every
+   route: quote first, record the cost approval, one claim per attempt, and
+   no automatic retry.
 
-The previous Higgsfield Claude.ai MCP connector (`mcp.higgsfield.ai/mcp`)
-is being phased out in favor of the CLI + skills. Per-persona Soul
-Characters are tracked under each avatar YAML's `higgsfield:` block
-(`soul_id`, `soul_status`).
-
-**TODO (deferred 2026-05-16):** Remove the Higgsfield MCP connector from
-Claude.ai. It must be removed via the web UI at
-https://claude.ai/settings/connectors — `claude mcp remove` does not work
-on Claude.ai-managed connectors (it can list them but not delete them).
-Until removed, the MCP tools coexist with the CLI/skills; nothing breaks,
-but the toolset is noisier than it needs to be. After removal, restart
-Claude Code to drop the `mcp__dc37e644-...__*` tools from the available
-set.
+Per-persona Soul Characters are tracked under each avatar YAML's
+`higgsfield:` block (`soul_id`, `soul_status`).
 
 ## Repo layout
 
@@ -217,11 +221,13 @@ These are hard rules. If you're editing templates, brief outputs, or prompt copy
 - Sourcing rule applies (cite review sources when claims appear in copy).
 - No invented UI chrome (fake browser bars, made-up app overlays). **Native
   phone/app-screen formats are allowed** when the chosen format calls for them
-  (IG question box, iMessage/DM thread, Notes card, reminder pop-up): build them
+  (IG question box, iMessage thread, Notes card, reminder pop-up): build them
   with `adc native-ad`, keep the native look (no brand fonts/colours/pills on the
   UI), and use real content only: real conversations shared with permission,
   real attributed reviews, questions actually received, or the brand's own
-  question. Never write a fake testimonial into a realistic bubble.
+  question. Never write a fake testimonial into a realistic bubble. Instagram
+  DM/comment replies are not built in `adc native-ad` yet; never substitute
+  an iMessage thread for them.
   See `docs/native-ui-components.md`. (Rule updated 2026-10-07, approved by Mitchell.)
 - Pill sizing matches the visual format spec.
 - Wild brand aesthetic where applicable.
@@ -286,7 +292,7 @@ adc native-ad --brief clients/<client>/briefs/<brief>.yaml -o ai-ads/<client>/na
 #   brief carries a native_ui block; renders 4x5 + 9x16 by default
 ```
 
-Phase 2 (image gen):
+Phase 2 image generation (after the briefing gates and approval):
 ```
 adc menu --client <slug>
 adc prompts --client <slug> --pick 1,2,3

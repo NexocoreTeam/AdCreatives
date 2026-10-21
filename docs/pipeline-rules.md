@@ -360,22 +360,23 @@ Phase 2 gate order:
    behaviors/moments, objections, exact terminology.
 2. Avatar selection.
 3. Mass desire or core-focus selection.
-4. Direct competitor and adjacent-niche ad pull/analysis.
-5. 70 / 20 / 10 source mix.
-6. Angle bank by awareness level.
-7. Operator-selected visual format/template.
-8. Template-specific benefits, negatives, and headlines.
-9. Static Mistake Filter.
-10. Approval before production.
+4. Direct competitor and adjacent-niche ad pull.
+5. Ad analysis and opportunity extraction.
+6. 70 / 20 / 10 source mix.
+7. Angle bank by awareness level.
+8. Operator-selected visual format/template.
+9. Template-specific benefits, negatives, and headlines.
+10. Static Mistake Filter.
+11. Approval before production.
 
 Default concept mix:
 
-1. **70% proven outside references** â€” direct competitors, category leaders,
+1. **70% proven outside references** — direct competitors, category leaders,
    adjacent niches, Foreplay, Apify/Meta/TikTok ad scrape, Pinterest mechanics,
    and approved ad-library teardowns.
-2. **20% internal winners** â€” client or agency hooks, templates, formats,
+2. **20% internal winners** — client or agency hooks, templates, formats,
    offers, overlays, or visual mechanics that have worked before.
-3. **10% new swings** â€” fresh hypotheses, trend plays, unusual hooks, or
+3. **10% new swings** — fresh hypotheses, trend plays, unusual hooks, or
    strategist intuition.
 
 Every concept should identify:
@@ -416,24 +417,27 @@ the mechanic can be emulated for the selected avatar and mass desire.
 generic, merely promotional, or built from clever copy instead of source-truthed
 customer language.
 
-Every static must pass these six checks:
+Every static must pass these seven checks:
 
 1. **One-second readability.** The main hook must be legible while the viewer
    is half-scrolling. Tiny text, low contrast, busy backgrounds behind copy,
    and white-on-yellow style combinations fail.
-2. **Moves the sale forward.** The ad must do more than announce a sale or
+2. **Center 1:1 crop safety.** For 9:16 and 4:5 assets, the main hook and core
+   text stay readable inside the center 1:1 crop (see "1:1 Feed-Crop Safety"
+   in `docs/creative-production-system.md`).
+3. **Moves the sale forward.** The ad must do more than announce a sale or
    offer. It should clarify the mechanism, handle an objection, dramatize a
    moment, explain the difference, or make the viewer feel understood.
-3. **Not generic.** If any competitor could say the same thing, rewrite with
+4. **Not generic.** If any competitor could say the same thing, rewrite with
    proof, specificity, mechanism, exact customer language, or a concrete use
    case.
-4. **Benefit depth.** Push beyond level-one benefits. Translate "more energy"
+5. **Benefit depth.** Push beyond level-one benefits. Translate "more energy"
    into the daily-life, emotional, identity, or lived-moment payoff when the
    research supports it.
-5. **Research before cleverness.** Do not ship cringey wordplay or
+6. **Research before cleverness.** Do not ship cringey wordplay or
    copywriter-clever hooks unless the line is grounded in a real pain, moment,
    objection, failed solution, or customer phrase.
-6. **Authenticity match.** Match the visual polish to the claim. Use polished
+7. **Authenticity match.** Match the visual polish to the claim. Use polished
    product statics for proof/mechanism/comparison and native UGC statics for
    relatability, routine, skepticism, and lived moments.
 
@@ -509,7 +513,7 @@ into a lifestyle/UGC visual or force a long note into a one-headline layout.
 ## 12. Native phone/app-screen ads are code-rendered, native-styled and real
 
 **Rule:** Ads that imitate a phone or app screen (Instagram question box / Q&A,
-iMessage or DM thread, Notes card, reminder pop-up) are built with
+iMessage thread, Notes card, reminder pop-up) are built with
 `adc native-ad` / `generators/native_ui.py`, never with image-model text and
 never restyled with brand fonts, colours or pills. Only the words change, and
 the words must be real: a conversation shared with permission, attributed
@@ -530,8 +534,9 @@ For everyday routing alongside organic captions/pills, use
 `docs/native-organic-workflow.md` and the Phase 2 workbook's Native / Organic
 Production Handoff. The four implemented app components are question_box,
 imessage, notes, and reminder; Instagram DM/comment replies need a template
-route until implemented. For native treatments, rules 8 and 11's emulation
-route produces the clean photo only, followed by local/template text and UI.
+route until implemented, and iMessage must not stand in for an Instagram DM.
+For native treatments, rules 8 and 11's emulation route produces the clean
+photo only, followed by local/template text and UI.
 This routing preserves the existing source, approval, and crop-safety rules.
 
 ## 13. Video references need source evidence and a reviewed remake packet

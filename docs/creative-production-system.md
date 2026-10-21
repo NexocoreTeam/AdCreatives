@@ -572,11 +572,13 @@ Use for calendar, receipt, text message, note, app, chart, or UI-native ads.
 
 Rules:
 
-- Instagram question box, iMessage/DM thread, Notes card and reminder pop-up:
+- Instagram question box, iMessage thread, Notes card and reminder pop-up:
   use `adc native-ad` (`generators/native_ui.py`). It renders the native look
   exactly at 4:5 / 9:16 / 1:1 and records the content source. Read
   `docs/native-ui-components.md` first: native look only, words only, real
   content only.
+- Instagram DM/comment replies are not built in `adc native-ad` yet. Never use
+  an iMessage thread in their place; see `docs/native-organic-workflow.md`.
 - Build locally when UI/text precision matters.
 - Make the chrome match the platform details: status bar, battery, time, date,
   spacing, native colors.
@@ -935,7 +937,9 @@ Video-reference recreation now has a local staging and recipe route:
 `adc video-reference`. See [video-reference-remakes.md](video-reference-remakes.md)
 for source acquisition, frame/shot review, connected Higgsfield handoff, exact
 cost approval, single-attempt recording, QA and parent recipe lineage. This
-does not change the image REST adapter or add employee service endpoints.
+does not change the image REST adapter. The shared service runs these local
+`video-reference` steps (and the element-edit steps) at zero cost and registers
+finished recipes; it never submits paid Higgsfield jobs.
 
 - Add reusable local overlay commands for TikTok pill, IG Story box, and organic
   caption presets.
