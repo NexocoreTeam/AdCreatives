@@ -139,7 +139,7 @@ flow and save local access/refresh tokens. See `docs/canva-connect-oauth.md`.
 ## Higgsfield integration
 
 Higgsfield AI is wired into both the brief→image pipeline (`--engine
-higgsfield-soul`) and the agent's own toolset. Three layers:
+higgsfield-soul`) and the agent's own toolset. Four layers:
 
 1. **Runtime REST client** at `generators/higgsfield_client.py` — used by
    `adc remix-images`, `adc remix-refine`, and `adc generate` when
@@ -155,29 +155,21 @@ higgsfield-soul`) and the agent's own toolset. Three layers:
    slash commands installed via `npx skills add higgsfield-ai/skills`:
    `/higgsfield-generate`, `/higgsfield-soul-id`,
    `/higgsfield-product-photoshoot`, `/higgsfield-marketplace-cards`. They
-   wrap the CLI with structured prompts. Prefer these over the Higgsfield
-   MCP connector for image and Soul work (video still uses the connector;
-   see below).
+   wrap the CLI with structured prompts. Where they are installed, they are
+   an alternative to the connected Higgsfield tools for image and Soul work.
+4. **Connected Higgsfield tools.** Both agents keep their Higgsfield
+   connection: Codex uses its Higgsfield app connection, and Claude Code uses
+   the Claude.ai Higgsfield connector (`mcp.higgsfield.ai/mcp`). This is the
+   current route for video. Video-reference remakes and element edits
+   (`docs/video-reference-remakes.md`, `docs/video-element-edits.md`) use these
+   tools for uploads, cost quotes, `generate_video` (including Genjutsu
+   `hf_mult_replace_object`) and job status. Do not remove either connection
+   (Mitchell, 2026-10-20). The paid-generation rules still apply to every
+   route: quote first, record the cost approval, one claim per attempt, and
+   no automatic retry.
 
-The Higgsfield Claude.ai MCP connector (`mcp.higgsfield.ai/mcp`) is being
-phased out in favor of the CLI + skills, **but for video it is still the
-current route:** video-reference remakes and element edits
-(`docs/video-reference-remakes.md`, `docs/video-element-edits.md`) use the
-operator's connected Higgsfield tools (in Claude Code, this connector) for
-uploads, cost quotes, `generate_video` (including Genjutsu
-`hf_mult_replace_object`) and job status. Per-persona Soul
-Characters are tracked under each avatar YAML's `higgsfield:` block
-(`soul_id`, `soul_status`).
-
-**TODO (deferred 2026-05-16; open question, because the video route above
-still needs the connector):** Remove the Higgsfield MCP connector from
-Claude.ai. It must be removed via the web UI at
-https://claude.ai/settings/connectors — `claude mcp remove` does not work
-on Claude.ai-managed connectors (it can list them but not delete them).
-Until removed, the MCP tools coexist with the CLI/skills. Removing it now
-would cut Claude Code off from the video route. After removal, restart
-Claude Code to drop the `mcp__dc37e644-...__*` tools from the available
-set.
+Per-persona Soul Characters are tracked under each avatar YAML's
+`higgsfield:` block (`soul_id`, `soul_status`).
 
 ## Repo layout
 
