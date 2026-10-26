@@ -104,3 +104,7 @@ For a new request, the operator can simply say: "Use our native/organic
 workflow for [client/product], with [caption or element/reference]." Continue
 from existing approved strategy and assets; ask only for missing choices,
 source evidence, or required production approval.
+
+## Video captions and opening hooks
+
+For timed video captions and a stacked colour/white written hook, use [video finishing and variants](video-finishing-and-variants.md). Preserve client styling and selected timing. This is a caption route, not `native-ad` app UI.

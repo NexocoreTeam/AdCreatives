@@ -183,3 +183,7 @@ is independently written; no upstream source, plugin, dependencies or runtime
 are installed. No original prompt recovery or identical output is promised.
 Zurelay routing, automatic downloads/installation, permissive paths and unsafe
 retry/approval advice were not adopted.
+
+## Finishing the reference adaptation
+
+Use [video finishing and variants](video-finishing-and-variants.md) for shot purpose/framing, continuity sidecars, voice auditions, captions and research-based scripts. Keep these sidecars separate from the validated CLI analysis schema.
