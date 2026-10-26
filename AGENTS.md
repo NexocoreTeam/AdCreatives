@@ -345,3 +345,7 @@ commit history.
 - `docs/ad-analyzer-openclaw.md` — Ad Reference Library workflow (Slack/OpenClaw front-end)
 - `dashboard/app.py` — Streamlit web view (run via `adc dashboard`)
 - `pyproject.toml` — deps and optional extras
+
+## Video finishing and variation workflow
+
+For video refinements, voice auditions, subtitles, written hooks or research-led script variants, read `docs/video-finishing-and-variants.md`. Read client `creative-preferences.md` and `video-finishing/` when present. Keep component approvals distinct and preserve approved masters.

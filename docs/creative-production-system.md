@@ -951,3 +951,7 @@ finished recipes; it never submits paid Higgsfield jobs.
 - Improve reference-packet storage so every ad has sources and assigned roles.
 - Improve Apify/Foreplay/Pinterest ingestion into client-specific creative
   research packets.
+
+## Video finishing and reusable variants
+
+For shot repairs, voice auditions, square-safe subtitles, opening hooks and script variants, follow [video finishing and variants](video-finishing-and-variants.md). Client presets are preferences; they do not replace current instructions, claims checks or generation/launch approvals.

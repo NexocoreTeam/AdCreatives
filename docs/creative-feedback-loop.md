@@ -145,3 +145,7 @@ and ask for thresholds.
 
 No migration, recurring schedule or paid generation is activated by installing
 these commands. Existing performance logs and reports are unchanged.
+
+## Component approvals and supersession
+
+For ongoing video refinement, use the client preset and approval history described in [video finishing and variants](video-finishing-and-variants.md). Keep footage, voice, script and text-style decisions separate; a rejected component must not be reused merely because its file is newer.
