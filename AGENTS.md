@@ -72,6 +72,10 @@ dump, OpenClaw/browser-assisted source collection, Audience Conversion Report,
 source-truth check, behavior/moment extraction, exact customer terminology,
 and product-USP angle mapping workflow.
 
+For UGC speaking-reference collection and review,
+read `docs/ugc-reference-library.md`; keep caption, transcript and listening
+evidence separate, and record a budget approval before paid collection.
+
 Read `docs/phase-2-static-briefing-workflow.md` before turning Phase 1 research
 into static ad concepts. It defines the required Phase 2 gates: research
 synthesis, avatar selection, mass-desire selection, direct + adjacent ad
