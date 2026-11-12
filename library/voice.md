@@ -9,8 +9,11 @@ The voice profile is extracted from a reference brand (babybay) whose
 copywriting demonstrates the patterns we want: clever, concrete, customer-
 voice, and confident without being preachy or product-spec heavy.
 
-To override for a specific client, create `clients/<slug>/voice.md` —
-the loader prefers per-client over this global default.
+This is the shared writing style for every client. A `clients/<slug>/voice.md`
+file supplies audience context; it cannot replace this style. Product facts,
+substantiation, prohibited terms and exact approved copy still take precedence.
+Example claims in this profile illustrate writing patterns, not evidence for
+another product. Never invent specificity to satisfy a style example.
 
 ---
 

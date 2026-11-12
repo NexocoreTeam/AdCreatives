@@ -9,7 +9,7 @@ When invoked, **this skill activates the brand voice profile** for any copy I dr
 
 ## What to do when this skill fires
 
-1. **Read `library/voice.md`** (the full file). If it doesn't exist, fall back to `clients/<slug>/voice.md` if the user mentioned a client. If neither exists, tell the user and stop.
+1. **Read `library/voice.md`** (the full file). It is the shared Babybay-derived writing style for every client. If missing, report the missing shared profile before drafting. Read `clients/<slug>/voice.md` as additional audience context, never as a replacement style. Preserve supported facts and exact attributed quotes; examples do not substantiate claims for another product.
 
 2. **Briefly acknowledge what loaded** — under 100 words. List the count of signature moves, the count of forbidden words, and one example to confirm the voice is active. Example:
 
@@ -26,7 +26,7 @@ When invoked, **this skill activates the brand voice profile** for any copy I dr
 
 ## Important: what this skill does NOT do
 
-- It does NOT modify the voice profile file. To edit the voice, the user edits `library/voice.md` directly (or adds a per-client override at `clients/<slug>/voice.md`). The Python remix code re-reads the file on each run, so changes take effect immediately.
+- It does NOT modify the voice profile file. Shared style changes belong in `library/voice.md` through the repo's branch/PR workflow. Client files add audience context. The Python copy routes read the shared profile when composing prompts.
 
 - It does NOT trigger the Python `adc remix` pipeline. This skill is for **manual drafting in Claude Code chat**. The Python pipeline reads the same `library/voice.md` automatically — no skill needed for batch runs.
 
@@ -41,8 +41,8 @@ One file. Two consumers. Consistent voice across both.
 ## File precedence
 
 ```
-clients/<slug>/voice.md     ← per-client override (preferred when user mentions a client)
-library/voice.md            ← global default (fallback)
+library/voice.md            ← shared writing style, always loaded
+clients/<slug>/voice.md     ← optional audience context, cannot replace the style
 ```
 
-If the user mentions a specific client (e.g. "draft a headline for secondkind-bold"), check for the per-client file first.
+For a specific client, load the shared style and then its audience context. Product substantiation, prohibited terms, disclosures and exact approved copy take precedence over stylistic examples. This governs writing, not narration settings or a client's visual identity.

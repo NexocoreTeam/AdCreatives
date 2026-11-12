@@ -191,6 +191,16 @@ Per-persona Soul Characters are tracked under each avatar YAML's
 
 ## Conventions
 
+### Shared copywriting voice
+
+Use `library/voice.md` as the Babybay-derived writing style for every client,
+including manually drafted video scripts/hooks and provider prompt packets.
+`strategy/copywriting_voice.py` supplies the same style to automated copy routes.
+Client `voice.md` / `voice.yaml` files add audience context, not replacement styles.
+Preserve substantiated facts, prohibited terms, required disclosures and exact
+approved copy. Do not rewrite attributed quotes or invent claims from the profile's
+examples. This writing standard does not change brand visuals or narration presets.
+
 - **Immutability.** Return new objects; do not mutate inputs.
 - **File size.** 200–400 lines typical, hard cap 800. `cli.py` is the exception.
 - **Function size.** Aim under 50 lines.

@@ -770,8 +770,10 @@ def condense_brief_for_ad(
         f"Output JSON only: {{'hero': '...', 'supporting': '...', 'cta': '...'}}"
     )
 
+    from strategy.copywriting_voice import voice_block as shared_voice_block
+    copy_system = shared_voice_block() + CONDENSER_SYSTEM
     try:
-        response = claude_complete(prompt, system=CONDENSER_SYSTEM, max_tokens=300)
+        response = claude_complete(prompt, system=copy_system, max_tokens=300)
         text = response.strip()
         if text.startswith("```"):
             nl = text.find("\n")
