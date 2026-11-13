@@ -23,7 +23,7 @@ from pathlib import Path
 import httpx
 import yaml
 
-from strategy.firecrawl_client import firecrawl_map_urls, firecrawl_scrape_html
+from strategy.firecrawl_client import BLOCKED_PAGE, firecrawl_map_urls, firecrawl_scrape_html
 from strategy.researcher import USER_AGENT
 from strategy.reviews import Review, fetch_product_reviews
 
@@ -165,11 +165,27 @@ def _fetch_html(url: str) -> str:
     Elevated Faith, whose Okendo subscriberId exists in the raw source and
     vanishes after rendering. Callers that detect a vendor with empty
     identifiers should retry extraction on _fetch_html_raw.
+
+    A page Firecrawl reports as blocked by the site's bot check is not fetched
+    directly either: BLOCKED_PAGE (an empty string) is passed on, so the
+    caller can say why the page is empty.
     """
     html = firecrawl_scrape_html(url)
     if html:
         return html
+    if html is BLOCKED_PAGE:
+        return BLOCKED_PAGE
     return _fetch_html_raw(url)
+
+
+def _blocked_note(blocked_pages: list[str]) -> str:
+    """Opening of a 0-review note when the site's bot check stopped pages."""
+    if not blocked_pages:
+        return ""
+    return (
+        f"{len(blocked_pages)} page(s) blocked by the site's bot check and not "
+        "fetched another way. "
+    )
 
 
 def _shopify_products_json_urls(base_url: str, limit: int = 25) -> list[str]:
@@ -213,6 +229,7 @@ def pull_competitor_reviews(
     # bundle.notes on a 0-review outcome so research/competitor-reviews/*.json
     # says WHY, not just "0" (pipeline-rules rule 6).
     signal_notes: list[str] = []
+    blocked_pages: list[str] = []  # named in bundle.notes for the same reason
 
     # 1. Find product pages first (where reviews actually live).
     #    Discovery chain: Firecrawl /map → Shopify /products.json → homepage links.
@@ -228,6 +245,8 @@ def pull_competitor_reviews(
 
     if not product_urls:
         homepage_html = _fetch_html(competitor.url)
+        if homepage_html is BLOCKED_PAGE:
+            blocked_pages.append(competitor.url)
         if homepage_html:
             bundle.scraped_pages.append(competitor.url)
             product_urls = _extract_product_urls_from_html(homepage_html, competitor.url)
@@ -247,7 +266,7 @@ def pull_competitor_reviews(
                 return bundle
 
     if not product_urls:
-        bundle.notes = (
+        bundle.notes = _blocked_note(blocked_pages) + (
             f"No product pages found for {competitor.url}. "
             f"Site may not be Shopify, or sitemap//products.json is unavailable."
         )
@@ -258,6 +277,8 @@ def pull_competitor_reviews(
     for product_url in product_urls[:MAX_PRODUCT_PAGES_TO_TRY]:
         product_html = _fetch_html(product_url)
         if not product_html:
+            if product_html is BLOCKED_PAGE:
+                blocked_pages.append(product_url)
             continue
         bundle.scraped_pages.append(product_url)
 
@@ -297,7 +318,7 @@ def pull_competitor_reviews(
 
     if not bundle.reviews:
         unique_vendors = sorted(set(detected_vendors)) if detected_vendors else ["none"]
-        bundle.notes = (
+        bundle.notes = _blocked_note(blocked_pages) + (
             f"No reviews extracted from {len(bundle.scraped_pages)} page(s). "
             f"Detected vendors: {', '.join(unique_vendors)}. "
         )
@@ -305,6 +326,11 @@ def pull_competitor_reviews(
             # A vendor path ran and failed for a stated reason — that reason
             # IS the diagnostic. Dedupe (same note repeats across PDPs).
             bundle.notes += "Vendor diagnostics: " + " | ".join(dict.fromkeys(signal_notes))
+        elif blocked_pages and not bundle.scraped_pages:
+            bundle.notes += (
+                "No page could be read, so the review widget is unknown; rely on "
+                "Exa/Reddit/Amazon/social sources for this competitor."
+            )
         else:
             bundle.notes += (
                 "No supported widget API and no JSON-LD review markup — for this "

@@ -21,6 +21,7 @@ from strategy.competitor_bestsellers import (
     load_bestsellers,
     snapshot_for_client,
 )
+from strategy.firecrawl_client import BLOCKED_PAGE
 
 GRID_HTML = """
 <div class="grid">
@@ -52,6 +53,19 @@ def test_fetch_falls_back_to_static(monkeypatch):
     assert method == "httpx-static"
     assert len(cards) == 2
     assert "theme-dependent" in note
+
+
+def test_fetch_does_not_go_direct_when_the_page_is_blocked(monkeypatch):
+    """Firecrawl reported the site's bot check: do not get the page another way."""
+    monkeypatch.setattr(cb, "firecrawl_scrape_html", lambda url, **kw: BLOCKED_PAGE)
+    monkeypatch.setattr(
+        cb, "fetch_shopify_bestsellers",
+        lambda *a, **k: (_ for _ in ()).throw(AssertionError("blocked page fetched directly")),
+    )
+    cards, method, note = fetch_bestsellers("https://x.com")
+    assert cards == []
+    assert method == "blocked"
+    assert "bot check" in note
 
 
 def test_fetch_returns_note_when_both_paths_empty(monkeypatch):
