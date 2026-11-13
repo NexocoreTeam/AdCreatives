@@ -243,6 +243,10 @@ report "full process complete" after it:
 adc onboard --client <slug> --url <homepage>
 #   = research → product-deep-dive → personas → offers → strategy-matrix
 #     (stages 1-5; each also runnable individually)
+#   stores with many products: add --product-url <product page> (repeatable,
+#   also on `adc research`) so research reads the product being researched
+#   instead of the first three it finds. Shopify (/products/) and WooCommerce
+#   (/product/) product pages are both discovered.
 
 adc profile-psychology --client <slug>
 adc scaffold-competitors --client <slug> --names "A, B, C"

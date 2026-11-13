@@ -559,6 +559,20 @@ def bestsellers(client: str, top_n: int):
 # ─── Onboard wrapper (runs stages 1-5 in sequence) ──────────────────────────
 
 
+def _validated_product_urls(url: str, product_url: tuple) -> list[str]:
+    """Check --product-url values, turning a bad one into a usage error.
+
+    Done in the command body, not a click callback: the shared service refuses
+    commands whose options carry callbacks.
+    """
+    from strategy.researcher import validate_product_urls
+
+    try:
+        return validate_product_urls(url, product_url)
+    except ValueError as e:
+        raise click.BadParameter(str(e), param_hint="--product-url") from e
+
+
 @cli.command()
 @click.option("--client", required=True, help="Client slug (will be created if missing)")
 @click.option("--url", required=True, help="Brand homepage URL")
@@ -567,8 +581,12 @@ def bestsellers(client: str, top_n: int):
 @click.option("--skip", multiple=True,
               type=click.Choice(["research", "personas", "product-deep-dive", "offers", "strategy-matrix"]),
               help="Stage(s) to skip (can be repeated)")
+@click.option("--product-url", multiple=True,
+              help="Product page for research to read first (can be repeated). "
+                   "Must be on the same site as --url.")
 @click.pass_context
-def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, skip: tuple):
+def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, skip: tuple,
+            product_url: tuple):
     """Run the full onboarding pipeline (stages 1-5) end-to-end.
 
     Sequence: research → product-deep-dive → personas → offers → strategy-matrix.
@@ -578,6 +596,7 @@ def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, sk
     All stages run with --auto where applicable. Use the individual commands
     if you want interactive review.
     """
+    _validated_product_urls(url, product_url)
     skipped = set(skip)
 
     def banner(num: int, name: str):
@@ -590,7 +609,8 @@ def onboard(ctx, client: str, url: str, max_products: int, max_personas: int, sk
         console.print("[yellow]Skipping research[/yellow]")
     else:
         banner(1, "Research")
-        ctx.invoke(research, client=client, url=url, max_products=max_products, auto=True)
+        ctx.invoke(research, client=client, url=url, max_products=max_products, auto=True,
+                   product_url=product_url)
 
     if "product-deep-dive" in skipped:
         console.print("[yellow]Skipping product-deep-dive[/yellow]")
@@ -1135,12 +1155,16 @@ def _slugify(text: str) -> str:
 @click.option("--max-products", default=3, type=int, help="Max products to focus on")
 @click.option("--auto/--review", default=False,
               help="--auto skips PHASE 4 confirmations and accepts all extractions as-is")
-def research(client: str, url: str, max_products: int, auto: bool):
+@click.option("--product-url", multiple=True,
+              help="Product page to read first (can be repeated). Must be on the same "
+                   "site as --url. Counts toward the 3 product pages read per run.")
+def research(client: str, url: str, max_products: int, auto: bool, product_url: tuple):
     """Brand research using Motion's interview-first methodology.
 
     Phase 1: 6 batched seed questions about products, audience, competitors,
     constraints, and existing creative.
-    Phase 2: Web research — fetches homepage and standard sub-pages.
+    Phase 2: Web research — fetches homepage, standard sub-pages and up to 3
+    product pages (name them with --product-url on stores with many products).
     Phase 3: Compiles a comprehensive brand-context.md doc using the
     motion/brand-intake skill + structured data with confidence tagging.
     Phase 4: Interactive review — confirm extractions, fill gaps, write YAMLs.
@@ -1161,7 +1185,11 @@ def research(client: str, url: str, max_products: int, auto: bool):
         is_shopify_site,
         parse_shopify_product_cards,
         run_brand_intake,
+        select_product_page_urls,
     )
+
+    # Fail before any prompt, file write or paid fetch.
+    named_pdp_urls = _validated_product_urls(url, product_url)
 
     client_dir = Path("clients") / client
 
@@ -1239,15 +1267,9 @@ def research(client: str, url: str, max_products: int, auto: bool):
             if c.url not in bestseller_pdp_urls:
                 bestseller_pdp_urls.append(c.url)
 
-    # Ranked PDP list: bestsellers first (preserve their order), then any
-    # remaining /map-discovered PDPs not in that set.
-    pdp_urls: list[str] = []
-    seen: set[str] = set()
-    for u in bestseller_pdp_urls + pdp_urls_from_map:
-        if u not in seen:
-            seen.add(u)
-            pdp_urls.append(u)
-    pdp_urls = pdp_urls[:3]
+    # Ranked PDP list: pages the operator named (--product-url) first, then
+    # bestsellers (preserve their order), then /map-discovered PDPs.
+    pdp_urls = select_product_page_urls(named_pdp_urls, bestseller_pdp_urls, pdp_urls_from_map)
 
     if pdp_urls:
         console.print(f"\n[cyan]Fetching {len(pdp_urls)} product page(s) for pricing + ingredients:[/cyan]")
@@ -1259,6 +1281,19 @@ def research(client: str, url: str, max_products: int, auto: bool):
             pages.update(pdp_pages)
         else:
             console.print("[yellow]PDP fetch returned nothing.[/yellow]")
+
+        # A page the operator named is the point of the run. Stop before the
+        # paid compile rather than build context without it.
+        unread = [u for u in named_pdp_urls if u not in pdp_pages]
+        if unread:
+            console.print("[red]Could not read the product page(s) named with --product-url:[/red]")
+            for u in unread:
+                console.print(f"  - {u}")
+            console.print(
+                "[red]A page may redirect to another address or be blocked. "
+                "Check it in a browser, then run again.[/red]"
+            )
+            raise SystemExit(1)
 
     # Visual identity capture (multi-image, Gemini 2.5 Pro via OpenRouter,
     # falls back to Claude vision if OPENROUTER_API_KEY not set).
