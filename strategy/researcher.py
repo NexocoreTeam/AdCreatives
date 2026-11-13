@@ -25,6 +25,7 @@ import yaml
 
 from models.skills import load_skill
 from strategy.firecrawl_client import (
+    BLOCKED_PAGE,
     firecrawl_map_urls,
     firecrawl_scrape_html,
     firecrawl_scrape_markdown,
@@ -215,12 +216,15 @@ def fetch_homepage_html(base_url: str) -> str:
 
     Used for parsers that need structure Markdown discards: Shopify detection,
     og:image meta tag, logo <img> regex. Tries Firecrawl first (JS-rendered),
-    falls back to httpx raw HTML.
+    falls back to httpx raw HTML. A homepage Firecrawl reports as blocked by
+    the site's bot check is not fetched directly either.
     """
     url = normalize_url(base_url)
     html = firecrawl_scrape_html(url)
     if html:
         return html
+    if html is BLOCKED_PAGE:
+        return ""
     # Fallback
     headers = {"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml"}
     try:
