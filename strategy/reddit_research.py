@@ -23,7 +23,7 @@ from datetime import datetime, timezone
 import httpx
 
 from strategy.exa_research import ExaHit, ExaQueryResult
-from strategy.exa_queries import ExaQuery, reddit_search_terms
+from strategy.exa_queries import REDDIT_API_SOURCE, ExaQuery, reddit_search_terms
 
 TOKEN_URL = "https://www.reddit.com/api/v1/access_token"
 API_BASE = "https://oauth.reddit.com"
@@ -168,4 +168,5 @@ def run_reddit_query(query: ExaQuery, content_chars: int = 3000) -> ExaQueryResu
         query=query,
         fetched_at=datetime.utcnow().isoformat() + "Z",
         results=hits,
+        source=REDDIT_API_SOURCE,
     )

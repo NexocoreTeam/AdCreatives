@@ -28,10 +28,11 @@ from datetime import datetime
 
 from apify_client import ApifyClient
 
-from strategy.exa_queries import ExaQuery, reddit_search_terms
+from strategy.exa_queries import APIFY_SOURCE, ExaQuery, reddit_search_terms
 from strategy.exa_research import ExaHit, ExaQueryResult
 
 ACTOR_ID = "trudax/reddit-scraper-lite"
+RUN_SUCCEEDED = "SUCCEEDED"   # Apify run status of a run that finished normally
 DEFAULT_TIMEOUT_SECS = 600
 MAX_ITEMS_PER_QUERY = 30      # total post+comment items the actor may charge for
 COMMENTS_PER_POST = 6
@@ -127,7 +128,8 @@ def run_reddit_query_via_apify(
         run = client.actor(ACTOR_ID).call(
             run_input=run_input, timeout_secs=DEFAULT_TIMEOUT_SECS,
         )
-        dataset_id = run.get("defaultDatasetId") if isinstance(run, dict) else None
+        status = run.get("status") if isinstance(run, dict) else None
+        dataset_id = run.get("defaultDatasetId") if status == RUN_SUCCEEDED else None
         items = (
             list(client.dataset(dataset_id).iterate_items()) if dataset_id else []
         )
@@ -135,6 +137,10 @@ def run_reddit_query_via_apify(
         raise ApifyRedditError(
             f"{ACTOR_ID} run failed: {type(e).__name__}: {str(e)[:200]}"
         ) from e
+    if status != RUN_SUCCEEDED:
+        # call() returns a FAILED, TIMED-OUT or ABORTED run without raising. Its
+        # empty dataset is not a real "nothing on Reddit" and must not be cached.
+        raise ApifyRedditError(f"{ACTOR_ID} run ended {status or 'with no run record'}")
 
     hits = _hits_from_items(items, content_chars)
     if must_contain:
@@ -145,4 +151,5 @@ def run_reddit_query_via_apify(
         query=query,
         fetched_at=datetime.utcnow().isoformat() + "Z",
         results=hits,
+        source=APIFY_SOURCE,
     )
