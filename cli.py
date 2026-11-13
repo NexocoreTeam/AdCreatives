@@ -3518,7 +3518,7 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
         f"[green]Cached Exa results: clients/{client}/research/exa/raw/[/green]\n\n"
         f"[bold]Recommended next steps:[/bold]\n"
         f"  - [cyan]adc research-amazon --client {client}[/cyan]   "
-        f"(pull Amazon reviews; ~$1-5)\n"
+        f"(pull Amazon reviews; up to $1.80 per product)\n"
         f"  - [cyan]adc analyze-gaps --client {client}[/cyan]      "
         f"(synthesize what's cached so far; ~$1.50)"
     )
@@ -3531,15 +3531,15 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
 @cli.command(name="research-amazon")
 @click.option("--client", required=True, help="Client slug")
 @click.option(
-    "--max-reviews", default=100, type=int,
-    help="Max reviews per Amazon product per star tier (default 100). "
-    "On the Apify free tier, each call is capped at ~8 reviews anyway.",
+    "--max-reviews", default=100, type=click.IntRange(min=1),
+    help="Max reviews per Amazon product per star tier (default 100, the "
+    "scraper's own limit per tier). Apify bills per review.",
 )
 @click.option(
     "--stars", default="5,3,1",
     help="Comma-separated star tiers to pull (default '5,3,1' matching the gap "
     "analysis framework). Use '5,4,3,2,1' for full stratification, or '0' for "
-    "no filter (returns recent reviews only).",
+    "no star filter (all ratings, top reviews first).",
 )
 @click.option(
     "--force-refresh", is_flag=True, default=False,
@@ -3549,17 +3549,28 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
     """Scrape Amazon reviews stratified by star rating for each competitor.
 
     Reads amazon_urls from clients/<slug>/competitors.yaml. Each star tier is a
-    separate Apify call — on the free plan this multiplies per-product review
-    yield by the number of tiers (typically 3 = 5/3/1 star).
+    separate Apify call that returns up to --max-reviews reviews of that rating,
+    rarest ratings first. Stops when the scraper answers a tier with other
+    ratings, so no further calls pay for the same unfiltered reviews.
     """
+    from strategy.amazon_tiers import (
+        pull_failed,
+        rarest_first,
+        saved_tier_failed,
+        saved_tier_unfiltered,
+    )
     from strategy.apify_amazon import (
+        ACTOR_MAX_REVIEWS_PER_TIER,
         DEFAULT_STAR_FILTERS,
+        PRICE_PER_REVIEW_USD,
         STAR_FILTER_SHORT_NAMES,
         _extract_asin,
         cache_amazon_bundle,
         scrape_amazon_reviews,
+        star_filter_ignored,
     )
     from strategy.competitor_research import load_competitors
+    from strategy.cost_tracker import log_cost
 
     # Map user input to Apify's filter values
     star_map = {
@@ -3576,6 +3587,7 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
             raise SystemExit(1)
     if not star_filters:
         star_filters = DEFAULT_STAR_FILTERS
+    star_filters = rarest_first(star_filters)
 
     competitors = load_competitors(client)
     if not competitors:
@@ -3601,9 +3613,13 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
         f"[cyan]Amazon Reviews via Apify[/cyan] — {len(targets)} product(s) "
         f"x {len(star_filters)} star tier(s) = {total_calls} call(s)"
     )
+    per_call = min(max_reviews, ACTOR_MAX_REVIEWS_PER_TIER)
+    most = per_call * total_calls
     console.print(
-        f"[dim]Actor: junglee/amazon-reviews-scraper. Star tiers: "
-        f"{', '.join(star_filters)}. Free tier yields ~8 reviews/call (~{8 * total_calls} total).[/dim]\n"
+        f"[dim]Actor: junglee/amazon-reviews-scraper. Star tiers, rarest first: "
+        f"{', '.join(star_filters)}. Up to {per_call} reviews per call, "
+        f"{most} at most (about ${most * PRICE_PER_REVIEW_USD:.2f}; "
+        f"saved tiers are skipped and cost nothing).[/dim]\n"
     )
 
     cache_dir = Path("clients") / client / "research" / "amazon-reviews"
@@ -3616,56 +3632,94 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
     table.add_column("Notes", style="dim", max_width=40)
 
     call_num = 0
-    for competitor, url in targets:
-        asin = _extract_asin(url)
-        asin_part = asin or re.sub(r"[^a-zA-Z0-9]+", "-", url)[:20]
-        for star_filter in star_filters:
-            call_num += 1
-            short = STAR_FILTER_SHORT_NAMES.get(star_filter, star_filter)
-            cache_path = cache_dir / f"{competitor.slug}-{asin_part}-{short}.json"
+    calls_made = 0
+    reviews_fetched = 0
+    unfiltered_saved = 0
+    failed_saved = 0
+    try:
+        for competitor, url in targets:
+            asin = _extract_asin(url)
+            asin_part = asin or re.sub(r"[^a-zA-Z0-9]+", "-", url)[:20]
+            for star_filter in star_filters:
+                call_num += 1
+                short = STAR_FILTER_SHORT_NAMES.get(star_filter, star_filter)
+                cache_path = cache_dir / f"{competitor.slug}-{asin_part}-{short}.json"
 
-            if cache_path.exists() and not force_refresh:
-                import json as _json
-                data = _json.loads(cache_path.read_text(encoding="utf-8"))
+                if cache_path.exists() and not force_refresh:
+                    import json as _json
+                    data = _json.loads(cache_path.read_text(encoding="utf-8"))
+                    unfiltered = saved_tier_unfiltered(data)
+                    failed_before = saved_tier_failed(data)
+                    unfiltered_saved += unfiltered
+                    failed_saved += failed_before
+                    note = "(cached)"
+                    if unfiltered:
+                        note = "(cached) UNFILTERED: --force-refresh"
+                    elif failed_before:
+                        note = "(cached) FAILED PULL: --force-refresh"
+                    table.add_row(
+                        str(call_num),
+                        competitor.name,
+                        asin or "?",
+                        short,
+                        str(len(data.get("reviews", []))),
+                        note,
+                    )
+                    continue
+
+                with console.status(
+                    f"Scraping {competitor.name} {short} ({asin or 'no-ASIN'})..."
+                ):
+                    bundle = scrape_amazon_reviews(
+                        product_url=url,
+                        competitor_slug=competitor.slug,
+                        competitor_name=competitor.name,
+                        max_reviews=max_reviews,
+                        star_filter=star_filter,
+                    )
+                calls_made += 1
+                reviews_fetched += len(bundle.reviews)
+                if star_filter_ignored(bundle):
+                    # Every further call would pay again for the same unfiltered
+                    # reviews, and a saved file would carry the wrong tier label.
+                    table.add_row(
+                        str(call_num),
+                        competitor.name,
+                        bundle.asin or "?",
+                        short,
+                        str(len(bundle.reviews)),
+                        "NOT CACHED - " + bundle.notes[:40],
+                    )
+                    console.print(table)
+                    console.print(
+                        "[red]Stopped: the scraper ignored the star filter. Check the "
+                        "actor's input fields in strategy/apify_amazon.py before running "
+                        "again.[/red]"
+                    )
+                    raise SystemExit(1)
+                # A failed pull must stay retryable: caching a zero-review bundle
+                # whose notes carry an Apify failure makes the failure look done
+                # forever (bit us live — cap-era empties skipped as '(cached)').
+                # Zero reviews WITHOUT a failure note is a legit empty tier and
+                # caches normally so we never re-pay for it.
+                failed = pull_failed(len(bundle.reviews), bundle.notes)
+                if not failed:
+                    cache_amazon_bundle(client, bundle)
                 table.add_row(
                     str(call_num),
                     competitor.name,
-                    asin or "?",
+                    bundle.asin or "?",
                     short,
-                    str(len(data.get("reviews", []))),
-                    "(cached)",
+                    str(len(bundle.reviews)),
+                    ("NOT CACHED - retryable: " if failed else "")
+                    + (bundle.notes or "OK")[:40],
                 )
-                continue
-
-            with console.status(
-                f"Scraping {competitor.name} {short} ({asin or 'no-ASIN'})..."
-            ):
-                bundle = scrape_amazon_reviews(
-                    product_url=url,
-                    competitor_slug=competitor.slug,
-                    competitor_name=competitor.name,
-                    max_reviews=max_reviews,
-                    star_filter=star_filter,
-                )
-            # A failed pull must stay retryable: caching a zero-review bundle
-            # whose notes carry an Apify failure makes the failure look done
-            # forever (bit us live — cap-era empties skipped as '(cached)').
-            # Zero reviews WITHOUT a failure note is a legit empty tier and
-            # caches normally so we never re-pay for it.
-            pull_failed = not bundle.reviews and (bundle.notes or "").startswith(
-                ("Apify call failed", "Apify run completed", "Failed to read Apify")
-            )
-            if not pull_failed:
-                cache_amazon_bundle(client, bundle)
-            table.add_row(
-                str(call_num),
-                competitor.name,
-                bundle.asin or "?",
-                short,
-                str(len(bundle.reviews)),
-                ("NOT CACHED - retryable: " if pull_failed else "")
-                + (bundle.notes or "OK")[:40],
-            )
+    finally:
+        # Apify bills per review returned, also when a run stops early or is
+        # interrupted; saved tiers that were skipped cost nothing.
+        log_cost(client, "adc research-amazon",
+                 cost=round(reviews_fetched * PRICE_PER_REVIEW_USD, 4),
+                 note=f"{calls_made} call(s) made, {reviews_fetched} review(s) fetched")
 
     console.print(table)
 
@@ -3688,14 +3742,21 @@ def research_amazon(client: str, max_reviews: int, stars: str, force_refresh: bo
     for name, n in sorted(totals.items(), key=lambda x: -x[1]):
         console.print(f"  {name}: {n}")
     console.print(f"  [bold]TOTAL: {total_all} reviews[/bold]\n")
+    if unfiltered_saved:
+        console.print(
+            f"[yellow]{unfiltered_saved} saved tier file(s) are unfiltered: they mix "
+            f"all ratings because the scraper ignored the star filter when they were "
+            f"saved. --force-refresh replaces them (paid).[/yellow]\n"
+        )
+    if failed_saved:
+        console.print(
+            f"[yellow]{failed_saved} saved tier file(s) hold no reviews because their "
+            f"pull failed. --force-refresh fetches them again (paid).[/yellow]\n"
+        )
     console.print(
         f"[dim]Next: adc analyze-gaps --client {client} "
         f"(will include Amazon data, stratified by star)[/dim]"
     )
-
-    from strategy.cost_tracker import log_cost
-    log_cost(client, "adc research-amazon", multiplier=call_num,
-             note=f"{call_num} call(s), {total_all} review(s)")
 
 
 # ─── Tier 3 social-comment research ──────────────────────────────────────────

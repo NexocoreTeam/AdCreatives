@@ -22,6 +22,7 @@ from typing import Optional
 
 import yaml
 
+from strategy.amazon_tiers import saved_tier_unfiltered
 from strategy.exa_queries import (
     cache_stem,
     cached_result_is_usable,
@@ -373,12 +374,14 @@ def competitive_research_status(client: str) -> list[StageStatus]:
     amazon_dir = base / "amazon-reviews"
     amazon_files = sorted(amazon_dir.glob("*.json")) if amazon_dir.exists() else []
     amazon_review_count = 0
+    unfiltered_files = 0
     by_star: dict[str, int] = {"5s": 0, "4s": 0, "3s": 0, "2s": 0, "1s": 0, "all": 0}
     for f in amazon_files:
         data = _safe_json_load(f)
         if data:
             n = len(data.get("reviews", []) or [])
             amazon_review_count += n
+            unfiltered_files += saved_tier_unfiltered(data)
             star = data.get("star_filter", "all_stars")
             short_map = {
                 "five_star": "5s", "four_star": "4s", "three_star": "3s",
@@ -386,6 +389,16 @@ def competitive_research_status(client: str) -> list[StageStatus]:
             }
             by_star[short_map.get(star, "all")] += n
     stratified = sum(by_star[k] for k in ("5s", "3s", "1s")) > 0
+    amazon_notes = (
+        [] if stratified or not amazon_review_count
+        else ["only non-stratified data; re-run with default stars for 5/3/1 split"]
+    )
+    if unfiltered_files:
+        amazon_notes.append(
+            f"{unfiltered_files} file(s) mix all ratings under a one-tier label (saved while "
+            f"the scraper ignored the star filter); re-run research-amazon with "
+            f"--force-refresh to replace them (paid)"
+        )
     stages.append(StageStatus(
         name="Amazon reviews (stratified)",
         done=amazon_review_count > 0,
@@ -395,8 +408,7 @@ def competitive_research_status(client: str) -> list[StageStatus]:
             if amazon_review_count else ""
         ),
         last_modified=_newest_mtime(amazon_files),
-        notes=([] if stratified or not amazon_review_count
-               else ["only non-stratified data; re-run with default stars for 5/3/1 split"]),
+        notes=amazon_notes,
     ))
 
     # Social comments

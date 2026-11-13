@@ -49,7 +49,8 @@ COST_RATES: dict[str, float] = {
     # Competitive research
     "adc research-web": 0.50,
     "adc research-competitors": 2.00,   # one full pull
-    "adc research-amazon": 0.05,        # per actor call (Apify free tier)
+    "adc research-amazon": 0.60,        # per star-tier call at most (100 reviews x $0.006);
+                                        # the log records the reviews actually fetched
     "adc analyze-gaps": 1.50,           # full pass; --synthesis-only is ~0.30
     "adc analyze-gaps-synthesis": 0.30,
 }

@@ -164,6 +164,41 @@ def test_amazon_rec_explains_no_autodiscovery_without_urls(tmp_path, monkeypatch
     assert any("auto-discover" in r for r in recs)
 
 
+def _write_amazon_tier(base, name, star_filter, ratings):
+    folder = base / "research" / "amazon-reviews"
+    folder.mkdir(parents=True, exist_ok=True)
+    reviews = [{"title": "t", "body": "b", "rating": rating} for rating in ratings]
+    (folder / name).write_text(
+        json.dumps({"star_filter": star_filter, "reviews": reviews}), encoding="utf-8"
+    )
+
+
+def test_amazon_stage_flags_files_that_mix_all_ratings(tmp_path, monkeypatch):
+    clients, base = _make_client(tmp_path, amazon_urls=True)
+    monkeypatch.setattr(sd, "CLIENTS_DIR", clients)
+    _write_amazon_tier(base, "stumptown-B000TEST-1s.json", "one_star", [5, 5, 4, 1])
+    _write_amazon_tier(base, "stumptown-B000TEST-5s.json", "five_star", [5, 5, 5])
+
+    stage = _stage(
+        sd.competitive_research_status("zoka-coffee"), "Amazon reviews (stratified)"
+    )
+
+    assert any("1 file(s) mix all ratings" in note for note in stage.notes)
+
+
+def test_amazon_stage_has_no_note_for_properly_split_files(tmp_path, monkeypatch):
+    clients, base = _make_client(tmp_path, amazon_urls=True)
+    monkeypatch.setattr(sd, "CLIENTS_DIR", clients)
+    _write_amazon_tier(base, "stumptown-B000TEST-1s.json", "one_star", [1, 1, 1])
+    _write_amazon_tier(base, "stumptown-B000TEST-5s.json", "five_star", [5, 5, 5])
+
+    stage = _stage(
+        sd.competitive_research_status("zoka-coffee"), "Amazon reviews (stratified)"
+    )
+
+    assert stage.notes == []
+
+
 def test_social_first_run_recommended(tmp_path, monkeypatch):
     clients, _ = _make_client(tmp_path)
     recs = _recommendations(tmp_path, monkeypatch, clients)
