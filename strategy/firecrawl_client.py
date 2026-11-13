@@ -32,6 +32,17 @@ _BOT_CHECK_URL_MARKERS = ("/.well-known/sgcaptcha/",)  # SiteGround Anti-Bot
 _BLOCK_STATUS_CODES = (401, 403, 429)  # the answers "auto" would have retried
 
 
+class _BlockedPage(str):
+    """An empty string that means "the site blocked this page", not "nothing came back"."""
+
+
+# What firecrawl_scrape_html returns for a blocked page. It is falsy, so a
+# caller that only checks `if html:` treats the page as missing. A caller with
+# its own direct fetch checks `html is BLOCKED_PAGE` and leaves the page alone
+# instead of getting it another way.
+BLOCKED_PAGE = _BlockedPage()
+
+
 def _log(msg: str) -> None:
     """Best-effort stderr logging so failures don't get silently swallowed."""
     try:
@@ -179,8 +190,8 @@ def firecrawl_scrape_markdown(
 def firecrawl_scrape_html(url: str, timeout_ms: int = 30000) -> str | None:
     """Scrape a single URL and return its full rendered HTML (no main-content
     stripping). Used when callers need <head>, <meta>, or <script> tags —
-    e.g. og:image extraction, Shopify detection. Returns None on failure or
-    when the page is blocked.
+    e.g. og:image extraction, Shopify detection. Returns None on failure, and
+    the falsy BLOCKED_PAGE when the site blocked the page.
     """
     fc = get_firecrawl_client()
     if not fc:
@@ -197,5 +208,5 @@ def firecrawl_scrape_html(url: str, timeout_ms: int = 30000) -> str | None:
         _log(f"scrape({url}) failed: {type(e).__name__}: {e}")
         return None
     if not _may_use(doc, url):
-        return None
+        return BLOCKED_PAGE
     return getattr(doc, "html", None)

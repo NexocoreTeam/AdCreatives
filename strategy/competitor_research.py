@@ -23,7 +23,7 @@ from pathlib import Path
 import httpx
 import yaml
 
-from strategy.firecrawl_client import firecrawl_map_urls, firecrawl_scrape_html
+from strategy.firecrawl_client import BLOCKED_PAGE, firecrawl_map_urls, firecrawl_scrape_html
 from strategy.researcher import USER_AGENT
 from strategy.reviews import Review, fetch_product_reviews
 
@@ -165,10 +165,15 @@ def _fetch_html(url: str) -> str:
     Elevated Faith, whose Okendo subscriberId exists in the raw source and
     vanishes after rendering. Callers that detect a vendor with empty
     identifiers should retry extraction on _fetch_html_raw.
+
+    A page Firecrawl reports as blocked by the site's bot check is not fetched
+    directly either.
     """
     html = firecrawl_scrape_html(url)
     if html:
         return html
+    if html is BLOCKED_PAGE:
+        return ""
     return _fetch_html_raw(url)
 
 

@@ -108,7 +108,7 @@ def test_sdk_map_still_has_no_proxy_mode():
 def test_robot_check_screen_is_not_returned_as_html(fc, capsys):
     fc.scrape.return_value = _robot_check()
 
-    assert fcm.firecrawl_scrape_html(PAGE) is None
+    assert fcm.firecrawl_scrape_html(PAGE) is fcm.BLOCKED_PAGE
     err = capsys.readouterr().err
     assert "[firecrawl]" in err
     assert "blocked" in err
@@ -118,13 +118,21 @@ def test_robot_check_screen_is_not_returned_as_html(fc, capsys):
 def test_robot_check_is_recognised_by_its_title_alone(fc):
     fc.scrape.return_value = _page(title="  robot challenge screen ")
 
-    assert fcm.firecrawl_scrape_html(PAGE) is None
+    assert fcm.firecrawl_scrape_html(PAGE) is fcm.BLOCKED_PAGE
 
 
 def test_robot_check_is_recognised_by_its_final_url_alone(fc):
     fc.scrape.return_value = _page(title="One moment", final_url=CAPTCHA)
 
-    assert fcm.firecrawl_scrape_html(PAGE) is None
+    assert fcm.firecrawl_scrape_html(PAGE) is fcm.BLOCKED_PAGE
+
+
+def test_blocked_marker_is_falsy_so_plain_callers_treat_the_page_as_missing():
+    """Callers that only check `if html:` need no change. Callers with their own
+    direct fetch check `html is BLOCKED_PAGE` and leave a blocked page alone."""
+    assert not fcm.BLOCKED_PAGE
+    assert fcm.BLOCKED_PAGE == ""
+    assert isinstance(fcm.BLOCKED_PAGE, str)
 
 
 def test_batch_leaves_out_the_blocked_page_and_keeps_the_rest(fc, capsys):
@@ -150,7 +158,7 @@ def test_page_that_answered_with_a_block_status_is_left_out(fc, capsys, status):
     fc.scrape.return_value = _page(title="Access denied", status=status)
     fc.batch_scrape.return_value = _job(_page(title="Access denied", status=status))
 
-    assert fcm.firecrawl_scrape_html(PAGE) is None
+    assert fcm.firecrawl_scrape_html(PAGE) is fcm.BLOCKED_PAGE
     assert fcm.firecrawl_scrape_markdown([PAGE]) == {}
     err = capsys.readouterr().err
     assert f"HTTP {status}" in err
@@ -202,7 +210,7 @@ def test_block_markers_match_the_fields_the_sdk_builds_from_an_api_response(fc):
 
     for api_page in (denied, robot):
         fc.scrape.return_value = sdk.Document(**normalize(api_page))
-        assert fcm.firecrawl_scrape_html(PAGE) is None
+        assert fcm.firecrawl_scrape_html(PAGE) is fcm.BLOCKED_PAGE
 
 
 # ── Firecrawl's `proxy` setting is deprecated: notice if it stops being honoured ──
@@ -242,6 +250,7 @@ def test_without_a_client_every_call_returns_empty(monkeypatch):
 
 
 def test_sdk_failure_returns_empty_and_is_logged(fc, capsys):
+    """A failure is not a block: it stays None, so callers may use their own fetch."""
     fc.scrape.side_effect = RuntimeError("scrape failed")
     fc.batch_scrape.side_effect = RuntimeError("batch failed")
 

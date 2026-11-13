@@ -9,8 +9,10 @@ licensed collab, ours is an original character" become available as angles.
 Fetch strategy: Firecrawl-rendered first — many themes paint the product grid
 with JavaScript, so the static path returns fragments (observed live: chubble
 157 cards static, Pipsticks 2, Stickii 1). Static httpx is the fallback when
-Firecrawl is unavailable. Every outcome, including failures, is persisted to
-research/competitor-bestsellers/<slug>.json — an empty layer must say why.
+Firecrawl is unavailable. A page Firecrawl reports as blocked by the site's
+bot check is not fetched statically either. Every outcome, including failures,
+is persisted to research/competitor-bestsellers/<slug>.json — an empty layer
+must say why.
 
 Free: no LLM calls, one page fetch per competitor.
 """
@@ -22,7 +24,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from strategy.competitor_research import load_competitors
-from strategy.firecrawl_client import firecrawl_scrape_html
+from strategy.firecrawl_client import BLOCKED_PAGE, firecrawl_scrape_html
 from strategy.researcher import (
     ProductCard,
     fetch_shopify_bestsellers,
@@ -45,6 +47,8 @@ def fetch_bestsellers(url: str, top_n: int = DEFAULT_TOP_N) -> tuple[list[Produc
         cards = parse_shopify_product_cards(html, base)
         if cards:
             return cards[:top_n], "firecrawl", ""
+    if html is BLOCKED_PAGE:
+        return [], "blocked", "the site's bot check blocked the page; not fetched directly"
 
     pages = fetch_shopify_bestsellers(base, page_count=1)
     if pages:
