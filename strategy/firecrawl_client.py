@@ -37,9 +37,10 @@ class _BlockedPage(str):
 
 
 # What firecrawl_scrape_html returns for a blocked page. It is falsy, so a
-# caller that only checks `if html:` treats the page as missing. A caller with
-# its own direct fetch checks `html is BLOCKED_PAGE` and leaves the page alone
-# instead of getting it another way.
+# caller that only checks `if html:` treats the page as missing. It is also a
+# distinct object, so a caller with its own direct fetch can tell a block from
+# a failure (`html is BLOCKED_PAGE`) and leave the page alone instead of
+# getting it another way.
 BLOCKED_PAGE = _BlockedPage()
 
 

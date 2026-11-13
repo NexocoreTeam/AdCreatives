@@ -26,6 +26,10 @@ PAGE = f"{SITE}/protocols/focus/"
 CAPTCHA = f"{SITE}/.well-known/sgcaptcha/?r=%2Fprotocols%2Ffocus%2F"
 
 
+def _html(title: str | None = "Focus Protocol") -> str:
+    return f"<html><head><title>{title}</title></head><body></body></html>"
+
+
 def _page(
     source_url: str = PAGE,
     *,
@@ -37,7 +41,7 @@ def _page(
     """A scraped page as the SDK hands it back: content plus metadata."""
     return sdk.Document(
         markdown=f"# {title}",
-        html=f"<html><head><title>{title}</title></head><body></body></html>",
+        html=_html(title),
         metadata=sdk.DocumentMetadata(
             title=title,
             url=final_url or source_url,
@@ -75,7 +79,7 @@ def fc(monkeypatch):
 def test_single_page_scrape_asks_for_basic_proxies(fc):
     fc.scrape.return_value = _page()
 
-    assert fcm.firecrawl_scrape_html(PAGE) is not None
+    assert fcm.firecrawl_scrape_html(PAGE) == _html()
     assert fc.scrape.call_args.kwargs["proxy"] == "basic"
 
 
@@ -115,8 +119,9 @@ def test_robot_check_screen_is_not_returned_as_html(fc, capsys):
     assert PAGE in err
 
 
-def test_robot_check_is_recognised_by_its_title_alone(fc):
-    fc.scrape.return_value = _page(title="  robot challenge screen ")
+@pytest.mark.parametrize("status", [200, 202, None])
+def test_robot_check_is_recognised_by_its_title_alone(fc, status):
+    fc.scrape.return_value = _page(title="  robot challenge screen ", status=status)
 
     assert fcm.firecrawl_scrape_html(PAGE) is fcm.BLOCKED_PAGE
 
@@ -128,8 +133,8 @@ def test_robot_check_is_recognised_by_its_final_url_alone(fc):
 
 
 def test_blocked_marker_is_falsy_so_plain_callers_treat_the_page_as_missing():
-    """Callers that only check `if html:` need no change. Callers with their own
-    direct fetch check `html is BLOCKED_PAGE` and leave a blocked page alone."""
+    """Callers that only check `if html:` need no change. A caller with its own
+    direct fetch can check `html is BLOCKED_PAGE` and leave a blocked page alone."""
     assert not fcm.BLOCKED_PAGE
     assert fcm.BLOCKED_PAGE == ""
     assert isinstance(fcm.BLOCKED_PAGE, str)
@@ -165,6 +170,23 @@ def test_page_that_answered_with_a_block_status_is_left_out(fc, capsys, status):
     assert PAGE in err
 
 
+def test_block_status_counts_even_when_the_page_reports_no_url(fc):
+    fc.scrape.return_value = sdk.Document(
+        html="<html>denied</html>",
+        metadata=sdk.DocumentMetadata(title="Denied", status_code=403),
+    )
+
+    assert fcm.firecrawl_scrape_html(PAGE) is fcm.BLOCKED_PAGE
+
+
+def test_other_well_known_addresses_are_content(fc):
+    """Only SiteGround's captcha address marks a block, not every /.well-known/ page."""
+    address = f"{SITE}/.well-known/security.txt"
+    fc.scrape.return_value = _page(address, title="security")
+
+    assert fcm.firecrawl_scrape_html(address) == _html("security")
+
+
 @pytest.mark.parametrize("status", [200, 404, 500, None])
 def test_other_statuses_are_handled_as_before(fc, status):
     """Pins the edge of this rule, not a view on 404 text: only the block
@@ -172,7 +194,7 @@ def test_other_statuses_are_handled_as_before(fc, status):
     fc.scrape.return_value = _page(status=status)
     fc.batch_scrape.return_value = _job(_page(status=status))
 
-    assert fcm.firecrawl_scrape_html(PAGE) is not None
+    assert fcm.firecrawl_scrape_html(PAGE) == _html()
     assert fcm.firecrawl_scrape_markdown([PAGE]) == {PAGE: "# Focus Protocol"}
 
 
@@ -180,8 +202,10 @@ def test_other_statuses_are_handled_as_before(fc, status):
 def test_title_must_match_the_whole_phrase(fc, title):
     """A longer title that contains the phrase, or a shorter one inside it, is content."""
     fc.scrape.return_value = _page(title=title)
+    fc.batch_scrape.return_value = _job(_page(title=title))
 
-    assert fcm.firecrawl_scrape_html(PAGE) is not None
+    assert fcm.firecrawl_scrape_html(PAGE) == _html(title)
+    assert fcm.firecrawl_scrape_markdown([PAGE]) == {PAGE: f"# {title}"}
 
 
 def test_page_without_metadata_is_returned(fc):
@@ -190,27 +214,85 @@ def test_page_without_metadata_is_returned(fc):
     assert fcm.firecrawl_scrape_html(PAGE) == "<html></html>"
 
 
-def test_block_markers_match_the_fields_the_sdk_builds_from_an_api_response(fc):
-    """The API answers in camelCase (statusCode, sourceURL). Feed its shape
-    through the SDK's own parser so a renamed field fails here."""
-    normalize = pytest.importorskip("firecrawl.v2.utils.normalize").normalize_document_input
-    denied = {
-        "html": "<html>denied</html>",
-        "metadata": {"title": "Denied", "url": PAGE, "sourceURL": PAGE, "statusCode": 403},
-    }
-    robot = {
-        "html": "<html>robot</html>",
-        "metadata": {
-            "title": "Robot Challenge Screen",
-            "url": CAPTCHA,
-            "sourceURL": PAGE,
-            "statusCode": 200,
-        },
-    }
+def test_empty_page_is_not_mistaken_for_a_blocked_one(fc):
+    """Only the marker object means blocked. An empty page is just empty, so a
+    caller with its own fetch may still use it."""
+    fc.scrape.return_value = sdk.Document(html="", metadata=_page().metadata)
 
-    for api_page in (denied, robot):
-        fc.scrape.return_value = sdk.Document(**normalize(api_page))
-        assert fcm.firecrawl_scrape_html(PAGE) is fcm.BLOCKED_PAGE
+    assert fcm.firecrawl_scrape_html(PAGE) is not fcm.BLOCKED_PAGE
+
+
+def test_batch_skips_a_page_without_metadata_and_keeps_the_rest(fc):
+    fc.batch_scrape.return_value = _job(sdk.Document(markdown="# stray"), _page())
+
+    assert fcm.firecrawl_scrape_markdown([PAGE]) == {PAGE: "# Focus Protocol"}
+
+
+def test_batch_still_keys_a_redirected_page_by_where_it_ended_up(fc):
+    """Not changed here, pinned so it is not changed by accident: a page that
+    redirects is keyed by its final URL, and callers own the lookup."""
+    asked, landed = f"{SITE}/about", f"{SITE}/about/"
+    fc.batch_scrape.return_value = _job(_page(asked, title="About", final_url=landed))
+
+    assert fcm.firecrawl_scrape_markdown([asked]) == {landed: "# About"}
+
+
+def _from_api(payload: dict):
+    """Build a page from the API's own camelCase shape with the SDK's parser,
+    the way a live response is built."""
+    normalize = pytest.importorskip("firecrawl.v2.utils.normalize").normalize_document_input
+    return sdk.Document(**normalize(payload))
+
+
+@pytest.mark.parametrize(
+    "api_metadata",
+    [
+        {"title": "Robot Challenge Screen", "url": PAGE, "sourceURL": PAGE, "statusCode": 200},
+        {"title": "One moment", "url": CAPTCHA, "sourceURL": PAGE, "statusCode": 200},
+        {"title": "Denied", "url": PAGE, "sourceURL": PAGE, "statusCode": 403},
+    ],
+    ids=["title", "final-url", "status"],
+)
+def test_each_block_sign_is_read_from_the_field_the_sdk_builds(fc, api_metadata):
+    """One sign per case, so a field the SDK renames fails its own case."""
+    fc.scrape.return_value = _from_api({"html": "<html>x</html>", "metadata": api_metadata})
+
+    assert fcm.firecrawl_scrape_html(PAGE) is fcm.BLOCKED_PAGE
+
+
+def test_log_fields_are_read_from_the_fields_the_sdk_builds(fc, capsys):
+    """sourceURL names the blocked page in the batch log; proxyUsed feeds the
+    stronger-proxy line."""
+    fc.batch_scrape.return_value = _job(
+        _from_api(
+            {
+                "markdown": "robot",
+                "metadata": {
+                    "title": "Robot Challenge Screen",
+                    "url": CAPTCHA,
+                    "sourceURL": PAGE,
+                    "statusCode": 200,
+                },
+            }
+        )
+    )
+    assert fcm.firecrawl_scrape_markdown([PAGE]) == {}
+    assert PAGE in capsys.readouterr().err
+
+    fc.scrape.return_value = _from_api(
+        {
+            "html": "<html>x</html>",
+            "metadata": {
+                "title": "Home",
+                "url": PAGE,
+                "sourceURL": PAGE,
+                "statusCode": 200,
+                "proxyUsed": "stealth",
+            },
+        }
+    )
+    assert fcm.firecrawl_scrape_html(PAGE) == "<html>x</html>"
+    assert "stealth" in capsys.readouterr().err
 
 
 # ── Firecrawl's `proxy` setting is deprecated: notice if it stops being honoured ──
@@ -220,7 +302,7 @@ def test_stronger_proxy_than_asked_for_is_logged_and_the_page_kept(fc, capsys):
     fc.scrape.return_value = _page(proxy_used="stealth")
     fc.batch_scrape.return_value = _job(_page(proxy_used="stealth"))
 
-    assert fcm.firecrawl_scrape_html(PAGE) is not None
+    assert fcm.firecrawl_scrape_html(PAGE) == _html()
     assert fcm.firecrawl_scrape_markdown([PAGE]) == {PAGE: "# Focus Protocol"}
     err = capsys.readouterr().err
     assert err.count("stealth") == 2
