@@ -8,9 +8,10 @@ All functions return gracefully if FIRECRAWL_API_KEY is unset or the SDK call
 fails — callers should fall back to httpx in that case so the pipeline never
 hard-fails on a missing key or a transient API hiccup.
 
-Bot checks: we never get past one. Scrapes ask for basic proxies only, and a
-page that comes back as a block screen is logged and left out of the results,
-so callers treat it like any other missing page.
+Bot checks: scrapes ask for basic proxies only, so Firecrawl never retries a
+blocked page through stronger ones. A page that comes back as a block screen
+is logged and left out of the results, so callers treat it like any other
+missing page.
 """
 
 from __future__ import annotations

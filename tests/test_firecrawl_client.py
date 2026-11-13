@@ -1,6 +1,6 @@
 """Tests for strategy/firecrawl_client.py, the research crawler's Firecrawl wrapper.
 
-Rule under test: the crawler never gets past a site's bot check. It asks
+The rule behind these: never get past a site's bot check. So the wrapper asks
 Firecrawl for basic proxies only, and a page that comes back as a block screen
 is logged and left out, so callers treat it like any other missing page.
 
