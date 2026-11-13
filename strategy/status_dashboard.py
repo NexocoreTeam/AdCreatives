@@ -22,7 +22,11 @@ from typing import Optional
 
 import yaml
 
-from strategy.exa_queries import cache_stem, competitive_queries_for_brand
+from strategy.exa_queries import (
+    cache_stem,
+    cached_result_is_usable,
+    competitive_queries_for_brand,
+)
 
 CLIENTS_DIR = Path("clients")
 AI_ADS_DIR = Path("ai-ads")
@@ -289,12 +293,18 @@ def competitive_research_status(client: str) -> list[StageStatus]:
     exa_dir = base / "exa" / "raw"
     exa_files = sorted(exa_dir.glob("*.json")) if exa_dir.exists() else []
     total_hits = 0
+    # Reddit caches that Exa answered empty count as missing: the next run
+    # fetches them again (see exa_queries.cached_result_is_usable).
+    empty_reddit_stems: set[str] = set()
     for f in exa_files:
         data = _safe_json_load(f)
         if data:
             total_hits += len(data.get("results", []) or [])
+            if not cached_result_is_usable(data):
+                empty_reddit_stems.add(f.stem)
+    usable_exa_count = len(exa_files) - len(empty_reddit_stems)
     expected_exa_stems = _expected_competitive_exa_stems(client)
-    existing_exa_stems = {p.stem for p in exa_files}
+    existing_exa_stems = {p.stem for p in exa_files} - empty_reddit_stems
     missing_exa_stems = [
         stem for stem in expected_exa_stems
         if stem not in existing_exa_stems
@@ -308,7 +318,8 @@ def competitive_research_status(client: str) -> list[StageStatus]:
         missing_reddit = [m for m in missing_exa_stems if m.startswith("reddit-")]
         if len(missing_reddit) == len(missing_exa_stems):
             exa_notes.append(
-                "Reddit Exa query caches are missing; the web sentiment run is partial"
+                "Reddit Exa query caches are missing or came back empty; "
+                "the web sentiment run is partial"
             )
         else:
             preview = ", ".join(missing_exa_stems[:3])
@@ -322,9 +333,9 @@ def competitive_research_status(client: str) -> list[StageStatus]:
         name="Exa web sentiment",
         done=len(exa_files) > 0,
         summary=(
-            f"{len(exa_files)}/{len(expected_exa_stems)} queries, {total_hits} hits"
+            f"{usable_exa_count}/{len(expected_exa_stems)} queries, {total_hits} hits"
             if exa_files and expected_exa_stems
-            else (f"{len(exa_files)} queries, {total_hits} hits" if exa_files else "")
+            else (f"{usable_exa_count} queries, {total_hits} hits" if exa_files else "")
         ),
         last_modified=_newest_mtime(exa_files),
         notes=exa_notes,
@@ -577,7 +588,8 @@ def build_recommendations(
         elif by_name["Exa web sentiment"].notes:
             recs.append(
                 f"Exa web sentiment is partial: {'; '.join(by_name['Exa web sentiment'].notes)}. "
-                f"Consider rerunning failed queries with: adc research-competitors --client {client} --force-refresh"
+                f"Rerun with: adc research-competitors --client {client} (it retries failed "
+                f"queries and empty Reddit answers; --force-refresh would re-pay every query)"
             )
         if not by_name["On-site competitor reviews"].done:
             recs.append(

@@ -3396,6 +3396,7 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
         load_competitors,
         pull_competitor_reviews,
     )
+    from strategy.exa_queries import cached_result_is_usable
     from strategy.exa_research import (
         cache_error,
         cache_result,
@@ -3489,11 +3490,13 @@ def research_competitors(client: str, force_refresh: bool, skip_onsite: bool):
         if cache_path.exists() and not force_refresh:
             import json as _json
             data = _json.loads(cache_path.read_text(encoding="utf-8"))
-            top_domain = data["results"][0]["domain"] if data.get("results") else "-"
-            exa_table.add_row(
-                str(i), q.label, q.category, str(len(data.get("results", []))), top_domain
-            )
-            continue
+            # A Reddit query Exa answered empty is fetched again, not reused.
+            if cached_result_is_usable(data):
+                top_domain = data["results"][0]["domain"] if data.get("results") else "-"
+                exa_table.add_row(
+                    str(i), q.label, q.category, str(len(data.get("results", []))), top_domain
+                )
+                continue
 
         try:
             with console.status(f"Exa: {q.label}..."):
@@ -4556,6 +4559,16 @@ def analyze_gaps(client: str, synthesis_only: bool):
 # ─── Exa Web Research ───────────────────────────────────────────────────────
 
 
+def _exa_error_text(error_path: Path) -> str:
+    """The recorded error message of a failed Exa query, or why it is unavailable."""
+    import json as _json
+
+    try:
+        return str(_json.loads(error_path.read_text(encoding="utf-8")).get("error", ""))[:300]
+    except (OSError, ValueError, AttributeError):
+        return f"no error record at {error_path}"
+
+
 @cli.command(name="research-web")
 @click.option("--client", required=True, help="Client slug")
 @click.option(
@@ -4573,13 +4586,18 @@ def analyze_gaps(client: str, synthesis_only: bool):
     "--force-refresh",
     is_flag=True,
     default=False,
-    help="Re-run queries even if cached. Default: skip cached (free re-runs).",
+    help="Re-run queries even if cached. Default: reuse cached results "
+    "(empty Reddit answers from Exa are retried).",
 )
 def research_web(client: str, competitors: str | None, category: str | None,
                  force_refresh: bool):
     """Run Exa web research for a client — Reddit + comparison + reviews + category."""
     from models.loader import load_brand
-    from strategy.exa_research import run_research_bundle
+    from strategy.exa_research import (
+        cache_stem,
+        default_queries_for_brand,
+        run_research_bundle,
+    )
 
     brand = load_brand(client)
     comp_list = [c.strip() for c in competitors.split(",")] if competitors else None
@@ -4621,8 +4639,27 @@ def research_web(client: str, competitors: str | None, category: str | None,
     console.print(f"\n[green]Cached to: {out_dir}/[/green]")
     console.print(
         f"[dim]Total queries: {len(results)} | "
-        f"Re-run free (cached) | --force-refresh to override[/dim]"
+        f"Re-runs reuse cached results (empty Reddit answers from Exa are retried) | "
+        f"--force-refresh re-runs everything[/dim]"
     )
+    # Compare cache stems, not labels: a reused cache file carries the label of
+    # whichever command wrote it (research-competitors labels are slugged).
+    planned = dict.fromkeys(cache_stem(q.label) for q in default_queries_for_brand(
+        brand.name, comp_list, cat_list,
+    ))
+    returned = {cache_stem(r.query.label) for r in results}
+    failed = [stem for stem in planned if stem not in returned]
+    if failed:
+        errors_dir = Path("clients") / client / "research" / "exa" / "errors"
+        noun = "query" if len(failed) == 1 else "queries"
+        console.print(
+            f"[yellow]{len(failed)} {noun} failed; details in {errors_dir}/: "
+            f"{', '.join(failed)}[/yellow]"
+        )
+        if not results:
+            console.print(f"[red]No query succeeded. First error: "
+                          f"{_exa_error_text(errors_dir / f'{failed[0]}.json')}[/red]")
+            raise SystemExit(1)
 
 
 @cli.command()

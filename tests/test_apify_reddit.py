@@ -158,7 +158,7 @@ def test_junk_results_filtered_by_brand_term(monkeypatch):
     class FakeActor:
         def call(self, run_input, timeout_secs):
             assert run_input["searches"] == ['"Zoka Coffee" review']
-            return {"defaultDatasetId": "ds1"}
+            return {"defaultDatasetId": "ds1", "status": "SUCCEEDED"}
 
     class FakeClient:
         def actor(self, actor_id):

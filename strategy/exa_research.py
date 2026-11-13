@@ -29,10 +29,13 @@ from exa_py import Exa
 
 from strategy.exa_queries import (
     DEFAULT_NUM_RESULTS,
+    EXA_SOURCE,
     ExaQuery,
     cache_stem,
+    cached_result_is_usable,
     competitive_queries_for_brand,
     default_queries_for_brand,
+    is_reddit_scoped,
 )
 
 __all__ = [
@@ -70,13 +73,24 @@ class ExaQueryResult:
     query: ExaQuery
     fetched_at: str
     results: list[ExaHit]
+    source: str = EXA_SOURCE  # exa | reddit-api | apify
 
     def to_json(self) -> dict:
         return {
             "query": asdict(self.query),
             "fetched_at": self.fetched_at,
             "results": [asdict(r) for r in self.results],
+            "source": self.source,
         }
+
+
+def _result_from_cache(data: dict) -> ExaQueryResult:
+    return ExaQueryResult(
+        query=ExaQuery(**data["query"]),
+        fetched_at=data["fetched_at"],
+        results=[ExaHit(**r) for r in data["results"]],
+        source=data.get("source", EXA_SOURCE),
+    )
 
 
 def _get_client() -> Exa:
@@ -112,7 +126,7 @@ def run_query(
     if query.exclude_domains:
         kwargs["exclude_domains"] = query.exclude_domains
     # Use livecrawl for Reddit (cache often returns "blocked by network security")
-    reddit_scoped = "reddit.com" in (query.include_domains or [])
+    reddit_scoped = is_reddit_scoped(query.include_domains)
     if livecrawl is None and reddit_scoped:
         livecrawl = "always"
     if livecrawl:
@@ -126,27 +140,7 @@ def run_query(
             "SOURCE_NOT_AVAILABLE" in message or "domains are not available" in message
         ):
             # Exa dropped reddit.com from its index (Reddit licensing lockdown).
-            # Chain: official Reddit API -> Apify actor bridge -> persisted error.
-            from strategy.reddit_research import RedditAuthError, run_reddit_query
-
-            try:
-                return run_reddit_query(query, content_chars=content_chars)
-            except RedditAuthError as reddit_err:
-                from strategy.apify_reddit import (
-                    ApifyRedditError,
-                    run_reddit_query_via_apify,
-                )
-
-                try:
-                    return run_reddit_query_via_apify(
-                        query, content_chars=content_chars
-                    )
-                except ApifyRedditError as apify_err:
-                    raise RuntimeError(
-                        "Exa no longer serves reddit.com; Reddit API fallback "
-                        f"unusable ({reddit_err}); Apify bridge unusable "
-                        f"({apify_err})"
-                    ) from e
+            return _reddit_fallback(query, content_chars, "Exa no longer serves reddit.com", e)
         raise
 
     hits: list[ExaHit] = []
@@ -161,11 +155,41 @@ def run_query(
             domain=_domain_of(getattr(r, "url", "")),
         ))
 
+    if reddit_scoped and not hits:
+        # Exa now also answers a reddit.com search with no results and no
+        # error. Caching that would read as "Reddit has nothing to say".
+        return _reddit_fallback(query, content_chars, "Exa returned no reddit.com results")
+
     return ExaQueryResult(
         query=query,
         fetched_at=datetime.utcnow().isoformat() + "Z",
         results=hits,
     )
+
+
+def _reddit_fallback(
+    query: ExaQuery,
+    content_chars: int,
+    reason: str,
+    cause: Exception | None = None,
+) -> ExaQueryResult:
+    """Chain for Reddit-scoped queries Exa cannot answer:
+    official Reddit API -> Apify actor bridge -> RuntimeError (persisted by callers).
+    """
+    from strategy.reddit_research import RedditAuthError, run_reddit_query
+
+    try:
+        return run_reddit_query(query, content_chars=content_chars)
+    except RedditAuthError as reddit_err:
+        from strategy.apify_reddit import ApifyRedditError, run_reddit_query_via_apify
+
+        try:
+            return run_reddit_query_via_apify(query, content_chars=content_chars)
+        except ApifyRedditError as apify_err:
+            raise RuntimeError(
+                f"{reason}; Reddit API fallback unusable ({reddit_err}); "
+                f"Apify bridge unusable ({apify_err})"
+            ) from (cause or apify_err)
 
 
 def cache_result(client_slug: str, result: ExaQueryResult) -> Path:
@@ -202,17 +226,10 @@ def load_cached(client_slug: str) -> list[ExaQueryResult]:
     raw_dir = CLIENTS_DIR / client_slug / "research" / "exa" / "raw"
     if not raw_dir.exists():
         return []
-    bundle: list[ExaQueryResult] = []
-    for path in sorted(raw_dir.glob("*.json")):
-        data = json.loads(path.read_text(encoding="utf-8"))
-        query = ExaQuery(**data["query"])
-        results = [ExaHit(**r) for r in data["results"]]
-        bundle.append(ExaQueryResult(
-            query=query,
-            fetched_at=data["fetched_at"],
-            results=results,
-        ))
-    return bundle
+    return [
+        _result_from_cache(json.loads(path.read_text(encoding="utf-8")))
+        for path in sorted(raw_dir.glob("*.json"))
+    ]
 
 
 def run_research_bundle(
@@ -225,25 +242,33 @@ def run_research_bundle(
     """Run all default queries for a brand and cache each result.
 
     If skip_cached is True (default), queries whose cache file already exists
-    are skipped — re-running is free until the cache is cleared.
+    are skipped — re-running is free until the cache is cleared. A cached
+    Reddit result that Exa answered empty is not trusted and runs again.
+    Queries that share a cache file name run once. A query that fails is
+    recorded under research/exa/errors/ and left out of the returned list;
+    the other queries still run.
     """
     queries = default_queries_for_brand(brand_name, competitors, category_terms)
     cache_dir = CLIENTS_DIR / client_slug / "research" / "exa" / "raw"
 
     all_results: list[ExaQueryResult] = []
+    seen_stems: set[str] = set()
     for q in queries:
-        cache_path = cache_dir / f"{cache_stem(q.label)}.json"
+        stem = cache_stem(q.label)
+        if stem in seen_stems:  # e.g. a competitor listed twice: one cache file, one run
+            continue
+        seen_stems.add(stem)
+        cache_path = cache_dir / f"{stem}.json"
         if skip_cached and cache_path.exists():
             data = json.loads(cache_path.read_text(encoding="utf-8"))
-            query = ExaQuery(**data["query"])
-            results = [ExaHit(**r) for r in data["results"]]
-            all_results.append(ExaQueryResult(
-                query=query,
-                fetched_at=data["fetched_at"],
-                results=results,
-            ))
+            if cached_result_is_usable(data):
+                all_results.append(_result_from_cache(data))
+                continue
+        try:
+            result = run_query(q)
+        except Exception as e:  # one failed query must not lose the rest of the run
+            cache_error(client_slug, q, e)
             continue
-        result = run_query(q)
         cache_result(client_slug, result)
         all_results.append(result)
 

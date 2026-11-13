@@ -14,6 +14,12 @@ import re
 from dataclasses import dataclass, field
 
 DEFAULT_NUM_RESULTS = 10
+REDDIT_DOMAIN = "reddit.com"
+
+# Where a query result came from, recorded in its cache file as "source".
+EXA_SOURCE = "exa"
+REDDIT_API_SOURCE = "reddit-api"
+APIFY_SOURCE = "apify"
 
 
 @dataclass
@@ -40,6 +46,29 @@ def slugify(text: str) -> str:
 def cache_stem(label: str) -> str:
     """Filename stem for a query's cache file (raw/ and errors/)."""
     return slugify(label)
+
+
+def is_reddit_scoped(include_domains: list[str] | None) -> bool:
+    """True when a query is limited to reddit.com."""
+    return REDDIT_DOMAIN in (include_domains or [])
+
+
+def cached_result_is_usable(data: object) -> bool:
+    """False for a cached Reddit result that Exa answered with nothing.
+
+    Exa stopped serving reddit.com: it answers a Reddit-scoped search with no
+    results and no error. A result cached that way (source "exa", or no source
+    because it predates the field) says nothing about Reddit and must be
+    fetched again. An empty answer from the Reddit API or Apify is real.
+    A file this rule cannot read is left alone (treated as usable).
+    """
+    if not isinstance(data, dict):
+        return True
+    query = data.get("query")
+    include_domains = query.get("include_domains") if isinstance(query, dict) else None
+    if not is_reddit_scoped(include_domains) or data.get("results"):
+        return True
+    return (data.get("source") or EXA_SOURCE) != EXA_SOURCE
 
 
 def reddit_search_terms(query: ExaQuery) -> tuple[str, str]:
