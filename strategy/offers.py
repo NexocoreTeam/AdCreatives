@@ -26,7 +26,7 @@ from models.product import Product
 from strategy.firecrawl_client import firecrawl_scrape_markdown
 from strategy.llm import claude_complete
 from strategy.researcher import (
-    USER_AGENT,
+    DIRECT_FETCH_HEADERS,
     MAX_HTML_PER_PAGE,
     clean_html,
     normalize_url,
@@ -85,7 +85,7 @@ def fetch_offer_pages(base_url: str) -> dict[str, str]:
 
     # ── httpx fallback ────────────────────────────────────────────────────
     results: dict[str, str] = {}
-    headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
+    headers = DIRECT_FETCH_HEADERS
     with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
         for url in unblocked_urls(candidate_urls, fc_results):
             try:

@@ -26,6 +26,7 @@ from pathlib import Path
 from strategy.competitor_research import load_competitors
 from strategy.firecrawl_client import BLOCKED_PAGE, firecrawl_scrape_html
 from strategy.researcher import (
+    DIRECT_FETCH_HEADERS,
     ProductCard,
     fetch_shopify_bestsellers,
     normalize_url,
@@ -50,7 +51,7 @@ def fetch_bestsellers(url: str, top_n: int = DEFAULT_TOP_N) -> tuple[list[Produc
     if html is BLOCKED_PAGE:
         return [], "blocked", "the site's bot check blocked the page; not fetched directly"
 
-    pages = fetch_shopify_bestsellers(base, page_count=1)
+    pages = fetch_shopify_bestsellers(base, page_count=1, headers=DIRECT_FETCH_HEADERS)
     if pages:
         cards = parse_shopify_product_cards(pages[0][1], base)
         if cards:

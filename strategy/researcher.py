@@ -81,6 +81,12 @@ BROWSER_HEADERS = {
     "Upgrade-Insecure-Requests": "1",
 }
 
+# Headers for the backup fetch: a direct request to the site being researched
+# when Firecrawl returned nothing usable. No made-up browser name: httpx sends
+# its own ("python-httpx/<version>"), so a site that turns scripts away can say
+# no and be taken at its word.
+DIRECT_FETCH_HEADERS = {"Accept": "text/html,application/xhtml+xml"}
+
 MAX_HTML_PER_PAGE = 50_000
 MAX_TOTAL_HTML = 200_000
 
@@ -325,7 +331,7 @@ def fetch_pages(base_url: str, paths: list[str] | None = None) -> dict[str, str]
     # ── httpx fallback ────────────────────────────────────────────────────
     results = {}
     total_chars = 0
-    headers = {"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml"}
+    headers = DIRECT_FETCH_HEADERS
     with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
         for url in unblocked_urls(candidate_urls, fc_results):
             try:
@@ -362,7 +368,7 @@ def fetch_homepage_html(base_url: str) -> str:
     if html is BLOCKED_PAGE:
         return ""
     # Fallback
-    headers = {"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml"}
+    headers = DIRECT_FETCH_HEADERS
     try:
         with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
             resp = client.get(url)
@@ -432,16 +438,22 @@ def is_shopify_site(html: str) -> bool:
 BESTSELLER_HTML_LIMIT = 600_000  # bestseller pages need more — product grid sits after huge nav
 
 
-def fetch_shopify_bestsellers(base_url: str, page_count: int = 3) -> list[tuple[str, str]]:
+def fetch_shopify_bestsellers(
+    base_url: str,
+    page_count: int = 3,
+    headers: dict[str, str] | None = None,
+) -> list[tuple[str, str]]:
     """Fetch the first N pages of `/collections/all?sort_by=best-selling`.
 
     Returns list of (url, cleaned_html) for each page that returned 200.
     Uses a much larger HTML budget than fetch_pages because Shopify nav menus
-    eat the first ~10-50k chars before any product cards appear.
+    eat the first ~10-50k chars before any product cards appear. A caller
+    using this as a backup fetch passes DIRECT_FETCH_HEADERS.
     """
     base_url = normalize_url(base_url)
     pages: list[tuple[str, str]] = []
-    headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
+    if headers is None:
+        headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
     with httpx.Client(timeout=20.0, follow_redirects=True, headers=headers) as client:
         for page in range(1, page_count + 1):
             url = f"{base_url}/collections/all?sort_by=best-selling&page={page}"
@@ -809,7 +821,7 @@ def fetch_product_pages(urls: list[str]) -> dict[str, str]:
             return results
 
     # ── httpx fallback ────────────────────────────────────────────────────
-    headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
+    headers = DIRECT_FETCH_HEADERS
     results = {}
     total_chars = 0
     with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
