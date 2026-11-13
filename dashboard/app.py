@@ -3186,9 +3186,9 @@ def _render_actions_tab(selected):
         if st.button("⭐ Pull Amazon reviews (stratified)",
                      help="adc research-amazon (5/3/1 star tiers)", use_container_width=True):
             run_adc_command(["research-amazon", "--client", selected],
-                            label="Scraping Amazon reviews (free tier, ~$0)")
+                            label="Scraping Amazon reviews (Apify bills per review)")
             st.rerun()
-        st.caption("Est: free tier (Apify $5/mo budget)")
+        st.caption("Est: up to $1.80 per product (300 reviews at $0.006)")
 
     with rc3:
         if st.button("🎯 Refresh gap map", help="adc analyze-gaps", use_container_width=True):

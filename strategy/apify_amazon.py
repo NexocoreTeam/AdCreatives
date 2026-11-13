@@ -31,18 +31,37 @@ from pathlib import Path
 
 from apify_client import ApifyClient
 
+from strategy.amazon_tiers import off_tier_count, tier_looks_unfiltered
 from strategy.reviews import Review
 
 CLIENTS_DIR = Path("clients")
 ACTOR_ID = "junglee/amazon-reviews-scraper"
 DEFAULT_MAX_REVIEWS_PER_PRODUCT = 100
+ACTOR_MAX_REVIEWS_PER_TIER = 100  # the actor returns no more than this per star tier
+PRICE_PER_REVIEW_USD = 0.006  # Apify free-plan price for this actor, Nov 2026
 
-# Star filters Amazon's URL parameter accepts. The free Apify tier caps each
-# call to ~8 reviews — by running 3 separate calls per product (one for 5-star,
-# one for 3-star, one for 1-star) we get explicit stratification matching the
-# user's 5/3/1 framework instead of a "recent"-biased mixed sample.
+# One actor run per star tier (5-star, 3-star, 1-star by default) gives each
+# tier of the 5/3/1 framework up to 100 reviews of its own (the actor's limit
+# per tier); an unfiltered run stops at 100 across all ratings.
 DEFAULT_STAR_FILTERS = ["five_star", "three_star", "one_star"]
 ALL_STAR_FILTERS = ["five_star", "four_star", "three_star", "two_star", "one_star"]
+
+# Our tier names -> the actor's `filterByRatings` values. The actor ignores
+# input fields it does not know, so a wrong field name silently returns an
+# unfiltered run (it did for months under `filterByStar`).
+ACTOR_RATING_FILTERS = {
+    "all_stars": "allStars",
+    "five_star": "fiveStar",
+    "four_star": "fourStar",
+    "three_star": "threeStar",
+    "two_star": "twoStar",
+    "one_star": "oneStar",
+    "positive": "positive",
+    "critical": "critical",
+}
+SORT_OPTIONS = ("helpful", "recent")
+RUN_SUCCEEDED = "SUCCEEDED"
+FILTER_IGNORED_NOTE = "STAR FILTER IGNORED"
 
 STAR_FILTER_SHORT_NAMES = {
     "all_stars": "all",
@@ -104,15 +123,20 @@ def scrape_amazon_reviews(
     competitor_slug: str,
     competitor_name: str,
     max_reviews: int = DEFAULT_MAX_REVIEWS_PER_PRODUCT,
-    sort: str = "recent",
+    sort: str = "helpful",
     star_filter: str = "all_stars",
 ) -> AmazonReviewBundle:
     """Scrape reviews for one Amazon product via the junglee actor.
 
-    sort options: 'recent', 'helpful' (default 'recent' for freshest signal).
+    sort options: 'helpful' (Amazon's "Top reviews", the actor's default and
+    what every run got while the sort field was misnamed) or 'recent'.
     star_filter: 'all_stars' | 'five_star' | 'four_star' | 'three_star' |
                  'two_star' | 'one_star' | 'positive' | 'critical'
     """
+    if star_filter not in ACTOR_RATING_FILTERS:
+        raise ValueError(f"Unknown star filter {star_filter!r}")
+    if sort not in SORT_OPTIONS:
+        raise ValueError(f"Unknown sort {sort!r}; use one of {', '.join(SORT_OPTIONS)}")
     client = _get_client()
     asin = _extract_asin(product_url)
     bundle = AmazonReviewBundle(
@@ -127,8 +151,8 @@ def scrape_amazon_reviews(
     run_input = {
         "productUrls": [{"url": product_url}],
         "maxReviews": max_reviews,
-        "sortBy": sort,
-        "filterByStar": star_filter,
+        "sort": sort,
+        "filterByRatings": [ACTOR_RATING_FILTERS[star_filter]],
         "scrapeProductDetails": True,
         "useCaptchaSolver": False,
         "proxyConfiguration": {"useApifyProxy": True},
@@ -140,7 +164,15 @@ def scrape_amazon_reviews(
         bundle.notes = f"Apify call failed: {type(e).__name__}: {e}"
         return bundle
 
-    dataset_id = run.get("defaultDatasetId") if isinstance(run, dict) else None
+    status = run.get("status") if isinstance(run, dict) else None
+    if status != RUN_SUCCEEDED:
+        # call() returns a FAILED, TIMED-OUT or ABORTED run without raising. Its
+        # dataset is not a real "no reviews in this tier" and must not be cached.
+        ended = f"run ended {status}" if status else "no run record"
+        bundle.notes = f"Apify call failed: {ended} ({ACTOR_ID})"
+        return bundle
+
+    dataset_id = run.get("defaultDatasetId")
     if not dataset_id:
         bundle.notes = "Apify run completed but returned no datasetId"
         return bundle
@@ -205,14 +237,19 @@ def scrape_amazon_reviews(
     bundle.reviews = reviews
     if not reviews:
         bundle.notes = f"Run completed but yielded 0 reviews from {len(items)} dataset items"
-    else:
-        # Note the free-tier cap if we hit it
-        if len(reviews) <= 8:
-            bundle.notes = (
-                f"{len(reviews)} reviews extracted. Apify free tier caps each run at "
-                f"~8 reviews; upgrade to the Starter plan to access more."
-            )
+    elif star_filter_ignored(bundle):
+        short = STAR_FILTER_SHORT_NAMES.get(star_filter, star_filter)
+        off_tier = off_tier_count(star_filter, [review.rating for review in reviews])
+        bundle.notes = (
+            f"{FILTER_IGNORED_NOTE}: {off_tier} of {len(reviews)} "
+            f"reviews are outside the {short} tier"
+        )
     return bundle
+
+
+def star_filter_ignored(bundle: AmazonReviewBundle) -> bool:
+    """True when the actor answered a tier with other ratings, i.e. it did not filter."""
+    return tier_looks_unfiltered(bundle.star_filter, [review.rating for review in bundle.reviews])
 
 
 def cache_amazon_bundle(client_slug: str, bundle: AmazonReviewBundle) -> Path:
