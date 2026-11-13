@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import re
 import time
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from urllib.parse import urljoin, urlparse
 
@@ -153,6 +154,115 @@ def clean_html(html: str) -> str:
     return html.strip()
 
 
+# Path segments that introduce a single product page: Shopify uses
+# /products/<slug>, WooCommerce defaults to /product/<slug>. Matching whole
+# segments keeps WooCommerce archives (/product-category/, /product-tag/) out.
+PRODUCT_PATH_SEGMENTS = frozenset({"products", "product"})
+
+# `adc research` reads at most this many product pages per run.
+MAX_PRODUCT_PAGES = 3
+
+
+def is_product_page_path(path: str) -> bool:
+    """True when a URL path points at one product page, not a listing."""
+    segments = [segment.lower() for segment in path.split("/") if segment]
+    return any(segment in PRODUCT_PATH_SEGMENTS for segment in segments[:-1])
+
+
+def _page_key(url: str) -> tuple[str, str, str]:
+    """Identity of a page across redirects: host without "www." or a port,
+    path without a trailing slash, and the query string.
+
+    Raises ValueError for a URL that cannot be parsed.
+    """
+    parsed = urlparse(url)
+    host = (parsed.hostname or "").removeprefix("www.")
+    return host, parsed.path.rstrip("/"), parsed.query
+
+
+def _match_scraped_pages(requested_urls: Sequence[str], scraped: dict[str, str]) -> dict[str, str]:
+    """Map each requested URL to its scraped text, in requested order.
+
+    Firecrawl keys results by the FINAL url. A page that redirects (WordPress
+    adds a trailing slash, many stores move between www and the bare domain)
+    is not found under the URL that was asked for, and used to be dropped
+    without a word. A page that redirects somewhere else entirely, such as a
+    host's robot check, still does not match.
+    """
+    by_key: dict[tuple[str, str, str], str] = {}
+    for final_url, text in scraped.items():
+        if not text:
+            continue
+        try:
+            by_key.setdefault(_page_key(final_url), text)
+        except ValueError:
+            continue
+    matched: dict[str, str] = {}
+    for url in requested_urls:
+        text = scraped.get(url) or by_key.get(_page_key(url))
+        if text:
+            matched[url] = text
+    return matched
+
+
+def validate_product_urls(base_url: str, product_urls: Sequence[str]) -> list[str]:
+    """Check operator-named product pages before any work starts.
+
+    At most MAX_PRODUCT_PAGES, each a full http(s) address on the same site
+    as the brand URL ("www." and the port are ignored). Raises ValueError
+    naming the first problem.
+    """
+    if not product_urls:
+        return []
+    if len(product_urls) > MAX_PRODUCT_PAGES:
+        raise ValueError(
+            f"Name at most {MAX_PRODUCT_PAGES} product pages per run (got {len(product_urls)})."
+        )
+    try:
+        base_host = _page_key(normalize_url(base_url))[0]
+    except ValueError:
+        raise ValueError(f"--url {base_url!r} is not a valid web address") from None
+    checked: list[str] = []
+    for raw in product_urls:
+        url = raw.strip()
+        try:
+            scheme, host = urlparse(url).scheme, _page_key(url)[0]
+        except ValueError:
+            scheme, host = "", ""
+        if scheme not in ("http", "https") or not host:
+            raise ValueError(f"{url!r} must be a full http(s) product page address")
+        if host != base_host:
+            raise ValueError(
+                f"{url} is not on {base_host}. Product pages must be on the same site as --url."
+            )
+        checked.append(url)
+    return checked
+
+
+def select_product_page_urls(
+    explicit: Sequence[str],
+    bestsellers: Sequence[str],
+    discovered: Sequence[str],
+) -> list[str]:
+    """Choose the product pages to read: operator-named first, then
+    best-sellers, then discovered ones, up to MAX_PRODUCT_PAGES.
+
+    The same page is read once even when it shows up with and without a
+    trailing slash or a variant query; the first spelling wins.
+    """
+    chosen: list[str] = []
+    seen: set[tuple[str, str]] = set()
+    for url in (*explicit, *bestsellers, *discovered):
+        if len(chosen) >= MAX_PRODUCT_PAGES:
+            break
+        host, path, _query = _page_key(url)
+        if (host, path) in seen:
+            continue
+        seen.add((host, path))
+        chosen.append(url)
+    return chosen
+
+
 def fetch_pages(base_url: str, paths: list[str] | None = None) -> dict[str, str]:
     """Fetch brand-site pages and return {url: cleaned_text}.
 
@@ -172,10 +282,8 @@ def fetch_pages(base_url: str, paths: list[str] | None = None) -> dict[str, str]
         # Trim to per-page + total budget so the LLM prompt doesn't explode.
         results: dict[str, str] = {}
         total_chars = 0
-        for url in candidate_urls:  # preserve candidate order
-            md = fc_results.get(url)
-            if not md:
-                continue
+        # Candidate order is preserved; redirected pages are still matched.
+        for url, md in _match_scraped_pages(candidate_urls, fc_results).items():
             trimmed = md[:MAX_HTML_PER_PAGE]
             results[url] = trimmed
             total_chars += len(trimmed)
@@ -236,24 +344,28 @@ def fetch_homepage_html(base_url: str) -> str:
 def discover_product_urls_smart(base_url: str, limit: int = 8) -> list[str]:
     """Discover product (PDP) URLs on the brand site via Firecrawl /map.
 
-    Returns canonical /products/<slug> URLs ordered by Firecrawl's signal.
+    Returns canonical product-page URLs (Shopify /products/<slug>, WooCommerce
+    /product/<slug>) ordered by Firecrawl's signal.
     Falls back to [] if Firecrawl is unavailable — callers should treat that
     as "no PDPs discovered; rely on Shopify bestseller parsing instead".
     """
     all_urls = firecrawl_map_urls(base_url, limit=200)
     if not all_urls:
         return []
-    base_host = urlparse(normalize_url(base_url)).netloc
+    base_host = _page_key(normalize_url(base_url))[0]
     pdp_urls: list[str] = []
     seen: set[str] = set()
     for u in all_urls:
-        parsed = urlparse(u)
-        if parsed.netloc != base_host:
+        try:
+            parsed = urlparse(u)
+            host = _page_key(u)[0]
+        except ValueError:
             continue
-        if "/products/" not in parsed.path:
+        # Same site; the map may spell the host with or without "www."
+        if host != base_host:
             continue
-        # Skip the /products listing index itself, only individual PDPs
-        if parsed.path.rstrip("/").endswith("/products"):
+        # Individual PDPs only — not the listing index or category archives
+        if not is_product_page_path(parsed.path):
             continue
         # Drop query strings — variant params produce duplicates
         canonical = f"{parsed.scheme}://{parsed.netloc}{parsed.path.rstrip('/')}"
@@ -652,10 +764,8 @@ def fetch_product_pages(urls: list[str]) -> dict[str, str]:
     if fc_results:
         results: dict[str, str] = {}
         total_chars = 0
-        for url in urls:  # preserve caller order
-            md = fc_results.get(url)
-            if not md:
-                continue
+        # Caller order is preserved; redirected pages are still matched.
+        for url, md in _match_scraped_pages(urls, fc_results).items():
             trimmed = md[:MAX_HTML_PER_PAGE]
             results[url] = trimmed
             total_chars += len(trimmed)
