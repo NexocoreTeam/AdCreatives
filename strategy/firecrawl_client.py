@@ -44,6 +44,20 @@ class _BlockedPage(str):
 BLOCKED_PAGE = _BlockedPage()
 
 
+class ScrapedPages(dict):
+    """What firecrawl_scrape_markdown returns: {url: markdown} for the pages
+    that can be used, plus `blocked`, the requested URLs that came back blocked.
+
+    It is an ordinary dict of the usable pages, so a caller that only reads
+    pages needs no change. A caller with its own direct fetch reads `blocked`
+    and leaves those pages alone instead of getting them another way.
+    """
+
+    def __init__(self, pages=(), blocked=()):
+        super().__init__(pages)
+        self.blocked = frozenset(blocked)
+
+
 def _log(msg: str) -> None:
     """Best-effort stderr logging so failures don't get silently swallowed."""
     try:
@@ -142,16 +156,17 @@ def firecrawl_scrape_markdown(
     urls: list[str],
     timeout_ms: int = 30000,
     only_main_content: bool = True,
-) -> dict[str, str]:
+) -> ScrapedPages:
     """Batch-scrape URLs, return {url: markdown}. Empty dict on failure.
 
     Uses only_main_content=True by default — strips nav, footer, mega-menus
     automatically. Pass only_main_content=False when callers need the head
-    or scripts (e.g. og:image meta tags). A blocked page is logged and left out.
+    or scripts (e.g. og:image meta tags). A blocked page is logged and left
+    out; the result's `blocked` names the requested URLs that were blocked.
     """
     fc = get_firecrawl_client()
     if not fc or not urls:
-        return {}
+        return ScrapedPages()
     # Dedupe while preserving order
     seen: set[str] = set()
     deduped: list[str] = []
@@ -169,23 +184,27 @@ def firecrawl_scrape_markdown(
         )
     except Exception as e:
         _log(f"batch_scrape({len(deduped)} urls) failed: {type(e).__name__}: {e}")
-        return {}
+        return ScrapedPages()
 
     # batch_scrape returns an object whose `.data` is the list of Documents.
     docs = getattr(job, "data", None) or job
     output: dict[str, str] = {}
+    blocked: list[str] = []
     try:
         for doc in docs:
             url = _doc_url(doc)
-            if not _may_use(doc, _meta(doc, "source_url") or url):
+            requested = _meta(doc, "source_url") or url
+            if not _may_use(doc, requested):
+                if requested:
+                    blocked.append(requested)
                 continue
             md = getattr(doc, "markdown", None)
             if url and md:
                 output[url] = md
     except TypeError:
         _log("batch_scrape return shape unexpected; got non-iterable")
-        return {}
-    return output
+        return ScrapedPages()
+    return ScrapedPages(output, blocked)
 
 
 def firecrawl_scrape_html(url: str, timeout_ms: int = 30000) -> str | None:

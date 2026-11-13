@@ -206,6 +206,32 @@ def _match_scraped_pages(requested_urls: Sequence[str], scraped: dict[str, str])
     return matched
 
 
+def unblocked_urls(urls: Sequence[str], scraped: dict[str, str]) -> list[str]:
+    """The pages a direct fetch may still try, in the order given.
+
+    A page Firecrawl reported as blocked by the site's bot check (the
+    `blocked` set on its batch result) is left out, so it is not fetched
+    another way. A plain dict has no such set and leaves every URL in.
+    """
+    blocked_keys: set[tuple[str, str, str]] = set()
+    for url in getattr(scraped, "blocked", ()):
+        try:
+            blocked_keys.add(_page_key(url))
+        except ValueError:
+            continue
+    if not blocked_keys:
+        return list(urls)
+    allowed: list[str] = []
+    for url in urls:
+        try:
+            if _page_key(url) in blocked_keys:
+                continue
+        except ValueError:
+            pass
+        allowed.append(url)
+    return allowed
+
+
 def validate_product_urls(base_url: str, product_urls: Sequence[str]) -> list[str]:
     """Check operator-named product pages before any work starts.
 
@@ -272,6 +298,8 @@ def fetch_pages(base_url: str, paths: list[str] | None = None) -> dict[str, str]
         only_main_content=True. Returns clean Markdown (nav/footer stripped,
         JS-rendered content captured).
       - Otherwise, fall back to httpx + regex-cleaned HTML (the original path).
+        A page Firecrawl reports as blocked by the site's bot check is not
+        fetched that way either.
     """
     base_url = normalize_url(base_url)
     paths = paths or CANDIDATE_PATHS
@@ -299,7 +327,7 @@ def fetch_pages(base_url: str, paths: list[str] | None = None) -> dict[str, str]
     total_chars = 0
     headers = {"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml"}
     with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
-        for url in candidate_urls:
+        for url in unblocked_urls(candidate_urls, fc_results):
             try:
                 resp = client.get(url)
             except (httpx.RequestError, httpx.TimeoutException):
@@ -758,7 +786,9 @@ def fetch_product_pages_with_raw(urls: list[str]) -> dict[str, dict[str, str]]:
 
 def fetch_product_pages(urls: list[str]) -> dict[str, str]:
     """Fetch PDPs and return {url: cleaned_text}. Firecrawl Markdown when
-    available (only_main_content=True), httpx HTML fallback otherwise.
+    available (only_main_content=True), httpx HTML fallback otherwise. A page
+    Firecrawl reports as blocked by the site's bot check is not fetched that
+    way either.
     """
     if not urls:
         return {}
@@ -783,7 +813,7 @@ def fetch_product_pages(urls: list[str]) -> dict[str, str]:
     results = {}
     total_chars = 0
     with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
-        for url in urls:
+        for url in unblocked_urls(urls, fc_results):
             try:
                 resp = client.get(url)
             except (httpx.RequestError, httpx.TimeoutException):
