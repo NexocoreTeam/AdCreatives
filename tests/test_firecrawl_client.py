@@ -341,3 +341,34 @@ def test_sdk_failure_returns_empty_and_is_logged(fc, capsys):
     err = capsys.readouterr().err
     assert "scrape failed" in err
     assert "batch failed" in err
+
+
+# ── A batch also says which requested pages were blocked ─────────────────────
+
+
+def test_batch_reports_which_requested_pages_were_blocked(fc):
+    home, denied = f"{SITE}/", f"{SITE}/account/"
+    fc.batch_scrape.return_value = _job(
+        _page(home, title="Home"),
+        _robot_check(PAGE),
+        _page(denied, title="Access denied", status=403),
+    )
+
+    pages = fcm.firecrawl_scrape_markdown([home, PAGE, denied])
+
+    assert pages == {home: "# Home"}
+    assert pages.blocked == {PAGE, denied}
+
+
+def test_batch_with_nothing_blocked_reports_none(fc):
+    fc.batch_scrape.return_value = _job(_page())
+
+    assert fcm.firecrawl_scrape_markdown([PAGE]).blocked == frozenset()
+
+
+def test_batch_that_failed_reports_no_blocked_pages(fc, monkeypatch):
+    fc.batch_scrape.side_effect = RuntimeError("batch failed")
+    assert fcm.firecrawl_scrape_markdown([PAGE]).blocked == frozenset()
+
+    monkeypatch.setattr(fcm, "get_firecrawl_client", lambda: None)
+    assert fcm.firecrawl_scrape_markdown([PAGE]).blocked == frozenset()

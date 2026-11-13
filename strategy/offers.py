@@ -30,6 +30,7 @@ from strategy.researcher import (
     MAX_HTML_PER_PAGE,
     clean_html,
     normalize_url,
+    unblocked_urls,
 )
 
 
@@ -62,7 +63,9 @@ OFFER_CANDIDATE_PATHS = [
 
 def fetch_offer_pages(base_url: str) -> dict[str, str]:
     """Fetch pages that commonly carry offer language. Firecrawl Markdown
-    when FIRECRAWL_API_KEY is set, httpx HTML fallback otherwise.
+    when FIRECRAWL_API_KEY is set, httpx HTML fallback otherwise. A page
+    Firecrawl reports as blocked by the site's bot check is not fetched that
+    way either.
     """
     base_url = normalize_url(base_url)
     candidate_urls = [
@@ -84,7 +87,7 @@ def fetch_offer_pages(base_url: str) -> dict[str, str]:
     results: dict[str, str] = {}
     headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
     with httpx.Client(timeout=15.0, follow_redirects=True, headers=headers) as client:
-        for url in candidate_urls:
+        for url in unblocked_urls(candidate_urls, fc_results):
             try:
                 resp = client.get(url)
             except (httpx.RequestError, httpx.TimeoutException):
