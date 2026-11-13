@@ -110,3 +110,26 @@ def test_note_is_unchanged_when_nothing_is_blocked(monkeypatch):
         "No supported widget API and no JSON-LD review markup — for this "
         "competitor, rely on Exa/Reddit/Amazon/social sources instead."
     )
+
+
+# ── The backup fetch sends httpx's own name, not a made-up browser name ──────
+
+
+def test_backup_fetch_of_a_competitor_page_sends_no_browser_name(monkeypatch, direct):
+    monkeypatch.setattr(cr, "firecrawl_scrape_html", lambda url: None)
+
+    assert cr._fetch_html(PAGE_A) == "<html>direct</html>"
+    assert direct.user_agents == [direct.library_default]
+
+
+def test_raw_retry_sends_no_browser_name(direct):
+    cr._fetch_html_raw(PAGE_A)
+
+    assert direct.user_agents == [direct.library_default]
+
+
+def test_product_list_backup_sends_no_browser_name(direct):
+    """/products.json is the backup when Firecrawl's site map finds no product pages."""
+    assert cr._shopify_products_json_urls(SITE) == []
+    assert direct == [f"{SITE}/products.json"]
+    assert direct.user_agents == [direct.library_default]

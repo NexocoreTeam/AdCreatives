@@ -169,3 +169,31 @@ def test_a_fully_blocked_batch_makes_no_direct_fetch_end_to_end(monkeypatch, dir
 
     assert researcher.fetch_pages(SITE, paths=["/", "/about"]) == {}
     assert direct == []
+
+
+# ── The backup fetch sends httpx's own name, not a made-up browser name ──────
+
+
+def test_backup_fetch_of_brand_pages_sends_no_browser_name(monkeypatch, direct):
+    _batch_returns(monkeypatch, {})
+
+    researcher.fetch_pages(SITE, paths=["/", "/about"])
+
+    assert direct == [HOME, ABOUT]
+    assert direct.user_agents == [direct.library_default] * 2
+
+
+def test_backup_fetch_of_the_homepage_sends_no_browser_name(monkeypatch, direct):
+    monkeypatch.setattr(researcher, "firecrawl_scrape_html", lambda url: None)
+
+    researcher.fetch_homepage_html(SITE)
+
+    assert direct.user_agents == [direct.library_default]
+
+
+def test_backup_fetch_of_product_pages_sends_no_browser_name(monkeypatch, direct):
+    _batch_returns(monkeypatch, {})
+
+    researcher.fetch_product_pages([PRODUCT_A, PRODUCT_B])
+
+    assert direct.user_agents == [direct.library_default] * 2

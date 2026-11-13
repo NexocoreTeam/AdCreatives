@@ -41,3 +41,11 @@ def test_every_offer_page_falls_back_when_firecrawl_returned_nothing(monkeypatch
     offers.fetch_offer_pages(SITE)
 
     assert direct == CANDIDATES
+
+
+def test_backup_fetch_of_offer_pages_sends_no_browser_name(monkeypatch, direct):
+    _batch_returns(monkeypatch, {})
+
+    offers.fetch_offer_pages(SITE)
+
+    assert direct.user_agents == [direct.library_default] * len(CANDIDATES)

@@ -24,7 +24,7 @@ import httpx
 import yaml
 
 from strategy.firecrawl_client import BLOCKED_PAGE, firecrawl_map_urls, firecrawl_scrape_html
-from strategy.researcher import USER_AGENT
+from strategy.researcher import DIRECT_FETCH_HEADERS
 from strategy.reviews import Review, fetch_product_reviews
 
 CLIENTS_DIR = Path("clients")
@@ -143,11 +143,12 @@ def _extract_product_urls_from_html(html: str, base_url: str) -> list[str]:
 
 
 def _fetch_html_raw(url: str) -> str:
-    """Plain httpx fetch — the unrendered source with <script> JSON intact."""
+    """Plain httpx fetch — the unrendered source with <script> JSON intact.
+    Sends no made-up browser name (see DIRECT_FETCH_HEADERS)."""
     try:
         with httpx.Client(
             timeout=20.0, follow_redirects=True,
-            headers={"User-Agent": USER_AGENT},
+            headers=DIRECT_FETCH_HEADERS,
         ) as client:
             resp = client.get(url)
         if resp.status_code == 200:
@@ -195,10 +196,7 @@ def _shopify_products_json_urls(base_url: str, limit: int = 25) -> list[str]:
     """
     base = base_url.rstrip("/")
     try:
-        with httpx.Client(
-            timeout=20.0, follow_redirects=True,
-            headers={"User-Agent": USER_AGENT},
-        ) as client:
+        with httpx.Client(timeout=20.0, follow_redirects=True) as client:
             resp = client.get(f"{base}/products.json", params={"limit": limit})
         if resp.status_code != 200:
             return []

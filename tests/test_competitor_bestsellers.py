@@ -47,7 +47,7 @@ def test_fetch_falls_back_to_static(monkeypatch):
     monkeypatch.setattr(cb, "firecrawl_scrape_html", lambda url, **kw: None)
     monkeypatch.setattr(
         cb, "fetch_shopify_bestsellers",
-        lambda base, page_count=1: [("https://x.com/collections/all", GRID_HTML)],
+        lambda base, page_count=1, **kw: [("https://x.com/collections/all", GRID_HTML)],
     )
     cards, method, note = fetch_bestsellers("https://x.com")
     assert method == "httpx-static"
@@ -148,3 +148,12 @@ def test_gap_analyzer_content_includes_bestsellers():
     )
     assert "BEST-SELLING PRODUCTS" in content
     assert meta["bestseller_products"] == 1
+
+
+def test_static_backup_sends_no_browser_name(monkeypatch, direct):
+    monkeypatch.setattr(cb, "firecrawl_scrape_html", lambda url, **kw: None)
+
+    fetch_bestsellers("https://x.com")
+
+    assert direct == ["https://x.com/collections/all?sort_by=best-selling&page=1"]
+    assert direct.user_agents == [direct.library_default]
