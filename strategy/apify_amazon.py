@@ -63,6 +63,13 @@ SORT_OPTIONS = ("helpful", "recent")
 RUN_SUCCEEDED = "SUCCEEDED"
 FILTER_IGNORED_NOTE = "STAR FILTER IGNORED"
 
+# On Apify's free plan the actor returns at most 10 reviews per run, from one
+# URL. Its status message then asks for an upgrade, also when fewer came back:
+# "... upgrade to the Starter plan" when done, "as a free user ... consider
+# upgrading your plan" while running (Nov 2026).
+PLAN_LIMIT_PHRASES = ("upgrade", "upgrading", "free user")
+PLAN_LIMIT_NOTE = "Apify free plan: 10 reviews per run max"
+
 STAR_FILTER_SHORT_NAMES = {
     "all_stars": "all",
     "five_star": "5s",
@@ -118,6 +125,14 @@ def _extract_asin(url: str) -> str:
     return m.group(1) if m else ""
 
 
+def _plan_limited(run: dict) -> bool:
+    """True when the run's status message says the Apify plan limits it."""
+    message = run.get("statusMessage")
+    if not isinstance(message, str):
+        return False
+    return any(phrase in message.lower() for phrase in PLAN_LIMIT_PHRASES)
+
+
 def scrape_amazon_reviews(
     product_url: str,
     competitor_slug: str,
@@ -148,6 +163,8 @@ def scrape_amazon_reviews(
         fetched_at=datetime.utcnow().isoformat() + "Z",
     )
 
+    # No proxy setting: the actor's input schema has no proxy field, and the
+    # actor calls `proxyConfiguration` deprecated (Nov 2026).
     run_input = {
         "productUrls": [{"url": product_url}],
         "maxReviews": max_reviews,
@@ -155,7 +172,6 @@ def scrape_amazon_reviews(
         "filterByRatings": [ACTOR_RATING_FILTERS[star_filter]],
         "scrapeProductDetails": True,
         "useCaptchaSolver": False,
-        "proxyConfiguration": {"useApifyProxy": True},
     }
 
     try:
@@ -244,6 +260,8 @@ def scrape_amazon_reviews(
             f"{FILTER_IGNORED_NOTE}: {off_tier} of {len(reviews)} "
             f"reviews are outside the {short} tier"
         )
+    elif _plan_limited(run):
+        bundle.notes = PLAN_LIMIT_NOTE
     return bundle
 
 
