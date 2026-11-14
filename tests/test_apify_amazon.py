@@ -31,6 +31,18 @@ PRODUCT_URL = "https://www.amazon.com/dp/B000TEST01"
 SECOND_URL = "https://www.amazon.com/dp/B000TEST02"
 TIER_RATING = {"fiveStar": 5, "fourStar": 4, "threeStar": 3, "twoStar": 2, "oneStar": 1}
 
+# Status messages of free-plan runs as the actor wrote them on live runs (Nov 2026). Every
+# run ended with the first one, also runs that returned fewer than 10 reviews.
+FREE_PLAN_DONE = (
+    "✅ Here are your {count} Amazon reviews. To access more reviews in a single run, "
+    "upgrade to the Starter plan."
+)
+FREE_PLAN_RUNNING = (
+    "⚠️ Note that as a free user, you are limited to only 1 start URL and you'll get "
+    "only 10 Amazon reviews per run. If you need more reviews, consider upgrading your plan."
+)
+PLAN_NOTE = "Apify free plan: 10 reviews per run max"
+
 
 def _item(rating: int, n: int) -> dict:
     return {
@@ -46,10 +58,11 @@ def _item(rating: int, n: int) -> dict:
 class FakeApify:
     """Stands in for ApifyClient: records each run's input, answers with a status and items."""
 
-    def __init__(self, items_for=lambda run_input: [], status="SUCCEEDED"):
+    def __init__(self, items_for=lambda run_input: [], status="SUCCEEDED", status_message=None):
         self.inputs: list[dict] = []
         self.items_for = items_for
         self.status = status
+        self.status_message = status_message
         self.datasets_read = 0
         self._items: list[dict] = []
 
@@ -61,7 +74,11 @@ class FakeApify:
             def call(self, run_input, timeout_secs):
                 fake.inputs.append(run_input)
                 fake._items = fake.items_for(run_input)
-                return {"status": fake.status, "defaultDatasetId": "ds1"}
+                return {
+                    "status": fake.status,
+                    "statusMessage": fake.status_message,
+                    "defaultDatasetId": "ds1",
+                }
 
         return _Actor()
 
@@ -115,6 +132,15 @@ def test_sort_is_sent_in_the_field_the_actor_reads(monkeypatch):
     assert all("sortBy" not in run_input for run_input in fake.inputs)
 
 
+def test_no_proxy_setting_is_sent(monkeypatch):
+    """The actor's input schema has no proxy field; it calls `proxyConfiguration` deprecated."""
+    fake = _install(monkeypatch, FakeApify())
+
+    scrape_amazon_reviews(PRODUCT_URL, "brand-a", "Brand A")
+
+    assert [key for key in fake.inputs[0] if "proxy" in key.lower()] == []
+
+
 def test_an_unknown_tier_or_sort_is_refused_before_any_paid_run(monkeypatch):
     fake = _install(monkeypatch, FakeApify())
 
@@ -157,6 +183,70 @@ def test_an_answer_that_ignores_the_filter_is_flagged(monkeypatch):
 
     assert star_filter_ignored(bundle)
     assert bundle.notes.startswith("STAR FILTER IGNORED")
+
+
+@pytest.mark.parametrize("message, count", [
+    (FREE_PLAN_DONE.format(count=10), 10),
+    (FREE_PLAN_DONE.format(count=4), 4),
+    (FREE_PLAN_RUNNING, 10),
+], ids=["done-10", "done-4", "running"])
+def test_a_run_the_apify_plan_limits_says_so_in_its_note(monkeypatch, message, count):
+    items = [_item(1, n) for n in range(count)]
+    _install(monkeypatch, FakeApify(items_for=lambda _: items, status_message=message))
+
+    bundle = scrape_amazon_reviews(PRODUCT_URL, "brand-a", "Brand A", star_filter="one_star")
+
+    assert len(bundle.reviews) == count
+    assert bundle.notes == PLAN_NOTE
+    # research-amazon shows the first 40 characters of a note: all of this one.
+    assert len(bundle.notes) <= 40
+
+
+@pytest.mark.parametrize(
+    "message", [None, "", "✅ Here are your 4 Amazon reviews."], ids=["none", "empty", "plain"],
+)
+def test_a_run_without_a_plan_message_gets_no_plan_note(monkeypatch, message):
+    items = [_item(1, n) for n in range(4)]
+    _install(monkeypatch, FakeApify(items_for=lambda _: items, status_message=message))
+
+    bundle = scrape_amazon_reviews(PRODUCT_URL, "brand-a", "Brand A", star_filter="one_star")
+
+    assert len(bundle.reviews) == 4
+    assert bundle.notes == ""
+
+
+def test_an_ignored_star_filter_outranks_the_plan_note(monkeypatch):
+    unfiltered = [_item(5, n) for n in range(8)] + [_item(1, 8), _item(3, 9)]
+    _install(monkeypatch, FakeApify(
+        items_for=lambda _: unfiltered, status_message=FREE_PLAN_DONE.format(count=10),
+    ))
+
+    bundle = scrape_amazon_reviews(PRODUCT_URL, "brand-a", "Brand A", star_filter="one_star")
+
+    assert bundle.notes.startswith("STAR FILTER IGNORED")
+
+
+@pytest.mark.parametrize("status", ["FAILED", "TIMED-OUT", "ABORTED"])
+def test_a_failed_run_keeps_its_failure_note_on_the_free_plan(monkeypatch, status):
+    _install(monkeypatch, FakeApify(
+        items_for=lambda _: [_item(1, 1)], status=status, status_message=FREE_PLAN_RUNNING,
+    ))
+
+    bundle = scrape_amazon_reviews(PRODUCT_URL, "brand-a", "Brand A", star_filter="one_star")
+
+    assert bundle.notes.startswith("Apify call failed")
+    assert status in bundle.notes[:40]
+    assert pull_failed(len(bundle.reviews), bundle.notes)
+
+
+def test_an_empty_tier_on_the_free_plan_stays_an_empty_tier(monkeypatch):
+    """The plan message comes with every free-plan run, so it does not make 0 reviews a failure."""
+    _install(monkeypatch, FakeApify(status_message=FREE_PLAN_DONE.format(count=0)))
+
+    bundle = scrape_amazon_reviews(PRODUCT_URL, "brand-a", "Brand A", star_filter="one_star")
+
+    assert bundle.notes.startswith("Run completed but yielded 0 reviews")
+    assert not pull_failed(len(bundle.reviews), bundle.notes)
 
 
 def _bundle(tier: str, ratings: list[int]) -> AmazonReviewBundle:
@@ -256,6 +346,24 @@ def test_research_amazon_saves_each_tier_with_only_that_tiers_reviews(tmp_path, 
         path = cache_dir / f"brand-a-B000TEST01-{short}.json"
         saved = json.loads(path.read_text(encoding="utf-8"))
         assert {review["rating"] for review in saved["reviews"]} == {rating}
+
+
+def test_research_amazon_saves_free_plan_tiers_and_shows_the_plan_note(tmp_path, monkeypatch):
+    from cli import cli
+
+    monkeypatch.setenv("COLUMNS", "200")  # wide enough that no table cell wraps
+    cache_dir = _amazon_client(tmp_path, monkeypatch)
+    _install(monkeypatch, FakeApify(
+        items_for=_reviews_matching_the_tier, status_message=FREE_PLAN_DONE.format(count=4),
+    ))
+
+    res = CliRunner().invoke(cli, ["research-amazon", "--client", "acme"])
+
+    assert res.exit_code == 0, res.output
+    assert res.output.count(PLAN_NOTE) == 3
+    for short in ("5s", "3s", "1s"):
+        path = cache_dir / f"brand-a-B000TEST01-{short}.json"
+        assert json.loads(path.read_text(encoding="utf-8"))["notes"] == PLAN_NOTE
 
 
 def test_research_amazon_logs_the_reviews_it_paid_for(tmp_path, monkeypatch):
