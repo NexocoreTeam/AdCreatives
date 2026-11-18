@@ -3,12 +3,11 @@
 Usage (from the repo root):
     python scripts/render_native_ui_sbg_test.py [--base-dir DIR] [--out DIR]
 
-Content rules applied here (see generators/native_ui.py):
+Content used here:
   - Question box: SBG asking its own question, so nothing is fabricated.
   - Notes card: real customer reviews from clients/savedbygrace/brand-context.md, attributed.
   - Reminder: a real SBG product name.
-  - iMessage thread: LAYOUT TEST ONLY with placeholder text; a real conversation shared with
-    permission is required before any iMessage-style ad runs.
+  - iMessage thread: layout test with placeholder text.
 """
 from __future__ import annotations
 

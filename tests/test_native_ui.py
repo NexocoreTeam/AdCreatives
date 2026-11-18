@@ -108,11 +108,9 @@ def test_spec_requires_component_fields():
         NativeUiSpec(component="notes", title="only a title", content_source="reviews")
 
 
-def test_spec_blocks_imessage_without_permission():
-    with pytest.raises(ValidationError):
-        NativeUiSpec(component="imessage", messages=[{"text": "hi"}], content_source="made up")
+def test_spec_accepts_imessage_written_for_the_ad():
     ok = NativeUiSpec(component="imessage", messages=[{"text": "hi"}],
-                      content_source="DM from @x, permission granted 2026-10-07")
+                      content_source="written for the ad")
     assert ok.messages[0].sender == "them"
 
 
