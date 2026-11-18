@@ -55,15 +55,16 @@ class NativeUiSpec(BaseModel):
 
     The screen keeps its native look (no brand fonts/colours); only the words change.
     `content_source` is required so every native ad records where its words came from:
-    real attributed reviews, a real question, the brand's own question, or a real
-    conversation shared with permission. Fabricated conversations are not allowed.
+    a real review, a real conversation shared with permission, the brand's own
+    question, or copy written for the ad.
     """
 
     component: Literal["question_box", "imessage", "notes", "reminder"]
     content_source: str = Field(
         min_length=3,
-        description="Provenance of the words, e.g. 'brand-authored question', "
-        "'reviews: brand-context.md L195-201', 'DM from @x, permission granted 2026-10-07'.",
+        description="Provenance of the words, e.g. 'written for the ad', "
+        "'brand-authored question', 'reviews: brand-context.md L195-201', "
+        "'DM from @x, permission granted 2026-10-07'.",
     )
     base_image: str | None = Field(default=None, description="Clean base photo (no text).")
     sizes: list[Literal["4x5", "9x16", "1x1"]] = Field(default_factory=lambda: ["4x5", "9x16"])
@@ -75,7 +76,9 @@ class NativeUiSpec(BaseModel):
     # question_box
     question: str | None = None
     bold: str | None = Field(default=None, description="One word of the question to set in bold.")
-    answer: str | None = Field(default=None, description="A real shared response; omit to show the empty field.")
+    answer: str | None = Field(
+        default=None, description="A response to show in the field; omit to show the empty field."
+    )
     avatar: str | None = Field(default=None, description="Brand profile picture for the sticker avatar.")
     # imessage
     messages: list[NativeUiMessage] | None = None
@@ -102,11 +105,6 @@ class NativeUiSpec(BaseModel):
         missing = [f for f in required if not getattr(self, f)]
         if missing:
             raise ValueError(f"native_ui component '{self.component}' needs: {', '.join(missing)}")
-        if self.component == "imessage" and "permission" not in self.content_source.lower():
-            raise ValueError(
-                "imessage threads must be a real conversation: content_source has to "
-                "state that permission was given (e.g. 'DM from @x, permission granted 2026-10-07')."
-            )
         return self
 
 

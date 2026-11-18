@@ -13,8 +13,6 @@ The specs below come from measured organic templates (organic-content repo,
 Rules baked into the design:
   - Native screens keep their native look. Do NOT pass brand fonts/colours into them.
   - Only the words change. Keep copy short enough that bubbles/cards don't reflow oddly.
-  - Content must be real: genuine messages (with permission), questions actually received,
-    or a question the brand itself is asking. Never write a fake testimonial into a bubble.
 
 All geometry is specified at a 1080 px-wide reference and scaled to the base image width.
 """
@@ -244,7 +242,7 @@ class Message:
 
 @dataclass
 class IMessageThread:
-    """iMessage-style thread. Only use with a real conversation (shared with permission)."""
+    """iMessage-style thread."""
     messages: Sequence[Message]
     timestamp: str | None = "Today 9:41 AM"
     top: float = 0.22                # fraction of image height where the thread starts

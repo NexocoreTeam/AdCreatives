@@ -6911,11 +6911,13 @@ def ugc_ad_cmd(
 @click.option("--size", "sizes", multiple=True, type=click.Choice(["4x5", "9x16", "1x1"]),
               help="Output size(s). Default 4x5 + 9x16.")
 @click.option("--source", "content_source", default=None,
-              help="Where the words come from (required): e.g. 'brand-authored question', "
-                   "'reviews: brand-context.md L195-201', 'DM from @x, permission granted <date>'.")
+              help="Where the words come from (required): e.g. 'written for the ad', "
+                   "'brand-authored question', 'reviews: brand-context.md L195-201', "
+                   "'DM from @x, permission granted <date>'.")
 @click.option("--question", default=None, help="question_box: the question.")
 @click.option("--bold", default=None, help="question_box: one word of the question to bold.")
-@click.option("--answer", default=None, help="question_box: a real shared response (omit for the empty field).")
+@click.option("--answer", default=None,
+              help="question_box: a response to show in the field (omit for the empty field).")
 @click.option("--avatar", default=None, type=click.Path(dir_okay=False), help="question_box: brand profile picture.")
 @click.option("--message", "messages", multiple=True,
               help="imessage: 'them: text' or 'me: text'. Repeat in order.")
@@ -6941,8 +6943,8 @@ def native_ad_cmd(component, brief_path, base_path, out_dir, name, sizes, conten
     """Native phone/app-screen statics: IG question box, iMessage, Notes, reminder.
 
     Renders the screen with its NATIVE look (never brand fonts/colours) onto a clean base
-    photo, pixel-exact, at 4:5 / 9:16 / 1:1. Words only change; content must be real
-    (see docs/native-ui-components.md). Fabricated conversations are rejected.
+    photo, pixel-exact, at 4:5 / 9:16 / 1:1. Words only change; they may be written for
+    the ad (see docs/native-ui-components.md).
 
     \b
     Examples:

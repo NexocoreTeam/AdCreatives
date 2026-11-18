@@ -51,7 +51,7 @@ approval/receipt/finish flow, then `assemble` to save a full-ad child preview.
 Read `docs/native-ui-components.md` before any ad that imitates a phone or app
 screen: Instagram question box / Q&A, iMessage thread, Notes card, or
 reminder pop-up. Build those with `adc native-ad` (code-rendered, native look),
-never with image-model text or brand-styled overlays, and only with real content.
+never with image-model text or brand-styled overlays.
 Instagram DM/comment replies are not built yet; never use iMessage in their
 place (see `docs/native-organic-workflow.md` for the template route).
 
@@ -222,13 +222,13 @@ These are hard rules. If you're editing templates, brief outputs, or prompt copy
 - No invented UI chrome (fake browser bars, made-up app overlays). **Native
   phone/app-screen formats are allowed** when the chosen format calls for them
   (IG question box, iMessage thread, Notes card, reminder pop-up): build them
-  with `adc native-ad`, keep the native look (no brand fonts/colours/pills on the
-  UI), and use real content only: real conversations shared with permission,
-  real attributed reviews, questions actually received, or the brand's own
-  question. Never write a fake testimonial into a realistic bubble. Instagram
-  DM/comment replies are not built in `adc native-ad` yet; never substitute
-  an iMessage thread for them.
-  See `docs/native-ui-components.md`. (Rule updated 2026-10-07, approved by Mitchell.)
+  with `adc native-ad` and keep the native look (no brand fonts/colours/pills on
+  the UI). The words may be written for the ad. When they are a real person's
+  review or conversation, attribute the review and keep their permission on
+  record. Instagram DM/comment replies are not built in `adc native-ad` yet;
+  never substitute an iMessage thread for them.
+  See `docs/native-ui-components.md`. (Rule updated 2026-10-07; the
+  real-content-only part was removed 2026-11-18. Both approved by Mitchell.)
 - Pill sizing matches the visual format spec.
 - Wild brand aesthetic where applicable.
 
