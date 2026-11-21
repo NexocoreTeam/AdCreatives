@@ -78,6 +78,14 @@ synthesis, avatar selection, mass-desire selection, direct + adjacent ad
 analysis, 70/20/10 source mix, angle bank by awareness level, operator-chosen
 visual format, template-specific copy, and approval before production.
 
+Read `docs/inspiration-sources.md` when the operator says he does not like the
+options, is not sure what to do, or wants something more original than the
+usual e-commerce ad, and when you are out of fresh directions for a brand.
+Offer one of its sources by name (Adfolio first) and look on his yes. Borrow a
+move, never an example's artwork or words. For ads in the magazine-cover style
+("magazine cover style", "cover-style ads"), follow
+`.claude/skills/magazine-cover-ads/SKILL.md`.
+
 Read `docs/canva-connect-oauth.md` before adding or troubleshooting Canva
 Connect API access. Canva uses OAuth with PKCE, not a generic API key.
 
@@ -347,6 +355,7 @@ commit history.
 - `README.md` — user-facing overview and full quickstart
 - `docs/pipeline-rules.md` — pipeline operating rules (read before pipeline work)
 - `docs/ad-analyzer-openclaw.md` — Ad Reference Library workflow (Slack/OpenClaw front-end)
+- `docs/inspiration-sources.md` — where to look when the ideas run dry (Adfolio, magazine covers)
 - `dashboard/app.py` — Streamlit web view (run via `adc dashboard`)
 - `pyproject.toml` — deps and optional extras
 
