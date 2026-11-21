@@ -201,9 +201,9 @@ Stop and ask for the visual format/template:
 - IG Story square box
 - organic caption
 - founder note
-- native IG question box (brand's own question, or a real answer)
-- native iMessage thread (real conversation shared with permission only)
-- native Notes card (real attributed reviews, lists, checklists)
+- native IG question box
+- native iMessage thread
+- native Notes card (reviews, lists, checklists)
 - native reminder pop-up (one short line, e.g. a real product name)
 
 Use `docs/native-organic-workflow.md` to route the selected treatment. Supported

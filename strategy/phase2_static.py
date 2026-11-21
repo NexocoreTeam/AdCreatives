@@ -288,7 +288,7 @@ Examples:
 - organic caption
 - founder note
 - native IG question box
-- native iMessage thread (real conversation shared with permission)
+- native iMessage thread
 - native Notes card
 - native reminder pop-up
 
@@ -427,9 +427,9 @@ Before production, confirm:
 Native / organic QA (when applicable):
 
 - Native font, colours, shapes, spacing, emoji, and wrapping match the reference.
-- Copy source and conversation permission evidence are verified.
+- Copy source is recorded; a real person's conversation has their permission on record.
 - Product/face and hook remain visible in every size and intended crop.
-- No em-dashes; no invented testimonials or client conversations.
+- No em-dashes.
 - Source brief and render metadata are retained; flattened vs editable is clear.
 
 Failure notes:

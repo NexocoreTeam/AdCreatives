@@ -16,11 +16,9 @@ Apple/Instagram UI conventions.
    brand shows up in the photo, the product and the words, not in the UI chrome.
 2. **Only the words change.** Keep copy short enough that cards and bubbles don't reflow oddly.
    Questions and messages wrap balanced, with no orphaned last word.
-3. **Real content only.** iMessage threads (and any Instagram DM made from a template) are real
-   conversations shared with permission.
-   Reviews are real, attributed reviews. The question box is either a question the brand is
-   asking (placeholder field) or a real customer's answer. Never write a fake testimonial into a
-   realistic bubble: it's deceptive, and on Meta it's a policy risk.
+3. **Words may be written for the ad.** They do not have to be a real message, review or question
+   (the real-content-only rule was removed on 2026-11-18). When the words are a real person's
+   review or conversation, attribute the review and keep their permission on record.
 
 ## Components
 
@@ -32,8 +30,8 @@ separate Q&A answer card require the optional template route for now.
 | Component | Use it for | Key specs (at 1080 px wide; scaled to the base) |
 |---|---|---|
 | `QuestionBox` | "Ask me" engagement, FAQ-style hooks | white card 524 px, radius 34, avatar disc 80 px on the top edge, question 30 px (one bold word optional), grey field `#F0F0F0` radius 16, "Type something..." at ~47% opacity |
-| `IMessageThread` | a real customer conversation | bubbles 33 px text, incoming `#E9E9EB` / `#1C1C1E`, outgoing `#0A84FF` / white, tails on outer corners, timestamp 24 px `#8E8E93`, optional white screenshot panel |
-| `NotesCard` | lists, real review roundups, checklists | "‹ Notes" in Notes yellow `#E2A226`, bold 44 px title, 33 px rows, optional checklist circles; light or dark theme |
+| `IMessageThread` | a message conversation | bubbles 33 px text, incoming `#E9E9EB` / `#1C1C1E`, outgoing `#0A84FF` / white, tails on outer corners, timestamp 24 px `#8E8E93`, optional white screenshot panel |
+| `NotesCard` | lists, review roundups, checklists | "‹ Notes" in Notes yellow `#E2A226`, bold 44 px title, 33 px rows, optional checklist circles; light or dark theme |
 | `ReminderPopup` | one-line reminders, product-name punchlines | iOS alert `#F2F2F2`, radius 30, semibold title, 28 px body, divider `#C6C6C8`, blue `OK` `#0A84FF` |
 
 ### Command
@@ -41,7 +39,7 @@ separate Q&A answer card require the optional template route for now.
 ```bash
 adc native-ad --component question_box --question "What phrase would you put on a tee?"     --bold phrase --source "brand-authored question"     --base clients/savedbygrace/lifestyle-background-tests/03-small-town-porch-lifestyle.png     -o ai-ads/savedbygrace/native --client savedbygrace
 adc native-ad --component notes --title "things you've told us" --line "..." --line "..."     --source "reviews: brand-context.md L195-201" --base <clean.png> -o <dir>
-adc native-ad --component imessage --message "them: ..." --message "me: ..."     --source "DM from @x, permission granted 2026-10-07" --base <clean.png> -o <dir>
+adc native-ad --component imessage --message "them: ..." --message "me: ..."     --source "written for the ad" --base <clean.png> -o <dir>
 adc native-ad --brief clients/<client>/briefs/<brief>.yaml -o <dir>
 ```
 
@@ -60,8 +58,8 @@ native_ui:
   lines: ["“SOOO many compliments!!!” - Danielle P."]
 ```
 
-Validation: each component's required fields; `content_source` always; iMessage specs must
-state permission or they're rejected.
+Validation: each component's required fields; `content_source` always (a record of where the
+words came from, for example "written for the ad").
 
 ### Python
 
@@ -89,8 +87,7 @@ clean lifestyle bases (`clients/savedbygrace/lifestyle-background-tests/`, untra
 - question box with SBG's own question (honest by construction);
 - Notes card with three **real attributed reviews** from `brand-context.md`;
 - reminder with a real product name ("Mind Your Own Motherhood.");
-- iMessage thread as a **layout test with placeholder text**. It needs a real conversation
-  shared with permission before it can run.
+- iMessage thread as a **layout test with placeholder text**.
 
 Open items for SBG: its profile picture for the question-box avatar (`avatar=`); real customer
 questions/DMs (none on file; the question lines in `voc/` come from competitors' TikTok comments).

@@ -17,10 +17,10 @@ and get their format choice before final copy.
 |---|---|---|
 | Casual photo with caption boxes or highlight pills | `adc ugc-ad --brief` using `text_layout` | Approved caption reference and client `ugc_voice`; this renderer uses brand styling |
 | Exact TikTok per-line pills, square IG Story box, or white shadowed caption | Local overlay or Canva using the existing Text Overlay Presets in `creative-production-system.md` | Platform reference and measured caption preset; these are not named `adc native-ad` components |
-| Instagram question sticker | `adc native-ad`, `native_ui.component: question_box` | Fixed native UI styling; brand question or real shared response |
-| iMessage thread | `adc native-ad`, `native_ui.component: imessage` | Fixed native UI styling; real conversation with permission evidence |
-| iOS Notes list/checklist/review roundup | `adc native-ad`, `native_ui.component: notes` | Fixed native UI styling; sourced copy and attributed reviews |
-| iOS reminder pop-up | `adc native-ad`, `native_ui.component: reminder` | Fixed native UI styling; a short source-backed line or real product name |
+| Instagram question sticker | `adc native-ad`, `native_ui.component: question_box` | Fixed native UI styling |
+| iMessage thread | `adc native-ad`, `native_ui.component: imessage` | Fixed native UI styling |
+| iOS Notes list/checklist/review roundup | `adc native-ad`, `native_ui.component: notes` | Fixed native UI styling |
+| iOS reminder pop-up | `adc native-ad`, `native_ui.component: reminder` | Fixed native UI styling; one short line |
 | Exact Ella template or an unbuilt UI component | Single-page Canva template copy, when available | Keep the template's fonts and geometry; edit words and permitted image slots |
 
 An IG Story caption box is different from an IG question sticker. A generic
@@ -38,11 +38,9 @@ approved template or surface the missing component.
 
 1. Record the selected format, visual reference, angle, and awareness level in
    the Phase 2 workbook. Keep a supplied reference as the styling authority.
-2. Verify the actual words and their source. Brand-authored questions, notes,
-   and reminders must be identified as brand-authored; they must not imply a
-   customer's experience. Attribute real reviews. Keep the original source
-   and permission evidence for conversations and shared responses. Competitor
-   VOC can inform angles, but cannot become a claimed client conversation.
+2. Record the actual words and where they came from. They may be written for
+   the ad. Attribute real reviews. For a real person's conversation or shared
+   response, keep the original source and their permission on record.
 3. Select an approved clean photo with room for the element. If a new photo
    is needed, quote the cost and obtain approval before paid generation. Use
    the existing product/model reference rules and phone-camera treatment.
@@ -88,8 +86,9 @@ of using `--force` to erase research or approvals.
 
 - Compare font, shape, spacing, colours, padding, emoji, and line breaks to
   the selected platform reference/preset. Keep app UI free of brand styling.
-- Confirm attribution, exact customer wording where quoted, and permission
-  evidence. A `content_source` string is a record, not verification of consent.
+- Where a real review or conversation is used, confirm attribution, exact
+  wording and permission. A `content_source` string is a record, not
+  verification of consent.
 - Keep one clear thought in the element. Shorten copy rather than shrinking
   it until it is unreadable. No em-dashes in ad copy.
 - Check the product, face, and core hook remain visible in every output. For

@@ -575,8 +575,7 @@ Rules:
 - Instagram question box, iMessage thread, Notes card and reminder pop-up:
   use `adc native-ad` (`generators/native_ui.py`). It renders the native look
   exactly at 4:5 / 9:16 / 1:1 and records the content source. Read
-  `docs/native-ui-components.md` first: native look only, words only, real
-  content only.
+  `docs/native-ui-components.md` first: native look only, words only.
 - Instagram DM/comment replies are not built in `adc native-ad` yet. Never use
   an iMessage thread in their place; see `docs/native-organic-workflow.md`.
 - Build locally when UI/text precision matters.
