@@ -2,7 +2,7 @@
 name: creative-variant-explorer
 description: Propose 3-5 directional creative variants BEFORE building any of them, instead of building one variant at a time and iterating serially. Use when the user asks for variations, alternatives, different angles, more options, "what else could we try," "try another way," or any request that implies divergent exploration rather than incremental refinement. Triggers on phrases like "try another," "give me variations," "different angle," "what else," "more options," "any other ideas," "try something else," "more variations." Does NOT trigger for micro-iterations (color swaps, font tweaks, single-element fixes) — those proceed directly.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Creative Variant Explorer
@@ -189,6 +189,12 @@ Skip the proposal step. Build directly. The skill is sticky-on by default but th
 If the request is so constrained that only 1-2 distinct directions are reasonable (e.g. very narrow brand rules + tight creative spec), say so explicitly: "Honestly, only 2 directions make sense here given [constraint]. Both: [A], [B]. Want me to build both?"
 
 Don't pad to 5 options for the sake of the skill. 2 honest options beats 5 options where 3 are filler.
+
+### When the user rejects every option, or you are out of ideas
+
+Example: "I don't like any of these," "I'm not sure what to do," "something more original."
+
+Do not push out another round of the same kind. Offer to look outside first: read `docs/inspiration-sources.md` and name one of its sources ("we could look at Adfolio"). On the user's yes, look, name the moves worth borrowing, and bring them back as the next round of options. If the user asks for the magazine-cover style, use the `magazine-cover-ads` skill.
 
 ### When parallel building isn't feasible
 
