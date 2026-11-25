@@ -619,7 +619,8 @@ def generate_angles(
     # Each angle has ~15 fields; 9 angles + cross-stage observations easily blow
     # past the default 4096 token budget and get truncated mid-string.
     # 12000 covers up to ~12 angles comfortably.
-    result = claude_complete(prompt, system=ANGLE_SYSTEM, max_tokens=12000)
+    from strategy.copywriting_voice import voice_block as shared_voice_block
+    result = claude_complete(prompt, system=shared_voice_block() + ANGLE_SYSTEM, max_tokens=12000)
     result = result.strip()
     if result.startswith("```"):
         result = result.split("\n", 1)[1]

@@ -3558,69 +3558,13 @@ _VOICE_PROFILE_CACHE: dict[str, str] = {}
 
 
 def _load_copywriting_voice(client_slug: str = "") -> str:
-    """Load the copywriting voice profile for this client (or global default).
-
-    Resolution order:
-      1. `clients/<slug>/voice.md` — per-client override
-      2. `library/voice.md` — global default (extracted from a reference brand)
-      3. empty string if neither exists
-
-    The returned string is injected into:
-      - The angle-generation prompt (so personas-and-callouts are written
-        in this voice from the start)
-      - The source→target mapping prompt (so the rewrite stays in this voice
-        when compressing brief content to fit the source's word envelope)
-
-    Cached per (client_slug) to avoid re-reading on every Claude call within
-    a remix run. To force-reload (e.g. after editing the file mid-session),
-    clear `_VOICE_PROFILE_CACHE`.
-    """
-    cache_key = client_slug or "_global_default"
-    if cache_key in _VOICE_PROFILE_CACHE:
-        return _VOICE_PROFILE_CACHE[cache_key]
-
-    candidates = []
-    if client_slug:
-        candidates.append(Path("clients") / client_slug / "voice.md")
-    candidates.append(Path("library") / "voice.md")
-
-    voice_text = ""
-    for candidate in candidates:
-        if candidate.exists():
-            try:
-                voice_text = candidate.read_text(encoding="utf-8").strip()
-                if voice_text:
-                    break
-            except OSError:
-                continue
-
-    _VOICE_PROFILE_CACHE[cache_key] = voice_text
-    return voice_text
+    """Load the shared writing style plus optional client audience context."""
+    from strategy.copywriting_voice import voice_block
+    return voice_block(client_slug)
 
 
 def _voice_block_for_prompt(client_slug: str = "") -> str:
-    """Return a header + voice file contents formatted for prompt injection.
-
-    Returns empty string if no voice file exists. Otherwise wraps the file
-    in a clear section header so the LLM knows this is the brand's voice
-    profile (not narrative context).
-    """
-    voice_text = _load_copywriting_voice(client_slug)
-    if not voice_text:
-        return ""
-    return (
-        "═══════════════════════════════════════════════════════════════\n"
-        "BRAND VOICE PROFILE — HIGHEST-PRIORITY STYLE CONSTRAINT.\n"
-        "Every line of copy you write MUST match the patterns, vocabulary,\n"
-        "and forbidden-word list below. Conflicts with the rest of the\n"
-        "system prompt are resolved IN FAVOR of this voice profile.\n"
-        "═══════════════════════════════════════════════════════════════\n\n"
-        + voice_text
-        + "\n\n"
-        "═══════════════════════════════════════════════════════════════\n"
-        "END BRAND VOICE PROFILE. Continue with the task instructions below.\n"
-        "═══════════════════════════════════════════════════════════════\n"
-    )
+    return _load_copywriting_voice(client_slug)
 
 
 # Roles where [REMOVE] is not an acceptable target — the operator wants

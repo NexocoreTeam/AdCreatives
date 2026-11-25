@@ -433,14 +433,11 @@ def _claude_fill_unresolved(
         "1. Use CUSTOMER QUOTES verbatim when filling QUOTE / REVIEW TEXT / FULL QUOTE / "
         "PULL-QUOTE / testimonial slots — pick the most emotionally resonant one.\n"
         "2. Use PRODUCT BENEFITS verbatim or lightly trimmed for BENEFIT N slots.\n"
-        "3. If a placeholder requires a STAT, NUMBER, RATING, MEMBER COUNT, REVIEW COUNT, "
-        "PRICE, CALORIES, CAFFEINE, or any other quantitative claim, and no real value "
-        "exists in PRODUCT/BRAND SOCIAL PROOF, invent a plausible value and append the "
-        "literal marker ' ⚠️' to the end of the value (e.g. '180mg ⚠️', '4.8 out of 5 ⚠️', "
-        "'500,000+ ⚠️').\n"
-        "4. If a placeholder requires a NAME, CREDENTIAL, ATTRIBUTION, FIRST NAME + LAST INITIAL, "
-        "or competitor brand name and no real value is given, invent a plausible "
-        "placeholder and append ' ⚠️'.\n"
+        "3. For quantitative claims, use only supplied substantiated values. If no value "
+        "is available, return '[SOURCE REQUIRED]' and append the literal marker ' ⚠️'. "
+        "Never invent a statistic, rating, price, dose or review count.\n"
+        "4. For names, credentials or attribution, use only supplied authentic sources. "
+        "If missing, return '[SOURCE REQUIRED] ⚠️'; never fabricate a person or credential.\n"
         "5. For visual direction slots (SETTING, SURFACE, DETAILS, BACKGROUND DETAILS, "
         "LIFESTYLE PHOTO DESCRIPTION, MOOD, PROPS), use VISUAL DIRECTION when present, "
         "else infer concrete specifics from PRODUCT / BRAND TONE. Do NOT use generic "
@@ -465,6 +462,8 @@ def _claude_fill_unresolved(
         f"Reply with JSON only."
     )
 
+    from strategy.copywriting_voice import voice_block as shared_voice_block
+    sys_prompt = shared_voice_block() + sys_prompt
     try:
         raw = claude_complete(prompt=user_prompt, system=sys_prompt, max_tokens=2000)
     except Exception:
